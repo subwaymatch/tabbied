@@ -1,6 +1,8 @@
 {
   "name": "Symmetry",
   "slug": "symmetry",
+  "galleryOrder": 4,
+  "lockAspectRatio": "2:3",
   "palette": ["#97F4FF", "#97F4FF", "#00FFF3", "#00A1FF", "#FF8DFF", "#FF007E"],
   "options": [
     {

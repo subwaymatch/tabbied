@@ -1,5 +1,6 @@
 import path from 'node:path';
 import { readdir, readFile } from 'node:fs/promises';
+import type { AspectRatioId } from 'lib/aspectRatio';
 
 export type ArtworkOptionType = 'ButtonSelectGroup' | 'Slider' | 'ToggleSwitch';
 
@@ -28,6 +29,23 @@ export type Artwork = {
     style: string;
     doodle: string;
   };
+  /** Initial aspect ratio when the editor opens. Defaults to "2:3". */
+  defaultAspectRatio?: AspectRatioId;
+  /**
+   * Forces a single aspect ratio and hides the selector — for designs whose
+   * layout is tuned to one ratio (e.g. Symmetry's absolute positioning).
+   */
+  lockAspectRatio?: AspectRatioId;
+  /** Render the gallery title in white (for dark thumbnails). */
+  galleryWhite?: boolean;
+  /** Sort position in the gallery (ascending). Unset sorts last. */
+  galleryOrder?: number;
+};
+
+export type GalleryItem = {
+  slug: string;
+  name: string;
+  white: boolean;
 };
 
 const artworksPath = path.join(process.cwd(), 'artworks');
@@ -47,4 +65,21 @@ export async function getArtwork(artworkId: string): Promise<Artwork> {
   );
 
   return JSON.parse(artworkJSON) as Artwork;
+}
+
+// Gallery list derived from the artworks/ folder, so a new preset only needs a
+// JSON file plus a thumbnail at public/images/thumb_<slug>.png.
+export async function getGalleryItems(): Promise<GalleryItem[]> {
+  const ids = await getAllArtworkIds();
+  const artworks = await Promise.all(ids.map((id) => getArtwork(id)));
+
+  return artworks
+    .map((artwork) => ({
+      slug: artwork.slug,
+      name: artwork.name,
+      white: artwork.galleryWhite ?? false,
+      order: artwork.galleryOrder ?? Number.MAX_SAFE_INTEGER,
+    }))
+    .sort((a, b) => a.order - b.order || a.name.localeCompare(b.name))
+    .map(({ slug, name, white }) => ({ slug, name, white }));
 }

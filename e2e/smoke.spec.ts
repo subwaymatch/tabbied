@@ -100,6 +100,42 @@ test.describe('Tabbied site', () => {
     await expect(page).toHaveURL(/grid=6x9/);
   });
 
+  test('changing the aspect ratio remaps the grid to keep square cells', async ({
+    page,
+  }) => {
+    await page.goto('/artwork/radius?seed=0000');
+
+    // Default portrait ratio reproduces the original 2:3 grid options.
+    await expect(page).toHaveURL(/aspectRatio=2%3A3/);
+    await expect(page).toHaveURL(/grid=4x6/);
+
+    // Switch to a square canvas: the 4x6 (level 1) grid re-derives to 6x6.
+    await page.getByText('1:1', { exact: true }).click();
+
+    await expect(page).toHaveURL(/aspectRatio=1%3A1/);
+    await expect(page).toHaveURL(/grid=6x6/);
+    await expect(page.getByText('6x6', { exact: true })).toBeVisible();
+  });
+
+  test('aspect-ratio selector is hidden for ratio-locked presets', async ({
+    page,
+  }) => {
+    await page.goto('/artwork/symmetry?seed=0000');
+
+    await expect(page.locator('css-doodle#symmetry')).toBeAttached();
+    // Symmetry pins itself to 2:3, so no selector and no aspectRatio in the URL.
+    await expect(page.getByText('Aspect ratio')).toHaveCount(0);
+    await expect(page).not.toHaveURL(/aspectRatio=/);
+  });
+
+  test('slider controls display their current value', async ({ page }) => {
+    await page.goto('/artwork/radius?seed=0000');
+
+    // Radius opens at frequency 1, shown as "1.0" beside the slider.
+    await expect(page.getByText('Frequency')).toBeVisible();
+    await expect(page.getByText('1.0', { exact: true })).toBeVisible();
+  });
+
   test('export-test page renders', async ({ page }) => {
     await page.goto('/export-test');
 

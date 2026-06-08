@@ -1,6 +1,8 @@
 {
   "name": "Trigram",
   "slug": "trigram",
+  "galleryOrder": 10,
+  "galleryWhite": true,
   "palette": ["#FFFFFF", "#3E8BFF", "#FF3D8B", "#3FFF50", "#F5DD32"],
   "options": [
     {
@@ -18,7 +20,7 @@
       "default": 1,
       "min": 0.2,
       "max": 1,
-      "step": 0.2,
+      "step": 0.1,
       "replace": "${shapeFrequency}"
     },
     {

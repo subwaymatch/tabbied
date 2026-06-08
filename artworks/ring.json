@@ -1,6 +1,8 @@
 {
   "name": "Ring",
   "slug": "ring",
+  "galleryOrder": 11,
+  "galleryWhite": true,
   "palette": ["#9EFFD8", "#FFFFFF", "#9EFFD8", "#232529"],
   "options": [
     {
@@ -18,7 +20,7 @@
       "default": 1,
       "min": 0.2,
       "max": 1,
-      "step": 0.2,
+      "step": 0.1,
       "replace": "${shapeFrequency}"
     }
   ],

@@ -1,6 +1,7 @@
 {
   "name": "Mixtape",
   "slug": "mixtape",
+  "galleryOrder": 2,
   "palette": ["#FFFFFF", "#232529", "#3E8BFF", "#3FFFB2", "#3EECFF", "#3FFFB2"],
   "options": [
     {
@@ -18,7 +19,7 @@
       "default": 1,
       "min": 0.2,
       "max": 1,
-      "step": 0.2,
+      "step": 0.1,
       "replace": "${shapeFrequency}"
     },
     {
