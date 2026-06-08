@@ -1,3 +1,5 @@
+'use client';
+
 import { Element } from 'react-scroll';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -23,7 +25,7 @@ export default function BrowseArtworkSection() {
         </Container>
 
         <Container className="container-fluid-on-mobile">
-          <Row noGutters={true}>
+          <Row className="g-0">
             <Col md={3} sm={6}>
               <Link href={`/artwork/radius/`}>
                 <div className={styles.galleryCard}>
@@ -81,7 +83,7 @@ export default function BrowseArtworkSection() {
             </Col>
           </Row>
 
-          <Row noGutters={true}>
+          <Row className="g-0">
             <Col md={3} sm={6}>
               <Link href={`/artwork/veil/`}>
                 <div className={styles.galleryCard}>

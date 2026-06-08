@@ -79,7 +79,7 @@
     }
   }
 
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(md) {
     padding: 3rem 0;
 
     .steps {
@@ -101,18 +101,18 @@
   height: 640px;
   background-position: center;
 
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-down(lg) {
     background-size: 1100px auto;
     height: 534px;
   }
 
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(md) {
     background-image: url('/images/tabbied_screens_mobile.jpg');
     background-size: 100% auto;
     height: 720px;
   }
 
-  @include media-breakpoint-down(xs) {
+  @include media-breakpoint-down(sm) {
     margin-top: 0;
     height: 360px;
   }

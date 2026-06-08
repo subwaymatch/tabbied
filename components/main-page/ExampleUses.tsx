@@ -1,3 +1,5 @@
+'use client';
+
 import { Element } from 'react-scroll';
 import Image from 'next/image';
 import { Container, Row, Col } from 'react-bootstrap';
@@ -17,7 +19,7 @@ export default function ExampleUsesSection() {
         </Container>
 
         <Container className="container-fluid-on-mobile">
-          <Row noGutters={true}>
+          <Row className="g-0">
             <Col md={4} sm={6}>
               <div className={styles.imageWrapper}>
                 <Image

@@ -33,7 +33,7 @@
       box-shadow: none;
     }
 
-    @include media-breakpoint-down(sm) {
+    @include media-breakpoint-down(md) {
       width: 30%;
       margin-right: 5%;
       margin-top: 0.5rem;

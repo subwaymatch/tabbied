@@ -1,3 +1,5 @@
+'use client';
+
 import { Container, Row, Col } from 'react-bootstrap';
 import Link from 'next/link';
 import styles from './EditArtworkHeader.module.scss';
@@ -21,8 +23,8 @@ export default function EditArtworkHeader({
       <Container>
         <Row className="align-items-center">
           <Col md={4} xs={6}>
-            <Link href="/select-artwork">
-              <a className={styles.backLink}>← Back to gallery</a>
+            <Link href="/select-artwork" className={styles.backLink}>
+              ← Back to gallery
             </Link>
           </Col>
 

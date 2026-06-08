@@ -1,9 +1,10 @@
+'use client';
+
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Link as ScrollLink, Events as ScrollEvents } from 'react-scroll';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { motion, AnimatePresence } from 'framer-motion';
+import useMediaQuery from 'lib/useMediaQuery';
 import { Col, Container, Row } from 'react-bootstrap';
 import MenuButton from 'components/main-page/MenuButton';
 import styles from './MainHeader.module.scss';
@@ -32,8 +33,8 @@ const MainPageNavigation = () => (
 
 const SelectArtworkLinkButton = () => {
   return (
-    <Link href="/select-artwork/">
-      <a className={styles.actionBtn}>Make your art</a>
+    <Link href="/select-artwork/" className={styles.actionBtn}>
+      Make your art
     </Link>
   );
 };
@@ -75,16 +76,13 @@ export default function MainHeader() {
         <Container>
           <Row className="align-items-center">
             <Col md={3} xs={4}>
-              <Link href="/">
-                <a className={styles.logoImageWrapper}>
-                  <Image
-                    src="/images/logo_tabbied_v3.svg"
-                    alt="Tabbied"
-                    layout="fixed"
-                    width={52}
-                    height={52}
-                  />
-                </a>
+              <Link href="/" className={styles.logoImageWrapper}>
+                <Image
+                  src="/images/logo_tabbied_v3.svg"
+                  alt="Tabbied"
+                  width={52}
+                  height={52}
+                />
               </Link>
             </Col>
 

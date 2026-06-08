@@ -31,6 +31,20 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## ✅ Testing
+
+End-to-end smoke tests run with [Playwright](https://playwright.dev/) against a
+production build:
+
+```bash
+# Install the browser once
+npx playwright install chromium
+
+# Build and run the e2e tests
+yarn build
+yarn test:e2e
+```
+
 ## 🔨 Built by
 
 Designed by <a href="https://www.syunghong.com/">Syung Hong</a>, developed by <a href="https://park.is">Ye Joo Park</a>.

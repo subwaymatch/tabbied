@@ -1,3 +1,5 @@
+'use client';
+
 import dynamic from 'next/dynamic';
 
 const ExportTestComponent = dynamic(
@@ -7,10 +9,6 @@ const ExportTestComponent = dynamic(
   }
 );
 
-export default function ExportTestPage() {
-  return (
-    <>
-      <ExportTestComponent />
-    </>
-  );
+export default function ExportTestClient() {
+  return <ExportTestComponent />;
 }

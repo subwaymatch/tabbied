@@ -1,17 +1,16 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
+import dynamic from 'next/dynamic';
 import randomstring from 'randomstring';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import Layout from 'components/Layout';
+import _ from 'lodash';
+import useMediaQuery from 'lib/useMediaQuery';
 import EditArtworkHeader from 'components/edit-artwork-page/EditArtworkHeader';
 import ButtonSelectGroup from 'components/ButtonSelectGroup';
 import ValueSlider from 'components/ValueSlider';
-import { getAllArtworkIds, getArtwork } from 'lib/artwork';
-import styles from './EditArtworkPage.module.scss';
-import dynamic from 'next/dynamic';
-import _ from 'lodash';
 import ToggleSwitch from 'components/ToggleSwitch';
+import styles from './EditArtwork.module.scss';
 
 const Doodle = dynamic(() => import('components/Doodle'), {
   ssr: false,
@@ -21,7 +20,15 @@ const ColorPicker = dynamic(() => import('components/ColorPicker'), {
   ssr: false,
 });
 
-export default function EditArtworkPage({ artwork }) {
+// css-doodle >= 0.5 reads `@random(1)` as a one-cell count rather than a 100%
+// probability gate (fractional values still behave as probabilities). The
+// artwork definitions were authored against css-doodle 0.12 where `@random(1)`
+// meant "every cell", so nudge the fully-on case just under 1 to preserve the
+// original look at maximum frequency.
+const fixFullRandomGate = (code: string) =>
+  code.replace(/@random\s*\(\s*1(?:\.0+)?\s*\)/g, '@random(0.999)');
+
+export default function EditArtwork({ artwork }: { artwork: any }) {
   const [palette, setPalette] = useState(
     artwork.hasOwnProperty('palette') ? artwork.palette : []
   );
@@ -31,24 +38,29 @@ export default function EditArtworkPage({ artwork }) {
   const [styleCode, setStyleCode] = useState('');
   const [doodleCode, setDoodleCode] = useState('');
   const [seed, setSeed] = useState('0000');
-  const doodleRef = React.createRef();
+  const doodleRef = React.createRef<any>();
   const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const isScreenXS = useMediaQuery('(max-width: 747.99px)');
   const width = isScreenXS ? 240 : 360;
   const height = width * 1.5;
 
+  // Sync component state FROM the URL search params.
   useEffect(() => {
+    const queryPalette = searchParams.getAll('palette');
+
     if (
-      router.query.hasOwnProperty('palette') &&
-      router.query.palette.length === artwork.palette.length &&
-      !_.isEqual(palette, router.query.palette)
+      artwork.palette &&
+      queryPalette.length === artwork.palette.length &&
+      !_.isEqual(palette, queryPalette)
     ) {
-      setPalette(router.query.palette);
+      setPalette(queryPalette);
     }
 
     artwork.options.forEach((option, optionIndex) => {
-      if (router.query.hasOwnProperty(option.id)) {
-        const queryVal = router.query[option.id];
+      if (searchParams.has(option.id)) {
+        const queryVal = searchParams.get(option.id);
 
         if (typeof option.default === 'string') {
           setOptionByIndex(optionIndex, queryVal);
@@ -60,35 +72,33 @@ export default function EditArtworkPage({ artwork }) {
       }
     });
 
-    if (router.query.hasOwnProperty('seed') && seed !== router.query.seed) {
-      setSeed(router.query.seed as string);
+    if (searchParams.has('seed') && seed !== searchParams.get('seed')) {
+      setSeed(searchParams.get('seed') as string);
     }
-  }, [router.query]);
+  }, [searchParams]);
 
   useEffect(() => {
     updateDoodleCode();
   }, [isScreenXS, palette, optionValues]);
 
-  // Update URL query parameters if necessary
+  // Sync the URL search params FROM component state if necessary.
   useEffect(() => {
-    if (_.isEqual(router.query, { id: router.query.id })) {
+    // Leave the URL untouched until it carries at least one search param
+    // (matches the original behaviour which skipped when only `id` was set).
+    if (searchParams.toString() === '') {
       return;
     }
 
-    const newQuery = Object.assign({}, router.query, {
-      palette,
-      seed,
-    });
+    const newParams = new URLSearchParams();
 
+    palette.forEach((color: string) => newParams.append('palette', color));
+    newParams.set('seed', seed);
     artwork.options.forEach((o, idx) => {
-      newQuery[o.id] = String(optionValues[idx]);
+      newParams.set(o.id, String(optionValues[idx]));
     });
 
-    if (!_.isEqual(router.query, newQuery)) {
-      router.replace({
-        pathname: router.pathname,
-        query: newQuery,
-      });
+    if (newParams.toString() !== searchParams.toString()) {
+      router.replace(`${pathname}?${newParams.toString()}`, { scroll: false });
     }
   }, [seed, palette, optionValues]);
 
@@ -106,7 +116,7 @@ export default function EditArtworkPage({ artwork }) {
   };
 
   const exportArtwork = async () => {
-    let result = await (doodleRef.current as any).export({
+    await (doodleRef.current as any).export({
       scale: Math.ceil(3000 / width),
       download: true,
     });
@@ -159,6 +169,9 @@ export default function EditArtworkPage({ artwork }) {
     newDoodleCode = newDoodleCode
       .split('${height}')
       .join(String(height) + 'px');
+
+    newStyleCode = fixFullRandomGate(newStyleCode);
+    newDoodleCode = fixFullRandomGate(newDoodleCode);
 
     newStyleCode = getColorsStyleCode(palette) + newStyleCode;
 
@@ -217,90 +230,60 @@ export default function EditArtworkPage({ artwork }) {
   };
 
   return (
-    <Layout>
-      <Head>
-        <title>Customize {artwork.name}</title>
-      </Head>
+    <div className={styles.pageWrapper}>
+      <EditArtworkHeader onRedraw={randomizeSeed} onExport={exportArtwork} />
 
-      <div className={styles.pageWrapper}>
-        <EditArtworkHeader onRedraw={randomizeSeed} onExport={exportArtwork} />
-
-        <main className={styles.editArtworkSection}>
-          <div
-            className={styles.previewWrapper}
-            style={{
-              backgroundColor: palette.length > 0 ? palette[0] : 'transparent',
-            }}
-          >
-            <div className={styles.doodleFrame}>
-              <Doodle
-                name={artwork.slug}
-                seed={seed}
-                styleCode={styleCode}
-                doodleCode={doodleCode}
-                doodleRef={doodleRef}
-              />
-            </div>
+      <main className={styles.editArtworkSection}>
+        <div
+          className={styles.previewWrapper}
+          style={{
+            backgroundColor: palette.length > 0 ? palette[0] : 'transparent',
+          }}
+        >
+          <div className={styles.doodleFrame}>
+            <Doodle
+              name={artwork.slug}
+              seed={seed}
+              styleCode={styleCode}
+              doodleCode={doodleCode}
+              doodleRef={doodleRef}
+            />
           </div>
+        </div>
 
-          <div className={styles.optionsWrapper}>
-            <div className={styles.options}>
-              {palette.length > 0 && (
-                <div className={styles.optionBox}>
-                  <h3>Palette</h3>
-                  <div className="colors">
-                    {palette.map((hex, index) => (
-                      <ColorPicker
-                        key={'color' + index}
-                        index={index}
-                        handleColorChange={(color) => {
-                          const colorHEXAString = color.toHEXA().toString();
+        <div className={styles.optionsWrapper}>
+          <div className={styles.options}>
+            {palette.length > 0 && (
+              <div className={styles.optionBox}>
+                <h3>Palette</h3>
+                <div className="colors">
+                  {palette.map((hex, index) => (
+                    <ColorPicker
+                      key={'color' + index}
+                      index={index}
+                      handleColorChange={(color) => {
+                        const colorHEXAString = color.toHEXA().toString();
 
-                          setPalette((prevPalette) => {
-                            const newPalette = _.clone(prevPalette);
-                            newPalette[index] = colorHEXAString;
+                        setPalette((prevPalette) => {
+                          const newPalette = _.clone(prevPalette);
+                          newPalette[index] = colorHEXAString;
 
-                            return newPalette;
-                          });
-                        }}
-                        color={hex}
-                      />
-                    ))}
-                  </div>
+                          return newPalette;
+                        });
+                      }}
+                      color={hex}
+                    />
+                  ))}
                 </div>
-              )}
+              </div>
+            )}
 
-              {artwork.options.map((option, optionIndex) =>
-                getOptionControlComponent(option, optionIndex)
-              )}
-            </div>
+            {artwork.options.map((option, optionIndex) =>
+              getOptionControlComponent(option, optionIndex)
+            )}
           </div>
-        </main>
-      </div>
-    </Layout>
+        </div>
+      </main>
+    </div>
   );
 }
-
-export const getStaticPaths = async () => {
-  const questionIds = await getAllArtworkIds();
-  const paths = questionIds.map((questionId) => ({
-    params: {
-      id: questionId,
-    },
-  }));
-
-  return {
-    paths,
-    fallback: false,
-  };
-};
-
-export const getStaticProps = async ({ params }) => {
-  const artwork = await getArtwork(params.id);
-
-  return {
-    props: {
-      artwork,
-    },
-  };
-};

@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useRef } from 'react';
 import 'css-doodle';
 import { Container, Row, Col } from 'react-bootstrap';
@@ -108,8 +110,8 @@ export default function MainHero() {
               </p>
 
               <div className={styles.heroActions}>
-                <Link href="/select-artwork/">
-                  <a className={styles.actionBtn}>Make your art</a>
+                <Link href="/select-artwork/" className={styles.actionBtn}>
+                  Make your art
                 </Link>
               </div>
             </div>

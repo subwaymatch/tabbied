@@ -1,3 +1,5 @@
+'use client';
+
 import styles from './ButtonSelectGroup.module.scss';
 import classNames from 'classnames/bind';
 
