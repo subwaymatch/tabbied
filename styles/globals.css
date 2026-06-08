@@ -106,6 +106,18 @@ th:not([align]) {
   --red-high-contrast: #ed005f;
 }
 
+/*
+ * Guard against accidental horizontal scroll (and the right-side whitespace
+ * it produces) on every page. A stray fixed-width or full-bleed element that
+ * pokes past the viewport should be clipped rather than widen the document.
+ * No sticky positioning is used anywhere, so clipping here is side-effect free.
+ */
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   color: var(--gray-medium);
   font-family: var(--font-sans-serif);
