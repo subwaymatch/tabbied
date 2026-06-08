@@ -1,5 +1,4 @@
 import { Container, Row, Col } from 'react-bootstrap';
-import Link from 'next/link';
 import styles from './Footer.module.scss';
 
 export default function Footer() {
@@ -18,15 +17,7 @@ export default function Footer() {
           >
             <h5>Tabbied</h5>
 
-            <p>
-              Copyright 2020.{' '}
-              <Link href="/terms-of-service">
-                <a>Terms of Service</a>
-              </Link>{' '}
-              <Link href="/privacy-policy">
-                <a>Privacy Policy</a>
-              </Link>
-            </p>
+            <p>Copyright 2020.</p>
           </Col>
 
           <Col
