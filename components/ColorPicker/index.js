@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect } from 'react';
 import Pickr from '@simonwep/pickr';
 import '@simonwep/pickr/dist/themes/monolith.min.css';

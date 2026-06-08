@@ -1,43 +1,13 @@
-import Slider from '@material-ui/core/Slider';
-import { withStyles } from '@material-ui/core/styles';
+'use client';
 
-const TabbiedSlider = withStyles({
-  root: {
-    color: '#232529',
-    height: 8,
-  },
-  thumb: {
-    height: 20,
-    width: 20,
-    backgroundColor: '#fff',
-    border: '3px solid currentColor',
-    marginTop: -8,
-    marginLeft: -10,
-    '&:focus, &:hover, &$active': {
-      boxShadow: 'inherit',
-    },
-  },
-  active: {},
-  valueLabel: {
-    left: 'calc(-50% - 2px)',
-  },
-  track: {
-    height: 4,
-    borderRadius: 4,
-  },
-  rail: {
-    color: '#98a0af',
-    height: 4,
-    borderRadius: 4,
-  },
-})(Slider);
+import styles from './ValueSlider.module.scss';
 
 type ValueSliderPropTypes = {
   min: number;
   max: number;
   step: number;
   value: number;
-  onChange: (v) => void;
+  onChange: (v: number) => void;
 };
 
 export default function ValueSlider({
@@ -47,20 +17,23 @@ export default function ValueSlider({
   value,
   onChange,
 }: ValueSliderPropTypes) {
+  const percent = max > min ? ((value - min) / (max - min)) * 100 : 0;
+
   return (
-    <TabbiedSlider
-      defaultValue={0.4}
-      getAriaValueText={(v) => `${v}%`}
-      aria-labelledby="discrete-slider"
-      valueLabelDisplay="auto"
-      value={value}
-      onChange={(ev, val) => {
-        onChange(val);
-      }}
-      step={step}
-      marks={false}
+    <input
+      type="range"
+      className={styles.slider}
       min={min}
       max={max}
+      step={step}
+      value={value}
+      aria-label="value slider"
+      onChange={(e) => {
+        onChange(Number(e.target.value));
+      }}
+      style={{
+        background: `linear-gradient(to right, #232529 0%, #232529 ${percent}%, #98a0af ${percent}%, #98a0af 100%)`,
+      }}
     />
   );
 }

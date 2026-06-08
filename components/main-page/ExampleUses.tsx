@@ -1,3 +1,5 @@
+'use client';
+
 import { Element } from 'react-scroll';
 import Image from 'next/image';
 import { Container, Row, Col } from 'react-bootstrap';

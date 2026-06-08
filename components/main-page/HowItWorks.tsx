@@ -1,3 +1,5 @@
+'use client';
+
 import { Element } from 'react-scroll';
 import { Container, Col, Row } from 'react-bootstrap';
 import styles from './HowItWorks.module.scss';

@@ -1,3 +1,5 @@
+'use client';
+
 import styles from './MenuButton.module.scss';
 import classNames from 'classnames/bind';
 

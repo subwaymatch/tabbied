@@ -9,16 +9,13 @@ export default function PageHeader({ title }: { title: string }) {
       <Container>
         <Row className="align-items-center">
           <Col xs={3}>
-            <Link href="/">
-              <a className={styles.logoImageWrapper}>
-                <Image
-                  src="/images/logo_tabbied_v3.svg"
-                  alt="Tabbied"
-                  layout="fixed"
-                  width={52}
-                  height={52}
-                />
-              </a>
+            <Link href="/" className={styles.logoImageWrapper}>
+              <Image
+                src="/images/logo_tabbied_v3.svg"
+                alt="Tabbied"
+                width={52}
+                height={52}
+              />
             </Link>
           </Col>
 
