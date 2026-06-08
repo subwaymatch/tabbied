@@ -43,8 +43,51 @@
   margin-bottom: 0;
 }
 
+.paletteHeading {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.randomizeButton {
+  appearance: none;
+  cursor: pointer;
+  padding: 0.3rem 0.8rem;
+  color: var(--gray-dark);
+  background-color: #ffffff;
+  border: 2px solid transparent;
+  border-radius: 2px;
+  font-size: 1.05rem;
+  box-shadow: 0 1px 0 0 var(--gray-light);
+}
+
+.randomizeButton:hover {
+  box-shadow: 0 1px 0 0 var(--gray);
+}
+
+.randomizeButton:active {
+  border-color: var(--gray-dark);
+  box-shadow: none;
+}
+
 .valueSliderWrapper {
   max-width: 25rem;
+}
+
+.aspectRatioOption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  line-height: 1;
+}
+
+/* Hollow rectangle previewing the ratio's shape. Borrows the button's text
+   color so it tracks the hover/selected states. */
+.aspectRatioRect {
+  border: 1.5px solid currentColor;
+  border-radius: 1px;
 }
 
 .doodleFrame {

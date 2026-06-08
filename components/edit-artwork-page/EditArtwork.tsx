@@ -7,6 +7,7 @@ import useMediaQuery from 'lib/useMediaQuery';
 import type { Artwork, ArtworkOption } from 'lib/artwork';
 import {
   type AspectRatioId,
+  ASPECT_RATIOS,
   ASPECT_RATIO_IDS,
   DEFAULT_ASPECT_RATIO,
   deriveGrid,
@@ -44,6 +45,32 @@ const randomSeed = (length = 4) =>
     { length },
     () => SEED_CHARS[Math.floor(Math.random() * SEED_CHARS.length)]
   ).join('');
+
+// A random 6-digit hex color (e.g. "#3eecff"), used to shuffle the palette.
+const randomHexColor = () =>
+  `#${Math.floor(Math.random() * 0xffffff)
+    .toString(16)
+    .padStart(6, '0')}`;
+
+// Longest edge of the little aspect-ratio preview rectangle, in pixels.
+const ASPECT_RATIO_RECT_SIZE = 20;
+
+// A hollow rectangle whose proportions mirror the aspect ratio, shown inside
+// each aspect-ratio button so the shape is visible at a glance.
+const renderAspectRatioOption = (option: string): ReactNode => {
+  const [rw, rh] = ASPECT_RATIOS[option as AspectRatioId];
+  const scale = ASPECT_RATIO_RECT_SIZE / Math.max(rw, rh);
+
+  return (
+    <span className={styles.aspectRatioOption}>
+      <span
+        className={styles.aspectRatioRect}
+        style={{ width: `${rw * scale}px`, height: `${rh * scale}px` }}
+      />
+      <span>{option}</span>
+    </span>
+  );
+};
 
 const arraysEqual = (a: string[], b: string[]) =>
   a.length === b.length && a.every((value, index) => value === b[index]);
@@ -172,6 +199,10 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
 
   const randomizeSeed = () => {
     setSeed(randomSeed(4));
+  };
+
+  const randomizePalette = () => {
+    setPalette((prev) => prev.map(() => randomHexColor()));
   };
 
   // Switching the aspect ratio re-derives every grid option at its current
@@ -334,7 +365,16 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
           <div className={styles.options}>
             {palette.length > 0 && (
               <div className={styles.optionBox}>
-                <h3>Palette</h3>
+                <div className={styles.paletteHeading}>
+                  <h3>Palette</h3>
+                  <button
+                    type="button"
+                    className={styles.randomizeButton}
+                    onClick={randomizePalette}
+                  >
+                    Randomize
+                  </button>
+                </div>
                 <div className="colors">
                   {palette.map((hex, index) => (
                     <ColorPicker
@@ -366,6 +406,7 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
                   onChange={(value) =>
                     changeAspectRatio(value as AspectRatioId)
                   }
+                  renderOption={renderAspectRatioOption}
                 />
               </div>
             )}

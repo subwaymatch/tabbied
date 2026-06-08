@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import Pickr from '@simonwep/pickr';
 import '@simonwep/pickr/dist/themes/monolith.min.css';
 
@@ -18,6 +18,7 @@ export default function ColorPicker({
   handleColorChange,
 }: ColorPickerProps) {
   const pickerClassName = `color-picker-${index}`;
+  const pickrRef = useRef<Pickr | null>(null);
 
   useEffect(() => {
     const pickr = Pickr.create({
@@ -46,11 +47,21 @@ export default function ColorPicker({
 
     pickr.on('save', (savedColor: any) => handleColorChange(savedColor));
 
+    pickrRef.current = pickr;
+
     return () => {
+      pickrRef.current = null;
       pickr.destroyAndRemove();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Keep the swatch in sync when the color is changed from outside (e.g. the
+  // "Randomize" palette button). setColor fires 'change', not 'save', so this
+  // won't loop back through handleColorChange.
+  useEffect(() => {
+    pickrRef.current?.setColor(color);
+  }, [color]);
 
   return <div className={`${pickerClassName} color-picker`} />;
 }
