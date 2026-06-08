@@ -1,6 +1,6 @@
-import { Container, Row, Col } from 'react-bootstrap';
 import Link from 'next/link';
-import styles from './MakeYourArt.module.scss';
+import { Container, Row, Col } from 'components/layout';
+import styles from './MakeYourArt.module.css';
 
 export default function MakeYourArt() {
   return (

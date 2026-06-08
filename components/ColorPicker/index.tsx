@@ -1,23 +1,30 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import Pickr from '@simonwep/pickr';
 import '@simonwep/pickr/dist/themes/monolith.min.css';
 
-export default function ColorPicker({ index, color, handleColorChange }) {
+type PickrColor = { toHEXA: () => { toString: () => string } };
+
+type ColorPickerProps = {
+  index: number;
+  color: string;
+  handleColorChange: (color: PickrColor) => void;
+};
+
+export default function ColorPicker({
+  index,
+  color,
+  handleColorChange,
+}: ColorPickerProps) {
   const pickerClassName = `color-picker-${index}`;
 
-  const colorChangeCallback = (color, instance) => {
-    handleColorChange(color);
-  };
-
   useEffect(() => {
-    // Simple example, see optional options for more configuration.
     const pickr = Pickr.create({
       el: `.${pickerClassName}`,
       theme: 'monolith',
       default: color,
-      defaultRepresentation: 'HEX',
+      defaultRepresentation: 'HEXA',
       swatches: [],
       components: {
         // Main components
@@ -25,7 +32,7 @@ export default function ColorPicker({ index, color, handleColorChange }) {
         hue: true,
         opacity: true,
 
-        // Input / output Options
+        // Input / output options
         interaction: {
           hex: false,
           rgba: false,
@@ -37,17 +44,13 @@ export default function ColorPicker({ index, color, handleColorChange }) {
       },
     });
 
-    pickr.on('save', colorChangeCallback);
+    pickr.on('save', (savedColor: any) => handleColorChange(savedColor));
 
     return () => {
-      // pickr.off('save', colorChangeCallback);
       pickr.destroyAndRemove();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return (
-    <>
-      <div className={`${pickerClassName} color-picker`} />
-    </>
-  );
+  return <div className={`${pickerClassName} color-picker`} />;
 }

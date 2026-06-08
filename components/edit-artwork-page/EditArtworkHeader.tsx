@@ -1,15 +1,11 @@
 'use client';
 
-import { Container, Row, Col } from 'react-bootstrap';
 import Link from 'next/link';
-import styles from './EditArtworkHeader.module.scss';
-import classNames from 'classnames/bind';
-import { BiShuffle } from 'react-icons/bi';
-import { RiDownloadLine } from 'react-icons/ri';
+import { Shuffle, ArrowDownToLine } from 'lucide-react';
+import { Container, Row, Col } from 'components/layout';
+import styles from './EditArtworkHeader.module.css';
 
-const cx = classNames.bind(styles);
-
-type EditArtworkHeaderPropTypes = {
+type EditArtworkHeaderProps = {
   onRedraw: () => void;
   onExport: () => void;
 };
@@ -17,29 +13,30 @@ type EditArtworkHeaderPropTypes = {
 export default function EditArtworkHeader({
   onRedraw,
   onExport,
-}: EditArtworkHeaderPropTypes) {
+}: EditArtworkHeaderProps) {
   return (
     <header className={styles.header}>
       <Container>
-        <Row className="align-items-center">
+        <Row align="center">
           <Col md={4} xs={6}>
-            <Link href="/select-artwork" className={styles.backLink}>
-              ← Back to gallery
-            </Link>
+            <Link href="/select-artwork">← Back to gallery</Link>
           </Col>
 
-          <Col md={4} className="d-none d-md-block">
+          <Col md={4} className={styles.titleColumn}>
             <h1 className="align-center">Make your art</h1>
           </Col>
 
           <Col md={4} xs={6}>
             <div className="align-right">
-              <button className={cx('btn', 'btnRedraw')} onClick={onRedraw}>
-                <BiShuffle className={styles.reactIcon} />
+              <button className={styles.btn} onClick={onRedraw}>
+                <Shuffle className={styles.reactIcon} size={18} />
                 <span className={styles.label}>Redraw</span>
               </button>
-              <button className={cx('btn', 'btnExport')} onClick={onExport}>
-                <RiDownloadLine className={styles.reactIcon} />
+              <button
+                className={`${styles.btn} ${styles.btnExport}`}
+                onClick={onExport}
+              >
+                <ArrowDownToLine className={styles.reactIcon} size={18} />
                 <span className={styles.label}>Export</span>
               </button>
             </div>

@@ -1,16 +1,15 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
-import randomstring from 'randomstring';
-import _ from 'lodash';
 import useMediaQuery from 'lib/useMediaQuery';
+import type { Artwork, ArtworkOption } from 'lib/artwork';
 import EditArtworkHeader from 'components/edit-artwork-page/EditArtworkHeader';
 import ButtonSelectGroup from 'components/ButtonSelectGroup';
 import ValueSlider from 'components/ValueSlider';
 import ToggleSwitch from 'components/ToggleSwitch';
-import styles from './EditArtwork.module.scss';
+import styles from './EditArtwork.module.css';
 
 const Doodle = dynamic(() => import('components/Doodle'), {
   ssr: false,
@@ -20,6 +19,21 @@ const ColorPicker = dynamic(() => import('components/ColorPicker'), {
   ssr: false,
 });
 
+type OptionValue = string | number | boolean;
+
+const SEED_CHARS =
+  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+// Replaces randomstring.generate({ length: 4 }) — a short alphanumeric seed.
+const randomSeed = (length = 4) =>
+  Array.from(
+    { length },
+    () => SEED_CHARS[Math.floor(Math.random() * SEED_CHARS.length)]
+  ).join('');
+
+const arraysEqual = (a: string[], b: string[]) =>
+  a.length === b.length && a.every((value, index) => value === b[index]);
+
 // css-doodle >= 0.5 reads `@random(1)` as a one-cell count rather than a 100%
 // probability gate (fractional values still behave as probabilities). The
 // artwork definitions were authored against css-doodle 0.12 where `@random(1)`
@@ -28,17 +42,15 @@ const ColorPicker = dynamic(() => import('components/ColorPicker'), {
 const fixFullRandomGate = (code: string) =>
   code.replace(/@random\s*\(\s*1(?:\.0+)?\s*\)/g, '@random(0.999)');
 
-export default function EditArtwork({ artwork }: { artwork: any }) {
-  const [palette, setPalette] = useState(
-    artwork.hasOwnProperty('palette') ? artwork.palette : []
-  );
-  const [optionValues, setOptionValues] = useState(
-    _.cloneDeep(artwork.options.map((o) => o.default))
+export default function EditArtwork({ artwork }: { artwork: Artwork }) {
+  const [palette, setPalette] = useState<string[]>(artwork.palette ?? []);
+  const [optionValues, setOptionValues] = useState<OptionValue[]>(() =>
+    artwork.options.map((option) => option.default)
   );
   const [styleCode, setStyleCode] = useState('');
   const [doodleCode, setDoodleCode] = useState('');
   const [seed, setSeed] = useState('0000');
-  const doodleRef = React.createRef<any>();
+  const doodleRef = useRef<any>(null);
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -53,32 +65,36 @@ export default function EditArtwork({ artwork }: { artwork: any }) {
     if (
       artwork.palette &&
       queryPalette.length === artwork.palette.length &&
-      !_.isEqual(palette, queryPalette)
+      !arraysEqual(palette, queryPalette)
     ) {
       setPalette(queryPalette);
     }
 
     artwork.options.forEach((option, optionIndex) => {
-      if (searchParams.has(option.id)) {
-        const queryVal = searchParams.get(option.id);
+      if (!searchParams.has(option.id)) {
+        return;
+      }
 
-        if (typeof option.default === 'string') {
-          setOptionByIndex(optionIndex, queryVal);
-        } else if (typeof option.default === 'number') {
-          setOptionByIndex(optionIndex, Number(queryVal));
-        } else if (typeof option.default === 'boolean') {
-          setOptionByIndex(optionIndex, queryVal === 'true');
-        }
+      const queryVal = searchParams.get(option.id) ?? '';
+
+      if (typeof option.default === 'string') {
+        setOptionByIndex(optionIndex, queryVal);
+      } else if (typeof option.default === 'number') {
+        setOptionByIndex(optionIndex, Number(queryVal));
+      } else if (typeof option.default === 'boolean') {
+        setOptionByIndex(optionIndex, queryVal === 'true');
       }
     });
 
     if (searchParams.has('seed') && seed !== searchParams.get('seed')) {
       setSeed(searchParams.get('seed') as string);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
   useEffect(() => {
     updateDoodleCode();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isScreenXS, palette, optionValues]);
 
   // Sync the URL search params FROM component state if necessary.
@@ -91,20 +107,21 @@ export default function EditArtwork({ artwork }: { artwork: any }) {
 
     const newParams = new URLSearchParams();
 
-    palette.forEach((color: string) => newParams.append('palette', color));
+    palette.forEach((color) => newParams.append('palette', color));
     newParams.set('seed', seed);
-    artwork.options.forEach((o, idx) => {
-      newParams.set(o.id, String(optionValues[idx]));
+    artwork.options.forEach((option, index) => {
+      newParams.set(option.id, String(optionValues[index]));
     });
 
     if (newParams.toString() !== searchParams.toString()) {
       router.replace(`${pathname}?${newParams.toString()}`, { scroll: false });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [seed, palette, optionValues]);
 
-  const setOptionByIndex = (index: number, value: any) => {
+  const setOptionByIndex = (index: number, value: OptionValue) => {
     setOptionValues((prev) => {
-      const newValues = _.clone(prev);
+      const newValues = [...prev];
       newValues[index] = value;
 
       return newValues;
@@ -112,25 +129,18 @@ export default function EditArtwork({ artwork }: { artwork: any }) {
   };
 
   const randomizeSeed = () => {
-    setSeed(randomstring.generate({ length: 4 }));
+    setSeed(randomSeed(4));
   };
 
   const exportArtwork = async () => {
-    await (doodleRef.current as any).export({
+    await doodleRef.current?.export({
       scale: Math.ceil(3000 / width),
       download: true,
     });
   };
 
-  const getColorsStyleCode = (colors) => {
-    let colorStyleVariables = '';
-
-    colors.forEach((color, idx) => {
-      colorStyleVariables += `--color${idx}: ${color};\n`;
-    });
-
-    return colorStyleVariables;
-  };
+  const getColorsStyleCode = (colors: string[]) =>
+    colors.map((color, idx) => `--color${idx}: ${color};\n`).join('');
 
   const updateDoodleCode = () => {
     let newStyleCode = artwork.code.style;
@@ -142,19 +152,21 @@ export default function EditArtwork({ artwork }: { artwork: any }) {
         case 'Slider':
           newStyleCode = newStyleCode
             .split(option.replace)
-            .join(optionValues[index]);
+            .join(String(optionValues[index]));
 
           newDoodleCode = newDoodleCode
             .split(option.replace)
-            .join(optionValues[index]);
+            .join(String(optionValues[index]));
 
           break;
         case 'ToggleSwitch':
           if (optionValues[index]) {
-            newStyleCode = newStyleCode.split(option.replace).join(option.code);
+            newStyleCode = newStyleCode
+              .split(option.replace)
+              .join(option.code ?? '');
             newDoodleCode = newDoodleCode
               .split(option.replace)
-              .join(optionValues[index]);
+              .join(String(optionValues[index]));
           } else {
             newStyleCode = newStyleCode.split(option.replace).join('');
             newDoodleCode = newDoodleCode.split(option.replace).join('');
@@ -165,10 +177,8 @@ export default function EditArtwork({ artwork }: { artwork: any }) {
       }
     });
 
-    newDoodleCode = newDoodleCode.split('${width}').join(String(width) + 'px');
-    newDoodleCode = newDoodleCode
-      .split('${height}')
-      .join(String(height) + 'px');
+    newDoodleCode = newDoodleCode.split('${width}').join(`${width}px`);
+    newDoodleCode = newDoodleCode.split('${height}').join(`${height}px`);
 
     newStyleCode = fixFullRandomGate(newStyleCode);
     newDoodleCode = fixFullRandomGate(newDoodleCode);
@@ -180,13 +190,14 @@ export default function EditArtwork({ artwork }: { artwork: any }) {
   };
 
   const getOptionControlComponent = (
-    option: any,
+    option: ArtworkOption,
     optionIndex: number
-  ): React.ReactNode => {
+  ): ReactNode => {
     const controlValue = optionValues[optionIndex];
-    const onChange = (value) => setOptionByIndex(optionIndex, value);
+    const onChange = (value: OptionValue) =>
+      setOptionByIndex(optionIndex, value);
 
-    let componentJsx = null;
+    let componentJsx: ReactNode = null;
 
     switch (option.type) {
       case 'ButtonSelectGroup':
@@ -194,7 +205,7 @@ export default function EditArtwork({ artwork }: { artwork: any }) {
           option.options && option.options.length > 0 ? (
             <ButtonSelectGroup
               options={option.options}
-              value={controlValue}
+              value={controlValue as string}
               onChange={onChange}
             />
           ) : null;
@@ -203,10 +214,10 @@ export default function EditArtwork({ artwork }: { artwork: any }) {
         componentJsx = (
           <div className={styles.valueSliderWrapper}>
             <ValueSlider
-              min={option.min}
-              max={option.max}
-              step={option.step}
-              value={controlValue}
+              min={option.min!}
+              max={option.max!}
+              step={option.step!}
+              value={controlValue as number}
               onChange={onChange}
             />
           </div>
@@ -214,7 +225,10 @@ export default function EditArtwork({ artwork }: { artwork: any }) {
         break;
       case 'ToggleSwitch':
         componentJsx = (
-          <ToggleSwitch isChecked={controlValue} onChange={onChange} />
+          <ToggleSwitch
+            isChecked={controlValue as boolean}
+            onChange={onChange}
+          />
         );
         break;
       default:
@@ -259,13 +273,13 @@ export default function EditArtwork({ artwork }: { artwork: any }) {
                 <div className="colors">
                   {palette.map((hex, index) => (
                     <ColorPicker
-                      key={'color' + index}
+                      key={`color${index}`}
                       index={index}
                       handleColorChange={(color) => {
                         const colorHEXAString = color.toHEXA().toString();
 
                         setPalette((prevPalette) => {
-                          const newPalette = _.clone(prevPalette);
+                          const newPalette = [...prevPalette];
                           newPalette[index] = colorHEXAString;
 
                           return newPalette;

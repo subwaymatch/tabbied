@@ -1,35 +1,18 @@
-import { Container, Row, Col } from 'react-bootstrap';
-import styles from './Footer.module.scss';
+import { Container, Row, Col } from 'components/layout';
+import styles from './Footer.module.css';
 
 export default function Footer() {
   return (
     <footer className={styles.footerSection}>
       <Container>
         <Row>
-          <Col
-            lg={{
-              span: 4,
-              offset: 1,
-            }}
-            md={{
-              span: 5,
-            }}
-          >
+          <Col lg={{ span: 4, offset: 1 }} md={{ span: 5 }}>
             <h5>Tabbied</h5>
 
             <p>Copyright 2020.</p>
           </Col>
 
-          <Col
-            lg={{
-              span: 4,
-              offset: 2,
-            }}
-            md={{
-              span: 5,
-              offset: 2,
-            }}
-          >
+          <Col lg={{ span: 4, offset: 2 }} md={{ span: 5, offset: 2 }}>
             <h5>About Us</h5>
 
             <p>

@@ -1,0 +1,59 @@
+.headerSection {
+  padding: 1rem 0;
+  background-color: white;
+  position: relative;
+  overflow: visible;
+  z-index: 1100;
+}
+
+.logoImageWrapper {
+  display: inline-block;
+  margin-top: 0.25rem;
+}
+
+.navColumn {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .navColumn {
+    display: block;
+  }
+}
+
+.pageNavigation {
+  display: inline-block;
+}
+
+.pageNavigation li {
+  display: inline-block;
+}
+
+.pageNavigation li button {
+  appearance: none;
+  border: none;
+  background: none;
+  display: inline-block;
+  padding: 0.75rem 1.25rem;
+  font-size: 1.1rem;
+  color: var(--gray-medium);
+  cursor: pointer;
+}
+
+.pageNavigation li button:hover {
+  color: var(--pink);
+}
+
+@media (max-width: 1299.98px) {
+  .pageNavigation li button {
+    padding: 0.5rem 1rem;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .logoImageWrapper img {
+    display: inline-block;
+    margin-top: 4px;
+    width: 40px;
+  }
+}

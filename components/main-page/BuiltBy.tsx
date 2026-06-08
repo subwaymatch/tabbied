@@ -1,6 +1,6 @@
-import { Container, Row, Col } from 'react-bootstrap';
 import Image from 'next/image';
-import styles from './BuiltBy.module.scss';
+import { Container, Row, Col } from 'components/layout';
+import styles from './BuiltBy.module.css';
 
 export default function BuiltBy() {
   return (
@@ -8,14 +8,8 @@ export default function BuiltBy() {
       <Container>
         <Row>
           <Col
-            md={{
-              span: 6,
-              order: 1,
-            }}
-            sm={{
-              span: 12,
-              order: 2,
-            }}
+            md={{ span: 6, order: 1 }}
+            sm={{ span: 12, order: 2 }}
           >
             <div className={styles.imageWrapper}>
               <Image
@@ -28,16 +22,8 @@ export default function BuiltBy() {
           </Col>
 
           <Col
-            md={{
-              span: 5,
-              offset: 1,
-              order: 2,
-            }}
-            sm={{
-              span: 12,
-              offset: 0,
-              order: 1,
-            }}
+            md={{ span: 5, offset: 1, order: 2 }}
+            sm={{ span: 12, offset: 0, order: 1 }}
           >
             <div className={styles.textHeader}>
               <span className={styles.subheading}>Creators of Tabbied</span>

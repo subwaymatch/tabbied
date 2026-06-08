@@ -1,7 +1,29 @@
-import { Container, Row, Col } from 'react-bootstrap';
 import Link from 'next/link';
 import Image from 'next/image';
-import styles from './SelectArtwork.module.scss';
+import { Container, Row, Col } from 'components/layout';
+import styles from './SelectArtwork.module.css';
+
+type GalleryItem = {
+  slug: string;
+  name: string;
+  thumb: string;
+  /** Render the title in white for dark thumbnails. */
+  white?: boolean;
+};
+
+const gallery: GalleryItem[] = [
+  { slug: 'radius', name: 'Radius', thumb: 'thumb_radius', white: true },
+  { slug: 'mixtape', name: 'Mixtape', thumb: 'thumb_mixtape' },
+  { slug: 'odessa', name: 'Odessa', thumb: 'thumb_odessa', white: true },
+  { slug: 'symmetry', name: 'Symmetry', thumb: 'thumb_symmetry' },
+  { slug: 'veil', name: 'Veil', thumb: 'thumb_veil' },
+  { slug: 'blossom', name: 'Blossom', thumb: 'thumb_blossom', white: true },
+  { slug: 'disque', name: 'Disque', thumb: 'thumb_disque' },
+  { slug: 'bloks', name: 'Bloks', thumb: 'thumb_bloks' },
+  { slug: 'terrain', name: 'Terrain', thumb: 'thumb_terrain', white: true },
+  { slug: 'trigram', name: 'Trigram', thumb: 'thumb_trigram', white: true },
+  { slug: 'ring', name: 'Ring', thumb: 'thumb_ring', white: true },
+];
 
 export default function SelectArtwork() {
   return (
@@ -15,167 +37,27 @@ export default function SelectArtwork() {
           </Row>
         </Container>
 
-        <div className="container container-fluid-on-mobile">
-          <Row className="g-0">
-            <Col md={3} sm={6}>
-              <Link href="/artwork/radius?seed=0000">
-                <div className={styles.galleryCard}>
-                  <h4 className={styles.white}>Radius</h4>
-                  <Image
-                    src="/images/thumb_radius.png"
-                    alt="Radius"
-                    width={800}
-                    height={800}
-                  />
-                </div>
-              </Link>
-            </Col>
-
-            <Col md={3} sm={6}>
-              <Link href="/artwork/mixtape?seed=0000">
-                <div className={styles.galleryCard}>
-                  <h4>Mixtape</h4>
-                  <Image
-                    src="/images/thumb_mixtape.png"
-                    alt="Mixtape"
-                    width={800}
-                    height={800}
-                  />
-                </div>
-              </Link>
-            </Col>
-
-            <Col md={3} sm={6}>
-              <Link href="/artwork/odessa?seed=0000">
-                <div className={styles.galleryCard}>
-                  <h4 className={styles.white}>Odessa</h4>
-                  <Image
-                    src="/images/thumb_odessa.png"
-                    alt="Odessa"
-                    width={800}
-                    height={800}
-                  />
-                </div>
-              </Link>
-            </Col>
-
-            <Col md={3} sm={6}>
-              <Link href="/artwork/symmetry?seed=0000">
-                <div className={styles.galleryCard}>
-                  <h4>Symmetry</h4>
-                  <Image
-                    src="/images/thumb_symmetry.png"
-                    alt="Symmetry"
-                    width={800}
-                    height={800}
-                  />
-                </div>
-              </Link>
-            </Col>
+        <Container fluidOnMobile>
+          <Row noGutter>
+            {gallery.map((item) => (
+              <Col key={item.slug} md={3} sm={6}>
+                <Link href={`/artwork/${item.slug}?seed=0000`}>
+                  <div className={styles.galleryCard}>
+                    <h4 className={item.white ? styles.white : undefined}>
+                      {item.name}
+                    </h4>
+                    <Image
+                      src={`/images/${item.thumb}.png`}
+                      alt={item.name}
+                      width={800}
+                      height={800}
+                    />
+                  </div>
+                </Link>
+              </Col>
+            ))}
           </Row>
-
-          <Row className="g-0">
-            <Col md={3} sm={6}>
-              <Link href="/artwork/veil?seed=0000">
-                <div className={styles.galleryCard}>
-                  <h4>Veil</h4>
-                  <Image
-                    src="/images/thumb_veil.png"
-                    alt="Veil"
-                    width={800}
-                    height={800}
-                  />
-                </div>
-              </Link>
-            </Col>
-
-            <Col md={3} sm={6}>
-              <Link href="/artwork/blossom?seed=0000">
-                <div className={styles.galleryCard}>
-                  <h4 className={styles.white}>Blossom</h4>
-                  <Image
-                    src="/images/thumb_blossom.png"
-                    alt="Blossom"
-                    width={800}
-                    height={800}
-                  />
-                </div>
-              </Link>
-            </Col>
-
-            <Col md={3} sm={6}>
-              <Link href="/artwork/disque?seed=0000">
-                <div className={styles.galleryCard}>
-                  <h4>Disque</h4>
-                  <Image
-                    src="/images/thumb_disque.png"
-                    alt="Disque"
-                    width={800}
-                    height={800}
-                  />
-                </div>
-              </Link>
-            </Col>
-
-            <Col md={3} sm={6}>
-              <Link href="/artwork/bloks?seed=0000">
-                <div className={styles.galleryCard}>
-                  <h4>Bloks</h4>
-                  <Image
-                    src="/images/thumb_bloks.png"
-                    alt="Bloks"
-                    width={800}
-                    height={800}
-                  />
-                </div>
-              </Link>
-            </Col>
-          </Row>
-
-          <Row className="g-0">
-            <Col md={3} sm={6}>
-              <Link href="/artwork/terrain?seed=0000">
-                <div className={styles.galleryCard}>
-                  <h4 className={styles.white}>Terrain</h4>
-                  <Image
-                    src="/images/thumb_terrain.png"
-                    alt="Terrain"
-                    width={800}
-                    height={800}
-                  />
-                </div>
-              </Link>
-            </Col>
-
-            <Col md={3} sm={6}>
-              <Link href="/artwork/trigram?seed=0000">
-                <div className={styles.galleryCard}>
-                  <h4 className={styles.white}>Trigram</h4>
-                  <Image
-                    src="/images/thumb_trigram.png"
-                    alt="Trigram"
-                    width={800}
-                    height={800}
-                  />
-                </div>
-              </Link>
-            </Col>
-
-            <Col md={3} sm={6}>
-              <Link href="/artwork/ring?seed=0000">
-                <div className={styles.galleryCard}>
-                  <h4 className={styles.white}>Ring</h4>
-                  <Image
-                    src="/images/thumb_ring.png"
-                    alt="Ring"
-                    width={800}
-                    height={800}
-                  />
-                </div>
-              </Link>
-            </Col>
-          </Row>
-        </div>
+        </Container>
       </div>
     </main>
   );

@@ -2,24 +2,19 @@
 
 import { useEffect, useRef } from 'react';
 import 'css-doodle';
-import { Container, Row, Col } from 'react-bootstrap';
-import styles from './Hero.module.scss';
 import Link from 'next/link';
+import { Container, Row, Col } from 'components/layout';
+import styles from './Hero.module.css';
 
 export default function MainHero() {
-  const doodleRef = useRef();
-  let doodleAutoUpdateTimer = null;
+  const doodleRef = useRef<any>(null);
 
   useEffect(() => {
-    doodleAutoUpdateTimer = setInterval(() => {
-      doodleRef.current.update();
+    const timer = setInterval(() => {
+      doodleRef.current?.update();
     }, 2000);
 
-    return () => {
-      if (doodleAutoUpdateTimer) {
-        clearInterval(doodleAutoUpdateTimer);
-      }
-    };
+    return () => clearInterval(timer);
   }, []);
 
   return (
@@ -35,21 +30,21 @@ export default function MainHero() {
                 --color3:#d65ea6;
                 --color4:#41d6f4;
                 --color5:#d65ea6;
-                
+
                 /* set custom colors and inject z-index for the specific color to use for association */
                 --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5));
                 --rule: (
                   /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */
-                  @random(0.2) { 
+                  @random(0.2) {
                     background: var(--randomColor);
                     -webkit-clip-path: @pick(circle(100% at 0 0), circle(100% at 100% 0), circle(100% at 100% 100%), circle(100% at 0 100%), circle(50% at 50% 50%), circle(25% at 50% 50%), polygon(0 0, 0% 100%, 100% 100%), polygon(100% 0, 0 0, 100% 100%), polygon(100% 0, 0 0, 0 100%), polygon(100% 100%, 100% 0, 0 100%));
                     clip-path: @pick(circle(100% at 0 0), circle(100% at 100% 0), circle(100% at 100% 100%), circle(100% at 0 100%), circle(50% at 50% 50%), circle(25% at 50% 50%), polygon(0 0, 0% 100%, 100% 100%), polygon(100% 0, 0 0, 100% 100%), polygon(100% 0, 0 0, 0 100%), polygon(100% 100%, 100% 0, 0 100%));
                     overflow:hidden;
-                    
+
                     /* On or off option for displaying box shadows */
                     -webkit-box-shadow:0 0 @pick(0, 40)px rgba(0,0,0,0.2);
                     box-shadow:0 0 @pick(0, 40)px rgba(0,0,0,0.2);
-            
+
                     -webkit-transition: ease @rand(200ms, 600ms);
                     transition: ease @rand(200ms, 600ms);
                   }
@@ -66,7 +61,7 @@ export default function MainHero() {
                       var(--color1) 5%,
                       var(--color1) 10%
                     );
-            
+
                   }
                 );
               }`}
@@ -90,22 +85,16 @@ export default function MainHero() {
       <div className={styles.contentBackground} />
 
       <Container>
-        <Row className="align-items-center">
+        <Row align="center">
           <Col
-            lg={{
-              span: 6,
-              offset: 3,
-            }}
-            md={{
-              span: 6,
-              offset: 3,
-            }}
+            lg={{ span: 6, offset: 3 }}
+            md={{ span: 6, offset: 3 }}
             sm={{ span: 8, offset: 2 }}
             xs={{ span: 12, offset: 0 }}
           >
             <div className={styles.heroContent}>
               <p className={styles.heroText}>
-                Doodle with <br className="d-md-inline d-sm-none" />
+                Doodle with <br className={styles.lineBreak} />
                 generated patterns
               </p>
 

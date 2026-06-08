@@ -1,35 +1,24 @@
 'use client';
 
-import styles from './ToggleSwitch.module.scss';
-import classNames from 'classnames/bind';
+import { Switch } from '@base-ui-components/react/switch';
+import styles from './ToggleSwitch.module.css';
 
-const cx = classNames.bind(styles);
-
-type ToggleSwitchPropTypes = {
+type ToggleSwitchProps = {
   isChecked: boolean;
-  onChange: (checked) => void;
+  onChange: (checked: boolean) => void;
 };
 
 export default function ToggleSwitch({
   isChecked,
   onChange,
-}: ToggleSwitchPropTypes) {
+}: ToggleSwitchProps) {
   return (
-    <div>
-      <label
-        className={cx('toggleSwitch', {
-          isChecked,
-        })}
-      >
-        <input
-          type="checkbox"
-          checked={isChecked}
-          onChange={(e) => {
-            onChange(e.target.checked);
-          }}
-          className={styles.toggleCheckbox}
-        />
-      </label>
-    </div>
+    <Switch.Root
+      checked={isChecked}
+      onCheckedChange={onChange}
+      className={styles.toggleSwitch}
+    >
+      <Switch.Thumb className={styles.thumb} />
+    </Switch.Root>
   );
 }

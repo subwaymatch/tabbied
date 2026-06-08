@@ -1,13 +1,14 @@
 'use client';
 
-import styles from './ValueSlider.module.scss';
+import { Slider } from '@base-ui-components/react/slider';
+import styles from './ValueSlider.module.css';
 
-type ValueSliderPropTypes = {
+type ValueSliderProps = {
   min: number;
   max: number;
   step: number;
   value: number;
-  onChange: (v: number) => void;
+  onChange: (value: number) => void;
 };
 
 export default function ValueSlider({
@@ -16,24 +17,22 @@ export default function ValueSlider({
   step,
   value,
   onChange,
-}: ValueSliderPropTypes) {
-  const percent = max > min ? ((value - min) / (max - min)) * 100 : 0;
-
+}: ValueSliderProps) {
   return (
-    <input
-      type="range"
-      className={styles.slider}
+    <Slider.Root
+      className={styles.root}
       min={min}
       max={max}
       step={step}
       value={value}
-      aria-label="value slider"
-      onChange={(e) => {
-        onChange(Number(e.target.value));
-      }}
-      style={{
-        background: `linear-gradient(to right, #232529 0%, #232529 ${percent}%, #98a0af ${percent}%, #98a0af 100%)`,
-      }}
-    />
+      onValueChange={(next) => onChange(Array.isArray(next) ? next[0] : next)}
+    >
+      <Slider.Control className={styles.control}>
+        <Slider.Track className={styles.track}>
+          <Slider.Indicator className={styles.indicator} />
+          <Slider.Thumb className={styles.thumb} aria-label="value slider" />
+        </Slider.Track>
+      </Slider.Control>
+    </Slider.Root>
   );
 }

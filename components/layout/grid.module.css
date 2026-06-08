@@ -1,0 +1,94 @@
+/*
+ * A tiny responsive 12-column grid that replaces the slice of react-bootstrap
+ * the site actually used (Container / Row / Col with responsive spans, offsets,
+ * ordering and gutter control). Spans/offsets/order are driven by CSS custom
+ * properties set per breakpoint on each <Col>, with a fallback chain so an
+ * unset breakpoint inherits the next smaller one — mirroring Bootstrap's
+ * mobile-first cascade.
+ *
+ * Custom breakpoints (min-width): sm 748px, md 992px, lg 1300px.
+ */
+
+.container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 16px;
+  padding-left: 16px;
+}
+
+@media (min-width: 748px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1300px) {
+  .container {
+    max-width: 1200px;
+  }
+}
+
+/*
+ * Full-bleed below the md breakpoint (old `.container-fluid-on-mobile`).
+ * Declared after the breakpoint max-widths so it wins in the 748–991px range.
+ */
+@media (max-width: 991.98px) {
+  .containerFluidOnMobile {
+    max-width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+.row {
+  --gutter-x: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: calc(-0.5 * var(--gutter-x));
+  margin-left: calc(-0.5 * var(--gutter-x));
+}
+
+.noGutter {
+  --gutter-x: 0px;
+}
+
+.col {
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  padding-right: calc(0.5 * var(--gutter-x, 32px));
+  padding-left: calc(0.5 * var(--gutter-x, 32px));
+  width: var(--col-xs, 100%);
+  margin-left: var(--off-xs, 0);
+  order: var(--ord-xs, 0);
+}
+
+@media (min-width: 748px) {
+  .col {
+    width: var(--col-sm, var(--col-xs, 100%));
+    margin-left: var(--off-sm, var(--off-xs, 0));
+    order: var(--ord-sm, var(--ord-xs, 0));
+  }
+}
+
+@media (min-width: 992px) {
+  .col {
+    width: var(--col-md, var(--col-sm, var(--col-xs, 100%)));
+    margin-left: var(--off-md, var(--off-sm, var(--off-xs, 0)));
+    order: var(--ord-md, var(--ord-sm, var(--ord-xs, 0)));
+  }
+}
+
+@media (min-width: 1300px) {
+  .col {
+    width: var(--col-lg, var(--col-md, var(--col-sm, var(--col-xs, 100%))));
+    margin-left: var(--off-lg, var(--off-md, var(--off-sm, var(--off-xs, 0))));
+    order: var(--ord-lg, var(--ord-md, var(--ord-sm, var(--ord-xs, 0))));
+  }
+}
