@@ -1,0 +1,46 @@
+.builtBySection {
+  padding: 120px 0;
+  color: var(--gray);
+  background-color: var(--gray-dark);
+}
+
+.builtBySection .subheading {
+  color: var(--gray);
+}
+
+.builtBySection h3 {
+  color: var(--gray-light);
+  font-weight: 300;
+  margin-top: 1rem;
+}
+
+.builtBySection p {
+  margin-top: 2rem;
+  line-height: 1.8;
+}
+
+.builtBySection p a {
+  color: white;
+}
+
+.builtBySection p a:hover {
+  color: var(--pink);
+}
+
+.builtBySection .people {
+  margin-top: 2rem;
+}
+
+@media (max-width: 991.98px) {
+  .builtBySection {
+    padding: 40px 0;
+  }
+
+  .builtBySection .textContent {
+    margin-top: 40px;
+  }
+
+  .builtBySection .imageWrapper {
+    margin-top: 40px;
+  }
+}

@@ -1,14 +1,14 @@
-@import './variables';
-@import './mixins';
-
 .colors .pickr {
   display: inline-block;
   margin-right: 24px;
   margin-bottom: 10px;
-  @include media-breakpoint-down(md) {
+  padding: 2px;
+}
+
+@media (max-width: 991.98px) {
+  .colors .pickr {
     margin-right: 20px;
   }
-  padding: 2px;
 }
 
 .pcr-picker {

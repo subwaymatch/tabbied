@@ -1,0 +1,73 @@
+.header {
+  padding: 1.5rem 0;
+  font-size: 1.1rem;
+}
+
+.header h1 {
+  color: var(--gray-dark);
+}
+
+.titleColumn {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .titleColumn {
+    display: block;
+  }
+}
+
+.btn {
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 300;
+  color: white;
+  background-color: var(--gray-dark);
+  padding-left: 1rem;
+  padding-right: 1rem;
+  height: 2.75rem;
+  border-radius: 0.15rem;
+  cursor: pointer;
+  outline: none;
+}
+
+.btn .reactIcon {
+  margin-right: 0.4rem;
+}
+
+.btn:hover {
+  background-color: #2f3237; /* color.scale($gray-dark, +6% lightness) */
+  box-shadow: 0 0 0.75rem rgba(35, 37, 41, 0.2);
+}
+
+.btnExport {
+  color: white;
+  background-color: var(--red-high-contrast);
+  margin-left: 0.6rem;
+}
+
+.btnExport:hover {
+  background-color: #fd0066; /* color.scale($red-high-contrast, +6% lightness) */
+  box-shadow: 0 0 0.75rem rgba(237, 0, 95, 0.2);
+}
+
+@media (max-width: 991.98px) {
+  .header {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .btn {
+    font-size: 0.95rem;
+  }
+
+  .btn .label {
+    display: none;
+  }
+
+  .btn .reactIcon {
+    margin-right: 0;
+  }
+}

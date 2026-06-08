@@ -1,0 +1,62 @@
+/* Gallery card (was the shared styles/_gallery-card.scss partial). */
+.galleryCard {
+  position: relative;
+  line-height: 0;
+  cursor: pointer;
+}
+
+.galleryCard:hover {
+  color: var(--pink);
+}
+
+.galleryCard .text {
+  line-height: 1.4;
+}
+
+.galleryCard .center {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.galleryCard h4 {
+  color: var(--gray-dark);
+  position: absolute;
+  top: 1.5rem;
+  left: 2rem;
+  font-size: 1.1rem;
+  line-height: 1.4;
+  z-index: 10;
+}
+
+.galleryCard h4.white {
+  color: white;
+}
+
+/* Browse artwork section */
+.browseArtworkSection {
+  text-align: center;
+  padding: 2.5rem 0 7.5rem 0;
+}
+
+.browseArtworkSection h3 {
+  font-weight: 300;
+  margin-top: 1rem;
+  margin-bottom: 4rem;
+}
+
+.browseArtworkSection .subheading {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 991.98px) {
+  .browseArtworkSection {
+    margin: 0;
+  }
+}

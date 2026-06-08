@@ -4,10 +4,10 @@ import { useRef } from 'react';
 import 'css-doodle';
 
 export default function ExportTest() {
-  const doodleRef = useRef();
+  const doodleRef = useRef<any>(null);
 
   const exportArtwork = async () => {
-    let result = await doodleRef.current.export({
+    await doodleRef.current?.export({
       scale: 15.5,
       download: true,
     });
@@ -33,7 +33,7 @@ export default function ExportTest() {
               :container {
                 background: var(--color0);
               }
-              
+
             )
           }
         `}

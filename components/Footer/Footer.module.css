@@ -1,0 +1,34 @@
+.footerSection {
+  font-size: 0.95rem;
+  padding: 5rem 0 10rem 0;
+}
+
+.footerSection h5 {
+  color: var(--gray-dark);
+}
+
+.footerSection p {
+  margin-top: 1.5rem;
+}
+
+.footerSection a {
+  color: var(--gray-dark);
+}
+
+.footerSection a:hover {
+  color: var(--pink);
+}
+
+@media (max-width: 991.98px) {
+  .footerSection {
+    padding: 1rem 0 2.5rem 0;
+  }
+
+  .footerSection h5 {
+    margin-top: 2rem;
+  }
+
+  .footerSection p {
+    margin-top: 0.5rem;
+  }
+}

@@ -1,0 +1,155 @@
+@import url('https://use.typekit.net/nws2bge.css');
+
+/*
+ * minireset.css (MIT, https://github.com/jgthms/minireset.css), vendored inline
+ * instead of pulled from a render-blocking CDN @import. It provides the global
+ * box-sizing and fluid-image (`max-width: 100%`) reset the layout relies on, so
+ * keeping it local makes the base styles reliable and removes a network round-trip.
+ */
+html,
+body,
+p,
+ol,
+ul,
+li,
+dl,
+dt,
+dd,
+blockquote,
+figure,
+fieldset,
+legend,
+textarea,
+pre,
+iframe,
+hr,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 100%;
+  font-weight: normal;
+}
+
+ul {
+  list-style: none;
+}
+
+button,
+input,
+select,
+textarea {
+  margin: 0;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+img,
+video {
+  height: auto;
+  max-width: 100%;
+}
+
+iframe {
+  border: 0;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+td,
+th {
+  padding: 0;
+}
+
+td:not([align]),
+th:not([align]) {
+  text-align: inherit;
+}
+
+:root {
+  --font-sans-serif: 'proxima-nova', 'Inter', sans-serif;
+
+  /* Design tokens (the subset referenced across the app). */
+  --gray-dark: #232529;
+  --gray-medium: #646d7b;
+  --gray: #98a0af;
+  --gray-light: #ced3d9;
+  --gray-ultra-light: #f8f9fa;
+
+  --pink: #ff3d8b;
+  --lime: #3fffb2;
+  --lime-hover: #65ffc1; /* color.scale($lime, +20% lightness) */
+  --blue-medium: hsl(217, 60%, 49%);
+  --red-high-contrast: #ed005f;
+}
+
+body {
+  color: var(--gray-medium);
+  font-family: var(--font-sans-serif);
+  font-size: 1.2rem;
+  line-height: 1.7;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--gray-medium);
+}
+
+a:hover {
+  color: var(--pink);
+}
+
+h3.section-title {
+  color: var(--gray-dark);
+  font-size: 2.33rem;
+  line-height: 1.3;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.align-right {
+  text-align: right;
+}
+
+button {
+  font-family: var(--font-sans-serif);
+}
+
+.btn {
+  display: inline-block;
+  padding: 1rem 1.5rem;
+  border-radius: 0.2rem;
+  color: var(--gray-dark);
+  background-color: var(--lime);
+}
+
+.btn:hover {
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+  background-color: var(--lime-hover);
+}

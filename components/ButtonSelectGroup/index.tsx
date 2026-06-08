@@ -1,12 +1,11 @@
 'use client';
 
-import styles from './ButtonSelectGroup.module.scss';
-import classNames from 'classnames/bind';
+import { ToggleGroup } from '@base-ui-components/react/toggle-group';
+import { Toggle } from '@base-ui-components/react/toggle';
+import styles from './ButtonSelectGroup.module.css';
 
-const cx = classNames.bind(styles);
-
-type ButtonSelectGroupPropTypes = {
-  options: Array<string>;
+type ButtonSelectGroupProps = {
+  options: string[];
   value: string;
   onChange: (value: string) => void;
 };
@@ -14,23 +13,27 @@ type ButtonSelectGroupPropTypes = {
 export default function ButtonSelectGroup({
   options,
   value,
-  onChange: handleSelect,
-}: ButtonSelectGroupPropTypes) {
+  onChange,
+}: ButtonSelectGroupProps) {
   return (
-    <div className={styles.buttonSelectGroup}>
+    <ToggleGroup
+      className={styles.buttonSelectGroup}
+      value={[value]}
+      onValueChange={(groupValue) => {
+        const next = groupValue[0];
+
+        // Ignore the empty array produced by clicking the active option —
+        // one choice must always stay selected.
+        if (next != null) {
+          onChange(next);
+        }
+      }}
+    >
       {options.map((option) => (
-        <div
-          key={option}
-          className={cx('option', {
-            selected: value === option,
-          })}
-          onClick={() => {
-            handleSelect(option);
-          }}
-        >
+        <Toggle key={option} value={option} className={styles.option}>
           {option}
-        </div>
+        </Toggle>
       ))}
-    </div>
+    </ToggleGroup>
   );
 }

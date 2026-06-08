@@ -1,0 +1,25 @@
+.exampleUsesSection {
+  padding-top: 4rem;
+  background-color: var(--gray-dark);
+}
+
+.exampleUsesSection h3,
+.exampleUsesSection .subheading {
+  text-align: center;
+}
+
+.exampleUsesSection .subheading {
+  display: block;
+  margin-bottom: 1rem;
+  color: var(--gray);
+}
+
+.exampleUsesSection h3 {
+  color: var(--gray-light);
+  font-weight: 300;
+  margin-bottom: 3rem;
+}
+
+.exampleUsesSection .imageWrapper {
+  line-height: 0;
+}

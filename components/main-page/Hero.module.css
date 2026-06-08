@@ -1,0 +1,142 @@
+.heroSection {
+  background-color: var(--blue-medium);
+  position: relative;
+  text-align: center;
+  width: 100%;
+  overflow: hidden;
+}
+
+.heroSection .doodleBackground {
+  width: 100rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.heroSection .doodleBackground .doodleWrapper {
+  width: 100rem;
+  height: 50rem;
+}
+
+.heroSection .actionBtn {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  border-radius: 0.2rem;
+  color: white;
+  background-color: var(--red-high-contrast);
+}
+
+.heroSection .actionBtn:hover {
+  box-shadow: 0 0 1rem rgba(35, 37, 41, 0.3);
+}
+
+.heroSection .heroText {
+  font-size: 3.4rem;
+  line-height: 1.3;
+  font-weight: 300;
+  color: white;
+}
+
+.heroSection .heroContent {
+  padding: 15rem 0;
+  position: relative;
+  z-index: 1;
+}
+
+.heroSection .heroActions {
+  margin-top: 3rem;
+}
+
+.lineBreak {
+  display: inline;
+}
+
+.contentBackground {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url('/images/hero_text_background.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 900px auto;
+}
+
+/* `d-sm-none` then `d-md-inline`: hidden on tablet, shown on mobile + desktop. */
+@media (min-width: 748px) {
+  .lineBreak {
+    display: none;
+  }
+}
+
+@media (min-width: 992px) {
+  .lineBreak {
+    display: inline;
+  }
+}
+
+@media (max-width: 1299.98px) {
+  .contentBackground {
+    background-size: 760px auto;
+  }
+
+  .heroSection .doodleBackground {
+    width: 75rem;
+  }
+
+  .heroSection .doodleBackground .doodleWrapper {
+    width: 75rem;
+    height: 37.5rem;
+  }
+
+  .heroSection .heroContent {
+    padding: 10rem 0;
+  }
+
+  .heroSection .heroText {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .contentBackground {
+    background-size: 720px auto;
+  }
+
+  .heroSection .doodleBackground {
+    width: 50rem;
+  }
+
+  .heroSection .doodleBackground .doodleWrapper {
+    width: 50rem;
+    height: 25rem;
+  }
+
+  .heroSection .heroContent {
+    padding: 7.5rem 0;
+  }
+
+  .heroSection .heroText {
+    font-size: 2.8rem;
+  }
+}
+
+@media (max-width: 747.98px) {
+  .contentBackground {
+    background-size: 540px auto;
+  }
+
+  .heroSection .heroContent {
+    padding: 4rem 0;
+  }
+
+  .heroSection .heroText {
+    font-size: 2.6rem;
+  }
+}

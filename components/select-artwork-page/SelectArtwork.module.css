@@ -1,0 +1,51 @@
+/* Gallery card (was the shared styles/_gallery-card.scss partial). */
+.galleryCard {
+  position: relative;
+  line-height: 0;
+  cursor: pointer;
+}
+
+.galleryCard:hover {
+  color: var(--pink);
+}
+
+.galleryCard h4 {
+  color: var(--gray-dark);
+  position: absolute;
+  top: 1.5rem;
+  left: 2rem;
+  font-size: 1.1rem;
+  line-height: 1.4;
+  z-index: 10;
+}
+
+.galleryCard h4.white {
+  color: white;
+}
+
+/* Select-artwork page */
+.selectArtworkSection .grayBackground {
+  background: rgba(248, 249, 250, 0.6);
+  padding: 64px 0;
+}
+
+.selectArtworkSection h2 {
+  text-align: left;
+  color: var(--gray-medium);
+  font-size: 1.2rem;
+  margin-top: 8px;
+  margin-bottom: 64px;
+}
+
+@media (max-width: 991.98px) {
+  .selectArtworkSection .grayBackground {
+    padding: 1rem 0 0 0;
+  }
+
+  .selectArtworkSection h2 {
+    padding-left: 1rem;
+    font-size: 1.1rem;
+    margin-top: 16px;
+    margin-bottom: 24px;
+  }
+}

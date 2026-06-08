@@ -1,0 +1,43 @@
+.root {
+  width: 100%;
+}
+
+.control {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 20px;
+  /* Inset by half the thumb so it never spills past the track at the extremes. */
+  padding: 0 10px;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.track {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  border-radius: 4px;
+  background: var(--gray);
+}
+
+/* Base UI sizes/positions the filled portion; we only paint it. */
+.indicator {
+  border-radius: 4px;
+  background: var(--gray-dark);
+}
+
+.thumb {
+  box-sizing: border-box;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid var(--gray-dark);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+.thumb:focus-visible {
+  outline: none;
+}

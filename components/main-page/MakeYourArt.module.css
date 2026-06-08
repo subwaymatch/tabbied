@@ -1,0 +1,47 @@
+.makeYourArtSection {
+  text-align: center;
+  position: relative;
+  background: var(--gray-dark);
+  padding-bottom: 120px;
+}
+
+.makeYourArtSection .messageWrapper {
+  border-top: 1px solid var(--gray-medium);
+  padding: 120px 0 48px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.makeYourArtSection .messageWrapper p.message {
+  color: var(--gray-light);
+  font-size: 2.33rem;
+  line-height: 1.4;
+  font-weight: 300;
+  max-width: 640px;
+}
+
+.makeYourArtSection .actionBtn {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  border-radius: 0.2rem;
+  color: white;
+  background-color: #ed005f;
+}
+
+.makeYourArtSection .actionBtn:hover {
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.6);
+}
+
+@media (max-width: 991.98px) {
+  .makeYourArtSection {
+    padding-bottom: 64px;
+  }
+
+  .makeYourArtSection .messageWrapper {
+    padding: 48px 24px 40px 24px;
+  }
+
+  .makeYourArtSection .messageWrapper p.message {
+    font-size: 1.4rem;
+  }
+}

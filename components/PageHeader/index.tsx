@@ -1,13 +1,13 @@
-import { Container, Row, Col } from 'react-bootstrap';
 import Link from 'next/link';
 import Image from 'next/image';
-import styles from './PageHeader.module.scss';
+import { Container, Row, Col } from 'components/layout';
+import styles from './PageHeader.module.css';
 
 export default function PageHeader({ title }: { title: string }) {
   return (
     <header className={styles.headerSection}>
       <Container>
-        <Row className="align-items-center">
+        <Row align="center">
           <Col xs={3}>
             <Link href="/" className={styles.logoImageWrapper}>
               <Image

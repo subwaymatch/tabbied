@@ -1,149 +1,67 @@
-'use client';
-
-import { Element } from 'react-scroll';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Container, Row, Col } from 'react-bootstrap';
-import styles from './BrowseArtwork.module.scss';
-import classNames from 'classnames/bind';
+import { Container, Row, Col } from 'components/layout';
+import styles from './BrowseArtwork.module.css';
 
-const cx = classNames.bind(styles);
+const gallery = [
+  { slug: 'radius', name: 'Radius', thumb: 'thumb_radius', white: true },
+  { slug: 'mixtape', name: 'Mixtape', thumb: 'thumb_mixtape' },
+  { slug: 'odessa', name: 'Odessa', thumb: 'thumb_odessa', white: true },
+  { slug: 'symmetry', name: 'Symmetry', thumb: 'thumb_symmetry' },
+  { slug: 'veil', name: 'Veil', thumb: 'thumb_veil' },
+  { slug: 'blossom', name: 'Blossom', thumb: 'thumb_blossom', white: true },
+  { slug: 'disque', name: 'Disque', thumb: 'thumb_disque' },
+];
 
 export default function BrowseArtworkSection() {
   return (
-    <Element name="section-browse-artwork">
-      <div className={styles.browseArtworkSection}>
-        <Container>
-          <Row>
-            <Col md={12}>
-              <span className={styles.subheading}>Browse artwork</span>
-              <h3 className="section-title">
-                Pick a design and start doodling
-              </h3>
-            </Col>
-          </Row>
-        </Container>
+    <div id="section-browse-artwork" className={styles.browseArtworkSection}>
+      <Container>
+        <Row>
+          <Col md={12}>
+            <span className={styles.subheading}>Browse artwork</span>
+            <h3 className="section-title">Pick a design and start doodling</h3>
+          </Col>
+        </Row>
+      </Container>
 
-        <Container className="container-fluid-on-mobile">
-          <Row className="g-0">
-            <Col md={3} sm={6}>
-              <Link href={`/artwork/radius/`}>
+      <Container fluidOnMobile>
+        <Row noGutter>
+          {gallery.map((item) => (
+            <Col key={item.slug} md={3} sm={6}>
+              <Link href={`/artwork/${item.slug}/`}>
                 <div className={styles.galleryCard}>
-                  <h4 className={styles.white}>Radius</h4>
+                  <h4 className={item.white ? styles.white : undefined}>
+                    {item.name}
+                  </h4>
                   <Image
-                    src="/images/thumb_radius.png"
-                    alt="Radius"
+                    src={`/images/${item.thumb}.png`}
+                    alt={item.name}
                     width={800}
                     height={800}
                   />
                 </div>
               </Link>
             </Col>
+          ))}
 
-            <Col md={3} sm={6}>
-              <Link href={`/artwork/mixtape/`}>
-                <div className={styles.galleryCard}>
-                  <h4>Mixtape</h4>
-                  <Image
-                    src="/images/thumb_mixtape.png"
-                    alt="Mixtape"
-                    width={800}
-                    height={800}
-                  />
+          <Col md={3} sm={6}>
+            <Link href="/select-artwork/">
+              <div className={styles.galleryCard}>
+                <Image
+                  src="/images/thumb_empty.png"
+                  alt="View All"
+                  width={800}
+                  height={800}
+                />
+                <div className={styles.center}>
+                  <span className={styles.text}>View All &#8594;</span>
                 </div>
-              </Link>
-            </Col>
-
-            <Col md={3} sm={6}>
-              <Link href={`/artwork/odessa/`}>
-                <div className={styles.galleryCard}>
-                  <h4 className={styles.white}>Odessa</h4>
-                  <Image
-                    src="/images/thumb_odessa.png"
-                    alt="Odessa"
-                    width={800}
-                    height={800}
-                  />
-                </div>
-              </Link>
-            </Col>
-
-            <Col md={3} sm={6}>
-              <Link href={`/artwork/symmetry/`}>
-                <div className={styles.galleryCard}>
-                  <h4>Symmetry</h4>
-                  <Image
-                    src="/images/thumb_symmetry.png"
-                    alt="Symmetry"
-                    width={800}
-                    height={800}
-                  />
-                </div>
-              </Link>
-            </Col>
-          </Row>
-
-          <Row className="g-0">
-            <Col md={3} sm={6}>
-              <Link href={`/artwork/veil/`}>
-                <div className={styles.galleryCard}>
-                  <h4>Veil</h4>
-                  <Image
-                    src="/images/thumb_veil.png"
-                    alt="Veil"
-                    width={800}
-                    height={800}
-                  />
-                </div>
-              </Link>
-            </Col>
-
-            <Col md={3} sm={6}>
-              <Link href={`/artwork/blossom/`}>
-                <div className={styles.galleryCard}>
-                  <h4 className={styles.white}>Blossom</h4>
-                  <Image
-                    src="/images/thumb_blossom.png"
-                    alt="Blossom"
-                    width={800}
-                    height={800}
-                  />
-                </div>
-              </Link>
-            </Col>
-
-            <Col md={3} sm={6}>
-              <Link href={`/artwork/disque/`}>
-                <div className={styles.galleryCard}>
-                  <h4>Disque</h4>
-                  <Image
-                    src="/images/thumb_disque.png"
-                    alt="Disque"
-                    width={800}
-                    height={800}
-                  />
-                </div>
-              </Link>
-            </Col>
-
-            <Col md={3} sm={6}>
-              <Link href={`/select-artwork/`}>
-                <div className={cx('galleryCard', 'actionCard')}>
-                  <Image
-                    src="/images/thumb_empty.png"
-                    alt="View All"
-                    width={800}
-                    height={800}
-                  />
-                  <div className={styles.center}>
-                    <span className={styles.text}>View All &#8594;</span>
-                  </div>
-                </div>
-              </Link>
-            </Col>
-          </Row>
-        </Container>
-      </div>
-    </Element>
+              </div>
+            </Link>
+          </Col>
+        </Row>
+      </Container>
+    </div>
   );
 }
