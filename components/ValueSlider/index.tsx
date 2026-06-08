@@ -27,12 +27,17 @@ export default function ValueSlider({
       value={value}
       onValueChange={(next) => onChange(Array.isArray(next) ? next[0] : next)}
     >
-      <Slider.Control className={styles.control}>
-        <Slider.Track className={styles.track}>
-          <Slider.Indicator className={styles.indicator} />
-          <Slider.Thumb className={styles.thumb} aria-label="value slider" />
-        </Slider.Track>
-      </Slider.Control>
+      <div className={styles.row}>
+        <Slider.Control className={styles.control}>
+          <Slider.Track className={styles.track}>
+            <Slider.Indicator className={styles.indicator} />
+            <Slider.Thumb className={styles.thumb} aria-label="value slider" />
+          </Slider.Track>
+        </Slider.Control>
+        <Slider.Value className={styles.value}>
+          {(_formatted, values) => values[0].toFixed(1)}
+        </Slider.Value>
+      </div>
     </Slider.Root>
   );
 }

@@ -117,15 +117,41 @@ test.describe('Tabbied site', () => {
     await expect(page.getByText('6x6', { exact: true })).toBeVisible();
   });
 
-  test('aspect-ratio selector is hidden for ratio-locked presets', async ({
+  test('a custom aspect ratio can be entered manually', async ({ page }) => {
+    await page.goto('/artwork/radius?seed=0000');
+    await expect(page).toHaveURL(/aspectRatio=2%3A3/);
+
+    // Enter a 5:4 ratio that is not one of the preset buttons.
+    await page.getByLabel('Custom ratio width').fill('5');
+    await page.getByLabel('Custom ratio height').fill('4');
+
+    await expect(page).toHaveURL(/aspectRatio=5%3A4/);
+    // 5:4 at the 4x6 (level 1) density derives a 6x5 grid.
+    await expect(page).toHaveURL(/grid=6x5/);
+  });
+
+  test('symmetry supports aspect ratios after being centered', async ({
     page,
   }) => {
     await page.goto('/artwork/symmetry?seed=0000');
 
     await expect(page.locator('css-doodle#symmetry')).toBeAttached();
-    // Symmetry pins itself to 2:3, so no selector and no aspectRatio in the URL.
-    await expect(page.getByText('Aspect ratio')).toHaveCount(0);
-    await expect(page).not.toHaveURL(/aspectRatio=/);
+    // Symmetry is no longer ratio-locked: the selector is present and works.
+    await expect(
+      page.getByRole('heading', { name: 'Aspect ratio' })
+    ).toBeVisible();
+
+    await page.getByText('3:2', { exact: true }).click();
+    await expect(page).toHaveURL(/aspectRatio=3%3A2/);
+    await expect(page.locator('css-doodle#symmetry')).toBeAttached();
+  });
+
+  test('slider controls display their current value', async ({ page }) => {
+    await page.goto('/artwork/radius?seed=0000');
+
+    // Radius opens at frequency 1, shown as "1.0" beside the slider.
+    await expect(page.getByText('Frequency')).toBeVisible();
+    await expect(page.getByText('1.0', { exact: true })).toBeVisible();
   });
 
   test('export-test page renders', async ({ page }) => {

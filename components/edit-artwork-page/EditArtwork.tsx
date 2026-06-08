@@ -7,16 +7,17 @@ import useMediaQuery from 'lib/useMediaQuery';
 import type { Artwork, ArtworkOption } from 'lib/artwork';
 import {
   type AspectRatioId,
-  ASPECT_RATIO_IDS,
+  RATIO_PRESETS,
   DEFAULT_ASPECT_RATIO,
   deriveGrid,
   getCanvasSize,
   getGridOptions,
   gridToLevel,
-  isAspectRatioId,
+  isValidRatio,
 } from 'lib/aspectRatio';
 import EditArtworkHeader from 'components/edit-artwork-page/EditArtworkHeader';
 import ButtonSelectGroup from 'components/ButtonSelectGroup';
+import CustomRatioInput from 'components/CustomRatioInput';
 import ValueSlider from 'components/ValueSlider';
 import ToggleSwitch from 'components/ToggleSwitch';
 import styles from './EditArtwork.module.css';
@@ -102,7 +103,13 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
       if (typeof option.default === 'string') {
         setOptionByIndex(optionIndex, queryVal);
       } else if (typeof option.default === 'number') {
-        setOptionByIndex(optionIndex, Number(queryVal));
+        const numericVal = Number(queryVal);
+
+        // Ignore malformed numbers so a hand-edited URL can't feed NaN into a
+        // slider (which would blank the control).
+        if (!Number.isNaN(numericVal)) {
+          setOptionByIndex(optionIndex, numericVal);
+        }
       } else if (typeof option.default === 'boolean') {
         setOptionByIndex(optionIndex, queryVal === 'true');
       }
@@ -117,7 +124,7 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     if (
       !lockedAspectRatio &&
       queryAspectRatio &&
-      isAspectRatioId(queryAspectRatio) &&
+      isValidRatio(queryAspectRatio) &&
       queryAspectRatio !== aspectRatio
     ) {
       setAspectRatio(queryAspectRatio);
@@ -355,11 +362,15 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
               <div className={styles.optionBox}>
                 <h3>Aspect ratio</h3>
                 <ButtonSelectGroup
-                  options={[...ASPECT_RATIO_IDS]}
+                  options={[...RATIO_PRESETS]}
                   value={aspectRatio}
                   onChange={(value) =>
                     changeAspectRatio(value as AspectRatioId)
                   }
+                />
+                <CustomRatioInput
+                  value={aspectRatio}
+                  onChange={changeAspectRatio}
                 />
               </div>
             )}

@@ -1,0 +1,40 @@
+.customRatio {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.label {
+  color: #808a98;
+  font-size: 1.05rem;
+  margin-right: 0.25rem;
+}
+
+.field {
+  box-sizing: border-box;
+  width: 4rem;
+  height: 3.2rem;
+  text-align: center;
+  color: var(--gray-dark);
+  background-color: #ffffff;
+  border: 2px solid transparent;
+  border-radius: 2px;
+  box-shadow: 0 1px 0 0 var(--gray-light);
+  font-size: 1.05rem;
+}
+
+.field:hover {
+  box-shadow: 0 1px 0 0 var(--gray);
+}
+
+.field:focus {
+  outline: none;
+  border-color: var(--gray-dark);
+  box-shadow: none;
+}
+
+.colon {
+  color: var(--gray-dark);
+  font-size: 1.05rem;
+}
