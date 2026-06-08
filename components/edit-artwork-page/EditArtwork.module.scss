@@ -8,7 +8,7 @@
   height: 100vh;
   overflow: hidden;
 
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(md) {
     height: auto;
   }
 }
@@ -17,7 +17,7 @@
   flex-grow: 1;
   display: flex;
 
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(md) {
     display: block;
   }
 
@@ -27,7 +27,7 @@
     justify-content: center;
     align-items: center;
 
-    @include media-breakpoint-down(sm) {
+    @include media-breakpoint-down(md) {
       padding-top: 2rem;
       padding-bottom: 2rem;
     }
@@ -44,7 +44,7 @@
       width: 100%;
       padding: 4rem;
 
-      @include media-breakpoint-down(sm) {
+      @include media-breakpoint-down(md) {
         padding: 1rem 1.5rem;
       }
     }
@@ -60,7 +60,7 @@
         margin-bottom: none;
       }
 
-      @include media-breakpoint-down(sm) {
+      @include media-breakpoint-down(md) {
         margin-bottom: 1.5rem;
 
         h3 {
@@ -79,7 +79,7 @@
   display: inline-block;
   box-shadow: 16px 16px 32px 0 rgba(0, 0, 0, 0.1);
 
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(md) {
     box-shadow: none;
   }
 }

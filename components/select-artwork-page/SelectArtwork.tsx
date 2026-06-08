@@ -16,7 +16,7 @@ export default function SelectArtwork() {
         </Container>
 
         <div className="container container-fluid-on-mobile">
-          <Row noGutters={true}>
+          <Row className="g-0">
             <Col md={3} sm={6}>
               <Link href="/artwork/radius?seed=0000">
                 <div className={styles.galleryCard}>
@@ -74,7 +74,7 @@ export default function SelectArtwork() {
             </Col>
           </Row>
 
-          <Row noGutters={true}>
+          <Row className="g-0">
             <Col md={3} sm={6}>
               <Link href="/artwork/veil?seed=0000">
                 <div className={styles.galleryCard}>
@@ -132,7 +132,7 @@ export default function SelectArtwork() {
             </Col>
           </Row>
 
-          <Row noGutters={true}>
+          <Row className="g-0">
             <Col md={3} sm={6}>
               <Link href="/artwork/terrain?seed=0000">
                 <div className={styles.galleryCard}>

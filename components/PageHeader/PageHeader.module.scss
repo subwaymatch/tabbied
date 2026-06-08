@@ -9,7 +9,7 @@
     color: $gray-dark;
   }
 
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(md) {
     .logoImageWrapper {
       img {
         width: 2.5rem;

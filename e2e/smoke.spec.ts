@@ -12,6 +12,17 @@ test.describe('Tabbied site', () => {
       { timeout: 15000 }
     );
 
+    // Regression guard for the Bootstrap 4 -> 5 `media-breakpoint-down()`
+    // semantics change: the xs/mobile overrides must not leak onto desktop
+    // widths (which had collapsed the hero padding from ~160px to 64px).
+    const heroPadTop = await page.evaluate(() => {
+      const p = [...document.querySelectorAll('p')].find((e) =>
+        /^Doodle with/.test((e.textContent || '').trim())
+      );
+      return p ? parseInt(getComputedStyle(p.parentElement).paddingTop, 10) : 0;
+    });
+    expect(heroPadTop).toBeGreaterThan(100);
+
     // "Make your art" appears in the hero and the closing CTA.
     await page.getByRole('link', { name: 'Make your art' }).first().click();
 

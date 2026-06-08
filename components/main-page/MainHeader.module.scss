@@ -82,7 +82,7 @@
   }
 }
 
-@include media-breakpoint-down(md) {
+@include media-breakpoint-down(lg) {
   .headerSection {
     ul.pageNavigation {
       li {
@@ -94,7 +94,7 @@
   }
 }
 
-@include media-breakpoint-down(sm) {
+@include media-breakpoint-down(md) {
   .headerSection {
     .logoImageWrapper {
       img {
