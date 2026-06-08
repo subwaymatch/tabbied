@@ -5,6 +5,16 @@ import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import useMediaQuery from 'lib/useMediaQuery';
 import type { Artwork, ArtworkOption } from 'lib/artwork';
+import {
+  type AspectRatioId,
+  ASPECT_RATIO_IDS,
+  DEFAULT_ASPECT_RATIO,
+  deriveGrid,
+  getCanvasSize,
+  getGridOptions,
+  gridToLevel,
+  isAspectRatioId,
+} from 'lib/aspectRatio';
 import EditArtworkHeader from 'components/edit-artwork-page/EditArtworkHeader';
 import ButtonSelectGroup from 'components/ButtonSelectGroup';
 import ValueSlider from 'components/ValueSlider';
@@ -20,6 +30,10 @@ const ColorPicker = dynamic(() => import('components/ColorPicker'), {
 });
 
 type OptionValue = string | number | boolean;
+
+// Options with this id hold a "colsxrows" grid string and follow the selected
+// aspect ratio so that cells stay (near-)square.
+const GRID_OPTION_ID = 'grid';
 
 const SEED_CHARS =
   'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -43,10 +57,18 @@ const fixFullRandomGate = (code: string) =>
   code.replace(/@random\s*\(\s*1(?:\.0+)?\s*\)/g, '@random(0.999)');
 
 export default function EditArtwork({ artwork }: { artwork: Artwork }) {
+  // A preset may pin itself to a single aspect ratio (e.g. Symmetry), in which
+  // case the selector is hidden and the ratio can't change.
+  const lockedAspectRatio = artwork.lockAspectRatio ?? null;
+  const initialAspectRatio =
+    lockedAspectRatio ?? artwork.defaultAspectRatio ?? DEFAULT_ASPECT_RATIO;
+
   const [palette, setPalette] = useState<string[]>(artwork.palette ?? []);
   const [optionValues, setOptionValues] = useState<OptionValue[]>(() =>
     artwork.options.map((option) => option.default)
   );
+  const [aspectRatio, setAspectRatio] =
+    useState<AspectRatioId>(initialAspectRatio);
   const [styleCode, setStyleCode] = useState('');
   const [doodleCode, setDoodleCode] = useState('');
   const [seed, setSeed] = useState('0000');
@@ -55,8 +77,8 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const isScreenXS = useMediaQuery('(max-width: 747.99px)');
-  const width = isScreenXS ? 240 : 360;
-  const height = width * 1.5;
+  const baseWidth = isScreenXS ? 240 : 360;
+  const { width, height } = getCanvasSize(aspectRatio, baseWidth);
 
   // Sync component state FROM the URL search params.
   useEffect(() => {
@@ -89,13 +111,24 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     if (searchParams.has('seed') && seed !== searchParams.get('seed')) {
       setSeed(searchParams.get('seed') as string);
     }
+
+    const queryAspectRatio = searchParams.get('aspectRatio');
+
+    if (
+      !lockedAspectRatio &&
+      queryAspectRatio &&
+      isAspectRatioId(queryAspectRatio) &&
+      queryAspectRatio !== aspectRatio
+    ) {
+      setAspectRatio(queryAspectRatio);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
   useEffect(() => {
     updateDoodleCode();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isScreenXS, palette, optionValues]);
+  }, [isScreenXS, palette, optionValues, aspectRatio]);
 
   // Sync the URL search params FROM component state if necessary.
   useEffect(() => {
@@ -109,6 +142,9 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
 
     palette.forEach((color) => newParams.append('palette', color));
     newParams.set('seed', seed);
+    if (!lockedAspectRatio) {
+      newParams.set('aspectRatio', aspectRatio);
+    }
     artwork.options.forEach((option, index) => {
       newParams.set(option.id, String(optionValues[index]));
     });
@@ -117,7 +153,7 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
       router.replace(`${pathname}?${newParams.toString()}`, { scroll: false });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [seed, palette, optionValues]);
+  }, [seed, palette, optionValues, aspectRatio]);
 
   const setOptionByIndex = (index: number, value: OptionValue) => {
     setOptionValues((prev) => {
@@ -132,9 +168,24 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     setSeed(randomSeed(4));
   };
 
+  // Switching the aspect ratio re-derives every grid option at its current
+  // density level so the preset keeps its intended coarseness and square cells.
+  const changeAspectRatio = (nextRatio: AspectRatioId) => {
+    setOptionValues((prev) =>
+      prev.map((value, index) =>
+        artwork.options[index].id === GRID_OPTION_ID
+          ? deriveGrid(nextRatio, gridToLevel(String(value)))
+          : value
+      )
+    );
+    setAspectRatio(nextRatio);
+  };
+
   const exportArtwork = async () => {
     await doodleRef.current?.export({
-      scale: Math.ceil(3000 / width),
+      // Cap the longer edge at ~3000px so exports stay a sensible size in any
+      // orientation.
+      scale: Math.ceil(3000 / Math.max(width, height)),
       download: true,
     });
   };
@@ -200,16 +251,24 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     let componentJsx: ReactNode = null;
 
     switch (option.type) {
-      case 'ButtonSelectGroup':
+      case 'ButtonSelectGroup': {
+        // Grid options follow the selected aspect ratio; everything else uses
+        // the choices declared in the preset JSON.
+        const buttonOptions =
+          option.id === GRID_OPTION_ID
+            ? getGridOptions(aspectRatio)
+            : option.options;
+
         componentJsx =
-          option.options && option.options.length > 0 ? (
+          buttonOptions && buttonOptions.length > 0 ? (
             <ButtonSelectGroup
-              options={option.options}
+              options={buttonOptions}
               value={controlValue as string}
               onChange={onChange}
             />
           ) : null;
         break;
+      }
       case 'Slider':
         componentJsx = (
           <div className={styles.valueSliderWrapper}>
@@ -289,6 +348,19 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
                     />
                   ))}
                 </div>
+              </div>
+            )}
+
+            {!lockedAspectRatio && (
+              <div className={styles.optionBox}>
+                <h3>Aspect ratio</h3>
+                <ButtonSelectGroup
+                  options={[...ASPECT_RATIO_IDS]}
+                  value={aspectRatio}
+                  onChange={(value) =>
+                    changeAspectRatio(value as AspectRatioId)
+                  }
+                />
               </div>
             )}
 

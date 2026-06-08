@@ -1,6 +1,8 @@
 {
   "name": "Odessa",
   "slug": "odessa",
+  "galleryOrder": 3,
+  "galleryWhite": true,
   "palette": ["#FFFFFF", "#3FFFB2", "#D89FFF", "#D89FFF", "#FF3D8B"],
   "options": [
     {

@@ -1,6 +1,7 @@
 {
   "name": "Veil",
   "slug": "veil",
+  "galleryOrder": 5,
   "palette": ["#FFFFFF", "#FFA1C6", "#3FFFB2", "#3EECFF", "#1B4075", "#326DC9"],
   "options": [
     {

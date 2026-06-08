@@ -1,6 +1,7 @@
 {
   "name": "Mixtape",
   "slug": "mixtape",
+  "galleryOrder": 2,
   "palette": ["#FFFFFF", "#232529", "#3E8BFF", "#3FFFB2", "#3EECFF", "#3FFFB2"],
   "options": [
     {

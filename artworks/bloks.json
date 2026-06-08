@@ -1,6 +1,7 @@
 {
   "name": "Bloks",
   "slug": "bloks",
+  "galleryOrder": 8,
   "palette": ["#FFFFFF", "#3B3F45", "#3FFFB2", "#3EECFF", "#97F4FF", "#FF3D8B"],
   "options": [
     {

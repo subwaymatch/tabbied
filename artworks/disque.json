@@ -1,6 +1,7 @@
 {
   "name": "Disque",
   "slug": "disque",
+  "galleryOrder": 7,
   "palette": ["#FFFFFF", "#232529", "#3EECFF", "#FF3D8B", "#3FFFB2", "#F5DD32"],
   "options": [
     {

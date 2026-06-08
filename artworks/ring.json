@@ -1,6 +1,8 @@
 {
   "name": "Ring",
   "slug": "ring",
+  "galleryOrder": 11,
+  "galleryWhite": true,
   "palette": ["#9EFFD8", "#FFFFFF", "#9EFFD8", "#232529"],
   "options": [
     {

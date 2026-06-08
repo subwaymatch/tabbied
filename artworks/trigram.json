@@ -1,6 +1,8 @@
 {
   "name": "Trigram",
   "slug": "trigram",
+  "galleryOrder": 10,
+  "galleryWhite": true,
   "palette": ["#FFFFFF", "#3E8BFF", "#FF3D8B", "#3FFF50", "#F5DD32"],
   "options": [
     {

@@ -1,6 +1,8 @@
 {
   "name": "Blossom",
   "slug": "blossom",
+  "galleryOrder": 6,
+  "galleryWhite": true,
   "description": "Isosceles right triangles are randomly placed to balance stability with a bit of mystery and interest.",
   "palette": ["#FFFFFF", "#3EECFF", "#FFA1C6", "#3FFFB2", "#ECFF3D", "#FF3D8B"],
   "options": [
