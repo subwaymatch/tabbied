@@ -52,15 +52,7 @@ export default function MainHeader() {
             <div className="align-right">
               <a
                 href="https://www.producthunt.com/posts/tabbied?utm_source=badge-top-post-badge&utm_medium=badge&utm_souce=badge-tabbied"
-                style={{
-                  background:
-                    'url("https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=279660&theme=light&period=daily") no-repeat center center',
-                  display: 'inline-block',
-                  width: '238px',
-                  height: '49px',
-                  lineHeight: 0,
-                  marginTop: '10px',
-                }}
+                className={styles.productHuntBadge}
                 target="_blank"
                 rel="noreferrer"
                 aria-label="Tabbied on Product Hunt"

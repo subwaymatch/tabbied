@@ -21,6 +21,24 @@
   }
 }
 
+/*
+ * Product Hunt badge. The badge has a fixed natural size (238x49), but its
+ * column is only ~2/3 of the viewport on phones, where a hard 238px width
+ * overflowed the right edge and caused horizontal scroll. Cap the width to the
+ * column and let the aspect ratio scale the height so it always fits.
+ */
+.productHuntBadge {
+  display: inline-block;
+  width: 238px;
+  max-width: 100%;
+  aspect-ratio: 238 / 49;
+  margin-top: 10px;
+  line-height: 0;
+  background: url('https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=279660&theme=light&period=daily')
+    no-repeat center center;
+  background-size: contain;
+}
+
 .pageNavigation {
   display: inline-block;
 }
