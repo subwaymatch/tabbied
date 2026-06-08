@@ -7,17 +7,16 @@ import useMediaQuery from 'lib/useMediaQuery';
 import type { Artwork, ArtworkOption } from 'lib/artwork';
 import {
   type AspectRatioId,
-  RATIO_PRESETS,
+  ASPECT_RATIO_IDS,
   DEFAULT_ASPECT_RATIO,
   deriveGrid,
   getCanvasSize,
   getGridOptions,
   gridToLevel,
-  isValidRatio,
+  isAspectRatioId,
 } from 'lib/aspectRatio';
 import EditArtworkHeader from 'components/edit-artwork-page/EditArtworkHeader';
 import ButtonSelectGroup from 'components/ButtonSelectGroup';
-import CustomRatioInput from 'components/CustomRatioInput';
 import ValueSlider from 'components/ValueSlider';
 import ToggleSwitch from 'components/ToggleSwitch';
 import styles from './EditArtwork.module.css';
@@ -124,7 +123,7 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     if (
       !lockedAspectRatio &&
       queryAspectRatio &&
-      isValidRatio(queryAspectRatio) &&
+      isAspectRatioId(queryAspectRatio) &&
       queryAspectRatio !== aspectRatio
     ) {
       setAspectRatio(queryAspectRatio);
@@ -362,15 +361,11 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
               <div className={styles.optionBox}>
                 <h3>Aspect ratio</h3>
                 <ButtonSelectGroup
-                  options={[...RATIO_PRESETS]}
+                  options={[...ASPECT_RATIO_IDS]}
                   value={aspectRatio}
                   onChange={(value) =>
                     changeAspectRatio(value as AspectRatioId)
                   }
-                />
-                <CustomRatioInput
-                  value={aspectRatio}
-                  onChange={changeAspectRatio}
                 />
               </div>
             )}

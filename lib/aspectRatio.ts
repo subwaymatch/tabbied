@@ -1,23 +1,27 @@
 // Aspect-ratio + grid helpers shared by the artwork editor.
 //
-// A doodle is rendered on a canvas whose dimensions follow the selected aspect
-// ratio. The column×row grid adapts to the ratio so that each cell stays
-// (near-)square — this keeps every preset looking the way it was authored
-// regardless of orientation.
-//
-// A ratio is a "w:h" string. A handful of presets are offered as buttons; any
-// other valid "w:h" string (e.g. a user-entered custom ratio) is supported too.
+// A doodle is rendered on a fixed-width canvas whose height follows the
+// selected aspect ratio. The column×row grid adapts to the ratio so that each
+// cell stays (near-)square — this keeps every preset looking the way it was
+// authored regardless of orientation.
 
-// Buttons shown in the aspect-ratio selector (portrait → square → landscape).
-export const RATIO_PRESETS = ['1:2', '2:3', '1:1', '3:2', '2:1'] as const;
+export const ASPECT_RATIOS = {
+  // portrait
+  '1:2': [1, 2],
+  '2:3': [2, 3],
+  // square
+  '1:1': [1, 1],
+  // landscape
+  '3:2': [3, 2],
+  '2:1': [2, 1],
+} as const;
 
-// A ratio identifier — a preset or any custom "w:h" string.
-export type AspectRatioId = string;
+export type AspectRatioId = keyof typeof ASPECT_RATIOS;
 
-export const DEFAULT_ASPECT_RATIO = '2:3';
+export const DEFAULT_ASPECT_RATIO: AspectRatioId = '2:3';
 
-// Guard rails for custom ratios so the canvas and grid stay sane.
-const MAX_RATIO_TERM = 100;
+// Display order for the aspect-ratio selector (portrait → square → landscape).
+export const ASPECT_RATIO_IDS = Object.keys(ASPECT_RATIOS) as AspectRatioId[];
 
 // Density of the grid, measured as the number of cells along the canvas's
 // longer edge. Level 0 is the coarsest. The 2:3 ratio reproduces the original
@@ -26,43 +30,8 @@ const LONG_EDGE_COUNTS = [3, 6, 9, 12, 15] as const;
 
 export const GRID_LEVEL_COUNT = LONG_EDGE_COUNTS.length;
 
-// Parse a "w:h" ratio into positive, finite [w, h], or null when malformed.
-export function parseRatio(value: string): [number, number] | null {
-  if (typeof value !== 'string') {
-    return null;
-  }
-
-  const parts = value.split(':');
-
-  if (parts.length !== 2) {
-    return null;
-  }
-
-  const w = Number(parts[0]);
-  const h = Number(parts[1]);
-
-  if (!Number.isFinite(w) || !Number.isFinite(h)) {
-    return null;
-  }
-
-  if (w <= 0 || h <= 0 || w > MAX_RATIO_TERM || h > MAX_RATIO_TERM) {
-    return null;
-  }
-
-  return [w, h];
-}
-
-export function isValidRatio(value: string): boolean {
-  return parseRatio(value) !== null;
-}
-
-// Falls back to the default ratio for malformed input so callers never crash on
-// a hand-edited URL.
-function resolveRatio(ratio: AspectRatioId): [number, number] {
-  return parseRatio(ratio) ?? (parseRatio(DEFAULT_ASPECT_RATIO) as [
-    number,
-    number,
-  ]);
+export function isAspectRatioId(value: string): value is AspectRatioId {
+  return value in ASPECT_RATIOS;
 }
 
 // Canvas pixel dimensions for a ratio, fitted inside the original preview
@@ -74,7 +43,7 @@ export function getCanvasSize(
   ratio: AspectRatioId,
   baseWidth: number
 ): { width: number; height: number } {
-  const [rw, rh] = resolveRatio(ratio);
+  const [rw, rh] = ASPECT_RATIOS[ratio];
   const boxWidth = baseWidth;
   const boxHeight = baseWidth * 1.5;
   const scale = Math.min(boxWidth / rw, boxHeight / rh);
@@ -89,7 +58,7 @@ export function getCanvasSize(
 // as square as the ratio allows. The longer edge gets LONG_EDGE_COUNTS[level]
 // cells; the shorter edge is scaled down proportionally (min 1).
 export function deriveGrid(ratio: AspectRatioId, level: number): string {
-  const [rw, rh] = resolveRatio(ratio);
+  const [rw, rh] = ASPECT_RATIOS[ratio];
   const clampedLevel = Math.min(
     Math.max(level, 0),
     LONG_EDGE_COUNTS.length - 1
