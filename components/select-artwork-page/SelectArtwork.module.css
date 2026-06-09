@@ -23,6 +23,27 @@
   color: white;
 }
 
+/* Live css-doodle thumbnail: a square frame that clips the scaled artwork. */
+.doodleThumb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.doodleThumbInner {
+  position: absolute;
+  inset: 0;
+}
+
+.doodleThumbInner css-doodle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+}
+
 /* Select-artwork page */
 .selectArtworkSection .grayBackground {
   background: rgba(248, 249, 250, 0.6);

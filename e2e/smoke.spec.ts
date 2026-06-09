@@ -45,6 +45,37 @@ test.describe('Tabbied site', () => {
     ).toBeVisible({ timeout: 15000 });
   });
 
+  test('select-artwork gallery renders live css-doodle thumbnails', async ({
+    page,
+  }) => {
+    await page.goto('/select-artwork');
+
+    // The raster <img> thumbnails were replaced by per-design css-doodle, so a
+    // thumbnail element must mount and actually paint cells (guards against the
+    // ssr:false boundary / source-building regressing to an empty grid).
+    await page.waitForFunction(() => !!window.customElements.get('css-doodle'));
+    await expect(page.locator('css-doodle#thumb-radius')).toBeAttached({
+      timeout: 15000,
+    });
+
+    await expect
+      .poll(
+        () =>
+          page.evaluate(() => {
+            const el = document.querySelector('css-doodle#thumb-radius');
+            if (!el || !el.shadowRoot) return 0;
+            return [...el.shadowRoot.querySelectorAll('cssd-cell')].filter(
+              (cell) => {
+                const bg = getComputedStyle(cell).backgroundColor;
+                return bg && bg !== 'rgba(0, 0, 0, 0)';
+              }
+            ).length;
+          }),
+        { timeout: 10000 }
+      )
+      .toBeGreaterThan(1);
+  });
+
   test('artwork editor renders the css-doodle and controls', async ({
     page,
   }) => {

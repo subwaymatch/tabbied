@@ -46,6 +46,10 @@ export type GalleryItem = {
   slug: string;
   name: string;
   white: boolean;
+  /** Everything the gallery needs to render a live css-doodle thumbnail. */
+  palette: string[];
+  options: ArtworkOption[];
+  code: Artwork['code'];
 };
 
 const artworksPath = path.join(process.cwd(), 'artworks');
@@ -78,8 +82,18 @@ export async function getGalleryItems(): Promise<GalleryItem[]> {
       slug: artwork.slug,
       name: artwork.name,
       white: artwork.galleryWhite ?? false,
+      palette: artwork.palette ?? [],
+      options: artwork.options,
+      code: artwork.code,
       order: artwork.galleryOrder ?? Number.MAX_SAFE_INTEGER,
     }))
     .sort((a, b) => a.order - b.order || a.name.localeCompare(b.name))
-    .map(({ slug, name, white }) => ({ slug, name, white }));
+    .map(({ slug, name, white, palette, options, code }) => ({
+      slug,
+      name,
+      white,
+      palette,
+      options,
+      code,
+    }));
 }
