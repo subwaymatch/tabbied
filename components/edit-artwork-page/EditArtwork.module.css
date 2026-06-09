@@ -8,6 +8,9 @@
 
 .editArtworkSection {
   flex-grow: 1;
+  /* Allow this row to shrink below its content height so the options column can
+     scroll on short viewports instead of overflowing the page. */
+  min-height: 0;
   display: flex;
 }
 
@@ -18,7 +21,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
+  padding: 1rem;
   overflow: hidden;
 }
 
@@ -37,12 +40,12 @@
 .options {
   width: 100%;
   max-width: 32rem;
-  padding: 4rem;
+  padding: 2.5rem;
 }
 
 @media (min-width: 992px) and (max-width: 1299.98px) {
   .options {
-    padding: 2.5rem;
+    padding: 1.75rem;
   }
 }
 
