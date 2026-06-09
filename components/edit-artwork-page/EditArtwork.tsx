@@ -13,7 +13,6 @@ import {
   ASPECT_RATIO_IDS,
   DEFAULT_ASPECT_RATIO,
   deriveGrid,
-  getCanvasSize,
   getGridOptions,
   gridToLevel,
   isAspectRatioId,
@@ -56,6 +55,17 @@ const randomHexColor = () =>
 
 // Longest edge of the little aspect-ratio preview rectangle, in pixels.
 const ASPECT_RATIO_RECT_SIZE = 20;
+
+// Fraction of the preview area the artwork fills, leaving a margin around it.
+const PREVIEW_FIT_MARGIN = 0.9;
+
+// Largest width/height for `ratio` that fits inside a maxW × maxH box.
+const fitToBox = (ratio: AspectRatioId, maxW: number, maxH: number) => {
+  const [rw, rh] = ASPECT_RATIOS[ratio];
+  const scale = Math.min(maxW / rw, maxH / rh);
+
+  return { width: Math.round(rw * scale), height: Math.round(rh * scale) };
+};
 
 // A hollow rectangle whose proportions mirror the aspect ratio, shown inside
 // each aspect-ratio button so the shape is visible at a glance. The rectangle
@@ -162,14 +172,33 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     width: number;
     height: number;
   } | null>(null);
+  const [previewSize, setPreviewSize] = useState<{
+    width: number;
+    height: number;
+  } | null>(null);
   const doodleRef = useRef<any>(null);
   const expandedDoodleRef = useRef<any>(null);
+  const previewRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const isScreenXS = useMediaQuery('(max-width: 747.99px)');
+  const isTwoColumn = useMediaQuery('(min-width: 992px)');
   const baseWidth = isScreenXS ? 240 : 360;
-  const { width, height } = getCanvasSize(aspectRatio, baseWidth);
+
+  // Scale the artwork to fill the preview area (leaving a margin) so it shows as
+  // large as the space allows. Until the preview is measured, fall back to the
+  // original fixed footprint. In the stacked (single-column) layout the preview
+  // height grows with the artwork, so the height is capped against the viewport
+  // there rather than measured to avoid a feedback loop.
+  const { width, height } = previewSize
+    ? fitToBox(
+        aspectRatio,
+        previewSize.width * PREVIEW_FIT_MARGIN,
+        (isTwoColumn ? previewSize.height : (viewport?.height ?? 800) * 0.6) *
+          PREVIEW_FIT_MARGIN
+      )
+    : fitToBox(aspectRatio, baseWidth, baseWidth * 1.5);
 
   // Sync component state FROM the URL search params.
   useEffect(() => {
@@ -225,7 +254,7 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
   useEffect(() => {
     updateDoodleCode();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isScreenXS, palette, optionValues, aspectRatio]);
+  }, [palette, optionValues, aspectRatio, width, height]);
 
   // Track the viewport so the expanded dialog can size the artwork to fit.
   useEffect(() => {
@@ -236,6 +265,31 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     window.addEventListener('resize', updateViewport);
 
     return () => window.removeEventListener('resize', updateViewport);
+  }, []);
+
+  // Measure the preview area so the artwork can be scaled to fill it.
+  useEffect(() => {
+    const element = previewRef.current;
+
+    if (!element) {
+      return;
+    }
+
+    const observer = new ResizeObserver((entries) => {
+      const { width: w, height: h } = entries[0].contentRect;
+
+      setPreviewSize((prev) => {
+        const next = { width: Math.round(w), height: Math.round(h) };
+
+        return prev && prev.width === next.width && prev.height === next.height
+          ? prev
+          : next;
+      });
+    });
+
+    observer.observe(element);
+
+    return () => observer.disconnect();
   }, []);
 
   // Sync the URL search params FROM component state if necessary.
@@ -427,15 +481,13 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
   const expandIconColor = getExpandIconColor(previewBackground);
 
   // Fit the artwork inside the viewport (with a little margin) for the dialog.
-  const [ratioWidth, ratioHeight] = ASPECT_RATIOS[aspectRatio];
-  const expandedScale = Math.min(
-    ((viewport?.width ?? 1200) * 0.9) / ratioWidth,
-    ((viewport?.height ?? 800) * 0.9) / ratioHeight
+  const expanded = fitToBox(
+    aspectRatio,
+    (viewport?.width ?? 1200) * 0.9,
+    (viewport?.height ?? 800) * 0.9
   );
-  const expandedWidth = Math.round(ratioWidth * expandedScale);
-  const expandedHeight = Math.round(ratioHeight * expandedScale);
   const expandedSource = isExpanded
-    ? buildDoodleSource(expandedWidth, expandedHeight)
+    ? buildDoodleSource(expanded.width, expanded.height)
     : null;
 
   return (
@@ -445,6 +497,7 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
       <main className={styles.editArtworkSection}>
         <Dialog.Root open={isExpanded} onOpenChange={setIsExpanded}>
           <div
+            ref={previewRef}
             className={styles.previewWrapper}
             style={{ backgroundColor: previewBackground }}
           >
