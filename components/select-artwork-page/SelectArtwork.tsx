@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { Container, Row, Col } from 'components/layout';
 import type { GalleryItem } from 'lib/artwork';
+import GalleryDoodle from './GalleryDoodle';
 import styles from './SelectArtwork.module.css';
 
 export default function SelectArtwork({
@@ -29,12 +29,7 @@ export default function SelectArtwork({
                     <h4 className={item.white ? styles.white : undefined}>
                       {item.name}
                     </h4>
-                    <Image
-                      src={`/images/thumb_${item.slug}.png`}
-                      alt={item.name}
-                      width={800}
-                      height={800}
-                    />
+                    <GalleryDoodle item={item} />
                   </div>
                 </Link>
               </Col>

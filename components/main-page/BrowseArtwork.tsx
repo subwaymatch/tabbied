@@ -1,19 +1,17 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Container, Row, Col } from 'components/layout';
+import { getGalleryItems } from 'lib/artwork';
+import GalleryDoodle from 'components/select-artwork-page/GalleryDoodle';
 import styles from './BrowseArtwork.module.css';
 
-const gallery = [
-  { slug: 'radius', name: 'Radius', thumb: 'thumb_radius', white: true },
-  { slug: 'mixtape', name: 'Mixtape', thumb: 'thumb_mixtape' },
-  { slug: 'odessa', name: 'Odessa', thumb: 'thumb_odessa', white: true },
-  { slug: 'symmetry', name: 'Symmetry', thumb: 'thumb_symmetry' },
-  { slug: 'veil', name: 'Veil', thumb: 'thumb_veil' },
-  { slug: 'blossom', name: 'Blossom', thumb: 'thumb_blossom', white: true },
-  { slug: 'disque', name: 'Disque', thumb: 'thumb_disque' },
-];
+// The homepage shows the first handful of designs (galleryOrder 1–7); the full
+// set lives behind the "View All" card on the select-artwork page.
+const BROWSE_COUNT = 7;
 
-export default function BrowseArtworkSection() {
+export default async function BrowseArtworkSection() {
+  const gallery = (await getGalleryItems()).slice(0, BROWSE_COUNT);
+
   return (
     <div id="section-browse-artwork" className={styles.browseArtworkSection}>
       <Container>
@@ -34,12 +32,7 @@ export default function BrowseArtworkSection() {
                   <h4 className={item.white ? styles.white : undefined}>
                     {item.name}
                   </h4>
-                  <Image
-                    src={`/images/${item.thumb}.png`}
-                    alt={item.name}
-                    width={800}
-                    height={800}
-                  />
+                  <GalleryDoodle item={item} />
                 </div>
               </Link>
             </Col>

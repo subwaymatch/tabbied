@@ -21,6 +21,7 @@ import EditArtworkHeader from 'components/edit-artwork-page/EditArtworkHeader';
 import ButtonSelectGroup from 'components/ButtonSelectGroup';
 import ValueSlider from 'components/ValueSlider';
 import ToggleSwitch from 'components/ToggleSwitch';
+import { buildDoodleSource, type OptionValue } from 'lib/doodleSource';
 import styles from './EditArtwork.module.css';
 
 const Doodle = dynamic(() => import('components/Doodle'), {
@@ -30,8 +31,6 @@ const Doodle = dynamic(() => import('components/Doodle'), {
 const ColorPicker = dynamic(() => import('components/ColorPicker'), {
   ssr: false,
 });
-
-type OptionValue = string | number | boolean;
 
 // Options with this id hold a "colsxrows" grid string and follow the selected
 // aspect ratio so that cells stay (near-)square.
@@ -142,14 +141,6 @@ const getExpandIconColor = (background: string): string => {
 
 const arraysEqual = (a: string[], b: string[]) =>
   a.length === b.length && a.every((value, index) => value === b[index]);
-
-// css-doodle >= 0.5 reads `@random(1)` as a one-cell count rather than a 100%
-// probability gate (fractional values still behave as probabilities). The
-// artwork definitions were authored against css-doodle 0.12 where `@random(1)`
-// meant "every cell", so nudge the fully-on case just under 1 to preserve the
-// original look at maximum frequency.
-const fixFullRandomGate = (code: string) =>
-  code.replace(/@random\s*\(\s*1(?:\.0+)?\s*\)/g, '@random(0.999)');
 
 export default function EditArtwork({ artwork }: { artwork: Artwork }) {
   // A preset may pin itself to a single aspect ratio (e.g. Symmetry), in which
@@ -356,60 +347,21 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     });
   };
 
-  const getColorsStyleCode = (colors: string[]) =>
-    colors.map((color, idx) => `--color${idx}: ${color};\n`).join('');
-
   // Build the css-doodle source for a given canvas size. The pattern depends
   // only on the seed and grid, so the same seed produces the same artwork at
   // any size — letting the expanded dialog render a larger copy that matches.
-  const buildDoodleSource = (canvasWidth: number, canvasHeight: number) => {
-    let newStyleCode = artwork.code.style;
-    let newDoodleCode = artwork.code.doodle;
-
-    artwork.options.forEach((option, index) => {
-      switch (option.type) {
-        case 'ButtonSelectGroup':
-        case 'Slider':
-          newStyleCode = newStyleCode
-            .split(option.replace)
-            .join(String(optionValues[index]));
-
-          newDoodleCode = newDoodleCode
-            .split(option.replace)
-            .join(String(optionValues[index]));
-
-          break;
-        case 'ToggleSwitch':
-          if (optionValues[index]) {
-            newStyleCode = newStyleCode
-              .split(option.replace)
-              .join(option.code ?? '');
-            newDoodleCode = newDoodleCode
-              .split(option.replace)
-              .join(String(optionValues[index]));
-          } else {
-            newStyleCode = newStyleCode.split(option.replace).join('');
-            newDoodleCode = newDoodleCode.split(option.replace).join('');
-          }
-          break;
-        default:
-          break;
-      }
+  const buildSource = (canvasWidth: number, canvasHeight: number) =>
+    buildDoodleSource({
+      code: artwork.code,
+      options: artwork.options,
+      palette,
+      optionValues,
+      width: `${canvasWidth}px`,
+      height: `${canvasHeight}px`,
     });
 
-    newDoodleCode = newDoodleCode.split('${width}').join(`${canvasWidth}px`);
-    newDoodleCode = newDoodleCode.split('${height}').join(`${canvasHeight}px`);
-
-    newStyleCode = fixFullRandomGate(newStyleCode);
-    newDoodleCode = fixFullRandomGate(newDoodleCode);
-
-    newStyleCode = getColorsStyleCode(palette) + newStyleCode;
-
-    return { styleCode: newStyleCode, doodleCode: newDoodleCode };
-  };
-
   const updateDoodleCode = () => {
-    const source = buildDoodleSource(width, height);
+    const source = buildSource(width, height);
 
     setStyleCode(source.styleCode);
     setDoodleCode(source.doodleCode);
@@ -487,7 +439,7 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     (viewport?.height ?? 800) * 0.9
   );
   const expandedSource = isExpanded
-    ? buildDoodleSource(expanded.width, expanded.height)
+    ? buildSource(expanded.width, expanded.height)
     : null;
 
   return (
