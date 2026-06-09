@@ -6,7 +6,7 @@
   color: #808a98; /* color.scale($gray-medium, +20% lightness) */
   background-color: #ffffff;
   width: 4.8rem;
-  height: 3.2rem;
+  min-height: 3.2rem;
   align-items: center;
   justify-content: center;
   border: 2px solid transparent;
