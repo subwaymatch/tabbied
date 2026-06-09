@@ -3,14 +3,16 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
+import { Dialog } from '@base-ui-components/react/dialog';
+import { Shuffle, Expand, X } from 'lucide-react';
 import useMediaQuery from 'lib/useMediaQuery';
 import type { Artwork, ArtworkOption } from 'lib/artwork';
 import {
   type AspectRatioId,
+  ASPECT_RATIOS,
   ASPECT_RATIO_IDS,
   DEFAULT_ASPECT_RATIO,
   deriveGrid,
-  getCanvasSize,
   getGridOptions,
   gridToLevel,
   isAspectRatioId,
@@ -45,6 +47,99 @@ const randomSeed = (length = 4) =>
     () => SEED_CHARS[Math.floor(Math.random() * SEED_CHARS.length)]
   ).join('');
 
+// A random 6-digit hex color (e.g. "#3eecff"), used to shuffle the palette.
+const randomHexColor = () =>
+  `#${Math.floor(Math.random() * 0xffffff)
+    .toString(16)
+    .padStart(6, '0')}`;
+
+// Longest edge of the little aspect-ratio preview rectangle, in pixels.
+const ASPECT_RATIO_RECT_SIZE = 20;
+
+// Fraction of the preview area the artwork fills, leaving a margin around it.
+const PREVIEW_FIT_MARGIN = 0.9;
+
+// Largest width/height for `ratio` that fits inside a maxW × maxH box.
+const fitToBox = (ratio: AspectRatioId, maxW: number, maxH: number) => {
+  const [rw, rh] = ASPECT_RATIOS[ratio];
+  const scale = Math.min(maxW / rw, maxH / rh);
+
+  return { width: Math.round(rw * scale), height: Math.round(rh * scale) };
+};
+
+// A hollow rectangle whose proportions mirror the aspect ratio, shown inside
+// each aspect-ratio button so the shape is visible at a glance. The rectangle
+// lives in a fixed-height slot so every button ends up the same height
+// regardless of whether the ratio is portrait or landscape.
+const renderAspectRatioOption = (option: string): ReactNode => {
+  const [rw, rh] = ASPECT_RATIOS[option as AspectRatioId];
+  const scale = ASPECT_RATIO_RECT_SIZE / Math.max(rw, rh);
+
+  return (
+    <span className={styles.aspectRatioOption}>
+      <span className={styles.aspectRatioRectSlot}>
+        <span
+          className={styles.aspectRatioRect}
+          style={{ width: `${rw * scale}px`, height: `${rh * scale}px` }}
+        />
+      </span>
+      <span>{option}</span>
+    </span>
+  );
+};
+
+// Parse a #rgb / #rrggbb / #rrggbbaa color into 0-255 channels (alpha ignored).
+const hexToRgb = (
+  hex: string
+): { r: number; g: number; b: number } | null => {
+  let value = hex.trim().replace(/^#/, '');
+
+  if (value.length === 3) {
+    value = value
+      .split('')
+      .map((char) => char + char)
+      .join('');
+  }
+
+  if (value.length !== 6 && value.length !== 8) {
+    return null;
+  }
+
+  const int = parseInt(value.slice(0, 6), 16);
+
+  if (Number.isNaN(int)) {
+    return null;
+  }
+
+  return { r: (int >> 16) & 255, g: (int >> 8) & 255, b: int & 255 };
+};
+
+// Pick an expand-icon color that stays legible on any preview background:
+// white on dark backgrounds, and a blend of near-black with the background
+// (so it reads as a tinted dark) on light backgrounds.
+const getExpandIconColor = (background: string): string => {
+  const rgb = hexToRgb(background);
+
+  if (!rgb) {
+    return 'var(--gray-dark)';
+  }
+
+  // Perceived luminance (sRGB-weighted), normalized to 0-1.
+  const luminance = (0.2126 * rgb.r + 0.7152 * rgb.g + 0.0722 * rgb.b) / 255;
+
+  if (luminance < 0.5) {
+    return '#ffffff';
+  }
+
+  const dark = { r: 0x23, g: 0x25, b: 0x29 };
+  const blend = (from: number, to: number) => Math.round(from + (to - from) * 0.3);
+
+  return `rgb(${blend(dark.r, rgb.r)}, ${blend(dark.g, rgb.g)}, ${blend(
+    dark.b,
+    rgb.b
+  )})`;
+};
+
 const arraysEqual = (a: string[], b: string[]) =>
   a.length === b.length && a.every((value, index) => value === b[index]);
 
@@ -72,13 +167,38 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
   const [styleCode, setStyleCode] = useState('');
   const [doodleCode, setDoodleCode] = useState('');
   const [seed, setSeed] = useState('0000');
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [viewport, setViewport] = useState<{
+    width: number;
+    height: number;
+  } | null>(null);
+  const [previewSize, setPreviewSize] = useState<{
+    width: number;
+    height: number;
+  } | null>(null);
   const doodleRef = useRef<any>(null);
+  const expandedDoodleRef = useRef<any>(null);
+  const previewRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const isScreenXS = useMediaQuery('(max-width: 747.99px)');
+  const isTwoColumn = useMediaQuery('(min-width: 992px)');
   const baseWidth = isScreenXS ? 240 : 360;
-  const { width, height } = getCanvasSize(aspectRatio, baseWidth);
+
+  // Scale the artwork to fill the preview area (leaving a margin) so it shows as
+  // large as the space allows. Until the preview is measured, fall back to the
+  // original fixed footprint. In the stacked (single-column) layout the preview
+  // height grows with the artwork, so the height is capped against the viewport
+  // there rather than measured to avoid a feedback loop.
+  const { width, height } = previewSize
+    ? fitToBox(
+        aspectRatio,
+        previewSize.width * PREVIEW_FIT_MARGIN,
+        (isTwoColumn ? previewSize.height : (viewport?.height ?? 800) * 0.6) *
+          PREVIEW_FIT_MARGIN
+      )
+    : fitToBox(aspectRatio, baseWidth, baseWidth * 1.5);
 
   // Sync component state FROM the URL search params.
   useEffect(() => {
@@ -134,7 +254,43 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
   useEffect(() => {
     updateDoodleCode();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isScreenXS, palette, optionValues, aspectRatio]);
+  }, [palette, optionValues, aspectRatio, width, height]);
+
+  // Track the viewport so the expanded dialog can size the artwork to fit.
+  useEffect(() => {
+    const updateViewport = () =>
+      setViewport({ width: window.innerWidth, height: window.innerHeight });
+
+    updateViewport();
+    window.addEventListener('resize', updateViewport);
+
+    return () => window.removeEventListener('resize', updateViewport);
+  }, []);
+
+  // Measure the preview area so the artwork can be scaled to fill it.
+  useEffect(() => {
+    const element = previewRef.current;
+
+    if (!element) {
+      return;
+    }
+
+    const observer = new ResizeObserver((entries) => {
+      const { width: w, height: h } = entries[0].contentRect;
+
+      setPreviewSize((prev) => {
+        const next = { width: Math.round(w), height: Math.round(h) };
+
+        return prev && prev.width === next.width && prev.height === next.height
+          ? prev
+          : next;
+      });
+    });
+
+    observer.observe(element);
+
+    return () => observer.disconnect();
+  }, []);
 
   // Sync the URL search params FROM component state if necessary.
   useEffect(() => {
@@ -174,6 +330,10 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     setSeed(randomSeed(4));
   };
 
+  const randomizePalette = () => {
+    setPalette((prev) => prev.map(() => randomHexColor()));
+  };
+
   // Switching the aspect ratio re-derives every grid option at its current
   // density level so the preset keeps its intended coarseness and square cells.
   const changeAspectRatio = (nextRatio: AspectRatioId) => {
@@ -199,7 +359,10 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
   const getColorsStyleCode = (colors: string[]) =>
     colors.map((color, idx) => `--color${idx}: ${color};\n`).join('');
 
-  const updateDoodleCode = () => {
+  // Build the css-doodle source for a given canvas size. The pattern depends
+  // only on the seed and grid, so the same seed produces the same artwork at
+  // any size — letting the expanded dialog render a larger copy that matches.
+  const buildDoodleSource = (canvasWidth: number, canvasHeight: number) => {
     let newStyleCode = artwork.code.style;
     let newDoodleCode = artwork.code.doodle;
 
@@ -234,16 +397,22 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
       }
     });
 
-    newDoodleCode = newDoodleCode.split('${width}').join(`${width}px`);
-    newDoodleCode = newDoodleCode.split('${height}').join(`${height}px`);
+    newDoodleCode = newDoodleCode.split('${width}').join(`${canvasWidth}px`);
+    newDoodleCode = newDoodleCode.split('${height}').join(`${canvasHeight}px`);
 
     newStyleCode = fixFullRandomGate(newStyleCode);
     newDoodleCode = fixFullRandomGate(newDoodleCode);
 
     newStyleCode = getColorsStyleCode(palette) + newStyleCode;
 
-    setStyleCode(newStyleCode);
-    setDoodleCode(newDoodleCode);
+    return { styleCode: newStyleCode, doodleCode: newDoodleCode };
+  };
+
+  const updateDoodleCode = () => {
+    const source = buildDoodleSource(width, height);
+
+    setStyleCode(source.styleCode);
+    setDoodleCode(source.doodleCode);
   };
 
   const getOptionControlComponent = (
@@ -308,33 +477,95 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     ) : null;
   };
 
+  const previewBackground = palette.length > 0 ? palette[0] : 'transparent';
+  const expandIconColor = getExpandIconColor(previewBackground);
+
+  // Fit the artwork inside the viewport (with a little margin) for the dialog.
+  const expanded = fitToBox(
+    aspectRatio,
+    (viewport?.width ?? 1200) * 0.9,
+    (viewport?.height ?? 800) * 0.9
+  );
+  const expandedSource = isExpanded
+    ? buildDoodleSource(expanded.width, expanded.height)
+    : null;
+
   return (
     <div className={styles.pageWrapper}>
       <EditArtworkHeader onRedraw={randomizeSeed} onExport={exportArtwork} />
 
       <main className={styles.editArtworkSection}>
-        <div
-          className={styles.previewWrapper}
-          style={{
-            backgroundColor: palette.length > 0 ? palette[0] : 'transparent',
-          }}
-        >
-          <div className={styles.doodleFrame}>
-            <Doodle
-              name={artwork.slug}
-              seed={seed}
-              styleCode={styleCode}
-              doodleCode={doodleCode}
-              doodleRef={doodleRef}
-            />
+        <Dialog.Root open={isExpanded} onOpenChange={setIsExpanded}>
+          <div
+            ref={previewRef}
+            className={styles.previewWrapper}
+            style={{ backgroundColor: previewBackground }}
+          >
+            <Dialog.Trigger
+              className={styles.expandButton}
+              style={{ color: expandIconColor }}
+              aria-label="Expand artwork"
+            >
+              <Expand size={20} />
+            </Dialog.Trigger>
+
+            <div className={styles.doodleFrame}>
+              <Doodle
+                name={artwork.slug}
+                seed={seed}
+                styleCode={styleCode}
+                doodleCode={doodleCode}
+                doodleRef={doodleRef}
+              />
+            </div>
           </div>
-        </div>
+
+          <Dialog.Portal>
+            <Dialog.Backdrop className={styles.dialogBackdrop} />
+            <Dialog.Popup className={styles.dialogPopup}>
+              <Dialog.Title className={styles.srOnly}>
+                {artwork.name}
+              </Dialog.Title>
+              <Dialog.Close
+                className={styles.dialogClose}
+                aria-label="Close expanded view"
+              >
+                <X size={24} />
+              </Dialog.Close>
+              <div
+                className={styles.dialogDoodle}
+                style={{ backgroundColor: previewBackground }}
+              >
+                {expandedSource && (
+                  <Doodle
+                    name={`${artwork.slug}-expanded`}
+                    seed={seed}
+                    styleCode={expandedSource.styleCode}
+                    doodleCode={expandedSource.doodleCode}
+                    doodleRef={expandedDoodleRef}
+                  />
+                )}
+              </div>
+            </Dialog.Popup>
+          </Dialog.Portal>
+        </Dialog.Root>
 
         <div className={styles.optionsWrapper}>
           <div className={styles.options}>
             {palette.length > 0 && (
               <div className={styles.optionBox}>
-                <h3>Palette</h3>
+                <div className={styles.paletteHeading}>
+                  <h3>Palette</h3>
+                  <button
+                    type="button"
+                    className={styles.randomizeButton}
+                    onClick={randomizePalette}
+                    aria-label="Randomize palette"
+                    title="Randomize palette"
+                  >
+                    <Shuffle size={18} />
+                  </button>
+                </div>
                 <div className="colors">
                   {palette.map((hex, index) => (
                     <ColorPicker
@@ -366,6 +597,7 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
                   onChange={(value) =>
                     changeAspectRatio(value as AspectRatioId)
                   }
+                  renderOption={renderAspectRatioOption}
                 />
               </div>
             )}

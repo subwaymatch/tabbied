@@ -56,16 +56,24 @@
   display: inline;
 }
 
+/* Soft blue glow that tints the centre behind the hero text so the white type
+   stays legible over the busy doodle. Replaces a static PNG with a pure-CSS
+   radial gradient; the glow size is driven by custom properties so the
+   breakpoints below only need to override two values. */
 .contentBackground {
+  --glow-width: 450px;
+  --glow-height: 330px;
   position: absolute;
   width: 100%;
   height: 100%;
   z-index: 0;
   pointer-events: none;
-  background-image: url('/images/hero_text_background.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 900px auto;
+  background-image: radial-gradient(
+    ellipse var(--glow-width) var(--glow-height) at center,
+    var(--blue-medium) 0%,
+    color-mix(in srgb, var(--blue-medium) 65%, transparent) 50%,
+    transparent 75%
+  );
 }
 
 /* `d-sm-none` then `d-md-inline`: hidden on tablet, shown on mobile + desktop. */
@@ -83,7 +91,8 @@
 
 @media (max-width: 1299.98px) {
   .contentBackground {
-    background-size: 760px auto;
+    --glow-width: 380px;
+    --glow-height: 290px;
   }
 
   .heroSection .doodleBackground {
@@ -106,7 +115,8 @@
 
 @media (max-width: 991.98px) {
   .contentBackground {
-    background-size: 720px auto;
+    --glow-width: 360px;
+    --glow-height: 280px;
   }
 
   .heroSection .doodleBackground {
@@ -129,7 +139,8 @@
 
 @media (max-width: 747.98px) {
   .contentBackground {
-    background-size: 540px auto;
+    --glow-width: 270px;
+    --glow-height: 220px;
   }
 
   .heroSection .heroContent {

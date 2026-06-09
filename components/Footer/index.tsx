@@ -9,7 +9,7 @@ export default function Footer() {
           <Col lg={{ span: 4, offset: 1 }} md={{ span: 5 }}>
             <h5>Tabbied</h5>
 
-            <p>Copyright 2020.</p>
+            <p>Copyright {new Date().getFullYear()}.</p>
           </Col>
 
           <Col lg={{ span: 4, offset: 2 }} md={{ span: 5, offset: 2 }}>

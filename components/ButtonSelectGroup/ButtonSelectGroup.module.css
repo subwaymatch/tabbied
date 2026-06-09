@@ -1,3 +1,12 @@
+/* Lay the buttons out as flex items (not inline-level boxes) so they align to
+   the top of each row. As inline-flex elements they were baseline-aligned,
+   which nudged the landscape ratios (e.g. 3:2) a few pixels down. */
+.buttonSelectGroup {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
 .option {
   appearance: none;
   padding: 0;
@@ -6,7 +15,7 @@
   color: #808a98; /* color.scale($gray-medium, +20% lightness) */
   background-color: #ffffff;
   width: 4.8rem;
-  height: 3.2rem;
+  min-height: 3.2rem;
   align-items: center;
   justify-content: center;
   border: 2px solid transparent;

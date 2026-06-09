@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Shuffle, ArrowDownToLine } from 'lucide-react';
+import { RefreshCw, ArrowDownToLine } from 'lucide-react';
 import { Container, Row, Col } from 'components/layout';
 import styles from './EditArtworkHeader.module.css';
 
@@ -29,7 +29,7 @@ export default function EditArtworkHeader({
           <Col md={4} xs={6}>
             <div className="align-right">
               <button className={styles.btn} onClick={onRedraw}>
-                <Shuffle className={styles.reactIcon} size={18} />
+                <RefreshCw className={styles.reactIcon} size={18} />
                 <span className={styles.label}>Redraw</span>
               </button>
               <button
