@@ -3,13 +3,13 @@
   "slug": "ring",
   "galleryOrder": 11,
   "galleryWhite": true,
-  "palette": ["#9EFFD8", "#FFFFFF", "#9EFFD8", "#232529"],
+  "palette": ["#FF3D8B", "#C9447A", "#A33261", "#232529"],
   "options": [
     {
       "id": "grid",
       "displayName": "Columns and rows",
       "type": "ButtonSelectGroup",
-      "default": "2x3",
+      "default": "4x6",
       "options": ["2x3", "4x6", "6x9", "8x12", "10x15"],
       "replace": "${grid}"
     },

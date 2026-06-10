@@ -23,7 +23,7 @@ export default function SelectArtwork({
         <Container fluidOnMobile>
           <Row noGutter>
             {gallery.map((item) => (
-              <Col key={item.slug} md={3} sm={6}>
+              <Col key={item.slug} md={3} sm={6} xs={6}>
                 <Link href={`/artwork/${item.slug}?seed=0000`}>
                   <div className={styles.galleryCard}>
                     <h4 className={item.white ? styles.white : undefined}>

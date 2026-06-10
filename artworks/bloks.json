@@ -2,13 +2,13 @@
   "name": "Bloks",
   "slug": "bloks",
   "galleryOrder": 8,
-  "palette": ["#FFFFFF", "#3B3F45", "#3FFFB2", "#3EECFF", "#97F4FF", "#FF3D8B"],
+  "palette": ["#3FFFB2", "#ECFFEC", "#9EFFD8", "#ECFFEC", "#9EFFD8", "#FFFFFF"],
   "options": [
     {
       "id": "grid",
       "displayName": "Columns and rows",
       "type": "ButtonSelectGroup",
-      "default": "4x6",
+      "default": "6x9",
       "options": ["2x3", "4x6", "6x9", "8x12", "10x15"],
       "replace": "${grid}"
     },
@@ -26,7 +26,7 @@
       "id": "shadow",
       "displayName": "Shadow",
       "type": "ToggleSwitch",
-      "default": false,
+      "default": true,
       "code": "-webkit-box-shadow:0 0 40px rgba(0,0,0,0.2); box-shadow:0 0 40px rgba(0,0,0,0.2);",
       "replace": "${shadow}"
     }

@@ -9,7 +9,7 @@
       "id": "grid",
       "displayName": "Columns and rows",
       "type": "ButtonSelectGroup",
-      "default": "6x9",
+      "default": "8x12",
       "options": ["2x3", "4x6", "6x9", "8x12", "10x15"],
       "replace": "${grid}"
     },

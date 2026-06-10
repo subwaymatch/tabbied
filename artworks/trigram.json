@@ -3,13 +3,13 @@
   "slug": "trigram",
   "galleryOrder": 10,
   "galleryWhite": true,
-  "palette": ["#FFFFFF", "#3E8BFF", "#FF3D8B", "#3FFF50", "#F5DD32"],
+  "palette": ["#275AA6", "#3E8BFF", "#3EECFF", "#97F4FF", "#FFFFFF"],
   "options": [
     {
       "id": "grid",
       "displayName": "Columns and rows",
       "type": "ButtonSelectGroup",
-      "default": "4x6",
+      "default": "6x9",
       "options": ["2x3", "4x6", "6x9", "8x12", "10x15"],
       "replace": "${grid}"
     },

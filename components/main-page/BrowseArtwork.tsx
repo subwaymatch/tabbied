@@ -26,7 +26,7 @@ export default async function BrowseArtworkSection() {
       <Container fluidOnMobile>
         <Row noGutter>
           {gallery.map((item) => (
-            <Col key={item.slug} md={3} sm={6}>
+            <Col key={item.slug} md={3} sm={6} xs={6}>
               {/* The seed param matches the select-artwork links: the editor
                   only mirrors customizations into the URL (making them
                   shareable and refresh-safe) when the URL already carries a
@@ -42,7 +42,7 @@ export default async function BrowseArtworkSection() {
             </Col>
           ))}
 
-          <Col md={3} sm={6}>
+          <Col md={3} sm={6} xs={6}>
             <Link href="/select-artwork/">
               <div className={styles.galleryCard}>
                 <Image
