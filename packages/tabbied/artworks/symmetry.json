@@ -9,6 +9,11 @@
     "max": 6,
     "default": 6
   },
+  "sizing": {
+    "allowed": ["cover", "contain", "fixed"],
+    "default": "cover",
+    "coverRender": { "width": 800, "height": 1200 }
+  },
   "options": [
     {
       "id": "circularity",

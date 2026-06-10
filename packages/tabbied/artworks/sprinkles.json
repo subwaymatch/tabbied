@@ -10,6 +10,7 @@
     "max": 5,
     "default": 5
   },
+  "sizing": { "minCellPx": 28 },
   "options": [
     {
       "id": "grid",

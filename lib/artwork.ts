@@ -1,7 +1,12 @@
 // Site-side accessors over the `tabbied` package's generated artwork presets.
 // The JSON files live in packages/tabbied/artworks/ (the package's codegen
 // turns them into a typed module), so the site no longer reads from disk.
-import { artworks, isArtworkSlug, type ArtworkDefinition } from 'tabbied';
+import {
+  artworks,
+  isArtworkSlug,
+  type ArtworkDefinition,
+  type ArtworkSlug,
+} from 'tabbied';
 
 export type {
   ArtworkColors,
@@ -11,15 +16,16 @@ export type {
 
 export type Artwork = ArtworkDefinition;
 
+// Card metadata for the gallery pages. The thumbnails render through
+// <TabbiedArtwork artwork={slug}>, which pulls the option/code data from the
+// package on the client, so the server props stay small.
 export type GalleryItem = {
-  slug: string;
+  slug: ArtworkSlug;
   name: string;
   white: boolean;
-  /** Everything the gallery needs to render a live css-doodle thumbnail. */
+  /** Authored palette (color0 = background) for placeholders + title fades. */
   palette: string[];
   colors?: ArtworkDefinition['colors'];
-  options: ArtworkDefinition['options'];
-  code: ArtworkDefinition['code'];
 };
 
 // The accessors stay async so callers (App Router pages) keep their existing
@@ -39,25 +45,25 @@ export async function getArtwork(artworkId: string): Promise<Artwork> {
 // Gallery list derived from the artwork presets, so a new preset only needs a
 // JSON file in packages/tabbied/artworks/.
 export async function getGalleryItems(): Promise<GalleryItem[]> {
-  return Object.values(artworks)
-    .map((artwork) => ({
-      slug: artwork.slug,
-      name: artwork.name,
-      white: artwork.galleryWhite ?? false,
-      palette: artwork.palette ?? [],
-      colors: artwork.colors,
-      options: artwork.options,
-      code: artwork.code,
-      order: artwork.galleryOrder ?? Number.MAX_SAFE_INTEGER,
-    }))
+  return (Object.keys(artworks) as ArtworkSlug[])
+    .map((slug) => {
+      const artwork = artworks[slug];
+
+      return {
+        slug,
+        name: artwork.name,
+        white: artwork.galleryWhite ?? false,
+        palette: artwork.palette ?? [],
+        colors: artwork.colors,
+        order: artwork.galleryOrder ?? Number.MAX_SAFE_INTEGER,
+      };
+    })
     .sort((a, b) => a.order - b.order || a.name.localeCompare(b.name))
-    .map(({ slug, name, white, palette, colors, options, code }) => ({
+    .map(({ slug, name, white, palette, colors }) => ({
       slug,
       name,
       white,
       palette,
       colors,
-      options,
-      code,
     }));
 }
