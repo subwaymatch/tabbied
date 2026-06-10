@@ -2,8 +2,13 @@
   "name": "tabbied-nextjs",
   "version": "0.1.0",
   "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
+    "predev": "yarn workspace tabbied build",
     "dev": "next dev",
+    "prebuild": "yarn workspace tabbied build",
     "build": "next build",
     "start": "next start",
     "test:e2e": "playwright test"
@@ -15,7 +20,8 @@
     "lucide-react": "^1.17.0",
     "next": "^16.2.7",
     "react": "^19.2.7",
-    "react-dom": "^19.2.7"
+    "react-dom": "^19.2.7",
+    "tabbied": "0.1.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.60.0",

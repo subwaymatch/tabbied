@@ -3,8 +3,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import 'css-doodle';
 import type { GalleryItem } from 'lib/artwork';
-import { buildDoodleSource, expandPalette } from 'lib/doodleSource';
-import { randomSeed } from 'lib/seed';
+import { buildDoodleSource, expandPalette, randomSeed } from 'tabbied';
 import { galleryThumbnails } from './galleryThumbnails';
 import styles from './SelectArtwork.module.css';
 

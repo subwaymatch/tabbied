@@ -1,9 +1,7 @@
 // Shared helper for turning an artwork definition into concrete css-doodle
-// source. Used by both the editor (EditArtwork) and the gallery thumbnails
-// (GalleryDoodle) so the substitution rules stay in one place.
-import type { ArtworkOption } from 'lib/artwork';
-
-export type OptionValue = string | number | boolean;
+// source. Used by the artwork controller, the Tabbied editor and the gallery
+// thumbnails so the substitution rules stay in one place.
+import type { ArtworkOption, OptionValue } from './types.js';
 
 // css-doodle >= 0.5 reads `@random(1)` as a one-cell count rather than a 100%
 // probability gate (fractional values still behave as probabilities). The

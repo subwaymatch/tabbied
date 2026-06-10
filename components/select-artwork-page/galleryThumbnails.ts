@@ -3,7 +3,7 @@
 // (public/images/thumb_*.png); `color0` is always the background. Each
 // thumbnail draws with a fresh random seed on every load, so only the look
 // (palette / density / render size) is pinned here, not the placement.
-import type { OptionValue } from 'lib/doodleSource';
+import type { OptionValue } from 'tabbied';
 
 export type ThumbnailConfig = {
   /** Palette override (color0 = background). Falls back to the artwork palette. */

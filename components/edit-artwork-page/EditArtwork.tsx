@@ -9,24 +9,22 @@ import useMediaQuery from 'lib/useMediaQuery';
 import type { Artwork, ArtworkOption } from 'lib/artwork';
 import {
   type AspectRatioId,
+  type OptionValue,
   ASPECT_RATIOS,
   ASPECT_RATIO_IDS,
   DEFAULT_ASPECT_RATIO,
+  buildDoodleSource,
   deriveGrid,
+  expandPalette,
   getGridOptions,
   gridToLevel,
   isAspectRatioId,
-} from 'lib/aspectRatio';
+  randomSeed,
+} from 'tabbied';
 import EditArtworkHeader from 'components/edit-artwork-page/EditArtworkHeader';
 import ButtonSelectGroup from 'components/ButtonSelectGroup';
 import ValueSlider from 'components/ValueSlider';
 import ToggleSwitch from 'components/ToggleSwitch';
-import {
-  buildDoodleSource,
-  expandPalette,
-  type OptionValue,
-} from 'lib/doodleSource';
-import { randomSeed } from 'lib/seed';
 import styles from './EditArtwork.module.css';
 
 const Doodle = dynamic(() => import('components/Doodle'), {
