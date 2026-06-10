@@ -1,0 +1,31 @@
+{
+  "name": "Argyle",
+  "slug": "argyle",
+  "galleryOrder": 26,
+  "description": "A knitwear lattice of diamonds — solid gems, hollow frames and tiny studs trading places across the grid.",
+  "palette": ["#E9F1FF", "#3E8BFF", "#FF3D8B"],
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": ["2x3", "4x6", "6x9", "8x12", "10x15"],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "/* Mostly blue gems with pink ones mixed in */ --randomColor: @p(var(--color1), var(--color1), var(--color1), var(--color2)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(${shapeFrequency}) { width: 66%; height: 66%; margin: 17%; background: var(--randomColor); box-sizing: border-box; -webkit-transform: rotate(45deg); transform: rotate(45deg); } /* A third hollow out into frames with an independent solid core */ @random(0.33) { background: transparent; /* border thickness of ~10.7px, 5.3px, 3.6px, 2.7px, 2.1px for 3, 6, 9, 12, 15 rows */ border: calc(32px / @size-row) solid var(--randomColor); :after { content: ''; position: absolute; @size: 46%; left: 50%; top: 50%; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%); background: var(--randomColor); -webkit-transition: ease 400ms; transition: ease 400ms; } } /* Some gems are small */ @random(0.18) { width: 34%; height: 34%; margin: 33%; } -webkit-transition: ease 400ms; transition: ease 400ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

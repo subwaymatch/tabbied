@@ -1,0 +1,31 @@
+{
+  "name": "Borough",
+  "slug": "borough",
+  "galleryOrder": 39,
+  "description": "Rows of little houses with mismatched roofs and golden windows — a whole neighborhood that rebuilds itself on every redraw.",
+  "palette": ["#E9F1FF", "#3E8BFF", "#FF3D8B", "#1B4075", "#F5DD32"],
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": ["2x3", "4x6", "6x9", "8x12", "10x15"],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "/* Independent colors for the body and the roof of each house */ --randomColor: @p(var(--color1), var(--color2), var(--color3)); --randomColor2: @p(var(--color1), var(--color2), var(--color3)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ /* The house body sits on the cell floor */ @random(${shapeFrequency}) { width: 72%; height: 52%; margin: 48% 14% 0; background: var(--randomColor); /* The roof, with a slight overhang */ :before { content: ''; position: absolute; left: -10%; bottom: 100%; width: 120%; height: 58%; background: var(--randomColor2); -webkit-clip-path: polygon(50% 0, 100% 100%, 0 100%); clip-path: polygon(50% 0, 100% 100%, 0 100%); -webkit-transition: ease 400ms; transition: ease 400ms; } /* A lit window */ :after { content: ''; position: absolute; @size: 26%; left: 37%; top: 28%; background: var(--color4); border-radius: @pick(0, 50%); -webkit-transition: ease 400ms; transition: ease 400ms; } } /* In some houses nobody is home */ @random(0.25) { :after { background: var(--color0); } } -webkit-transition: ease 400ms; transition: ease 400ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

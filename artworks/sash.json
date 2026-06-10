@@ -1,0 +1,31 @@
+{
+  "name": "Sash",
+  "slug": "sash",
+  "galleryOrder": 57,
+  "description": "Window frames with their muntin bars, hung straight or turned into diamonds — single-ink line work on a transparent wall.",
+  "palette": ["#FFFFFF00", "#232529"],
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": ["2x3", "4x6", "6x9", "8x12", "10x15"],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ /* Frame with a cross of muntin bars; a few windows hang as diamonds */ @random(${shapeFrequency}) { width: 74%; height: 74%; margin: 13%; box-sizing: border-box; /* frame thickness of ~13.3px, 6.7px, 4.4px, 3.3px, 2.7px for 3, 6, 9, 12, 15 rows */ border: calc(40px / @size-row) solid var(--color1); -webkit-transform: rotate(@pick(0deg, 0deg, 0deg, 45deg)); transform: rotate(@pick(0deg, 0deg, 0deg, 45deg)); :before { content: ''; position: absolute; left: 0; top: calc(50% - (12px / @size-row)); width: 100%; height: calc(24px / @size-row); background: var(--color1); } :after { content: ''; position: absolute; top: 0; left: calc(50% - (12px / @size-row)); height: 100%; width: calc(24px / @size-row); background: var(--color1); } } /* Some windows are small */ @random(0.2) { width: 42%; height: 42%; margin: 29%; } -webkit-transition: ease 400ms; transition: ease 400ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

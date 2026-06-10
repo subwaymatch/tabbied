@@ -1,0 +1,31 @@
+{
+  "name": "Tartan",
+  "slug": "tartan",
+  "galleryOrder": 38,
+  "description": "Woven plaid bands running warp and weft at fixed offsets, crossing translucently wherever the threads meet.",
+  "palette": ["#E9F1FF", "#3E8BFF", "#FF3D8B", "#1B4075"],
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": ["2x3", "4x6", "6x9", "8x12", "10x15"],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "/* Every band rolls its own thread color (css-doodle re-rolls vars per occurrence) */ --randomColor: @p(var(--color1), var(--color2), var(--color3)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ /* Horizontal bands sit at fixed offsets so they chain into continuous threads across cells */ @random(${shapeFrequency}) { background: linear-gradient(180deg, transparent 0 18%, var(--randomColor) 18% 48%, transparent 48% 64%, var(--randomColor) 64% 76%, transparent 76% 100%); } /* The weft: the same bands turned upright, laid over translucently so crossings darken like woven thread */ @random(0.7) { :after { content: ''; position: absolute; left: 0; top: 0; @size: 100%; background: linear-gradient(90deg, transparent 0 18%, var(--randomColor) 18% 48%, transparent 48% 64%, var(--randomColor) 64% 76%, transparent 76% 100%); opacity: 0.72; -webkit-transition: ease 400ms; transition: ease 400ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

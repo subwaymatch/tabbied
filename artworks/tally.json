@@ -1,0 +1,31 @@
+{
+  "name": "Tally",
+  "slug": "tally",
+  "galleryOrder": 49,
+  "description": "Chalkboard tally marks counting something unknowable — four strokes to a cell, half of them crossed off with a slash.",
+  "palette": ["#FFFFFF", "#232529", "#FF3D8B"],
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": ["2x3", "4x6", "6x9", "8x12", "10x15"],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "/* Mostly ink tallies with a few pink ones */ --randomColor: @p(var(--color1), var(--color1), var(--color1), var(--color2)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ /* Four upright strokes drawn as one striped band */ @random(${shapeFrequency}) { :before { content: ''; position: absolute; left: 18%; top: 16%; width: 64%; height: 68%; background: repeating-linear-gradient(90deg, var(--randomColor) 0 12%, transparent 12% 29.33%); -webkit-transition: ease 400ms; transition: ease 400ms; } } /* Half the counts get their diagonal fifth stroke */ @random(0.5) { :after { content: ''; position: absolute; left: 8%; top: 42%; width: 84%; height: 11%; border-radius: 320px; background: var(--randomColor); -webkit-transform: rotate(24deg); transform: rotate(24deg); -webkit-transition: ease 400ms; transition: ease 400ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

@@ -124,11 +124,11 @@ test.describe('Tabbied site', () => {
     await page.goto('/artwork/radius?seed=0000');
 
     // Wait until state has been written back into the URL.
-    await expect(page).toHaveURL(/grid=4x6/);
-
-    await page.getByText('6x9', { exact: true }).click();
-
     await expect(page).toHaveURL(/grid=6x9/);
+
+    await page.getByText('4x6', { exact: true }).click();
+
+    await expect(page).toHaveURL(/grid=4x6/);
   });
 
   test('changing the aspect ratio remaps the grid to keep square cells', async ({
@@ -138,14 +138,14 @@ test.describe('Tabbied site', () => {
 
     // Default portrait ratio reproduces the original 2:3 grid options.
     await expect(page).toHaveURL(/aspectRatio=2%3A3/);
-    await expect(page).toHaveURL(/grid=4x6/);
+    await expect(page).toHaveURL(/grid=6x9/);
 
-    // Switch to a square canvas: the 4x6 (level 1) grid re-derives to 6x6.
+    // Switch to a square canvas: the 6x9 (level 2) grid re-derives to 9x9.
     await page.getByText('1:1', { exact: true }).click();
 
     await expect(page).toHaveURL(/aspectRatio=1%3A1/);
-    await expect(page).toHaveURL(/grid=6x6/);
-    await expect(page.getByText('6x6', { exact: true })).toBeVisible();
+    await expect(page).toHaveURL(/grid=9x9/);
+    await expect(page.getByText('9x9', { exact: true })).toBeVisible();
   });
 
   test('symmetry offers aspect ratios and follows the selection', async ({

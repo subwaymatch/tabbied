@@ -1,0 +1,32 @@
+{
+  "name": "Comet",
+  "slug": "comet",
+  "galleryOrder": 50,
+  "galleryWhite": true,
+  "description": "Shooting stars streak in every direction, cyan tails fading in behind bright white heads, with tiny stars holding still between them.",
+  "palette": ["#232529", "#3EECFF", "#FFFFFF"],
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": ["2x3", "4x6", "6x9", "8x12", "10x15"],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ /* Tail and head are drawn pointing right; the cell rotation aims the comet and animates on reseed */ @random(${shapeFrequency}) { -webkit-transform: rotate(@pick(0deg, 45deg, 90deg, 135deg, 180deg, 225deg, 270deg, 315deg)); transform: rotate(@pick(0deg, 45deg, 90deg, 135deg, 180deg, 225deg, 270deg, 315deg)); :before { content: ''; position: absolute; left: 8%; top: 46%; width: 60%; height: 8%; border-radius: 320px; background: linear-gradient(90deg, transparent 0, var(--color1) 85%); -webkit-transition: ease 400ms; transition: ease 400ms; } :after { content: ''; position: absolute; left: 62%; top: 41%; @size: 18%; border-radius: 50%; background: var(--color2); -webkit-transition: ease 400ms; transition: ease 400ms; } } /* Some cells hold a still little star instead */ @random(0.15) { :before { background: transparent; } :after { @size: 8%; left: 46%; top: 46%; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}
