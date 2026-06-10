@@ -1,0 +1,31 @@
+{
+  "name": "Arco",
+  "slug": "arco",
+  "galleryOrder": 17,
+  "description": "Concentric rainbow arches spring from the edges of each cell, facing whichever way the seed decides.",
+  "palette": ["#FFFFFF", "#FF3D8B", "#3E8BFF", "#F5DD32", "#3FFFB2", "#3EECFF"],
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "4x6",
+      "options": ["2x3", "4x6", "6x9", "8x12", "10x15"],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "/* Three independent band colors per arch */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --randomColor2: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --randomColor3: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(${shapeFrequency}) { /* Double-position stops keep each band a single color — css-doodle re-rolls @p vars per occurrence, so repeating a stop would blur the bands */ background: radial-gradient(circle farthest-side at 50% 100%, var(--randomColor) 0% 22%, var(--randomColor2) 22% 44%, var(--randomColor3) 44% 66%, transparent 66% 100%); -webkit-transform: rotate(@pick(0deg, 90deg, 180deg, 270deg)); transform: rotate(@pick(0deg, 90deg, 180deg, 270deg)); -webkit-transition: ease 400ms; transition: ease 400ms; } /* Now and then a sun instead of an arch */ @random(0.1) { background: radial-gradient(circle farthest-side at 50% 50%, var(--randomColor2) 0% 28%, transparent 28% 100%); -webkit-transform: none; transform: none; } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

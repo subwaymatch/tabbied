@@ -1,0 +1,39 @@
+{
+  "name": "Foliage",
+  "slug": "foliage",
+  "galleryOrder": 16,
+  "description": "Gradient leaf shapes rotate through the grid, with the occasional berry tucked in between.",
+  "palette": ["#FFFFFF", "#3FFFB2", "#3E8BFF", "#9EFFD8", "#FF3D8B", "#F5DD32"],
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "4x6",
+      "options": ["2x3", "4x6", "6x9", "8x12", "10x15"],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    },
+    {
+      "id": "shadow",
+      "displayName": "Shadow",
+      "type": "ToggleSwitch",
+      "default": false,
+      "code": "-webkit-box-shadow:0 0 40px rgba(0,0,0,0.2); box-shadow:0 0 40px rgba(0,0,0,0.2);",
+      "replace": "${shadow}"
+    }
+  ],
+  "code": {
+    "style": "/* Independent colors for the two ends of each leaf gradient */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --randomColor2: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(${shapeFrequency}) { width: 88%; height: 88%; margin: 6%; background: linear-gradient(135deg, var(--randomColor), var(--randomColor2)); /* Two rounded opposite corners make the leaf */ border-radius: 0 100%; -webkit-transform: rotate(@pick(0deg, 90deg)); transform: rotate(@pick(0deg, 90deg)); /* On or off option for displaying box shadows */ ${shadow} -webkit-transition: ease 400ms; transition: ease 400ms; } /* Occasionally a leaf gives way to a small berry */ @random(0.12) { width: 38%; height: 38%; margin: 31%; border-radius: 50%; background: var(--randomColor2); -webkit-transform: none; transform: none; } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}
