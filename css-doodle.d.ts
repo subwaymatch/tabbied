@@ -11,7 +11,14 @@ type CssDoodleProps = DetailedHTMLProps<
   HTMLElement
 > & {
   use?: string;
-  seed?: string;
+  /**
+   * Seed for the pattern's PRNG. Passed as `data-seed` (which css-doodle's
+   * generate() falls back to) instead of the observed `seed` attribute: a
+   * `seed` attribute change makes css-doodle rebuild every cell element from
+   * scratch, which kills CSS transitions. Seed changes are applied through
+   * update() instead, so cells persist and transitions can animate.
+   */
+  'data-seed'?: string;
 };
 
 declare module 'react' {

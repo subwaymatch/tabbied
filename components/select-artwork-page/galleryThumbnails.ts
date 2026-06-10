@@ -88,9 +88,6 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
     palette: ['#ECFFEC', '#3FFFB2', '#3E8BFF', '#9EFFD8', '#FF3D8B', '#F5DD32'],
     options: { grid: '4x4', frequency: 0.9 },
   },
-  arco: {
-    options: { grid: '3x3', frequency: 0.9 },
-  },
   metro: {
     options: { grid: '6x6', frequency: 0.95 },
   },

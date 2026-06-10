@@ -42,10 +42,9 @@ export default function GalleryDoodleInner({ item }: { item: GalleryItem }) {
   const [seed, setSeed] = useState(() => randomSeed());
   const name = `thumb-${item.slug}`;
 
-  // Keep redrawing while the page is open — css-doodle re-renders itself when
-  // the observed `seed` attribute changes, so rotating the seed is enough.
-  // Skipped under prefers-reduced-motion, and ticks are dropped while the tab
-  // is hidden.
+  // Keep redrawing while the page is open by rotating the seed; the effect
+  // below pushes each new seed through update(). Skipped under
+  // prefers-reduced-motion, and ticks are dropped while the tab is hidden.
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
@@ -70,18 +69,25 @@ export default function GalleryDoodleInner({ item }: { item: GalleryItem }) {
     return () => observer.disconnect();
   }, []);
 
-  // css-doodle renders its text content on mount, so only push the source on
-  // later changes (css-doodle >= 0.5 no longer re-reads the text on a bare
-  // update()). Skipping the mount avoids regenerating every thumbnail twice.
-  const renderedCode = useRef<string | null>(null);
+  // css-doodle renders its text content on mount, so only push changes that
+  // happen afterwards (css-doodle >= 0.5 no longer re-reads the text on a
+  // bare update()); skipping the mount avoids regenerating every thumbnail
+  // twice. Seed rotations go through update() too — it swaps the generated
+  // stylesheet in place, so designs with CSS transitions morph into the next
+  // variation instead of snapping (the seed rides on the unobserved
+  // `data-seed` attribute; changing the observed `seed` attribute would make
+  // css-doodle rebuild every cell element, killing transitions).
+  const renderedSource = useRef<string | null>(null);
 
   useEffect(() => {
-    if (renderedCode.current !== null && renderedCode.current !== doodleCode) {
+    const source = JSON.stringify([doodleCode, seed]);
+
+    if (renderedSource.current !== null && renderedSource.current !== source) {
       doodleRef.current?.update?.(doodleCode);
     }
 
-    renderedCode.current = doodleCode;
-  }, [doodleCode]);
+    renderedSource.current = source;
+  }, [doodleCode, seed]);
 
   // Cover-fit the (possibly cropped) render into the square card. Scaling the
   // whole element — rather than rendering at the card's pixel size — preserves
@@ -97,7 +103,7 @@ export default function GalleryDoodleInner({ item }: { item: GalleryItem }) {
       <style>{`css-doodle#${name} { ${styleCode} }`}</style>
       <css-doodle
         id={name}
-        seed={seed}
+        data-seed={seed}
         use="var(--rule)"
         ref={doodleRef}
         style={{

@@ -40,7 +40,7 @@ export default function ExportTest() {
       </style>
       <css-doodle
         id="export-test"
-        seed="0000"
+        data-seed="0000"
         use="var(--rule)"
         ref={doodleRef}
       />
