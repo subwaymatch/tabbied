@@ -33,7 +33,8 @@ export type Artwork = {
   defaultAspectRatio?: AspectRatioId;
   /**
    * Forces a single aspect ratio and hides the selector — for designs whose
-   * layout is tuned to one ratio (e.g. Symmetry's absolute positioning).
+   * layout is tuned to one ratio. Currently unused: Symmetry letterboxes its
+   * composition into a centered 2:3 box instead.
    */
   lockAspectRatio?: AspectRatioId;
   /** Render the gallery title in white (for dark thumbnails). */

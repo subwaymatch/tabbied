@@ -68,8 +68,8 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
     options: { grid: '4x4', frequency: 0.5, roundedCorners: true },
   },
   ring: {
-    // Muted maroon rings (color1/color2) over the dark, semi-transparent
-    // crescent (color3) — matching the soft, tonal rings of the original.
+    // Muted maroon rings (color1/color2) over the dark offset crescent
+    // (color3) — matching the soft, tonal rings of the original.
     palette: ['#FF3D8B', '#C9447A', '#A33261', '#232529'],
     options: { grid: '3x3', frequency: 0.75 },
   },
@@ -81,18 +81,12 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
     palette: ['#232529', '#3E8BFF', '#3EECFF', '#FF3D8B', '#3FFFB2', '#F5DD32'],
     options: { grid: '3x3', frequency: 0.9 },
   },
-  orbit: {
-    options: { grid: '3x3', frequency: 0.8 },
-  },
   confetti: {
     options: { grid: '4x4', frequency: 0.95 },
   },
   foliage: {
     palette: ['#ECFFEC', '#3FFFB2', '#3E8BFF', '#9EFFD8', '#FF3D8B', '#F5DD32'],
     options: { grid: '4x4', frequency: 0.9 },
-  },
-  arco: {
-    options: { grid: '3x3', frequency: 0.9 },
   },
   metro: {
     options: { grid: '6x6', frequency: 0.95 },
