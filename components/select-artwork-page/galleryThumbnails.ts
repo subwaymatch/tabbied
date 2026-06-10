@@ -81,9 +81,6 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
     palette: ['#232529', '#3E8BFF', '#3EECFF', '#FF3D8B', '#3FFFB2', '#F5DD32'],
     options: { grid: '3x3', frequency: 0.9 },
   },
-  orbit: {
-    options: { grid: '3x3', frequency: 0.8 },
-  },
   confetti: {
     options: { grid: '4x4', frequency: 0.95 },
   },
