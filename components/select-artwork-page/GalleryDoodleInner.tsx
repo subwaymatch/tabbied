@@ -10,6 +10,11 @@ import styles from './SelectArtwork.module.css';
 
 const DEFAULT_RENDER = { width: 800, height: 800, cropTop: 1 };
 
+// Each card redraws every 4–6s; the random spread keeps the cards out of
+// phase so the gallery shimmers card by card instead of strobing in unison.
+const REDRAW_INTERVAL_MS = 4000;
+const REDRAW_STAGGER_MS = 2000;
+
 export default function GalleryDoodleInner({ item }: { item: GalleryItem }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const doodleRef = useRef<any>(null);
@@ -34,8 +39,23 @@ export default function GalleryDoodleInner({ item }: { item: GalleryItem }) {
   // A fresh seed per mount keeps the gallery dynamic: every visit draws a new
   // variation of each design (this component is ssr:false, so there is no
   // server markup to mismatch).
-  const [seed] = useState(() => randomSeed());
+  const [seed, setSeed] = useState(() => randomSeed());
   const name = `thumb-${item.slug}`;
+
+  // Keep redrawing while the page is open — css-doodle re-renders itself when
+  // the observed `seed` attribute changes, so rotating the seed is enough.
+  // Skipped under prefers-reduced-motion, and ticks are dropped while the tab
+  // is hidden.
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const interval = REDRAW_INTERVAL_MS + Math.random() * REDRAW_STAGGER_MS;
+    const timer = setInterval(() => {
+      if (document.visibilityState === 'visible') setSeed(randomSeed());
+    }, interval);
+
+    return () => clearInterval(timer);
+  }, []);
 
   // Measure the square card so the fixed-resolution doodle can be scaled to fit.
   useLayoutEffect(() => {
