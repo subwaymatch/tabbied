@@ -1,8 +1,8 @@
-// Per-artwork settings used to reproduce the original raster gallery thumbnails
-// (public/images/thumb_*.png) as live css-doodle. Palettes and densities were
-// derived from the source images; `color0` is always the background. Because
-// css-doodle is seeded-random the exact placement can't be reproduced, so a
-// fixed seed that lands "close enough" to the original is pinned per design.
+// Per-artwork settings for the live css-doodle gallery thumbnails. Palettes
+// and densities were derived from the original raster thumbnails
+// (public/images/thumb_*.png); `color0` is always the background. Each
+// thumbnail draws with a fresh random seed on every load, so only the look
+// (palette / density / render size) is pinned here, not the placement.
 import type { OptionValue } from 'lib/doodleSource';
 
 export type ThumbnailConfig = {
@@ -10,8 +10,6 @@ export type ThumbnailConfig = {
   palette?: string[];
   /** Option overrides keyed by option id (grid / frequency / toggles). */
   options?: Record<string, OptionValue>;
-  /** Fixed seed so each thumbnail is deterministic. */
-  seed: string;
   /**
    * Internal render size in px. The doodle is drawn at this resolution and then
    * scaled to fit the (square) card, so fixed-px features (border widths,
@@ -25,44 +23,38 @@ export type ThumbnailConfig = {
 export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   radius: {
     palette: ['#3E8BFF', '#3B3F45', '#3FFFB2', '#3EECFF', '#97F4FF', '#FF3D8B'],
-    options: { grid: '4x4', frequency: 0.42 },
-    seed: 'radius7',
+    // Frequency is high enough that a random seed virtually always paints
+    // multiple cells (the e2e smoke test counts painted cells on this design).
+    options: { grid: '4x4', frequency: 0.5 },
   },
   mixtape: {
     palette: ['#80FBB8', '#232529', '#4D8CF7', '#4D8CF7', '#3E8BFF', '#232529'],
     options: { grid: '3x3', frequency: 0.34 },
-    seed: 'mxA',
   },
   odessa: {
     palette: ['#1B4075', '#3EECFF', '#D89FFF', '#3E8BFF', '#3FFFB2'],
     options: { grid: '4x4', frequency: 0.6 },
-    seed: 'odessa5',
   },
   symmetry: {
     palette: ['#97F4FF', '#97F4FF', '#00FFF3', '#00A1FF', '#FF8DFF', '#FF007E'],
     options: { circularity: 1 },
     render: { width: 800, height: 1200, cropTop: 0.5 },
-    seed: 'symm2',
   },
   veil: {
     palette: ['#9EFFD8', '#3E8BFF', '#326DC9', '#1B4075', '#3EECFF', '#3E8BFF'],
     options: { grid: '8x8', frequency: 0.42 },
-    seed: 'veil4',
   },
   blossom: {
     palette: ['#367DE6', '#3EECFF', '#3FFFB2', '#FF3D8B', '#3FFFB2', '#FF3D8B'],
     options: { grid: '3x3', frequency: 0.6 },
-    seed: 'blossom6',
   },
   disque: {
     palette: ['#3EECFF', '#232529', '#1B4075', '#FF3D8B', '#E9F1FF', '#367DE6'],
     options: { grid: '4x4', frequency: 0.55 },
-    seed: 'disque8',
   },
   bloks: {
     palette: ['#3FFFB2', '#ECFFEC', '#9EFFD8', '#ECFFEC', '#9EFFD8', '#FFFFFF'],
     options: { grid: '3x3', frequency: 1, shadow: true },
-    seed: 'bloks1',
   },
   terrain: {
     palette: ['#232529', '#3E434B', '#3E8BFF', '#3FFFB2', '#275AA6', '#3EECFF'],
@@ -70,18 +62,15 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
     // Shape size is a fixed px formula (÷ column count); rendering smaller makes
     // the shapes read large against the card, matching the bold original.
     render: { width: 360, height: 360 },
-    seed: 'terrain9',
   },
   trigram: {
     palette: ['#275AA6', '#3E8BFF', '#3EECFF', '#97F4FF', '#FFFFFF'],
     options: { grid: '4x4', frequency: 0.5, roundedCorners: true },
-    seed: 'trigram4',
   },
   ring: {
     // Muted maroon rings (color1/color2) over the dark, semi-transparent
     // crescent (color3) — matching the soft, tonal rings of the original.
     palette: ['#FF3D8B', '#C9447A', '#A33261', '#232529'],
     options: { grid: '3x3', frequency: 0.75 },
-    seed: 'ringB',
   },
 };

@@ -22,6 +22,7 @@ import ButtonSelectGroup from 'components/ButtonSelectGroup';
 import ValueSlider from 'components/ValueSlider';
 import ToggleSwitch from 'components/ToggleSwitch';
 import { buildDoodleSource, type OptionValue } from 'lib/doodleSource';
+import { randomSeed } from 'lib/seed';
 import styles from './EditArtwork.module.css';
 
 const Doodle = dynamic(() => import('components/Doodle'), {
@@ -35,16 +36,6 @@ const ColorPicker = dynamic(() => import('components/ColorPicker'), {
 // Options with this id hold a "colsxrows" grid string and follow the selected
 // aspect ratio so that cells stay (near-)square.
 const GRID_OPTION_ID = 'grid';
-
-const SEED_CHARS =
-  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
-// Replaces randomstring.generate({ length: 4 }) — a short alphanumeric seed.
-const randomSeed = (length = 4) =>
-  Array.from(
-    { length },
-    () => SEED_CHARS[Math.floor(Math.random() * SEED_CHARS.length)]
-  ).join('');
 
 // A random 6-digit hex color (e.g. "#3eecff"), used to shuffle the palette.
 const randomHexColor = () =>

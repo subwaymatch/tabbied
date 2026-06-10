@@ -4,6 +4,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import 'css-doodle';
 import type { GalleryItem } from 'lib/artwork';
 import { buildDoodleSource } from 'lib/doodleSource';
+import { randomSeed } from 'lib/seed';
 import { galleryThumbnails } from './galleryThumbnails';
 import styles from './SelectArtwork.module.css';
 
@@ -30,7 +31,10 @@ export default function GalleryDoodleInner({ item }: { item: GalleryItem }) {
     height: `${render.height}px`,
   });
 
-  const seed = config?.seed ?? '0000';
+  // A fresh seed per mount keeps the gallery dynamic: every visit draws a new
+  // variation of each design (this component is ssr:false, so there is no
+  // server markup to mismatch).
+  const [seed] = useState(() => randomSeed());
   const name = `thumb-${item.slug}`;
 
   // Measure the square card so the fixed-resolution doodle can be scaled to fit.
