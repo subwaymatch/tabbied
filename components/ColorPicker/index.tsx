@@ -63,5 +63,13 @@ export default function ColorPicker({
     pickrRef.current?.setColor(color);
   }, [color]);
 
-  return <div className={`${pickerClassName} color-picker`} />;
+  // Pickr replaces the inner element with its own swatch button, so React must
+  // own a wrapper around it — unmounting (e.g. removing a palette color) would
+  // otherwise have React remove a node Pickr already detached, which throws
+  // and blanks the whole tree.
+  return (
+    <div>
+      <div className={`${pickerClassName} color-picker`} />
+    </div>
+  );
 }

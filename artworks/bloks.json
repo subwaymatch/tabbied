@@ -3,6 +3,11 @@
   "slug": "bloks",
   "galleryOrder": 8,
   "palette": ["#3FFFB2", "#ECFFEC", "#9EFFD8", "#ECFFEC", "#9EFFD8", "#FFFFFF"],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
   "options": [
     {
       "id": "grid",

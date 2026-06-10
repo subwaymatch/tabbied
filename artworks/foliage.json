@@ -4,6 +4,11 @@
   "galleryOrder": 16,
   "description": "Gradient leaf shapes rotate through the grid, with the occasional berry tucked in between.",
   "palette": ["#ECFFEC", "#3FFFB2", "#3E8BFF", "#9EFFD8", "#FF3D8B", "#F5DD32"],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
   "options": [
     {
       "id": "grid",

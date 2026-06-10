@@ -4,6 +4,11 @@
   "galleryOrder": 4,
   "defaultAspectRatio": "2:3",
   "palette": ["#97F4FF", "#97F4FF", "#00FFF3", "#00A1FF", "#FF8DFF", "#FF007E"],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
   "options": [
     {
       "id": "circularity",

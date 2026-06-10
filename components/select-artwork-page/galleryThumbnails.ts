@@ -121,9 +121,6 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   vitrail: {
     options: { grid: '4x4', frequency: 0.92 },
   },
-  strata: {
-    options: { grid: '5x5', frequency: 0.9 },
-  },
   tesserae: {
     options: { grid: '6x6', frequency: 0.92 },
   },
@@ -146,6 +143,6 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
     options: { grid: '5x5', frequency: 0.95 },
   },
   baste: {
-    options: { grid: '4x4', frequency: 0.9 },
+    options: { grid: '7x7', frequency: 0.9 },
   },
 };

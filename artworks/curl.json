@@ -2,8 +2,13 @@
   "name": "Curl",
   "slug": "curl",
   "galleryOrder": 52,
-  "description": "The classic Truchet curl: two thin arcs per tile joining into meandering loops — one ink on nothing at all, ready to lay over anything.",
-  "palette": ["#FFFFFF00", "#232529"],
+  "description": "The classic Truchet curl: two thin arcs per tile joining into meandering loops — inked on nothing at all, ready to lay over anything.",
+  "palette": ["#FFFFFF00", "#232529", "#FF3D8B", "#3E8BFF", "#3FFFB2", "#F5DD32"],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 5
+  },
   "options": [
     {
       "id": "grid",
@@ -25,7 +30,7 @@
     }
   ],
   "code": {
-    "style": "--rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ /* Two arcs at opposite corners, centered on the 50% radius so they connect across cells; the 0.5px ramps let Chrome anti-alias the edges. The orientation rides on the cell rotation so it animates on reseed */ @random(${shapeFrequency}) { background: radial-gradient(circle farthest-side at 0% 0%, transparent calc(42% - 0.5px), var(--color1) calc(42% + 0.5px) calc(58% - 0.5px), transparent calc(58% + 0.5px)), radial-gradient(circle farthest-side at 100% 100%, transparent calc(42% - 0.5px), var(--color1) calc(42% + 0.5px) calc(58% - 0.5px), transparent calc(58% + 0.5px)); -webkit-transform: rotate(@pick(0deg, 90deg)); transform: rotate(@pick(0deg, 90deg)); } -webkit-transition: ease 400ms; transition: ease 400ms; );",
+    "style": "/* The primary ink is weighted double; each arc rolls its own color, so loops patchwork where they cross cells */ --randomColor: @p(var(--color1), var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ /* Two arcs at opposite corners, centered on the 50% radius so they connect across cells; the 0.5px ramps let Chrome anti-alias the edges. The orientation rides on the cell rotation so it animates on reseed */ @random(${shapeFrequency}) { background: radial-gradient(circle farthest-side at 0% 0%, transparent calc(42% - 0.5px), var(--randomColor) calc(42% + 0.5px) calc(58% - 0.5px), transparent calc(58% + 0.5px)), radial-gradient(circle farthest-side at 100% 100%, transparent calc(42% - 0.5px), var(--randomColor) calc(42% + 0.5px) calc(58% - 0.5px), transparent calc(58% + 0.5px)); -webkit-transform: rotate(@pick(0deg, 90deg)); transform: rotate(@pick(0deg, 90deg)); } -webkit-transition: ease 400ms; transition: ease 400ms; );",
     "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
   }
 }

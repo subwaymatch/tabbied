@@ -4,6 +4,11 @@
   "galleryOrder": 45,
   "description": "The drunkard's path quilt block: quarter-moons in two deep blues wandering over solid ground, joining into snakes and loops.",
   "palette": ["#FFFFFF", "#3E8BFF", "#1B4075", "#3EECFF"],
+  "colors": {
+    "min": 2,
+    "max": 4,
+    "default": 4
+  },
   "options": [
     {
       "id": "grid",

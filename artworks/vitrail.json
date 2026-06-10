@@ -5,6 +5,11 @@
   "galleryWhite": true,
   "description": "Stained-glass panes in jewel tones, split by diagonals, arcs and half-moons, with dark leading running between them.",
   "palette": ["#232529", "#3E8BFF", "#3EECFF", "#FF3D8B", "#F5DD32"],
+  "colors": {
+    "min": 2,
+    "max": 5,
+    "default": 5
+  },
   "options": [
     {
       "id": "grid",

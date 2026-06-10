@@ -5,6 +5,11 @@
   "galleryWhite": true,
   "description": "Candy sprinkles tossed across a chocolate glaze, two to a cell, every one landing at its own angle.",
   "palette": ["#232529", "#FF3D8B", "#3EECFF", "#F5DD32", "#3FFFB2"],
+  "colors": {
+    "min": 2,
+    "max": 5,
+    "default": 5
+  },
   "options": [
     {
       "id": "grid",

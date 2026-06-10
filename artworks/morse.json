@@ -3,8 +3,13 @@
   "slug": "morse",
   "galleryOrder": 29,
   "galleryWhite": true,
-  "description": "Dots and dashes tap out an endless cipher in two colors, with the occasional hollow signal ringing through.",
-  "palette": ["#1B4075", "#3EECFF"],
+  "description": "Dots and dashes tap out an endless cipher — mostly cyan on navy, with brighter signals and the occasional hollow one ringing through.",
+  "palette": ["#1B4075", "#3EECFF", "#FF3D8B", "#F5DD32", "#FFFFFF", "#3FFFB2"],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 5
+  },
   "options": [
     {
       "id": "grid",
@@ -26,7 +31,7 @@
     }
   ],
   "code": {
-    "style": "--rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ /* Dots are weighted double against the two dash lengths; width transitions, so reseeds stretch dots into dashes and back */ @random(${shapeFrequency}) { :after { content: ''; position: absolute; height: 24%; width: @pick(24%, 24%, 50%, 76%); left: 50%; top: 50%; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%); border-radius: 320px; background: var(--color1); box-sizing: border-box; -webkit-transition: ease 400ms; transition: ease 400ms; } } /* The occasional signal rings hollow */ @random(0.12) { :after { width: 24%; background: transparent; /* border thickness of ~9.3px, 4.7px, 3.1px, 2.3px, 1.9px for 3, 6, 9, 12, 15 rows */ border: calc(28px / @size-row) solid var(--color1); } } );",
+    "style": "/* Cyan signals weighted double against the accent colors */ --randomColor: @p(var(--color1), var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ /* Dots are weighted double against the two dash lengths; width transitions, so reseeds stretch dots into dashes and back */ @random(${shapeFrequency}) { :after { content: ''; position: absolute; height: 24%; width: @pick(24%, 24%, 50%, 76%); left: 50%; top: 50%; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%); border-radius: 320px; background: var(--randomColor); box-sizing: border-box; -webkit-transition: ease 400ms; transition: ease 400ms; } } /* The occasional signal rings hollow */ @random(0.12) { :after { width: 24%; background: transparent; /* border thickness of ~9.3px, 4.7px, 3.1px, 2.3px, 1.9px for 3, 6, 9, 12, 15 rows */ border: calc(28px / @size-row) solid var(--randomColor); } } );",
     "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
   }
 }

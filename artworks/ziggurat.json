@@ -3,8 +3,13 @@
   "slug": "ziggurat",
   "galleryOrder": 51,
   "galleryWhite": true,
-  "description": "Stepped temple silhouettes climbing in four directions — an op-art stairfield in cyan with flashes of white.",
-  "palette": ["#1B4075", "#3EECFF", "#FFFFFF"],
+  "description": "Stepped temple silhouettes climbing in four directions — an op-art stairfield, mostly cyan with flashes of other colors.",
+  "palette": ["#1B4075", "#3EECFF", "#FFFFFF", "#3E8BFF", "#3FFFB2", "#97F4FF"],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 5
+  },
   "options": [
     {
       "id": "grid",
@@ -26,7 +31,7 @@
     }
   ],
   "code": {
-    "style": "/* Mostly cyan steps with white flashes */ --randomColor: @p(var(--color1), var(--color1), var(--color1), var(--color2)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ /* A three-step staircase fills the cell; the climb direction rides on the cell rotation so it animates on reseed */ @random(${shapeFrequency}) { background: var(--randomColor); -webkit-clip-path: polygon(0 100%, 0 66.6%, 33.3% 66.6%, 33.3% 33.3%, 66.6% 33.3%, 66.6% 0, 100% 0, 100% 100%); clip-path: polygon(0 100%, 0 66.6%, 33.3% 66.6%, 33.3% 33.3%, 66.6% 33.3%, 66.6% 0, 100% 0, 100% 100%); -webkit-transform: rotate(@pick(0deg, 90deg, 180deg, 270deg)); transform: rotate(@pick(0deg, 90deg, 180deg, 270deg)); } -webkit-transition: ease 400ms; transition: ease 400ms; );",
+    "style": "/* Mostly cyan steps with flashes of the accent colors */ --randomColor: @p(var(--color1), var(--color1), var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ /* A three-step staircase fills the cell; the climb direction rides on the cell rotation so it animates on reseed */ @random(${shapeFrequency}) { background: var(--randomColor); -webkit-clip-path: polygon(0 100%, 0 66.6%, 33.3% 66.6%, 33.3% 33.3%, 66.6% 33.3%, 66.6% 0, 100% 0, 100% 100%); clip-path: polygon(0 100%, 0 66.6%, 33.3% 66.6%, 33.3% 33.3%, 66.6% 33.3%, 66.6% 0, 100% 0, 100% 100%); -webkit-transform: rotate(@pick(0deg, 90deg, 180deg, 270deg)); transform: rotate(@pick(0deg, 90deg, 180deg, 270deg)); } -webkit-transition: ease 400ms; transition: ease 400ms; );",
     "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
   }
 }

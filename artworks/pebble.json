@@ -2,8 +2,13 @@
   "name": "Pebble",
   "slug": "pebble",
   "galleryOrder": 24,
-  "description": "Smooth river stones in two tonal greens — circles, drops and leaves that morph from one shape into another on every redraw.",
-  "palette": ["#ECFFEC", "#3FFFB2", "#9EFFD8"],
+  "description": "Smooth river stones in tonal greens and blues — circles, drops and leaves that morph from one shape into another on every redraw.",
+  "palette": ["#ECFFEC", "#3FFFB2", "#9EFFD8", "#3EECFF", "#97F4FF", "#3E8BFF"],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 5
+  },
   "options": [
     {
       "id": "grid",
@@ -25,7 +30,7 @@
     }
   ],
   "code": {
-    "style": "/* Two tonal pebble colors */ --randomColor: @p(var(--color1), var(--color2)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ /* Random corner rounding carves circles, drops and leaves; border-radius is animatable so reseeds morph one silhouette into the next */ @random(${shapeFrequency}) { width: 82%; height: 82%; margin: 9%; background: var(--randomColor); border-radius: @pick(50%, 50% 50% 50% 0, 50% 50% 0 50%, 50% 0 50% 50%, 0 50% 50% 50%, 50% 0, 0 50%); -webkit-transform: rotate(@pick(0deg, 90deg, 180deg, 270deg)); transform: rotate(@pick(0deg, 90deg, 180deg, 270deg)); } /* A few pebbles are small ones */ @random(0.2) { width: 38%; height: 38%; margin: 31%; } -webkit-transition: ease 400ms; transition: ease 400ms; );",
+    "style": "/* Tonal pebble colors */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ /* Random corner rounding carves circles, drops and leaves; border-radius is animatable so reseeds morph one silhouette into the next */ @random(${shapeFrequency}) { width: 82%; height: 82%; margin: 9%; background: var(--randomColor); border-radius: @pick(50%, 50% 50% 50% 0, 50% 50% 0 50%, 50% 0 50% 50%, 0 50% 50% 50%, 50% 0, 0 50%); -webkit-transform: rotate(@pick(0deg, 90deg, 180deg, 270deg)); transform: rotate(@pick(0deg, 90deg, 180deg, 270deg)); } /* A few pebbles are small ones */ @random(0.2) { width: 38%; height: 38%; margin: 31%; } -webkit-transition: ease 400ms; transition: ease 400ms; );",
     "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
   }
 }

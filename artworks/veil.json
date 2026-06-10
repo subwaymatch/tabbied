@@ -3,6 +3,11 @@
   "slug": "veil",
   "galleryOrder": 5,
   "palette": ["#9EFFD8", "#3E8BFF", "#326DC9", "#1B4075", "#3EECFF", "#3E8BFF"],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
   "options": [
     {
       "id": "grid",

@@ -1,3 +1,9 @@
+/* Each swatch sits in a React-owned wrapper (so unmounting a removed color
+   doesn't fight Pickr over the DOM); keep the wrappers flowing in a row. */
+.colors > div {
+  display: inline-block;
+}
+
 .colors .pickr {
   display: inline-block;
   margin-right: 24px;

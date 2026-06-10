@@ -2,8 +2,13 @@
   "name": "Baste",
   "slug": "baste",
   "galleryOrder": 56,
-  "description": "Running stitches basted across the cloth — three navy dashes to a seam, slanting one way or the other.",
-  "palette": ["#FFFFFF00", "#1B4075"],
+  "description": "Running stitches basted across the cloth — three dashes to a seam, each thread its own color, slanting one way or the other.",
+  "palette": ["#FFFFFF00", "#1B4075", "#FF3D8B", "#3E8BFF", "#3FFFB2", "#F5DD32"],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 5
+  },
   "options": [
     {
       "id": "grid",
@@ -25,7 +30,7 @@
     }
   ],
   "code": {
-    "style": "--rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ /* The cell is the middle dash; the pseudo-elements continue the seam to either side along the rotated axis */ @random(${shapeFrequency}) { width: 22%; height: 7%; margin: 46.5% 39%; border-radius: 320px; background: var(--color1); -webkit-transform: rotate(@pick(45deg, -45deg)); transform: rotate(@pick(45deg, -45deg)); :before { content: ''; position: absolute; left: -136%; top: 0; @size: 100%; border-radius: 320px; background: var(--color1); } :after { content: ''; position: absolute; left: 136%; top: 0; @size: 100%; border-radius: 320px; background: var(--color1); } } /* Some seams run straight across instead */ @random(0.2) { -webkit-transform: rotate(@pick(0deg, 90deg)); transform: rotate(@pick(0deg, 90deg)); } -webkit-transition: ease 400ms; transition: ease 400ms; );",
+    "style": "/* The navy thread is weighted double against the accent colors */ --randomColor: @p(var(--color1), var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ /* The cell is the middle dash; the pseudo-elements continue the seam to either side along the rotated axis. The thread color is rolled once on the cell and the side dashes inherit it, so all three dashes match */ @random(${shapeFrequency}) { width: 22%; height: 7%; margin: 46.5% 39%; border-radius: 320px; background: var(--randomColor); -webkit-transform: rotate(@pick(45deg, -45deg)); transform: rotate(@pick(45deg, -45deg)); :before { content: ''; position: absolute; left: -136%; top: 0; @size: 100%; border-radius: 320px; background: inherit; } :after { content: ''; position: absolute; left: 136%; top: 0; @size: 100%; border-radius: 320px; background: inherit; } } /* Some seams run straight across instead */ @random(0.2) { -webkit-transform: rotate(@pick(0deg, 90deg)); transform: rotate(@pick(0deg, 90deg)); } -webkit-transition: ease 400ms; transition: ease 400ms; );",
     "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
   }
 }

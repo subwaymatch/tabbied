@@ -4,6 +4,11 @@
   "galleryOrder": 15,
   "description": "Circles, triangles, squares and paper strips tossed across the canvas at random sizes and angles — a celebration frozen mid-air.",
   "palette": ["#FFFFFF", "#FF3D8B", "#3E8BFF", "#3FFFB2", "#F5DD32", "#3EECFF"],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
   "options": [
     {
       "id": "grid",

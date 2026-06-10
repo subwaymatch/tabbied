@@ -3,6 +3,11 @@
   "slug": "disque",
   "galleryOrder": 7,
   "palette": ["#3EECFF", "#232529", "#1B4075", "#FF3D8B", "#E9F1FF", "#367DE6"],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
   "options": [
     {
       "id": "grid",
