@@ -44,6 +44,18 @@
   display: block;
 }
 
+/* Background-color-to-transparent fade behind the card title (the title
+   itself sits above at z-index 10). Tall enough that the text, which ends
+   around 3rem from the top, stays over the more opaque half of the fade. */
+.titleGradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 7.5rem;
+  pointer-events: none;
+}
+
 /* Select-artwork page */
 .selectArtworkSection .grayBackground {
   background: rgba(248, 249, 250, 0.6);
