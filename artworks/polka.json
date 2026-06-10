@@ -5,6 +5,11 @@
   "galleryWhite": true,
   "description": "Dots of every size bounce across the canvas — flip them hollow for a field of floating rings.",
   "palette": ["#3E8BFF", "#FFFFFF", "#FF3D8B", "#3FFFB2", "#F5DD32", "#3EECFF"],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
   "options": [
     {
       "id": "grid",

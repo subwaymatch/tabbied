@@ -20,10 +20,24 @@ export type ArtworkOption = {
   code?: string;
 };
 
+/**
+ * Bounds for how many palette entries (including the color0 background) are
+ * active at once. `palette` must hold `max` entries so every slot has an
+ * authored default; the artwork's style references colors up to `max - 1` and
+ * inactive slots alias back into the active inks (see expandPalette).
+ */
+export type ArtworkColors = {
+  min: number;
+  max: number;
+  default: number;
+};
+
 export type Artwork = {
   name: string;
   slug: string;
   palette?: string[];
+  /** Adjustable color-count bounds. Absent means the palette size is fixed. */
+  colors?: ArtworkColors;
   options: ArtworkOption[];
   code: {
     style: string;
@@ -49,6 +63,7 @@ export type GalleryItem = {
   white: boolean;
   /** Everything the gallery needs to render a live css-doodle thumbnail. */
   palette: string[];
+  colors?: ArtworkColors;
   options: ArtworkOption[];
   code: Artwork['code'];
 };
@@ -84,16 +99,18 @@ export async function getGalleryItems(): Promise<GalleryItem[]> {
       name: artwork.name,
       white: artwork.galleryWhite ?? false,
       palette: artwork.palette ?? [],
+      colors: artwork.colors,
       options: artwork.options,
       code: artwork.code,
       order: artwork.galleryOrder ?? Number.MAX_SAFE_INTEGER,
     }))
     .sort((a, b) => a.order - b.order || a.name.localeCompare(b.name))
-    .map(({ slug, name, white, palette, options, code }) => ({
+    .map(({ slug, name, white, palette, colors, options, code }) => ({
       slug,
       name,
       white,
       palette,
+      colors,
       options,
       code,
     }));

@@ -5,6 +5,11 @@
   "galleryWhite": true,
   "description": "Discs split into alternating quarter wedges spin at random angles, like a field of paper pinwheels caught mid-turn.",
   "palette": ["#232529", "#3E8BFF", "#3EECFF", "#FF3D8B", "#3FFFB2", "#F5DD32"],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
   "options": [
     {
       "id": "grid",

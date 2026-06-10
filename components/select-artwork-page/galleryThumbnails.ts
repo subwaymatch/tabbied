@@ -103,4 +103,46 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   weave: {
     options: { grid: '4x4', frequency: 0.75 },
   },
+  ziggy: {
+    options: { grid: '5x5', frequency: 0.92 },
+  },
+  lunar: {
+    options: { grid: '4x4', frequency: 0.85 },
+  },
+  pebble: {
+    options: { grid: '4x4', frequency: 0.9 },
+  },
+  morse: {
+    options: { grid: '5x5', frequency: 0.9 },
+  },
+  sparkle: {
+    options: { grid: '5x5', frequency: 0.92 },
+  },
+  vitrail: {
+    options: { grid: '4x4', frequency: 0.92 },
+  },
+  tesserae: {
+    options: { grid: '6x6', frequency: 0.92 },
+  },
+  sprinkles: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  glyph: {
+    options: { grid: '5x5', frequency: 0.92 },
+  },
+  wander: {
+    options: { grid: '5x5', frequency: 0.92 },
+  },
+  comet: {
+    options: { grid: '4x4', frequency: 0.85 },
+  },
+  ziggurat: {
+    options: { grid: '5x5', frequency: 0.92 },
+  },
+  curl: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  baste: {
+    options: { grid: '7x7', frequency: 0.9 },
+  },
 };

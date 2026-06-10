@@ -124,11 +124,11 @@ test.describe('Tabbied site', () => {
     await page.goto('/artwork/radius?seed=0000');
 
     // Wait until state has been written back into the URL.
-    await expect(page).toHaveURL(/grid=4x6/);
-
-    await page.getByText('6x9', { exact: true }).click();
-
     await expect(page).toHaveURL(/grid=6x9/);
+
+    await page.getByText('4x6', { exact: true }).click();
+
+    await expect(page).toHaveURL(/grid=4x6/);
   });
 
   test('changing the aspect ratio remaps the grid to keep square cells', async ({
@@ -138,14 +138,14 @@ test.describe('Tabbied site', () => {
 
     // Default portrait ratio reproduces the original 2:3 grid options.
     await expect(page).toHaveURL(/aspectRatio=2%3A3/);
-    await expect(page).toHaveURL(/grid=4x6/);
+    await expect(page).toHaveURL(/grid=6x9/);
 
-    // Switch to a square canvas: the 4x6 (level 1) grid re-derives to 6x6.
+    // Switch to a square canvas: the 6x9 (level 2) grid re-derives to 9x9.
     await page.getByText('1:1', { exact: true }).click();
 
     await expect(page).toHaveURL(/aspectRatio=1%3A1/);
-    await expect(page).toHaveURL(/grid=6x6/);
-    await expect(page.getByText('6x6', { exact: true })).toBeVisible();
+    await expect(page).toHaveURL(/grid=9x9/);
+    await expect(page.getByText('9x9', { exact: true })).toBeVisible();
   });
 
   test('symmetry offers aspect ratios and follows the selection', async ({
@@ -164,6 +164,36 @@ test.describe('Tabbied site', () => {
     // The canvas follows the landscape ratio.
     const box = await page.locator('css-doodle#symmetry').boundingBox();
     expect(box!.width).toBeGreaterThan(box!.height);
+  });
+
+  test('palette colors can be removed and re-added within the artwork bounds', async ({
+    page,
+  }) => {
+    await page.goto('/artwork/radius?seed=0000');
+
+    // Radius opens at its default of 6 colors, which is also its maximum, so
+    // only the remove button starts enabled. (Pickr replaces each swatch
+    // element with a .pcr-button, so count those.)
+    await expect(page.locator('.pcr-button')).toHaveCount(6, {
+      timeout: 15000,
+    });
+    const addButton = page.getByRole('button', { name: 'Add color' });
+    const removeButton = page.getByRole('button', { name: 'Remove color' });
+    await expect(addButton).toBeDisabled();
+
+    // Removing a color drops a swatch and the URL carries one fewer palette
+    // param (the param count doubles as the color count on shared links).
+    await removeButton.click();
+    await expect(page.locator('.pcr-button')).toHaveCount(5);
+    await expect
+      .poll(() => new URL(page.url()).searchParams.getAll('palette').length)
+      .toBe(5);
+    await expect(addButton).toBeEnabled();
+
+    // Re-adding restores the slot.
+    await addButton.click();
+    await expect(page.locator('.pcr-button')).toHaveCount(6);
+    await expect(addButton).toBeDisabled();
   });
 
   test('slider controls display their current value', async ({ page }) => {

@@ -1,0 +1,45 @@
+{
+  "name": "Lunar",
+  "slug": "lunar",
+  "galleryOrder": 23,
+  "galleryWhite": true,
+  "description": "A sky of moons cycling through their phases — crescents, gibbous and full — most pale, some golden or pastel, with a few distant stars.",
+  "palette": ["#1B4075", "#E9F1FF", "#F5DD32", "#D89FFF", "#9EFFD8", "#FF8DFF"],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 5
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": ["2x3", "4x6", "6x9", "8x12", "10x15"],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    },
+    {
+      "id": "stars",
+      "displayName": "Stars",
+      "type": "ToggleSwitch",
+      "default": true,
+      "code": "@random(0.15) { width: 9%; height: 9%; margin: 45.5%; -webkit-transform: none; transform: none; background: var(--color1); :after { background: transparent; } }",
+      "replace": "${stars}"
+    }
+  ],
+  "code": {
+    "style": "/* Mostly pale moons with occasional golden and pastel ones */ --randomColor: @p(var(--color1), var(--color1), var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(${shapeFrequency}) { width: 64%; height: 64%; margin: 18%; border-radius: 50%; background: var(--randomColor); /* overflow + the 50% radius clip the bite to the disc, so the bg-colored bite circle can never spill onto a neighboring moon */ overflow: hidden; /* Phase angle */ -webkit-transform: rotate(@rand(0deg, 359deg)); transform: rotate(@rand(0deg, 359deg)); :after { content: ''; position: absolute; @size: 100%; top: 0; /* Crescent or gibbous bite; a transparent bite leaves a full moon */ left: @pick(32%, 56%); border-radius: 50%; background: @p(var(--color0), var(--color0), transparent); -webkit-transition: ease 400ms; transition: ease 400ms; } } /* On or off option for scattering tiny stars between the moons */ ${stars} -webkit-transition: ease 400ms; transition: ease 400ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

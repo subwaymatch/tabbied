@@ -3,7 +3,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import 'css-doodle';
 import type { GalleryItem } from 'lib/artwork';
-import { buildDoodleSource } from 'lib/doodleSource';
+import { buildDoodleSource, expandPalette } from 'lib/doodleSource';
 import { randomSeed } from 'lib/seed';
 import { galleryThumbnails } from './galleryThumbnails';
 import styles from './SelectArtwork.module.css';
@@ -22,7 +22,19 @@ export default function GalleryDoodleInner({ item }: { item: GalleryItem }) {
 
   const config = galleryThumbnails[item.slug];
   const render = { ...DEFAULT_RENDER, ...(config?.render ?? {}) };
-  const palette = config?.palette ?? item.palette;
+  // Thumbnails show the design at its default color count: the active slice of
+  // the palette, expanded so the style's higher color slots alias back into it
+  // (mirroring what the editor renders when it opens).
+  const baseColors = config?.palette ?? item.palette;
+  const defaultCount = item.colors?.default ?? baseColors.length;
+  const totalColors = Math.max(
+    item.colors?.max ?? baseColors.length,
+    baseColors.length
+  );
+  const palette = expandPalette(
+    baseColors.slice(0, defaultCount),
+    totalColors
+  );
   const optionValues = item.options.map(
     (option) => config?.options?.[option.id] ?? option.default
   );

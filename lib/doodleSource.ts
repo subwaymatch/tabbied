@@ -16,6 +16,25 @@ export const fixFullRandomGate = (code: string): string =>
 const getColorsStyleCode = (colors: string[]): string =>
   colors.map((color, idx) => `--color${idx}: ${color};\n`).join('');
 
+// Grow an active palette up to the artwork's full slot count by cycling its
+// ink colors (everything after the color0 background). Artwork styles always
+// reference colors up to `max - 1`, so when fewer colors are active the unused
+// slots have to resolve to something — aliasing them back into the active inks
+// redraws the design with the reduced palette instead of leaving gaps.
+export const expandPalette = (
+  colors: string[],
+  totalColors: number
+): string[] => {
+  const expanded = [...colors];
+  const inkCount = colors.length - 1;
+
+  while (inkCount > 0 && expanded.length < totalColors) {
+    expanded.push(colors[1 + ((expanded.length - 1) % inkCount)]);
+  }
+
+  return expanded;
+};
+
 export type DoodleSourceInput = {
   code: { style: string; doodle: string };
   options: ArtworkOption[];

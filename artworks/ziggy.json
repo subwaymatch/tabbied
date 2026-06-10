@@ -1,0 +1,36 @@
+{
+  "name": "Ziggy",
+  "slug": "ziggy",
+  "galleryOrder": 22,
+  "description": "Thick chevron bands lock into zigzag ribbons — mostly dark, with colorful chevrons breaking through like radio static turned into fabric.",
+  "palette": ["#F5DD32", "#232529", "#FF3D8B", "#3E8BFF", "#FFFFFF", "#1B4075"],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 5
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": ["2x3", "4x6", "6x9", "8x12", "10x15"],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "/* Dark chevrons weighted double against the accent colors */ --randomColor: @p(var(--color1), var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ /* A thick V-shaped band; vertical orientations are weighted double so columns chain into zigzag ribbons. The direction rides on the cell rotation so reseeds spin chevrons into place */ @random(${shapeFrequency}) { background: var(--randomColor); -webkit-clip-path: polygon(0 0, 50% 50%, 100% 0, 100% 50%, 50% 100%, 0 50%); clip-path: polygon(0 0, 50% 50%, 100% 0, 100% 50%, 50% 100%, 0 50%); -webkit-transform: rotate(@pick(0deg, 0deg, 180deg, 180deg, 90deg, 270deg)); transform: rotate(@pick(0deg, 0deg, 180deg, 180deg, 90deg, 270deg)); } -webkit-transition: ease 400ms; transition: ease 400ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { Dialog } from '@base-ui-components/react/dialog';
-import { Shuffle, Expand, X } from 'lucide-react';
+import { Shuffle, Expand, X, Minus, Plus } from 'lucide-react';
 import useMediaQuery from 'lib/useMediaQuery';
 import type { Artwork, ArtworkOption } from 'lib/artwork';
 import {
@@ -21,7 +21,11 @@ import EditArtworkHeader from 'components/edit-artwork-page/EditArtworkHeader';
 import ButtonSelectGroup from 'components/ButtonSelectGroup';
 import ValueSlider from 'components/ValueSlider';
 import ToggleSwitch from 'components/ToggleSwitch';
-import { buildDoodleSource, type OptionValue } from 'lib/doodleSource';
+import {
+  buildDoodleSource,
+  expandPalette,
+  type OptionValue,
+} from 'lib/doodleSource';
 import { randomSeed } from 'lib/seed';
 import styles from './EditArtwork.module.css';
 
@@ -140,6 +144,14 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
   const defaultAspectRatio =
     lockedAspectRatio ?? artwork.defaultAspectRatio ?? DEFAULT_ASPECT_RATIO;
 
+  // Color-count bounds: the authored palette holds `max` entries (slot 0 is
+  // the background) and `colorCount` marks how many are active. Presets
+  // without a `colors` config keep their palette size fixed.
+  const paletteDefaults = artwork.palette ?? [];
+  const minColors = artwork.colors?.min ?? paletteDefaults.length;
+  const maxColors = artwork.colors?.max ?? paletteDefaults.length;
+  const defaultColors = artwork.colors?.default ?? paletteDefaults.length;
+
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -167,12 +179,23 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     return queryVal;
   };
 
-  const paletteFromQuery = (): string[] => {
+  // The URL carries only the active colors, so the param count doubles as the
+  // color count. Stored palette entries beyond it are topped up from the
+  // authored defaults so re-adding a color always reveals a sensible value.
+  const paletteStateFromQuery = (): { palette: string[]; count: number } => {
     const queryPalette = searchParams.getAll('palette');
 
-    return artwork.palette && queryPalette.length === artwork.palette.length
-      ? queryPalette
-      : artwork.palette ?? [];
+    if (queryPalette.length >= minColors && queryPalette.length <= maxColors) {
+      return {
+        palette: [
+          ...queryPalette,
+          ...paletteDefaults.slice(queryPalette.length),
+        ],
+        count: queryPalette.length,
+      };
+    }
+
+    return { palette: paletteDefaults, count: defaultColors };
   };
 
   const aspectRatioFromQuery = (): AspectRatioId => {
@@ -186,7 +209,12 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
   // State starts from the URL (shared / refreshed links) and falls back to the
   // artwork defaults, so the first paint already shows the linked artwork
   // instead of correcting itself after mount.
-  const [palette, setPalette] = useState<string[]>(paletteFromQuery);
+  const [palette, setPalette] = useState<string[]>(
+    () => paletteStateFromQuery().palette
+  );
+  const [colorCount, setColorCount] = useState<number>(
+    () => paletteStateFromQuery().count
+  );
   const [optionValues, setOptionValues] = useState<OptionValue[]>(() =>
     artwork.options.map((option) => optionFromQuery(option))
   );
@@ -227,10 +255,17 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
   // forward navigation re-renders with new params without remounting). Each
   // setter is guarded so an echo of our own router.replace is a no-op.
   useEffect(() => {
-    const queryPalette = paletteFromQuery();
+    const queryPaletteState = paletteStateFromQuery();
 
-    if (!arraysEqual(palette, queryPalette)) {
-      setPalette(queryPalette);
+    if (
+      colorCount !== queryPaletteState.count ||
+      !arraysEqual(
+        palette.slice(0, colorCount),
+        queryPaletteState.palette.slice(0, queryPaletteState.count)
+      )
+    ) {
+      setPalette(queryPaletteState.palette);
+      setColorCount(queryPaletteState.count);
     }
 
     artwork.options.forEach((option, optionIndex) => {
@@ -301,7 +336,9 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
 
     const newParams = new URLSearchParams();
 
-    palette.forEach((color) => newParams.append('palette', color));
+    palette
+      .slice(0, colorCount)
+      .forEach((color) => newParams.append('palette', color));
     newParams.set('seed', seed);
     if (!lockedAspectRatio) {
       newParams.set('aspectRatio', aspectRatio);
@@ -314,7 +351,7 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
       router.replace(`${pathname}?${newParams.toString()}`, { scroll: false });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [seed, palette, optionValues, aspectRatio]);
+  }, [seed, palette, colorCount, optionValues, aspectRatio]);
 
   const setOptionByIndex = (index: number, value: OptionValue) => {
     setOptionValues((prev) => {
@@ -329,8 +366,20 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     setSeed(randomSeed(4));
   };
 
+  // Randomize only the visible colors: hidden slots keep their stored values
+  // so re-adding a color reveals something deliberate, not a stray random.
   const randomizePalette = () => {
-    setPalette((prev) => prev.map(() => randomHexColor()));
+    setPalette((prev) =>
+      prev.map((color, index) =>
+        index < colorCount ? randomHexColor() : color
+      )
+    );
+  };
+
+  const changeColorCount = (delta: number) => {
+    setColorCount((prev) =>
+      Math.min(maxColors, Math.max(minColors, prev + delta))
+    );
   };
 
   // Switching the aspect ratio re-derives every grid option at its current
@@ -362,7 +411,9 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     buildDoodleSource({
       code: artwork.code,
       options: artwork.options,
-      palette,
+      // The style references colors up to maxColors - 1, so inactive slots
+      // alias back into the active inks (this is what "removing" a color does).
+      palette: expandPalette(palette.slice(0, colorCount), maxColors),
       optionValues,
       width: `${canvasWidth}px`,
       height: `${canvasHeight}px`,
@@ -522,9 +573,37 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
                   >
                     <Shuffle size={18} />
                   </button>
+                  {minColors < maxColors && (
+                    <div
+                      className={styles.colorCountGroup}
+                      role="group"
+                      aria-label="Number of colors"
+                    >
+                      <button
+                        type="button"
+                        className={styles.colorCountButton}
+                        onClick={() => changeColorCount(-1)}
+                        disabled={colorCount <= minColors}
+                        aria-label="Remove color"
+                        title="Remove color"
+                      >
+                        <Minus size={16} />
+                      </button>
+                      <button
+                        type="button"
+                        className={styles.colorCountButton}
+                        onClick={() => changeColorCount(1)}
+                        disabled={colorCount >= maxColors}
+                        aria-label="Add color"
+                        title="Add color"
+                      >
+                        <Plus size={16} />
+                      </button>
+                    </div>
+                  )}
                 </div>
                 <div className="colors">
-                  {palette.map((hex, index) => (
+                  {palette.slice(0, colorCount).map((hex, index) => (
                     <ColorPicker
                       key={`color${index}`}
                       index={index}

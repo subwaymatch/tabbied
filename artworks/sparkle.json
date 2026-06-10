@@ -1,0 +1,37 @@
+{
+  "name": "Sparkle",
+  "slug": "sparkle",
+  "galleryOrder": 31,
+  "galleryWhite": true,
+  "description": "Four-point glints — mostly white, some gold or colored — catch the light against the dark, a few collapsing into tiny round twinkles.",
+  "palette": ["#232529", "#FFFFFF", "#F5DD32", "#3EECFF", "#FF8DFF", "#3FFFB2"],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 5
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": ["2x3", "4x6", "6x9", "8x12", "10x15"],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "/* Mostly white sparkles with golden and colored ones mixed in */ --randomColor: @p(var(--color1), var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(${shapeFrequency}) { :after { content: ''; position: absolute; @size: @pick(24%, 36%, 50%, 68%); left: 50%; top: 50%; background: var(--randomColor); @shape: hypocycloid 4; -webkit-transform: translate(-50%, -50%) rotate(@pick(0deg, 45deg)); transform: translate(-50%, -50%) rotate(@pick(0deg, 45deg)); -webkit-transition: ease 400ms; transition: ease 400ms; } } /* A few sparkles collapse into tiny round twinkles (the circle clip overrides the star shape) */ @random(0.18) { :after { @size: 12%; -webkit-clip-path: circle(50% at 50% 50%); clip-path: circle(50% at 50% 50%); } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

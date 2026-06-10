@@ -4,6 +4,11 @@
   "galleryOrder": 12,
   "description": "A nod to the classic 10 PRINT one-liner: diagonal strokes tumble across the grid to form an endless maze, with the occasional junction dot.",
   "palette": ["#E9F1FF", "#232529", "#3E8BFF", "#FF3D8B", "#3FFFB2", "#3EECFF"],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
   "options": [
     {
       "id": "grid",

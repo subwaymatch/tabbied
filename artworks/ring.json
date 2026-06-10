@@ -4,6 +4,11 @@
   "galleryOrder": 11,
   "galleryWhite": true,
   "palette": ["#FF3D8B", "#C9447A", "#A33261", "#232529"],
+  "colors": {
+    "min": 2,
+    "max": 4,
+    "default": 4
+  },
   "options": [
     {
       "id": "grid",
