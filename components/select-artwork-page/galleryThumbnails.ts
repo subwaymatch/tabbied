@@ -73,4 +73,38 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
     palette: ['#FF3D8B', '#C9447A', '#A33261', '#232529'],
     options: { grid: '3x3', frequency: 0.75 },
   },
+  maze: {
+    palette: ['#E9F1FF', '#232529', '#3E8BFF', '#FF3D8B', '#3FFFB2', '#3EECFF'],
+    options: { grid: '7x7', frequency: 0.95, thickness: 9 },
+  },
+  pinwheel: {
+    palette: ['#232529', '#3E8BFF', '#3EECFF', '#FF3D8B', '#3FFFB2', '#F5DD32'],
+    options: { grid: '3x3', frequency: 0.9 },
+  },
+  orbit: {
+    options: { grid: '3x3', frequency: 0.8 },
+  },
+  confetti: {
+    options: { grid: '4x4', frequency: 0.95 },
+  },
+  foliage: {
+    palette: ['#ECFFEC', '#3FFFB2', '#3E8BFF', '#9EFFD8', '#FF3D8B', '#F5DD32'],
+    options: { grid: '4x4', frequency: 0.9 },
+  },
+  arco: {
+    options: { grid: '3x3', frequency: 0.9 },
+  },
+  metro: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  polka: {
+    options: { grid: '4x4', frequency: 0.85 },
+  },
+  stitch: {
+    palette: ['#9EFFD8', '#FF3D8B', '#3E8BFF', '#1B4075', '#232529', '#F5DD32'],
+    options: { grid: '4x4', frequency: 0.8 },
+  },
+  weave: {
+    options: { grid: '4x4', frequency: 0.75 },
+  },
 };
