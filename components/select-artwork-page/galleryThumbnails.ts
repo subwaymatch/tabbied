@@ -112,9 +112,6 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   pebble: {
     options: { grid: '4x4', frequency: 0.9 },
   },
-  pulse: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
   morse: {
     options: { grid: '5x5', frequency: 0.9 },
   },
@@ -131,9 +128,6 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
     options: { grid: '6x6', frequency: 0.92 },
   },
   sprinkles: {
-    options: { grid: '5x5', frequency: 0.95 },
-  },
-  noodle: {
     options: { grid: '5x5', frequency: 0.95 },
   },
   glyph: {
