@@ -4,13 +4,13 @@
   "galleryOrder": 6,
   "galleryWhite": true,
   "description": "Isosceles right triangles are randomly placed to balance stability with a bit of mystery and interest.",
-  "palette": ["#FFFFFF", "#3EECFF", "#FFA1C6", "#3FFFB2", "#ECFF3D", "#FF3D8B"],
+  "palette": ["#367DE6", "#3EECFF", "#3FFFB2", "#FF3D8B", "#3FFFB2", "#FF3D8B"],
   "options": [
     {
       "id": "grid",
       "displayName": "Columns and rows",
       "type": "ButtonSelectGroup",
-      "default": "2x3",
+      "default": "4x6",
       "options": ["2x3", "4x6", "6x9", "8x12", "10x15"],
       "replace": "${grid}"
     },
