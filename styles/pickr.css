@@ -48,6 +48,23 @@
   position: fixed;
 }
 
+/*
+ * On small screens the popup routinely overflows the bottom of the viewport
+ * (pickr positions it under the swatch and re-anchors it there on scroll), so
+ * the hue/opacity sliders and the save button could be impossible to reach.
+ * Pin it to the bottom of the screen as a sheet instead; !important is needed
+ * to beat the inline left/top pickr sets while positioning.
+ */
+@media (max-width: 991.98px) {
+  .pcr-app[data-theme='monolith'] {
+    top: auto !important;
+    bottom: calc(0.75rem + env(safe-area-inset-bottom)) !important;
+    left: 50% !important;
+    transform: translateX(-50%);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+  }
+}
+
 .pcr-app[data-theme='monolith'] .pcr-interaction input,
 .pcr-app[data-theme='monolith'] .pcr-interaction .pcr-result {
   border-radius: 2px;

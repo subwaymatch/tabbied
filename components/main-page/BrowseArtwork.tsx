@@ -27,7 +27,11 @@ export default async function BrowseArtworkSection() {
         <Row noGutter>
           {gallery.map((item) => (
             <Col key={item.slug} md={3} sm={6}>
-              <Link href={`/artwork/${item.slug}/`}>
+              {/* The seed param matches the select-artwork links: the editor
+                  only mirrors customizations into the URL (making them
+                  shareable and refresh-safe) when the URL already carries a
+                  query param. */}
+              <Link href={`/artwork/${item.slug}?seed=0000`}>
                 <div className={styles.galleryCard}>
                   <h4 className={item.white ? styles.white : undefined}>
                     {item.name}

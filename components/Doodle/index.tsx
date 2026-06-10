@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, type RefObject } from 'react';
+import { useEffect, useRef, type RefObject } from 'react';
 import 'css-doodle';
 
 type DoodleProps = {
@@ -18,12 +18,23 @@ export default function Doodle({
   doodleCode,
   doodleRef,
 }: DoodleProps) {
-  // css-doodle >= 0.5 no longer re-reads the element's text content on a bare
-  // update(), so pass the current source explicitly whenever the rules,
-  // palette, or seed change to make sure the grid is regenerated.
+  const renderedSource = useRef<string | null>(null);
+
+  // css-doodle renders the element's text content on mount and re-renders by
+  // itself when the observed `seed` attribute changes, so an explicit update()
+  // is only needed when the source (rules or palette) changes afterwards —
+  // anything more would regenerate every grid twice. css-doodle >= 0.5 no
+  // longer re-reads the text content on a bare update(), so pass the current
+  // source explicitly.
   useEffect(() => {
-    doodleRef.current?.update?.(doodleCode);
-  }, [doodleRef, doodleCode, styleCode, seed]);
+    const source = `${styleCode}\u0000${doodleCode}`;
+
+    if (renderedSource.current !== null && renderedSource.current !== source) {
+      doodleRef.current?.update?.(doodleCode);
+    }
+
+    renderedSource.current = source;
+  }, [doodleRef, doodleCode, styleCode]);
 
   return (
     <div>

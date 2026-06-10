@@ -174,4 +174,51 @@ test.describe('Tabbied site', () => {
       page.getByRole('heading', { name: 'iOS Export Test' })
     ).toBeVisible();
   });
+
+  test('homepage gallery cards link with a seed so edits sync to the URL', async ({
+    page,
+  }) => {
+    await page.goto('/');
+
+    // Without a query param on the link, the editor never mirrors state into
+    // the URL, so customizations made after entering from the homepage would
+    // not survive a refresh or be shareable.
+    await page
+      .locator('#section-browse-artwork a[href*="/artwork/radius"]')
+      .click();
+
+    await page.waitForURL(/\/artwork\/radius\?/, { timeout: 15000 });
+    await expect(page).toHaveURL(/seed=0000/);
+
+    await page.getByText('6x9', { exact: true }).click();
+    await expect(page).toHaveURL(/grid=6x9/);
+  });
+
+  test('editor opens directly in the state described by a shared URL', async ({
+    page,
+  }) => {
+    await page.goto('/artwork/radius?seed=ZZZZ&grid=9x9&aspectRatio=1%3A1');
+
+    // Initial state comes from the URL (not corrected after mount), so the
+    // matching grid option must already be selected.
+    await expect(page.getByText('9x9', { exact: true })).toBeVisible();
+    const pressed = page.locator('[data-pressed]', { hasText: '9x9' });
+    await expect(pressed).toHaveCount(1);
+  });
+});
+
+test.describe('Tabbied site (mobile viewport)', () => {
+  test.use({ viewport: { width: 390, height: 664 } });
+
+  test('icon-only header buttons keep accessible names', async ({ page }) => {
+    await page.goto('/artwork/radius?seed=0000');
+
+    // Below the md breakpoint the text labels are display:none, leaving
+    // icon-only buttons — they must still expose an accessible name.
+    await expect(page.getByRole('button', { name: 'Redraw' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Export' })).toBeVisible();
+
+    await page.getByRole('button', { name: 'Redraw' }).click();
+    await expect(page).not.toHaveURL(/seed=0000/);
+  });
 });

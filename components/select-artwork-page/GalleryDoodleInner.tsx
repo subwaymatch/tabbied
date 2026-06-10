@@ -46,10 +46,17 @@ export default function GalleryDoodleInner({ item }: { item: GalleryItem }) {
     return () => observer.disconnect();
   }, []);
 
-  // css-doodle >= 0.5 no longer re-reads text content on a bare update(), so
-  // push the current source whenever it changes.
+  // css-doodle renders its text content on mount, so only push the source on
+  // later changes (css-doodle >= 0.5 no longer re-reads the text on a bare
+  // update()). Skipping the mount avoids regenerating every thumbnail twice.
+  const renderedCode = useRef<string | null>(null);
+
   useEffect(() => {
-    doodleRef.current?.update?.(doodleCode);
+    if (renderedCode.current !== null && renderedCode.current !== doodleCode) {
+      doodleRef.current?.update?.(doodleCode);
+    }
+
+    renderedCode.current = doodleCode;
   }, [doodleCode]);
 
   // Cover-fit the (possibly cropped) render into the square card. Scaling the
