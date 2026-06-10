@@ -10,10 +10,10 @@ import styles from './SelectArtwork.module.css';
 
 const DEFAULT_RENDER = { width: 800, height: 800, cropTop: 1 };
 
-// Each card redraws every 4–6s; the random spread keeps the cards out of
+// Each card redraws every 2.5–4s; the random spread keeps the cards out of
 // phase so the gallery shimmers card by card instead of strobing in unison.
-const REDRAW_INTERVAL_MS = 4000;
-const REDRAW_STAGGER_MS = 2000;
+const REDRAW_INTERVAL_MS = 2500;
+const REDRAW_STAGGER_MS = 1500;
 
 export default function GalleryDoodleInner({ item }: { item: GalleryItem }) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -48,12 +48,24 @@ export default function GalleryDoodleInner({ item }: { item: GalleryItem }) {
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    const interval = REDRAW_INTERVAL_MS + Math.random() * REDRAW_STAGGER_MS;
-    const timer = setInterval(() => {
+    const tick = () => {
       if (document.visibilityState === 'visible') setSeed(randomSeed());
-    }, interval);
+    };
 
-    return () => clearInterval(timer);
+    const interval = REDRAW_INTERVAL_MS + Math.random() * REDRAW_STAGGER_MS;
+    // Land the *first* redraw anywhere in [0, interval) rather than a full
+    // interval after load, so the gallery starts moving right away (sometimes
+    // almost immediately) instead of sitting still until every timer fires.
+    let intervalTimer: ReturnType<typeof setInterval>;
+    const firstTimer = setTimeout(() => {
+      tick();
+      intervalTimer = setInterval(tick, interval);
+    }, Math.random() * interval);
+
+    return () => {
+      clearTimeout(firstTimer);
+      clearInterval(intervalTimer);
+    };
   }, []);
 
   // Measure the square card so the fixed-resolution doodle can be scaled to fit.

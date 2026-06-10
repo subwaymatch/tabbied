@@ -38,7 +38,9 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   symmetry: {
     palette: ['#97F4FF', '#97F4FF', '#00FFF3', '#00A1FF', '#FF8DFF', '#FF007E'],
     options: { circularity: 1 },
-    render: { width: 800, height: 1200, cropTop: 0.5 },
+    // Crop a hair above the horizon (0.5) so the top edge of the mirrored
+    // pink shapes — which sit exactly on the 50% line — stays out of frame.
+    render: { width: 800, height: 1200, cropTop: 0.48 },
   },
   veil: {
     palette: ['#9EFFD8', '#3E8BFF', '#326DC9', '#1B4075', '#3EECFF', '#3E8BFF'],
