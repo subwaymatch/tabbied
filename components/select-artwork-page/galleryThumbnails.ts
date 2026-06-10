@@ -115,47 +115,17 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   pulse: {
     options: { grid: '5x5', frequency: 0.92 },
   },
-  argyle: {
-    options: { grid: '5x5', frequency: 0.85 },
-  },
-  swell: {
-    options: { grid: '5x5', frequency: 0.95 },
-  },
-  gaze: {
-    options: { grid: '4x4', frequency: 0.9 },
-  },
   morse: {
-    options: { grid: '5x5', frequency: 0.9 },
-  },
-  plaza: {
     options: { grid: '5x5', frequency: 0.9 },
   },
   sparkle: {
     options: { grid: '5x5', frequency: 0.92 },
   },
-  bunting: {
-    options: { grid: '4x4', frequency: 0.9 },
-  },
   vitrail: {
-    options: { grid: '4x4', frequency: 0.92 },
-  },
-  posy: {
-    options: { grid: '4x4', frequency: 0.85 },
-  },
-  gumball: {
     options: { grid: '4x4', frequency: 0.92 },
   },
   strata: {
     options: { grid: '5x5', frequency: 0.9 },
-  },
-  terrazzo: {
-    options: { grid: '4x4', frequency: 0.95 },
-  },
-  tartan: {
-    options: { grid: '5x5', frequency: 0.9 },
-  },
-  borough: {
-    options: { grid: '4x4', frequency: 0.9 },
   },
   tesserae: {
     options: { grid: '6x6', frequency: 0.92 },
@@ -166,26 +136,11 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   noodle: {
     options: { grid: '5x5', frequency: 0.95 },
   },
-  sonar: {
-    options: { grid: '4x4', frequency: 0.9 },
-  },
   glyph: {
     options: { grid: '5x5', frequency: 0.92 },
   },
   wander: {
     options: { grid: '5x5', frequency: 0.92 },
-  },
-  alps: {
-    options: { grid: '4x4', frequency: 0.9 },
-  },
-  bowtie: {
-    options: { grid: '4x4', frequency: 0.88 },
-  },
-  hatch: {
-    options: { grid: '4x4', frequency: 0.9 },
-  },
-  tally: {
-    options: { grid: '4x4', frequency: 0.85 },
   },
   comet: {
     options: { grid: '4x4', frequency: 0.85 },
@@ -196,31 +151,7 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   curl: {
     options: { grid: '5x5', frequency: 0.95 },
   },
-  aster: {
-    options: { grid: '4x4', frequency: 0.85 },
-  },
-  ladder: {
-    options: { grid: '4x4', frequency: 0.85 },
-  },
-  hoops: {
-    options: { grid: '4x4', frequency: 0.85 },
-  },
   baste: {
     options: { grid: '4x4', frequency: 0.9 },
-  },
-  sash: {
-    options: { grid: '4x4', frequency: 0.85 },
-  },
-  echo: {
-    options: { grid: '4x4', frequency: 0.85 },
-  },
-  sprig: {
-    options: { grid: '4x4', frequency: 0.88 },
-  },
-  net: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  drift: {
-    options: { grid: '5x5', frequency: 0.95 },
   },
 };
