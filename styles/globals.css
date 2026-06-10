@@ -1,4 +1,7 @@
-@import url('https://use.typekit.net/nws2bge.css');
+/* The proxima-nova (Adobe Fonts / typekit) stylesheet is linked from the root
+   layout <head> with a preconnect, rather than @imported here — an @import is
+   only discovered after this bundle downloads, which serializes the requests
+   and delays first paint. */
 
 /*
  * minireset.css (MIT, https://github.com/jgthms/minireset.css), vendored inline

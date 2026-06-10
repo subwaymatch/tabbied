@@ -9,12 +9,53 @@ import styles from './Hero.module.css';
 export default function MainHero() {
   const doodleRef = useRef<any>(null);
 
+  // Re-randomize the backdrop every couple of seconds, but only while it can
+  // actually be seen: pause when the hero is scrolled away or the tab is
+  // hidden (each update re-renders the whole doodle grid), and stay still for
+  // users who prefer reduced motion.
   useEffect(() => {
-    const timer = setInterval(() => {
-      doodleRef.current?.update();
-    }, 2000);
+    const doodleElement = doodleRef.current;
 
-    return () => clearInterval(timer);
+    if (!doodleElement) {
+      return;
+    }
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let isInView = false;
+    let timer: ReturnType<typeof setInterval> | null = null;
+
+    const sync = () => {
+      const shouldAnimate =
+        isInView && !document.hidden && !reducedMotion.matches;
+
+      if (shouldAnimate && timer === null) {
+        timer = setInterval(() => {
+          doodleRef.current?.update();
+        }, 2000);
+      } else if (!shouldAnimate && timer !== null) {
+        clearInterval(timer);
+        timer = null;
+      }
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      isInView = entries[0].isIntersecting;
+      sync();
+    });
+
+    observer.observe(doodleElement);
+    document.addEventListener('visibilitychange', sync);
+    reducedMotion.addEventListener('change', sync);
+
+    return () => {
+      observer.disconnect();
+      document.removeEventListener('visibilitychange', sync);
+      reducedMotion.removeEventListener('change', sync);
+
+      if (timer !== null) {
+        clearInterval(timer);
+      }
+    };
   }, []);
 
   return (

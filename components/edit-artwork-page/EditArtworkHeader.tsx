@@ -28,13 +28,20 @@ export default function EditArtworkHeader({
 
           <Col md={4} xs={6}>
             <div className="align-right">
-              <button className={styles.btn} onClick={onRedraw}>
+              {/* aria-labels keep the buttons named on small screens, where
+                  the text labels are hidden and only the icons remain. */}
+              <button
+                className={styles.btn}
+                onClick={onRedraw}
+                aria-label="Redraw"
+              >
                 <RefreshCw className={styles.reactIcon} size={18} />
                 <span className={styles.label}>Redraw</span>
               </button>
               <button
                 className={`${styles.btn} ${styles.btnExport}`}
                 onClick={onExport}
+                aria-label="Export"
               >
                 <ArrowDownToLine className={styles.reactIcon} size={18} />
                 <span className={styles.label}>Export</span>

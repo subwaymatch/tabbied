@@ -146,18 +146,62 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
   // A preset may pin itself to a single aspect ratio (e.g. Symmetry), in which
   // case the selector is hidden and the ratio can't change.
   const lockedAspectRatio = artwork.lockAspectRatio ?? null;
-  const initialAspectRatio =
+  const defaultAspectRatio =
     lockedAspectRatio ?? artwork.defaultAspectRatio ?? DEFAULT_ASPECT_RATIO;
 
-  const [palette, setPalette] = useState<string[]>(artwork.palette ?? []);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  // The value an option takes according to the URL, falling back to the
+  // authored default when the param is absent or malformed (a hand-edited URL
+  // must not feed NaN into a slider, which would blank the control).
+  const optionFromQuery = (option: ArtworkOption): OptionValue => {
+    const queryVal = searchParams.get(option.id);
+
+    if (queryVal === null) {
+      return option.default;
+    }
+
+    if (typeof option.default === 'number') {
+      const numericVal = Number(queryVal);
+
+      return Number.isNaN(numericVal) ? option.default : numericVal;
+    }
+
+    if (typeof option.default === 'boolean') {
+      return queryVal === 'true';
+    }
+
+    return queryVal;
+  };
+
+  const paletteFromQuery = (): string[] => {
+    const queryPalette = searchParams.getAll('palette');
+
+    return artwork.palette && queryPalette.length === artwork.palette.length
+      ? queryPalette
+      : artwork.palette ?? [];
+  };
+
+  const aspectRatioFromQuery = (): AspectRatioId => {
+    const queryRatio = searchParams.get('aspectRatio');
+
+    return !lockedAspectRatio && queryRatio && isAspectRatioId(queryRatio)
+      ? queryRatio
+      : defaultAspectRatio;
+  };
+
+  // State starts from the URL (shared / refreshed links) and falls back to the
+  // artwork defaults, so the first paint already shows the linked artwork
+  // instead of correcting itself after mount.
+  const [palette, setPalette] = useState<string[]>(paletteFromQuery);
   const [optionValues, setOptionValues] = useState<OptionValue[]>(() =>
-    artwork.options.map((option) => option.default)
+    artwork.options.map((option) => optionFromQuery(option))
   );
   const [aspectRatio, setAspectRatio] =
-    useState<AspectRatioId>(initialAspectRatio);
-  const [styleCode, setStyleCode] = useState('');
-  const [doodleCode, setDoodleCode] = useState('');
-  const [seed, setSeed] = useState('0000');
+    useState<AspectRatioId>(aspectRatioFromQuery);
+  const [seed, setSeed] = useState(() => searchParams.get('seed') ?? '0000');
   const [isExpanded, setIsExpanded] = useState(false);
   const [viewport, setViewport] = useState<{
     width: number;
@@ -170,9 +214,6 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
   const doodleRef = useRef<any>(null);
   const expandedDoodleRef = useRef<any>(null);
   const previewRef = useRef<HTMLDivElement>(null);
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
   const isScreenXS = useMediaQuery('(max-width: 747.99px)');
   const isTwoColumn = useMediaQuery('(min-width: 992px)');
   const baseWidth = isScreenXS ? 240 : 360;
@@ -191,61 +232,37 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
       )
     : fitToBox(aspectRatio, baseWidth, baseWidth * 1.5);
 
-  // Sync component state FROM the URL search params.
+  // Sync component state FROM the URL search params after mount (back /
+  // forward navigation re-renders with new params without remounting). Each
+  // setter is guarded so an echo of our own router.replace is a no-op.
   useEffect(() => {
-    const queryPalette = searchParams.getAll('palette');
+    const queryPalette = paletteFromQuery();
 
-    if (
-      artwork.palette &&
-      queryPalette.length === artwork.palette.length &&
-      !arraysEqual(palette, queryPalette)
-    ) {
+    if (!arraysEqual(palette, queryPalette)) {
       setPalette(queryPalette);
     }
 
     artwork.options.forEach((option, optionIndex) => {
-      if (!searchParams.has(option.id)) {
-        return;
-      }
+      const queryVal = optionFromQuery(option);
 
-      const queryVal = searchParams.get(option.id) ?? '';
-
-      if (typeof option.default === 'string') {
+      if (queryVal !== optionValues[optionIndex]) {
         setOptionByIndex(optionIndex, queryVal);
-      } else if (typeof option.default === 'number') {
-        const numericVal = Number(queryVal);
-
-        // Ignore malformed numbers so a hand-edited URL can't feed NaN into a
-        // slider (which would blank the control).
-        if (!Number.isNaN(numericVal)) {
-          setOptionByIndex(optionIndex, numericVal);
-        }
-      } else if (typeof option.default === 'boolean') {
-        setOptionByIndex(optionIndex, queryVal === 'true');
       }
     });
 
-    if (searchParams.has('seed') && seed !== searchParams.get('seed')) {
-      setSeed(searchParams.get('seed') as string);
+    const querySeed = searchParams.get('seed') ?? '0000';
+
+    if (seed !== querySeed) {
+      setSeed(querySeed);
     }
 
-    const queryAspectRatio = searchParams.get('aspectRatio');
+    const queryAspectRatio = aspectRatioFromQuery();
 
-    if (
-      !lockedAspectRatio &&
-      queryAspectRatio &&
-      isAspectRatioId(queryAspectRatio) &&
-      queryAspectRatio !== aspectRatio
-    ) {
+    if (queryAspectRatio !== aspectRatio) {
       setAspectRatio(queryAspectRatio);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
-
-  useEffect(() => {
-    updateDoodleCode();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [palette, optionValues, aspectRatio, width, height]);
 
   // Track the viewport so the expanded dialog can size the artwork to fit.
   useEffect(() => {
@@ -360,12 +377,9 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
       height: `${canvasHeight}px`,
     });
 
-  const updateDoodleCode = () => {
-    const source = buildSource(width, height);
-
-    setStyleCode(source.styleCode);
-    setDoodleCode(source.doodleCode);
-  };
+  // Derived straight from state (cheap string substitution), so the preview
+  // can never lag a render behind the controls.
+  const { styleCode, doodleCode } = buildSource(width, height);
 
   const getOptionControlComponent = (
     option: ArtworkOption,
