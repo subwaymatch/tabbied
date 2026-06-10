@@ -148,15 +148,22 @@ test.describe('Tabbied site', () => {
     await expect(page.getByText('6x6', { exact: true })).toBeVisible();
   });
 
-  test('aspect-ratio selector is hidden for ratio-locked presets', async ({
+  test('symmetry offers aspect ratios and follows the selection', async ({
     page,
   }) => {
     await page.goto('/artwork/symmetry?seed=0000');
 
     await expect(page.locator('css-doodle#symmetry')).toBeAttached();
-    // Symmetry pins itself to 2:3, so no selector and no aspectRatio in the URL.
-    await expect(page.getByText('Aspect ratio')).toHaveCount(0);
-    await expect(page).not.toHaveURL(/aspectRatio=/);
+    // Symmetry is no longer ratio-locked: it letterboxes its composition into
+    // a centered 2:3 box, so the selector is offered like everywhere else.
+    await expect(page.getByText('Aspect ratio')).toBeVisible();
+    await page.getByText('2:1', { exact: true }).click();
+
+    await expect(page).toHaveURL(/aspectRatio=2%3A1/);
+
+    // The canvas follows the landscape ratio.
+    const box = await page.locator('css-doodle#symmetry').boundingBox();
+    expect(box!.width).toBeGreaterThan(box!.height);
   });
 
   test('slider controls display their current value', async ({ page }) => {
