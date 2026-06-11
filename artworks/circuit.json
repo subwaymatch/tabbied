@@ -1,0 +1,49 @@
+{
+  "name": "Circuit",
+  "slug": "circuit",
+  "galleryOrder": 60,
+  "description": "Random walls of hairline traces with bright component nodes soldered in between — the board rewires itself on every redraw.",
+  "palette": [
+    "#F7F9F4",
+    "#232529",
+    "#FF3D8B",
+    "#3E8BFF",
+    "#3FFFB2",
+    "#F5DD32"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "10x15",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 0.6,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--node: @p(var(--color2), var(--color3), var(--color4), var(--color5)); --nx: @rand(18%, 66%); --ny: @rand(18%, 66%); --rule: ( margin: -0.5px; @random(${shapeFrequency}) { border-top: 2px solid var(--color1); } @random(${shapeFrequency}) { border-left: 2px solid var(--color1); } @random(0.16) { :after { content: ''; position: absolute; @size: 13%; left: var(--nx); top: var(--ny); background: var(--node); transition: ease 500ms; } } transition: ease 500ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "name": "Monsoon",
+  "slug": "monsoon",
+  "galleryOrder": 89,
+  "galleryWhite": true,
+  "description": "Raindrops caught at different moments of their fall, with splash rings blooming below — every redraw advances the storm by one beat.",
+  "palette": [
+    "#20303C",
+    "#6FC3DF",
+    "#9FDCF0",
+    "#C9EEF7",
+    "#DFF6FC"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 5,
+    "default": 5
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 0.9,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rain: @p(var(--color1), var(--color2), var(--color3)); --dx: @rand(12%, 74%); --dy: @rand(0%, 56%); --so: @rand(0.3, 0.9); --rule: ( @random(${shapeFrequency}) { :before { content: ''; position: absolute; left: var(--dx); top: var(--dy); width: 14%; height: 30%; background: var(--rain); clip-path: @shape(drop); transform: rotate(180deg); transition: ease 600ms; } } @random(0.2) { :after { content: ''; position: absolute; left: 30%; bottom: 5%; width: 40%; height: 11%; border: calc(14px / @Y) solid var(--color4); border-radius: 50%; opacity: var(--so); transition: ease 600ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "name": "Atom",
+  "slug": "atom",
+  "galleryOrder": 87,
+  "galleryWhite": true,
+  "description": "Electron shells whirling around golden nuclei — both orbits spin to new inclinations on every redraw.",
+  "palette": [
+    "#101720",
+    "#FFE066",
+    "#58E6D9",
+    "#7FA3FF",
+    "#FF7AA8",
+    "#DDE7F5"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 0.9,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--spin1: @rand(360deg); --spin2: @rand(360deg); --orb: @p(var(--color2), var(--color3), var(--color4)); --rule: ( @random(${shapeFrequency}) { background: radial-gradient(circle, var(--color1) 0 5%, transparent 5.5%); :before { content: ''; position: absolute; left: 14%; top: 33%; width: 72%; height: 34%; border: calc(20px / @Y) solid var(--orb); border-radius: 50%; transform: rotate(var(--spin1)); transition: ease 700ms; } :after { content: ''; position: absolute; left: 14%; top: 33%; width: 72%; height: 34%; border: calc(20px / @Y) solid var(--color5); border-radius: 50%; transform: rotate(var(--spin2)); opacity: 0.7; transition: ease 700ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

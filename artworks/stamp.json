@@ -1,0 +1,49 @@
+{
+  "name": "Stamp",
+  "slug": "stamp",
+  "galleryOrder": 94,
+  "description": "A sheet of postage stamps, each perforated edge punched by the background — stamps tilt and re-ink their centers with every redraw.",
+  "palette": [
+    "#F4EFE6",
+    "#FFFFFF",
+    "#E6437D",
+    "#3E8BFF",
+    "#2BB3A3",
+    "#F5B82E"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--mark: @p(var(--color2), var(--color3), var(--color4), var(--color5)); --tilt: @rand(-7deg, 7deg); --rule: ( @random(${shapeFrequency}) { width: 80%; height: 80%; margin: 10%; background: var(--color1); border: calc(22px / @Y) dotted var(--color0); box-shadow: 0 calc(10px / @Y) calc(40px / @Y) rgba(0, 0, 0, 0.16); transform: rotate(var(--tilt)); :after { content: ''; position: absolute; inset: 16%; background: var(--mark); border-radius: 10%; transition: ease 500ms; } } transition: ease 500ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "name": "Fanfare",
+  "slug": "fanfare",
+  "galleryOrder": 74,
+  "description": "Hands of color cards fanning open and snapping shut — every redraw deals new colors and a new spread to each fan.",
+  "palette": [
+    "#F4F2EC",
+    "#E6437D",
+    "#3E8BFF",
+    "#F5B82E",
+    "#3FFFB2",
+    "#8E6BD9"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--c1: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --c2: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --c3: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /* one emitted spread angle keeps the fan symmetric */ --spread: @r(8, 26); @random(${shapeFrequency}) { width: 36%; height: 64%; margin: 18% 32%; border-radius: 16% / 10%; background: var(--c2); :before { content: ''; position: absolute; inset: 0; border-radius: 16% / 10%; background: var(--c1); transform: rotate(calc(@var(--spread) * -1deg)); transform-origin: 50% 86%; transition: ease 600ms; } :after { content: ''; position: absolute; inset: 0; border-radius: 16% / 10%; background: var(--c3); transform: rotate(calc(@var(--spread) * 1deg)); transform-origin: 50% 86%; transition: ease 600ms; } } transition: ease 600ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

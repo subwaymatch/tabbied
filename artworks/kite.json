@@ -1,0 +1,49 @@
+{
+  "name": "Kite",
+  "slug": "kite",
+  "galleryOrder": 85,
+  "description": "A sky of paper kites warping in the wind, tails streaming behind — every redraw bends each diamond and tips it to a new angle.",
+  "palette": [
+    "#DCF0FF",
+    "#FF5E78",
+    "#FFB13D",
+    "#7A5CF0",
+    "#2BB3A3",
+    "#2F4156"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 0.9,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--sail: @p(var(--color1), var(--color2), var(--color3), var(--color4)); --tilt: @rand(-24deg, 24deg); --rule: ( /* spine and crossbar positions are emitted once and shared by the sail outline and the tail */ --kx: @r(38, 62); --ky: @r(22, 44); @random(${shapeFrequency}) { :before { content: ''; position: absolute; inset: 6%; background: var(--sail); clip-path: polygon(calc(@var(--kx) * 1%) 0%, @rand(72%, 100%) calc(@var(--ky) * 1%), calc(@var(--kx) * 1%) @rand(78%, 100%), @rand(0%, 28%) calc(@var(--ky) * 1%)); transform: rotate(var(--tilt)); transition: ease 600ms; } :after { content: ''; position: absolute; @size: 6%; left: calc(@var(--kx) * 1% - 3%); top: 88%; border-radius: 50%; background: var(--color5); box-shadow: calc(-40px / @Y) calc(30px / @Y) 0 var(--color5); transition: ease 600ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

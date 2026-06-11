@@ -1,0 +1,49 @@
+{
+  "name": "Pachinko",
+  "slug": "pachinko",
+  "galleryOrder": 77,
+  "description": "A steady lattice of pegs with bright balls caught mid-fall — each redraw rolls every ball to a new resting spot.",
+  "palette": [
+    "#FDF6EC",
+    "#232529",
+    "#E6437D",
+    "#3E8BFF",
+    "#F5B82E",
+    "#3FFFB2"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 0.8,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--ball: @p(var(--color2), var(--color3), var(--color4), var(--color5)); --bx: @rand(4%, 70%); --by: @rand(4%, 70%); --rule: ( :before { content: ''; position: absolute; @size: 9%; left: 45.5%; top: 45.5%; border-radius: 50%; background: var(--color1); transition: ease 500ms; } @random(${shapeFrequency}) { :after { content: ''; position: absolute; @size: 26%; left: var(--bx); top: var(--by); border-radius: 50%; background: var(--ball); box-shadow: 0 calc(26px / @Y) calc(34px / @Y) rgba(0, 0, 0, 0.18); transition: ease 700ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

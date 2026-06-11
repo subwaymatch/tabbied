@@ -1,0 +1,49 @@
+{
+  "name": "Pendulum",
+  "slug": "pendulum",
+  "galleryOrder": 86,
+  "description": "Bobs hanging from slender rods, caught mid-swing — every redraw releases them to sway springily to new angles.",
+  "palette": [
+    "#F6F4EF",
+    "#232529",
+    "#E6437D",
+    "#3E8BFF",
+    "#F5B82E",
+    "#2BB3A3"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--bob: @p(var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /* rod and bob share one emitted swing angle and a common pivot, so the pendulum stays rigid */ --swing: @r(-30, 30); @random(${shapeFrequency}) { :before { content: ''; position: absolute; left: 49.4%; top: 6%; width: 1.2%; height: 42%; border-radius: 99px; background: var(--color1); opacity: 0.7; transform: rotate(calc(@var(--swing) * 1deg)); transform-origin: 50% 0%; transition: cubic-bezier(0.3, 1.4, 0.6, 1) 800ms; } :after { content: ''; position: absolute; @size: 16%; left: 42%; top: 48%; border-radius: 50%; background: var(--bob); transform: rotate(calc(@var(--swing) * 1deg)); transform-origin: 50% -262.5%; transition: cubic-bezier(0.3, 1.4, 0.6, 1) 800ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

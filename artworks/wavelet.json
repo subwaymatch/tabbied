@@ -1,0 +1,35 @@
+{
+  "name": "Wavelet",
+  "slug": "wavelet",
+  "galleryOrder": 66,
+  "galleryWhite": true,
+  "description": "Pearls strung along a serpentine curve — the wave holds its course while every bead swells, glows and dims to the rhythm of the seed.",
+  "palette": [
+    "#101729",
+    "#97F4FF",
+    "#3EECFF",
+    "#FF3D8B",
+    "#D89FFF"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 5,
+    "default": 5
+  },
+  "options": [
+    {
+      "id": "beads",
+      "displayName": "Beads",
+      "type": "Slider",
+      "default": 48,
+      "min": 24,
+      "max": 64,
+      "step": 8,
+      "replace": "${beads}"
+    }
+  ],
+  "code": {
+    "style": "--pearl: @p(var(--color1), var(--color1), var(--color2), var(--color3), var(--color4)); --rule: ( @place-cell: @plot(x: (t-π)/π*.9; y: sin(t*2.5)*.45); @size: calc(@rand(440, 1200) * 1px / @I); border-radius: 50%; background: var(--pearl); opacity: @rand(0.45, 1); transition: ease 700ms; );",
+    "doodle": ":doodle { @grid: 1x${beads}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}
