@@ -23,13 +23,70 @@
   color: white;
 }
 
-/* Live css-doodle thumbnail: a square frame that clips the scaled artwork. */
+/* Live css-doodle thumbnail: a square frame that clips the scaled artwork.
+   content-visibility lets the browser skip rendering work for cards far
+   outside the viewport (their size is layout-determined — width from the
+   grid column, height from the aspect ratio — so skipping is safe). */
 .doodleThumb {
   position: relative;
   width: 100%;
   aspect-ratio: 1 / 1;
   overflow: hidden;
   line-height: 0;
+  content-visibility: auto;
+}
+
+/* Loading shimmer: the artwork's background color with a soft band sweeping
+   across, shown until the doodle's first paint. Rendered on the server, so
+   cards shimmer from the very first paint, before any JS has loaded. */
+.thumbShimmer {
+  --shimmer-band: rgba(35, 37, 41, 0.06);
+  position: absolute;
+  inset: 0;
+  background-color: #eceef1;
+  transition: opacity 0.4s ease, visibility 0s 0.4s;
+}
+
+.thumbShimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    105deg,
+    transparent 38%,
+    var(--shimmer-band) 50%,
+    transparent 62%
+  );
+  background-size: 250% 100%;
+  animation: shimmerSweep 1.8s ease-in-out infinite;
+}
+
+.thumbShimmerDark {
+  --shimmer-band: rgba(255, 255, 255, 0.25);
+}
+
+.thumbShimmerHidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.thumbShimmerHidden::after {
+  animation: none;
+}
+
+@keyframes shimmerSweep {
+  from {
+    background-position: 135% 0;
+  }
+  to {
+    background-position: -35% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .thumbShimmer::after {
+    animation: none;
+  }
 }
 
 .doodleThumbInner {

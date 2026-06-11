@@ -1,0 +1,50 @@
+{
+  "name": "Bokeh",
+  "slug": "bokeh",
+  "galleryOrder": 81,
+  "galleryWhite": true,
+  "description": "Out-of-focus city lights swimming in the dark — discs drift, swell and refocus softly with every redraw.",
+  "palette": [
+    "#1A1626",
+    "#FFC15E",
+    "#FF8FA3",
+    "#8AB6FF",
+    "#C490FF",
+    "#FFE9B8"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 0.9,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--light: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --d: @rand(26%, 88%); --lx: @rand(-10%, 60%); --ly: @rand(-10%, 60%); --lo: @rand(0.25, 0.9); --bl: @rand(1px, 6px); --rule: ( @random(${shapeFrequency}) { :after { content: ''; position: absolute; @size: var(--d); left: var(--lx); top: var(--ly); border-radius: 50%; background: var(--light); opacity: var(--lo); filter: blur(var(--bl)); transition: ease 800ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

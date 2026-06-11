@@ -1,0 +1,48 @@
+{
+  "name": "Argyle",
+  "slug": "argyle",
+  "galleryOrder": 109,
+  "description": "A lattice of lozenges whose vertices quiver from seed to seed, dotted with pale pips — knitwear that never sits still.",
+  "palette": [
+    "#F4EFE4",
+    "#7A1F3D",
+    "#2F4156",
+    "#C9A86A",
+    "#EFE8D8"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 5,
+    "default": 5
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--lozenge: @p(var(--color1), var(--color2), var(--color3)); --rule: ( /* each vertex jitters independently, so the lozenges quiver organically */ @random(${shapeFrequency}) { background: var(--lozenge); clip-path: polygon(50% @rand(-6%, 10%), calc(100% - @rand(-6%, 10%)) 50%, 50% calc(100% - @rand(-6%, 10%)), @rand(-6%, 10%) 50%); } @random(0.22) { :after { content: ''; position: absolute; @size: 13%; left: 43.5%; top: 43.5%; border-radius: 50%; background: var(--color4); transition: ease 600ms; } } transition: ease 600ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

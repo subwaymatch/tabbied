@@ -1,0 +1,49 @@
+{
+  "name": "Shuffle",
+  "slug": "shuffle",
+  "galleryOrder": 88,
+  "description": "Pairs of rounded blocks sliding between the four corners of their frame — every redraw deals a new arrangement, like tiles in a pocket puzzle.",
+  "palette": [
+    "#FFF8E8",
+    "#FF6B6B",
+    "#4ECDC4",
+    "#FFD93D",
+    "#6C5CE7",
+    "#95E1D3"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--q1x: @p(2%, 52%); --q1y: @p(2%, 52%); --q2x: @p(2%, 52%); --q2y: @p(2%, 52%); --blk1: @p(var(--color1), var(--color2), var(--color3)); --blk2: @p(var(--color3), var(--color4), var(--color5)); --rule: ( @random(${shapeFrequency}) { :before { content: ''; position: absolute; @size: 46%; left: var(--q1x); top: var(--q1y); border-radius: 14%; background: var(--blk1); transition: ease 500ms; } :after { content: ''; position: absolute; @size: 46%; left: var(--q2x); top: var(--q2y); border-radius: 14%; background: var(--blk2); opacity: 0.92; transition: ease 500ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

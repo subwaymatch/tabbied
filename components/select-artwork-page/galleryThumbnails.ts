@@ -145,4 +145,85 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   baste: {
     options: { grid: '7x7', frequency: 0.9 },
   },
+  prisma: {
+    options: { grid: '6x6', frequency: 0.92 },
+  },
+  crescendo: {
+    options: { grid: '6x6', accents: 0.12 },
+  },
+  echo: {
+    options: { rings: 6 },
+  },
+  circuit: {
+    options: { grid: '8x8', frequency: 0.6 },
+  },
+  daybreak: {
+    options: { rays: 48 },
+  },
+  shard: {
+    options: { grid: '5x5', frequency: 0.9 },
+  },
+  flora: {
+    options: { grid: '4x4', frequency: 0.92 },
+  },
+  quilt: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  petal: {
+    options: { grid: '4x4', frequency: 0.9 },
+  },
+  lantern: {
+    options: { grid: '4x4', frequency: 0.85 },
+  },
+  plasma: {
+    options: { grid: '4x4', frequency: 0.9 },
+  },
+  domino: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  ivy: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  neon: {
+    options: { grid: '5x5', frequency: 0.8 },
+  },
+  bokeh: {
+    options: { grid: '4x4', frequency: 0.85 },
+  },
+  shuffle: {
+    options: { grid: '5x5', frequency: 0.9 },
+  },
+  hive: {
+    options: { grid: '5x5', frequency: 0.92 },
+  },
+  aster: {
+    options: { grid: '5x5', frequency: 0.9 },
+  },
+  aperture: {
+    options: { grid: '5x5', frequency: 0.92 },
+  },
+  argyle: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  bauhaus: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  halftone: {
+    options: { grid: '7x7', frequency: 0.95 },
+  },
+  elbow: {
+    options: { grid: '5x5', frequency: 0.92 },
+  },
+  bento: {
+    options: { grid: '4x4', frequency: 0.95 },
+  },
+  grain: {
+    options: { grid: '8x8', frequency: 0.95 },
+  },
+  misprint: {
+    options: { grid: '4x4', frequency: 0.92 },
+  },
+  zipper: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
 };
