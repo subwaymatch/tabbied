@@ -3,7 +3,7 @@
   "slug": "plasma",
   "galleryOrder": 72,
   "galleryWhite": true,
-  "description": "Amoebic blobs wobbling in a petri dish, each with a drifting pale nucleus — the cultures reshape themselves on every redraw.",
+  "description": "Amoebic blobs wobbling in a petri dish — the cultures reshape themselves on every redraw.",
   "palette": [
     "#0F2027",
     "#3FFFB2",
@@ -44,7 +44,7 @@
     }
   ],
   "code": {
-    "style": "--blob: @p(var(--color1), var(--color2), var(--color3), var(--color4)); --nx: @rand(28%, 58%); --ny: @rand(28%, 58%); --rule: ( @random(${shapeFrequency}) { :before { content: ''; position: absolute; inset: 7%; background: var(--blob); border-radius: @rand(30%, 70%) @rand(30%, 70%) @rand(30%, 70%) @rand(30%, 70%) / @rand(30%, 70%) @rand(30%, 70%) @rand(30%, 70%) @rand(30%, 70%); opacity: 0.85; transition: ease 700ms; } :after { content: ''; position: absolute; @size: 15%; left: var(--nx); top: var(--ny); border-radius: 50%; background: var(--color5); transition: ease 700ms; } } );",
+    "style": "--blob: @p(var(--color1), var(--color2), var(--color3), var(--color4)); --rule: ( @random(${shapeFrequency}) { :before { content: ''; position: absolute; inset: 7%; background: var(--blob); border-radius: @rand(30%, 70%) @rand(30%, 70%) @rand(30%, 70%) @rand(30%, 70%) / @rand(30%, 70%) @rand(30%, 70%) @rand(30%, 70%) @rand(30%, 70%); opacity: 0.85; transition: ease 700ms; } } );",
     "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
   }
 }
