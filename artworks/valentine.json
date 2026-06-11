@@ -1,0 +1,48 @@
+{
+  "name": "Valentine",
+  "slug": "valentine",
+  "galleryOrder": 103,
+  "description": "Hearts that melt into drops and beans and back again — every redraw lets each sweet pick a new shape, tilt and blush.",
+  "palette": [
+    "#FFF5F6",
+    "#FF4D6D",
+    "#FF8FA3",
+    "#C9184A",
+    "#FFB3C1"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 5,
+    "default": 5
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--sweet: @p(var(--color1), var(--color2), var(--color3), var(--color4)); --form: @p(@shape(heart), @shape(heart), @shape(drop), @shape(bean)); --tilt: @rand(-20deg, 20deg); --pump: @rand(0.7, 1.05); --rule: ( @random(${shapeFrequency}) { :after { content: ''; position: absolute; inset: 8%; background: var(--sweet); clip-path: var(--form); transform: rotate(var(--tilt)) scale(var(--pump)); transition: ease 700ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

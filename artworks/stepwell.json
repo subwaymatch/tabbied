@@ -1,0 +1,48 @@
+{
+  "name": "Stepwell",
+  "slug": "stepwell",
+  "galleryOrder": 129,
+  "description": "Nested sandstone terraces descending toward a vanishing point that drifts with every redraw — an ancient stepwell seen from above.",
+  "palette": [
+    "#E8D5B5",
+    "#C49B61",
+    "#9C6B3E",
+    "#6E4426",
+    "#3E2A1C"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 5,
+    "default": 5
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--wellA: @p(var(--color1), var(--color2)); --wellB: @p(var(--color2), var(--color3)); --wellC: @p(var(--color3), var(--color4)); --rule: ( /* every terrace drifts toward the same emitted vanishing point */ --vx: @r(-9, 9); --vy: @r(-9, 9); @random(${shapeFrequency}) { background: var(--wellA); :before { content: ''; position: absolute; left: calc(16% + @var(--vx) * 1%); top: calc(16% + @var(--vy) * 1%); right: calc(16% - @var(--vx) * 1%); bottom: calc(16% - @var(--vy) * 1%); background: var(--wellB); transition: ease 700ms; } :after { content: ''; position: absolute; left: calc(34% + @var(--vx) * 2%); top: calc(34% + @var(--vy) * 2%); right: calc(34% - @var(--vx) * 2%); bottom: calc(34% - @var(--vy) * 2%); background: var(--wellC); transition: ease 700ms; } } transition: ease 700ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

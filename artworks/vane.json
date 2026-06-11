@@ -1,0 +1,48 @@
+{
+  "name": "Vane",
+  "slug": "vane",
+  "galleryOrder": 108,
+  "description": "A field of weather vanes snapping to new headings — darts swing round with a springy overshoot whenever the wind (seed) shifts.",
+  "palette": [
+    "#EEF2EE",
+    "#1F3A33",
+    "#D94F30",
+    "#3E8BFF",
+    "#F5B82E"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 5,
+    "default": 5
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--head: @p(0deg, 45deg, 90deg, 135deg, 180deg, 225deg, 270deg, 315deg); --ink: @p(var(--color1), var(--color1), var(--color2), var(--color3), var(--color4)); --rule: ( @random(${shapeFrequency}) { :after { content: ''; position: absolute; inset: 14%; background: var(--ink); clip-path: polygon(50% 0%, 88% 100%, 50% 72%, 12% 100%); transform: rotate(var(--head)); transition: cubic-bezier(0.34, 1.4, 0.64, 1) 700ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

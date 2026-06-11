@@ -1,0 +1,48 @@
+{
+  "name": "Trellis",
+  "slug": "trellis",
+  "galleryOrder": 121,
+  "description": "A fixed garden lattice with bright beads that glide along the diagonals — only the blooms move when the seed changes.",
+  "palette": [
+    "#F6F3EB",
+    "#355E3B",
+    "#E6437D",
+    "#F5B82E",
+    "#D94F30"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 5,
+    "default": 5
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 0.8,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--bead: @p(var(--color2), var(--color3), var(--color4)); --rule: ( /* the bead's top mirrors its emitted left onto one diagonal, so it glides along the lattice */ --tp: @r(15, 85); --branch: @p(1, -1); background: linear-gradient(45deg, transparent calc(50% - 1px), var(--color1) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)), linear-gradient(-45deg, transparent calc(50% - 1px), var(--color1) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)); @random(${shapeFrequency}) { :after { content: ''; position: absolute; @size: 13%; left: calc(@var(--tp) * 1% - 6.5%); top: calc((50 + (@var(--tp) - 50) * @var(--branch)) * 1% - 6.5%); border-radius: 50%; background: var(--bead); transition: ease 700ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

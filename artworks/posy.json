@@ -1,0 +1,48 @@
+{
+  "name": "Posy",
+  "slug": "posy",
+  "galleryOrder": 106,
+  "description": "Six-petaled posies built from orbiting dots around a golden core — bouquets spin and re-bloom on every redraw.",
+  "palette": [
+    "#F3F7EC",
+    "#E6437D",
+    "#9D5BD2",
+    "#FF8A5C",
+    "#F5C542"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 5,
+    "default": 5
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 0.9,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--bloomSpin: @rand(60deg); --rule: ( /* petals are box-shadow copies of the core at hexagon offsets around one emitted radius, so the bloom opens as a unit */ --pet: @p(var(--color1), var(--color2), var(--color3)); --pr: @r(15, 26); --pw: @r(14, 22); @random(${shapeFrequency}) { :after { content: ''; position: absolute; @size: calc(@var(--pw) * 1%); left: calc(50% - @var(--pw) * 0.5%); top: calc(50% - @var(--pw) * 0.5%); border-radius: 50%; background: var(--color4); box-shadow: 0 calc(@var(--pr) * -10px / @Y) 0 @var(--pet), calc(@var(--pr) * 8.66px / @Y) calc(@var(--pr) * -5px / @Y) 0 @var(--pet), calc(@var(--pr) * 8.66px / @Y) calc(@var(--pr) * 5px / @Y) 0 @var(--pet), 0 calc(@var(--pr) * 10px / @Y) 0 @var(--pet), calc(@var(--pr) * -8.66px / @Y) calc(@var(--pr) * 5px / @Y) 0 @var(--pet), calc(@var(--pr) * -8.66px / @Y) calc(@var(--pr) * -5px / @Y) 0 @var(--pet); transform: rotate(var(--bloomSpin)); transition: ease 700ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

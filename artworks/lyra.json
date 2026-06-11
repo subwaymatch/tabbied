@@ -1,0 +1,49 @@
+{
+  "name": "Lyra",
+  "slug": "lyra",
+  "galleryOrder": 118,
+  "galleryWhite": true,
+  "description": "Binary stars joined by faint beams — one shared angle keeps each pair rigid while the constellation re-forms on every redraw.",
+  "palette": [
+    "#0D1226",
+    "#4A5A8A",
+    "#E8F1FF",
+    "#97F4FF",
+    "#FF8FB8"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 5,
+    "default": 5
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 0.9,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( /* one emitted angle (radians) drives the beam rotation and the partner-star trig, keeping each pair rigid */ --lar: @r(0, 6.2832); --llp: @r(16, 36); --sz: @r(7, 13); @random(${shapeFrequency}) { :before { content: ''; position: absolute; left: 50%; top: 50%; width: calc(@var(--llp) * 10px / @Y); height: 1.5px; background: var(--color2); opacity: 0.6; transform: rotate(calc(@var(--lar) * 57.2958deg)); transform-origin: 0% 50%; transition: ease 800ms; } :after { content: ''; position: absolute; @size: calc(@var(--sz) * 1%); left: calc(50% - @var(--sz) * 0.5%); top: calc(50% - @var(--sz) * 0.5%); border-radius: 50%; background: var(--color3); box-shadow: calc(cos(@var(--lar) * 1rad) * @var(--llp) * 10px / @Y) calc(sin(@var(--lar) * 1rad) * @var(--llp) * 10px / @Y) 0 calc(-8px / @Y) var(--color4); transition: ease 800ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

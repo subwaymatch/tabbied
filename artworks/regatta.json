@@ -1,0 +1,48 @@
+{
+  "name": "Regatta",
+  "slug": "regatta",
+  "galleryOrder": 130,
+  "description": "A fleet of little sailboats heeling in the breeze — sails re-rake and hulls rock to new angles with every redraw.",
+  "palette": [
+    "#DCEFF7",
+    "#2F4156",
+    "#FFFFFF",
+    "#FF6B6B",
+    "#F5B82E"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 5,
+    "default": 5
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 0.8,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--sail: @p(var(--color2), var(--color3), var(--color4)); --luff: @rand(8%, 60%); --rule: ( /* sail and hull heel together on one emitted angle */ --heel: @r(-9, 9); @random(${shapeFrequency}) { :before { content: ''; position: absolute; left: 24%; bottom: 30%; width: 40%; height: 44%; background: var(--sail); clip-path: polygon(var(--luff) 0%, 100% 100%, 0% 100%); transform: rotate(calc(@var(--heel) * 1deg)); transform-origin: 50% 100%; transition: ease 700ms; } :after { content: ''; position: absolute; left: 17%; bottom: 17%; width: 58%; height: 13%; background: var(--color1); border-radius: 0 0 99px 99px; transform: rotate(calc(@var(--heel) * 1deg)); transition: ease 700ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

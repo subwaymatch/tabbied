@@ -1,0 +1,48 @@
+{
+  "name": "Cumulus",
+  "slug": "cumulus",
+  "galleryOrder": 119,
+  "description": "Fair-weather clouds drifting across a noon sky, the occasional sun breaking through — each redraw reshapes every puff.",
+  "palette": [
+    "#A7D8F0",
+    "#FFFFFF",
+    "#EAF7FF",
+    "#FFD66B",
+    "#7FB6D9"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 5,
+    "default": 5
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 0.8,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( /* the upper lobe rides on the emitted geometry of the base lobe and shares its tone */ --cloud: @p(var(--color1), var(--color1), var(--color2)); --cl: @r(0, 36); --cw: @r(44, 70); --ch: @r(20, 32); @random(${shapeFrequency}) { :before { content: ''; position: absolute; left: calc(@var(--cl) * 1%); bottom: 20%; width: calc(@var(--cw) * 1%); height: calc(@var(--ch) * 1%); border-radius: 99px; background: @var(--cloud); transition: ease 800ms; } :after { content: ''; position: absolute; left: calc((@var(--cl) + @var(--cw) * 0.28) * 1%); bottom: calc(20% + @var(--ch) * 0.5%); width: calc(@var(--cw) * 0.55%); height: calc(@var(--ch) * 0.8%); border-radius: 99px; background: @var(--cloud); transition: ease 800ms; } } @random(0.1) { background: radial-gradient(circle at 70% 26%, var(--color3) 0 12%, transparent 13%); } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "name": "Jelly",
+  "slug": "jelly",
+  "galleryOrder": 100,
+  "description": "Glossy candy blobs squashing and stretching like jelly, each with a sliding highlight — every redraw gives the tray a wobble.",
+  "palette": [
+    "#FFF0F4",
+    "#FF6FA5",
+    "#FF9F68",
+    "#9D89F2",
+    "#4FD8C4"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 5,
+    "default": 5
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--goo: @p(var(--color1), var(--color2), var(--color3), var(--color4)); --rule: ( /* the highlight derives from the same emitted geometry as its blob, so it stays glued on */ --jx: @r(5, 28); --jy: @r(5, 28); --jw: @r(42, 66); --jh: @r(42, 66); @random(${shapeFrequency}) { :before { content: ''; position: absolute; left: calc(@var(--jx) * 1%); top: calc(@var(--jy) * 1%); width: calc(@var(--jw) * 1%); height: calc(@var(--jh) * 1%); background: var(--goo); border-radius: 50%; transition: ease 700ms; } :after { content: ''; position: absolute; left: calc((@var(--jx) + @var(--jw) * 0.18) * 1%); top: calc((@var(--jy) + @var(--jh) * 0.13) * 1%); width: calc(@var(--jw) * 0.24%); height: calc(@var(--jh) * 0.18%); background: rgba(255, 255, 255, 0.85); border-radius: 50%; transition: ease 700ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}
