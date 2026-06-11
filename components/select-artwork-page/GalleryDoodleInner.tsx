@@ -15,7 +15,17 @@ const DEFAULT_RENDER = { width: 800, height: 800, cropTop: 1 };
 const REDRAW_INTERVAL_MS = 2500;
 const REDRAW_STAGGER_MS = 1500;
 
-export default function GalleryDoodleInner({ item }: { item: GalleryItem }) {
+export default function GalleryDoodleInner({
+  item,
+  paused = false,
+  onReady,
+}: {
+  item: GalleryItem;
+  /** Skip reseed ticks (set while the card is outside the viewport). */
+  paused?: boolean;
+  /** Called once the doodle has been measured and first painted. */
+  onReady?: () => void;
+}) {
   const containerRef = useRef<HTMLDivElement>(null);
   const doodleRef = useRef<any>(null);
   const [width, setWidth] = useState(0);
@@ -56,12 +66,22 @@ export default function GalleryDoodleInner({ item }: { item: GalleryItem }) {
 
   // Keep redrawing while the page is open by rotating the seed; the effect
   // below pushes each new seed through update(). Skipped under
-  // prefers-reduced-motion, and ticks are dropped while the tab is hidden.
+  // prefers-reduced-motion, and ticks are dropped while the tab is hidden or
+  // the card is out of view (the ref keeps the timers and their stagger phase
+  // alive across pause flips instead of resetting them).
+  const pausedRef = useRef(paused);
+
+  useEffect(() => {
+    pausedRef.current = paused;
+  }, [paused]);
+
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const tick = () => {
-      if (document.visibilityState === 'visible') setSeed(randomSeed());
+      if (document.visibilityState === 'visible' && !pausedRef.current) {
+        setSeed(randomSeed());
+      }
     };
 
     const interval = REDRAW_INTERVAL_MS + Math.random() * REDRAW_STAGGER_MS;
@@ -92,6 +112,22 @@ export default function GalleryDoodleInner({ item }: { item: GalleryItem }) {
 
     return () => observer.disconnect();
   }, []);
+
+  // A non-zero measurement is what flips the doodle visible below, so report
+  // readiness then (once) — the parent uses it to drop its loading shimmer.
+  const reportedReady = useRef(false);
+  const onReadyRef = useRef(onReady);
+
+  useEffect(() => {
+    onReadyRef.current = onReady;
+  }, [onReady]);
+
+  useEffect(() => {
+    if (width > 0 && !reportedReady.current) {
+      reportedReady.current = true;
+      onReadyRef.current?.();
+    }
+  }, [width]);
 
   // css-doodle renders its text content on mount, so only push changes that
   // happen afterwards (css-doodle >= 0.5 no longer re-reads the text on a
