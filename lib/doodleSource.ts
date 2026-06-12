@@ -86,6 +86,11 @@ export function buildDoodleSource({
     }
   });
 
+  // Canvas size is substituted into both halves: a few designs (e.g. Echo)
+  // reference ${width}/${height} from the style to size shapes off the shorter
+  // edge so they stay square instead of stretching with the aspect ratio.
+  styleCode = styleCode.split('${width}').join(width);
+  styleCode = styleCode.split('${height}').join(height);
   doodleCode = doodleCode.split('${width}').join(width);
   doodleCode = doodleCode.split('${height}').join(height);
 

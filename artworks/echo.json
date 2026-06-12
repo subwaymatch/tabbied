@@ -29,7 +29,7 @@
     }
   ],
   "code": {
-    "style": "--rule: ( @place-cell: center; @size: calc(104% - (@i - 1) * 100% / @I); background: @pd(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); border-radius: @rand(2%, 40%); transform: rotate(@rand(-12deg, 12deg)); transition: ease 600ms; );",
+    "style": "--edge: min(${width}, ${height}); --rule: ( @place-cell: center; @size: calc(var(--edge) * (1.04 - (@i - 1) / @I)); background: @pd(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); border-radius: @rand(2%, 40%); transform: rotate(@rand(-12deg, 12deg)); transition: ease 600ms; );",
     "doodle": ":doodle { @grid: 1x${rings}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
   }
 }

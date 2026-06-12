@@ -39,10 +39,20 @@
       "max": 1,
       "step": 0.1,
       "replace": "${shapeFrequency}"
+    },
+    {
+      "id": "thickness",
+      "displayName": "Thickness",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.5,
+      "max": 4,
+      "step": 0.1,
+      "replace": "${thickness}"
     }
   ],
   "code": {
-    "style": "--spin: @rand(180deg); --rule: ( /* all three arms share one emitted color */ --star: @p(var(--color1), var(--color2), var(--color3), var(--color4)); @random(${shapeFrequency}) { width: 72%; height: 2.6%; margin: 48.7% 14%; border-radius: 99px; background: @var(--star); transform: rotate(var(--spin)); :before { content: ''; position: absolute; inset: 0; border-radius: 99px; background: @var(--star); transform: rotate(60deg); } :after { content: ''; position: absolute; inset: 0; border-radius: 99px; background: @var(--star); transform: rotate(120deg); } } transition: ease 600ms; );",
+    "style": "--spin: @rand(180deg); --rule: ( /* all three arms share one emitted color; thickness scales each arm across its width */ --star: @p(var(--color1), var(--color2), var(--color3), var(--color4)); @random(${shapeFrequency}) { width: 72%; height: 2.6%; margin: 48.7% 14%; border-radius: 99px; background: @var(--star); transform: rotate(var(--spin)) scaleY(${thickness}); :before { content: ''; position: absolute; inset: 0; border-radius: 99px; background: @var(--star); transform: rotate(60deg) scaleY(${thickness}); } :after { content: ''; position: absolute; inset: 0; border-radius: 99px; background: @var(--star); transform: rotate(120deg) scaleY(${thickness}); } } transition: ease 600ms; );",
     "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
   }
 }

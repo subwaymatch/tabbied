@@ -149,7 +149,7 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
     options: { grid: '6x6', frequency: 0.92 },
   },
   crescendo: {
-    options: { grid: '6x6', accents: 0.12 },
+    options: { grid: '6x6' },
   },
   echo: {
     options: { rings: 6 },
@@ -162,9 +162,6 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   },
   shard: {
     options: { grid: '5x5', frequency: 0.9 },
-  },
-  flora: {
-    options: { grid: '4x4', frequency: 0.92 },
   },
   quilt: {
     options: { grid: '5x5', frequency: 0.95 },
@@ -192,9 +189,6 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   },
   shuffle: {
     options: { grid: '5x5', frequency: 0.9 },
-  },
-  hive: {
-    options: { grid: '5x5', frequency: 0.92 },
   },
   aster: {
     options: { grid: '5x5', frequency: 0.9 },
