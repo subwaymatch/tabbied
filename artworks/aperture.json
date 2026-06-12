@@ -8,13 +8,12 @@
     "#15171C",
     "#E8E6E1",
     "#F5B82E",
-    "#3EECFF",
-    "#FF3D8B"
+    "#3EECFF"
   ],
   "colors": {
     "min": 2,
-    "max": 5,
-    "default": 5
+    "max": 4,
+    "default": 2
   },
   "options": [
     {
@@ -43,7 +42,7 @@
     }
   ],
   "code": {
-    "style": "--iris: @p(var(--color1), var(--color1), var(--color2), var(--color3), var(--color4)); --rule: ( /* the aperture is a disc with a punched hole; the hole size morphs so the iris dilates */ @random(${shapeFrequency}) { :before { content: ''; position: absolute; inset: 9%; border-radius: 50%; background: var(--iris); transition: ease 700ms; } :after { content: ''; position: absolute; inset: @rand(16%, 44%); border-radius: 50%; background: var(--color0); transition: ease 700ms; } } );",
+    "style": "--iris: @p(var(--color1), var(--color1), var(--color2), var(--color3)); --rule: ( /* the aperture is a disc with a punched hole; the hole size morphs so the iris dilates */ @random(${shapeFrequency}) { :before { content: ''; position: absolute; inset: 9%; border-radius: 50%; background: var(--iris); transition: ease 700ms; } :after { content: ''; position: absolute; inset: @rand(16%, 44%); border-radius: 50%; background: var(--color0); transition: ease 700ms; } } );",
     "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
   }
 }

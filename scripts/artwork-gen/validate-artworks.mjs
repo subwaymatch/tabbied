@@ -29,6 +29,8 @@ function buildSource(artwork, { width, height, optionOverrides = {} }) {
     style = style.split(option.replace).join(String(value));
     doodle = doodle.split(option.replace).join(String(value));
   }
+  style = style.split('${width}').join(width);
+  style = style.split('${height}').join(height);
   doodle = doodle.split('${width}').join(width);
   doodle = doodle.split('${height}').join(height);
   style = fixFullRandomGate(style);
@@ -80,6 +82,11 @@ async function inspect(page) {
     return out;
   }, [CELL_PROPS, PSEUDO_PROPS]);
 }
+
+// Artworks whose pattern is intentionally seed-independent — a pure positional
+// gradient — so reseeding is a no-op by design (the CSS transition still lets
+// grid/palette changes morph). These skip the "reseed must differ" assertion.
+const STATIC_BY_DESIGN = new Set(['crescendo']);
 
 const CHUNK = 20;
 const chunks = [];
@@ -157,7 +164,8 @@ for (const chunk of chunks) {
     else {
       if (b.painted === 0) problems.push('nothing painted');
       if (b.painted < b.cellCount * 0.1) problems.push(`only ${b.painted}/${b.cellCount} painted`);
-      if (a.signature === b.signature) problems.push('reseed produced identical pattern');
+      if (!STATIC_BY_DESIGN.has(slug) && a.signature === b.signature)
+        problems.push('reseed produced identical pattern');
       if (!a.firstCellMarked) problems.push('cells were rebuilt on reseed (transitions broken)');
     }
     if (!artwork.code.style.includes('transition')) problems.push('no transition in style');

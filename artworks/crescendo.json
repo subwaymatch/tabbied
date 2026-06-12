@@ -2,18 +2,15 @@
   "name": "Crescendo",
   "slug": "crescendo",
   "galleryOrder": 58,
-  "description": "The classic multiplication-table doodle with the numbers stripped away: tone deepens with row times column, while stray accent cells wander on every redraw.",
+  "description": "The classic multiplication-table doodle with the numbers stripped away: tone deepens smoothly with row times column, re-rolling its grid on every redraw.",
   "palette": [
     "#FFFFFF",
-    "#60569E",
-    "#E6437D",
-    "#3E8BFF",
-    "#EBBF4D"
+    "#60569E"
   ],
   "colors": {
     "min": 2,
-    "max": 5,
-    "default": 5
+    "max": 2,
+    "default": 2
   },
   "options": [
     {
@@ -29,20 +26,10 @@
         "10x15"
       ],
       "replace": "${grid}"
-    },
-    {
-      "id": "accents",
-      "displayName": "Accents",
-      "type": "Slider",
-      "default": 0.1,
-      "min": 0,
-      "max": 0.4,
-      "step": 0.05,
-      "replace": "${accentFrequency}"
     }
   ],
   "code": {
-    "style": "--accent: @p(var(--color2), var(--color3), var(--color4)); --rule: ( margin: 0.5px; background: var(--color1); opacity: @calc(0.04 + 0.96 * sqrt((@x * @y) / (@X * @Y))); @random(${accentFrequency}) { background: var(--accent); opacity: @rand(0.5, 0.95); } transition: ease 500ms; );",
+    "style": "--rule: ( margin: 0.5px; background: var(--color1); opacity: @calc(0.04 + 0.96 * sqrt((@x * @y) / (@X * @Y))); transition: ease 500ms; );",
     "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
   }
 }

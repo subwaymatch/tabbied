@@ -8,14 +8,12 @@
     "#1D1F24",
     "#3EECFF",
     "#3E8BFF",
-    "#FF3D8B",
-    "#D89FFF",
-    "#3FFFB2"
+    "#FF3D8B"
   ],
   "colors": {
     "min": 2,
-    "max": 6,
-    "default": 6
+    "max": 4,
+    "default": 2
   },
   "options": [
     {
@@ -44,7 +42,7 @@
     }
   ],
   "code": {
-    "style": "--ink: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( @random(${shapeFrequency}) { background: var(--ink); clip-path: polygon(@rand(0%, 100%) 0%, 100% @rand(0%, 100%), 0% @rand(0%, 100%)); opacity: @rand(0.55, 1); transform: rotate(@rand(360deg)) scale(@rand(0.7, 1.05)); } transition: ease 500ms; );",
+    "style": "--ink: @p(var(--color1), var(--color2), var(--color3)); --rule: ( @random(${shapeFrequency}) { background: var(--ink); clip-path: polygon(@rand(0%, 100%) 0%, 100% @rand(0%, 100%), 0% @rand(0%, 100%)); opacity: @rand(0.55, 1); transform: rotate(@rand(360deg)) scale(@rand(0.7, 1.05)); } transition: ease 500ms; );",
     "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
   }
 }

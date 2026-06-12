@@ -8,14 +8,12 @@
     "#1A1626",
     "#FFC15E",
     "#FF8FA3",
-    "#8AB6FF",
-    "#C490FF",
-    "#FFE9B8"
+    "#8AB6FF"
   ],
   "colors": {
     "min": 2,
-    "max": 6,
-    "default": 6
+    "max": 4,
+    "default": 2
   },
   "options": [
     {
@@ -44,7 +42,7 @@
     }
   ],
   "code": {
-    "style": "--light: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --d: @rand(26%, 88%); --lx: @rand(-10%, 60%); --ly: @rand(-10%, 60%); --lo: @rand(0.25, 0.9); --bl: @rand(1px, 6px); --rule: ( @random(${shapeFrequency}) { :after { content: ''; position: absolute; @size: var(--d); left: var(--lx); top: var(--ly); border-radius: 50%; background: var(--light); opacity: var(--lo); filter: blur(var(--bl)); transition: ease 800ms; } } );",
+    "style": "--light: @p(var(--color1), var(--color2), var(--color3)); --d: @rand(26%, 88%); --lx: @rand(-10%, 60%); --ly: @rand(-10%, 60%); --lo: @rand(0.25, 0.9); --bl: @rand(1px, 6px); --rule: ( @random(${shapeFrequency}) { :after { content: ''; position: absolute; @size: var(--d); left: var(--lx); top: var(--ly); border-radius: 50%; background: var(--light); opacity: var(--lo); filter: blur(var(--bl)); transition: ease 800ms; } } );",
     "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
   }
 }

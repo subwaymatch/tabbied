@@ -2,19 +2,18 @@
   "name": "Ivy",
   "slug": "ivy",
   "galleryOrder": 78,
-  "description": "Quarter-round leaves tiling into winding vines — each leaf swells from a different corner after every redraw, with berries dotted along the way.",
+  "description": "Quarter-round leaves tiling into winding vines — each leaf swells from a different corner after every redraw.",
   "palette": [
     "#F2F7EE",
     "#2F6B3C",
     "#4F9D5D",
     "#8CC084",
-    "#C8E6C0",
-    "#E0526E"
+    "#C8E6C0"
   ],
   "colors": {
     "min": 2,
-    "max": 6,
-    "default": 6
+    "max": 5,
+    "default": 5
   },
   "options": [
     {
@@ -43,7 +42,7 @@
     }
   ],
   "code": {
-    "style": "--leaf: @p(var(--color1), var(--color1), var(--color2), var(--color3), var(--color4)); --corner: @p(100% 0 0 0, 0 100% 0 0, 0 0 100% 0, 0 0 0 100%); --rule: ( @random(${shapeFrequency}) { width: 96%; height: 96%; margin: 2%; background: var(--leaf); border-radius: var(--corner); } @random(0.12) { :after { content: ''; position: absolute; @size: 18%; left: 41%; top: 41%; border-radius: 50%; background: var(--color5); transition: ease 500ms; } } transition: ease 500ms; );",
+    "style": "--leaf: @p(var(--color1), var(--color1), var(--color2), var(--color3), var(--color4)); --corner: @p(100% 0 0 0, 0 100% 0 0, 0 0 100% 0, 0 0 0 100%); --rule: ( @random(${shapeFrequency}) { width: 96%; height: 96%; margin: 2%; background: var(--leaf); border-radius: var(--corner); } transition: ease 500ms; );",
     "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
   }
 }
