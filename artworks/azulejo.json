@@ -1,0 +1,47 @@
+{
+  "name": "Azulejo",
+  "slug": "azulejo",
+  "galleryOrder": 156,
+  "description": "Hand-glazed tilework in cobalt on white — diamonds soften into discs, corner dots hold the corners, and the glaze resets with every redraw.",
+  "palette": [
+    "#F6F8F7",
+    "#1F4E9C",
+    "#3A77C2",
+    "#F0A63E"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 4,
+    "default": 3
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 0.95,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--glaze: @p(var(--color1), var(--color1), var(--color2), var(--color3)); --rule: ( /* corner dots share the motif's emitted ink so the tile reads as one print */ --az: @p(var(--color1), var(--color1), var(--color2)); --co: calc(@r(300, 360) * 1px / @Y); @random(${shapeFrequency}) { :before { content: ''; position: absolute; inset: @rand(14%, 22%); background: var(--glaze); border-radius: @p(0%, 0%, 50%); transform: rotate(@rand(42deg, 48deg)); transition: ease 600ms; } :after { content: ''; position: absolute; @size: 12%; left: 44%; top: 44%; border-radius: 50%; background: @var(--az); box-shadow: @var(--co) @var(--co) @var(--az), calc(@var(--co) * -1) @var(--co) @var(--az), @var(--co) calc(@var(--co) * -1) @var(--az), calc(@var(--co) * -1) calc(@var(--co) * -1) @var(--az); transition: ease 600ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

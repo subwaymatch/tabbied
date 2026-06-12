@@ -1,0 +1,47 @@
+{
+  "name": "Splat",
+  "slug": "splat",
+  "galleryOrder": 228,
+  "description": "Ink flicked at the page from a loaded brush — every splat throws its droplets in a new direction per redraw.",
+  "palette": [
+    "#FAFAF7",
+    "#1F1D1B",
+    "#C0392B",
+    "#27567B"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 4,
+    "default": 2
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 0.8,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( /* the splat and its droplets share one emitted ink */ --inkx: @p(var(--color1), var(--color1), var(--color1), var(--color2), var(--color3)); @random(${shapeFrequency}) { :before { content: ''; position: absolute; @size: @rand(28%, 52%); left: @rand(16%, 36%); top: @rand(16%, 36%); border-radius: @rand(34%, 62%) @rand(38%, 66%) @rand(34%, 62%) @rand(38%, 66%); background: @var(--inkx); transform: rotate(@rand(360deg)) scale(@rand(0.9, 1.15), @rand(0.85, 1.1)); transition: ease 600ms; } :after { content: ''; position: absolute; @size: @rand(6%, 10%); left: 46%; top: 46%; border-radius: 50%; background: @var(--inkx); box-shadow: calc(@r(-200, 200) * 1px / @Y) calc(@r(-200, 200) * 1px / @Y) @var(--inkx), calc(@r(-240, 240) * 1px / @Y) calc(@r(-240, 240) * 1px / @Y) 0 calc(-3px / @Y) @var(--inkx); transition: ease 600ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

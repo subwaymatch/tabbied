@@ -1,0 +1,49 @@
+{
+  "name": "Massif",
+  "slug": "massif",
+  "galleryOrder": 190,
+  "galleryWhite": true,
+  "description": "A dusk range of overlapping peaks, snowcaps riding the summits — every redraw heaves up a new skyline.",
+  "palette": [
+    "#2E3650",
+    "#46557B",
+    "#5C6FA0",
+    "#7B8BB8",
+    "#EDF2FA"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 5,
+    "default": 5
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 0.9,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rock: @p(var(--color1), var(--color2), var(--color3)); --rule: ( /* peak and snowcap share one emitted apex so the cap stays on the summit */ --ax: @r(30, 70); --ph: @r(48, 92); @random(${shapeFrequency}) { :before { content: ''; position: absolute; left: -8%; width: 116%; bottom: 0; height: calc(@var(--ph) * 1%); background: var(--rock); clip-path: polygon(calc(@var(--ax) * 1%) 0%, 114% 100%, -14% 100%); transition: ease 700ms; } :after { content: ''; position: absolute; left: -8%; width: 116%; bottom: calc(@var(--ph) * 0.72%); height: calc(@var(--ph) * 0.28%); background: var(--color4); clip-path: polygon(calc(@var(--ax) * 1%) 0%, calc(@var(--ax) * 1% + 16%) 100%, calc(@var(--ax) * 1% - 16%) 100%); transition: ease 700ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

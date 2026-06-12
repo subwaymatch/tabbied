@@ -220,4 +220,304 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   zipper: {
     options: { grid: '6x6', frequency: 0.95 },
   },
+  origami: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  gable: {
+    options: { grid: '5x5', frequency: 0.9 },
+  },
+  pleat: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  gingham: {
+    options: { grid: '6x6', frequency: 0.9 },
+  },
+  herringbone: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  trellis: {
+    options: { grid: '5x5', frequency: 0.9 },
+  },
+  posy: {
+    options: { grid: '4x4', frequency: 0.9 },
+  },
+  meadow: {
+    options: { grid: '5x5', frequency: 0.9 },
+  },
+  cairn: {
+    options: { grid: '4x4', frequency: 0.85 },
+  },
+  lily: {
+    options: { grid: '4x4', frequency: 0.85 },
+  },
+  ripple: {
+    options: { grid: '4x4', frequency: 0.8 },
+  },
+  aurora: {
+    options: { grid: '4x4', frequency: 0.9 },
+  },
+  orbit: {
+    options: { grid: '4x4', frequency: 0.85 },
+  },
+  constellation: {
+    options: { grid: '6x6', frequency: 0.8 },
+  },
+  memphis: {
+    options: { grid: '5x5', frequency: 0.5 },
+  },
+  glitch: {
+    options: { grid: '5x5', frequency: 0.8 },
+  },
+  barcode: {
+    options: { grid: '5x5', frequency: 0.9 },
+  },
+  postage: {
+    options: { grid: '4x4', frequency: 0.9 },
+  },
+  kilim: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  azulejo: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  shoji: {
+    options: { grid: '6x6', frequency: 0.4 },
+  },
+  mudcloth: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  gumball: {
+    options: { grid: '4x4', frequency: 0.9 },
+  },
+  jelly: {
+    options: { grid: '4x4', frequency: 0.9 },
+  },
+  balloon: {
+    options: { grid: '4x4', frequency: 0.85 },
+  },
+  tetro: {
+    options: { grid: '5x5', frequency: 0.8 },
+  },
+  kite: {
+    options: { grid: '4x4', frequency: 0.85 },
+  },
+  notch: {
+    options: { grid: '5x5', frequency: 0.9 },
+  },
+  awning: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  strata: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  pendulum: {
+    options: { grid: '4x4', frequency: 0.9 },
+  },
+  compass: {
+    options: { grid: '4x4', frequency: 0.9 },
+  },
+  radar: {
+    options: { grid: '5x5', frequency: 0.85 },
+  },
+  voltage: {
+    options: { grid: '5x5', frequency: 0.6 },
+  },
+  koi: {
+    options: { grid: '4x4', frequency: 0.8 },
+  },
+  bramble: {
+    options: { grid: '5x5', frequency: 0.85 },
+  },
+  drizzle: {
+    options: { grid: '6x6', frequency: 0.85 },
+  },
+  cumulus: {
+    options: { grid: '4x4', frequency: 0.8 },
+  },
+  rainbow: {
+    options: { grid: '4x4', frequency: 0.85 },
+  },
+  arcade: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  facade: {
+    options: { grid: '6x6', frequency: 0.9 },
+  },
+  dial: {
+    options: { grid: '5x5', frequency: 0.9 },
+  },
+  levels: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  citrus: {
+    options: { grid: '4x4', frequency: 0.85 },
+  },
+  tally: {
+    options: { grid: '6x6', frequency: 0.85 },
+  },
+  sash: {
+    options: { grid: '5x5', frequency: 0.8 },
+  },
+  wash: {
+    options: { grid: '4x4', frequency: 0.9 },
+  },
+  kintsugi: {
+    options: { grid: '5x5', frequency: 0.7 },
+  },
+  enso: {
+    options: { grid: '4x4', frequency: 0.8 },
+  },
+  bunting: {
+    options: { grid: '5x5', frequency: 0.9 },
+  },
+  sprout: {
+    options: { grid: '5x5', frequency: 0.85 },
+  },
+  links: {
+    options: { grid: '5x5', frequency: 0.85 },
+  },
+  regatta: {
+    options: { grid: '4x4', frequency: 0.8 },
+  },
+  massif: {
+    options: { grid: '5x5', frequency: 0.9 },
+  },
+  abacus: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  hatch: {
+    options: { grid: '6x6', frequency: 0.85 },
+  },
+  crater: {
+    options: { grid: '5x5', frequency: 0.85 },
+  },
+  monolith: {
+    options: { grid: '5x5', frequency: 0.8 },
+  },
+  basalt: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  cog: {
+    options: { grid: '5x5', frequency: 0.9 },
+  },
+  inkblot: {
+    options: { grid: '4x4', frequency: 0.85 },
+  },
+  checkers: {
+    options: { grid: '6x6', frequency: 0.5 },
+  },
+  hopscotch: {
+    options: { grid: '5x5', frequency: 0.8 },
+  },
+  shibori: {
+    options: { grid: '4x4', frequency: 0.85 },
+  },
+  polaroid: {
+    options: { grid: '4x4', frequency: 0.85 },
+  },
+  button: {
+    options: { grid: '5x5', frequency: 0.85 },
+  },
+  bowtie: {
+    options: { grid: '5x5', frequency: 0.85 },
+  },
+  medusa: {
+    options: { grid: '4x4', frequency: 0.8 },
+  },
+  coral: {
+    options: { grid: '5x5', frequency: 0.85 },
+  },
+  stella: {
+    options: { grid: '5x5', frequency: 0.75 },
+  },
+  ladybird: {
+    options: { grid: '5x5', frequency: 0.7 },
+  },
+  flutter: {
+    options: { grid: '5x5', frequency: 0.8 },
+  },
+  sonata: {
+    options: { grid: '6x6', frequency: 0.8 },
+  },
+  chime: {
+    options: { grid: '5x5', frequency: 0.85 },
+  },
+  cirrus: {
+    options: { grid: '6x6', frequency: 0.85 },
+  },
+  meridian: {
+    options: { grid: '5x5', frequency: 0.85 },
+  },
+  pulsar: {
+    options: { grid: '5x5', frequency: 0.7 },
+  },
+  signal: {
+    options: { grid: '5x5', frequency: 0.8 },
+  },
+  laundry: {
+    options: { grid: '5x5', frequency: 0.85 },
+  },
+  amphora: {
+    options: { grid: '5x5', frequency: 0.85 },
+  },
+  saguaro: {
+    options: { grid: '5x5', frequency: 0.85 },
+  },
+  seigaiha: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  impasto: {
+    options: { grid: '5x5', frequency: 0.85 },
+  },
+  patina: {
+    options: { grid: '5x5', frequency: 0.9 },
+  },
+  sine: {
+    options: { grid: '6x6', frequency: 0.9 },
+  },
+  gem: {
+    options: { grid: '5x5', frequency: 0.8 },
+  },
+  macaron: {
+    options: { grid: '5x5', frequency: 0.85 },
+  },
+  shelf: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  rake: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  matchstick: {
+    options: { grid: '5x5', frequency: 0.85 },
+  },
+  incense: {
+    options: { grid: '5x5', frequency: 0.8 },
+  },
+  splat: {
+    options: { grid: '4x4', frequency: 0.8 },
+  },
+  popsicle: {
+    options: { grid: '5x5', frequency: 0.8 },
+  },
+  paisley: {
+    options: { grid: '5x5', frequency: 0.9 },
+  },
+  buoy: {
+    options: { grid: '5x5', frequency: 0.8 },
+  },
+  sigil: {
+    options: { grid: '5x5', frequency: 0.75 },
+  },
+  bubbles: {
+    options: { grid: '5x5', frequency: 0.85 },
+  },
+  bee: {
+    options: { grid: '5x5', frequency: 0.7 },
+  },
+  mirror: {
+    options: { grid: '5x5', frequency: 0.85 },
+  },
+  pompom: {
+    options: { grid: '5x5', frequency: 0.85 },
+  },
 };

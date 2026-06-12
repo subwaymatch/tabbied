@@ -1,0 +1,48 @@
+{
+  "name": "Compass",
+  "slug": "compass",
+  "galleryOrder": 168,
+  "description": "A drawer of old compasses, needles trembling toward different norths — every redraw lets them settle on a new bearing.",
+  "palette": [
+    "#F3EDDC",
+    "#37415B",
+    "#C0392B",
+    "#C9A227",
+    "#6B7B8C"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 5,
+    "default": 5
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 0.9,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--needle: @p(var(--color2), var(--color2), var(--color1), var(--color3)); --rule: ( @random(${shapeFrequency}) { :before { content: ''; position: absolute; inset: 10%; border: calc(30px / @Y) solid var(--color1); border-radius: 50%; opacity: @rand(0.55, 0.95); box-sizing: border-box; transition: ease 700ms; } :after { content: ''; position: absolute; left: 42%; top: 14%; width: 16%; height: 72%; background: var(--needle); clip-path: polygon(50% 0%, 78% 50%, 50% 100%, 22% 50%); transform: rotate(@rand(360deg)); transition: ease 700ms; } } @random(0.2) { :after { background: var(--color4); } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

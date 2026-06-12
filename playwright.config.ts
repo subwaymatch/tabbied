@@ -2,8 +2,8 @@ import { defineConfig, devices } from '@playwright/test';
 
 /**
  * Playwright configuration used to verify the production build of the site.
- * The web server runs `next start`, so make sure `next build` has run first
- * (the `webServer.command` below also builds to be safe when run standalone).
+ * The site is a static export, so the web server serves the `out/` directory
+ * (`yarn start` → `serve out`) — make sure `next build` has run first.
  */
 export default defineConfig({
   testDir: './e2e',

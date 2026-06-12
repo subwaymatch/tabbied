@@ -140,7 +140,11 @@ export default function MainHero() {
               </p>
 
               <div className={styles.heroActions}>
-                <Link href="/select-artwork/" className={styles.actionBtn}>
+                <Link
+                  href="/select-artwork/"
+                  className={styles.actionBtn}
+                  prefetch={false}
+                >
                   Make your art
                 </Link>
               </div>

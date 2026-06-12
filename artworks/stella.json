@@ -1,0 +1,49 @@
+{
+  "name": "Stella",
+  "slug": "stella",
+  "galleryOrder": 206,
+  "galleryWhite": true,
+  "description": "Five-pointed stars twinkling over midnight felt — each one flexes its points and leans into a new tilt per redraw.",
+  "palette": [
+    "#191B2F",
+    "#F5C95C",
+    "#F2F4FF",
+    "#FF8FB8",
+    "#3EECFF"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 5,
+    "default": 5
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 0.75,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--starc: @p(var(--color1), var(--color1), var(--color2), var(--color3), var(--color4)); --rule: ( @random(${shapeFrequency}) { :after { content: ''; position: absolute; inset: @rand(8%, 22%); background: var(--starc); clip-path: polygon(50% 0%, @rand(58%, 66%) @rand(32%, 38%), 98% 35%, @rand(64%, 74%) @rand(54%, 62%), 79% 91%, 50% @rand(66%, 76%), 21% 91%, @rand(26%, 36%) @rand(54%, 62%), 2% 35%, @rand(34%, 42%) @rand(32%, 38%)); transform: rotate(@rand(-24deg, 24deg)); transition: ease 600ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

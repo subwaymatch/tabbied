@@ -1,0 +1,49 @@
+{
+  "name": "Polaroid",
+  "slug": "polaroid",
+  "galleryOrder": 201,
+  "description": "Instant photos strewn across a desk, each one a small color field in a white frame — every redraw reshuffles the shoebox.",
+  "palette": [
+    "#D9C49C",
+    "#FBFAF6",
+    "#E2708A",
+    "#54A8C0",
+    "#7FA886",
+    "#F0A63E"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 0.85,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--photo: @p(var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /* frame and photo share one emitted tilt so the print turns as one */ --pa: @r(-10deg, 10deg); @random(${shapeFrequency}) { :before { content: ''; position: absolute; left: 14%; top: 8%; width: 72%; height: 84%; background: var(--color1); box-shadow: calc(12px / @Y) calc(16px / @Y) 0 rgba(70, 50, 20, 0.22); transform: rotate(@var(--pa)); transition: ease 600ms; } :after { content: ''; position: absolute; left: 21%; top: 14%; width: 58%; height: 56%; background: var(--photo); transform: rotate(@var(--pa)); transform-origin: 50% 64%; transition: ease 600ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

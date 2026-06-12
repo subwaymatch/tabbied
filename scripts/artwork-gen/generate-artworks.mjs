@@ -5,6 +5,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { batch1 } from './artwork-defs-1.mjs';
 import { batch2 } from './artwork-defs-2.mjs';
+import { batch3 } from './artwork-defs-3.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 
@@ -33,7 +34,7 @@ const FREQ_OPTION = (def) => ({
 
 const collapse = (s) => s.replace(/\s+/g, ' ').trim();
 
-const defs = [...batch1, ...batch2];
+const defs = [...batch1, ...batch2, ...batch3];
 
 const slugs = new Set();
 for (const def of defs) {

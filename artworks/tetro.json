@@ -1,0 +1,50 @@
+{
+  "name": "Tetro",
+  "slug": "tetro",
+  "galleryOrder": 162,
+  "galleryWhite": true,
+  "description": "Chunky arcade pieces built from four sliding blocks — every redraw rearranges each cluster into a new almost-tetromino.",
+  "palette": [
+    "#1A1C2E",
+    "#3EECFF",
+    "#FF3D8B",
+    "#F5DD32",
+    "#3FFFB2",
+    "#9D89F2"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 0.8,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( /* one block plus three shadow copies on a unit lattice; offsets snap between unit multiples per seed */ --u: calc(190px / @Y); --pc: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); @random(${shapeFrequency}) { :before { content: ''; position: absolute; left: 14%; top: 14%; width: @var(--u); height: @var(--u); background: @var(--pc); box-shadow: calc(@var(--u) * @p(1, 1, 2)) 0 @var(--pc), calc(@var(--u) * @p(0, 1)) @var(--u) @var(--pc), calc(@var(--u) * @p(1, 2)) @var(--u) @var(--pc); transition: ease 500ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "name": "Laundry",
+  "slug": "laundry",
+  "galleryOrder": 215,
+  "description": "Wash day on the line — shirts and towels pinned under a breeze, swinging into a new hang with every redraw.",
+  "palette": [
+    "#CFE8F4",
+    "#7FC9A8",
+    "#E2708A",
+    "#F5DD8A",
+    "#FDFDFB",
+    "#5A5F66"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 0.85,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--garment: @p(var(--color1), var(--color2), var(--color3), var(--color4)); --rule: ( border-top: calc(18px / @Y) solid var(--color5); box-sizing: border-box; /* garment and pin share one emitted sway angle from the line */ --sw: @r(-8deg, 8deg); @random(${shapeFrequency}) { :before { content: ''; position: absolute; left: @rand(22%, 34%); top: 0; width: @rand(34%, 50%); height: @rand(42%, 64%); border-radius: 0 0 @rand(14%, 30%) @rand(14%, 30%); background: var(--garment); transform-origin: 50% 0%; transform: rotate(@var(--sw)); transition: ease 700ms; } :after { content: ''; position: absolute; left: 44%; top: -2%; width: 12%; height: 7%; border-radius: 99px; background: var(--color5); transform-origin: 50% 0%; transform: rotate(@var(--sw)); transition: ease 700ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

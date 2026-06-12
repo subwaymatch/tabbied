@@ -1,0 +1,49 @@
+{
+  "name": "Pompom",
+  "slug": "pompom",
+  "galleryOrder": 236,
+  "description": "A craft jar of yarn pompoms — fuzzy spheres in raspberry, teal and marigold, bouncing to new spots on every redraw.",
+  "palette": [
+    "#F6F1E9",
+    "#E2437D",
+    "#3AAFA9",
+    "#F0A63E",
+    "#9D89F2",
+    "#7FC96B"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 0.85,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( /* the puff and its two fuzz copies share one emitted yarn */ --yarn: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); @random(${shapeFrequency}) { :before { content: ''; position: absolute; @size: @rand(36%, 56%); left: @rand(14%, 36%); top: @rand(14%, 36%); border-radius: 50%; background: @var(--yarn); filter: blur(calc(36px / @Y)); box-shadow: calc(80px / @Y) calc(60px / @Y) 0 calc(-20px / @Y) @var(--yarn), calc(-60px / @Y) calc(80px / @Y) 0 calc(-28px / @Y) @var(--yarn); transition: ease 600ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

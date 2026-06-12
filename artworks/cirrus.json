@@ -1,0 +1,46 @@
+{
+  "name": "Cirrus",
+  "slug": "cirrus",
+  "galleryOrder": 211,
+  "description": "Mare’s-tail clouds combed thin across a high sky — every redraw re-brushes the streaks at a softer or steeper sweep.",
+  "palette": [
+    "#8FC2E8",
+    "#FDFDFB",
+    "#E8F2FA"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 3,
+    "default": 2
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 0.9,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--wisp: @p(var(--color1), var(--color1), var(--color2)); --rule: ( /* each streak repeats once via its shadow, like combed filaments */ --cs: calc(@r(90, 140) * 1px / @Y); @random(${shapeFrequency}) { :before { content: ''; position: absolute; left: @rand(-6%, 30%); top: @rand(10%, 56%); width: @rand(50%, 92%); height: calc(28px / @Y); border-radius: 99px; background: var(--wisp); opacity: @rand(0.55, 0.95); filter: blur(calc(6px / @Y)); transform: rotate(@rand(-9deg, -3deg)); box-shadow: calc(@var(--cs) * -0.6) @var(--cs) var(--color2); transition: ease 800ms; } } @random(0.5) { :after { content: ''; position: absolute; left: @rand(10%, 44%); top: @rand(64%, 84%); width: @rand(30%, 60%); height: calc(20px / @Y); border-radius: 99px; background: var(--color1); opacity: @rand(0.4, 0.8); filter: blur(calc(6px / @Y)); transform: rotate(@rand(-8deg, -2deg)); transition: ease 800ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

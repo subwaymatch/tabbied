@@ -1,0 +1,48 @@
+{
+  "name": "Paisley",
+  "slug": "paisley",
+  "galleryOrder": 230,
+  "description": "Teardrop boteh curling across the cloth, each one nested with a paler heart — every redraw re-stamps the print.",
+  "palette": [
+    "#F6EFE0",
+    "#8C2F39",
+    "#27567B",
+    "#C9A227",
+    "#3E6B4F"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 5,
+    "default": 5
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 0.9,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--heart: @p(var(--color0), var(--color3), var(--color4)); --rule: ( /* outer and inner boteh share one emitted dye and turn */ --dye2: @p(var(--color1), var(--color2), var(--color4)); --pturn: @r(360deg); @random(${shapeFrequency}) { :before { content: ''; position: absolute; inset: 12%; clip-path: @shape(drop); background: @var(--dye2); transform: rotate(@var(--pturn)); transition: ease 700ms; } :after { content: ''; position: absolute; inset: 30%; clip-path: @shape(drop); background: var(--heart); opacity: 0.85; transform: rotate(@var(--pturn)); transition: ease 700ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}
