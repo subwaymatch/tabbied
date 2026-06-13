@@ -1,0 +1,50 @@
+{
+  "name": "Dune",
+  "slug": "dune",
+  "galleryOrder": 409,
+  "galleryWhite": true,
+  "description": "Layered rounded dunes cresting in overlapping bands, the ridgelines re-shading on each seed.",
+  "palette": [
+    "#241024",
+    "#E84393",
+    "#B388EB",
+    "#FF8FB8",
+    "#F5C542",
+    "#FFF1F6"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); :before { content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 66%; border-radius: 50% 50% 0 0 / 32% 32% 0 0; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-transition: ease 450ms; transition: ease 450ms; } :after { content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 33%; border-radius: 50% 50% 0 0 / 60% 60% 0 0; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-transition: ease 450ms; transition: ease 450ms; } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

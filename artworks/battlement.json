@@ -1,16 +1,16 @@
 {
   "name": "Battlement",
   "slug": "battlement",
-  "galleryOrder": 239,
+  "galleryOrder": 390,
   "galleryWhite": true,
-  "description": "Crenellated battlement steps marching the wall, re-toothing each redraw.",
+  "description": "Crenellated battlements marching along the top edge, re-toothing on each seed.",
   "palette": [
-    "#101A2E",
+    "#0B2540",
+    "#1B4075",
     "#3E8BFF",
     "#3EECFF",
-    "#FF3D8B",
-    "#3FFFB2",
-    "#F5DD32"
+    "#9EFFD8",
+    "#ECFFEC"
   ],
   "colors": {
     "min": 2,
@@ -44,7 +44,7 @@
     }
   ],
   "code": {
-    "style": "--rule: ( --rot: @pick(0deg, 90deg, 180deg, 270deg); @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(0 100%, 0 66.6%, 33.3% 66.6%, 33.3% 33.3%, 66.6% 33.3%, 66.6% 0, 100% 0, 100% 100%); clip-path: polygon(0 100%, 0 66.6%, 33.3% 66.6%, 33.3% 33.3%, 66.6% 33.3%, 66.6% 0, 100% 0, 100% 100%); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 400ms; transition: ease 400ms; );",
+    "style": "--rule: ( --rot: @pick(0deg, 90deg, 180deg, 270deg); @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(0 35%, 20% 35%, 20% 0, 40% 0, 40% 35%, 60% 35%, 60% 0, 80% 0, 80% 35%, 100% 35%, 100% 100%, 0 100%); clip-path: polygon(0 35%, 20% 35%, 20% 0, 40% 0, 40% 35%, 60% 35%, 60% 0, 80% 0, 80% 35%, 100% 35%, 100% 100%, 0 100%); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
     "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
   }
 }

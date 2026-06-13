@@ -1,0 +1,50 @@
+{
+  "name": "Hexagram",
+  "slug": "hexagram",
+  "galleryOrder": 338,
+  "galleryWhite": true,
+  "description": "Six-point stars locked in a grid, each star re-shading on every redraw.",
+  "palette": [
+    "#141233",
+    "#6C4AB6",
+    "#3EECFF",
+    "#FF3D8B",
+    "#F5DD32",
+    "#3FFFB2"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(50% 0, 63% 25%, 91% 25%, 68% 50%, 91% 75%, 63% 75%, 50% 100%, 37% 75%, 9% 75%, 32% 50%, 9% 25%, 37% 25%); clip-path: polygon(50% 0, 63% 25%, 91% 25%, 68% 50%, 91% 75%, 63% 75%, 50% 100%, 37% 75%, 9% 75%, 32% 50%, 9% 25%, 37% 25%); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

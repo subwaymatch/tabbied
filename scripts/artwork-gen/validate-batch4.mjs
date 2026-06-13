@@ -37,8 +37,12 @@ function buildSource(artwork, { width, height, optionOverrides = {} }) {
   return { style: colors + ' ' + style, doodle };
 }
 
-const CELL_PROPS = ['backgroundColor', 'backgroundImage', 'transform', 'clipPath', 'opacity', 'borderTopWidth', 'borderLeftWidth', 'borderRadius', 'width', 'height', 'left', 'top', 'margin'];
-const PSEUDO_PROPS = ['content', 'left', 'top', 'width', 'height', 'backgroundColor', 'backgroundImage', 'opacity', 'transform', 'borderTopWidth', 'boxShadow', 'clipPath', 'borderRadius'];
+// Mirror of validate-artworks.mjs: backgroundImage/height are intentionally
+// excluded so a design whose only per-seed change is a gradient (which can't
+// transition and would snap) fails the reseed check — every design must vary a
+// transition-able property so reseeds morph.
+const CELL_PROPS = ['backgroundColor', 'transform', 'clipPath', 'opacity', 'borderTopWidth', 'borderLeftWidth', 'borderRadius', 'width', 'left', 'top', 'margin'];
+const PSEUDO_PROPS = ['content', 'left', 'top', 'width', 'height', 'backgroundColor', 'opacity', 'transform', 'borderTopWidth', 'boxShadow', 'clipPath', 'borderRadius'];
 
 async function inspect(page) {
   return page.evaluate(([cellProps, pseudoProps]) => {

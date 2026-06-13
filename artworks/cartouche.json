@@ -1,0 +1,49 @@
+{
+  "name": "Cartouche",
+  "slug": "cartouche",
+  "galleryOrder": 366,
+  "description": "Rounded-end nameplates lying in rows, each lozenge re-colouring on reseed.",
+  "palette": [
+    "#FFF9F5",
+    "#FF8FB8",
+    "#FFC2D4",
+    "#FF8A5C",
+    "#D89FFF",
+    "#F5C542"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { width: 92%; height: 56%; margin: 22% 4%; border-radius: 999px; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

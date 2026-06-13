@@ -1,0 +1,50 @@
+{
+  "name": "Brickwork",
+  "slug": "brickwork",
+  "galleryOrder": 392,
+  "galleryWhite": true,
+  "description": "Running-bond bricks offset row by row, each course re-colouring on reseed.",
+  "palette": [
+    "#2B1E1A",
+    "#E2543E",
+    "#E3A92E",
+    "#88A872",
+    "#F3EBDB",
+    "#7FA886"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { width: 96%; height: 70%; margin: 15% 2%; border-radius: 6%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); } @match(y % 2 == 0) { :after { content: ''; position: absolute; left: -50%; top: 15%; width: 96%; height: 70%; border-radius: 6%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-transition: ease 450ms; transition: ease 450ms; } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

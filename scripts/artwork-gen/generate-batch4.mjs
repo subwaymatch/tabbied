@@ -48,7 +48,9 @@ const existing = new Set(
     .map((f) => f.replace(/\.json$/, ''))
 );
 for (const def of defs) {
-  if (existing.has(def.slug)) {
+  // Allow regenerating the batch's own files; only guard against clobbering a
+  // different, pre-existing artwork.
+  if (existing.has(def.slug) && !batchSlugs.has(def.slug)) {
     throw new Error(`batch-4 slug ${def.slug} collides with an existing artwork`);
   }
 }

@@ -1,16 +1,16 @@
 {
   "name": "Inset",
   "slug": "inset",
-  "galleryOrder": 302,
+  "galleryOrder": 363,
   "galleryWhite": true,
-  "description": "Inset squares receding to the centre, re-shading with every seed.",
+  "description": "A square dropped into a recessed well, the inner panel re-colouring on reseed.",
   "palette": [
-    "#241024",
-    "#E84393",
-    "#B388EB",
-    "#FF8FB8",
-    "#F5C542",
-    "#FFF1F6"
+    "#141233",
+    "#6C4AB6",
+    "#3EECFF",
+    "#FF3D8B",
+    "#F5DD32",
+    "#3FFFB2"
   ],
   "colors": {
     "min": 2,
@@ -22,7 +22,7 @@
       "id": "grid",
       "displayName": "Columns and rows",
       "type": "ButtonSelectGroup",
-      "default": "6x9",
+      "default": "8x12",
       "options": [
         "2x3",
         "4x6",
@@ -44,7 +44,7 @@
     }
   ],
   "code": {
-    "style": "--rule: ( --rot: @pick(0deg, 0deg, 45deg); @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); :before { content: ''; position: absolute; inset: 20%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-transition: ease 500ms; transition: ease 500ms; } :after { content: ''; position: absolute; inset: 38%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-transition: ease 500ms; transition: ease 500ms; } } -webkit-transition: ease 500ms; transition: ease 500ms; );",
+    "style": "--rule: ( @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); :after { content: ''; position: absolute; inset: 24%; border-radius: 8%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); box-shadow: inset 0 0 0 6px rgba(0,0,0,0.18); -webkit-transition: ease 450ms; transition: ease 450ms; } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
     "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
   }
 }
