@@ -1,0 +1,35 @@
+{
+  "name": "Daybreak",
+  "slug": "daybreak",
+  "galleryOrder": 61,
+  "description": "Rays of light fanning out of the top-left corner — every redraw sweeps the beams to new angles and lengths, like dawn through a window.",
+  "palette": [
+    "#FCFBFF",
+    "#60569E",
+    "#9B8FD4",
+    "#E6437D",
+    "#3E8BFF",
+    "#C9BFF2"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "rays",
+      "displayName": "Rays",
+      "type": "Slider",
+      "default": 48,
+      "min": 24,
+      "max": 72,
+      "step": 8,
+      "replace": "${rays}"
+    }
+  ],
+  "code": {
+    "style": "--ray: @p(var(--color1), var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( @place-cell: 0 0; @size: 200% 1.5px; background: var(--ray); opacity: @rand(0.2, 1); transform: rotate(@rand(1deg, 89deg)) translateX(@rand(-12%, 25%)) scaleX(@rand(0.35, 1)); transition: ease 700ms; );",
+    "doodle": ":doodle { @grid: 1x${rays}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

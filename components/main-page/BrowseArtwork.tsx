@@ -30,8 +30,9 @@ export default async function BrowseArtworkSection() {
               {/* The seed param matches the select-artwork links: the editor
                   only mirrors customizations into the URL (making them
                   shareable and refresh-safe) when the URL already carries a
-                  query param. */}
-              <Link href={`/artwork/${item.slug}?seed=0000`}>
+                  query param. prefetch={false} keeps the card grid from firing
+                  an edge request per visible card. */}
+              <Link href={`/artwork/${item.slug}?seed=0000`} prefetch={false}>
                 <div className={styles.galleryCard}>
                   <h4 className={item.white ? styles.white : undefined}>
                     {item.name}
@@ -43,7 +44,9 @@ export default async function BrowseArtworkSection() {
           ))}
 
           <Col md={3} sm={6} xs={6}>
-            <Link href="/select-artwork/">
+            {/* The gallery page's payload embeds every design's source, so its
+                prefetch is the heaviest single request on the site. */}
+            <Link href="/select-artwork/" prefetch={false}>
               <div className={styles.galleryCard}>
                 <Image
                   src="/images/thumb_empty.png"

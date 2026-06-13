@@ -1,0 +1,16 @@
+/*
+ * The logo doodle draws a 3x3 grid at 100% of its host, so this wrapper is the
+ * single place its size is decided: set `--logo-size` (or the component's
+ * `size` prop) and the whole mark scales with it.
+ */
+.logo {
+  display: block;
+  width: var(--logo-size, 52px);
+  height: var(--logo-size, 52px);
+}
+
+.logo css-doodle {
+  display: block;
+  width: 100%;
+  height: 100%;
+}

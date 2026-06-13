@@ -1,8 +1,8 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { Container, Row, Col } from 'components/layout';
+import LogoDoodle from './LogoDoodle';
 import styles from './MainHeader.module.css';
 
 const sections = [
@@ -21,13 +21,13 @@ export default function MainHeader() {
       <Container>
         <Row align="center">
           <Col md={3} xs={4}>
-            <Link href="/" className={styles.logoImageWrapper}>
-              <Image
-                src="/images/logo_tabbied_v3.svg"
-                alt="Tabbied"
-                width={52}
-                height={52}
-              />
+            <Link
+              href="/"
+              className={styles.logoImageWrapper}
+              aria-label="Tabbied"
+              prefetch={false}
+            >
+              <LogoDoodle />
             </Link>
           </Col>
 

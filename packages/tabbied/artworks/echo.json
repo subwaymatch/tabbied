@@ -1,0 +1,35 @@
+{
+  "name": "Echo",
+  "slug": "echo",
+  "galleryOrder": 59,
+  "description": "Concentric squares nested to the center — every ring picks its own color, twist and corner roundness, so each redraw resettles the whole stack.",
+  "palette": [
+    "#FBF7EF",
+    "#2B1B3D",
+    "#6C4AB6",
+    "#9D7BD8",
+    "#C9AFEF",
+    "#EBDFFA"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "rings",
+      "displayName": "Rings",
+      "type": "Slider",
+      "default": 7,
+      "min": 4,
+      "max": 10,
+      "step": 1,
+      "replace": "${rings}"
+    }
+  ],
+  "code": {
+    "style": "--edge: min(${width}, ${height}); --rule: ( @place-cell: center; @size: calc(var(--edge) * (1.04 - (@i - 1) / @I)); background: @pd(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); border-radius: @rand(2%, 40%); transform: rotate(@rand(-12deg, 12deg)); transition: ease 600ms; );",
+    "doodle": ":doodle { @grid: 1x${rings}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

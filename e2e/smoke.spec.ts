@@ -238,7 +238,8 @@ test.describe('Tabbied site', () => {
       .locator('#section-browse-artwork a[href*="/artwork/radius"]')
       .click();
 
-    await page.waitForURL(/\/artwork\/radius\?/, { timeout: 15000 });
+    // The static export uses trailing slashes, so match /artwork/radius/?seed=…
+    await page.waitForURL(/\/artwork\/radius\/?\?/, { timeout: 15000 });
     await expect(page).toHaveURL(/seed=0000/);
 
     await page.getByText('6x9', { exact: true }).click();

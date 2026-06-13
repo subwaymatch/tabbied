@@ -1,0 +1,50 @@
+{
+  "name": "Prisma",
+  "slug": "prisma",
+  "galleryOrder": 57,
+  "galleryWhite": true,
+  "description": "A full-bleed mosaic of half-square triangles in deep indigo and jewel tones — every reseed melts each facet into its next orientation.",
+  "palette": [
+    "#1A1B3A",
+    "#3E8BFF",
+    "#3EECFF",
+    "#FF3D8B",
+    "#D89FFF",
+    "#3FFFB2"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "/* Triangle orientation and ink roll once per cell; same-arity polygons morph between seeds */ --tri: @p(polygon(0% 0%, 100% 0%, 100% 100%), polygon(0% 0%, 100% 0%, 0% 100%), polygon(0% 0%, 100% 100%, 0% 100%), polygon(100% 0%, 100% 100%, 0% 100%)); --ink: @p(var(--color1), var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( margin: -0.5px; clip-path: var(--tri); @random(${shapeFrequency}) { background: var(--ink); } transition: ease 500ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

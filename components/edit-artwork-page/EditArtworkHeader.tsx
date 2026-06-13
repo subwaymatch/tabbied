@@ -6,11 +6,13 @@ import { Container, Row, Col } from 'components/layout';
 import styles from './EditArtworkHeader.module.css';
 
 type EditArtworkHeaderProps = {
+  artworkName: string;
   onRedraw: () => void;
   onExport: () => void;
 };
 
 export default function EditArtworkHeader({
+  artworkName,
   onRedraw,
   onExport,
 }: EditArtworkHeaderProps) {
@@ -19,11 +21,13 @@ export default function EditArtworkHeader({
       <Container>
         <Row align="center">
           <Col md={4} xs={6}>
-            <Link href="/select-artwork">← Back to gallery</Link>
+            <Link href="/select-artwork" prefetch={false}>
+              ← Back to gallery
+            </Link>
           </Col>
 
           <Col md={4} className={styles.titleColumn}>
-            <h1 className="align-center">Make your art</h1>
+            <h1 className="align-center">{artworkName}</h1>
           </Col>
 
           <Col md={4} xs={6}>

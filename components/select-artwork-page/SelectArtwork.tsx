@@ -22,9 +22,13 @@ export default function SelectArtwork({
 
         <Container fluidOnMobile>
           <Row noGutter>
+            {/* prefetch={false}: with 150+ cards, viewport prefetching would
+                fire an RSC payload request per card scrolled past — by far the
+                page's largest source of Vercel edge requests. The editor pages
+                are fully static, so on-click navigation stays fast. */}
             {gallery.map((item) => (
               <Col key={item.slug} md={3} sm={6} xs={6}>
-                <Link href={`/artwork/${item.slug}?seed=0000`}>
+                <Link href={`/artwork/${item.slug}?seed=0000`} prefetch={false}>
                   <div className={styles.galleryCard}>
                     <h4 className={item.white ? styles.white : undefined}>
                       {item.name}

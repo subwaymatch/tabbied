@@ -1,0 +1,49 @@
+{
+  "name": "Petal",
+  "slug": "petal",
+  "galleryOrder": 69,
+  "description": "Single petals pressed across the canvas, each at its own angle, with the odd golden bud between — every redraw sets the petals spinning to rest anew.",
+  "palette": [
+    "#FFF9F5",
+    "#FF8FB8",
+    "#FFC2D4",
+    "#FF8A5C",
+    "#D89FFF",
+    "#F5C542"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--pet: @p(var(--color1), var(--color2), var(--color3), var(--color4)); --rot: @rand(360deg); --rule: ( @random(${shapeFrequency}) { :after { content: ''; position: absolute; inset: 6%; background: var(--pet); clip-path: @shape(drop); transform: rotate(var(--rot)); opacity: 0.92; transition: ease 600ms; } } @random(0.18) { :before { content: ''; position: absolute; @size: 13%; left: 43.5%; top: 43.5%; border-radius: 50%; background: var(--color5); transition: ease 600ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

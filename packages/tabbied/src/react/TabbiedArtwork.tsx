@@ -66,6 +66,12 @@ export type TabbiedArtworkProps = {
    */
   redrawInterval?: number;
   /**
+   * Pause `redrawInterval` ticks without tearing down the timer, so the redraw
+   * phase is preserved across pause/resume (e.g. while the element is scrolled
+   * out of the viewport). No effect unless `redrawInterval` is set.
+   */
+  paused?: boolean;
+  /**
    * true (default): an aria-hidden decorative image.
    * false: role="img" with ariaLabel (defaults to the artwork name).
    */
@@ -117,6 +123,7 @@ export const TabbiedArtwork = forwardRef<
     height,
     coverRender,
     redrawInterval,
+    paused = false,
     decorative = true,
     ariaLabel,
     className,
@@ -128,6 +135,11 @@ export const TabbiedArtwork = forwardRef<
   const definition = resolveDefinition(artwork);
   const hostRef = useRef<HTMLDivElement>(null);
   const controllerRef = useRef<ArtworkController | null>(null);
+
+  // Read `paused` through a ref so flipping it doesn't tear down and rebuild
+  // the redraw timer — the redraw phase is preserved across pause/resume.
+  const pausedRef = useRef(paused);
+  pausedRef.current = paused;
 
   const config: ArtworkConfig = {
     artwork: definition,
@@ -183,7 +195,7 @@ export const TabbiedArtwork = forwardRef<
     }
 
     const tick = () => {
-      if (document.visibilityState === 'visible') {
+      if (document.visibilityState === 'visible' && !pausedRef.current) {
         controllerRef.current?.redraw();
       }
     };

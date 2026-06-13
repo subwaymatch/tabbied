@@ -1,0 +1,50 @@
+{
+  "name": "Lantern",
+  "slug": "lantern",
+  "galleryOrder": 71,
+  "galleryWhite": true,
+  "description": "Paper lanterns drifting in the night, each casting its own halo — reseeding floats them to new heights and re-mixes the glow.",
+  "palette": [
+    "#181A2E",
+    "#FFD27D",
+    "#FF9E4D",
+    "#FF5E62",
+    "#E84393",
+    "#B388EB"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 0.9,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--ty: @rand(8%, 38%); --op: @rand(0.55, 1); --rule: ( /* lantern body and halo share one emitted color */ --glow: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); @random(${shapeFrequency}) { :after { content: ''; position: absolute; left: 31%; top: var(--ty); width: 38%; height: 50%; border-radius: 30% / 24%; background: @var(--glow); box-shadow: 0 0 calc(300px / @Y) @var(--glow); opacity: var(--op); transition: ease 700ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}
