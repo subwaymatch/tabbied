@@ -106,9 +106,6 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   ziggy: {
     options: { grid: '5x5', frequency: 0.92 },
   },
-  lunar: {
-    options: { grid: '4x4', frequency: 0.85 },
-  },
   pebble: {
     options: { grid: '4x4', frequency: 0.9 },
   },
@@ -232,9 +229,6 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   gingham: {
     options: { grid: '6x6', frequency: 0.9 },
   },
-  herringbone: {
-    options: { grid: '6x6', frequency: 0.95 },
-  },
   trellis: {
     options: { grid: '5x5', frequency: 0.9 },
   },
@@ -298,9 +292,6 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   tetro: {
     options: { grid: '5x5', frequency: 0.8 },
   },
-  kite: {
-    options: { grid: '4x4', frequency: 0.85 },
-  },
   notch: {
     options: { grid: '5x5', frequency: 0.9 },
   },
@@ -311,9 +302,6 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
     options: { grid: '6x6', frequency: 0.95 },
   },
   pendulum: {
-    options: { grid: '4x4', frequency: 0.9 },
-  },
-  compass: {
     options: { grid: '4x4', frequency: 0.9 },
   },
   radar: {
@@ -351,9 +339,6 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   },
   citrus: {
     options: { grid: '4x4', frequency: 0.85 },
-  },
-  tally: {
-    options: { grid: '6x6', frequency: 0.85 },
   },
   sash: {
     options: { grid: '5x5', frequency: 0.8 },
@@ -519,5 +504,77 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   },
   pompom: {
     options: { grid: '5x5', frequency: 0.85 },
+  },
+  carousel: {
+    options: { grid: '4x4', frequency: 0.9 },
+  },
+  windowpane: {
+    options: { grid: '6x6', frequency: 0.9 },
+  },
+  matte: {
+    options: { grid: '5x5', frequency: 0.92 },
+  },
+  spectrum: {
+    options: { grid: '4x4', frequency: 0.9 },
+  },
+  coil: {
+    options: { grid: '4x4', frequency: 0.9 },
+  },
+  lens: {
+    options: { grid: '4x4', frequency: 0.9 },
+  },
+  hourglass: {
+    options: { grid: '5x5', frequency: 0.92 },
+  },
+  northstar: {
+    options: { grid: '5x5', frequency: 0.92 },
+  },
+  bracket: {
+    options: { grid: '5x5', frequency: 0.92 },
+  },
+  merlon: {
+    options: { grid: '5x5', frequency: 0.92 },
+  },
+  ibeam: {
+    options: { grid: '5x5', frequency: 0.92 },
+  },
+  spiralblock: {
+    options: { grid: '5x5', frequency: 0.92 },
+  },
+  tictac: {
+    options: { grid: '5x5', frequency: 0.92 },
+  },
+  pennantbox: {
+    options: { grid: '5x5', frequency: 0.92 },
+  },
+  crosshatch: {
+    options: { grid: '5x5', frequency: 0.92 },
+  },
+  rungs: {
+    options: { grid: '5x5', frequency: 0.92 },
+  },
+  picket: {
+    options: { grid: '5x5', frequency: 0.92 },
+  },
+  lattice: {
+    options: { grid: '5x5', frequency: 0.92 },
+  },
+  caltrop: {
+    options: { grid: '5x5', frequency: 0.92 },
+  },
+  sawedge: {
+    options: { grid: '5x5', frequency: 0.92 },
+  },
+  switchback: {
+    options: { grid: '5x5', frequency: 0.92 },
+  },
+  battlement: {
+    options: { grid: '5x5', frequency: 0.92 },
+  },
+  facetgrad: {
+    options: { grid: '5x5', frequency: 0.92 },
+  },
+  prismfold: {
+    options: { grid: '5x5', frequency: 0.92 },
   },
 };

@@ -1,0 +1,50 @@
+{
+  "name": "Spectrum",
+  "slug": "spectrum",
+  "galleryOrder": 317,
+  "galleryWhite": true,
+  "description": "Smooth colour wheels turning a quarter at a time, the spectrum sweeping to a new orientation each seed.",
+  "palette": [
+    "#101A2E",
+    "#3E8BFF",
+    "#3EECFF",
+    "#FF3D8B",
+    "#3FFFB2",
+    "#F5DD32"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( --rot: @pick(0deg, 90deg, 180deg, 270deg); @random(${shapeFrequency}) { width: 88%; height: 88%; margin: 6%; border-radius: 50%; background: conic-gradient(from 0deg, @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)), @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)), @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)), @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)), @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5))); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}
