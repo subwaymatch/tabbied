@@ -1,0 +1,48 @@
+{
+  "name": "Meridian",
+  "slug": "meridian",
+  "galleryOrder": 212,
+  "galleryWhite": true,
+  "description": "Wireframe globes spinning in a dark atlas — each one shows a different meridian as it turns, tilting on its axis per redraw.",
+  "palette": [
+    "#1C2440",
+    "#9FB8E8",
+    "#3EECFF",
+    "#F5C95C"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 4,
+    "default": 3
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 0.85,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( /* sphere and meridian share one emitted wire color and tilt */ --wire: @p(var(--color1), var(--color1), var(--color2), var(--color3)); --mt: @r(-18deg, 18deg); @random(${shapeFrequency}) { :before { content: ''; position: absolute; inset: 14%; border: calc(20px / @Y) solid @var(--wire); border-radius: 50%; box-sizing: border-box; transform: rotate(@var(--mt)); transition: ease 700ms; } :after { content: ''; position: absolute; inset: 14%; border: calc(20px / @Y) solid @var(--wire); border-radius: 50%; box-sizing: border-box; opacity: 0.75; transform: rotate(@var(--mt)) scaleX(@rand(0.12, 0.7)); transition: ease 700ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

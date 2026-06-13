@@ -9,7 +9,7 @@ export default function PageHeader({ title }: { title: string }) {
       <Container>
         <Row align="center">
           <Col xs={3}>
-            <Link href="/" className={styles.logoImageWrapper}>
+            <Link href="/" className={styles.logoImageWrapper} prefetch={false}>
               <Image
                 src="/images/logo_tabbied_v3.svg"
                 alt="Tabbied"

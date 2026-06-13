@@ -1,0 +1,49 @@
+{
+  "name": "Macaron",
+  "slug": "macaron",
+  "galleryOrder": 223,
+  "description": "Patisserie shelves of macarons — two shells and a peeking band of filling, restacked in new flavors on every redraw.",
+  "palette": [
+    "#FBF3EA",
+    "#F7A8C4",
+    "#A8D8C8",
+    "#C9A4F2",
+    "#F5D78A",
+    "#8C5B42"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 0.85,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--fill: @p(var(--color5), var(--color1), var(--color2), var(--color3), var(--color4)); --rule: ( /* both shells share one emitted flavor; the filling peeks between them */ --shellc: @p(var(--color1), var(--color2), var(--color3), var(--color4)); --sq: @r(0.92, 1.08); @random(${shapeFrequency}) { :before { content: ''; position: absolute; left: 18%; top: 26%; width: 64%; height: 22%; border-radius: 50% 50% 30% 30% / 80% 80% 30% 30%; background: @var(--shellc); transform: scaleX(@var(--sq)); transition: ease 600ms; } :after { content: ''; position: absolute; left: 18%; top: 53%; width: 64%; height: 20%; border-radius: 30% 30% 50% 50% / 30% 30% 80% 80%; background: @var(--shellc); box-shadow: 0 calc(-58px / @Y) 0 calc(-12px / @Y) var(--fill); transform: scaleX(@var(--sq)); transition: ease 600ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

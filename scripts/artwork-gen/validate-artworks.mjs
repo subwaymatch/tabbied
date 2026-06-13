@@ -10,11 +10,12 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { batch1 } from './artwork-defs-1.mjs';
 import { batch2 } from './artwork-defs-2.mjs';
+import { batch3 } from './artwork-defs-3.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 
 const cssDoodle = readFileSync(path.join(ROOT, 'node_modules/css-doodle/css-doodle.min.js'), 'utf-8');
-const slugs = [...batch1, ...batch2].map((d) => d.slug);
+const slugs = [...batch1, ...batch2, ...batch3].map((d) => d.slug);
 
 const fixFullRandomGate = (code) =>
   code.replace(/@random\s*\(\s*1(?:\.0+)?\s*\)/g, '@random(0.999)');
@@ -151,7 +152,10 @@ for (const chunk of chunks) {
       el.update(el.textContent);
     }
   });
-  await page.waitForTimeout(1400);
+  // Generous settle time: with 20 doodles transitioning at once the browser
+  // can start a heavy doodle's transition close to a second late, which made
+  // the reseed check flag patterns as identical while they were still queued.
+  await page.waitForTimeout(2800);
   const after = await inspect(page);
   await page.screenshot({ path: `/tmp/sheet-${shot}-seed2.png`, fullPage: true });
 

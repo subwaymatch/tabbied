@@ -1,0 +1,49 @@
+{
+  "name": "Jelly",
+  "slug": "jelly",
+  "galleryOrder": 160,
+  "description": "Trembling cubes of jelly mid-wobble — each one squashes and stretches to a new posture per redraw, gloss bar riding on top.",
+  "palette": [
+    "#FDF6EC",
+    "#FF6B7E",
+    "#FFA94D",
+    "#7FC96B",
+    "#5BAFE8",
+    "#C98BE8"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 0.9,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--jelly: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( @random(${shapeFrequency}) { :before { content: ''; position: absolute; inset: 12%; border-radius: 26%; background: var(--jelly); opacity: 0.85; transform: scale(@rand(0.82, 1.08), @rand(0.82, 1.08)); transition: ease 500ms; } :after { content: ''; position: absolute; left: 26%; width: 36%; top: 22%; height: 9%; border-radius: 99px; background: rgba(255, 255, 255, 0.65); transform: rotate(@rand(-6deg, 6deg)); transition: ease 500ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

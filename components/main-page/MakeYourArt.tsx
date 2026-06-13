@@ -15,7 +15,11 @@ export default function MakeYourArt() {
                 </p>
               </div>
 
-              <Link href="/select-artwork" className={styles.actionBtn}>
+              <Link
+                href="/select-artwork"
+                className={styles.actionBtn}
+                prefetch={false}
+              >
                 Make your art
               </Link>
             </div>

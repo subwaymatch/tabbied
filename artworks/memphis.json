@@ -1,0 +1,49 @@
+{
+  "name": "Memphis",
+  "slug": "memphis",
+  "galleryOrder": 151,
+  "description": "Showroom doodles straight out of 1986 — outlined rings, solid half-rounds and tipped frames jostle on cream, reshuffling with every redraw.",
+  "palette": [
+    "#F8F3E8",
+    "#1D1D1F",
+    "#3AAFA9",
+    "#FF4D6D",
+    "#F5B82E",
+    "#9D89F2"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 0.5,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--ring: @p(var(--color1), var(--color2), var(--color3), var(--color5)); --half: @p(var(--color3), var(--color4), var(--color5), var(--color1)); --flip: @p(0deg, 90deg, 180deg, 270deg); --rule: ( @random(${shapeFrequency}) { :before { content: ''; position: absolute; inset: @rand(16%, 28%); border: calc(55px / @Y) solid var(--ring); border-radius: 50%; box-sizing: border-box; transition: ease 500ms; } } @random(0.45) { :after { content: ''; position: absolute; left: 18%; top: 30%; width: 64%; height: 32%; border-radius: 999px 999px 0 0; background: var(--half); transform: rotate(var(--flip)); transition: ease 500ms; } } @random(0.16) { border: calc(40px / @Y) solid var(--color1); box-sizing: border-box; transform: rotate(@rand(-10deg, 10deg)); } transition: ease 500ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

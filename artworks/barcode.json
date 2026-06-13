@@ -1,0 +1,47 @@
+{
+  "name": "Barcode",
+  "slug": "barcode",
+  "galleryOrder": 153,
+  "description": "Inked scan bars in irregular widths, the odd one printed in red — every redraw re-spaces the code into a new cipher.",
+  "palette": [
+    "#F7F5EE",
+    "#1D1F24",
+    "#D34E3A",
+    "#3E6FB0"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 4,
+    "default": 2
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 0.9,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--bar1: @p(var(--color1), var(--color1), var(--color1), var(--color2)); --bar2: @p(var(--color1), var(--color1), var(--color3)); --rule: ( @random(${shapeFrequency}) { :before { content: ''; position: absolute; top: 8%; height: 84%; left: @rand(4%, 36%); width: @rand(5%, 16%); background: var(--bar1); transition: ease 500ms; } :after { content: ''; position: absolute; top: 8%; height: 84%; left: @rand(54%, 88%); width: @rand(4%, 12%); background: var(--bar2); transition: ease 500ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

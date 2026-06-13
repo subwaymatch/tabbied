@@ -1,0 +1,48 @@
+{
+  "name": "Buoy",
+  "slug": "buoy",
+  "galleryOrder": 231,
+  "description": "Harbor buoys riding a gray-green swell — striped floats tip with the chop, re-anchored on every redraw.",
+  "palette": [
+    "#DCE8EC",
+    "#E2543E",
+    "#27324B",
+    "#FDFDFB",
+    "#9FC4D4"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 5,
+    "default": 5
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 0.8,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--stripe: @p(var(--color1), var(--color2), var(--color1)); --rule: ( border-bottom: calc(140px / @Y) solid var(--color4); box-sizing: border-box; /* both halves of the float share one emitted bob and tilt */ --bob: @r(28, 42); --bt2: @r(-12deg, 12deg); @random(${shapeFrequency}) { :before { content: ''; position: absolute; left: 30%; width: 40%; top: calc(@var(--bob) * 1%); height: 20%; border-radius: 99px 99px 0 0; background: var(--stripe); transform: rotate(@var(--bt2)); transform-origin: 50% 100%; transition: ease 700ms; } :after { content: ''; position: absolute; left: 30%; width: 40%; top: calc(@var(--bob) * 1% + 20%); height: 18%; border-radius: 0 0 50% 50%; background: var(--color3); transform: rotate(@var(--bt2)); transform-origin: 50% 0%; transition: ease 700ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

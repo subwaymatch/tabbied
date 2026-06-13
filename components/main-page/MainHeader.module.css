@@ -9,6 +9,8 @@
 .logoImageWrapper {
   display: inline-block;
   margin-top: 0.25rem;
+  /* Logo size in one place: the doodle's 3x3 grid fills this square. */
+  --logo-size: 52px;
 }
 
 .navColumn {
@@ -69,9 +71,8 @@
 }
 
 @media (max-width: 991.98px) {
-  .logoImageWrapper img {
-    display: inline-block;
-    margin-top: 4px;
-    width: 40px;
+  .logoImageWrapper {
+    margin-top: calc(0.25rem + 4px);
+    --logo-size: 40px;
   }
 }

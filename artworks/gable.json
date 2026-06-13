@@ -1,0 +1,49 @@
+{
+  "name": "Gable",
+  "slug": "gable",
+  "galleryOrder": 138,
+  "description": "Rows of little houses raising their roofs — every redraw rebuilds the street with new heights, hues and roof pitches.",
+  "palette": [
+    "#F6F1E6",
+    "#E2705C",
+    "#5B8FB9",
+    "#E8B44F",
+    "#7FA886",
+    "#37415B"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 0.9,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--house: @p(var(--color1), var(--color2), var(--color3), var(--color4)); --roof: @p(var(--color5), var(--color5), var(--color1), var(--color2)); --rule: ( /* walls and roof share one emitted height so the roof always sits on the ridge */ --hh: @r(26, 54); @random(${shapeFrequency}) { :before { content: ''; position: absolute; left: 16%; width: 68%; top: calc(100% - @var(--hh) * 1%); height: calc(@var(--hh) * 1%); background: var(--house); transition: ease 600ms; } :after { content: ''; position: absolute; left: 16%; width: 68%; bottom: calc(@var(--hh) * 1%); height: 26%; background: var(--roof); clip-path: polygon(@rand(38%, 62%) 0%, 100% 100%, 0% 100%); transition: ease 600ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

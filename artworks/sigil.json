@@ -1,0 +1,48 @@
+{
+  "name": "Sigil",
+  "slug": "sigil",
+  "galleryOrder": 232,
+  "description": "Wax seals pressed onto parchment — crimson blobs with an embossed ring, each one stamped a little differently per redraw.",
+  "palette": [
+    "#F1E6D0",
+    "#8C2F39",
+    "#B6452C",
+    "#27324B",
+    "#C9A227"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 5,
+    "default": 3
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 0.75,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--waxc: @p(var(--color1), var(--color1), var(--color2), var(--color3), var(--color4)); --rule: ( @random(${shapeFrequency}) { :before { content: ''; position: absolute; inset: @rand(12%, 20%); border-radius: @rand(38%, 56%) @rand(38%, 56%) @rand(38%, 56%) @rand(38%, 56%); background: var(--waxc); box-shadow: inset calc(-12px / @Y) calc(-14px / @Y) 0 rgba(40, 16, 16, 0.25), inset calc(10px / @Y) calc(12px / @Y) 0 rgba(255, 235, 210, 0.22); transform: rotate(@rand(360deg)); transition: ease 700ms; } :after { content: ''; position: absolute; inset: 34%; border: calc(26px / @Y) solid rgba(50, 20, 18, 0.3); border-radius: 50%; box-sizing: border-box; transform: scale(@rand(0.85, 1.1)); transition: ease 700ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

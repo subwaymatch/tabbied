@@ -1,0 +1,47 @@
+{
+  "name": "Matchstick",
+  "slug": "matchstick",
+  "galleryOrder": 226,
+  "description": "Matches spilled from the box — vermilion heads on pale sticks, one in a while burnt to charcoal, re-scattered per redraw.",
+  "palette": [
+    "#F7F1E6",
+    "#E2543E",
+    "#E8C9A0",
+    "#3B3F45"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 4,
+    "default": 3
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 0.85,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--strike: @rand(360deg); --rule: ( /* head and stick share one emitted angle, the head riding the stick's end */ --ma: @r(360deg); @random(${shapeFrequency}) { :before { content: ''; position: absolute; left: 22%; top: 48%; width: 56%; height: calc(52px / @Y); border-radius: 99px; background: var(--color2); transform: rotate(@var(--ma)); transition: ease 600ms; } :after { content: ''; position: absolute; left: 70%; top: 46.5%; width: 9%; height: calc(86px / @Y); border-radius: 50%; background: var(--color1); transform: rotate(@var(--ma)); transform-origin: -228% 50%; transition: ease 600ms; } } @random(0.14) { :after { background: var(--color3); } :before { transform: rotate(var(--strike)); opacity: 0.8; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

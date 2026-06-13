@@ -1,0 +1,49 @@
+{
+  "name": "Flutter",
+  "slug": "flutter",
+  "galleryOrder": 208,
+  "description": "Butterflies pinned mid-flight — both wings cut from the same shape, mirrored at the body, beating to a new spread per redraw.",
+  "palette": [
+    "#F7F3E8",
+    "#E2708A",
+    "#F0A63E",
+    "#9D89F2",
+    "#54A8C0",
+    "#3E9C5C"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 0.8,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--fl: @rand(-24deg, 24deg); --rule: ( /* wings share one emitted ink, span and radius; the right wing mirrors the left */ --wc: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --ws: @r(20, 30); --wr: @r(60%, 95%) @r(20%, 45%) @r(40%, 70%) @r(20%, 45%); transform: rotate(var(--fl)); @random(${shapeFrequency}) { :before { content: ''; position: absolute; left: calc(50% - @var(--ws) * 1% - 1%); width: calc(@var(--ws) * 1%); top: 28%; height: 44%; border-radius: @var(--wr); background: @var(--wc); opacity: 0.9; transition: ease 600ms; } :after { content: ''; position: absolute; left: 51%; width: calc(@var(--ws) * 1%); top: 28%; height: 44%; border-radius: @var(--wr); background: @var(--wc); opacity: 0.9; transform: scaleX(-1); transition: ease 600ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

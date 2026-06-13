@@ -1,0 +1,48 @@
+{
+  "name": "Notch",
+  "slug": "notch",
+  "galleryOrder": 164,
+  "description": "Square tiles, each with one corner bitten away — bites deepen, shrink and swing around the square with every redraw.",
+  "palette": [
+    "#F2EFE9",
+    "#3B3F45",
+    "#787F88",
+    "#E2543E",
+    "#B9C0C9"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 5,
+    "default": 5
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 0.9,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--slab: @p(var(--color1), var(--color2), var(--color4), var(--color3)); --turn: @p(0deg, 90deg, 180deg, 270deg); --rule: ( @random(${shapeFrequency}) { width: 88%; height: 88%; margin: 6%; background: var(--slab); clip-path: polygon(0% 0%, 100% 0%, 100% @rand(30%, 62%), @rand(30%, 62%) @rand(30%, 62%), @rand(30%, 62%) 100%, 0% 100%); transform: rotate(var(--turn)); } transition: ease 600ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

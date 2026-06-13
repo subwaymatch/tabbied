@@ -1,0 +1,50 @@
+{
+  "name": "Gem",
+  "slug": "gem",
+  "galleryOrder": 222,
+  "galleryWhite": true,
+  "description": "Cut stones on a jeweler’s velvet — every gem re-facets itself, its table flashing white where the light lands.",
+  "palette": [
+    "#221E2E",
+    "#E2437D",
+    "#3EECFF",
+    "#C9A227",
+    "#9D89F2",
+    "#3FFFB2"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 0.8,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--jewel: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --glint: @rand(0.25, 0.5); --rule: ( /* stone and table share one emitted tilt so the cut reads as one */ --gt: @r(-16deg, 16deg); @random(${shapeFrequency}) { :before { content: ''; position: absolute; left: 16%; top: 14%; width: 68%; height: 72%; background: var(--jewel); clip-path: polygon(@rand(24%, 34%) 0%, @rand(66%, 76%) 0%, 100% @rand(28%, 38%), 50% 100%, 0% @rand(28%, 38%)); transform: rotate(@var(--gt)); transition: ease 600ms; } :after { content: ''; position: absolute; left: 34%; top: 14%; width: 32%; height: 26%; background: rgba(255, 255, 255, 1); opacity: var(--glint); clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%); transform: rotate(@var(--gt)); transform-origin: 50% 138%; transition: ease 600ms; } } );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}
