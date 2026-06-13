@@ -18,8 +18,20 @@
 }
 
 @media (min-width: 992px) {
-  .navColumn {
+  /* Compound selectors (higher specificity than the grid's `.col { width }`)
+     let the nav column grow to fill the row while the logo and GitHub icon
+     shrink to their content, so the nav stays on a single line. */
+  .headerSection .navColumn {
     display: block;
+    flex: 1 1 auto;
+    width: auto;
+    max-width: none;
+  }
+
+  .headerSection .logoColumn,
+  .headerSection .actionsColumn {
+    flex: 0 0 auto;
+    width: auto;
   }
 }
 
@@ -37,19 +49,21 @@
   color: var(--pink);
 }
 
+/* Fill the (now flexible) nav column and keep the items on one row. */
 .pageNavigation {
-  display: inline-block;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .pageNavigation li {
-  display: inline-block;
+  white-space: nowrap;
 }
 
-.pageNavigation li button,
 .pageNavigation li a {
-  appearance: none;
-  border: none;
-  background: none;
   display: inline-block;
   padding: 0.75rem 1.25rem;
   font-size: 1.1rem;
@@ -57,13 +71,11 @@
   cursor: pointer;
 }
 
-.pageNavigation li button:hover,
 .pageNavigation li a:hover {
   color: var(--pink);
 }
 
 @media (max-width: 1299.98px) {
-  .pageNavigation li button,
   .pageNavigation li a {
     padding: 0.5rem 1rem;
   }

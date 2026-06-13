@@ -20,27 +20,17 @@ function GithubIcon({ size = 24 }: { size?: number }) {
   );
 }
 
-// In-page anchors scroll the homepage; the rest navigate to their own routes.
-type NavItem =
-  | { kind: 'scroll'; id: string; label: string }
-  | { kind: 'link'; href: string; label: string };
-
-const navItems: NavItem[] = [
-  { kind: 'scroll', id: 'section-how-it-works', label: 'How it works' },
-  { kind: 'link', href: '/artworks', label: 'Browse Artworks' },
-  { kind: 'link', href: '/docs/react', label: 'React Component' },
+const navItems = [
+  { href: '/artworks', label: 'Browse Artworks' },
+  { href: '/docs/react', label: 'React Component' },
 ];
-
-function scrollToSection(id: string) {
-  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-}
 
 export default function MainHeader() {
   return (
     <header className={styles.headerSection}>
       <Container>
         <Row align="center">
-          <Col md={3} xs={4}>
+          <Col xs={4} className={styles.logoColumn}>
             <Link
               href="/"
               className={styles.logoImageWrapper}
@@ -51,30 +41,21 @@ export default function MainHeader() {
             </Link>
           </Col>
 
-          <Col md={6} className={styles.navColumn}>
-            <div className="align-center">
-              <ul className={styles.pageNavigation}>
-                {navItems.map((item) => (
-                  <li key={item.label}>
-                    {item.kind === 'scroll' ? (
-                      <button
-                        type="button"
-                        onClick={() => scrollToSection(item.id)}
-                      >
-                        {item.label}
-                      </button>
-                    ) : (
-                      <Link href={item.href} prefetch={false}>
-                        {item.label}
-                      </Link>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
+          {/* Grows to fill all space between the logo and the GitHub icon so
+              the nav lays out on a single row (see MainHeader.module.css). */}
+          <Col className={styles.navColumn}>
+            <ul className={styles.pageNavigation}>
+              {navItems.map((item) => (
+                <li key={item.label}>
+                  <Link href={item.href} prefetch={false}>
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </Col>
 
-          <Col md={3} xs={8}>
+          <Col xs={8} className={styles.actionsColumn}>
             <div className="align-right">
               <a
                 href="https://github.com/subwaymatch/tabbied-site-nextjs/"
