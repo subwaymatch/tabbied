@@ -1,0 +1,49 @@
+{
+  "name": "Galleon",
+  "slug": "galleon",
+  "galleryOrder": 215,
+  "description": "Big triangular sails leaning into the wind, swapping inks and tack as they turn.",
+  "palette": [
+    "#FFFFFF",
+    "#3E8BFF",
+    "#1B4075",
+    "#3EECFF",
+    "#FF3D8B",
+    "#3FFFB2"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( --tri: @p(polygon(0 0, 100% 0, 100% 100%), polygon(0 0, 100% 0, 0 100%), polygon(0 0, 100% 100%, 0 100%), polygon(100% 0, 100% 100%, 0 100%)); margin: -0.5px; @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: @var(--tri); clip-path: @var(--tri); } -webkit-transition: ease 500ms; transition: ease 500ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

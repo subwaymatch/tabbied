@@ -1,0 +1,48 @@
+{
+  "name": "Serpentine",
+  "slug": "serpentine",
+  "galleryOrder": 250,
+  "description": "Quarter-circle bends link into serpentine ribbons across the grid.",
+  "palette": [
+    "#F4EFE4",
+    "#7A1F3D",
+    "#2F4156",
+    "#C9A86A",
+    "#88A872"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 5,
+    "default": 5
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( --rot: @pick(0deg, 90deg, 180deg, 270deg); @random(${shapeFrequency}) { background: var(--color1); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); :after { content: ''; position: absolute; left: 0; top: 0; @size: 100%; background: @p(var(--color2), var(--color3), var(--color4)); -webkit-clip-path: circle(100% at 0 0); clip-path: circle(100% at 0 0); -webkit-transition: ease 400ms; transition: ease 400ms; } } -webkit-transition: ease 400ms; transition: ease 400ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

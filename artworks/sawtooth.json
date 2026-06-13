@@ -1,0 +1,49 @@
+{
+  "name": "Sawtooth",
+  "slug": "sawtooth",
+  "galleryOrder": 234,
+  "galleryWhite": true,
+  "description": "A sawtooth ribbon of chevrons biting across the grid in quantized turns.",
+  "palette": [
+    "#15171C",
+    "#E8E6E1",
+    "#F5B82E",
+    "#3EECFF",
+    "#FF3D8B"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 5,
+    "default": 5
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( --rot: @pick(0deg, 0deg, 180deg, 180deg, 90deg, 270deg); @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4)); -webkit-clip-path: polygon(0 0, 50% 50%, 100% 0, 100% 50%, 50% 100%, 0 50%); clip-path: polygon(0 0, 50% 50%, 100% 0, 100% 50%, 50% 100%, 0 50%); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 400ms; transition: ease 400ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}
