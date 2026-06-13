@@ -1,117 +1,69 @@
-import path from 'node:path';
-import { readdir, readFile } from 'node:fs/promises';
-import type { AspectRatioId } from 'lib/aspectRatio';
+// Site-side accessors over the `tabbied` package's generated artwork presets.
+// The JSON files live in packages/tabbied/artworks/ (the package's codegen
+// turns them into a typed module), so the site no longer reads from disk.
+import {
+  artworks,
+  isArtworkSlug,
+  type ArtworkDefinition,
+  type ArtworkSlug,
+} from 'tabbied';
 
-export type ArtworkOptionType = 'ButtonSelectGroup' | 'Slider' | 'ToggleSwitch';
+export type {
+  ArtworkColors,
+  ArtworkOption,
+  ArtworkOptionType,
+} from 'tabbied';
 
-export type ArtworkOption = {
-  id: string;
-  displayName: string;
-  type: ArtworkOptionType;
-  default: string | number | boolean;
-  replace: string;
-  /** ButtonSelectGroup choices. */
-  options?: string[];
-  /** Slider bounds. */
-  min?: number;
-  max?: number;
-  step?: number;
-  /** ToggleSwitch "on" snippet. */
-  code?: string;
-};
+export type Artwork = ArtworkDefinition;
 
-/**
- * Bounds for how many palette entries (including the color0 background) are
- * active at once. `palette` must hold `max` entries so every slot has an
- * authored default; the artwork's style references colors up to `max - 1` and
- * inactive slots alias back into the active inks (see expandPalette).
- */
-export type ArtworkColors = {
-  min: number;
-  max: number;
-  default: number;
-};
-
-export type Artwork = {
-  name: string;
-  slug: string;
-  palette?: string[];
-  /** Adjustable color-count bounds. Absent means the palette size is fixed. */
-  colors?: ArtworkColors;
-  options: ArtworkOption[];
-  code: {
-    style: string;
-    doodle: string;
-  };
-  /** Initial aspect ratio when the editor opens. Defaults to "2:3". */
-  defaultAspectRatio?: AspectRatioId;
-  /**
-   * Forces a single aspect ratio and hides the selector — for designs whose
-   * layout is tuned to one ratio. Currently unused: Symmetry letterboxes its
-   * composition into a centered 2:3 box instead.
-   */
-  lockAspectRatio?: AspectRatioId;
-  /** Render the gallery title in white (for dark thumbnails). */
-  galleryWhite?: boolean;
-  /** Sort position in the gallery (ascending). Unset sorts last. */
-  galleryOrder?: number;
-};
-
+// Card metadata for the gallery pages. The thumbnails render through
+// <TabbiedArtwork artwork={slug}>, which pulls the option/code data from the
+// package on the client, so the server props stay small.
 export type GalleryItem = {
-  slug: string;
+  slug: ArtworkSlug;
   name: string;
   white: boolean;
-  /** Everything the gallery needs to render a live css-doodle thumbnail. */
+  /** Authored palette (color0 = background) for placeholders + title fades. */
   palette: string[];
-  colors?: ArtworkColors;
-  options: ArtworkOption[];
-  code: Artwork['code'];
+  colors?: ArtworkDefinition['colors'];
 };
 
-const artworksPath = path.join(process.cwd(), 'artworks');
-
+// The accessors stay async so callers (App Router pages) keep their existing
+// await-based shape, even though the data now resolves in-memory.
 export async function getAllArtworkIds(): Promise<string[]> {
-  const fileNames = await readdir(artworksPath);
-
-  return fileNames
-    .filter((fileName) => fileName.endsWith('.json'))
-    .map((fileName) => fileName.replace(/\.json$/, ''));
+  return Object.keys(artworks);
 }
 
 export async function getArtwork(artworkId: string): Promise<Artwork> {
-  const artworkJSON = await readFile(
-    path.join(artworksPath, `${artworkId}.json`),
-    'utf-8'
-  );
+  if (!isArtworkSlug(artworkId)) {
+    throw new Error(`Unknown artwork: ${artworkId}`);
+  }
 
-  return JSON.parse(artworkJSON) as Artwork;
+  return artworks[artworkId];
 }
 
-// Gallery list derived from the artworks/ folder, so a new preset only needs a
-// JSON file plus a thumbnail at public/images/thumb_<slug>.png.
+// Gallery list derived from the artwork presets, so a new preset only needs a
+// JSON file in packages/tabbied/artworks/.
 export async function getGalleryItems(): Promise<GalleryItem[]> {
-  const ids = await getAllArtworkIds();
-  const artworks = await Promise.all(ids.map((id) => getArtwork(id)));
+  return (Object.keys(artworks) as ArtworkSlug[])
+    .map((slug) => {
+      const artwork = artworks[slug];
 
-  return artworks
-    .map((artwork) => ({
-      slug: artwork.slug,
-      name: artwork.name,
-      white: artwork.galleryWhite ?? false,
-      palette: artwork.palette ?? [],
-      colors: artwork.colors,
-      options: artwork.options,
-      code: artwork.code,
-      order: artwork.galleryOrder ?? Number.MAX_SAFE_INTEGER,
-    }))
+      return {
+        slug,
+        name: artwork.name,
+        white: artwork.galleryWhite ?? false,
+        palette: artwork.palette ?? [],
+        colors: artwork.colors,
+        order: artwork.galleryOrder ?? Number.MAX_SAFE_INTEGER,
+      };
+    })
     .sort((a, b) => a.order - b.order || a.name.localeCompare(b.name))
-    .map(({ slug, name, white, palette, colors, options, code }) => ({
+    .map(({ slug, name, white, palette, colors }) => ({
       slug,
       name,
       white,
       palette,
       colors,
-      options,
-      code,
     }));
 }

@@ -26,7 +26,7 @@ export const ASPECT_RATIO_IDS = Object.keys(ASPECT_RATIOS) as AspectRatioId[];
 // Density of the grid, measured as the number of cells along the canvas's
 // longer edge. Level 0 is the coarsest. The 2:3 ratio reproduces the original
 // 2x3 / 4x6 / 6x9 / 8x12 / 10x15 options exactly.
-const LONG_EDGE_COUNTS = [3, 6, 9, 12, 15] as const;
+export const LONG_EDGE_COUNTS = [3, 6, 9, 12, 15] as const;
 
 export const GRID_LEVEL_COUNT = LONG_EDGE_COUNTS.length;
 

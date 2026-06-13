@@ -50,11 +50,15 @@ test.describe('Tabbied site', () => {
   }) => {
     await page.goto('/select-artwork');
 
-    // The raster <img> thumbnails were replaced by per-design css-doodle, so a
-    // thumbnail element must mount and actually paint cells (guards against the
-    // ssr:false boundary / source-building regressing to an empty grid).
+    // The raster <img> thumbnails were replaced by per-design css-doodle
+    // rendered through the tabbied package's <TabbiedArtwork fit="cover">, so
+    // a thumbnail element must mount and actually paint cells (guards against
+    // the client mount boundary / source-building / the package's css-doodle
+    // registration side effect regressing to an empty grid).
     await page.waitForFunction(() => !!window.customElements.get('css-doodle'));
-    await expect(page.locator('css-doodle#thumb-radius')).toBeAttached({
+    await expect(
+      page.locator('[data-artwork="radius"] css-doodle')
+    ).toBeAttached({
       timeout: 15000,
     });
 
@@ -62,7 +66,9 @@ test.describe('Tabbied site', () => {
       .poll(
         () =>
           page.evaluate(() => {
-            const el = document.querySelector('css-doodle#thumb-radius');
+            const el = document.querySelector(
+              '[data-artwork="radius"] css-doodle'
+            );
             if (!el || !el.shadowRoot) return 0;
             return [...el.shadowRoot.querySelectorAll('cssd-cell')].filter(
               (cell) => {
@@ -83,7 +89,9 @@ test.describe('Tabbied site', () => {
 
     // The css-doodle web component must register and mount on the client.
     await page.waitForFunction(() => !!window.customElements.get('css-doodle'));
-    await expect(page.locator('css-doodle#radius')).toBeAttached();
+    await expect(
+      page.locator('[data-artwork="radius"] css-doodle')
+    ).toBeAttached();
 
     await expect(
       page.getByRole('button', { name: 'Redraw' })
@@ -103,7 +111,9 @@ test.describe('Tabbied site', () => {
       .poll(
         () =>
           page.evaluate(() => {
-            const el = document.querySelector('css-doodle#radius');
+            const el = document.querySelector(
+              '[data-artwork="radius"] css-doodle'
+            );
             if (!el || !el.shadowRoot) return 0;
             return [...el.shadowRoot.querySelectorAll('cssd-cell')].filter(
               (cell) => {
@@ -153,7 +163,9 @@ test.describe('Tabbied site', () => {
   }) => {
     await page.goto('/artwork/symmetry?seed=0000');
 
-    await expect(page.locator('css-doodle#symmetry')).toBeAttached();
+    await expect(
+      page.locator('[data-artwork="symmetry"] css-doodle')
+    ).toBeAttached();
     // Symmetry is no longer ratio-locked: it letterboxes its composition into
     // a centered 2:3 box, so the selector is offered like everywhere else.
     await expect(page.getByText('Aspect ratio')).toBeVisible();
@@ -162,7 +174,9 @@ test.describe('Tabbied site', () => {
     await expect(page).toHaveURL(/aspectRatio=2%3A1/);
 
     // The canvas follows the landscape ratio.
-    const box = await page.locator('css-doodle#symmetry').boundingBox();
+    const box = await page
+      .locator('[data-artwork="symmetry"] css-doodle')
+      .boundingBox();
     expect(box!.width).toBeGreaterThan(box!.height);
   });
 

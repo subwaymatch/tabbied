@@ -1,4 +1,4 @@
-// Emits artworks/<slug>.json for every batch-4 definition and prints the
+// Emits packages/tabbied/artworks/<slug>.json for every batch-4 definition and prints the
 // galleryThumbnails entries to insert. Scoped to batch 4 only so it never
 // resurrects artworks that were trimmed from the gallery in earlier commits.
 import { writeFileSync, existsSync, readdirSync } from 'node:fs';
@@ -122,7 +122,7 @@ for (const def of defs) {
   };
 
   writeFileSync(
-    path.join(ROOT, `artworks/${def.slug}.json`),
+    path.join(ROOT, `packages/tabbied/artworks/${def.slug}.json`),
     JSON.stringify(artwork, null, 2) + '\n'
   );
 

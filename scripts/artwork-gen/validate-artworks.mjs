@@ -20,7 +20,7 @@ const slugs = [...batch1, ...batch2, ...batch3].map((d) => d.slug);
 const fixFullRandomGate = (code) =>
   code.replace(/@random\s*\(\s*1(?:\.0+)?\s*\)/g, '@random(0.999)');
 
-// Mirror of lib/doodleSource.ts buildDoodleSource + expandPalette.
+// Mirror of packages/tabbied/src/core/doodleSource.ts buildDoodleSource + expandPalette.
 function buildSource(artwork, { width, height, optionOverrides = {} }) {
   let style = artwork.code.style;
   let doodle = artwork.code.doodle;
@@ -100,7 +100,7 @@ let shot = 0;
 for (const chunk of chunks) {
   shot++;
   const blocks = chunk.map((slug) => {
-    const artwork = JSON.parse(readFileSync(path.join(ROOT, `artworks/${slug}.json`), 'utf-8'));
+    const artwork = JSON.parse(readFileSync(path.join(ROOT, `packages/tabbied/artworks/${slug}.json`), 'utf-8'));
     // Render close to gallery conditions: square card, thumbnail option overrides.
     const overrides = {};
     const { style, doodle } = buildSource(artwork, {
@@ -162,7 +162,7 @@ for (const chunk of chunks) {
   for (const slug of chunk) {
     const b = before[slug];
     const a = after[slug];
-    const artwork = JSON.parse(readFileSync(path.join(ROOT, `artworks/${slug}.json`), 'utf-8'));
+    const artwork = JSON.parse(readFileSync(path.join(ROOT, `packages/tabbied/artworks/${slug}.json`), 'utf-8'));
     const problems = [];
     if (!b || b.cellCount === 0) problems.push('no cells rendered');
     else {

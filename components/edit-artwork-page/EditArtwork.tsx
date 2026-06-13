@@ -9,6 +9,7 @@ import useMediaQuery from 'lib/useMediaQuery';
 import type { Artwork, ArtworkOption } from 'lib/artwork';
 import {
   type AspectRatioId,
+  type OptionValue,
   ASPECT_RATIOS,
   ASPECT_RATIO_IDS,
   DEFAULT_ASPECT_RATIO,
@@ -16,22 +17,14 @@ import {
   getGridOptions,
   gridToLevel,
   isAspectRatioId,
-} from 'lib/aspectRatio';
+  randomSeed,
+} from 'tabbied';
+import { TabbiedArtwork, type TabbiedArtworkHandle } from 'tabbied/react';
 import EditArtworkHeader from 'components/edit-artwork-page/EditArtworkHeader';
 import ButtonSelectGroup from 'components/ButtonSelectGroup';
 import ValueSlider from 'components/ValueSlider';
 import ToggleSwitch from 'components/ToggleSwitch';
-import {
-  buildDoodleSource,
-  expandPalette,
-  type OptionValue,
-} from 'lib/doodleSource';
-import { randomSeed } from 'lib/seed';
 import styles from './EditArtwork.module.css';
-
-const Doodle = dynamic(() => import('components/Doodle'), {
-  ssr: false,
-});
 
 const ColorPicker = dynamic(() => import('components/ColorPicker'), {
   ssr: false,
@@ -230,8 +223,7 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     width: number;
     height: number;
   } | null>(null);
-  const doodleRef = useRef<any>(null);
-  const expandedDoodleRef = useRef<any>(null);
+  const doodleRef = useRef<TabbiedArtworkHandle>(null);
   const previewRef = useRef<HTMLDivElement>(null);
   const isScreenXS = useMediaQuery('(max-width: 747.99px)');
   const isTwoColumn = useMediaQuery('(min-width: 992px)');
@@ -396,7 +388,7 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
   };
 
   const exportArtwork = async () => {
-    await doodleRef.current?.export({
+    await doodleRef.current?.exportImage({
       // Cap the longer edge at ~3000px so exports stay a sensible size in any
       // orientation.
       scale: Math.ceil(3000 / Math.max(width, height)),
@@ -404,24 +396,20 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     });
   };
 
-  // Build the css-doodle source for a given canvas size. The pattern depends
-  // only on the seed and grid, so the same seed produces the same artwork at
-  // any size — letting the expanded dialog render a larger copy that matches.
-  const buildSource = (canvasWidth: number, canvasHeight: number) =>
-    buildDoodleSource({
-      code: artwork.code,
-      options: artwork.options,
-      // The style references colors up to maxColors - 1, so inactive slots
-      // alias back into the active inks (this is what "removing" a color does).
-      palette: expandPalette(palette.slice(0, colorCount), maxColors),
-      optionValues,
-      width: `${canvasWidth}px`,
-      height: `${canvasHeight}px`,
-    });
-
-  // Derived straight from state (cheap string substitution), so the preview
-  // can never lag a render behind the controls.
-  const { styleCode, doodleCode } = buildSource(width, height);
+  // Props shared by the preview and the expanded dialog: the same seed +
+  // options produce the same pattern at any size (it depends only on seed and
+  // grid), so the dialog can render a larger copy that matches. The active
+  // palette slice is passed as-is — TabbiedArtwork expands it so inactive
+  // color slots alias back into the active inks (this is what "removing" a
+  // color does).
+  const artworkProps = {
+    artwork,
+    seed,
+    palette: palette.slice(0, colorCount),
+    options: Object.fromEntries(
+      artwork.options.map((option, index) => [option.id, optionValues[index]])
+    ),
+  } as const;
 
   const getOptionControlComponent = (
     option: ArtworkOption,
@@ -494,9 +482,6 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     (viewport?.width ?? 1200) * 0.9,
     (viewport?.height ?? 800) * 0.9
   );
-  const expandedSource = isExpanded
-    ? buildSource(expanded.width, expanded.height)
-    : null;
 
   return (
     <div className={styles.pageWrapper}>
@@ -518,12 +503,13 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
             </Dialog.Trigger>
 
             <div className={styles.doodleFrame}>
-              <Doodle
-                name={artwork.slug}
-                seed={seed}
-                styleCode={styleCode}
-                doodleCode={doodleCode}
-                doodleRef={doodleRef}
+              <TabbiedArtwork
+                ref={doodleRef}
+                {...artworkProps}
+                fit="fixed"
+                width={width}
+                height={height}
+                decorative={false}
               />
             </div>
           </div>
@@ -544,13 +530,13 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
                 className={styles.dialogDoodle}
                 style={{ backgroundColor: previewBackground }}
               >
-                {expandedSource && (
-                  <Doodle
-                    name={`${artwork.slug}-expanded`}
-                    seed={seed}
-                    styleCode={expandedSource.styleCode}
-                    doodleCode={expandedSource.doodleCode}
-                    doodleRef={expandedDoodleRef}
+                {isExpanded && (
+                  <TabbiedArtwork
+                    {...artworkProps}
+                    fit="fixed"
+                    width={expanded.width}
+                    height={expanded.height}
+                    decorative={false}
                   />
                 )}
               </div>

@@ -1,4 +1,4 @@
-// One-shot generator: emits artworks/<slug>.json for every definition and
+// One-shot generator: emits packages/tabbied/artworks/<slug>.json for every definition and
 // prints the galleryThumbnails.ts entries to insert.
 import { writeFileSync } from 'node:fs';
 import path from 'node:path';
@@ -116,7 +116,7 @@ for (const def of defs) {
   };
 
   writeFileSync(
-    path.join(ROOT, `artworks/${def.slug}.json`),
+    path.join(ROOT, `packages/tabbied/artworks/${def.slug}.json`),
     JSON.stringify(artwork, null, 2) + '\n'
   );
 
