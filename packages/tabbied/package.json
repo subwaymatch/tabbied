@@ -2,8 +2,24 @@
   "name": "tabbied",
   "version": "0.1.0",
   "description": "Tabbied generative artworks: a framework-agnostic core plus a React component, powered by css-doodle.",
-  "private": true,
   "type": "module",
+  "license": "MIT",
+  "author": "Sy Hong and Ye Joo Park",
+  "homepage": "https://tabbied.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/subwaymatch/tabbied-site-nextjs.git",
+    "directory": "packages/tabbied"
+  },
+  "keywords": [
+    "css-doodle",
+    "generative",
+    "generative-art",
+    "art",
+    "pattern",
+    "svg",
+    "react"
+  ],
   "exports": {
     ".": {
       "types": "./dist/core/index.d.ts",
