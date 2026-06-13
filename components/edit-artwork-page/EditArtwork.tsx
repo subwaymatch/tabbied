@@ -500,7 +500,7 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
 
   return (
     <div className={styles.pageWrapper}>
-      <EditArtworkHeader onRedraw={randomizeSeed} onExport={exportArtwork} />
+      <EditArtworkHeader artworkName={artwork.name} onRedraw={randomizeSeed} onExport={exportArtwork} />
 
       <main className={styles.editArtworkSection}>
         <Dialog.Root open={isExpanded} onOpenChange={setIsExpanded}>
