@@ -229,9 +229,6 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   gingham: {
     options: { grid: '6x6', frequency: 0.9 },
   },
-  herringbone: {
-    options: { grid: '6x6', frequency: 0.95 },
-  },
   trellis: {
     options: { grid: '5x5', frequency: 0.9 },
   },
@@ -295,9 +292,6 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   tetro: {
     options: { grid: '5x5', frequency: 0.8 },
   },
-  kite: {
-    options: { grid: '4x4', frequency: 0.85 },
-  },
   notch: {
     options: { grid: '5x5', frequency: 0.9 },
   },
@@ -308,9 +302,6 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
     options: { grid: '6x6', frequency: 0.95 },
   },
   pendulum: {
-    options: { grid: '4x4', frequency: 0.9 },
-  },
-  compass: {
     options: { grid: '4x4', frequency: 0.9 },
   },
   radar: {
@@ -348,9 +339,6 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   },
   citrus: {
     options: { grid: '4x4', frequency: 0.85 },
-  },
-  tally: {
-    options: { grid: '6x6', frequency: 0.85 },
   },
   sash: {
     options: { grid: '5x5', frequency: 0.8 },
@@ -526,30 +514,6 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   matte: {
     options: { grid: '5x5', frequency: 0.92 },
   },
-  equalizer: {
-    options: { grid: '5x5', frequency: 0.9 },
-  },
-  truchet: {
-    options: { grid: '5x5', frequency: 0.95 },
-  },
-  crescent: {
-    options: { grid: '4x4', frequency: 0.9 },
-  },
-  sector: {
-    options: { grid: '4x4', frequency: 0.9 },
-  },
-  eyelet: {
-    options: { grid: '4x4', frequency: 0.9 },
-  },
-  fanlight: {
-    options: { grid: '4x4', frequency: 0.92 },
-  },
-  scallop: {
-    options: { grid: '4x4', frequency: 0.9 },
-  },
-  fishscale: {
-    options: { grid: '5x5', frequency: 0.95 },
-  },
   spectrum: {
     options: { grid: '4x4', frequency: 0.9 },
   },
@@ -559,91 +523,13 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   lens: {
     options: { grid: '4x4', frequency: 0.9 },
   },
-  orb: {
-    options: { grid: '4x4', frequency: 0.9 },
-  },
-  vinyl: {
-    options: { grid: '4x4', frequency: 0.9 },
-  },
-  pennant: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  spire: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  hexbloom: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  octant: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  gablet: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  trapeze: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  skew: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  quartz: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
   hourglass: {
     options: { grid: '5x5', frequency: 0.92 },
-  },
-  arrowplay: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  dart: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  tumble: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  sextant: {
-    options: { grid: '4x4', frequency: 0.9 },
-  },
-  triquetra: {
-    options: { grid: '4x4', frequency: 0.9 },
   },
   northstar: {
     options: { grid: '5x5', frequency: 0.92 },
   },
-  hexagram: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  sunburst: {
-    options: { grid: '4x4', frequency: 0.9 },
-  },
-  diamonddust: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  starflake: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  pinwheelstar: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  asterisk: {
-    options: { grid: '4x4', frequency: 0.9 },
-  },
-  plus: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  saltire: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
   bracket: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  maltese: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  crosslet: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  zee: {
     options: { grid: '5x5', frequency: 0.92 },
   },
   merlon: {
@@ -652,46 +538,13 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   ibeam: {
     options: { grid: '5x5', frequency: 0.92 },
   },
-  pinion: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  chalice: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  quadrille: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  passepartout: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
   spiralblock: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  fourpane: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  offset: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  beveled: {
     options: { grid: '5x5', frequency: 0.92 },
   },
   tictac: {
     options: { grid: '5x5', frequency: 0.92 },
   },
-  inset: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
   pennantbox: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  keypad: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  cartouche: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  portal: {
     options: { grid: '5x5', frequency: 0.92 },
   },
   crosshatch: {
@@ -700,55 +553,13 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   rungs: {
     options: { grid: '5x5', frequency: 0.92 },
   },
-  target: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
   picket: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  trackline: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  junction: {
-    options: { grid: '7x7', frequency: 0.95 },
-  },
-  wicket: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  zigline: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  keywork: {
     options: { grid: '5x5', frequency: 0.92 },
   },
   lattice: {
     options: { grid: '5x5', frequency: 0.92 },
   },
   caltrop: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  diamondframe: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  harlequin: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  chevrondiamond: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  jewel: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  flight: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  bargello: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  pyramid: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  ricrac: {
     options: { grid: '5x5', frequency: 0.92 },
   },
   sawedge: {
@@ -760,58 +571,10 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   battlement: {
     options: { grid: '5x5', frequency: 0.92 },
   },
-  ascent: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  brickwork: {
-    options: { grid: '5x5', frequency: 0.95 },
-  },
-  parquet: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  stackbond: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  pinwheelweave: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  weft: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
   facetgrad: {
     options: { grid: '5x5', frequency: 0.92 },
   },
-  bulge: {
-    options: { grid: '7x7', frequency: 0.95 },
-  },
   prismfold: {
     options: { grid: '5x5', frequency: 0.92 },
-  },
-  halo: {
-    options: { grid: '5x5', frequency: 0.9 },
-  },
-  moonphase: {
-    options: { grid: '4x4', frequency: 0.9 },
-  },
-  ribbonfold: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  quasar: {
-    options: { grid: '4x4', frequency: 0.85 },
-  },
-  caustic: {
-    options: { grid: '4x4', frequency: 0.92 },
-  },
-  mosaicglass: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  venn: {
-    options: { grid: '4x4', frequency: 0.9 },
-  },
-  range: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  dune: {
-    options: { grid: '4x4', frequency: 0.92 },
   },
 };

@@ -63,12 +63,14 @@ const TR = ' -webkit-transition: ease 450ms; transition: ease 450ms;';
 const pt = ' -webkit-transition: ease 450ms; transition: ease 450ms;';
 
 let order = 310;
-export const batch4 = [];
+// `all` is the full motif library; only the curated KEEP subset (bottom of
+// file) is exported to the gallery.
+const all = [];
 const add = (name, palIdx, description, build, cfg = {}) => {
   const palette = PAL[palIdx % PAL.length];
   const c = palette.length;
   const { vars, rule } = build(c);
-  batch4.push({
+  all.push({
     name,
     slug: name.toLowerCase(),
     order: order++,
@@ -593,3 +595,14 @@ add('Dune', 8, 'Layered rounded dunes cresting in overlapping bands, the ridgeli
   vars: '',
   rule: `@random(\${shapeFrequency}) { background: ${ink(c)}; :before { content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 66%; border-radius: 50% 50% 0 0 / 32% 32% 0 0; background: ${ink(c)};${pt} } :after { content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 33%; border-radius: 50% 50% 0 0 / 60% 60% 0 0; background: ${ink(c)};${pt} } }${TR}`,
 }), { grid: '6x9', tg: '4x4', tf: 0.92 });
+
+// Curated keep-set: of the motif library above, only these are published to
+// the gallery. (Carousel, Windowpane and Matte from an earlier round are kept
+// as standalone artwork JSONs and are not part of this library.)
+const KEEP = new Set([
+  'spectrum', 'coil', 'lens', 'hourglass', 'northstar', 'bracket', 'tetro',
+  'merlon', 'ibeam', 'spiralblock', 'tictac', 'pennantbox', 'crosshatch',
+  'rungs', 'picket', 'lattice', 'caltrop', 'sawedge', 'switchback',
+  'battlement', 'facetgrad', 'prismfold',
+]);
+export const batch4 = all.filter((d) => KEEP.has(d.slug));
