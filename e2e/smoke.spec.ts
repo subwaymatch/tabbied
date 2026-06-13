@@ -26,29 +26,29 @@ test.describe('Tabbied site', () => {
     // "Make your art" appears in the hero and the closing CTA.
     await page.getByRole('link', { name: 'Make your art' }).first().click();
 
-    await expect(page).toHaveURL(/\/select-artwork/);
+    await expect(page).toHaveURL(/\/artworks/);
     await expect(
       page.getByText('First, pick a pre-made design from our gallery.')
     ).toBeVisible();
   });
 
-  test('select-artwork gallery links into an artwork editor', async ({
+  test('artworks gallery links into an artwork editor', async ({
     page,
   }) => {
-    await page.goto('/select-artwork');
+    await page.goto('/artworks');
 
     await page.getByRole('heading', { name: 'Radius' }).click();
 
-    await page.waitForURL(/\/artwork\/radius/, { timeout: 15000 });
+    await page.waitForURL(/\/artworks\/radius/, { timeout: 15000 });
     await expect(
       page.getByRole('link', { name: '← Back to gallery' })
     ).toBeVisible({ timeout: 15000 });
   });
 
-  test('select-artwork gallery renders live css-doodle thumbnails', async ({
+  test('artworks gallery renders live css-doodle thumbnails', async ({
     page,
   }) => {
-    await page.goto('/select-artwork');
+    await page.goto('/artworks');
 
     // The raster <img> thumbnails were replaced by per-design css-doodle
     // rendered through the tabbied package's <TabbiedArtwork fit="cover">, so
@@ -85,7 +85,7 @@ test.describe('Tabbied site', () => {
   test('artwork editor renders the css-doodle and controls', async ({
     page,
   }) => {
-    await page.goto('/artwork/radius');
+    await page.goto('/artworks/radius');
 
     // The css-doodle web component must register and mount on the client.
     await page.waitForFunction(() => !!window.customElements.get('css-doodle'));
@@ -131,7 +131,7 @@ test.describe('Tabbied site', () => {
     page,
   }) => {
     // Seed query param triggers the URL <-> state synchronization.
-    await page.goto('/artwork/radius?seed=0000');
+    await page.goto('/artworks/radius?seed=0000');
 
     // Wait until state has been written back into the URL.
     await expect(page).toHaveURL(/grid=6x9/);
@@ -144,7 +144,7 @@ test.describe('Tabbied site', () => {
   test('changing the aspect ratio remaps the grid to keep square cells', async ({
     page,
   }) => {
-    await page.goto('/artwork/radius?seed=0000');
+    await page.goto('/artworks/radius?seed=0000');
 
     // Default portrait ratio reproduces the original 2:3 grid options.
     await expect(page).toHaveURL(/aspectRatio=2%3A3/);
@@ -161,7 +161,7 @@ test.describe('Tabbied site', () => {
   test('symmetry offers aspect ratios and follows the selection', async ({
     page,
   }) => {
-    await page.goto('/artwork/symmetry?seed=0000');
+    await page.goto('/artworks/symmetry?seed=0000');
 
     await expect(
       page.locator('[data-artwork="symmetry"] css-doodle')
@@ -183,7 +183,7 @@ test.describe('Tabbied site', () => {
   test('palette colors can be removed and re-added within the artwork bounds', async ({
     page,
   }) => {
-    await page.goto('/artwork/radius?seed=0000');
+    await page.goto('/artworks/radius?seed=0000');
 
     // Radius opens at its default of 6 colors, which is also its maximum, so
     // only the remove button starts enabled. (Pickr replaces each swatch
@@ -211,7 +211,7 @@ test.describe('Tabbied site', () => {
   });
 
   test('slider controls display their current value', async ({ page }) => {
-    await page.goto('/artwork/radius?seed=0000');
+    await page.goto('/artworks/radius?seed=0000');
 
     // Radius opens at frequency 1, shown as "1.0" beside the slider.
     await expect(page.getByText('Frequency')).toBeVisible();
@@ -235,11 +235,11 @@ test.describe('Tabbied site', () => {
     // the URL, so customizations made after entering from the homepage would
     // not survive a refresh or be shareable.
     await page
-      .locator('#section-browse-artwork a[href*="/artwork/radius"]')
+      .locator('#section-browse-artwork a[href*="/artworks/radius"]')
       .click();
 
-    // The static export uses trailing slashes, so match /artwork/radius/?seed=…
-    await page.waitForURL(/\/artwork\/radius\/?\?/, { timeout: 15000 });
+    // The static export uses trailing slashes, so match /artworks/radius/?seed=…
+    await page.waitForURL(/\/artworks\/radius\/?\?/, { timeout: 15000 });
     await expect(page).toHaveURL(/seed=0000/);
 
     await page.getByText('6x9', { exact: true }).click();
@@ -249,7 +249,7 @@ test.describe('Tabbied site', () => {
   test('editor opens directly in the state described by a shared URL', async ({
     page,
   }) => {
-    await page.goto('/artwork/radius?seed=ZZZZ&grid=9x9&aspectRatio=1%3A1');
+    await page.goto('/artworks/radius?seed=ZZZZ&grid=9x9&aspectRatio=1%3A1');
 
     // Initial state comes from the URL (not corrected after mount), so the
     // matching grid option must already be selected.
@@ -263,7 +263,7 @@ test.describe('Tabbied site (mobile viewport)', () => {
   test.use({ viewport: { width: 390, height: 664 } });
 
   test('icon-only header buttons keep accessible names', async ({ page }) => {
-    await page.goto('/artwork/radius?seed=0000');
+    await page.goto('/artworks/radius?seed=0000');
 
     // Below the md breakpoint the text labels are display:none, leaving
     // icon-only buttons — they must still expose an accessible name.

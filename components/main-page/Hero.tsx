@@ -141,7 +141,7 @@ export default function MainHero() {
 
               <div className={styles.heroActions}>
                 <Link
-                  href="/select-artwork/"
+                  href="/artworks/"
                   className={styles.actionBtn}
                   prefetch={false}
                 >

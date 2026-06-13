@@ -21,7 +21,7 @@ export default function EditArtworkHeader({
       <Container>
         <Row align="center">
           <Col md={4} xs={6}>
-            <Link href="/select-artwork" prefetch={false}>
+            <Link href="/artworks" prefetch={false}>
               ← Back to gallery
             </Link>
           </Col>

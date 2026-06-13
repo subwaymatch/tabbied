@@ -6,7 +6,7 @@ import GalleryDoodle from 'components/select-artwork-page/GalleryDoodle';
 import styles from './BrowseArtwork.module.css';
 
 // The homepage shows the first handful of designs (galleryOrder 1–7); the full
-// set lives behind the "View All" card on the select-artwork page.
+// set lives behind the "View All" card on the artworks page.
 const BROWSE_COUNT = 7;
 
 export default async function BrowseArtworkSection() {
@@ -27,12 +27,12 @@ export default async function BrowseArtworkSection() {
         <Row noGutter>
           {gallery.map((item) => (
             <Col key={item.slug} md={3} sm={6} xs={6}>
-              {/* The seed param matches the select-artwork links: the editor
+              {/* The seed param matches the artworks gallery links: the editor
                   only mirrors customizations into the URL (making them
                   shareable and refresh-safe) when the URL already carries a
                   query param. prefetch={false} keeps the card grid from firing
                   an edge request per visible card. */}
-              <Link href={`/artwork/${item.slug}?seed=0000`} prefetch={false}>
+              <Link href={`/artworks/${item.slug}?seed=0000`} prefetch={false}>
                 <div className={styles.galleryCard}>
                   <h4 className={item.white ? styles.white : undefined}>
                     {item.name}
@@ -46,7 +46,7 @@ export default async function BrowseArtworkSection() {
           <Col md={3} sm={6} xs={6}>
             {/* The gallery page's payload embeds every design's source, so its
                 prefetch is the heaviest single request on the site. */}
-            <Link href="/select-artwork/" prefetch={false}>
+            <Link href="/artworks/" prefetch={false}>
               <div className={styles.galleryCard}>
                 <Image
                   src="/images/thumb_empty.png"

@@ -19,6 +19,33 @@
   color: var(--pink);
 }
 
+.linkList {
+  margin-top: 1.5rem;
+  list-style: none;
+  padding: 0;
+}
+
+.linkList li {
+  margin-top: 0.5rem;
+}
+
+/*
+ * Product Hunt badge. The badge has a fixed natural size (238x49); cap the
+ * width to its column so it never overflows on narrow screens and let the
+ * aspect ratio scale the height.
+ */
+.productHuntBadge {
+  display: inline-block;
+  width: 238px;
+  max-width: 100%;
+  aspect-ratio: 238 / 49;
+  margin-top: 1.5rem;
+  line-height: 0;
+  background: url('https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=279660&theme=light&period=daily')
+    no-repeat center center;
+  background-size: contain;
+}
+
 @media (max-width: 991.98px) {
   .footerSection {
     padding: 1rem 0 2.5rem 0;

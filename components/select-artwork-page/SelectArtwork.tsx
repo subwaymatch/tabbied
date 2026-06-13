@@ -28,7 +28,7 @@ export default function SelectArtwork({
                 are fully static, so on-click navigation stays fast. */}
             {gallery.map((item) => (
               <Col key={item.slug} md={3} sm={6} xs={6}>
-                <Link href={`/artwork/${item.slug}?seed=0000`} prefetch={false}>
+                <Link href={`/artworks/${item.slug}?seed=0000`} prefetch={false}>
                   <div className={styles.galleryCard}>
                     <h4 className={item.white ? styles.white : undefined}>
                       {item.name}

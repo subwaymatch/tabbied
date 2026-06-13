@@ -10,7 +10,7 @@
   display: inline-block;
   margin-top: 0.25rem;
   /* Logo size in one place: the doodle's 3x3 grid fills this square. */
-  --logo-size: 52px;
+  --logo-size: 42px;
 }
 
 .navColumn {
@@ -23,22 +23,18 @@
   }
 }
 
-/*
- * Product Hunt badge. The badge has a fixed natural size (238x49), but its
- * column is only ~2/3 of the viewport on phones, where a hard 238px width
- * overflowed the right edge and caused horizontal scroll. Cap the width to the
- * column and let the aspect ratio scale the height so it always fits.
- */
-.productHuntBadge {
-  display: inline-block;
-  width: 238px;
-  max-width: 100%;
-  aspect-ratio: 238 / 49;
-  margin-top: 10px;
+/* GitHub link sits where the Product Hunt badge used to; the badge now lives
+ * in the footer. */
+.githubLink {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 0.5rem;
+  color: var(--gray-medium);
   line-height: 0;
-  background: url('https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=279660&theme=light&period=daily')
-    no-repeat center center;
-  background-size: contain;
+}
+
+.githubLink:hover {
+  color: var(--pink);
 }
 
 .pageNavigation {
@@ -49,7 +45,8 @@
   display: inline-block;
 }
 
-.pageNavigation li button {
+.pageNavigation li button,
+.pageNavigation li a {
   appearance: none;
   border: none;
   background: none;
@@ -60,12 +57,14 @@
   cursor: pointer;
 }
 
-.pageNavigation li button:hover {
+.pageNavigation li button:hover,
+.pageNavigation li a:hover {
   color: var(--pink);
 }
 
 @media (max-width: 1299.98px) {
-  .pageNavigation li button {
+  .pageNavigation li button,
+  .pageNavigation li a {
     padding: 0.5rem 1rem;
   }
 }
@@ -73,6 +72,6 @@
 @media (max-width: 991.98px) {
   .logoImageWrapper {
     margin-top: calc(0.25rem + 4px);
-    --logo-size: 40px;
+    --logo-size: 32px;
   }
 }
