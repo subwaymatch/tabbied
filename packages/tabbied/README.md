@@ -16,10 +16,19 @@ npm install tabbied
 React is an **optional** peer dependency — you only need it for the `tabbied/react`
 entry point. The core works in any framework (or none).
 
+## Entry points
+
+| Import             | What it provides                                                                        |
+| ------------------ | -------------------------------------------------------------------------------------- |
+| `tabbied`          | The framework-agnostic core: `createArtwork`, sizing/seed helpers, and the type definitions. |
+| `tabbied/react`    | The `TabbiedArtwork` React component (and its handle/prop types).                       |
+| `tabbied/artworks` | The preset `ArtworkDefinition`s (import individually) plus the full `artworks` record.  |
+
 ## React
 
 ```tsx
 import { TabbiedArtwork, type TabbiedArtworkHandle } from 'tabbied/react';
+import { radius } from 'tabbied/artworks';
 import { useRef } from 'react';
 
 export function Example() {
@@ -29,7 +38,7 @@ export function Example() {
     <>
       <TabbiedArtwork
         ref={ref}
-        artwork="radius"
+        artwork={radius}
         seed="k9Pz"
         fit="cover"
         style={{ width: '100%', height: 320 }}
@@ -41,6 +50,21 @@ export function Example() {
 }
 ```
 
+### Importing presets (tree-shaking)
+
+`artwork` takes an `ArtworkDefinition` object. Import only the presets you
+actually render from `tabbied/artworks` and your bundler ships just those —
+not the entire catalog:
+
+```tsx
+import { radius, symmetry } from 'tabbied/artworks';
+```
+
+Each preset is a side-effect-free named export, so unused ones are dropped at
+build time. Need the whole set (e.g. to build a gallery)? Import the `artworks`
+record — `import { artworks } from 'tabbied/artworks'` — and accept that it
+pulls in every design.
+
 The component is a client component (it registers a browser custom element on
 import), so in the Next.js App Router render it from a client boundary or rely
 on its built-in measurable placeholder until it mounts.
@@ -49,7 +73,7 @@ on its built-in measurable placeholder until it mounts.
 
 | Prop      | Description                                                                 |
 | --------- | --------------------------------------------------------------------------- |
-| `artwork` | Preset slug (e.g. `"radius"`) or a full `ArtworkDefinition` object.          |
+| `artwork` | An `ArtworkDefinition` — import a preset from `tabbied/artworks` or pass your own. |
 | `seed`    | Pattern seed. Omit for a random seed per mount; reseed via the handle.       |
 | `palette` | Active colors, background (`color0`) first. Defaults to the preset palette.  |
 | `options` | Option values keyed by option id; unset options use authored defaults.       |
@@ -60,16 +84,15 @@ See the inline JSDoc on `TabbiedArtworkProps` for the full list.
 ## Core (framework-agnostic)
 
 ```ts
-import { createArtwork, artworks } from 'tabbied';
+import { createArtwork } from 'tabbied';
+import { radius } from 'tabbied/artworks';
 
 const el = document.querySelector('#stage')!;
-const controller = createArtwork(el, { artwork: 'radius', seed: 'k9Pz' });
+const controller = createArtwork(el, { artwork: radius, seed: 'k9Pz' });
 
 controller.redraw();        // re-randomize the seed
 await controller.exportImage();
 controller.destroy();
-
-console.log(Object.keys(artworks)); // every available design slug
 ```
 
 ## License

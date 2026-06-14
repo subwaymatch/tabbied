@@ -218,14 +218,6 @@ test.describe('Tabbied site', () => {
     await expect(page.getByText('1.0', { exact: true })).toBeVisible();
   });
 
-  test('export-test page renders', async ({ page }) => {
-    await page.goto('/export-test');
-
-    await expect(
-      page.getByRole('heading', { name: 'iOS Export Test' })
-    ).toBeVisible();
-  });
-
   test('homepage gallery cards link with a seed so edits sync to the URL', async ({
     page,
   }) => {

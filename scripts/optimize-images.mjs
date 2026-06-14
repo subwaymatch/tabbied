@@ -17,7 +17,6 @@ const TARGETS = [
   { file: 'uses_tshirt.jpg', maxWidth: 1200 },
   { file: 'uses_packaging.jpg', maxWidth: 1200 },
   { file: 'uses_devices.jpg', maxWidth: 2000 },
-  { file: 'demo_video_placeholder.jpg', maxWidth: 1600 },
   { file: 'tabbied_screens.jpg', maxWidth: 1600 },
   // Photo collage with transparency, so it stays a (palette) PNG.
   { file: 'built_by_people.png', maxWidth: 1000 },

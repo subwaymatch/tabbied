@@ -1,8 +1,10 @@
 # Tabbied artworks as a reusable React component — research report & implementation handoff
 
 - **Date:** 2026-06-10
-- **Repo:** `subwaymatch/tabbied-site-nextjs` (branch researched: `claude/sweet-euler-atbtlf`, based on `a1a9af7`)
+- **Repo:** `subwaymatch/tabbied` (branch researched: `claude/sweet-euler-atbtlf`, based on `a1a9af7`)
 - **Audience:** a coding agent (or developer) implementing the component package. This document contains everything needed to start: verified facts about the current codebase and `css-doodle`, decision rationale, a recommended API, and a phased implementation plan.
+
+> **Note (updated 2026-06-14):** This is a historical research/handoff record kept as-is. Two things have since changed in the implementation: the project's tooling **migrated from Yarn 1 to npm** (the repo now uses `package-lock.json` and npm workspaces), so wherever this doc says `yarn …` read `npm …` (e.g. `npm install`, `npm run build`, `npm run test:e2e`, `npm run build --workspace tabbied`); and `TabbiedArtwork` takes an `ArtworkDefinition` object imported from `tabbied/artworks` rather than a slug string, so only the presets you use are bundled. See the root and package READMEs for the current workflow and API.
 
 ---
 
@@ -100,7 +102,7 @@ Verified across all 19 presets:
 ### 2.2 Proposed layout
 
 ```
-tabbied-site-nextjs/
+tabbied/
 ├─ package.json                 # add: "workspaces": ["packages/*"]  (root stays "private": true)
 ├─ app/  components/  lib/  …   # Next.js site stays at the root (no churn)
 ├─ packages/

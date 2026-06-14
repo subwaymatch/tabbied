@@ -11,7 +11,7 @@
 //    vercel.json.
 //  - The /_next/image optimizer doesn't exist in export mode, so the marketing
 //    images are pre-sized into public/images by scripts/optimize-images.mjs.
-//  - `next start` can't serve an export; `yarn start` now runs `serve out`.
+//  - `next start` can't serve an export; `npm start` now runs `serve out`.
 const nextConfig = {
   reactStrictMode: true,
   output: 'export',

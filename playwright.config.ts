@@ -3,7 +3,7 @@ import { defineConfig, devices } from '@playwright/test';
 /**
  * Playwright configuration used to verify the production build of the site.
  * The site is a static export, so the web server serves the `out/` directory
- * (`yarn start` → `serve out`) — make sure `next build` has run first.
+ * (`npm start` → `serve out`) — make sure `next build` has run first.
  */
 export default defineConfig({
   testDir: './e2e',
@@ -25,7 +25,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'yarn start',
+    command: 'npm start',
     url: 'http://localhost:3000',
     timeout: 120 * 1000,
     reuseExistingServer: !process.env.CI,

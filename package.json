@@ -6,9 +6,9 @@
     "packages/*"
   ],
   "scripts": {
-    "predev": "yarn workspace tabbied build",
+    "predev": "npm run build --workspace tabbied",
     "dev": "next dev",
-    "prebuild": "yarn workspace tabbied build",
+    "prebuild": "npm run build --workspace tabbied",
     "build": "next build",
     "start": "serve out -l 3000 --no-clipboard",
     "test:e2e": "playwright test"
@@ -32,7 +32,7 @@
     "sharp": "^0.35.1",
     "typescript": "^6.0.3"
   },
-  "resolutions": {
+  "overrides": {
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3"
   }

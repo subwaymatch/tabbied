@@ -8,7 +8,7 @@
   "homepage": "https://tabbied.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/subwaymatch/tabbied-site-nextjs.git",
+    "url": "https://github.com/subwaymatch/tabbied.git",
     "directory": "packages/tabbied"
   },
   "keywords": [
@@ -28,6 +28,10 @@
     "./react": {
       "types": "./dist/react/index.d.ts",
       "import": "./dist/react/index.js"
+    },
+    "./artworks": {
+      "types": "./dist/artworks.generated.d.ts",
+      "import": "./dist/artworks.generated.js"
     }
   },
   "files": [
@@ -42,7 +46,7 @@
     "build": "node scripts/codegen.mjs && node -e \"fs.rmSync('dist',{recursive:true,force:true})\" && tsc -p tsconfig.json",
     "dev": "node scripts/codegen.mjs && tsc -p tsconfig.json --watch",
     "typecheck": "node scripts/codegen.mjs && tsc -p tsconfig.json --noEmit",
-    "prepublishOnly": "yarn build"
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "css-doodle": "^0.51.0"
