@@ -16,6 +16,14 @@ npm install tabbied
 React is an **optional** peer dependency — you only need it for the `tabbied/react`
 entry point. The core works in any framework (or none).
 
+## Entry points
+
+| Import             | What it provides                                                                        |
+| ------------------ | -------------------------------------------------------------------------------------- |
+| `tabbied`          | The framework-agnostic core: `createArtwork`, sizing/seed helpers, and the type definitions. |
+| `tabbied/react`    | The `TabbiedArtwork` React component (and its handle/prop types).                       |
+| `tabbied/artworks` | The preset `ArtworkDefinition`s (import individually) plus the full `artworks` record.  |
+
 ## React
 
 ```tsx
@@ -46,7 +54,7 @@ export function Example() {
 
 `artwork` takes an `ArtworkDefinition` object. Import only the presets you
 actually render from `tabbied/artworks` and your bundler ships just those —
-not all 84 designs:
+not the entire catalog:
 
 ```tsx
 import { radius, symmetry } from 'tabbied/artworks';

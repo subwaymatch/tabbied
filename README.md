@@ -9,11 +9,41 @@
 
 Tabbied lets you easily create timeless and beautifully generated patterns or artwork to use for wall art, websites, print materials and more. Under the hood, Tabbied uses <a href="https://css-doodle.com/">&lt;css-doodle /&gt;</a> to generate the artworks.
 
+Try it at **[tabbied.com](https://tabbied.com)**.
+
 ![tabbied_patterns_screenshot](https://user-images.githubusercontent.com/1064036/102739688-6e5d9b00-4313-11eb-88b9-c3ddb11c04b3.jpg)
+
+## 📦 What's in this repo
+
+Tabbied is an [npm workspaces](https://docs.npmjs.com/cli/using-npm/workspaces) monorepo with two parts:
+
+- **The website** (repo root) — the [Next.js](https://nextjs.org/) app behind [tabbied.com](https://tabbied.com), where you browse, customize, reseed, and export the designs.
+- **The [`tabbied`](./packages/tabbied) package** — the generative engine as a published, framework-agnostic library with an optional React component. The site renders every design through this package, so it doubles as the package's integration test.
+
+## 🎨 Using the `tabbied` package
+
+Render any of the generative designs in your own app:
+
+```bash
+npm install tabbied
+```
+
+```tsx
+import { TabbiedArtwork } from 'tabbied/react';
+import { radius } from 'tabbied/artworks';
+
+export function Example() {
+  return (
+    <TabbiedArtwork artwork={radius} fit="cover" style={{ width: '100%', height: 320 }} />
+  );
+}
+```
+
+Presets are imported individually, so your bundle only includes the designs you actually use. See the **[package README](./packages/tabbied/README.md)** for the full API, the framework-agnostic core, and exporting to PNG.
 
 ## 🚀 Developing locally
 
-Tabbied is built with the <a href="https://nextjs.org/">Next.js</a>. To develop locally, clone the repository, run `npm install`, and run the development server using `npm run dev`:
+To develop locally, clone the repository, run `npm install`, and start the dev server with `npm run dev`:
 
 ```bash
 # Clone repository
@@ -25,11 +55,13 @@ cd tabbied
 # Install dependencies
 npm install
 
-# Run development server
+# Run development server (builds the workspace package first, then starts Next.js)
 npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+The designs live as JSON in [`packages/tabbied/artworks/`](./packages/tabbied/artworks) — the package's codegen turns them into a typed module that both the site and the published package consume, so adding a new design is just a new JSON file.
 
 ## ✅ Testing
 
