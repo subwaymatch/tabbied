@@ -1,7 +1,7 @@
 # Tabbied artworks as a reusable React component — research report & implementation handoff
 
 - **Date:** 2026-06-10
-- **Repo:** `subwaymatch/tabbied-site-nextjs` (branch researched: `claude/sweet-euler-atbtlf`, based on `a1a9af7`)
+- **Repo:** `subwaymatch/tabbied` (branch researched: `claude/sweet-euler-atbtlf`, based on `a1a9af7`)
 - **Audience:** a coding agent (or developer) implementing the component package. This document contains everything needed to start: verified facts about the current codebase and `css-doodle`, decision rationale, a recommended API, and a phased implementation plan.
 
 ---
@@ -100,7 +100,7 @@ Verified across all 19 presets:
 ### 2.2 Proposed layout
 
 ```
-tabbied-site-nextjs/
+tabbied/
 ├─ package.json                 # add: "workspaces": ["packages/*"]  (root stays "private": true)
 ├─ app/  components/  lib/  …   # Next.js site stays at the root (no churn)
 ├─ packages/

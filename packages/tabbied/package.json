@@ -42,7 +42,7 @@
     "build": "node scripts/codegen.mjs && node -e \"fs.rmSync('dist',{recursive:true,force:true})\" && tsc -p tsconfig.json",
     "dev": "node scripts/codegen.mjs && tsc -p tsconfig.json --watch",
     "typecheck": "node scripts/codegen.mjs && tsc -p tsconfig.json --noEmit",
-    "prepublishOnly": "yarn build"
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "css-doodle": "^0.51.0"

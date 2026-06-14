@@ -3,7 +3,7 @@
 import { chromium } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 
-const ROOT = '/home/user/tabbied-site-nextjs';
+const ROOT = '/home/user/tabbied';
 const cssDoodle = readFileSync(
   `${ROOT}/node_modules/css-doodle/css-doodle.min.js`,
   'utf-8'
