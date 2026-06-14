@@ -1,0 +1,189 @@
+/* Scope a monospace stack to the docs subtree so code samples and inline
+   tokens share one font without touching the global typography. */
+.docs {
+  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas,
+    'Liberation Mono', monospace;
+}
+
+.intro {
+  margin-top: 1.5rem;
+  font-size: 1.25rem;
+  color: var(--gray-dark);
+}
+
+.section {
+  margin-top: 3.5rem;
+}
+
+.subhead {
+  color: var(--gray-dark);
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.section p {
+  margin-top: 1rem;
+}
+
+.list {
+  margin-top: 1rem;
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+
+.list li {
+  margin-top: 0.5rem;
+}
+
+/* Inline code in prose. */
+.inlineCode {
+  padding: 0.1rem 0.4rem;
+  border-radius: 0.25rem;
+  background-color: var(--gray-ultra-light);
+  border: 1px solid var(--gray-light);
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  color: var(--gray-dark);
+}
+
+/* Code blocks: a dark panel so samples read as a distinct unit. */
+.codeBlock {
+  margin: 0;
+  padding: 1.25rem 1.5rem;
+  border-radius: 0.5rem;
+  background-color: var(--gray-dark);
+  color: #e7ebf0;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  line-height: 1.65;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.codeBlock code {
+  font-family: inherit;
+}
+
+.codeStandalone {
+  margin-top: 1rem;
+}
+
+/* Live preview stacked above its source, framed as one unit. */
+.example {
+  margin-top: 1.5rem;
+  border: 1px solid var(--gray-light);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.preview {
+  padding: 1.5rem;
+  background-color: var(--gray-ultra-light);
+}
+
+.example .codeBlock {
+  border-radius: 0;
+}
+
+/* Rounds the corners of a rendered artwork inside a preview. */
+.demoArt {
+  border-radius: 0.4rem;
+  overflow: hidden;
+}
+
+/* Fit-mode comparison: responsive row of labeled previews. */
+.fitGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1.25rem;
+}
+
+.fitItem {
+  margin: 0;
+}
+
+.fitBox {
+  height: 180px;
+  border-radius: 0.35rem;
+  overflow: hidden;
+}
+
+.fitCaption {
+  margin-top: 0.6rem;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--gray-medium);
+}
+
+/* Imperative-handle demo buttons. */
+.demoActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.demoBtn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.7rem 1.25rem;
+  border: 1px solid var(--gray-light);
+  border-radius: 0.3rem;
+  background-color: white;
+  color: var(--gray-dark);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.demoBtn:hover {
+  border-color: var(--gray);
+}
+
+.demoBtnPrimary {
+  border-color: transparent;
+  background-color: var(--lime);
+}
+
+.demoBtnPrimary:hover {
+  border-color: transparent;
+  background-color: var(--lime-hover);
+}
+
+/* Props / handle reference tables. */
+.propsTable {
+  width: 100%;
+  margin-top: 1.5rem;
+  border-collapse: collapse;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.propsTable th,
+.propsTable td {
+  padding: 0.7rem 1rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--gray-light);
+}
+
+.propsTable thead th {
+  color: var(--gray-dark);
+  font-weight: 600;
+  border-bottom: 2px solid var(--gray-light);
+}
+
+.propName {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  font-weight: 600;
+  color: var(--gray-dark);
+  white-space: nowrap;
+}
+
+.propsTable code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  color: var(--pink);
+}

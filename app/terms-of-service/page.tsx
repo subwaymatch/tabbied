@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import PageHeader from 'components/PageHeader';
+import MainHeader from 'components/main-page/MainHeader';
 import { Container, Row, Col } from 'components/layout';
 import Footer from 'components/Footer';
 
@@ -10,13 +10,15 @@ export const metadata: Metadata = {
 export default function TermsOfServicePage() {
   return (
     <>
-      <PageHeader title="Terms of Services" />
+      <MainHeader />
 
       <main style={{ padding: '4rem 0', minHeight: '50vh' }}>
         <Container>
           <Row>
             <Col lg={{ span: 8, offset: 2 }} md={10}>
-              <p>Last updated: June 13, 2026.</p>
+              <h3 className="section-title">Terms of Services</h3>
+
+              <p style={{ marginTop: '1.5rem' }}>Last updated: June 13, 2026.</p>
 
               <p style={{ marginTop: '1.5rem' }}>
                 By using Tabbied, you agree to these terms. Tabbied is provided

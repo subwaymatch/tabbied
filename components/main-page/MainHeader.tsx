@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Container, Row, Col } from 'components/layout';
 import LogoDoodle from './LogoDoodle';
 import styles from './MainHeader.module.css';
@@ -25,7 +26,18 @@ const navItems = [
   { href: '/docs/react', label: 'React Component' },
 ];
 
+// The site is a static export with `trailingSlash: true`, so the live pathname
+// is "/artworks/" while a nav href is "/artworks". Strip any trailing slash
+// (keeping "/" itself) before comparing so the active item resolves either way.
+function normalizePath(path: string) {
+  return path.length > 1 ? path.replace(/\/+$/, '') : path;
+}
+
+// The shared site header — logo, page navigation, and GitHub link — reused on
+// every route except the individual artwork editor (which has its own header).
 export default function MainHeader() {
+  const currentPath = normalizePath(usePathname() ?? '/');
+
   return (
     <header className={styles.headerSection}>
       <Container>
@@ -45,13 +57,22 @@ export default function MainHeader() {
               the nav lays out on a single row (see MainHeader.module.css). */}
           <Col className={styles.navColumn}>
             <ul className={styles.pageNavigation}>
-              {navItems.map((item) => (
-                <li key={item.label}>
-                  <Link href={item.href} prefetch={false}>
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+              {navItems.map((item) => {
+                const isActive = currentPath === item.href;
+
+                return (
+                  <li key={item.label}>
+                    <Link
+                      href={item.href}
+                      prefetch={false}
+                      className={isActive ? styles.active : undefined}
+                      aria-current={isActive ? 'page' : undefined}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </Col>
 
