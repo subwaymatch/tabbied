@@ -8,7 +8,6 @@ import {
   type CSSProperties,
 } from 'react';
 import {
-  artworks,
   createArtwork,
   resolveFitMode,
   DEFAULT_FIXED_SIZE,
@@ -16,7 +15,6 @@ import {
   type ArtworkController,
   type ArtworkDefinition,
   type ArtworkExportOptions,
-  type ArtworkSlug,
   type CoverRender,
   type CssDoodleElement,
   type FitMode,
@@ -33,8 +31,13 @@ export type TabbiedArtworkHandle = {
 };
 
 export type TabbiedArtworkProps = {
-  /** Preset slug (tree-shakeable data ships with the package) or a full definition object. */
-  artwork: ArtworkSlug | ArtworkDefinition;
+  /**
+   * The artwork to render, as an `ArtworkDefinition`. Import only the presets
+   * you use from `tabbied/artworks` (e.g. `import { radius } from
+   * 'tabbied/artworks'`) so the bundler ships just those, or pass your own
+   * definition object.
+   */
+  artwork: ArtworkDefinition;
   /** Pattern seed. Omit for a random seed per mount (use the handle's redraw()). */
   seed?: string;
   /** Active colors, color0 (background) first. Defaults to the preset palette. */
@@ -83,22 +86,6 @@ export type TabbiedArtworkProps = {
   onReady?: () => void;
 };
 
-const resolveDefinition = (
-  artwork: ArtworkSlug | ArtworkDefinition
-): ArtworkDefinition => {
-  if (typeof artwork !== 'string') {
-    return artwork;
-  }
-
-  const definition = artworks[artwork];
-
-  if (!definition) {
-    throw new Error(`[tabbied] unknown artwork slug: "${artwork}"`);
-  }
-
-  return definition;
-};
-
 /**
  * Renders a Tabbied artwork into a normal, CSS-sizeable box (like an <img>).
  *
@@ -132,7 +119,7 @@ export const TabbiedArtwork = forwardRef<
   },
   ref
 ) {
-  const definition = resolveDefinition(artwork);
+  const definition = artwork;
   const hostRef = useRef<HTMLDivElement>(null);
   const controllerRef = useRef<ArtworkController | null>(null);
 

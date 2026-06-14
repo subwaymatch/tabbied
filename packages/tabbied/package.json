@@ -28,6 +28,10 @@
     "./react": {
       "types": "./dist/react/index.d.ts",
       "import": "./dist/react/index.js"
+    },
+    "./artworks": {
+      "types": "./dist/artworks.generated.d.ts",
+      "import": "./dist/artworks.generated.js"
     }
   },
   "files": [

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { TabbiedArtwork } from 'tabbied/react';
+import { radius, symmetry } from 'tabbied/artworks';
 
 export const metadata: Metadata = {
   title: 'tabbied package test',
@@ -8,7 +9,9 @@ export const metadata: Metadata = {
 
 // Exercises the `tabbied` package the way an external consumer would: plain
 // server-component JSX with no ssr:false ceremony (the component is a client
-// boundary by itself and renders a measurable placeholder until mounted).
+// boundary by itself and renders a measurable placeholder until mounted), and
+// importing only the presets it renders from `tabbied/artworks` so the bundle
+// holds those two definitions rather than all 84.
 // Used by e2e/package.spec.ts to cover the fit strategies the main site
 // doesn't reach (the gallery uses cover, the editor fixed).
 export default function PackageTestPage() {
@@ -24,7 +27,7 @@ export default function PackageTestPage() {
         <h2>fit=&quot;grid&quot;</h2>
         <div style={{ height: 320 }}>
           <TabbiedArtwork
-            artwork="radius"
+            artwork={radius}
             seed="k9Pz"
             fit="grid"
             style={{ width: '100%', height: '100%' }}
@@ -37,7 +40,7 @@ export default function PackageTestPage() {
         <h2>fit=&quot;stretch&quot;</h2>
         <div style={{ height: 240 }}>
           <TabbiedArtwork
-            artwork="radius"
+            artwork={radius}
             seed="k9Pz"
             fit="stretch"
             style={{ width: '100%', height: '100%' }}
@@ -50,7 +53,7 @@ export default function PackageTestPage() {
         <h2>fit=&quot;contain&quot; (symmetry)</h2>
         <div style={{ height: 300 }}>
           <TabbiedArtwork
-            artwork="symmetry"
+            artwork={symmetry}
             seed="k9Pz"
             fit="contain"
             decorative={false}

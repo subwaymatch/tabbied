@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { TabbiedArtwork } from 'tabbied/react';
+import { artworks } from 'tabbied/artworks';
 import type { GalleryItem } from 'lib/artwork';
 import { galleryThumbnails } from './galleryThumbnails';
 import styles from './SelectArtwork.module.css';
@@ -46,7 +47,7 @@ export default function GalleryDoodleInner({
   // size. onReady fires on first paint, letting the parent drop its shimmer.
   return (
     <TabbiedArtwork
-      artwork={item.slug}
+      artwork={artworks[item.slug]}
       palette={baseColors.slice(0, defaultCount)}
       options={config?.options}
       fit="cover"
