@@ -266,3 +266,70 @@ test.describe('Tabbied site (mobile viewport)', () => {
     await expect(page).not.toHaveURL(/seed=0000/);
   });
 });
+
+test.describe('Shared site header', () => {
+  test('is reused on content pages and marks the active nav item', async ({
+    page,
+  }) => {
+    await page.goto('/artworks');
+
+    // The home-page header (logo nav + GitHub link) is reused here.
+    await expect(
+      page.getByRole('link', { name: 'Tabbied on GitHub' })
+    ).toBeVisible();
+
+    // "Browse Artworks" is the current section, "React Component" is not. The
+    // active item is both flagged for assistive tech and given a style hook.
+    const browse = page.getByRole('link', { name: 'Browse Artworks' });
+    await expect(browse).toHaveAttribute('aria-current', 'page');
+    await expect(browse).toHaveClass(/active/);
+    await expect(
+      page.getByRole('link', { name: 'React Component' })
+    ).not.toHaveAttribute('aria-current', 'page');
+
+    // Navigating moves the active state onto the matching item.
+    await page.goto('/docs/react');
+    await expect(
+      page.getByRole('link', { name: 'React Component' })
+    ).toHaveAttribute('aria-current', 'page');
+    await expect(
+      page.getByRole('link', { name: 'Browse Artworks' })
+    ).not.toHaveAttribute('aria-current', 'page');
+
+    // A page with no matching nav item highlights nothing.
+    await page.goto('/privacy-policy');
+    await expect(
+      page.getByRole('link', { name: 'Browse Artworks' })
+    ).toBeVisible();
+    await expect(page.locator('header a[aria-current="page"]')).toHaveCount(0);
+  });
+
+  test('is not used on the individual artwork editor', async ({ page }) => {
+    await page.goto('/artworks/radius');
+
+    // The editor keeps its own header...
+    await expect(
+      page.getByRole('link', { name: '← Back to gallery' })
+    ).toBeVisible({ timeout: 15000 });
+
+    // ...and never renders the shared site nav.
+    await expect(
+      page.getByRole('link', { name: 'Browse Artworks' })
+    ).toHaveCount(0);
+  });
+});
+
+test.describe('React component docs page', () => {
+  test('documents the component with live examples', async ({ page }) => {
+    await page.goto('/docs/react');
+
+    await expect(page.getByText('npm install tabbied')).toBeVisible();
+
+    // The examples render real artworks through the package component, so the
+    // custom element must register and a doodle mount.
+    await page.waitForFunction(() => !!window.customElements.get('css-doodle'));
+    await expect(
+      page.locator('[data-artwork="radius"] css-doodle').first()
+    ).toBeAttached({ timeout: 15000 });
+  });
+});
