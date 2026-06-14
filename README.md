@@ -4,7 +4,7 @@
 <h1 align="center">Tabbied</h1>
 <p align="center">
   <a href="https://deepscan.io/dashboard#view=project&tid=10181&pid=14972&bid=290677"><img src="https://deepscan.io/api/teams/10181/projects/14972/branches/290677/badge/grade.svg" alt="DeepScan grade"></a>
-  <a href="https://www.codacy.com/gh/subwaymatch/tabbied-site-nextjs/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=subwaymatch/tabbied-site-nextjs&amp;utm_campaign=Badge_Grade"><img src="https://app.codacy.com/project/badge/Grade/40c0ce7aab95429aa5660d0db16fe353"/></a>
+  <a href="https://www.codacy.com/gh/subwaymatch/tabbied/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=subwaymatch/tabbied&amp;utm_campaign=Badge_Grade"><img src="https://app.codacy.com/project/badge/Grade/40c0ce7aab95429aa5660d0db16fe353"/></a>
 </p>
 
 Tabbied lets you easily create timeless and beautifully generated patterns or artwork to use for wall art, websites, print materials and more. Under the hood, Tabbied uses <a href="https://css-doodle.com/">&lt;css-doodle /&gt;</a> to generate the artworks.
@@ -13,20 +13,20 @@ Tabbied lets you easily create timeless and beautifully generated patterns or ar
 
 ## 🚀 Developing locally
 
-Tabbied is built with the <a href="https://nextjs.org/">Next.js</a>. To develop locally, clone the repository, run `yarn install`, and run the development server using `yarn dev`:
+Tabbied is built with the <a href="https://nextjs.org/">Next.js</a>. To develop locally, clone the repository, run `npm install`, and run the development server using `npm run dev`:
 
 ```bash
 # Clone repository
-git clone https://github.com/subwaymatch/tabbied-site-nextjs.git
+git clone https://github.com/subwaymatch/tabbied.git
 
-# CD into tabbied-site-nextjs
-cd tabbied-site-nextjs
+# CD into tabbied
+cd tabbied
 
 # Install dependencies
-yarn install
+npm install
 
 # Run development server
-yarn dev
+npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
@@ -41,8 +41,8 @@ production build:
 npx playwright install chromium
 
 # Build and run the e2e tests
-yarn build
-yarn test:e2e
+npm run build
+npm run test:e2e
 ```
 
 ## 🔨 Built by

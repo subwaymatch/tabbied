@@ -58,7 +58,7 @@ export default function MainHeader() {
           <Col xs={8} className={styles.actionsColumn}>
             <div className="align-right">
               <a
-                href="https://github.com/subwaymatch/tabbied-site-nextjs/"
+                href="https://github.com/subwaymatch/tabbied/"
                 className={styles.githubLink}
                 target="_blank"
                 rel="noreferrer"

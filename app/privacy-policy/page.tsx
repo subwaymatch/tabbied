@@ -35,7 +35,7 @@ export default function PrivacyPolicyPage() {
               <p style={{ marginTop: '1rem' }}>
                 If you have any questions about this Privacy Policy, please reach
                 out via our{' '}
-                <a href="https://github.com/subwaymatch/tabbied-site-nextjs/">
+                <a href="https://github.com/subwaymatch/tabbied/">
                   GitHub repository
                 </a>
                 .

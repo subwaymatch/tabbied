@@ -53,7 +53,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <a href="https://github.com/subwaymatch/tabbied-site-nextjs/">
+                <a href="https://github.com/subwaymatch/tabbied/">
                   GitHub
                 </a>
               </li>

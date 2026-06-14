@@ -8,7 +8,7 @@
   "homepage": "https://tabbied.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/subwaymatch/tabbied-site-nextjs.git",
+    "url": "https://github.com/subwaymatch/tabbied.git",
     "directory": "packages/tabbied"
   },
   "keywords": [

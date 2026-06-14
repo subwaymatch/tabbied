@@ -20,7 +20,7 @@ export default function ReactDocsPage() {
               <p style={{ marginTop: '1.5rem', color: 'var(--gray-medium)' }}>
                 Docs for the <code>tabbied</code> React component are on the way.
                 In the meantime, you can explore the package on{' '}
-                <a href="https://github.com/subwaymatch/tabbied-site-nextjs/">
+                <a href="https://github.com/subwaymatch/tabbied/">
                   GitHub
                 </a>
                 .
