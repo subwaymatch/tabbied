@@ -1,0 +1,55 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+# Never run two releases concurrently against the same ref.
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write # push the version PR branch, create git tags + GitHub Releases
+  pull-requests: write # open/update the "Version Packages" PR
+  id-token: write # npm Trusted Publishing (OIDC) + provenance attestations
+
+jobs:
+  release:
+    name: Version or publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Changesets needs full history to detect changes
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+          cache: npm
+
+      # OIDC trusted publishing requires a recent npm; runners don't always
+      # ship one new enough. (Pin to a specific version if you prefer.)
+      - name: Update npm
+        run: npm install -g npm@latest
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build the package
+        run: npm run build --workspace tabbied
+
+      # When changesets are pending, this opens/updates the "Version Packages"
+      # PR. When that PR is merged (no changesets left), it publishes to npm.
+      - name: Create release PR or publish to npm
+        uses: changesets/action@v1
+        with:
+          version: npm run version-packages
+          publish: npm run release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # No NPM_TOKEN: auth + provenance come from OIDC trusted publishing.
+          # See RELEASING.md for the one-time npmjs.com configuration.

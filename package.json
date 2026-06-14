@@ -11,7 +11,10 @@
     "prebuild": "npm run build --workspace tabbied",
     "build": "next build",
     "start": "serve out -l 3000 --no-clipboard",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "changeset publish"
   },
   "dependencies": {
     "@base-ui-components/react": "^1.0.0-rc.0",
@@ -21,9 +24,11 @@
     "next": "^16.2.7",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
-    "tabbied": "0.1.0"
+    "tabbied": "*"
   },
   "devDependencies": {
+    "@changesets/changelog-github": "^0.5.1",
+    "@changesets/cli": "^2.29.7",
     "@playwright/test": "^1.60.0",
     "@types/node": "^25.9.2",
     "@types/react": "^19.2.17",
