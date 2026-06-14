@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import PageHeader from 'components/PageHeader';
 import SelectArtwork from 'components/select-artwork-page/SelectArtwork';
+import Footer from 'components/Footer';
 import { getGalleryItems } from 'lib/artwork';
 
 export const metadata: Metadata = {
@@ -15,6 +16,8 @@ export default async function SelectArtworkPage() {
       <PageHeader title="Make your art" />
 
       <SelectArtwork gallery={gallery} />
+
+      <Footer />
     </>
   );
 }

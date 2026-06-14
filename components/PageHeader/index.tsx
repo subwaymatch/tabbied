@@ -13,8 +13,8 @@ export default function PageHeader({ title }: { title: string }) {
               <Image
                 src="/images/logo_tabbied_v3.svg"
                 alt="Tabbied"
-                width={52}
-                height={52}
+                width={42}
+                height={42}
               />
             </Link>
           </Col>

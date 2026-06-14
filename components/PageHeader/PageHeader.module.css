@@ -9,6 +9,7 @@
 
 @media (max-width: 991.98px) {
   .logoImageWrapper img {
-    width: 2.5rem;
+    width: 2rem;
+    height: auto;
   }
 }

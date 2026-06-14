@@ -16,7 +16,7 @@ export default function MakeYourArt() {
               </div>
 
               <Link
-                href="/select-artwork"
+                href="/artworks"
                 className={styles.actionBtn}
                 prefetch={false}
               >

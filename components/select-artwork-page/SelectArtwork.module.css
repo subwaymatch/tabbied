@@ -114,6 +114,11 @@
 }
 
 /* Select-artwork page */
+.selectArtworkSection {
+  /* Breathing room between the gallery and the footer that follows it. */
+  padding-bottom: 8rem;
+}
+
 .selectArtworkSection .grayBackground {
   background: rgba(248, 249, 250, 0.6);
   padding: 64px 0;
@@ -128,6 +133,10 @@
 }
 
 @media (max-width: 991.98px) {
+  .selectArtworkSection {
+    padding-bottom: 4rem;
+  }
+
   .selectArtworkSection .grayBackground {
     padding: 1rem 0 0 0;
   }

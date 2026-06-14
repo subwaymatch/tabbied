@@ -10,7 +10,7 @@
   display: inline-block;
   margin-top: 0.25rem;
   /* Logo size in one place: the doodle's 3x3 grid fills this square. */
-  --logo-size: 52px;
+  --logo-size: 42px;
 }
 
 .navColumn {
@@ -18,41 +18,52 @@
 }
 
 @media (min-width: 992px) {
-  .navColumn {
+  /* Compound selectors (higher specificity than the grid's `.col { width }`)
+     let the nav column grow to fill the row while the logo and GitHub icon
+     shrink to their content, so the nav stays on a single line. */
+  .headerSection .navColumn {
     display: block;
+    flex: 1 1 auto;
+    width: auto;
+    max-width: none;
+  }
+
+  .headerSection .logoColumn,
+  .headerSection .actionsColumn {
+    flex: 0 0 auto;
+    width: auto;
   }
 }
 
-/*
- * Product Hunt badge. The badge has a fixed natural size (238x49), but its
- * column is only ~2/3 of the viewport on phones, where a hard 238px width
- * overflowed the right edge and caused horizontal scroll. Cap the width to the
- * column and let the aspect ratio scale the height so it always fits.
- */
-.productHuntBadge {
-  display: inline-block;
-  width: 238px;
-  max-width: 100%;
-  aspect-ratio: 238 / 49;
-  margin-top: 10px;
+/* GitHub link sits where the Product Hunt badge used to; the badge now lives
+ * in the footer. */
+.githubLink {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 0.5rem;
+  color: var(--gray-medium);
   line-height: 0;
-  background: url('https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=279660&theme=light&period=daily')
-    no-repeat center center;
-  background-size: contain;
 }
 
+.githubLink:hover {
+  color: var(--pink);
+}
+
+/* Fill the (now flexible) nav column and keep the items on one row. */
 .pageNavigation {
-  display: inline-block;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .pageNavigation li {
-  display: inline-block;
+  white-space: nowrap;
 }
 
-.pageNavigation li button {
-  appearance: none;
-  border: none;
-  background: none;
+.pageNavigation li a {
   display: inline-block;
   padding: 0.75rem 1.25rem;
   font-size: 1.1rem;
@@ -60,12 +71,12 @@
   cursor: pointer;
 }
 
-.pageNavigation li button:hover {
+.pageNavigation li a:hover {
   color: var(--pink);
 }
 
 @media (max-width: 1299.98px) {
-  .pageNavigation li button {
+  .pageNavigation li a {
     padding: 0.5rem 1rem;
   }
 }
@@ -73,6 +84,6 @@
 @media (max-width: 991.98px) {
   .logoImageWrapper {
     margin-top: calc(0.25rem + 4px);
-    --logo-size: 40px;
+    --logo-size: 32px;
   }
 }
