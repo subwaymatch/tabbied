@@ -1205,4 +1205,12 @@ add('Pinmark', 8, 'Map pins dropped across the grid, re-tinting on reseed.', (c)
   rule: `${F} { :before { content: ''; position: absolute; left: 50%; top: 12%; @size: 50%; margin-left: -25%; border-radius: 50% 50% 50% 0; background: ${ink(c)}; ${xf('rotate(-45deg)')}${pt} } :after { content: ''; position: absolute; left: 50%; top: 30%; @size: 16%; margin-left: -8%; border-radius: 50%; background: var(--color0);${pt} } }${TR}`,
 }), { grid: '6x9', tg: '5x5', tf: 0.95 });
 
-export const batch5 = all;
+// Curated keep-set: the motif library above is the full set that was authored
+// and render-tested, but only these are published to the gallery.
+const KEEP = new Set([
+  'quaver', 'bowl', 'cinch', 'loophole', 'quoit', 'lobe', 'dogtooth', 'sail',
+  'cleat', 'octagon', 'diadem', 'spark', 'sliver', 'ell', 'chamfer',
+  'notchblock', 'frond', 'wavelet', 'bobbin',
+]);
+
+export const batch5 = all.filter((d) => KEEP.has(d.slug));
