@@ -577,4 +577,61 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   prismfold: {
     options: { grid: '5x5', frequency: 0.92 },
   },
+  quaver: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  bowl: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  cinch: {
+    options: { grid: '4x4', frequency: 0.9 },
+  },
+  loophole: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  quoit: {
+    options: { grid: '4x4', frequency: 0.9 },
+  },
+  lobe: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  dogtooth: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  sail: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  cleat: {
+    options: { grid: '5x5', frequency: 0.92 },
+  },
+  octagon: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  diadem: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  spark: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  sliver: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  ell: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  chamfer: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  notchblock: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  frond: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  wavelet: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  bobbin: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
 };

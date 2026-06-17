@@ -2,6 +2,8 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { Dialog } from '@base-ui-components/react/dialog';
+import { Menu as MenuIcon, X as CloseIcon } from 'lucide-react';
 import { Container, Row, Col } from 'components/layout';
 import LogoDoodle from './LogoDoodle';
 import styles from './MainHeader.module.css';
@@ -77,16 +79,87 @@ export default function MainHeader() {
           </Col>
 
           <Col xs={8} className={styles.actionsColumn}>
-            <div className="align-right">
+            <div className={styles.actions}>
+              {/* Desktop keeps the GitHub icon in the header; below 992px it
+                  moves into the drawer (see Dialog below). */}
               <a
                 href="https://github.com/subwaymatch/tabbied/"
-                className={styles.githubLink}
+                className={`${styles.githubLink} ${styles.headerGithub}`}
                 target="_blank"
                 rel="noreferrer"
                 aria-label="Tabbied on GitHub"
               >
                 <GithubIcon size={24} />
               </a>
+
+              {/* Hamburger opens a slide-in drawer — the only way to reach the
+                  nav (and GitHub) below 992px, where .navColumn is hidden. The
+                  trigger is hidden again at >=992px where the inline nav shows. */}
+              <Dialog.Root>
+                <Dialog.Trigger
+                  className={styles.menuTrigger}
+                  aria-label="Open navigation menu"
+                >
+                  <MenuIcon size={26} aria-hidden="true" />
+                </Dialog.Trigger>
+
+                <Dialog.Portal>
+                  <Dialog.Backdrop className={styles.drawerBackdrop} />
+                  <Dialog.Popup className={styles.drawerPopup}>
+                    <div className={styles.drawerHeader}>
+                      <Dialog.Title className={styles.drawerTitle}>
+                        Menu
+                      </Dialog.Title>
+                      <Dialog.Close
+                        className={styles.drawerClose}
+                        aria-label="Close menu"
+                      >
+                        <CloseIcon size={24} aria-hidden="true" />
+                      </Dialog.Close>
+                    </div>
+
+                    <nav className={styles.drawerNav}>
+                      {navItems.map((item) => {
+                        const isActive = currentPath === item.href;
+
+                        return (
+                          <Dialog.Close
+                            key={item.label}
+                            className={
+                              isActive
+                                ? `${styles.drawerLink} ${styles.drawerLinkActive}`
+                                : styles.drawerLink
+                            }
+                            render={
+                              <Link
+                                href={item.href}
+                                prefetch={false}
+                                aria-current={isActive ? 'page' : undefined}
+                              />
+                            }
+                          >
+                            {item.label}
+                          </Dialog.Close>
+                        );
+                      })}
+                    </nav>
+
+                    <Dialog.Close
+                      className={styles.drawerGithub}
+                      render={
+                        <a
+                          href="https://github.com/subwaymatch/tabbied/"
+                          target="_blank"
+                          rel="noreferrer"
+                        />
+                      }
+                    >
+                      <GithubIcon size={22} />
+                      <span>GitHub</span>
+                    </Dialog.Close>
+                  </Dialog.Popup>
+                </Dialog.Portal>
+              </Dialog.Root>
             </div>
           </Col>
         </Row>

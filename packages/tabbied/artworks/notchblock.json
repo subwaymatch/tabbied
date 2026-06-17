@@ -1,0 +1,50 @@
+{
+  "name": "Notchblock",
+  "slug": "notchblock",
+  "galleryOrder": 510,
+  "galleryWhite": true,
+  "description": "Big blocks missing a rectangular corner notch, re-orienting on reseed.",
+  "palette": [
+    "#0E2438",
+    "#275AA6",
+    "#3E8BFF",
+    "#3EECFF",
+    "#97F4FF",
+    "#E9F1FF"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( --rot: @pick(0deg, 90deg, 180deg, 270deg); @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 58% 100%, 58% 58%, 0 58%); clip-path: polygon(0 0, 100% 0, 100% 100%, 58% 100%, 58% 58%, 0 58%); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

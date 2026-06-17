@@ -35,6 +35,169 @@
   }
 }
 
+/* Right-hand cluster: the hamburger trigger (mobile) and the GitHub icon
+   (desktop) swap in at the 992px breakpoint. */
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.25rem;
+}
+
+/* The header GitHub icon shows on desktop; below 992px it moves into the
+   drawer, so it is hidden here. The compound selector outranks `.githubLink`
+   (which also sets display) regardless of source order. */
+.headerSection .headerGithub {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .headerSection .headerGithub {
+    display: inline-flex;
+  }
+}
+
+/* ── Mobile drawer ───────────────────────────────────────────────────────── */
+
+.menuTrigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+  margin-top: 0.25rem;
+  color: var(--gray-medium);
+  background: none;
+  border: none;
+  border-radius: 6px;
+  line-height: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.menuTrigger:hover,
+.menuTrigger[data-popup-open] {
+  color: var(--pink);
+}
+
+/* The inline nav takes over at this width, so the trigger is no longer needed. */
+@media (min-width: 992px) {
+  .menuTrigger {
+    display: none;
+  }
+}
+
+/* Dimmed scrim behind the drawer; portaled to <body> above the header. */
+.drawerBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1190;
+  background-color: rgba(0, 0, 0, 0.45);
+  opacity: 1;
+  transition: opacity 220ms ease;
+}
+
+.drawerBackdrop[data-starting-style],
+.drawerBackdrop[data-ending-style] {
+  opacity: 0;
+}
+
+/* Panel slides in from the right edge. */
+.drawerPopup {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1200;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  max-width: 320px;
+  height: 100vh;
+  height: 100dvh;
+  padding: 1rem 1.25rem 1.5rem;
+  background-color: white;
+  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.18);
+  outline: none;
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.drawerPopup[data-starting-style],
+.drawerPopup[data-ending-style] {
+  transform: translateX(100%);
+}
+
+.drawerHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.drawerTitle {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--gray-dark);
+}
+
+.drawerClose {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+  color: var(--gray-medium);
+  background: none;
+  border: none;
+  border-radius: 6px;
+  line-height: 0;
+  cursor: pointer;
+}
+
+.drawerClose:hover {
+  color: var(--pink);
+}
+
+.drawerNav {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.drawerLink {
+  display: block;
+  padding: 0.875rem 0.25rem;
+  font-size: 1.2rem;
+  color: var(--gray-medium);
+  text-decoration: none;
+  border-bottom: 1px solid var(--gray-ultra-light);
+  cursor: pointer;
+  outline: none;
+}
+
+.drawerLink:hover {
+  color: var(--pink);
+}
+
+.drawerLinkActive {
+  color: var(--pink);
+  font-weight: 600;
+}
+
+/* GitHub moves to the foot of the drawer on mobile. */
+.drawerGithub {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding: 0.5rem 0.25rem;
+  font-size: 1.1rem;
+  color: var(--gray-medium);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.drawerGithub:hover {
+  color: var(--pink);
+}
+
 /* GitHub link sits where the Product Hunt badge used to; the badge now lives
  * in the footer. */
 .githubLink {

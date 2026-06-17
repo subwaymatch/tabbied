@@ -1,8 +1,11 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import type { MouseEvent } from 'react';
 import { RefreshCw, ArrowDownToLine } from 'lucide-react';
 import { Container, Row, Col } from 'components/layout';
+import { armGalleryScrollRestore } from 'lib/galleryScroll';
 import styles from './EditArtworkHeader.module.css';
 
 type EditArtworkHeaderProps = {
@@ -16,12 +19,41 @@ export default function EditArtworkHeader({
   onRedraw,
   onExport,
 }: EditArtworkHeaderProps) {
+  const router = useRouter();
+
+  // Go back through history so the gallery's previous scroll position is
+  // restored (armed below; the gallery does the actual restore on mount).
+  // Modified clicks (open in new tab) fall through to the href.
+  const handleBack = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (
+      event.defaultPrevented ||
+      event.button !== 0 ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey
+    ) {
+      return;
+    }
+
+    event.preventDefault();
+    armGalleryScrollRestore();
+
+    // A back navigation keeps the gallery entry (and its scroll) in place; with
+    // no in-app history to return to, fall back to a normal push.
+    if (window.history.length > 1) {
+      router.back();
+    } else {
+      router.push('/artworks');
+    }
+  };
+
   return (
     <header className={styles.header}>
       <Container>
         <Row align="center">
           <Col md={4} xs={6}>
-            <Link href="/artworks" prefetch={false}>
+            <Link href="/artworks" prefetch={false} onClick={handleBack}>
               ← Back to gallery
             </Link>
           </Col>

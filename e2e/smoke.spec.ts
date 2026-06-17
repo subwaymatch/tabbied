@@ -45,6 +45,49 @@ test.describe('Tabbied site', () => {
     ).toBeVisible({ timeout: 15000 });
   });
 
+  test('"Back to gallery" returns to the previous scroll position', async ({
+    page,
+  }) => {
+    await page.goto('/artworks');
+    // Wait for hydration (a live thumbnail mounts) so the gallery's scroll
+    // listener is attached before we scroll.
+    await page
+      .locator('main css-doodle')
+      .first()
+      .waitFor({ state: 'attached', timeout: 15000 });
+    await page.evaluate(() => window.scrollTo(0, 1600));
+
+    // The gallery persists its scroll position so it can be restored on return.
+    await expect
+      .poll(() =>
+        page.evaluate(() =>
+          Number(sessionStorage.getItem('tabbied:gallery-scroll-y'))
+        )
+      )
+      .toBeGreaterThan(1000);
+    const before = await page.evaluate(() => window.scrollY);
+
+    // Open a card already in view, so clicking it does not move the page.
+    const href = await page.evaluate(() => {
+      const inView = [
+        ...document.querySelectorAll('main a[href^="/artworks/"]'),
+      ].find((el) => {
+        const r = el.getBoundingClientRect();
+        return r.top > 140 && r.bottom < 600;
+      });
+      return inView?.getAttribute('href') ?? null;
+    });
+    await page.locator(`main a[href="${href}"]`).click();
+
+    await page.getByRole('link', { name: '← Back to gallery' }).click();
+    await expect(page).toHaveURL(/\/artworks\/?$/);
+
+    // The gallery is restored to (approximately) where it was left.
+    await expect
+      .poll(() => page.evaluate(() => window.scrollY))
+      .toBeGreaterThan(before - 80);
+  });
+
   test('artworks gallery renders live css-doodle thumbnails', async ({
     page,
   }) => {
@@ -265,6 +308,31 @@ test.describe('Tabbied site (mobile viewport)', () => {
     await page.getByRole('button', { name: 'Redraw' }).click();
     await expect(page).not.toHaveURL(/seed=0000/);
   });
+
+  test('hamburger drawer exposes the nav and GitHub on mobile', async ({
+    page,
+  }) => {
+    await page.goto('/');
+
+    // The inline nav is display:none below 992px, so the hamburger drawer is the
+    // only way to reach the site navigation (and GitHub) here.
+    const trigger = page.getByRole('button', { name: 'Open navigation menu' });
+    await expect(trigger).toBeVisible();
+
+    await trigger.click();
+
+    const drawer = page.getByRole('dialog');
+    await expect(
+      drawer.getByRole('link', { name: 'Browse Artworks' })
+    ).toBeVisible();
+    // GitHub moves from the header into the drawer on mobile.
+    await expect(drawer.getByRole('link', { name: 'GitHub' })).toBeVisible();
+
+    // Choosing a destination navigates and closes the drawer.
+    await drawer.getByRole('link', { name: 'React Component' }).click();
+    await expect(page).toHaveURL(/\/docs\/react/);
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+  });
 });
 
 test.describe('Shared site header', () => {
@@ -277,6 +345,11 @@ test.describe('Shared site header', () => {
     await expect(
       page.getByRole('link', { name: 'Tabbied on GitHub' })
     ).toBeVisible();
+
+    // At desktop widths the inline nav replaces the hamburger entirely.
+    await expect(
+      page.getByRole('button', { name: 'Open navigation menu' })
+    ).toBeHidden();
 
     // "Browse Artworks" is the current section, "React Component" is not. The
     // active item is both flagged for assistive tech and given a style hook.
