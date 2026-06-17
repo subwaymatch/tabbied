@@ -266,22 +266,29 @@ test.describe('Tabbied site (mobile viewport)', () => {
     await expect(page).not.toHaveURL(/seed=0000/);
   });
 
-  test('hamburger menu exposes the site nav on mobile', async ({ page }) => {
+  test('hamburger drawer exposes the nav and GitHub on mobile', async ({
+    page,
+  }) => {
     await page.goto('/');
 
-    // The inline nav is display:none below 992px, so the hamburger is the only
-    // way to reach the site navigation here.
+    // The inline nav is display:none below 992px, so the hamburger drawer is the
+    // only way to reach the site navigation (and GitHub) here.
     const trigger = page.getByRole('button', { name: 'Open navigation menu' });
     await expect(trigger).toBeVisible();
 
     await trigger.click();
 
-    // Both destinations are reachable as menu items, and choosing one navigates.
+    const drawer = page.getByRole('dialog');
     await expect(
-      page.getByRole('menuitem', { name: 'Browse Artworks' })
+      drawer.getByRole('link', { name: 'Browse Artworks' })
     ).toBeVisible();
-    await page.getByRole('menuitem', { name: 'React Component' }).click();
+    // GitHub moves from the header into the drawer on mobile.
+    await expect(drawer.getByRole('link', { name: 'GitHub' })).toBeVisible();
+
+    // Choosing a destination navigates and closes the drawer.
+    await drawer.getByRole('link', { name: 'React Component' }).click();
     await expect(page).toHaveURL(/\/docs\/react/);
+    await expect(page.getByRole('dialog')).toHaveCount(0);
   });
 });
 
