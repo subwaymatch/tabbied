@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Container, Row, Col } from 'components/layout';
 import type { GalleryItem } from 'lib/artwork';
 import GalleryDoodle from './GalleryDoodle';
+import GalleryScrollRestorer from './GalleryScrollRestorer';
 import styles from './SelectArtwork.module.css';
 
 export default function SelectArtwork({
@@ -11,6 +12,7 @@ export default function SelectArtwork({
 }) {
   return (
     <main className={styles.selectArtworkSection}>
+      <GalleryScrollRestorer />
       <div className={styles.grayBackground}>
         <Container>
           <Row>

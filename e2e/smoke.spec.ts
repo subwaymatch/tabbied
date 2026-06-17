@@ -45,6 +45,49 @@ test.describe('Tabbied site', () => {
     ).toBeVisible({ timeout: 15000 });
   });
 
+  test('"Back to gallery" returns to the previous scroll position', async ({
+    page,
+  }) => {
+    await page.goto('/artworks');
+    // Wait for hydration (a live thumbnail mounts) so the gallery's scroll
+    // listener is attached before we scroll.
+    await page
+      .locator('main css-doodle')
+      .first()
+      .waitFor({ state: 'attached', timeout: 15000 });
+    await page.evaluate(() => window.scrollTo(0, 1600));
+
+    // The gallery persists its scroll position so it can be restored on return.
+    await expect
+      .poll(() =>
+        page.evaluate(() =>
+          Number(sessionStorage.getItem('tabbied:gallery-scroll-y'))
+        )
+      )
+      .toBeGreaterThan(1000);
+    const before = await page.evaluate(() => window.scrollY);
+
+    // Open a card already in view, so clicking it does not move the page.
+    const href = await page.evaluate(() => {
+      const inView = [
+        ...document.querySelectorAll('main a[href^="/artworks/"]'),
+      ].find((el) => {
+        const r = el.getBoundingClientRect();
+        return r.top > 140 && r.bottom < 600;
+      });
+      return inView?.getAttribute('href') ?? null;
+    });
+    await page.locator(`main a[href="${href}"]`).click();
+
+    await page.getByRole('link', { name: '← Back to gallery' }).click();
+    await expect(page).toHaveURL(/\/artworks\/?$/);
+
+    // The gallery is restored to (approximately) where it was left.
+    await expect
+      .poll(() => page.evaluate(() => window.scrollY))
+      .toBeGreaterThan(before - 80);
+  });
+
   test('artworks gallery renders live css-doodle thumbnails', async ({
     page,
   }) => {
