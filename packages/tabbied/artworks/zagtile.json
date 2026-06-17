@@ -1,0 +1,50 @@
+{
+  "name": "Zagtile",
+  "slug": "zagtile",
+  "galleryOrder": 445,
+  "galleryWhite": true,
+  "description": "Triangles flipping point-up and point-down across the field into a running zigzag on reseed.",
+  "palette": [
+    "#1D1F24",
+    "#E8E6E1",
+    "#F5B82E",
+    "#3EECFF",
+    "#FF4D6D",
+    "#2E86AB"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(0 100%, 50% 0, 100% 100%); clip-path: polygon(0 100%, 50% 0, 100% 100%); } @match((@x + @y) % 2 == 0) { -webkit-clip-path: polygon(0 0, 50% 100%, 100% 0); clip-path: polygon(0 0, 50% 100%, 100% 0); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "name": "Boxweave",
+  "slug": "boxweave",
+  "galleryOrder": 518,
+  "description": "Crossing bands woven over and under, re-tinting at each crossing on reseed.",
+  "palette": [
+    "#ECFFEC",
+    "#3FFFB2",
+    "#3E8BFF",
+    "#9EFFD8",
+    "#FF3D8B",
+    "#F5DD32"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { :before { content: ''; position: absolute; left: 32%; top: 0; width: 36%; height: 100%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-transition: ease 450ms; transition: ease 450ms; } :after { content: ''; position: absolute; left: 0; top: 32%; width: 100%; height: 36%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-transition: ease 450ms; transition: ease 450ms; } } @match((@x + @y) % 2 == 0) { :before { z-index: 2; } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

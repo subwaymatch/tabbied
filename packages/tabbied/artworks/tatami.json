@@ -1,0 +1,49 @@
+{
+  "name": "Tatami",
+  "slug": "tatami",
+  "galleryOrder": 514,
+  "description": "Tatami mats with seams turning a quarter-turn between mats, re-shading on reseed.",
+  "palette": [
+    "#F2F7EE",
+    "#2F6B3C",
+    "#4F9D5D",
+    "#8CC084",
+    "#C8E6C0",
+    "#1F4D2A"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); :after { content: ''; position: absolute; left: 0; top: 32%; width: 100%; height: 7%; background: var(--color0); -webkit-transition: ease 450ms; transition: ease 450ms; } } @match((@x + @y) % 2 == 0) { :after { left: 32%; top: 0; width: 7%; height: 100%; } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

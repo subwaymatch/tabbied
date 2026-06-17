@@ -577,4 +577,604 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   prismfold: {
     options: { grid: '5x5', frequency: 0.92 },
   },
+  lune: {
+    options: { grid: '4x4', frequency: 0.9 },
+  },
+  hoop: {
+    options: { grid: '4x4', frequency: 0.9 },
+  },
+  pellet: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  capsule: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  quaver: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  pip: {
+    options: { grid: '4x4', frequency: 0.9 },
+  },
+  wheelarc: {
+    options: { grid: '4x4', frequency: 0.9 },
+  },
+  iris: {
+    options: { grid: '4x4', frequency: 0.88 },
+  },
+  bowl: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  cinch: {
+    options: { grid: '4x4', frequency: 0.9 },
+  },
+  rondure: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  loophole: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  halfpenny: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  mandorla: {
+    options: { grid: '5x5', frequency: 0.92 },
+  },
+  roundel: {
+    options: { grid: '4x4', frequency: 0.9 },
+  },
+  gibbous: {
+    options: { grid: '4x4', frequency: 0.9 },
+  },
+  cresset: {
+    options: { grid: '4x4', frequency: 0.9 },
+  },
+  quoit: {
+    options: { grid: '4x4', frequency: 0.9 },
+  },
+  pebbledot: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  bezel: {
+    options: { grid: '4x4', frequency: 0.9 },
+  },
+  lobe: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  discus: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  prow: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  fin: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  caret: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  needle: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  pinnacle: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  pennon: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  cusp: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  spearhead: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  pediment: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  splittri: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  dogtooth: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  wingtri: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  fang: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  zagtile: {
+    options: { grid: '6x6', frequency: 0.98 },
+  },
+  burgee: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  vee: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  delta: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  sail: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  pinnate: {
+    options: { grid: '5x5', frequency: 0.98 },
+  },
+  cleat: {
+    options: { grid: '5x5', frequency: 0.92 },
+  },
+  trishard: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  quadrant: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  lozenge: {
+    options: { grid: '6x6', frequency: 0.98 },
+  },
+  trapezoid: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  hextile: {
+    options: { grid: '5x5', frequency: 0.98 },
+  },
+  penta: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  sixstar: {
+    options: { grid: '4x4', frequency: 0.9 },
+  },
+  octagon: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  pinhex: {
+    options: { grid: '4x4', frequency: 0.92 },
+  },
+  diadem: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  crystal: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  facetbox: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  starlet: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  slant: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  gemcut: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  spark: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  diadot: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  pentafan: {
+    options: { grid: '4x4', frequency: 0.92 },
+  },
+  shield: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  diaper: {
+    options: { grid: '6x6', frequency: 0.98 },
+  },
+  sunwheel: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  rhomboid: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  trianglet: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  hexdot: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  barline: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  tickmark: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  plumb: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  rail: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  comb: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  stave: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  pulsebar: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  crossbar: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  hashmark: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  slat: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  sliver: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  notchbar: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  halfink: {
+    options: { grid: '6x6', frequency: 0.98 },
+  },
+  quarterbar: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  ledger: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  warp: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  gridline: {
+    options: { grid: '6x6', frequency: 0.98 },
+  },
+  dotdash: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  ell: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  tee: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  chamfer: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  halfblock: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  quarterblock: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  step: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  frameblock: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  crux: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  triband: {
+    options: { grid: '6x6', frequency: 0.98 },
+  },
+  offsetbox: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  insetstep: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  cornerpunch: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  splithz: {
+    options: { grid: '6x6', frequency: 0.98 },
+  },
+  pinhole: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  edgeband: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  doubinset: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  notchblock: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  celleye: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  bond: {
+    options: { grid: '5x5', frequency: 0.98 },
+  },
+  plaid: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  tatami: {
+    options: { grid: '5x5', frequency: 0.98 },
+  },
+  pinweave: {
+    options: { grid: '5x5', frequency: 0.98 },
+  },
+  tweed: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  crazy: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  boxweave: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  kasuri: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  caneweave: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  pavers: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  mosaictile: {
+    options: { grid: '6x6', frequency: 0.98 },
+  },
+  logcabin: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  flagstone: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  basket: {
+    options: { grid: '5x5', frequency: 0.98 },
+  },
+  cointile: {
+    options: { grid: '5x5', frequency: 0.98 },
+  },
+  quiltsquare: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  twill: {
+    options: { grid: '6x6', frequency: 0.98 },
+  },
+  draughts: {
+    options: { grid: '6x6', frequency: 0.98 },
+  },
+  pinwheeltile: {
+    options: { grid: '6x6', frequency: 0.98 },
+  },
+  brokenbond: {
+    options: { grid: '5x5', frequency: 0.98 },
+  },
+  bevel: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  emboss: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  convex: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  cube: {
+    options: { grid: '4x4', frequency: 0.92 },
+  },
+  swellbox: {
+    options: { grid: '7x7', frequency: 0.95 },
+  },
+  facetdiamond: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  tilt: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  zigzagfold: {
+    options: { grid: '6x6', frequency: 0.98 },
+  },
+  dome: {
+    options: { grid: '4x4', frequency: 0.92 },
+  },
+  pyramid3d: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  sunken: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  glint: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  tube: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  step3d: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  diamond3d: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  lozengegrad: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  bud: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  bloom: {
+    options: { grid: '5x5', frequency: 0.92 },
+  },
+  billow: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  raindrop: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  frond: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  pondring: {
+    options: { grid: '4x4', frequency: 0.92 },
+  },
+  scale: {
+    options: { grid: '5x5', frequency: 0.98 },
+  },
+  sprig: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  tendril: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  pod: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  berry: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  wavelet: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  cattail: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  heart: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  clover: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  palmette: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  mistwave: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  grassblade: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  lotus: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  driftleaf: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  acorn: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  thistle: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  scatterdot: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  twinkle: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  bubble: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  spore: {
+    options: { grid: '5x5', frequency: 0.9 },
+  },
+  freckle: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  pixel: {
+    options: { grid: '8x8', frequency: 0.98 },
+  },
+  granule: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  dapple: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  beadrow: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  dotwave: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  polkapair: {
+    options: { grid: '5x5', frequency: 0.98 },
+  },
+  ringdot: {
+    options: { grid: '5x5', frequency: 0.92 },
+  },
+  chaff: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  stipple: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  halfdot: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  sequin: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  mote: {
+    options: { grid: '6x6', frequency: 0.95 },
+  },
+  arrow: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  chevarrow: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  mesh: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  snowflake: {
+    options: { grid: '5x5', frequency: 0.9 },
+  },
+  frame: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  windowframe: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  crosshair: {
+    options: { grid: '4x4', frequency: 0.92 },
+  },
+  quincunx: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  bolt: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  tag: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  bracketpair: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  rune: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  keyhole: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  trace: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  diamondeye: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  ringlink: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  bobbin: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  sprocket: {
+    options: { grid: '4x4', frequency: 0.9 },
+  },
+  hexnut: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  star5: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  checkmark: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  pinmark: {
+    options: { grid: '5x5', frequency: 0.95 },
+  },
+  fuzz: {
+    options: { grid: '8x8', frequency: 0.98 },
+  },
 };

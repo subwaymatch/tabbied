@@ -1,0 +1,49 @@
+{
+  "name": "Tag",
+  "slug": "tag",
+  "galleryOrder": 597,
+  "description": "Punched price tags swinging to a new angle, re-tinting on reseed.",
+  "palette": [
+    "#FBF7EE",
+    "#FF4D6D",
+    "#2E86AB",
+    "#F5B82E",
+    "#7E4A8C",
+    "#2BB3A3"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( --rot: @pick(0deg, 90deg, 180deg, 270deg); @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(16% 16%, 70% 16%, 96% 50%, 70% 84%, 16% 84%); clip-path: polygon(16% 16%, 70% 16%, 96% 50%, 70% 84%, 16% 84%); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); :after { content: ''; position: absolute; left: 22%; top: 44%; @size: 12%; border-radius: 50%; background: var(--color0); -webkit-transition: ease 450ms; transition: ease 450ms; } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

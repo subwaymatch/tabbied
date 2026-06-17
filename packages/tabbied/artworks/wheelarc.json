@@ -1,0 +1,50 @@
+{
+  "name": "Wheelarc",
+  "slug": "wheelarc",
+  "galleryOrder": 416,
+  "galleryWhite": true,
+  "description": "Three-quarter arcs leaving a gap that rolls around the rim each redraw.",
+  "palette": [
+    "#0B2540",
+    "#1B4075",
+    "#3E8BFF",
+    "#3EECFF",
+    "#9EFFD8",
+    "#ECFFEC"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( --rot: @pick(0deg, 90deg, 180deg, 270deg); @random(${shapeFrequency}) { width: 84%; height: 84%; margin: 8%; border-radius: 50%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 100%, 50% 50%, 0 50%); clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 100%, 50% 50%, 0 50%); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

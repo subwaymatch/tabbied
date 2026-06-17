@@ -1,0 +1,49 @@
+{
+  "name": "Sprocket",
+  "slug": "sprocket",
+  "galleryOrder": 605,
+  "description": "Toothed sprockets with a punched hub, re-spinning on every redraw.",
+  "palette": [
+    "#F2F7EE",
+    "#2F6B3C",
+    "#4F9D5D",
+    "#8CC084",
+    "#C8E6C0",
+    "#1F4D2A"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( --rot: @pick(0deg, 45deg, 90deg, 135deg, 180deg, 225deg, 270deg, 315deg); @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(50% 0, 58% 12%, 72% 8%, 76% 24%, 92% 26%, 88% 42%, 100% 50%, 88% 58%, 92% 74%, 76% 76%, 72% 92%, 58% 88%, 50% 100%, 42% 88%, 28% 92%, 24% 76%, 8% 74%, 12% 58%, 0 50%, 12% 42%, 8% 26%, 24% 24%, 28% 8%, 42% 12%); clip-path: polygon(50% 0, 58% 12%, 72% 8%, 76% 24%, 92% 26%, 88% 42%, 100% 50%, 88% 58%, 92% 74%, 76% 76%, 72% 92%, 58% 88%, 50% 100%, 42% 88%, 28% 92%, 24% 76%, 8% 74%, 12% 58%, 0 50%, 12% 42%, 8% 26%, 24% 24%, 28% 8%, 42% 12%); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); :after { content: ''; position: absolute; inset: 36%; border-radius: 50%; background: var(--color0); -webkit-transition: ease 450ms; transition: ease 450ms; } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

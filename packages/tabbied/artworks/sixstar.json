@@ -1,0 +1,50 @@
+{
+  "name": "Sixstar",
+  "slug": "sixstar",
+  "galleryOrder": 458,
+  "galleryWhite": true,
+  "description": "Six-point stars from two crossed triangles, the colours swapping between blades on reseed.",
+  "palette": [
+    "#0B1F3A",
+    "#3E8BFF",
+    "#3EECFF",
+    "#97F4FF",
+    "#9EFFD8",
+    "#FFFFFF"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { :before { content: ''; position: absolute; inset: 0; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(50% 4%, 93% 78%, 7% 78%); clip-path: polygon(50% 4%, 93% 78%, 7% 78%); -webkit-transition: ease 450ms; transition: ease 450ms; } :after { content: ''; position: absolute; inset: 0; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(50% 96%, 7% 22%, 93% 22%); clip-path: polygon(50% 96%, 7% 22%, 93% 22%); -webkit-transition: ease 450ms; transition: ease 450ms; } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

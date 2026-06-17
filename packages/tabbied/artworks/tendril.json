@@ -1,0 +1,49 @@
+{
+  "name": "Tendril",
+  "slug": "tendril",
+  "galleryOrder": 556,
+  "description": "Curling tendrils hooking around a corner, re-aiming their spiral on reseed.",
+  "palette": [
+    "#FAF7F0",
+    "#232529",
+    "#E63329",
+    "#1D3D8F",
+    "#F0C02E",
+    "#3EECFF"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( --rot: @pick(0deg, 90deg, 180deg, 270deg); @random(${shapeFrequency}) { overflow: hidden; -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); :after { content: ''; position: absolute; @size: 120%; left: 12%; top: 12%; border: calc(9px / @Y) solid @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); border-radius: 50%; -webkit-clip-path: polygon(0 0, 62% 0, 62% 62%, 0 62%); clip-path: polygon(0 0, 62% 0, 62% 62%, 0 62%); -webkit-transition: ease 450ms; transition: ease 450ms; } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

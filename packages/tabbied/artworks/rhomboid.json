@@ -1,0 +1,49 @@
+{
+  "name": "Rhomboid",
+  "slug": "rhomboid",
+  "galleryOrder": 473,
+  "description": "Full slanted squares leaning together, each parallelogram re-tinting on reseed.",
+  "palette": [
+    "#FBF7EE",
+    "#FF4D6D",
+    "#2E86AB",
+    "#F5B82E",
+    "#7E4A8C",
+    "#2BB3A3"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(28% 0, 100% 0, 72% 100%, 0 100%); clip-path: polygon(28% 0, 100% 0, 72% 100%, 0 100%); opacity: @rand(0.8, 1); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

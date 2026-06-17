@@ -1,0 +1,50 @@
+{
+  "name": "Tickmark",
+  "slug": "tickmark",
+  "galleryOrder": 477,
+  "galleryWhite": true,
+  "description": "Short ticks flicking to one of four headings, re-aiming and re-inking on reseed.",
+  "palette": [
+    "#161616",
+    "#F5F5F0",
+    "#9A9A9A",
+    "#5A5A5A",
+    "#C8C8C8",
+    "#3A3A3A"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( --rot: @pick(0deg, 90deg, 180deg, 270deg); @random(${shapeFrequency}) { width: 14%; height: 56%; margin: 22% 43%; border-radius: 99px; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

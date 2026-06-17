@@ -1,0 +1,50 @@
+{
+  "name": "Needle",
+  "slug": "needle",
+  "galleryOrder": 435,
+  "galleryWhite": true,
+  "description": "Slender spikes radiating at shifting angles, each needle re-aiming on reseed.",
+  "palette": [
+    "#1B2A4A",
+    "#F7C548",
+    "#F25F5C",
+    "#247BA0",
+    "#70C1B3",
+    "#FFFFFF"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( --rot: @pick(0deg, 45deg, 90deg, 135deg, 180deg, 225deg, 270deg, 315deg); @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(50% 0, 64% 100%, 36% 100%); clip-path: polygon(50% 0, 64% 100%, 36% 100%); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}
