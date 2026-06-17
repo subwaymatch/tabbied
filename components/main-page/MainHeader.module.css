@@ -35,6 +35,104 @@
   }
 }
 
+/* Right-hand cluster: the mobile hamburger trigger (when shown) sits to the
+   left of the persistent GitHub icon. */
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.25rem;
+}
+
+/* ── Mobile hamburger menu ───────────────────────────────────────────────── */
+
+.menuTrigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+  margin-top: 0.25rem;
+  color: var(--gray-medium);
+  background: none;
+  border: none;
+  border-radius: 6px;
+  line-height: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.menuTrigger:hover,
+.menuTrigger[data-popup-open] {
+  color: var(--pink);
+}
+
+/* Swap the hamburger for a close (X) glyph while the menu is open. */
+.menuIconClose {
+  display: none;
+}
+
+.menuTrigger[data-popup-open] .menuIconOpen {
+  display: none;
+}
+
+.menuTrigger[data-popup-open] .menuIconClose {
+  display: inline-flex;
+}
+
+/* The inline nav takes over at this width, so the trigger is no longer needed. */
+@media (min-width: 992px) {
+  .menuTrigger {
+    display: none;
+  }
+}
+
+/* Popup is portaled to <body>; keep it above the header (z-index 1100). */
+.menuPositioner {
+  z-index: 1200;
+}
+
+.menuPopup {
+  display: flex;
+  flex-direction: column;
+  min-width: 13rem;
+  padding: 0.5rem;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.16);
+  outline: none;
+  transform-origin: var(--transform-origin);
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.menuPopup[data-starting-style],
+.menuPopup[data-ending-style] {
+  opacity: 0;
+  transform: scale(0.96);
+}
+
+.menuItem {
+  display: block;
+  padding: 0.625rem 0.875rem;
+  font-size: 1.1rem;
+  color: var(--gray-medium);
+  text-decoration: none;
+  border-radius: 6px;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+}
+
+.menuItem[data-highlighted],
+.menuItem:hover {
+  background-color: var(--gray-ultra-light);
+  color: var(--pink);
+}
+
+.menuItemActive {
+  color: var(--pink);
+  font-weight: 600;
+}
+
 /* GitHub link sits where the Product Hunt badge used to; the badge now lives
  * in the footer. */
 .githubLink {

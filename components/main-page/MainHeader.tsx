@@ -2,6 +2,8 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { Menu } from '@base-ui-components/react/menu';
+import { Menu as MenuIcon, X as CloseIcon } from 'lucide-react';
 import { Container, Row, Col } from 'components/layout';
 import LogoDoodle from './LogoDoodle';
 import styles from './MainHeader.module.css';
@@ -77,7 +79,63 @@ export default function MainHeader() {
           </Col>
 
           <Col xs={8} className={styles.actionsColumn}>
-            <div className="align-right">
+            <div className={styles.actions}>
+              {/* Hamburger menu — the only way to reach the nav below 992px,
+                  where .navColumn is hidden. Hidden again at >=992px so it
+                  never doubles up with the inline nav. */}
+              <Menu.Root>
+                <Menu.Trigger
+                  className={styles.menuTrigger}
+                  aria-label="Open navigation menu"
+                >
+                  <MenuIcon
+                    size={26}
+                    className={styles.menuIconOpen}
+                    aria-hidden="true"
+                  />
+                  <CloseIcon
+                    size={26}
+                    className={styles.menuIconClose}
+                    aria-hidden="true"
+                  />
+                </Menu.Trigger>
+
+                <Menu.Portal>
+                  <Menu.Positioner
+                    className={styles.menuPositioner}
+                    side="bottom"
+                    align="end"
+                    sideOffset={10}
+                  >
+                    <Menu.Popup className={styles.menuPopup}>
+                      {navItems.map((item) => {
+                        const isActive = currentPath === item.href;
+
+                        return (
+                          <Menu.Item
+                            key={item.label}
+                            className={
+                              isActive
+                                ? `${styles.menuItem} ${styles.menuItemActive}`
+                                : styles.menuItem
+                            }
+                            render={
+                              <Link
+                                href={item.href}
+                                prefetch={false}
+                                aria-current={isActive ? 'page' : undefined}
+                              />
+                            }
+                          >
+                            {item.label}
+                          </Menu.Item>
+                        );
+                      })}
+                    </Menu.Popup>
+                  </Menu.Positioner>
+                </Menu.Portal>
+              </Menu.Root>
+
               <a
                 href="https://github.com/subwaymatch/tabbied/"
                 className={styles.githubLink}

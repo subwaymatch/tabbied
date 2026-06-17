@@ -265,6 +265,24 @@ test.describe('Tabbied site (mobile viewport)', () => {
     await page.getByRole('button', { name: 'Redraw' }).click();
     await expect(page).not.toHaveURL(/seed=0000/);
   });
+
+  test('hamburger menu exposes the site nav on mobile', async ({ page }) => {
+    await page.goto('/');
+
+    // The inline nav is display:none below 992px, so the hamburger is the only
+    // way to reach the site navigation here.
+    const trigger = page.getByRole('button', { name: 'Open navigation menu' });
+    await expect(trigger).toBeVisible();
+
+    await trigger.click();
+
+    // Both destinations are reachable as menu items, and choosing one navigates.
+    await expect(
+      page.getByRole('menuitem', { name: 'Browse Artworks' })
+    ).toBeVisible();
+    await page.getByRole('menuitem', { name: 'React Component' }).click();
+    await expect(page).toHaveURL(/\/docs\/react/);
+  });
 });
 
 test.describe('Shared site header', () => {
@@ -277,6 +295,11 @@ test.describe('Shared site header', () => {
     await expect(
       page.getByRole('link', { name: 'Tabbied on GitHub' })
     ).toBeVisible();
+
+    // At desktop widths the inline nav replaces the hamburger entirely.
+    await expect(
+      page.getByRole('button', { name: 'Open navigation menu' })
+    ).toBeHidden();
 
     // "Browse Artworks" is the current section, "React Component" is not. The
     // active item is both flagged for assistive tech and given a style hook.
