@@ -12,7 +12,7 @@
   padding: 0;
   cursor: pointer;
   display: inline-flex;
-  color: #808a98; /* color.scale($gray-medium, +20% lightness) */
+  color: var(--gray-medium);
   background-color: #ffffff;
   width: 4.8rem;
   min-height: 3.2rem;

@@ -4,7 +4,7 @@
 // instead of shipping the 1MB+ originals. Re-run after replacing any source
 // image: node scripts/optimize-images.mjs
 import path from 'node:path';
-import { stat } from 'node:fs/promises';
+import { stat, writeFile } from 'node:fs/promises';
 import sharp from 'sharp';
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
@@ -34,8 +34,12 @@ for (const { file, maxWidth } of TARGETS) {
       ? pipeline.png({ palette: true, compressionLevel: 9 })
       : pipeline.jpeg({ quality: 78, progressive: true, mozjpeg: true });
 
+  // Buffering decouples input from output (sharp can't write over its own
+  // input file); write the already-encoded buffer as-is — piping it through
+  // sharp() again would re-encode at library defaults, discarding the
+  // quality/palette settings above.
   const buffer = await pipeline.toBuffer();
-  await sharp(buffer).toFile(filePath);
+  await writeFile(filePath, buffer);
   const after = (await stat(filePath)).size;
   console.log(
     `${file}: ${meta.width}px ${(before / 1024).toFixed(0)}KB → ` +

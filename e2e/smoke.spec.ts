@@ -77,6 +77,7 @@ test.describe('Tabbied site', () => {
       });
       return inView?.getAttribute('href') ?? null;
     });
+    expect(href, 'expected a gallery card link within the viewport').not.toBeNull();
     await page.locator(`main a[href="${href}"]`).click();
 
     await page.getByRole('link', { name: '← Back to gallery' }).click();
@@ -329,7 +330,7 @@ test.describe('Tabbied site (mobile viewport)', () => {
     await expect(drawer.getByRole('link', { name: 'GitHub' })).toBeVisible();
 
     // Choosing a destination navigates and closes the drawer.
-    await drawer.getByRole('link', { name: 'React Component' }).click();
+    await drawer.getByRole('link', { name: 'Docs' }).click();
     await expect(page).toHaveURL(/\/docs\/react/);
     await expect(page.getByRole('dialog')).toHaveCount(0);
   });
@@ -351,19 +352,19 @@ test.describe('Shared site header', () => {
       page.getByRole('button', { name: 'Open navigation menu' })
     ).toBeHidden();
 
-    // "Browse Artworks" is the current section, "React Component" is not. The
+    // "Browse Artworks" is the current section, "Docs" is not. The
     // active item is both flagged for assistive tech and given a style hook.
     const browse = page.getByRole('link', { name: 'Browse Artworks' });
     await expect(browse).toHaveAttribute('aria-current', 'page');
     await expect(browse).toHaveClass(/active/);
     await expect(
-      page.getByRole('link', { name: 'React Component' })
+      page.getByRole('link', { name: 'Docs' })
     ).not.toHaveAttribute('aria-current', 'page');
 
     // Navigating moves the active state onto the matching item.
     await page.goto('/docs/react');
     await expect(
-      page.getByRole('link', { name: 'React Component' })
+      page.getByRole('link', { name: 'Docs' })
     ).toHaveAttribute('aria-current', 'page');
     await expect(
       page.getByRole('link', { name: 'Browse Artworks' })

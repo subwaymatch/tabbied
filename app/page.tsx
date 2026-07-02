@@ -1,5 +1,5 @@
 import MainHeader from 'components/main-page/MainHeader';
-import HeroClient from 'components/main-page/HeroClient';
+import MainHero from 'components/main-page/Hero';
 import HowItWorksSection from 'components/main-page/HowItWorks';
 import BrowseArtwork from 'components/main-page/BrowseArtwork';
 import ExampleUses from 'components/main-page/ExampleUses';
@@ -12,7 +12,7 @@ export default function Home() {
     <>
       <MainHeader />
 
-      <HeroClient />
+      <MainHero />
 
       <HowItWorksSection />
 

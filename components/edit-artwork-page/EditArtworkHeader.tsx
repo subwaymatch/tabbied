@@ -2,10 +2,13 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import type { MouseEvent } from 'react';
+import { useEffect, useState, type MouseEvent } from 'react';
 import { RefreshCw, ArrowDownToLine } from 'lucide-react';
 import { Container, Row, Col } from 'components/layout';
-import { armGalleryScrollRestore } from 'lib/galleryScroll';
+import {
+  armGalleryScrollRestore,
+  consumeGalleryNavigation,
+} from 'lib/galleryScroll';
 import styles from './EditArtworkHeader.module.css';
 
 type EditArtworkHeaderProps = {
@@ -20,6 +23,15 @@ export default function EditArtworkHeader({
   onExport,
 }: EditArtworkHeaderProps) {
   const router = useRouter();
+
+  // Whether this editor was opened from the gallery (a marker the gallery
+  // card sets on click, consumed here on mount). history.length alone can't
+  // tell — for a deep-linked editor the previous entry could be anything.
+  const [cameFromGallery, setCameFromGallery] = useState(false);
+
+  useEffect(() => {
+    setCameFromGallery(consumeGalleryNavigation());
+  }, []);
 
   // Go back through history so the gallery's previous scroll position is
   // restored (armed below; the gallery does the actual restore on mount).
@@ -37,11 +49,12 @@ export default function EditArtworkHeader({
     }
 
     event.preventDefault();
-    armGalleryScrollRestore();
 
-    // A back navigation keeps the gallery entry (and its scroll) in place; with
-    // no in-app history to return to, fall back to a normal push.
-    if (window.history.length > 1) {
+    // A back navigation keeps the gallery entry (and its scroll) in place —
+    // but only when the previous entry is actually the gallery; otherwise
+    // navigate there normally (and leave the scroll-restore flag unarmed).
+    if (cameFromGallery) {
+      armGalleryScrollRestore();
       router.back();
     } else {
       router.push('/artworks');

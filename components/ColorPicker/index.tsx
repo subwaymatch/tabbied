@@ -17,16 +17,36 @@ export default function ColorPicker({
   color,
   handleColorChange,
 }: ColorPickerProps) {
-  const pickerClassName = `color-picker-${index}`;
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const pickrRef = useRef<Pickr | null>(null);
 
   useEffect(() => {
+    const wrapper = wrapperRef.current;
+
+    if (!wrapper) {
+      return;
+    }
+
+    // Pickr replaces its target element with its own swatch button, and
+    // destroyAndRemove() deletes that button without restoring the target —
+    // so each mount creates a fresh target node inside the React-owned
+    // wrapper. (Selecting a static child by class instead would leave
+    // StrictMode's second mount, after the first cleanup, with no element to
+    // attach to and crash the whole editor tree in dev.)
+    const target = document.createElement('div');
+    target.className = 'color-picker';
+    wrapper.appendChild(target);
+
     const pickr = Pickr.create({
-      el: `.${pickerClassName}`,
+      el: target,
       theme: 'monolith',
       default: color,
       defaultRepresentation: 'HEXA',
       swatches: [],
+      i18n: {
+        // Positionally-distinct accessible names for the swatch buttons.
+        'btn:toggle': index === 0 ? 'Background color' : `Color ${index + 1}`,
+      },
       components: {
         // Main components
         preview: true,
@@ -52,6 +72,9 @@ export default function ColorPicker({
     return () => {
       pickrRef.current = null;
       pickr.destroyAndRemove();
+      // destroyAndRemove() removes Pickr's button; drop anything left of the
+      // per-mount target so remounts start clean.
+      target.remove();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -63,13 +86,8 @@ export default function ColorPicker({
     pickrRef.current?.setColor(color);
   }, [color]);
 
-  // Pickr replaces the inner element with its own swatch button, so React must
-  // own a wrapper around it — unmounting (e.g. removing a palette color) would
-  // otherwise have React remove a node Pickr already detached, which throws
-  // and blanks the whole tree.
-  return (
-    <div>
-      <div className={`${pickerClassName} color-picker`} />
-    </div>
-  );
+  // React owns only this wrapper; Pickr's swatch button lives inside it and
+  // is created/removed by the effect above — React never has to reconcile a
+  // node Pickr has already detached.
+  return <div ref={wrapperRef} />;
 }

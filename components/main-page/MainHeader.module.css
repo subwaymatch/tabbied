@@ -169,7 +169,11 @@
   text-decoration: none;
   border-bottom: 1px solid var(--gray-ultra-light);
   cursor: pointer;
-  outline: none;
+}
+
+.drawerLink:focus-visible {
+  outline: 2px solid var(--blue-medium);
+  outline-offset: -2px;
 }
 
 .drawerLink:hover {
