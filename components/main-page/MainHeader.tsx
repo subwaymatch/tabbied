@@ -25,7 +25,7 @@ function GithubIcon({ size = 24 }: { size?: number }) {
 
 const navItems = [
   { href: '/artworks', label: 'Browse Artworks' },
-  { href: '/docs/react', label: 'React Component' },
+  { href: '/docs/react', label: 'Docs' },
 ];
 
 // The site is a static export with `trailingSlash: true`, so the live pathname
