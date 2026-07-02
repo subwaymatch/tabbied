@@ -16,10 +16,13 @@ const REDRAW_STAGGER_MS = 1500;
 
 export default function GalleryDoodleInner({
   item,
+  palette,
   paused = false,
   onReady,
 }: {
   item: GalleryItem;
+  /** Preview palette override (color0 first) — e.g. an active brand palette. */
+  palette?: string[];
   /** Skip reseed ticks (set while the card is outside the viewport). */
   paused?: boolean;
   /** Called once the doodle has been measured and first painted. */
@@ -48,7 +51,7 @@ export default function GalleryDoodleInner({
   return (
     <TabbiedArtwork
       artwork={artworks[item.slug]}
-      palette={baseColors.slice(0, defaultCount)}
+      palette={palette ?? baseColors.slice(0, defaultCount)}
       options={config?.options}
       fit="cover"
       coverRender={{ ...DEFAULT_RENDER, ...config?.render }}
