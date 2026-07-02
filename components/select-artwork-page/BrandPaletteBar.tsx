@@ -13,7 +13,6 @@ import {
   importPalettesJson,
   isValidPaletteColor,
   setActivePalette,
-  setTransparentBackground,
   upsertPalette,
   useBrandPalettes,
   type BrandPalette,
@@ -28,6 +27,7 @@ type Draft = {
   id: string;
   name: string;
   colors: string[];
+  transparent: boolean;
   /** Whether the draft edits an existing palette (shows Delete). */
   existing: boolean;
 };
@@ -36,6 +36,7 @@ const draftFromPalette = (palette: BrandPalette): Draft => ({
   id: palette.id,
   name: palette.name,
   colors: [...palette.colors],
+  transparent: palette.transparentBackground === true,
   existing: true,
 });
 
@@ -43,6 +44,7 @@ const newDraft = (): Draft => ({
   id: createPaletteId(),
   name: '',
   colors: [...STARTER_COLORS],
+  transparent: false,
   existing: false,
 });
 
@@ -63,8 +65,7 @@ const toColorInputValue = (hex: string): string => {
 };
 
 export default function BrandPaletteBar() {
-  const { palettes, activePaletteId, transparentBackground } =
-    useBrandPalettes();
+  const { palettes, activePaletteId } = useBrandPalettes();
 
   const [draft, setDraft] = useState<Draft | null>(null);
   const [draftError, setDraftError] = useState<string | null>(null);
@@ -94,7 +95,12 @@ export default function BrandPaletteBar() {
       return;
     }
 
-    upsertPalette({ id: draft.id, name: draft.name, colors: draft.colors });
+    upsertPalette({
+      id: draft.id,
+      name: draft.name,
+      colors: draft.colors,
+      transparentBackground: draft.transparent,
+    });
     setActivePalette(draft.id);
     setDraft(null);
   };
@@ -165,10 +171,13 @@ export default function BrandPaletteBar() {
           role="radiogroup"
           aria-label="Active palette"
         >
+          {/* With no saved palettes there is nothing to switch away from, so
+              the default option is disabled (it is still the checked state). */}
           <button
             type="button"
             role="radio"
             aria-checked={activePaletteId === null}
+            disabled={palettes.length === 0}
             className={
               activePaletteId === null
                 ? `${styles.chip} ${styles.chipActive}`
@@ -199,8 +208,16 @@ export default function BrandPaletteBar() {
                     {palette.colors.map((color, index) => (
                       <span
                         key={`${color}-${index}`}
-                        className={styles.swatch}
-                        style={{ backgroundColor: color }}
+                        className={
+                          index === 0 && palette.transparentBackground
+                            ? `${styles.swatch} ${styles.swatchTransparent}`
+                            : styles.swatch
+                        }
+                        style={
+                          index === 0 && palette.transparentBackground
+                            ? undefined
+                            : { backgroundColor: color }
+                        }
                       />
                     ))}
                   </span>
@@ -256,14 +273,6 @@ export default function BrandPaletteBar() {
               event.target.value = '';
             }}
           />
-
-          <label className={styles.transparentToggle}>
-            Transparent background
-            <ToggleSwitch
-              isChecked={transparentBackground}
-              onChange={setTransparentBackground}
-            />
-          </label>
         </div>
 
         {status && (
@@ -316,55 +325,77 @@ export default function BrandPaletteBar() {
                     Colors (background first)
                   </span>
                   <div className={styles.colorRows}>
-                    {draft.colors.map((color, index) => (
-                      <div className={styles.colorRow} key={index}>
-                        <input
-                          type="color"
-                          className={styles.colorInput}
-                          value={toColorInputValue(color)}
-                          aria-label={
-                            index === 0
-                              ? 'Background color'
-                              : `Color ${index + 1}`
+                    {draft.colors.map((color, index) => {
+                      // With a transparent background the color0 value is
+                      // kept (toggling back restores it) but not used, so
+                      // its row is dimmed and inert.
+                      const inertBackground = index === 0 && draft.transparent;
+
+                      return (
+                        <div
+                          className={
+                            inertBackground
+                              ? `${styles.colorRow} ${styles.colorRowInert}`
+                              : styles.colorRow
                           }
-                          onChange={(event) =>
-                            setDraftColor(index, event.target.value)
-                          }
-                        />
-                        <input
-                          type="text"
-                          className={styles.hexInput}
-                          value={color}
-                          aria-label={
-                            index === 0
-                              ? 'Background color hex value'
-                              : `Color ${index + 1} hex value`
-                          }
-                          onChange={(event) =>
-                            setDraftColor(index, event.target.value)
-                          }
-                        />
-                        <span className={styles.roleLabel}>
-                          {index === 0 ? 'background' : ''}
-                        </span>
-                        <button
-                          type="button"
-                          className={styles.removeColor}
-                          aria-label={`Remove color ${index + 1}`}
-                          disabled={draft.colors.length <= MIN_PALETTE_COLORS}
-                          onClick={() =>
-                            setDraft({
-                              ...draft,
-                              colors: draft.colors.filter(
-                                (_, i) => i !== index
-                              ),
-                            })
-                          }
+                          key={index}
                         >
-                          <X size={16} />
-                        </button>
-                      </div>
-                    ))}
+                          <input
+                            type="color"
+                            className={styles.colorInput}
+                            value={toColorInputValue(color)}
+                            disabled={inertBackground}
+                            aria-label={
+                              index === 0
+                                ? 'Background color'
+                                : `Color ${index + 1}`
+                            }
+                            onChange={(event) =>
+                              setDraftColor(index, event.target.value)
+                            }
+                          />
+                          <input
+                            type="text"
+                            className={styles.hexInput}
+                            value={color}
+                            disabled={inertBackground}
+                            aria-label={
+                              index === 0
+                                ? 'Background color hex value'
+                                : `Color ${index + 1} hex value`
+                            }
+                            onChange={(event) =>
+                              setDraftColor(index, event.target.value)
+                            }
+                          />
+                          <span className={styles.roleLabel}>
+                            {index === 0
+                              ? draft.transparent
+                                ? 'background (transparent)'
+                                : 'background'
+                              : ''}
+                          </span>
+                          <button
+                            type="button"
+                            className={styles.removeColor}
+                            aria-label={`Remove color ${index + 1}`}
+                            disabled={
+                              draft.colors.length <= MIN_PALETTE_COLORS
+                            }
+                            onClick={() =>
+                              setDraft({
+                                ...draft,
+                                colors: draft.colors.filter(
+                                  (_, i) => i !== index
+                                ),
+                              })
+                            }
+                          >
+                            <X size={16} />
+                          </button>
+                        </div>
+                      );
+                    })}
                   </div>
 
                   {draft.colors.length < MAX_PALETTE_COLORS && (
@@ -385,6 +416,25 @@ export default function BrandPaletteBar() {
                       <Plus size={16} /> Add color
                     </button>
                   )}
+                </div>
+
+                <div className={styles.dialogField}>
+                  <label className={styles.transparentToggle}>
+                    <ToggleSwitch
+                      small
+                      isChecked={draft.transparent}
+                      onChange={(checked) =>
+                        setDraft({ ...draft, transparent: checked })
+                      }
+                    />
+                    <span>
+                      Transparent background
+                      <span className={styles.toggleHint}>
+                        Renders and exports this palette without a background
+                        color.
+                      </span>
+                    </span>
+                  </label>
                 </div>
 
                 {draftError && (

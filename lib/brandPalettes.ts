@@ -14,14 +14,18 @@ export type BrandPalette = {
   name: string;
   /** Colors, background (color0) first, then the inks. */
   colors: string[];
+  /**
+   * Render with a transparent background: the stored background color is kept
+   * (so the toggle is reversible) but color0 resolves to transparent wherever
+   * the palette is applied.
+   */
+  transparentBackground?: boolean;
 };
 
 export type BrandPaletteState = {
   palettes: BrandPalette[];
   /** null = artwork default palettes. */
   activePaletteId: string | null;
-  /** Render previews with a transparent background (color0). */
-  transparentBackground: boolean;
 };
 
 export const STORAGE_KEY = 'tabbied.brandPalettes.v1';
@@ -35,7 +39,6 @@ const HEX_COLOR = /^#(?:[0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})$/i;
 const DEFAULT_STATE: BrandPaletteState = {
   palettes: [],
   activePaletteId: null,
-  transparentBackground: false,
 };
 
 export const isValidPaletteColor = (value: unknown): value is string =>
@@ -62,6 +65,7 @@ const normalizePalette = (palette: BrandPalette): BrandPalette => ({
   id: palette.id,
   name: palette.name.trim(),
   colors: palette.colors.map((color) => color.trim().toLowerCase()),
+  transparentBackground: palette.transparentBackground === true,
 });
 
 export const createPaletteId = (): string =>
@@ -95,11 +99,7 @@ const readState = (): BrandPaletteState => {
         ? parsed.activePaletteId
         : null;
 
-    return {
-      palettes,
-      activePaletteId,
-      transparentBackground: parsed.transparentBackground === true,
-    };
+    return { palettes, activePaletteId };
   } catch {
     // Corrupt storage (hand-edited, quota weirdness) falls back to defaults
     // rather than breaking the gallery.
@@ -207,17 +207,15 @@ export const setActivePalette = (id: string | null) => {
   });
 };
 
-export const setTransparentBackground = (transparent: boolean) => {
-  writeState({ ...getBrandPaletteState(), transparentBackground: transparent });
-};
-
 // ---------------------------------------------------------------------------
 // JSON import / export
 // ---------------------------------------------------------------------------
 
 export type BrandPaletteExport = {
   version: 1;
-  palettes: Array<Pick<BrandPalette, 'name' | 'colors'>>;
+  palettes: Array<
+    Pick<BrandPalette, 'name' | 'colors' | 'transparentBackground'>
+  >;
 };
 
 /** All saved palettes as a portable JSON document. */
@@ -225,7 +223,11 @@ export const exportPalettesJson = (): string => {
   const { palettes } = getBrandPaletteState();
   const doc: BrandPaletteExport = {
     version: 1,
-    palettes: palettes.map(({ name, colors }) => ({ name, colors })),
+    palettes: palettes.map(({ name, colors, transparentBackground }) => ({
+      name,
+      colors,
+      ...(transparentBackground ? { transparentBackground: true } : {}),
+    })),
   };
 
   return JSON.stringify(doc, null, 2);
@@ -277,8 +279,12 @@ export const importPalettesJson = (
   }
 
   const state = getBrandPaletteState();
-  const signature = (palette: Pick<BrandPalette, 'name' | 'colors'>) =>
-    `${palette.name.toLowerCase()}|${palette.colors.join(',')}`;
+  const signature = (
+    palette: Pick<BrandPalette, 'name' | 'colors' | 'transparentBackground'>
+  ) =>
+    `${palette.name.toLowerCase()}|${palette.colors.join(',')}|${
+      palette.transparentBackground === true
+    }`;
   const existing = new Set(state.palettes.map(signature));
 
   const fresh = incoming.filter((palette) => !existing.has(signature(palette)));
@@ -291,27 +297,25 @@ export const importPalettesJson = (
 };
 
 // ---------------------------------------------------------------------------
-// Applying a brand palette to an artwork preview
+// Applying a brand palette to an artwork
 // ---------------------------------------------------------------------------
 
+/** The palette's colors with color0 resolved for rendering. */
+export const resolvePaletteColors = (palette: BrandPalette): string[] =>
+  palette.transparentBackground
+    ? ['transparent', ...palette.colors.slice(1)]
+    : [...palette.colors];
+
 /**
- * The palette to hand to <TabbiedArtwork> for a preview: the brand colors
- * (when a brand palette is active) or the artwork's own colors, with the
- * background slot forced to 'transparent' when the toggle is on.
- * Returns undefined when nothing overrides the artwork defaults.
+ * The palette to hand to <TabbiedArtwork> for a gallery preview: the active
+ * brand palette's colors, or undefined when the artwork defaults apply.
  */
 export const previewPalette = (
-  artworkColors: string[],
   state: BrandPaletteState
 ): string[] | undefined => {
   const active = state.palettes.find(
     (palette) => palette.id === state.activePaletteId
   );
-  const base = active ? active.colors : artworkColors;
 
-  if (!active && !state.transparentBackground) return undefined;
-
-  return state.transparentBackground
-    ? ['transparent', ...base.slice(1)]
-    : [...base];
+  return active ? resolvePaletteColors(active) : undefined;
 };

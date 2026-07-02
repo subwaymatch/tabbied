@@ -5,7 +5,6 @@ import type { GalleryItem } from 'lib/artwork';
 import { previewPalette, useBrandPalettes } from 'lib/brandPalettes';
 import { markGalleryNavigation } from 'lib/galleryScroll';
 import GalleryDoodle, { isDarkColor } from './GalleryDoodle';
-import { galleryThumbnails } from './galleryThumbnails';
 import styles from './SelectArtwork.module.css';
 
 // One gallery card: title + live thumbnail. Client-side because the preview
@@ -13,14 +12,7 @@ import styles from './SelectArtwork.module.css';
 // title color — the authored white/dark flag only applies to artwork colors.
 export default function GalleryCard({ item }: { item: GalleryItem }) {
   const brandState = useBrandPalettes();
-
-  const thumbConfig = galleryThumbnails[item.slug];
-  const baseColors = thumbConfig?.palette ?? item.palette;
-  const defaultCount = item.colors?.default ?? baseColors.length;
-  const palette = previewPalette(
-    baseColors.slice(0, defaultCount),
-    brandState
-  );
+  const palette = previewPalette(brandState);
 
   // A transparent background previews over a light checkerboard, so the title
   // renders dark there (isDarkColor treats non-hex as light).

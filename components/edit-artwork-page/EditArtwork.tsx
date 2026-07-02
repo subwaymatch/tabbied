@@ -24,6 +24,7 @@ import EditArtworkHeader from 'components/edit-artwork-page/EditArtworkHeader';
 import ButtonSelectGroup from 'components/ButtonSelectGroup';
 import ValueSlider from 'components/ValueSlider';
 import ToggleSwitch from 'components/ToggleSwitch';
+import { useBrandPalettes, type BrandPalette } from 'lib/brandPalettes';
 import styles from './EditArtwork.module.css';
 
 const ColorPicker = dynamic(() => import('components/ColorPicker'), {
@@ -247,6 +248,9 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
   const isTwoColumn = useMediaQuery('(min-width: 992px)');
   const baseWidth = isScreenXS ? 240 : 360;
 
+  // Saved brand palettes (managed on /artworks) offered as one-click presets.
+  const { palettes: brandPalettes } = useBrandPalettes();
+
   // Scale the artwork to fill the preview area (leaving a margin) so it shows as
   // large as the space allows. Until the preview is measured, fall back to the
   // original fixed footprint. In the stacked (single-column) layout the preview
@@ -396,6 +400,28 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     );
   };
 
+  // Apply a saved brand palette (see /artworks) to this artwork. Pickr and
+  // the URL carry HEXA values, so a transparent background becomes the stored
+  // color with zero alpha — reversible in the picker, and PNG exports keep
+  // the real transparency.
+  const applyBrandPalette = (brand: BrandPalette) => {
+    const colors = brand.colors.map((color, index) =>
+      index === 0 && brand.transparentBackground ? `${color}00` : color
+    );
+
+    setPalette((prev) => {
+      const next = [...prev];
+      const limit = Math.min(colors.length, next.length);
+
+      for (let i = 0; i < limit; i += 1) {
+        next[i] = colors[i];
+      }
+
+      return next;
+    });
+    setColorCount(Math.min(maxColors, Math.max(minColors, colors.length)));
+  };
+
   // Switching the aspect ratio re-derives every grid option at its current
   // density level so the preset keeps its intended coarseness and square cells.
   const changeAspectRatio = (nextRatio: AspectRatioId) => {
@@ -499,6 +525,12 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
   const previewBackground = palette.length > 0 ? palette[0] : 'transparent';
   const expandIconColor = getExpandIconColor(previewBackground);
 
+  // A zero-alpha background (a transparent brand palette) previews over a
+  // checkerboard, the usual "this is transparent" affordance.
+  const isTransparentBackground =
+    /^#[0-9a-f]{8}$/i.test(previewBackground) &&
+    previewBackground.toLowerCase().endsWith('00');
+
   // Fit the artwork inside the viewport (with a little margin) for the dialog.
   const expanded = fitToBox(
     aspectRatio,
@@ -514,7 +546,11 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
         <Dialog.Root open={isExpanded} onOpenChange={setIsExpanded}>
           <div
             ref={previewRef}
-            className={styles.previewWrapper}
+            className={
+              isTransparentBackground
+                ? `${styles.previewWrapper} ${styles.previewTransparent}`
+                : styles.previewWrapper
+            }
             style={{ backgroundColor: previewBackground }}
           >
             <Dialog.Trigger
@@ -550,7 +586,11 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
                 <X size={24} />
               </Dialog.Close>
               <div
-                className={styles.dialogDoodle}
+                className={
+                  isTransparentBackground
+                    ? `${styles.dialogDoodle} ${styles.previewTransparent}`
+                    : styles.dialogDoodle
+                }
                 style={{ backgroundColor: previewBackground }}
               >
                 {isExpanded && (
@@ -630,6 +670,47 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
                     />
                   ))}
                 </div>
+
+                {brandPalettes.length > 0 && (
+                  <div className={styles.brandPalettes}>
+                    <span className={styles.brandPalettesLabel}>
+                      Apply a brand palette
+                    </span>
+                    <div className={styles.brandPaletteChips}>
+                      {brandPalettes.map((brand) => (
+                        <button
+                          key={brand.id}
+                          type="button"
+                          className={styles.brandPaletteChip}
+                          title={`Apply palette "${brand.name}"`}
+                          onClick={() => applyBrandPalette(brand)}
+                        >
+                          <span
+                            className={styles.brandSwatches}
+                            aria-hidden="true"
+                          >
+                            {brand.colors.map((color, index) => (
+                              <span
+                                key={`${color}-${index}`}
+                                className={
+                                  index === 0 && brand.transparentBackground
+                                    ? `${styles.brandSwatch} ${styles.brandSwatchTransparent}`
+                                    : styles.brandSwatch
+                                }
+                                style={
+                                  index === 0 && brand.transparentBackground
+                                    ? undefined
+                                    : { backgroundColor: color }
+                                }
+                              />
+                            ))}
+                          </span>
+                          {brand.name}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             )}
 
