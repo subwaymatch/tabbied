@@ -81,6 +81,20 @@ on its built-in measurable placeholder until it mounts.
 
 See the inline JSDoc on `TabbiedArtworkProps` for the full list.
 
+### Fit modes
+
+- `grid` (default) — adapts the cell grid to the measured container: whole,
+  near-square cells edge to edge at any box shape.
+- `cover` — draws a fixed-resolution render and scales it into the box
+  (preserving the proportions of fixed-px strokes and shadows). For
+  grid-driven artworks the render follows the box's aspect ratio and re-derives
+  its grid, so the pattern is never cut off mid-cell; special layouts (e.g.
+  Symmetry's centered composition) scale-and-crop instead.
+- `contain` — letterboxes the fixed-resolution render at its authored ratio.
+- `stretch` — keeps the authored grid and stretches it to fill; cells distort
+  with the box, so prefer `grid` unless you specifically want that.
+- `fixed` — renders at explicit `width`/`height` props.
+
 ## Core (framework-agnostic)
 
 ```ts
@@ -88,11 +102,19 @@ import { createArtwork } from 'tabbied';
 import { radius } from 'tabbied/artworks';
 
 const el = document.querySelector('#stage')!;
-const controller = createArtwork(el, { artwork: radius, seed: 'k9Pz' });
+const controller = createArtwork(el, {
+  artwork: radius,
+  seed: 'k9Pz',
+  // Measured fits (grid/cover/contain) mount asynchronously, after the first
+  // ResizeObserver tick delivers the host's size — drive the controller from
+  // onReady rather than immediately after createArtwork().
+  onReady: async () => {
+    controller.redraw(); // re-randomize the seed
+    await controller.exportImage();
+  },
+});
 
-controller.redraw();        // re-randomize the seed
-await controller.exportImage();
-controller.destroy();
+// later: controller.destroy();
 ```
 
 ## License

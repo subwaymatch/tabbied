@@ -58,6 +58,41 @@ test.describe('tabbied package (component test page)', () => {
       .toBeLessThan(wideCount);
   });
 
+  test('fit="cover" tiles a grid artwork with whole cells (no mid-cell crop)', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1200, height: 800 });
+    await page.goto('/package-test');
+
+    const selector = '#fit-cover [data-artwork="radius"]';
+    const doodle = page.locator(`${selector} css-doodle`);
+    await expect(doodle).toBeAttached({ timeout: 15000 });
+
+    await expect
+      .poll(() => paintedCells(page, selector), { timeout: 10000 })
+      .toBeGreaterThan(1);
+
+    // The adapted render matches the host's aspect ratio, so the scaled
+    // canvas fills the wide box exactly instead of overflowing vertically
+    // (the old fixed 800×800 render was ~72% cropped at this shape).
+    const hostBox = (await page.locator(selector).boundingBox())!;
+    const doodleBox = (await doodle.boundingBox())!;
+    expect(Math.abs(doodleBox.width - hostBox.width)).toBeLessThan(2);
+    expect(Math.abs(doodleBox.height - hostBox.height)).toBeLessThan(2);
+
+    // And the cells it is tiled with stay near-square (the on-screen cell
+    // rect includes the cover scaling transform).
+    const cellRatio = await page.evaluate((sel) => {
+      const el = document.querySelector(`${sel} css-doodle`);
+      const cell = el?.shadowRoot?.querySelector('cssd-cell');
+      if (!cell) return 0;
+      const rect = cell.getBoundingClientRect();
+      return rect.width / rect.height;
+    }, selector);
+    expect(cellRatio).toBeGreaterThan(0.8);
+    expect(cellRatio).toBeLessThan(1.25);
+  });
+
   test('fit="stretch" keeps the authored grid and fills the box', async ({
     page,
   }) => {

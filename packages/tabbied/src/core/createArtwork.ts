@@ -13,8 +13,11 @@ import {
   DEFAULT_FIXED_SIZE,
   DENSITY_CELL_PX,
   GRID_OPTION_ID,
+  adaptCoverRenderToBox,
+  coverCellPx,
   deriveGridForBox,
   fitRenderToBox,
+  hasGridOption,
   resolveFitMode,
   type CoverRender,
 } from './sizing.js';
@@ -122,14 +125,20 @@ export function createArtwork(
   let gridTimer: ReturnType<typeof setTimeout> | null = null;
   let destroyed = false;
   let readyFired = false;
+  // Inline host styles the cover/contain mount overwrote, restored when the
+  // element unmounts so destroy() (or a fit change) leaves the host as found.
+  let hostStyleBackup: { position: string; overflow: string } | null = null;
 
   let hostSize: { width: number; height: number } | null = null;
   // What the live element currently shows, for update()-vs-recreate diffing.
+  // renderBox is the canvas size a cover/contain render was drawn at — the
+  // scaling transform must track what's in the DOM, not the latest measure.
   let rendered: {
     structure: string;
     styleCode: string;
     doodleCode: string;
     seed: string;
+    renderBox: CoverRender | null;
   } | null = null;
 
   const resolve = (): ResolvedConfig => {
@@ -172,25 +181,57 @@ export function createArtwork(
   const needsMeasure = (fit: FitMode): boolean =>
     fit === 'grid' || fit === 'cover' || fit === 'contain';
 
+  // Whether `cover` adapts its render box + grid to the host's shape (whole
+  // cells edge-to-edge, nothing cropped mid-cell). Special layouts keep the
+  // authored fixed-shape render and crop instead: compositions without a
+  // "colsxrows" grid option (their layout isn't cell-tiled — think Symmetry's
+  // centered scene) and renders with an explicit `cropTop`.
+  const isAdaptiveCover = (resolved: ResolvedConfig): boolean =>
+    resolved.fit === 'cover' &&
+    hasGridOption(resolved.definition) &&
+    resolved.coverRender.cropTop == null;
+
+  // The fixed-resolution box a cover/contain render draws at.
+  const resolveRenderBox = (resolved: ResolvedConfig): CoverRender => {
+    if (isAdaptiveCover(resolved) && hostSize) {
+      return adaptCoverRenderToBox(
+        hostSize.width,
+        hostSize.height,
+        resolved.coverRender
+      );
+    }
+
+    return resolved.coverRender;
+  };
+
   // The css-doodle canvas size and effective option values for the strategy.
   const buildSource = (resolved: ResolvedConfig) => {
     const { definition, fit } = resolved;
     let width: string;
     let height: string;
     let optionValues = resolved.optionValues;
+    let renderBox: CoverRender | null = null;
 
     if (fit === 'fixed') {
       width = `${resolved.fixedWidth}px`;
       height = `${resolved.fixedHeight}px`;
     } else if (fit === 'cover' || fit === 'contain') {
-      width = `${resolved.coverRender.width}px`;
-      height = `${resolved.coverRender.height}px`;
+      renderBox = resolveRenderBox(resolved);
+      width = `${renderBox.width}px`;
+      height = `${renderBox.height}px`;
     } else {
       // grid + stretch fill the host; the pattern only depends on seed + grid,
       // so percentage sizing renders identically at any container size.
       width = '100%';
       height = '100%';
     }
+
+    const overrideGrid = (cols: number, rows: number) =>
+      definition.options.map((option, index) =>
+        option.id === GRID_OPTION_ID
+          ? `${cols}x${rows}`
+          : resolved.optionValues[index]
+      );
 
     if (fit === 'grid' && hostSize) {
       const { cols, rows } = deriveGridForBox(
@@ -200,21 +241,44 @@ export function createArtwork(
         definition.sizing
       );
 
-      optionValues = definition.options.map((option, index) =>
-        option.id === GRID_OPTION_ID
-          ? `${cols}x${rows}`
-          : resolved.optionValues[index]
+      optionValues = overrideGrid(cols, rows);
+    } else if (renderBox && isAdaptiveCover(resolved) && hostSize) {
+      // Cell size for the adapted box: an explicit cellSize/density prop is in
+      // host px (grid-fit semantics), so it converts through the render scale;
+      // otherwise the pinned/authored grid's cell size on the base box is kept.
+      const gridIndex = definition.options.findIndex(
+        (option) => option.id === GRID_OPTION_ID
       );
+      const authoredCell = coverCellPx(
+        String(resolved.optionValues[gridIndex]),
+        resolved.coverRender
+      );
+      const explicitCell = config.cellSize != null || config.density != null;
+      const cellPx =
+        explicitCell || authoredCell == null
+          ? (resolved.targetCellPx * renderBox.width) / hostSize.width
+          : authoredCell;
+      const { cols, rows } = deriveGridForBox(
+        renderBox.width,
+        renderBox.height,
+        cellPx,
+        definition.sizing
+      );
+
+      optionValues = overrideGrid(cols, rows);
     }
 
-    return buildDoodleSource({
-      code: definition.code,
-      options: definition.options,
-      palette: resolved.palette,
-      optionValues,
-      width,
-      height,
-    });
+    return {
+      ...buildDoodleSource({
+        code: definition.code,
+        options: definition.options,
+        palette: resolved.palette,
+        optionValues,
+        width,
+        height,
+      }),
+      renderBox,
+    };
   };
 
   const applyTransform = (resolved: ResolvedConfig) => {
@@ -229,7 +293,7 @@ export function createArtwork(
     const { scale, translateX, translateY } = fitRenderToBox(
       hostSize.width,
       hostSize.height,
-      resolved.coverRender,
+      rendered?.renderBox ?? resolved.coverRender,
       resolved.fit
     );
 
@@ -254,7 +318,7 @@ export function createArtwork(
   // Mount the <style> + <css-doodle> pair for the current config. css-doodle
   // renders its text content on mount, so the source is set before appending.
   const mountElement = (resolved: ResolvedConfig) => {
-    const { styleCode, doodleCode } = buildSource(resolved);
+    const { styleCode, doodleCode, renderBox } = buildSource(resolved);
 
     styleEl = document.createElement('style');
     styleEl.textContent = `css-doodle[data-tabbied="${uid}"] { ${styleCode} }`;
@@ -265,11 +329,23 @@ export function createArtwork(
     element.setAttribute('data-seed', seed);
     element.textContent = doodleCode;
 
+    rendered = {
+      structure: structureKey(resolved),
+      styleCode,
+      doodleCode,
+      seed,
+      renderBox,
+    };
+
     if (resolved.fit === 'cover' || resolved.fit === 'contain') {
       // Fixed-resolution render scaled into the host (which clips overflow).
       // Positioning is set before append so the oversized canvas never
       // affects layout.
       const hostStyle = getComputedStyle(host);
+      hostStyleBackup ??= {
+        position: host.style.position,
+        overflow: host.style.overflow,
+      };
       if (hostStyle.position === 'static') {
         host.style.position = 'relative';
       }
@@ -282,13 +358,6 @@ export function createArtwork(
 
     host.appendChild(styleEl);
     host.appendChild(element);
-
-    rendered = {
-      structure: structureKey(resolved),
-      styleCode,
-      doodleCode,
-      seed,
-    };
 
     fireReady();
   };
@@ -303,6 +372,12 @@ export function createArtwork(
     styleEl = null;
     element = null;
     rendered = null;
+
+    if (hostStyleBackup) {
+      host.style.position = hostStyleBackup.position;
+      host.style.overflow = hostStyleBackup.overflow;
+      hostStyleBackup = null;
+    }
   };
 
   // Push the current config into the live element. The seed rides on the
@@ -316,12 +391,14 @@ export function createArtwork(
   const applyUpdate = (resolved: ResolvedConfig) => {
     if (!element || !rendered) return;
 
-    const { styleCode, doodleCode } = buildSource(resolved);
+    const { styleCode, doodleCode, renderBox } = buildSource(resolved);
     const styleChanged = styleCode !== rendered.styleCode;
     const seedChanged = seed !== rendered.seed;
     const doodleChanged = doodleCode !== rendered.doodleCode;
 
     if (!styleChanged && !seedChanged && !doodleChanged) {
+      // The render box is embedded in the doodle source (@size), so an
+      // unchanged source means an unchanged box.
       return;
     }
 
@@ -334,7 +411,7 @@ export function createArtwork(
     }
 
     element.update(doodleCode);
-    rendered = { ...rendered, styleCode, doodleCode, seed };
+    rendered = { ...rendered, styleCode, doodleCode, seed, renderBox };
   };
 
   // Full reconcile after a config change: re-create on structural changes,
@@ -383,18 +460,28 @@ export function createArtwork(
     }
 
     if (resolved.fit === 'cover' || resolved.fit === 'contain') {
-      // Re-scaling is cheap — apply on every tick.
+      // Re-scaling the already-rendered canvas is cheap — apply on every
+      // tick. Fixed-shape renders are done here; an adaptive cover render
+      // also re-derives its box + grid below (debounced), since its shape
+      // tracks the host's.
       applyTransform(resolved);
-      return;
+
+      if (!isAdaptiveCover(resolved)) {
+        return;
+      }
     }
 
-    if (resolved.fit === 'grid' && previous) {
+    if ((resolved.fit === 'grid' || resolved.fit === 'cover') && previous) {
       // Between grid steps the canvas stretches via CSS; only a changed
       // derived grid re-renders, debounced so a drag-resize settles first.
       if (gridTimer !== null) clearTimeout(gridTimer);
       gridTimer = setTimeout(() => {
         gridTimer = null;
-        if (!destroyed) applyUpdate(resolve());
+        if (destroyed) return;
+
+        const next = resolve();
+        applyUpdate(next);
+        applyTransform(next);
       }, GRID_RESIZE_DEBOUNCE_MS);
     }
   };
