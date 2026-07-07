@@ -1,6 +1,6 @@
 .toggleSwitch {
   appearance: none;
-  border: none;
+  border: 1px solid var(--gray); /* keeps the off state ≥3:1 against white */
   padding: 0;
   cursor: pointer;
   position: relative;
@@ -12,14 +12,20 @@
   border-radius: 60px;
 }
 
+.toggleSwitch:focus-visible {
+  outline: 2px solid var(--blue-medium);
+  outline-offset: 2px;
+}
+
 .toggleSwitch[data-checked] {
+  border-color: var(--gray-dark);
   background-color: var(--gray-dark);
 }
 
 .thumb {
   position: absolute;
-  top: 2px;
-  left: 2px;
+  top: 1px;
+  left: 1px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -27,8 +33,9 @@
   height: 32px;
   border-radius: 50%;
   background-color: white;
-  color: var(--gray-light);
-  transition: all 0.3s;
+  color: var(--gray-medium);
+  /* transform (not `left`) so the slide is compositable, no layout work. */
+  transition: transform 0.3s, color 0.3s;
 }
 
 .thumb::after {
@@ -36,10 +43,26 @@
 }
 
 .toggleSwitch[data-checked] .thumb {
-  left: 26px;
-  color: var(--gray-medium);
+  transform: translateX(24px);
+  color: var(--gray-dark);
 }
 
 .toggleSwitch[data-checked] .thumb::after {
   content: '\2713';
+}
+
+/* Compact variant. */
+.toggleSwitch.small {
+  width: 40px;
+  height: 24px;
+}
+
+.small .thumb {
+  width: 20px;
+  height: 20px;
+  font-size: 0.65rem;
+}
+
+.toggleSwitch.small[data-checked] .thumb {
+  transform: translateX(16px);
 }

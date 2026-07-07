@@ -23,20 +23,25 @@
   "exports": {
     ".": {
       "types": "./dist/core/index.d.ts",
-      "import": "./dist/core/index.js"
+      "import": "./dist/core/index.js",
+      "default": "./dist/core/index.js"
     },
     "./react": {
       "types": "./dist/react/index.d.ts",
-      "import": "./dist/react/index.js"
+      "import": "./dist/react/index.js",
+      "default": "./dist/react/index.js"
     },
     "./artworks": {
       "types": "./dist/artworks.generated.d.ts",
-      "import": "./dist/artworks.generated.js"
-    }
+      "import": "./dist/artworks.generated.js",
+      "default": "./dist/artworks.generated.js"
+    },
+    "./package.json": "./package.json"
   },
+  "main": "./dist/core/index.js",
+  "types": "./dist/core/index.d.ts",
   "files": [
-    "dist",
-    "artworks"
+    "dist"
   ],
   "sideEffects": [
     "./dist/**/register.js"

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { useRouter, usePathname, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { Dialog } from '@base-ui-components/react/dialog';
 import { Shuffle, Expand, X, Minus, Plus } from 'lucide-react';
@@ -24,6 +24,7 @@ import EditArtworkHeader from 'components/edit-artwork-page/EditArtworkHeader';
 import ButtonSelectGroup from 'components/ButtonSelectGroup';
 import ValueSlider from 'components/ValueSlider';
 import ToggleSwitch from 'components/ToggleSwitch';
+import { useBrandPalettes, type BrandPalette } from 'lib/brandPalettes';
 import styles from './EditArtwork.module.css';
 
 const ColorPicker = dynamic(() => import('components/ColorPicker'), {
@@ -145,13 +146,13 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
   const maxColors = artwork.colors?.max ?? paletteDefaults.length;
   const defaultColors = artwork.colors?.default ?? paletteDefaults.length;
 
-  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
   // The value an option takes according to the URL, falling back to the
-  // authored default when the param is absent or malformed (a hand-edited URL
-  // must not feed NaN into a slider, which would blank the control).
+  // authored default when the param is absent or malformed, and clamped /
+  // validated against the option's own bounds (a hand-edited URL must not
+  // feed NaN or an out-of-range value into a control, which would blank it).
   const optionFromQuery = (option: ArtworkOption): OptionValue => {
     const queryVal = searchParams.get(option.id);
 
@@ -160,13 +161,31 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     }
 
     if (typeof option.default === 'number') {
-      const numericVal = Number(queryVal);
+      // Number('') is 0, which would silently pass the NaN guard.
+      const numericVal = queryVal.trim() === '' ? NaN : Number(queryVal);
 
-      return Number.isNaN(numericVal) ? option.default : numericVal;
+      if (Number.isNaN(numericVal)) {
+        return option.default;
+      }
+
+      return Math.min(
+        Math.max(numericVal, option.min ?? -Infinity),
+        option.max ?? Infinity
+      );
     }
 
     if (typeof option.default === 'boolean') {
       return queryVal === 'true';
+    }
+
+    if (option.type === 'ButtonSelectGroup') {
+      // Grid values follow the aspect ratio (their list is dynamic), so they
+      // validate by shape; other groups must match an authored choice.
+      if (option.id === GRID_OPTION_ID) {
+        return /^\d+x\d+$/.test(queryVal) ? queryVal : option.default;
+      }
+
+      return option.options?.includes(queryVal) ? queryVal : option.default;
     }
 
     return queryVal;
@@ -229,6 +248,9 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
   const isTwoColumn = useMediaQuery('(min-width: 992px)');
   const baseWidth = isScreenXS ? 240 : 360;
 
+  // Saved brand palettes (managed on /artworks) offered as one-click presets.
+  const { palettes: brandPalettes } = useBrandPalettes();
+
   // Scale the artwork to fill the preview area (leaving a margin) so it shows as
   // large as the space allows. Until the preview is measured, fall back to the
   // original fixed footprint. In the stacked (single-column) layout the preview
@@ -245,7 +267,7 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
 
   // Sync component state FROM the URL search params after mount (back /
   // forward navigation re-renders with new params without remounting). Each
-  // setter is guarded so an echo of our own router.replace is a no-op.
+  // setter is guarded so an echo of our own URL replace is a no-op.
   useEffect(() => {
     const queryPaletteState = paletteStateFromQuery();
 
@@ -340,7 +362,11 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     });
 
     if (newParams.toString() !== searchParams.toString()) {
-      router.replace(`${pathname}?${newParams.toString()}`, { scroll: false });
+      // Native replaceState (which the App Router keeps in sync with
+      // useSearchParams) instead of router.replace: the page is fully static,
+      // so a router navigation would refetch an identical RSC payload from
+      // the CDN on every knob tweak — a network request per slider step.
+      window.history.replaceState(null, '', `${pathname}?${newParams.toString()}`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [seed, palette, colorCount, optionValues, aspectRatio]);
@@ -372,6 +398,28 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     setColorCount((prev) =>
       Math.min(maxColors, Math.max(minColors, prev + delta))
     );
+  };
+
+  // Apply a saved brand palette (see /artworks) to this artwork. Pickr and
+  // the URL carry HEXA values, so a transparent background becomes the stored
+  // color with zero alpha — reversible in the picker, and PNG exports keep
+  // the real transparency.
+  const applyBrandPalette = (brand: BrandPalette) => {
+    const colors = brand.colors.map((color, index) =>
+      index === 0 && brand.transparentBackground ? `${color}00` : color
+    );
+
+    setPalette((prev) => {
+      const next = [...prev];
+      const limit = Math.min(colors.length, next.length);
+
+      for (let i = 0; i < limit; i += 1) {
+        next[i] = colors[i];
+      }
+
+      return next;
+    });
+    setColorCount(Math.min(maxColors, Math.max(minColors, colors.length)));
   };
 
   // Switching the aspect ratio re-derives every grid option at its current
@@ -449,6 +497,7 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
               step={option.step!}
               value={controlValue as number}
               onChange={onChange}
+              label={option.displayName}
             />
           </div>
         );
@@ -476,6 +525,12 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
   const previewBackground = palette.length > 0 ? palette[0] : 'transparent';
   const expandIconColor = getExpandIconColor(previewBackground);
 
+  // A zero-alpha background (a transparent brand palette) previews over a
+  // checkerboard, the usual "this is transparent" affordance.
+  const isTransparentBackground =
+    /^#[0-9a-f]{8}$/i.test(previewBackground) &&
+    previewBackground.toLowerCase().endsWith('00');
+
   // Fit the artwork inside the viewport (with a little margin) for the dialog.
   const expanded = fitToBox(
     aspectRatio,
@@ -491,7 +546,11 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
         <Dialog.Root open={isExpanded} onOpenChange={setIsExpanded}>
           <div
             ref={previewRef}
-            className={styles.previewWrapper}
+            className={
+              isTransparentBackground
+                ? `${styles.previewWrapper} ${styles.previewTransparent}`
+                : styles.previewWrapper
+            }
             style={{ backgroundColor: previewBackground }}
           >
             <Dialog.Trigger
@@ -527,7 +586,11 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
                 <X size={24} />
               </Dialog.Close>
               <div
-                className={styles.dialogDoodle}
+                className={
+                  isTransparentBackground
+                    ? `${styles.dialogDoodle} ${styles.previewTransparent}`
+                    : styles.dialogDoodle
+                }
                 style={{ backgroundColor: previewBackground }}
               >
                 {isExpanded && (
@@ -607,6 +670,47 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
                     />
                   ))}
                 </div>
+
+                {brandPalettes.length > 0 && (
+                  <div className={styles.brandPalettes}>
+                    <span className={styles.brandPalettesLabel}>
+                      Apply a brand palette
+                    </span>
+                    <div className={styles.brandPaletteChips}>
+                      {brandPalettes.map((brand) => (
+                        <button
+                          key={brand.id}
+                          type="button"
+                          className={styles.brandPaletteChip}
+                          title={`Apply palette "${brand.name}"`}
+                          onClick={() => applyBrandPalette(brand)}
+                        >
+                          <span
+                            className={styles.brandSwatches}
+                            aria-hidden="true"
+                          >
+                            {brand.colors.map((color, index) => (
+                              <span
+                                key={`${color}-${index}`}
+                                className={
+                                  index === 0 && brand.transparentBackground
+                                    ? `${styles.brandSwatch} ${styles.brandSwatchTransparent}`
+                                    : styles.brandSwatch
+                                }
+                                style={
+                                  index === 0 && brand.transparentBackground
+                                    ? undefined
+                                    : { backgroundColor: color }
+                                }
+                              />
+                            ))}
+                          </span>
+                          {brand.name}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             )}
 

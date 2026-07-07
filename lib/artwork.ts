@@ -4,9 +4,9 @@
 import {
   artworks,
   isArtworkSlug,
-  type ArtworkDefinition,
   type ArtworkSlug,
-} from 'tabbied';
+} from 'tabbied/artworks';
+import type { ArtworkDefinition } from 'tabbied';
 
 export type {
   ArtworkColors,

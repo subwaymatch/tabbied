@@ -26,10 +26,14 @@ base_sha="${VERCEL_GIT_PREVIOUS_SHA:-}"
 # Fall back to the parent commit when Vercel doesn't give us a usable previous
 # SHA (empty, or absent from this shallow clone — e.g. the first deploy).
 if [ -z "$base_sha" ] || ! git rev-parse --verify --quiet "${base_sha}^{commit}" >/dev/null 2>&1; then
-  if git rev-parse --verify --quiet "${head_sha}^" >/dev/null 2>&1; then
+  # Only trust the parent-commit fallback when we can see it; a multi-commit
+  # push diffing just HEAD^..HEAD could skip earlier commits' site changes,
+  # so err on the side of building.
+  if git rev-parse --verify --quiet "${head_sha}^" >/dev/null 2>&1 && \
+     [ "$(git rev-list --count "${head_sha}" 2>/dev/null || echo 2)" = "1" ]; then
     base_sha="${head_sha}^"
   else
-    echo "vercel-ignore-build: no diff range available — proceeding with the build."
+    echo "vercel-ignore-build: no reliable diff range available — proceeding with the build."
     exit 1
   fi
 fi

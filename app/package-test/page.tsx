@@ -35,6 +35,21 @@ export default function PackageTestPage() {
         </div>
       </section>
 
+      {/* Adaptive cover: a fixed-resolution render whose shape follows the
+          host, so a wide box is tiled with whole cells — nothing cut off
+          mid-cell at the top or bottom edges. */}
+      <section id="fit-cover">
+        <h2>fit=&quot;cover&quot;</h2>
+        <div style={{ height: 320 }}>
+          <TabbiedArtwork
+            artwork={radius}
+            seed="k9Pz"
+            fit="cover"
+            style={{ width: '100%', height: '100%' }}
+          />
+        </div>
+      </section>
+
       {/* Authored grid stretched to the box. */}
       <section id="fit-stretch">
         <h2>fit=&quot;stretch&quot;</h2>

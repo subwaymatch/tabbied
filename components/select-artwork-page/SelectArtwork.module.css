@@ -5,10 +5,6 @@
   cursor: pointer;
 }
 
-.galleryCard:hover {
-  color: var(--pink);
-}
-
 .galleryCard h4 {
   color: var(--gray-dark);
   position: absolute;
@@ -21,6 +17,11 @@
 
 .galleryCard h4.white {
   color: white;
+}
+
+/* After the color rules above so the hover feedback wins on white titles too. */
+.galleryCard:hover h4 {
+  color: var(--pink);
 }
 
 /* Live css-doodle thumbnail: a square frame that clips the scaled artwork.
@@ -47,17 +48,23 @@
   transition: opacity 0.4s ease, visibility 0s 0.4s;
 }
 
+/* The sweep animates `transform` (compositable) rather than
+   background-position, so visible loading cards don't repaint their full
+   gradient on the main thread every frame. The oversized band layer is
+   clipped by .doodleThumb's overflow: hidden. */
 .thumbShimmer::after {
   content: '';
   position: absolute;
-  inset: 0;
+  top: 0;
+  bottom: 0;
+  left: -150%;
+  width: 250%;
   background-image: linear-gradient(
     105deg,
     transparent 38%,
     var(--shimmer-band) 50%,
     transparent 62%
   );
-  background-size: 250% 100%;
   animation: shimmerSweep 1.8s ease-in-out infinite;
 }
 
@@ -76,10 +83,10 @@
 
 @keyframes shimmerSweep {
   from {
-    background-position: 135% 0;
+    transform: translateX(-15%);
   }
   to {
-    background-position: -35% 0;
+    transform: translateX(75%);
   }
 }
 
@@ -87,6 +94,13 @@
   .thumbShimmer::after {
     animation: none;
   }
+}
+
+/* Checkerboard behind transparent-background previews — the standard "this
+   area is transparent" affordance. */
+.thumbChecker {
+  background-image: repeating-conic-gradient(#e3e6ea 0% 25%, #f8f9fa 0% 50%);
+  background-size: 18px 18px;
 }
 
 .doodleThumbInner {
@@ -124,12 +138,13 @@
   padding: 64px 0;
 }
 
-.selectArtworkSection h2 {
+.selectArtworkSection h1 {
   text-align: left;
   color: var(--gray-medium);
   font-size: 1.2rem;
   margin-top: 8px;
-  margin-bottom: 64px;
+  /* The brand-palette bar below provides the separation from the grid. */
+  margin-bottom: 24px;
 }
 
 @media (max-width: 991.98px) {
@@ -141,7 +156,7 @@
     padding: 1rem 0 0 0;
   }
 
-  .selectArtworkSection h2 {
+  .selectArtworkSection h1 {
     padding-left: 1rem;
     font-size: 1.1rem;
     margin-top: 16px;

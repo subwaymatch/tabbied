@@ -22,7 +22,7 @@ const MOUNT_MARGIN = '400px';
 // Whether a hex background reads as dark, so the loading shimmer can sweep a
 // light band over dark cards and a dark band over light ones. Defaults to
 // "light" when the color can't be parsed (e.g. a transparent #rrggbbaa).
-const isDarkColor = (hex: string): boolean => {
+export const isDarkColor = (hex: string): boolean => {
   const match = /^#([0-9a-f]{6})/i.exec(hex ?? '');
 
   if (!match) {
@@ -38,7 +38,14 @@ const isDarkColor = (hex: string): boolean => {
   return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255 < 0.5;
 };
 
-export default function GalleryDoodle({ item }: { item: GalleryItem }) {
+export default function GalleryDoodle({
+  item,
+  palette,
+}: {
+  item: GalleryItem;
+  /** Preview palette override (color0 first) — e.g. an active brand palette. */
+  palette?: string[];
+}) {
   const frameRef = useRef<HTMLDivElement>(null);
 
   // The gallery holds 100+ live doodles; rendering and reseeding all of them
@@ -59,7 +66,9 @@ export default function GalleryDoodle({ item }: { item: GalleryItem }) {
 
     const observer = new IntersectionObserver(
       (entries) => {
-        const intersecting = entries[0].isIntersecting;
+        // Multiple transitions can be batched into one callback (fast
+        // scrolling); the last entry is the current state.
+        const intersecting = entries[entries.length - 1].isIntersecting;
 
         setInView(intersecting);
         if (intersecting) {
@@ -79,16 +88,28 @@ export default function GalleryDoodle({ item }: { item: GalleryItem }) {
   // to transparent keeps the title legible without looking like a foreign
   // scrim. `#RRGGBB00` (not `transparent`) avoids fading through gray.
   const background =
-    galleryThumbnails[item.slug]?.palette?.[0] ?? item.palette[0];
+    palette?.[0] ?? galleryThumbnails[item.slug]?.palette?.[0] ?? item.palette[0];
   const gradient = /^#[0-9a-f]{6}$/i.test(background ?? '')
     ? `linear-gradient(to bottom, ${background}, ${background}00)`
     : undefined;
 
+  // Transparent-background previews sit on a checkerboard, the usual "this is
+  // transparent" affordance.
+  const transparent = background === 'transparent';
+
   return (
-    <div ref={frameRef} className={styles.doodleThumb}>
+    <div
+      ref={frameRef}
+      className={
+        transparent
+          ? `${styles.doodleThumb} ${styles.thumbChecker}`
+          : styles.doodleThumb
+      }
+    >
       {hasApproached && (
         <GalleryDoodleInner
           item={item}
+          palette={palette}
           paused={!inView}
           onReady={() => setReady(true)}
         />

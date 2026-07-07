@@ -50,6 +50,9 @@ export type TabbiedArtworkProps = {
    * `stretch` keeps the authored grid and stretches, `cover`/`contain` scale
    * a fixed-resolution render (preserving fixed-px effects), `fixed` renders
    * at explicit width/height props. Defaults per artwork (sizing metadata).
+   * For grid-driven artworks, `cover` adapts its render to the box's aspect
+   * ratio (whole cells, nothing cropped mid-cell); special layouts without a
+   * grid — like Symmetry — scale-and-crop instead.
    */
   fit?: FitMode;
   /** fit:"grid" — target cell size in px (default 36). */
@@ -64,14 +67,16 @@ export type TabbiedArtworkProps = {
   /**
    * Re-randomize the seed every N ms (first redraw lands at a random point
    * within the first interval). Skipped under prefers-reduced-motion; ticks
-   * are dropped while the tab is hidden. Only meaningful when `seed` is
-   * uncontrolled.
+   * are dropped while the tab is hidden or the element is outside the
+   * viewport, so off-screen artworks cost nothing. Only meaningful when
+   * `seed` is uncontrolled.
    */
   redrawInterval?: number;
   /**
    * Pause `redrawInterval` ticks without tearing down the timer, so the redraw
-   * phase is preserved across pause/resume (e.g. while the element is scrolled
-   * out of the viewport). No effect unless `redrawInterval` is set.
+   * phase is preserved across pause/resume. Off-screen elements already skip
+   * ticks automatically; this is for consumer-controlled gates on top of that.
+   * No effect unless `redrawInterval` is set.
    */
   paused?: boolean;
   /**
@@ -181,8 +186,26 @@ export const TabbiedArtwork = forwardRef<
       return;
     }
 
+    // Ticks are dropped while the element is outside the viewport, so a long
+    // page of animated artworks only pays for the ones on screen. (`paused`
+    // remains as an additional external gate.)
+    const host = hostRef.current;
+    let inViewport = true;
+    let viewportObserver: IntersectionObserver | undefined;
+
+    if (host && typeof IntersectionObserver !== 'undefined') {
+      viewportObserver = new IntersectionObserver((entries) => {
+        inViewport = entries[entries.length - 1].isIntersecting;
+      });
+      viewportObserver.observe(host);
+    }
+
     const tick = () => {
-      if (document.visibilityState === 'visible' && !pausedRef.current) {
+      if (
+        document.visibilityState === 'visible' &&
+        inViewport &&
+        !pausedRef.current
+      ) {
         controllerRef.current?.redraw();
       }
     };
@@ -197,6 +220,7 @@ export const TabbiedArtwork = forwardRef<
     }, Math.random() * redrawInterval);
 
     return () => {
+      viewportObserver?.disconnect();
       clearTimeout(firstTimer);
       if (intervalTimer !== undefined) {
         clearInterval(intervalTimer);

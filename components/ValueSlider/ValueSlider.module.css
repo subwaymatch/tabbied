@@ -54,5 +54,6 @@
 }
 
 .thumb:focus-visible {
-  outline: none;
+  outline: 2px solid var(--blue-medium);
+  outline-offset: 2px;
 }

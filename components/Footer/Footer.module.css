@@ -41,9 +41,11 @@
   aspect-ratio: 238 / 49;
   margin-top: 1.5rem;
   line-height: 0;
-  background: url('https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=279660&theme=light&period=daily')
-    no-repeat center center;
-  background-size: contain;
+}
+
+.productHuntBadge img {
+  width: 100%;
+  height: auto;
 }
 
 @media (max-width: 991.98px) {

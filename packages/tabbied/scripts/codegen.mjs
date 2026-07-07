@@ -13,6 +13,18 @@ const packageRoot = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const artworksDir = path.join(packageRoot, 'artworks');
 const outFile = path.join(packageRoot, 'src', 'artworks.generated.ts');
 
+// ES reserved words that pass the lowercase-alphanumeric slug check, plus the
+// generated module's own exports.
+const RESERVED_SLUGS = new Set([
+  'break', 'case', 'catch', 'class', 'const', 'continue', 'debugger',
+  'default', 'delete', 'do', 'else', 'enum', 'export', 'extends', 'false',
+  'finally', 'for', 'function', 'if', 'implements', 'import', 'in',
+  'instanceof', 'interface', 'let', 'new', 'null', 'package', 'private',
+  'protected', 'public', 'return', 'static', 'super', 'switch', 'this',
+  'throw', 'true', 'try', 'typeof', 'var', 'void', 'while', 'with', 'yield',
+  'await', 'artworks', 'isartworkslug',
+]);
+
 const fileNames = (await readdir(artworksDir))
   .filter((fileName) => fileName.endsWith('.json'))
   .sort();
@@ -32,6 +44,13 @@ const artworks = await Promise.all(
     if (!/^[a-z][a-z0-9]*$/.test(slug)) {
       throw new Error(
         `artworks/${fileName}: slug must be a lowercase alphanumeric identifier`
+      );
+    }
+    // Each slug becomes `export const <slug>`, so reserved words (and the
+    // module's own identifiers) would generate a syntax/duplicate error.
+    if (RESERVED_SLUGS.has(slug)) {
+      throw new Error(
+        `artworks/${fileName}: slug "${slug}" is a reserved identifier and cannot be used`
       );
     }
 

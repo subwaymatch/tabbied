@@ -11,8 +11,17 @@ import type { ArtworkOption, OptionValue } from './types.js';
 export const fixFullRandomGate = (code: string): string =>
   code.replace(/@random\s*\(\s*1(?:\.0+)?\s*\)/g, '@random(0.999)');
 
+// Palette colors and option values are substituted into a generated
+// stylesheet, and they can come from untrusted places (the Tabbied editor
+// feeds URL query params straight in). No valid color or option value needs
+// braces or semicolons, so stripping them keeps a crafted value from closing
+// the scoped rule and injecting page-level CSS.
+const sanitizeCssValue = (value: string): string => value.replace(/[{};]/g, '');
+
 const getColorsStyleCode = (colors: string[]): string =>
-  colors.map((color, idx) => `--color${idx}: ${color};\n`).join('');
+  colors
+    .map((color, idx) => `--color${idx}: ${sanitizeCssValue(color)};\n`)
+    .join('');
 
 // Grow an active palette up to the artwork's full slot count by cycling its
 // ink colors (everything after the color0 background). Artwork styles always
@@ -60,25 +69,23 @@ export function buildDoodleSource({
   options.forEach((option, index) => {
     switch (option.type) {
       case 'ButtonSelectGroup':
-      case 'Slider':
-        styleCode = styleCode
-          .split(option.replace)
-          .join(String(optionValues[index]));
-        doodleCode = doodleCode
-          .split(option.replace)
-          .join(String(optionValues[index]));
+      case 'Slider': {
+        const value = sanitizeCssValue(String(optionValues[index]));
+
+        styleCode = styleCode.split(option.replace).join(value);
+        doodleCode = doodleCode.split(option.replace).join(value);
         break;
-      case 'ToggleSwitch':
-        if (optionValues[index]) {
-          styleCode = styleCode.split(option.replace).join(option.code ?? '');
-          doodleCode = doodleCode
-            .split(option.replace)
-            .join(String(optionValues[index]));
-        } else {
-          styleCode = styleCode.split(option.replace).join('');
-          doodleCode = doodleCode.split(option.replace).join('');
-        }
+      }
+      case 'ToggleSwitch': {
+        // The "on" state substitutes the authored `code` snippet into both
+        // halves (presets only place the token in `code.style`); off removes
+        // the token entirely.
+        const snippet = optionValues[index] ? (option.code ?? '') : '';
+
+        styleCode = styleCode.split(option.replace).join(snippet);
+        doodleCode = doodleCode.split(option.replace).join(snippet);
         break;
+      }
       default:
         break;
     }
