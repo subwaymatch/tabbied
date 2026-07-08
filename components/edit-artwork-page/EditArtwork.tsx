@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
-import dynamic from 'next/dynamic';
 import { Dialog } from '@base-ui-components/react/dialog';
 import { Shuffle, Expand, X, Minus, Plus } from 'lucide-react';
 import useMediaQuery from 'lib/useMediaQuery';
@@ -24,6 +23,8 @@ import EditArtworkHeader from 'components/edit-artwork-page/EditArtworkHeader';
 import ButtonSelectGroup from 'components/ButtonSelectGroup';
 import ValueSlider from 'components/ValueSlider';
 import ToggleSwitch from 'components/ToggleSwitch';
+import ColorSwatch from 'components/ColorSwatch';
+import { isTransparentHex, randomHexColor, toOpaqueHex } from 'lib/color';
 import {
   setActivePalette,
   useBrandPalettes,
@@ -31,19 +32,9 @@ import {
 } from 'lib/brandPalettes';
 import styles from './EditArtwork.module.css';
 
-const ColorPicker = dynamic(() => import('components/ColorPicker'), {
-  ssr: false,
-});
-
 // Options with this id hold a "colsxrows" grid string and follow the selected
 // aspect ratio so that cells stay (near-)square.
 const GRID_OPTION_ID = 'grid';
-
-// A random 6-digit hex color (e.g. "#3eecff"), used to shuffle the palette.
-const randomHexColor = () =>
-  `#${Math.floor(Math.random() * 0xffffff)
-    .toString(16)
-    .padStart(6, '0')}`;
 
 // Longest edge of the little aspect-ratio preview rectangle, in pixels.
 const ASPECT_RATIO_RECT_SIZE = 20;
@@ -104,22 +95,6 @@ const hexToRgb = (
   }
 
   return { r: (int >> 16) & 255, g: (int >> 8) & 255, b: int & 255 };
-};
-
-// The opaque `#rrggbb` form of a color (expands #rgb, drops any alpha). Used to
-// toggle a transparent background on/off while keeping the underlying color, so
-// switching transparency off brings the same background back.
-const toOpaqueHex = (hex: string): string => {
-  const value = hex.trim().replace(/^#/, '');
-
-  if (value.length === 3) {
-    return `#${value
-      .split('')
-      .map((char) => char + char)
-      .join('')}`;
-  }
-
-  return `#${value.slice(0, 6).padEnd(6, '0')}`;
 };
 
 // Pick an expand-icon color that stays legible on any preview background:
@@ -531,10 +506,10 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     );
   };
 
-  // Apply a saved custom palette (see /artworks) to this artwork. Pickr and
-  // the URL carry HEXA values, so a transparent background becomes the stored
-  // color with zero alpha — reversible in the picker, and PNG exports keep
-  // the real transparency.
+  // Apply a saved custom palette (see /artworks) to this artwork. The URL
+  // carries HEXA values, so a transparent background becomes the stored color
+  // with zero alpha — the transparent toggle stays reversible and PNG exports
+  // keep the real transparency.
   const applyBrandPalette = (brand: BrandPalette) => {
     const colors = customPaletteColors(brand);
 
@@ -701,9 +676,7 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
 
   // A zero-alpha background (a transparent custom palette) previews over a
   // checkerboard, the usual "this is transparent" affordance.
-  const isTransparentBackground =
-    /^#[0-9a-f]{8}$/i.test(previewBackground) &&
-    previewBackground.toLowerCase().endsWith('00');
+  const isTransparentBackground = isTransparentHex(previewBackground);
 
   // Fit the artwork inside the viewport (with a little margin) for the dialog.
   const expanded = fitToBox(
@@ -829,21 +802,26 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
                   <div
                     className={`${styles.paletteGroup} ${styles.paletteGroupCentered}`}
                   >
-                    <div className="colors">
-                      <ColorPicker
-                        key="color0"
-                        index={0}
-                        handleColorChange={(color) => {
-                          const colorHEXAString = color.toHEXA().toString();
-
+                    <div className={styles.swatchRow}>
+                      {/* Changing the background color also lifts the
+                          transparent state: a picked color is a concrete
+                          #rrggbb, so it round-trips as opaque (and the toggle
+                          follows via isTransparentBackground). Opening the
+                          picker without changing anything keeps it transparent
+                          — the native input only fires onChange on a real
+                          change. */}
+                      <ColorSwatch
+                        ariaLabel="Background color"
+                        color={palette[0]}
+                        transparent={isTransparentBackground}
+                        onChange={(hex) => {
                           setPalette((prevPalette) => {
                             const newPalette = [...prevPalette];
-                            newPalette[0] = colorHEXAString;
+                            newPalette[0] = hex;
 
                             return newPalette;
                           });
                         }}
-                        color={palette[0]}
                       />
                     </div>
                     <span className={styles.groupCaption}>background</span>
@@ -856,27 +834,23 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
                         aria-hidden="true"
                       />
                       <div className={styles.paletteGroup}>
-                        <div className="colors">
+                        <div className={styles.swatchRow}>
                           {palette.slice(1, colorCount).map((hex, inkIndex) => {
                             const index = inkIndex + 1;
 
                             return (
-                              <ColorPicker
+                              <ColorSwatch
                                 key={`color${index}`}
-                                index={index}
-                                handleColorChange={(color) => {
-                                  const colorHEXAString = color
-                                    .toHEXA()
-                                    .toString();
-
+                                ariaLabel={`Color ${index + 1}`}
+                                color={hex}
+                                onChange={(newHex) => {
                                   setPalette((prevPalette) => {
                                     const newPalette = [...prevPalette];
-                                    newPalette[index] = colorHEXAString;
+                                    newPalette[index] = newHex;
 
                                     return newPalette;
                                   });
                                 }}
-                                color={hex}
                               />
                             );
                           })}
@@ -934,65 +908,65 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
                       </button>
                     </div>
 
-                    {previewMode === 'custom' && (
-                      <div
-                        className={styles.brandPaletteChips}
-                        role="radiogroup"
-                        aria-label="Custom palette"
-                      >
-                        {brandPalettes.map((brand) => {
-                          const isActive = brand.id === brandState.activePaletteId;
-                          const label = brand.name || 'Untitled palette';
+                    {/* The saved palettes are always listed (A5), even in
+                        "Artwork colors" mode — clicking one switches to it. */}
+                    <div
+                      className={styles.brandPaletteChips}
+                      role="radiogroup"
+                      aria-label="Custom palette"
+                    >
+                      {brandPalettes.map((brand) => {
+                        const isActive = brand.id === brandState.activePaletteId;
+                        const label = brand.name || 'Untitled palette';
 
-                          return (
-                            <button
-                              key={brand.id}
-                              type="button"
-                              role="radio"
-                              aria-checked={isActive}
-                              aria-label={label}
-                              className={
-                                isActive
-                                  ? `${styles.brandPaletteChip} ${styles.brandPaletteChipActive}`
-                                  : styles.brandPaletteChip
-                              }
-                              title={
-                                brand.name
-                                  ? `Preview in "${brand.name}"`
-                                  : 'Preview in this palette'
-                              }
-                              onClick={() => selectCustomPalette(brand)}
+                        return (
+                          <button
+                            key={brand.id}
+                            type="button"
+                            role="radio"
+                            aria-checked={isActive}
+                            aria-label={label}
+                            className={
+                              isActive
+                                ? `${styles.brandPaletteChip} ${styles.brandPaletteChipActive}`
+                                : styles.brandPaletteChip
+                            }
+                            title={
+                              brand.name
+                                ? `Preview in "${brand.name}"`
+                                : 'Preview in this palette'
+                            }
+                            onClick={() => selectCustomPalette(brand)}
+                          >
+                            <span
+                              className={styles.brandSwatches}
+                              aria-hidden="true"
                             >
-                              <span
-                                className={styles.brandSwatches}
-                                aria-hidden="true"
-                              >
-                                {brand.colors.map((color, index) => (
-                                  <span
-                                    key={`${color}-${index}`}
-                                    className={
-                                      index === 0 && brand.transparentBackground
-                                        ? `${styles.brandSwatch} ${styles.brandSwatchTransparent}`
-                                        : styles.brandSwatch
-                                    }
-                                    style={
-                                      index === 0 && brand.transparentBackground
-                                        ? undefined
-                                        : { backgroundColor: color }
-                                    }
-                                  />
-                                ))}
+                              {brand.colors.map((color, index) => (
+                                <span
+                                  key={`${color}-${index}`}
+                                  className={
+                                    index === 0 && brand.transparentBackground
+                                      ? `${styles.brandSwatch} ${styles.brandSwatchTransparent}`
+                                      : styles.brandSwatch
+                                  }
+                                  style={
+                                    index === 0 && brand.transparentBackground
+                                      ? undefined
+                                      : { backgroundColor: color }
+                                  }
+                                />
+                              ))}
+                            </span>
+                            {brand.name && (
+                              <span className={styles.brandChipName}>
+                                {brand.name}
                               </span>
-                              {brand.name && (
-                                <span className={styles.brandChipName}>
-                                  {brand.name}
-                                </span>
-                              )}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    )}
+                            )}
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
                 )}
               </div>

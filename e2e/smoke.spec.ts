@@ -230,9 +230,9 @@ test.describe('Tabbied site', () => {
     await page.goto('/artworks/radius?seed=0000');
 
     // Radius opens at its default of 6 colors, which is also its maximum, so
-    // only the remove button starts enabled. (Pickr replaces each swatch
-    // element with a .pcr-button, so count those.)
-    await expect(page.locator('.pcr-button')).toHaveCount(6, {
+    // only the remove button starts enabled. (Each color slot is a native
+    // <input type="color"> swatch — background plus inks — so count those.)
+    await expect(page.locator('input[type="color"]')).toHaveCount(6, {
       timeout: 15000,
     });
     const addButton = page.getByRole('button', { name: 'Add color' });
@@ -242,7 +242,7 @@ test.describe('Tabbied site', () => {
     // Removing a color drops a swatch and the URL carries one fewer palette
     // param (the param count doubles as the color count on shared links).
     await removeButton.click();
-    await expect(page.locator('.pcr-button')).toHaveCount(5);
+    await expect(page.locator('input[type="color"]')).toHaveCount(5);
     await expect
       .poll(() => new URL(page.url()).searchParams.getAll('palette').length)
       .toBe(5);
@@ -250,7 +250,7 @@ test.describe('Tabbied site', () => {
 
     // Re-adding restores the slot.
     await addButton.click();
-    await expect(page.locator('.pcr-button')).toHaveCount(6);
+    await expect(page.locator('input[type="color"]')).toHaveCount(6);
     await expect(addButton).toBeDisabled();
   });
 

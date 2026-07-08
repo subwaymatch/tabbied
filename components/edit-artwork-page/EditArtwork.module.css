@@ -97,6 +97,16 @@
   gap: 2rem;
 }
 
+/* A row of native color swatches (background slot, or the ink list). */
+.swatchRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+  /* Room for the swatches' hover/focus scale so they aren't clipped. */
+  padding: 2px;
+}
+
 .paletteGroup {
   display: flex;
   flex-direction: column;
@@ -221,12 +231,12 @@
   outline-offset: 2px;
 }
 
-/* The palette currently applied/previewed: a soft brand-tinted fill, matching
+/* The palette currently applied/previewed: a subtle neutral fill, matching
    the gallery's active chip. */
 .brandPaletteChipActive,
 .brandPaletteChipActive:hover {
-  border-color: color-mix(in srgb, var(--pink) 35%, var(--gray-light));
-  background-color: color-mix(in srgb, var(--pink) 8%, white);
+  border-color: var(--gray);
+  background-color: color-mix(in srgb, var(--gray) 16%, white);
   color: var(--gray-dark);
 }
 

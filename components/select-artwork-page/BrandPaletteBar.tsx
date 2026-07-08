@@ -2,8 +2,13 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Dialog } from '@base-ui-components/react/dialog';
-import { Download, Plus, Trash2, Upload, X } from 'lucide-react';
+import { Download, Plus, Shuffle, Trash2, Upload, X } from 'lucide-react';
+import { TabbiedArtwork } from 'tabbied/react';
+import { artworks } from 'tabbied/artworks';
 import ToggleSwitch from 'components/ToggleSwitch';
+import ColorSwatch from 'components/ColorSwatch';
+import useMediaQuery from 'lib/useMediaQuery';
+import { randomHexColor } from 'lib/color';
 import {
   MAX_PALETTE_COLORS,
   MIN_PALETTE_COLORS,
@@ -17,11 +22,26 @@ import {
   useBrandPalettes,
   type BrandPalette,
 } from 'lib/brandPalettes';
+import { galleryThumbnails } from './galleryThumbnails';
 import styles from './BrandPaletteBar.module.css';
 
 // The palette a "New palette" dialog starts from — Tabbied's own inks over a
 // near-white background, so the editor never opens empty.
 const STARTER_COLORS = ['#f8f9fa', '#232529', '#3e8bff', '#3fffb2', '#ff3d8b'];
+
+// A handful of designs tiled behind the editor dialog, recolored live with the
+// palette being edited (A4). Fixed seeds keep each composition stable so only
+// the colors change as the user edits; each slug is guarded against a missing
+// preset before rendering.
+const FIELD_ARTWORKS = [
+  'radius',
+  'veil',
+  'disque',
+  'pinwheel',
+  'blossom',
+  'terrain',
+];
+const FIELD_SEEDS = ['2718', '3141', '1618', '1414', '2236', '1732'];
 
 type Draft = {
   id: string;
@@ -49,21 +69,47 @@ const newDraft = (): Draft => ({
   existing: false,
 });
 
-// Normalize a hex string for the native color input (which only accepts
-// #rrggbb): expand #rgb, drop alpha, fall back to white while mid-edit.
-const toColorInputValue = (hex: string): string => {
-  const value = hex.trim();
+// A hex text field with a fixed, non-editable "#" fused to its left edge (A1).
+// The stored value keeps its leading "#", but the editable text is just the
+// digits — any "#" the user types or pastes is stripped back out.
+function HexField({
+  value,
+  disabled,
+  ariaLabel,
+  onValueChange,
+}: {
+  value: string;
+  disabled?: boolean;
+  ariaLabel: string;
+  onValueChange: (hex: string) => void;
+}) {
+  const digits = value.replace(/#/g, '');
 
-  if (/^#[0-9a-f]{3}$/i.test(value)) {
-    return `#${value[1]}${value[1]}${value[2]}${value[2]}${value[3]}${value[3]}`;
-  }
-
-  if (/^#[0-9a-f]{6}/i.test(value)) {
-    return value.slice(0, 7).toLowerCase();
-  }
-
-  return '#ffffff';
-};
+  return (
+    <span
+      className={
+        disabled ? `${styles.hexField} ${styles.hexFieldInert}` : styles.hexField
+      }
+    >
+      <span className={styles.hexHash} aria-hidden="true">
+        #
+      </span>
+      <input
+        type="text"
+        className={styles.hexInput}
+        value={digits}
+        disabled={disabled}
+        aria-label={ariaLabel}
+        autoCapitalize="none"
+        autoCorrect="off"
+        spellCheck={false}
+        onChange={(event) =>
+          onValueChange(`#${event.target.value.replace(/#/g, '')}`)
+        }
+      />
+    </span>
+  );
+}
 
 export default function BrandPaletteBar() {
   const { palettes, activePaletteId } = useBrandPalettes();
@@ -85,6 +131,12 @@ export default function BrandPaletteBar() {
     error: boolean;
   } | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const nameInputRef = useRef<HTMLInputElement>(null);
+
+  // On touch devices, auto-focusing the Name field pops the on-screen keyboard
+  // and it covers the dialog (A2). Detect a coarse primary pointer and skip the
+  // initial focus there; pointer/keyboard users still land in the Name field.
+  const isCoarsePointer = useMediaQuery('(pointer: coarse)');
 
   const mode: 'artwork' | 'brand' =
     activePaletteId === null ? 'artwork' : 'brand';
@@ -137,6 +189,14 @@ export default function BrandPaletteBar() {
     setDraft(null);
   };
 
+  // Roll a fresh random color into every slot (A3). The background keeps its
+  // own transparency state — only its color is rerolled.
+  const randomizeDraft = () => {
+    setDraft((prev) =>
+      prev ? { ...prev, colors: prev.colors.map(() => randomHexColor()) } : prev
+    );
+  };
+
   const exportPalettes = () => {
     const blob = new Blob([exportPalettesJson()], {
       type: 'application/json',
@@ -179,6 +239,19 @@ export default function BrandPaletteBar() {
         : prev
     );
   };
+
+  // The draft palette resolved for the background artworks (A4): a transparent
+  // background paints as an actual `transparent` fill, and any mid-edit invalid
+  // hex falls back to a neutral so css-doodle always gets a paintable color.
+  const fieldColors = draft
+    ? draft.colors.map((color, index) =>
+        index === 0 && draft.transparent
+          ? 'transparent'
+          : isValidPaletteColor(color)
+            ? color
+            : '#888888'
+      )
+    : [];
 
   const fileInput = (
     <input
@@ -296,67 +369,69 @@ export default function BrandPaletteBar() {
           </div>
 
           {/* The palette chips sit on their own line below the mode row so
-              adding palettes never reflows the New / Import / Export actions. */}
-          {mode === 'brand' && (
-            <div
-              className={styles.chips}
-              role="radiogroup"
-              aria-label="Active palette"
-            >
-              {palettes.map((palette) => {
-                const isActive = palette.id === activePaletteId;
-                const label = palette.name || 'Untitled palette';
+              adding palettes never reflows the New / Import / Export actions.
+              They're always listed (A5), even in "Artwork colors" mode —
+              clicking one selects it (and switches to custom preview). */}
+          <div
+            className={styles.chips}
+            role="radiogroup"
+            aria-label="Active palette"
+          >
+            {palettes.map((palette) => {
+              const isActive = palette.id === activePaletteId;
+              const label = palette.name || 'Untitled palette';
 
-                return (
-                  <div
-                    key={palette.id}
-                    role="radio"
-                    aria-checked={isActive}
-                    aria-label={label}
-                    tabIndex={0}
-                    className={
-                      isActive
-                        ? `${styles.chip} ${styles.chipActive}`
-                        : styles.chip
+              return (
+                <div
+                  key={palette.id}
+                  role="radio"
+                  aria-checked={isActive}
+                  aria-label={label}
+                  tabIndex={0}
+                  className={
+                    isActive
+                      ? `${styles.chip} ${styles.chipActive}`
+                      : styles.chip
+                  }
+                  // Clicking a non-active chip selects it; clicking the
+                  // already-active chip opens its editor.
+                  onClick={() =>
+                    isActive
+                      ? openEditor(palette)
+                      : setActivePalette(palette.id)
+                  }
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault();
+                      if (isActive) openEditor(palette);
+                      else setActivePalette(palette.id);
                     }
-                    // Clicking a non-active chip selects it; clicking the
-                    // already-active chip opens its editor (A3).
-                    onClick={() =>
-                      isActive ? openEditor(palette) : setActivePalette(palette.id)
-                    }
-                    onKeyDown={(event) => {
-                      if (event.key === 'Enter' || event.key === ' ') {
-                        event.preventDefault();
-                        if (isActive) openEditor(palette);
-                        else setActivePalette(palette.id);
-                      }
-                    }}
-                  >
-                    <span className={styles.swatches} aria-hidden="true">
-                      {palette.colors.map((color, index) => (
-                        <span
-                          key={`${color}-${index}`}
-                          className={
-                            index === 0 && palette.transparentBackground
-                              ? `${styles.swatch} ${styles.swatchTransparent}`
-                              : styles.swatch
-                          }
-                          style={
-                            index === 0 && palette.transparentBackground
-                              ? undefined
-                              : { backgroundColor: color }
-                          }
-                        />
-                      ))}
-                    </span>
-                    {palette.name && (
-                      <span className={styles.chipName}>{palette.name}</span>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          )}
+                  }}
+                >
+                  <span className={styles.swatches} aria-hidden="true">
+                    {palette.colors.map((color, index) => (
+                      <span
+                        key={`${color}-${index}`}
+                        className={
+                          index === 0 && palette.transparentBackground
+                            ? `${styles.swatch} ${styles.swatchTransparent}`
+                            : styles.swatch
+                        }
+                        style={
+                          index === 0 && palette.transparentBackground
+                            ? undefined
+                            : { backgroundColor: color }
+                        }
+                      />
+                    ))}
+                  </span>
+                  {palette.name && (
+                    <span className={styles.chipName}>{palette.name}</span>
+                  )}
+                </div>
+              );
+            })}
+          </div>
         </>
       )}
 
@@ -380,11 +455,55 @@ export default function BrandPaletteBar() {
         }}
       >
         <Dialog.Portal>
+          {/* Behind the backdrop: a wall of designs painted in the palette
+              being edited, so the colors are previewed on real artwork as the
+              user tweaks them (A4). Decorative and non-interactive. */}
+          {draft && (
+            <div className={styles.artworkField} aria-hidden="true">
+              {FIELD_ARTWORKS.map((slug, index) => {
+                const definition = artworks[slug as keyof typeof artworks];
+
+                if (!definition) return null;
+
+                const config = galleryThumbnails[slug];
+
+                return (
+                  <TabbiedArtwork
+                    key={slug}
+                    artwork={definition}
+                    seed={FIELD_SEEDS[index]}
+                    palette={fieldColors}
+                    options={config?.options}
+                    fit="cover"
+                    coverRender={{ width: 600, height: 600, ...config?.render }}
+                    className={styles.artworkFieldCell}
+                  />
+                );
+              })}
+            </div>
+          )}
           <Dialog.Backdrop className={styles.dialogBackdrop} />
-          <Dialog.Popup className={styles.dialogPopup}>
-            <Dialog.Title className={styles.dialogTitle}>
-              {draft?.existing ? 'Edit palette' : 'New palette'}
-            </Dialog.Title>
+          <Dialog.Popup
+            className={styles.dialogPopup}
+            // Focus the Name field on open for pointer/keyboard users, but not
+            // on touch devices — there it would raise the on-screen keyboard
+            // and cover the dialog (A2).
+            initialFocus={isCoarsePointer ? false : nameInputRef}
+          >
+            <div className={styles.dialogTitleRow}>
+              <Dialog.Title className={styles.dialogTitle}>
+                {draft?.existing ? 'Edit palette' : 'New palette'}
+              </Dialog.Title>
+              <button
+                type="button"
+                className={styles.randomizeButton}
+                onClick={randomizeDraft}
+                aria-label="Randomize palette"
+                title="Randomize palette"
+              >
+                <Shuffle size={18} />
+              </button>
+            </div>
 
             {draft && (
               <>
@@ -393,6 +512,7 @@ export default function BrandPaletteBar() {
                     Name <span className={styles.labelHint}>(optional)</span>
                   </label>
                   <input
+                    ref={nameInputRef}
                     id="palette-name"
                     className={styles.nameInput}
                     type="text"
@@ -407,33 +527,35 @@ export default function BrandPaletteBar() {
                 <div className={styles.dialogField}>
                   <span className={styles.dialogLabel}>Background</span>
                   <div className={styles.bgRow}>
-                    {draft.transparent ? (
-                      <span
-                        className={styles.transparentSwatch}
-                        aria-hidden="true"
-                      />
-                    ) : (
-                      <input
-                        type="color"
-                        className={styles.colorInput}
-                        value={toColorInputValue(draft.colors[0])}
-                        aria-label="Background color"
-                        onChange={(event) =>
-                          setDraftColor(0, event.target.value)
-                        }
-                      />
-                    )}
-                    <input
-                      type="text"
-                      className={
-                        draft.transparent
-                          ? `${styles.hexInput} ${styles.hexInputInert}`
-                          : styles.hexInput
+                    {/* The picker stays clickable even while transparent
+                        (New2): opening it and picking a color turns the
+                        transparent switch off; leaving it unchanged keeps
+                        transparent on (the native input only fires on a real
+                        change). */}
+                    <ColorSwatch
+                      className={styles.dialogSwatch}
+                      ariaLabel="Background color"
+                      color={draft.colors[0]}
+                      transparent={draft.transparent}
+                      onChange={(hex) =>
+                        setDraft((prev) =>
+                          prev
+                            ? {
+                                ...prev,
+                                colors: prev.colors.map((c, i) =>
+                                  i === 0 ? hex : c
+                                ),
+                                transparent: false,
+                              }
+                            : prev
+                        )
                       }
+                    />
+                    <HexField
                       value={draft.colors[0]}
                       disabled={draft.transparent}
-                      aria-label="Background color hex value"
-                      onChange={(event) => setDraftColor(0, event.target.value)}
+                      ariaLabel="Background color hex value"
+                      onValueChange={(hex) => setDraftColor(0, hex)}
                     />
                     <label className={styles.bgTransparent}>
                       <ToggleSwitch
@@ -458,23 +580,16 @@ export default function BrandPaletteBar() {
 
                       return (
                         <div className={styles.colorRow} key={index}>
-                          <input
-                            type="color"
-                            className={styles.colorInput}
-                            value={toColorInputValue(color)}
-                            aria-label={`Color ${index}`}
-                            onChange={(event) =>
-                              setDraftColor(index, event.target.value)
-                            }
+                          <ColorSwatch
+                            className={styles.dialogSwatch}
+                            ariaLabel={`Color ${index}`}
+                            color={color}
+                            onChange={(hex) => setDraftColor(index, hex)}
                           />
-                          <input
-                            type="text"
-                            className={styles.hexInput}
+                          <HexField
                             value={color}
-                            aria-label={`Color ${index} hex value`}
-                            onChange={(event) =>
-                              setDraftColor(index, event.target.value)
-                            }
+                            ariaLabel={`Color ${index} hex value`}
+                            onValueChange={(hex) => setDraftColor(index, hex)}
                           />
                           <button
                             type="button"

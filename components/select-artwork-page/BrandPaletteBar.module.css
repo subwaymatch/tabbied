@@ -121,7 +121,7 @@
 
 .chipActive,
 .chipActive:hover {
-  background-color: color-mix(in srgb, var(--pink) 8%, white);
+  background-color: color-mix(in srgb, var(--gray) 16%, white);
   color: var(--gray-dark);
 }
 
@@ -252,11 +252,34 @@
 
 /* ---- Palette editor dialog ---- */
 
+/* A full-viewport wall of designs painted in the palette being edited, sitting
+   just beneath the backdrop (A4). Purely decorative: it takes no pointer input,
+   and the (blurred) backdrop above dims it so the dialog stays legible. The
+   1fr rows keep the six tiles filling the screen at either column count. */
+.artworkField {
+  position: fixed;
+  inset: 0;
+  z-index: 1199;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 1fr;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.artworkFieldCell {
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
 .dialogBackdrop {
   position: fixed;
   inset: 0;
   z-index: 1200;
-  background-color: rgba(0, 0, 0, 0.55);
+  background-color: rgba(20, 22, 26, 0.45);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
   opacity: 1;
   transition: opacity 150ms ease;
 }
@@ -281,11 +304,45 @@
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
 }
 
+/* Title + randomize icon on one row (A3). */
+.dialogTitleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
 .dialogTitle {
   color: var(--gray-dark);
   font-size: 1.25rem;
   font-weight: 600;
   line-height: 1.4;
+}
+
+/* Randomize-palette icon button in the dialog header (A3). */
+.randomizeButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: none;
+  border-radius: 0.3rem;
+  background: transparent;
+  color: var(--gray-medium);
+  cursor: pointer;
+  transition: color 120ms ease, background-color 120ms ease;
+}
+
+.randomizeButton:hover {
+  color: var(--gray-dark);
+  background-color: var(--gray-ultra-light);
+}
+
+.randomizeButton:focus-visible {
+  outline: 2px solid var(--blue-medium);
+  outline-offset: 2px;
 }
 
 .dialogField {
@@ -333,54 +390,21 @@
   gap: 0.6rem;
 }
 
-/* Native color input restyled into a plain swatch. */
-.colorInput {
-  width: 2.4rem;
-  height: 2.4rem;
-  padding: 0;
-  border: none;
-  border-radius: 0.3rem;
-  background: none;
-  box-shadow: inset 0 0 0 1px rgba(35, 37, 41, 0.12);
-  cursor: pointer;
+/* Native color swatch (<ColorSwatch>) sized up a touch for the dialog. Only a
+   custom property + flex are set here so nothing clashes across CSS modules. */
+.dialogSwatch {
+  --swatch-size: 2.4rem;
   flex: none;
 }
 
-.colorInput:disabled {
-  cursor: default;
-}
-
-.colorInput::-webkit-color-swatch-wrapper {
-  padding: 2px;
-}
-
-.colorInput::-webkit-color-swatch {
-  border: none;
-  border-radius: 0.2rem;
-}
-
-.colorInput::-moz-color-swatch {
-  border: none;
-  border-radius: 0.2rem;
-}
-
-/* Inert checkerboard swatch shown in the background slot while transparent. */
-.transparentSwatch {
-  width: 2.4rem;
-  height: 2.4rem;
-  border-radius: 0.3rem;
-  background-image: repeating-conic-gradient(#dfe3e8 0% 25%, #ffffff 0% 50%);
-  background-size: 9.6px 9.6px;
-  box-shadow: inset 0 0 0 1px rgba(35, 37, 41, 0.12);
-  flex: none;
-}
-
-/* Borderless hex fields: quiet values next to the swatch, with a subtle ring
-   only while focused. */
-.hexInput {
+/* Hex field: a fixed, non-editable "#" fused to the left of a borderless
+   digits input (A1). The wrapper carries the fill and the focus ring so the
+   prefix and the input read as a single control. */
+.hexField {
+  display: inline-flex;
+  align-items: center;
   width: 7.5rem;
   padding: 0.45rem 0.6rem;
-  border: none;
   border-radius: 0.3rem;
   background-color: var(--gray-ultra-light);
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
@@ -389,20 +413,38 @@
   transition: background-color 120ms ease, box-shadow 120ms ease;
 }
 
-.hexInput:hover:not(:disabled) {
+.hexField:hover:not(.hexFieldInert) {
   background-color: #f0f2f4;
 }
 
-.hexInput:focus-visible {
-  outline: none;
+.hexField:focus-within {
   background-color: white;
   box-shadow:
     inset 0 0 0 1px var(--gray-light),
     0 0 0 3px color-mix(in srgb, var(--blue-medium) 15%, transparent);
 }
 
-/* Hex value while the background is transparent: kept, but inert. */
-.hexInputInert {
+/* The non-editable "#" prefix — muted, and not a click/selection target. */
+.hexHash {
+  color: var(--gray);
+  user-select: none;
+  pointer-events: none;
+}
+
+/* The digits input itself: borderless; the wrapper owns the fill and ring. */
+.hexInput {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  outline: none;
+}
+
+/* Hex field while the background is transparent: kept, but inert. */
+.hexFieldInert {
   opacity: 0.45;
 }
 
