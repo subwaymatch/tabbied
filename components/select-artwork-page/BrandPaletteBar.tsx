@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Dialog } from '@base-ui-components/react/dialog';
-import { Download, Pencil, Plus, Trash2, Upload, X } from 'lucide-react';
+import { Download, Plus, Trash2, Upload, X } from 'lucide-react';
 import ToggleSwitch from 'components/ToggleSwitch';
 import {
   MAX_PALETTE_COLORS,
@@ -352,20 +352,6 @@ export default function BrandPaletteBar() {
                     {palette.name && (
                       <span className={styles.chipName}>{palette.name}</span>
                     )}
-                    {isActive && (
-                      <button
-                        type="button"
-                        className={styles.chipEdit}
-                        aria-label={`Edit ${label}`}
-                        title="Edit palette"
-                        onClick={(event) => {
-                          event.stopPropagation();
-                          openEditor(palette);
-                        }}
-                      >
-                        <Pencil size={14} />
-                      </button>
-                    )}
                   </div>
                 );
               })}
@@ -462,10 +448,6 @@ export default function BrandPaletteBar() {
                       </span>
                     </label>
                   </div>
-                  <p className={styles.bgHint}>
-                    Renders and exports without a background color. The saved
-                    color comes back when you switch it off.
-                  </p>
                 </div>
 
                 <div className={styles.dialogField}>

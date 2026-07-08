@@ -221,16 +221,13 @@
   outline-offset: 2px;
 }
 
-/* The palette currently applied/previewed reads as filled and selected. */
+/* The palette currently applied/previewed: a soft brand-tinted fill, matching
+   the gallery's active chip. */
 .brandPaletteChipActive,
 .brandPaletteChipActive:hover {
-  border-color: var(--gray-dark);
-  background-color: var(--gray-dark);
-  color: white;
-}
-
-.brandPaletteChipActive .brandSwatches {
-  border-color: rgba(255, 255, 255, 0.3);
+  border-color: color-mix(in srgb, var(--pink) 35%, var(--gray-light));
+  background-color: color-mix(in srgb, var(--pink) 8%, white);
+  color: var(--gray-dark);
 }
 
 .brandSwatches {
