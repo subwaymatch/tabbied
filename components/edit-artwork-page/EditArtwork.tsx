@@ -102,6 +102,22 @@ const hexToRgb = (
   return { r: (int >> 16) & 255, g: (int >> 8) & 255, b: int & 255 };
 };
 
+// The opaque `#rrggbb` form of a color (expands #rgb, drops any alpha). Used to
+// toggle a transparent background on/off while keeping the underlying color, so
+// switching transparency off brings the same background back.
+const toOpaqueHex = (hex: string): string => {
+  const value = hex.trim().replace(/^#/, '');
+
+  if (value.length === 3) {
+    return `#${value
+      .split('')
+      .map((char) => char + char)
+      .join('')}`;
+  }
+
+  return `#${value.slice(0, 6).padEnd(6, '0')}`;
+};
+
 // Pick an expand-icon color that stays legible on any preview background:
 // white on dark backgrounds, and a blend of near-black with the background
 // (so it reads as a tinted dark) on light backgrounds.
@@ -422,6 +438,20 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     setColorCount(Math.min(maxColors, Math.max(minColors, colors.length)));
   };
 
+  // Toggle the background between opaque and transparent. Transparency is
+  // carried as a zero-alpha background color (so the picker, URL and PNG export
+  // all round-trip it), and the color itself is preserved across the toggle.
+  const setTransparentBackground = (transparent: boolean) => {
+    setPalette((prev) => {
+      const next = [...prev];
+      const opaque = toOpaqueHex(next[0] ?? '#f8f9fa');
+
+      next[0] = transparent ? `${opaque}00` : opaque;
+
+      return next;
+    });
+  };
+
   // Switching the aspect ratio re-derives every grid option at its current
   // density level so the preset keeps its intended coarseness and square cells.
   const changeAspectRatio = (nextRatio: AspectRatioId) => {
@@ -651,30 +681,81 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
                     </div>
                   )}
                 </div>
-                <div className="colors">
-                  {palette.slice(0, colorCount).map((hex, index) => (
-                    <ColorPicker
-                      key={`color${index}`}
-                      index={index}
-                      handleColorChange={(color) => {
-                        const colorHEXAString = color.toHEXA().toString();
+                <div className={styles.paletteGroups}>
+                  <div
+                    className={`${styles.paletteGroup} ${styles.paletteGroupCentered}`}
+                  >
+                    <div className="colors">
+                      <ColorPicker
+                        key="color0"
+                        index={0}
+                        handleColorChange={(color) => {
+                          const colorHEXAString = color.toHEXA().toString();
 
-                        setPalette((prevPalette) => {
-                          const newPalette = [...prevPalette];
-                          newPalette[index] = colorHEXAString;
+                          setPalette((prevPalette) => {
+                            const newPalette = [...prevPalette];
+                            newPalette[0] = colorHEXAString;
 
-                          return newPalette;
-                        });
-                      }}
-                      color={hex}
-                    />
-                  ))}
+                            return newPalette;
+                          });
+                        }}
+                        color={palette[0]}
+                      />
+                    </div>
+                    <span className={styles.groupCaption}>background</span>
+                  </div>
+
+                  {colorCount > 1 && (
+                    <>
+                      <span
+                        className={styles.groupDivider}
+                        aria-hidden="true"
+                      />
+                      <div className={styles.paletteGroup}>
+                        <div className="colors">
+                          {palette.slice(1, colorCount).map((hex, inkIndex) => {
+                            const index = inkIndex + 1;
+
+                            return (
+                              <ColorPicker
+                                key={`color${index}`}
+                                index={index}
+                                handleColorChange={(color) => {
+                                  const colorHEXAString = color
+                                    .toHEXA()
+                                    .toString();
+
+                                  setPalette((prevPalette) => {
+                                    const newPalette = [...prevPalette];
+                                    newPalette[index] = colorHEXAString;
+
+                                    return newPalette;
+                                  });
+                                }}
+                                color={hex}
+                              />
+                            );
+                          })}
+                        </div>
+                        <span className={styles.groupCaption}>inks</span>
+                      </div>
+                    </>
+                  )}
                 </div>
+
+                <label className={styles.transparentToggle}>
+                  <ToggleSwitch
+                    small
+                    isChecked={isTransparentBackground}
+                    onChange={setTransparentBackground}
+                  />
+                  <span>Transparent background</span>
+                </label>
 
                 {brandPalettes.length > 0 && (
                   <div className={styles.brandPalettes}>
                     <span className={styles.brandPalettesLabel}>
-                      Apply a brand palette
+                      Apply brand palette
                     </span>
                     <div className={styles.brandPaletteChips}>
                       {brandPalettes.map((brand) => (

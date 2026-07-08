@@ -1,40 +1,78 @@
-/* Brand-palette controls above the gallery: saved-palette chips, JSON
-   import/export, and the transparent-background switch. */
+/* Brand-palette controls above the gallery. The bar sheds its box and sits
+   directly on the page, flush with the gallery grid: a "Preview colors" mode
+   selector (Artwork colors vs Brand palette), the saved-palette chips (shown
+   in brand mode), and JSON import/export. */
 .bar {
   margin-bottom: 40px;
-  padding: 1.25rem 1.5rem;
-  border: 1px solid var(--gray-light);
-  border-radius: 0.5rem;
-  background-color: white;
 }
 
-.barHeader {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.5rem 1rem;
-}
-
-.barTitle {
-  color: var(--gray-dark);
-  font-size: 1.1rem;
-  font-weight: 600;
-  line-height: 1.4;
-}
-
-.barHint {
-  font-size: 0.9rem;
-  color: var(--gray-medium);
-  line-height: 1.5;
-}
-
-.barBody {
+/* Populated bar: the mode selector (+ chips in brand mode) on the left, the
+   New / Import / Export actions on the right. */
+.barRow {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 1rem 2rem;
-  margin-top: 1rem;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.previewLabel {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--gray-dark);
+}
+
+/* Two-option segmented control naming both preview modes. */
+.modeToggle {
+  display: inline-flex;
+  padding: 0.2rem;
+  border-radius: 2rem;
+  background-color: #eceef1;
+}
+
+.modeOption {
+  appearance: none;
+  padding: 0.4rem 1rem;
+  border: none;
+  border-radius: 2rem;
+  background-color: transparent;
+  color: var(--gray-medium);
+  font-family: var(--font-sans-serif);
+  font-size: 0.95rem;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: color 120ms ease;
+}
+
+.modeOption:hover {
+  color: var(--gray-dark);
+}
+
+.modeOption:focus-visible {
+  outline: 2px solid var(--blue-medium);
+  outline-offset: 2px;
+}
+
+.modeOptionActive,
+.modeOptionActive:hover {
+  background-color: white;
+  box-shadow: 0 1px 2px rgba(35, 37, 41, 0.14);
+  color: var(--gray-dark);
+  font-weight: 600;
+}
+
+/* Static caption shown in artwork-colors mode ("Each design shows its own
+   colors"). */
+.modeHint {
+  font-size: 0.9rem;
+  color: var(--gray);
 }
 
 .chips {
@@ -44,25 +82,29 @@
   gap: 0.6rem;
 }
 
-/* A selectable palette chip: name + swatch strip. */
+/* A selectable palette chip: swatch strip + name, in Tabbied's fill-and-shadow
+   language (no border). The active chip fills dark and carries an inline edit
+   affordance. */
 .chip {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  padding: 0.45rem 0.8rem;
-  border: 1px solid var(--gray-light);
+  padding: 0.45rem 0.9rem;
+  border: none;
   border-radius: 2rem;
   background-color: white;
+  box-shadow: 0 1px 2px rgba(35, 37, 41, 0.12);
   color: var(--gray-medium);
   font-family: var(--font-sans-serif);
   font-size: 0.95rem;
   line-height: 1.4;
   cursor: pointer;
-  transition: border-color 120ms ease, box-shadow 120ms ease;
+  transition: box-shadow 120ms ease, color 120ms ease;
 }
 
 .chip:hover {
-  border-color: var(--gray);
+  box-shadow: 0 1px 3px rgba(35, 37, 41, 0.2);
+  color: var(--gray-dark);
 }
 
 .chip:focus-visible {
@@ -70,19 +112,11 @@
   outline-offset: 2px;
 }
 
-.chipActive {
-  border-color: var(--gray-dark);
-  box-shadow: inset 0 0 0 1px var(--gray-dark);
-  color: var(--gray-dark);
-}
-
-/* "Artwork colors" with nothing to switch to: shown as the checked state but
-   not interactive. */
-.chip:disabled {
-  border-color: var(--gray-light);
+.chipActive,
+.chipActive:hover {
+  background-color: var(--gray-dark);
   box-shadow: none;
-  color: var(--gray);
-  cursor: default;
+  color: white;
 }
 
 .swatches {
@@ -91,6 +125,12 @@
   overflow: hidden;
   border: 1px solid rgba(35, 37, 41, 0.12);
   line-height: 0;
+}
+
+/* On the dark active chip a near-black outline would vanish, so the strip
+   reads against the fill with a light hairline instead. */
+.chipActive .swatches {
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 .swatch {
@@ -105,29 +145,30 @@
   background-size: 8px 8px;
 }
 
-/* Edit affordance attached to the active chip. */
+/* Edit affordance nested inside the active chip. */
 .chipEdit {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.6rem;
-  height: 1.6rem;
-  margin-left: -0.2rem;
+  width: 1.3rem;
+  height: 1.3rem;
+  margin: -0.2rem -0.3rem -0.2rem 0;
   padding: 0;
   border: none;
   border-radius: 50%;
   background: transparent;
-  color: var(--gray-medium);
+  color: inherit;
+  opacity: 0.75;
   cursor: pointer;
+  transition: opacity 120ms ease;
 }
 
 .chipEdit:hover {
-  color: var(--gray-dark);
-  background-color: var(--gray-ultra-light);
+  opacity: 1;
 }
 
 .chipEdit:focus-visible {
-  outline: 2px solid var(--blue-medium);
+  outline: 2px solid rgba(255, 255, 255, 0.8);
   outline-offset: 1px;
 }
 
@@ -135,57 +176,92 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.6rem 1.25rem;
+  gap: 0.6rem 1.5rem;
 }
 
-.actionButton {
+/* Borderless text button with a leading icon (New palette / Import / Export,
+   plus the dialog's Add color / Delete / Cancel). */
+.textButton {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  padding: 0.45rem 0.9rem;
-  border: 1px solid var(--gray-light);
-  border-radius: 0.3rem;
-  background-color: white;
+  padding: 0;
+  border: none;
+  background: transparent;
   color: var(--gray-medium);
   font-family: var(--font-sans-serif);
   font-size: 0.95rem;
   line-height: 1.4;
   cursor: pointer;
-  transition: border-color 120ms ease, color 120ms ease;
+  transition: color 120ms ease;
 }
 
-.actionButton:hover {
-  border-color: var(--gray);
+.textButton:hover {
   color: var(--gray-dark);
 }
 
-.actionButton:focus-visible {
+.textButton:focus-visible {
   outline: 2px solid var(--blue-medium);
   outline-offset: 2px;
 }
 
-.actionButton:disabled {
+.textButton:disabled {
   opacity: 0.45;
   cursor: default;
 }
 
-/* Per-palette transparency control inside the editor dialog. */
-.transparentToggle {
-  display: inline-flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  font-size: 0.95rem;
-  color: var(--gray-dark);
-  font-weight: 600;
-  cursor: pointer;
+.textButton:disabled:hover {
+  color: var(--gray-medium);
 }
 
-.toggleHint {
-  display: block;
-  font-size: 0.85rem;
-  font-weight: 400;
-  color: var(--gray-medium);
-  line-height: 1.5;
+/* ---- Empty bar (no saved palettes) ---- */
+
+.empty {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+}
+
+.emptyLead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.emptyHint {
+  font-size: 0.9rem;
+  color: var(--gray);
+}
+
+/* Primary filled chip that anchors the empty state's New palette action. */
+.primaryButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1rem;
+  border: none;
+  border-radius: 2rem;
+  background-color: white;
+  box-shadow: 0 1px 2px rgba(35, 37, 41, 0.14);
+  color: var(--gray-dark);
+  font-family: var(--font-sans-serif);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: box-shadow 120ms ease;
+}
+
+.primaryButton:hover {
+  box-shadow: 0 1px 3px rgba(35, 37, 41, 0.22);
+}
+
+.primaryButton:focus-visible {
+  outline: 2px solid var(--blue-medium);
+  outline-offset: 2px;
 }
 
 /* Import feedback (success or error). */
@@ -251,11 +327,14 @@
   color: var(--gray-dark);
 }
 
+/* Filled inputs (no border) — the dialog speaks the same fill-and-shadow
+   language as the bar. */
 .nameInput {
   width: 100%;
   padding: 0.55rem 0.75rem;
-  border: 1px solid var(--gray-light);
+  border: none;
   border-radius: 0.3rem;
+  background-color: var(--gray-ultra-light);
   font-family: var(--font-sans-serif);
   font-size: 1rem;
   color: var(--gray-dark);
@@ -267,21 +346,12 @@
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--blue-medium) 15%, transparent);
 }
 
-.colorRows {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
+/* ---- Dedicated background slot ---- */
 
-.colorRow {
+.bgRow {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-}
-
-/* Background row while the palette is transparent: value kept, not used. */
-.colorRowInert {
-  opacity: 0.45;
 }
 
 /* Native color input restyled into a plain swatch. */
@@ -289,10 +359,12 @@
   width: 2.4rem;
   height: 2.4rem;
   padding: 0;
-  border: 1px solid rgba(35, 37, 41, 0.12);
+  border: none;
   border-radius: 0.3rem;
   background: none;
+  box-shadow: inset 0 0 0 1px rgba(35, 37, 41, 0.12);
   cursor: pointer;
+  flex: none;
 }
 
 .colorInput:disabled {
@@ -313,8 +385,19 @@
   border-radius: 0.2rem;
 }
 
-/* Borderless hex fields: they read as quiet values next to the swatch, with
-   a subtle ring only while focused. */
+/* Inert checkerboard swatch shown in the background slot while transparent. */
+.transparentSwatch {
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 0.3rem;
+  background-image: repeating-conic-gradient(#dfe3e8 0% 25%, #ffffff 0% 50%);
+  background-size: 9.6px 9.6px;
+  box-shadow: inset 0 0 0 1px rgba(35, 37, 41, 0.12);
+  flex: none;
+}
+
+/* Borderless hex fields: quiet values next to the swatch, with a subtle ring
+   only while focused. */
 .hexInput {
   width: 7.5rem;
   padding: 0.45rem 0.6rem;
@@ -339,9 +422,45 @@
     0 0 0 3px color-mix(in srgb, var(--blue-medium) 15%, transparent);
 }
 
-.roleLabel {
+/* Hex value while the background is transparent: kept, but inert. */
+.hexInputInert {
+  opacity: 0.45;
+}
+
+/* Inline transparent switch pushed to the end of the background row. */
+.bgTransparent {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+}
+
+.bgTransparentLabel {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--gray-dark);
+}
+
+.bgHint {
+  margin-top: 0.5rem;
   font-size: 0.85rem;
-  color: var(--gray-medium);
+  color: var(--gray);
+  line-height: 1.5;
+}
+
+/* ---- Ink color list ---- */
+
+.colorRows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.colorRow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
 }
 
 .removeColor {
@@ -355,7 +474,7 @@
   border: none;
   border-radius: 0.3rem;
   background: transparent;
-  color: var(--gray-medium);
+  color: var(--gray);
   cursor: pointer;
 }
 
@@ -369,6 +488,10 @@
   cursor: default;
 }
 
+.addColor {
+  margin-top: 0.75rem;
+}
+
 .dialogError {
   margin-top: 1rem;
   font-size: 0.9rem;
@@ -378,7 +501,7 @@
 .dialogActions {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 1.25rem;
   margin-top: 1.5rem;
 }
 
@@ -387,24 +510,32 @@
 }
 
 .saveButton {
-  border-color: transparent;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.55rem 1.1rem;
+  border: none;
+  border-radius: 0.3rem;
   background-color: var(--lime);
   color: var(--gray-dark);
+  font-family: var(--font-sans-serif);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: background-color 120ms ease;
 }
 
 .saveButton:hover {
-  border-color: transparent;
   background-color: var(--lime-hover);
-  color: var(--gray-dark);
+}
+
+.saveButton:focus-visible {
+  outline: 2px solid var(--blue-medium);
+  outline-offset: 2px;
 }
 
 @media (max-width: 747.98px) {
   .bar {
     margin-bottom: 24px;
-    padding: 1rem;
-  }
-
-  .barBody {
-    gap: 0.75rem 1rem;
   }
 }

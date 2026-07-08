@@ -90,16 +90,58 @@
   background-color: var(--gray-light);
 }
 
+/* Background and inks as labeled groups, split by a hairline divider. */
+.paletteGroups {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.paletteGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.paletteGroupCentered {
+  align-items: center;
+}
+
+.groupDivider {
+  align-self: stretch;
+  width: 1px;
+  background-color: #e3e6ea;
+}
+
+/* "background" / "inks" captions under each swatch group. */
+.groupCaption {
+  font-size: 0.75rem;
+  color: var(--gray);
+  line-height: 1;
+}
+
+/* Explicit transparent-background switch below the swatches. */
+.transparentToggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  color: var(--gray-medium);
+  cursor: pointer;
+}
+
 /* Saved brand palettes (managed on /artworks) as one-click presets. */
 .brandPalettes {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
 }
 
 .brandPalettesLabel {
   display: block;
-  margin-bottom: 0.5rem;
-  font-size: 0.85rem;
-  color: var(--gray-medium);
+  margin-bottom: 0.6rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gray);
 }
 
 .brandPaletteChips {

@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Dialog } from '@base-ui-components/react/dialog';
 import { Download, Pencil, Plus, Trash2, Upload, X } from 'lucide-react';
 import ToggleSwitch from 'components/ToggleSwitch';
@@ -25,6 +25,7 @@ const STARTER_COLORS = ['#f8f9fa', '#232529', '#3e8bff', '#3fffb2', '#ff3d8b'];
 
 type Draft = {
   id: string;
+  /** Colors, background (color0) first, then the inks. */
   name: string;
   colors: string[];
   transparent: boolean;
@@ -67,6 +68,16 @@ const toColorInputValue = (hex: string): string => {
 export default function BrandPaletteBar() {
   const { palettes, activePaletteId } = useBrandPalettes();
 
+  // Preview mode is derived from whether a brand palette is active, but the
+  // "Brand palette" segment needs a palette to switch *to* — remember the last
+  // one so toggling back restores the user's choice rather than jumping to the
+  // first palette every time.
+  const lastBrandIdRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (activePaletteId !== null) lastBrandIdRef.current = activePaletteId;
+  }, [activePaletteId]);
+
   const [draft, setDraft] = useState<Draft | null>(null);
   const [draftError, setDraftError] = useState<string | null>(null);
   const [status, setStatus] = useState<{
@@ -74,6 +85,24 @@ export default function BrandPaletteBar() {
     error: boolean;
   } | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const mode: 'artwork' | 'brand' =
+    activePaletteId === null ? 'artwork' : 'brand';
+
+  const selectMode = (next: 'artwork' | 'brand') => {
+    if (next === 'artwork') {
+      setActivePalette(null);
+      return;
+    }
+
+    const remembered = lastBrandIdRef.current;
+    const target =
+      remembered && palettes.some((palette) => palette.id === remembered)
+        ? remembered
+        : (palettes[0]?.id ?? null);
+
+    setActivePalette(target);
+  };
 
   const openEditor = (palette?: BrandPalette) => {
     setDraftError(null);
@@ -155,139 +184,197 @@ export default function BrandPaletteBar() {
     );
   };
 
+  const fileInput = (
+    <input
+      ref={fileInputRef}
+      type="file"
+      accept="application/json,.json"
+      hidden
+      onChange={(event) => {
+        const file = event.target.files?.[0];
+
+        if (file) void importFile(file);
+        // Allow re-importing the same file after edits.
+        event.target.value = '';
+      }}
+    />
+  );
+
   return (
     <section className={styles.bar} aria-label="Brand palette">
-      <div className={styles.barHeader}>
-        <h3 className={styles.barTitle}>Brand palette</h3>
-        <p className={styles.barHint}>
-          Save your brand colors and preview every design with them. Palettes
-          are stored in this browser and can be exported/imported as JSON.
-        </p>
-      </div>
-
-      <div className={styles.barBody}>
-        <div
-          className={styles.chips}
-          role="radiogroup"
-          aria-label="Active palette"
-        >
-          {/* With no saved palettes there is nothing to switch away from, so
-              the default option is disabled (it is still the checked state). */}
+      {palettes.length === 0 ? (
+        // No saved palettes: nothing to preview yet, so collapse to a single
+        // invitation to create one.
+        <div className={styles.empty}>
+          <div className={styles.emptyLead}>
+            <button
+              type="button"
+              className={styles.primaryButton}
+              onClick={() => openEditor()}
+            >
+              <Plus size={16} /> New palette
+            </button>
+            <span className={styles.emptyHint}>
+              Preview every design in your brand colors — palettes stay in this
+              browser.
+            </span>
+          </div>
           <button
             type="button"
-            role="radio"
-            aria-checked={activePaletteId === null}
-            disabled={palettes.length === 0}
-            className={
-              activePaletteId === null
-                ? `${styles.chip} ${styles.chipActive}`
-                : styles.chip
-            }
-            onClick={() => setActivePalette(null)}
-          >
-            Artwork colors
-          </button>
-
-          {palettes.map((palette) => {
-            const isActive = palette.id === activePaletteId;
-
-            return (
-              <span key={palette.id} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.15rem' }}>
-                <button
-                  type="button"
-                  role="radio"
-                  aria-checked={isActive}
-                  className={
-                    isActive
-                      ? `${styles.chip} ${styles.chipActive}`
-                      : styles.chip
-                  }
-                  onClick={() => setActivePalette(palette.id)}
-                >
-                  <span className={styles.swatches} aria-hidden="true">
-                    {palette.colors.map((color, index) => (
-                      <span
-                        key={`${color}-${index}`}
-                        className={
-                          index === 0 && palette.transparentBackground
-                            ? `${styles.swatch} ${styles.swatchTransparent}`
-                            : styles.swatch
-                        }
-                        style={
-                          index === 0 && palette.transparentBackground
-                            ? undefined
-                            : { backgroundColor: color }
-                        }
-                      />
-                    ))}
-                  </span>
-                  {palette.name}
-                </button>
-                <button
-                  type="button"
-                  className={styles.chipEdit}
-                  aria-label={`Edit palette ${palette.name}`}
-                  title="Edit palette"
-                  onClick={() => openEditor(palette)}
-                >
-                  <Pencil size={14} />
-                </button>
-              </span>
-            );
-          })}
-        </div>
-
-        <div className={styles.actions}>
-          <button
-            type="button"
-            className={styles.actionButton}
-            onClick={() => openEditor()}
-          >
-            <Plus size={16} /> New palette
-          </button>
-          <button
-            type="button"
-            className={styles.actionButton}
+            className={styles.textButton}
             onClick={() => fileInputRef.current?.click()}
           >
             <Upload size={16} /> Import
           </button>
-          <button
-            type="button"
-            className={styles.actionButton}
-            onClick={exportPalettes}
-            disabled={palettes.length === 0}
-          >
-            <Download size={16} /> Export
-          </button>
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="application/json,.json"
-            hidden
-            onChange={(event) => {
-              const file = event.target.files?.[0];
-
-              if (file) void importFile(file);
-              // Allow re-importing the same file after edits.
-              event.target.value = '';
-            }}
-          />
+          {fileInput}
         </div>
+      ) : (
+        <div className={styles.barRow}>
+          <div className={styles.controls}>
+            <span className={styles.previewLabel}>Preview colors</span>
+            <div
+              className={styles.modeToggle}
+              role="radiogroup"
+              aria-label="Preview colors"
+            >
+              <button
+                type="button"
+                role="radio"
+                aria-checked={mode === 'artwork'}
+                className={
+                  mode === 'artwork'
+                    ? `${styles.modeOption} ${styles.modeOptionActive}`
+                    : styles.modeOption
+                }
+                onClick={() => selectMode('artwork')}
+              >
+                Artwork colors
+              </button>
+              <button
+                type="button"
+                role="radio"
+                aria-checked={mode === 'brand'}
+                className={
+                  mode === 'brand'
+                    ? `${styles.modeOption} ${styles.modeOptionActive}`
+                    : styles.modeOption
+                }
+                onClick={() => selectMode('brand')}
+              >
+                Brand palette
+              </button>
+            </div>
 
-        {status && (
-          <p
-            className={
-              status.error
-                ? `${styles.status} ${styles.statusError}`
-                : styles.status
-            }
-            role="status"
-          >
-            {status.message}
-          </p>
-        )}
-      </div>
+            {mode === 'artwork' ? (
+              <span className={styles.modeHint}>
+                Each design shows its own colors
+              </span>
+            ) : (
+              <div
+                className={styles.chips}
+                role="radiogroup"
+                aria-label="Active palette"
+              >
+                {palettes.map((palette) => {
+                  const isActive = palette.id === activePaletteId;
+
+                  return (
+                    <div
+                      key={palette.id}
+                      role="radio"
+                      aria-checked={isActive}
+                      tabIndex={0}
+                      className={
+                        isActive
+                          ? `${styles.chip} ${styles.chipActive}`
+                          : styles.chip
+                      }
+                      onClick={() => setActivePalette(palette.id)}
+                      onKeyDown={(event) => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                          event.preventDefault();
+                          setActivePalette(palette.id);
+                        }
+                      }}
+                    >
+                      <span className={styles.swatches} aria-hidden="true">
+                        {palette.colors.map((color, index) => (
+                          <span
+                            key={`${color}-${index}`}
+                            className={
+                              index === 0 && palette.transparentBackground
+                                ? `${styles.swatch} ${styles.swatchTransparent}`
+                                : styles.swatch
+                            }
+                            style={
+                              index === 0 && palette.transparentBackground
+                                ? undefined
+                                : { backgroundColor: color }
+                            }
+                          />
+                        ))}
+                      </span>
+                      {palette.name}
+                      {isActive && (
+                        <button
+                          type="button"
+                          className={styles.chipEdit}
+                          aria-label={`Edit palette ${palette.name}`}
+                          title="Edit palette"
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            openEditor(palette);
+                          }}
+                        >
+                          <Pencil size={14} />
+                        </button>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
+          <div className={styles.actions}>
+            <button
+              type="button"
+              className={styles.textButton}
+              onClick={() => openEditor()}
+            >
+              <Plus size={16} /> New palette
+            </button>
+            <button
+              type="button"
+              className={styles.textButton}
+              onClick={() => fileInputRef.current?.click()}
+            >
+              <Upload size={16} /> Import
+            </button>
+            <button
+              type="button"
+              className={styles.textButton}
+              onClick={exportPalettes}
+            >
+              <Download size={16} /> Export
+            </button>
+            {fileInput}
+          </div>
+        </div>
+      )}
+
+      {status && (
+        <p
+          className={
+            status.error
+              ? `${styles.status} ${styles.statusError}`
+              : styles.status
+          }
+          role="status"
+        >
+          {status.message}
+        </p>
+      )}
 
       <Dialog.Root
         open={draft !== null}
@@ -321,35 +408,68 @@ export default function BrandPaletteBar() {
                 </div>
 
                 <div className={styles.dialogField}>
-                  <span className={styles.dialogLabel}>
-                    Colors (background first)
-                  </span>
+                  <span className={styles.dialogLabel}>Background</span>
+                  <div className={styles.bgRow}>
+                    {draft.transparent ? (
+                      <span
+                        className={styles.transparentSwatch}
+                        aria-hidden="true"
+                      />
+                    ) : (
+                      <input
+                        type="color"
+                        className={styles.colorInput}
+                        value={toColorInputValue(draft.colors[0])}
+                        aria-label="Background color"
+                        onChange={(event) =>
+                          setDraftColor(0, event.target.value)
+                        }
+                      />
+                    )}
+                    <input
+                      type="text"
+                      className={
+                        draft.transparent
+                          ? `${styles.hexInput} ${styles.hexInputInert}`
+                          : styles.hexInput
+                      }
+                      value={draft.colors[0]}
+                      disabled={draft.transparent}
+                      aria-label="Background color hex value"
+                      onChange={(event) => setDraftColor(0, event.target.value)}
+                    />
+                    <label className={styles.bgTransparent}>
+                      <ToggleSwitch
+                        small
+                        isChecked={draft.transparent}
+                        onChange={(checked) =>
+                          setDraft({ ...draft, transparent: checked })
+                        }
+                      />
+                      <span className={styles.bgTransparentLabel}>
+                        Transparent
+                      </span>
+                    </label>
+                  </div>
+                  <p className={styles.bgHint}>
+                    Renders and exports without a background color. The saved
+                    color comes back when you switch it off.
+                  </p>
+                </div>
+
+                <div className={styles.dialogField}>
+                  <span className={styles.dialogLabel}>Colors</span>
                   <div className={styles.colorRows}>
-                    {draft.colors.map((color, index) => {
-                      // With a transparent background the color0 value is
-                      // kept (toggling back restores it) but not used, so
-                      // its row is dimmed and inert.
-                      const inertBackground = index === 0 && draft.transparent;
+                    {draft.colors.slice(1).map((color, inkIndex) => {
+                      const index = inkIndex + 1;
 
                       return (
-                        <div
-                          className={
-                            inertBackground
-                              ? `${styles.colorRow} ${styles.colorRowInert}`
-                              : styles.colorRow
-                          }
-                          key={index}
-                        >
+                        <div className={styles.colorRow} key={index}>
                           <input
                             type="color"
                             className={styles.colorInput}
                             value={toColorInputValue(color)}
-                            disabled={inertBackground}
-                            aria-label={
-                              index === 0
-                                ? 'Background color'
-                                : `Color ${index + 1}`
-                            }
+                            aria-label={`Color ${index}`}
                             onChange={(event) =>
                               setDraftColor(index, event.target.value)
                             }
@@ -358,30 +478,16 @@ export default function BrandPaletteBar() {
                             type="text"
                             className={styles.hexInput}
                             value={color}
-                            disabled={inertBackground}
-                            aria-label={
-                              index === 0
-                                ? 'Background color hex value'
-                                : `Color ${index + 1} hex value`
-                            }
+                            aria-label={`Color ${index} hex value`}
                             onChange={(event) =>
                               setDraftColor(index, event.target.value)
                             }
                           />
-                          <span className={styles.roleLabel}>
-                            {index === 0
-                              ? draft.transparent
-                                ? 'background (transparent)'
-                                : 'background'
-                              : ''}
-                          </span>
                           <button
                             type="button"
                             className={styles.removeColor}
-                            aria-label={`Remove color ${index + 1}`}
-                            disabled={
-                              draft.colors.length <= MIN_PALETTE_COLORS
-                            }
+                            aria-label={`Remove color ${index}`}
+                            disabled={draft.colors.length <= MIN_PALETTE_COLORS}
                             onClick={() =>
                               setDraft({
                                 ...draft,
@@ -401,8 +507,7 @@ export default function BrandPaletteBar() {
                   {draft.colors.length < MAX_PALETTE_COLORS && (
                     <button
                       type="button"
-                      className={styles.actionButton}
-                      style={{ marginTop: '0.75rem' }}
+                      className={`${styles.textButton} ${styles.addColor}`}
                       onClick={() =>
                         setDraft({
                           ...draft,
@@ -418,25 +523,6 @@ export default function BrandPaletteBar() {
                   )}
                 </div>
 
-                <div className={styles.dialogField}>
-                  <label className={styles.transparentToggle}>
-                    <ToggleSwitch
-                      small
-                      isChecked={draft.transparent}
-                      onChange={(checked) =>
-                        setDraft({ ...draft, transparent: checked })
-                      }
-                    />
-                    <span>
-                      Transparent background
-                      <span className={styles.toggleHint}>
-                        Renders and exports this palette without a background
-                        color.
-                      </span>
-                    </span>
-                  </label>
-                </div>
-
                 {draftError && (
                   <p className={styles.dialogError}>{draftError}</p>
                 )}
@@ -445,18 +531,18 @@ export default function BrandPaletteBar() {
                   {draft.existing && (
                     <button
                       type="button"
-                      className={`${styles.actionButton} ${styles.dialogDelete}`}
+                      className={`${styles.textButton} ${styles.dialogDelete}`}
                       onClick={removeDraftPalette}
                     >
                       <Trash2 size={16} /> Delete
                     </button>
                   )}
-                  <Dialog.Close className={styles.actionButton}>
+                  <Dialog.Close className={styles.textButton}>
                     Cancel
                   </Dialog.Close>
                   <button
                     type="button"
-                    className={`${styles.actionButton} ${styles.saveButton}`}
+                    className={styles.saveButton}
                     onClick={saveDraft}
                   >
                     Save palette
