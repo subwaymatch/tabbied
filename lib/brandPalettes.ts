@@ -1,6 +1,8 @@
-// Brand palettes: user-defined color palettes, persisted in localStorage, that
+// Custom palettes: user-defined color palettes, persisted in localStorage, that
 // can be applied globally to the /artworks gallery previews (and exported /
 // imported as JSON so a brand's colors travel between machines and projects).
+// (Named `brandPalettes` internally for storage-key stability; the UI calls
+// them "custom palettes".)
 //
 // The whole feature state lives under one localStorage key so cross-tab sync
 // is a single `storage` event. Same-tab consumers subscribe through
@@ -52,8 +54,9 @@ const isValidPalette = (value: unknown): value is BrandPalette => {
   return (
     typeof palette.id === 'string' &&
     palette.id.length > 0 &&
+    // The name is optional — an empty string is valid (the palette then shows
+    // as just its colors) — but it must still be a string when present.
     typeof palette.name === 'string' &&
-    palette.name.trim().length > 0 &&
     Array.isArray(palette.colors) &&
     palette.colors.length >= MIN_PALETTE_COLORS &&
     palette.colors.length <= MAX_PALETTE_COLORS &&
@@ -173,7 +176,7 @@ export const upsertPalette = (palette: BrandPalette) => {
   const normalized = normalizePalette(palette);
 
   if (!isValidPalette(normalized)) {
-    throw new Error('Invalid palette: a name and 2–12 hex colors are required.');
+    throw new Error('Invalid palette: 2–12 hex colors are required.');
   }
 
   const existing = state.palettes.findIndex((p) => p.id === normalized.id);
@@ -260,6 +263,9 @@ export const importPalettesJson = (
   for (const candidate of candidates) {
     const withId = {
       id: createPaletteId(),
+      // Name is optional: a palette omitting it imports as nameless (colors
+      // only). A `name` in the candidate overrides this default.
+      name: '',
       ...(typeof candidate === 'object' && candidate !== null
         ? candidate
         : {}),
@@ -267,7 +273,7 @@ export const importPalettesJson = (
 
     if (!isValidPalette(withId)) {
       throw new Error(
-        'Each palette needs a "name" and a "colors" array of 2–12 hex colors (background first).'
+        'Each palette needs a "colors" array of 2–12 hex colors (background first); "name" is optional.'
       );
     }
 

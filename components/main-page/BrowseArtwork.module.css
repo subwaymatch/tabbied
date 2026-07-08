@@ -1,3 +1,14 @@
+/* A hairline 1px gap between gallery cards on both axes (matches the artworks
+   page): each column carries a 1px left inset that becomes the gap between
+   neighbours, and row-gap spaces the wrapped rows. */
+.galleryGrid {
+  row-gap: 1px;
+}
+
+.galleryGrid > div {
+  padding-left: 1px;
+}
+
 /* Gallery card (was the shared styles/_gallery-card.scss partial). */
 .galleryCard {
   position: relative;

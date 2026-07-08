@@ -28,7 +28,7 @@ export default function SelectArtwork({
         </Container>
 
         <Container fluidOnMobile>
-          <Row noGutter>
+          <Row noGutter className={styles.galleryGrid}>
             {/* Each card is a client component: its Link keeps prefetch off
                 (with 150+ cards, viewport prefetching would fire an RSC
                 payload request per card scrolled past — by far the page's

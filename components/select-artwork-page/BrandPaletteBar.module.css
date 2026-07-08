@@ -1,7 +1,7 @@
-/* Brand-palette controls above the gallery. The bar sheds its box and sits
+/* Custom-palette controls above the gallery. The bar sheds its box and sits
    directly on the page, flush with the gallery grid: a "Preview colors" mode
-   selector (Artwork colors vs Brand palette), the saved-palette chips (shown
-   in brand mode), and JSON import/export. */
+   selector (Artwork colors vs Custom palette), the saved-palette chips (shown
+   in custom mode, on their own line below), and JSON import/export. */
 .bar {
   margin-bottom: 40px;
 }
@@ -75,16 +75,23 @@
   color: var(--gray);
 }
 
+/* The saved-palette chips live on their own line below the mode row, so the
+   list can grow without reflowing the New / Import / Export actions. */
 .chips {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.chipName {
+  white-space: nowrap;
 }
 
 /* A selectable palette chip: swatch strip + name, in Tabbied's fill-and-shadow
-   language (no border). The active chip fills dark and carries an inline edit
-   affordance. */
+   language (no border). The active chip is marked with a soft brand-tinted
+   fill (no border), so selecting one doesn't change a chip's size. */
 .chip {
   display: inline-flex;
   align-items: center;
@@ -114,9 +121,8 @@
 
 .chipActive,
 .chipActive:hover {
-  background-color: var(--gray-dark);
-  box-shadow: none;
-  color: white;
+  background-color: color-mix(in srgb, var(--pink) 8%, white);
+  color: var(--gray-dark);
 }
 
 .swatches {
@@ -125,12 +131,6 @@
   overflow: hidden;
   border: 1px solid rgba(35, 37, 41, 0.12);
   line-height: 0;
-}
-
-/* On the dark active chip a near-black outline would vanish, so the strip
-   reads against the fill with a light hairline instead. */
-.chipActive .swatches {
-  border-color: rgba(255, 255, 255, 0.3);
 }
 
 .swatch {
@@ -143,33 +143,6 @@
 .swatchTransparent {
   background-image: repeating-conic-gradient(#dfe3e8 0% 25%, #ffffff 0% 50%);
   background-size: 8px 8px;
-}
-
-/* Edit affordance nested inside the active chip. */
-.chipEdit {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.3rem;
-  height: 1.3rem;
-  margin: -0.2rem -0.3rem -0.2rem 0;
-  padding: 0;
-  border: none;
-  border-radius: 50%;
-  background: transparent;
-  color: inherit;
-  opacity: 0.75;
-  cursor: pointer;
-  transition: opacity 120ms ease;
-}
-
-.chipEdit:hover {
-  opacity: 1;
-}
-
-.chipEdit:focus-visible {
-  outline: 2px solid rgba(255, 255, 255, 0.8);
-  outline-offset: 1px;
 }
 
 .actions {
@@ -327,6 +300,12 @@
   color: var(--gray-dark);
 }
 
+/* Muted "(optional)" qualifier next to a field label. */
+.labelHint {
+  font-weight: 400;
+  color: var(--gray);
+}
+
 /* Filled inputs (no border) — the dialog speaks the same fill-and-shadow
    language as the bar. */
 .nameInput {
@@ -440,13 +419,6 @@
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--gray-dark);
-}
-
-.bgHint {
-  margin-top: 0.5rem;
-  font-size: 0.85rem;
-  color: var(--gray);
-  line-height: 1.5;
 }
 
 /* ---- Ink color list ---- */

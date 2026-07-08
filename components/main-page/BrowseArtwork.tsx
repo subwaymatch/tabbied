@@ -24,7 +24,7 @@ export default async function BrowseArtworkSection() {
       </Container>
 
       <Container fluidOnMobile>
-        <Row noGutter>
+        <Row noGutter className={styles.galleryGrid}>
           {gallery.map((item) => (
             <Col key={item.slug} md={3} sm={6} xs={6}>
               {/* The seed param matches the artworks gallery links: the editor

@@ -454,7 +454,7 @@ export default function ReactDocsPage() {
                     />
                     <div className={styles.callout}>
                       <p>
-                        Trying a brand palette across every design? The{' '}
+                        Trying a custom palette across every design? The{' '}
                         <a href="/artworks/">gallery</a> lets you save named
                         palettes (exportable as JSON) and preview all presets
                         with them — including with a transparent background.
