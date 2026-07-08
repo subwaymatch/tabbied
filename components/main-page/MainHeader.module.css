@@ -182,7 +182,6 @@
 
 .drawerLinkActive {
   color: var(--pink);
-  font-weight: 600;
 }
 
 /* GitHub moves to the foot of the drawer on mobile. */
@@ -246,7 +245,6 @@
    distinct from the transient hover color. */
 .pageNavigation li a.active {
   color: var(--pink);
-  font-weight: 600;
 }
 
 @media (max-width: 1299.98px) {
