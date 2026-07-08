@@ -1,3 +1,16 @@
+/* A hairline 1px gap between gallery cards on both axes, so adjacent square
+   thumbnails read as separate tiles rather than one continuous block. Each
+   column carries a 1px left inset (invisible against the page) which becomes
+   the gap between neighbours; row-gap spaces the wrapped rows. Kept off the
+   shared grid so the padding-based gutter and outer edges stay untouched. */
+.galleryGrid {
+  row-gap: 1px;
+}
+
+.galleryGrid > div {
+  padding-left: 1px;
+}
+
 /* Gallery card (was the shared styles/_gallery-card.scss partial). */
 .galleryCard {
   position: relative;

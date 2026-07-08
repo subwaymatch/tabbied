@@ -1,7 +1,7 @@
-/* Brand-palette controls above the gallery. The bar sheds its box and sits
+/* Custom-palette controls above the gallery. The bar sheds its box and sits
    directly on the page, flush with the gallery grid: a "Preview colors" mode
-   selector (Artwork colors vs Brand palette), the saved-palette chips (shown
-   in brand mode), and JSON import/export. */
+   selector (Artwork colors vs Custom palette), the saved-palette chips (shown
+   in custom mode, on their own line below), and JSON import/export. */
 .bar {
   margin-bottom: 40px;
 }
@@ -75,11 +75,18 @@
   color: var(--gray);
 }
 
+/* The saved-palette chips live on their own line below the mode row, so the
+   list can grow without reflowing the New / Import / Export actions. */
 .chips {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.chipName {
+  white-space: nowrap;
 }
 
 /* A selectable palette chip: swatch strip + name, in Tabbied's fill-and-shadow
@@ -325,6 +332,12 @@
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--gray-dark);
+}
+
+/* Muted "(optional)" qualifier next to a field label. */
+.labelHint {
+  font-weight: 400;
+  color: var(--gray);
 }
 
 /* Filled inputs (no border) — the dialog speaks the same fill-and-shadow

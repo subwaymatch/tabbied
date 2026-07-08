@@ -24,7 +24,11 @@ import EditArtworkHeader from 'components/edit-artwork-page/EditArtworkHeader';
 import ButtonSelectGroup from 'components/ButtonSelectGroup';
 import ValueSlider from 'components/ValueSlider';
 import ToggleSwitch from 'components/ToggleSwitch';
-import { useBrandPalettes, type BrandPalette } from 'lib/brandPalettes';
+import {
+  setActivePalette,
+  useBrandPalettes,
+  type BrandPalette,
+} from 'lib/brandPalettes';
 import styles from './EditArtwork.module.css';
 
 const ColorPicker = dynamic(() => import('components/ColorPicker'), {
@@ -165,6 +169,52 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
+  // Saved custom palettes (managed on /artworks), plus the one currently
+  // selected there. The selection is shared through localStorage, so opening an
+  // artwork picks up whatever palette the gallery is previewing in (A2).
+  const brandState = useBrandPalettes();
+  const brandPalettes = brandState.palettes;
+  const activeCustomPalette =
+    brandPalettes.find((p) => p.id === brandState.activePaletteId) ?? null;
+
+  // A saved palette's colors mapped for the editor: a transparent background
+  // becomes a zero-alpha color so the picker, URL and PNG export round-trip it.
+  const customPaletteColors = (custom: BrandPalette): string[] =>
+    custom.colors.map((color, index) =>
+      index === 0 && custom.transparentBackground ? `${color}00` : color
+    );
+
+  // A saved palette overlaid onto this artwork's palette slots (background
+  // first), yielding the editor's palette + active color count.
+  const customPaletteToEditor = (
+    custom: BrandPalette
+  ): { palette: string[]; count: number } => {
+    const colors = customPaletteColors(custom);
+    const next = [...paletteDefaults];
+    const limit = Math.min(colors.length, next.length);
+
+    for (let i = 0; i < limit; i += 1) next[i] = colors[i];
+
+    return {
+      palette: next,
+      count: Math.min(maxColors, Math.max(minColors, colors.length)),
+    };
+  };
+
+  // Whether the URL already carried an explicit palette when the editor first
+  // mounted — captured on the first render, before our own sync writes any
+  // palette params. A deep/shared link with its own palette must win over the
+  // gallery's custom-palette selection.
+  const urlHadPaletteAtMount = useRef<boolean | null>(null);
+
+  if (urlHadPaletteAtMount.current === null) {
+    const n = searchParams.getAll('palette').length;
+    urlHadPaletteAtMount.current = n >= minColors && n <= maxColors;
+  }
+
+  // Guards the one-time initial application of the selected custom palette.
+  const initialCustomApplied = useRef(false);
+
   // The value an option takes according to the URL, falling back to the
   // authored default when the param is absent or malformed, and clamped /
   // validated against the option's own bounds (a hand-edited URL must not
@@ -223,6 +273,13 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
       };
     }
 
+    // No palette in the URL (e.g. arriving from a gallery card): open the
+    // artwork in the custom palette selected on /artworks, if any (A2). A
+    // shared link that carries its own palette above always wins.
+    if (activeCustomPalette && paletteDefaults.length > 0) {
+      return customPaletteToEditor(activeCustomPalette);
+    }
+
     return { palette: paletteDefaults, count: defaultColors };
   };
 
@@ -260,12 +317,24 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
   } | null>(null);
   const doodleRef = useRef<TabbiedArtworkHandle>(null);
   const previewRef = useRef<HTMLDivElement>(null);
+
+  // URL strings this component wrote via replaceState, awaiting their
+  // useSearchParams echo — so the sync-from effect can tell its own writes
+  // apart from external navigations (see the two URL-sync effects below).
+  const selfWrites = useRef<Set<string>>(new Set());
   const isScreenXS = useMediaQuery('(max-width: 747.99px)');
   const isTwoColumn = useMediaQuery('(min-width: 992px)');
   const baseWidth = isScreenXS ? 240 : 360;
 
-  // Saved brand palettes (managed on /artworks) offered as one-click presets.
-  const { palettes: brandPalettes } = useBrandPalettes();
+  // Remember the last custom palette chosen so the "Custom palette" segment can
+  // restore it after a detour through "Artwork colors" (A6).
+  const lastCustomIdRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (brandState.activePaletteId !== null) {
+      lastCustomIdRef.current = brandState.activePaletteId;
+    }
+  }, [brandState.activePaletteId]);
 
   // Scale the artwork to fill the preview area (leaving a margin) so it shows as
   // large as the space allows. Until the preview is measured, fall back to the
@@ -281,10 +350,24 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
       )
     : fitToBox(aspectRatio, baseWidth, baseWidth * 1.5);
 
-  // Sync component state FROM the URL search params after mount (back /
-  // forward navigation re-renders with new params without remounting). Each
-  // setter is guarded so an echo of our own URL replace is a no-op.
+  // Sync component state FROM the URL search params when they change for an
+  // external reason (back / forward navigation, or a shared link opened into
+  // this route). Our own writes are filtered out via selfWrites; each setter
+  // is still guarded so an unfiltered echo can't thrash state.
   useEffect(() => {
+    const currentParams = searchParams.toString();
+
+    // Ignore the searchParams change our own replaceState below just caused.
+    // Only a genuinely external change (back/forward, or a shared link opened
+    // into this route) should push URL → state. Without this, a delayed echo
+    // of our own write — which happens when a heavy render defers the App
+    // Router's searchParams update past the next input — reverts state to a
+    // stale value, and rapid edits visibly flip the artwork back and forth.
+    if (selfWrites.current.has(currentParams)) {
+      selfWrites.current.delete(currentParams);
+      return;
+    }
+
     const queryPaletteState = paletteStateFromQuery();
 
     if (
@@ -319,6 +402,29 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
+
+  // Apply the gallery's selected custom palette on first load (A2), once. The
+  // brand-palette store returns its server snapshot (no selection) for the
+  // first render or two during hydration, so the useState initializer above
+  // can miss the selection; this fills it in as soon as the store resolves. It
+  // never overrides a URL that arrived with its own palette (a shared link).
+  useEffect(() => {
+    if (initialCustomApplied.current) return;
+
+    if (urlHadPaletteAtMount.current || paletteDefaults.length === 0) {
+      initialCustomApplied.current = true;
+      return;
+    }
+
+    if (!activeCustomPalette) return; // wait for the store snapshot to resolve
+
+    initialCustomApplied.current = true;
+    const { palette: nextPalette, count } =
+      customPaletteToEditor(activeCustomPalette);
+    setPalette(nextPalette);
+    setColorCount(count);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeCustomPalette]);
 
   // Track the viewport so the expanded dialog can size the artwork to fit.
   useEffect(() => {
@@ -377,12 +483,21 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
       newParams.set(option.id, String(optionValues[index]));
     });
 
-    if (newParams.toString() !== searchParams.toString()) {
+    const nextParams = newParams.toString();
+
+    if (nextParams !== searchParams.toString()) {
+      // Mark this URL as our own so the sync-from effect above skips its echo
+      // instead of treating it as an external navigation. (Bounded: entries are
+      // consumed one-per-echo; the cap guards against the rare case where the
+      // App Router coalesces two writes into a single searchParams update.)
+      if (selfWrites.current.size > 32) selfWrites.current.clear();
+      selfWrites.current.add(nextParams);
+
       // Native replaceState (which the App Router keeps in sync with
       // useSearchParams) instead of router.replace: the page is fully static,
       // so a router navigation would refetch an identical RSC payload from
       // the CDN on every knob tweak — a network request per slider step.
-      window.history.replaceState(null, '', `${pathname}?${newParams.toString()}`);
+      window.history.replaceState(null, '', `${pathname}?${nextParams}`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [seed, palette, colorCount, optionValues, aspectRatio]);
@@ -416,14 +531,12 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     );
   };
 
-  // Apply a saved brand palette (see /artworks) to this artwork. Pickr and
+  // Apply a saved custom palette (see /artworks) to this artwork. Pickr and
   // the URL carry HEXA values, so a transparent background becomes the stored
   // color with zero alpha — reversible in the picker, and PNG exports keep
   // the real transparency.
   const applyBrandPalette = (brand: BrandPalette) => {
-    const colors = brand.colors.map((color, index) =>
-      index === 0 && brand.transparentBackground ? `${color}00` : color
-    );
+    const colors = customPaletteColors(brand);
 
     setPalette((prev) => {
       const next = [...prev];
@@ -436,6 +549,37 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
       return next;
     });
     setColorCount(Math.min(maxColors, Math.max(minColors, colors.length)));
+  };
+
+  // "Preview colors" on the editor (A6): mirrors the gallery's control and
+  // shares its localStorage selection. Selecting a palette applies its colors
+  // *and* marks it active (so the gallery previews in it too); "Artwork colors"
+  // restores the authored defaults and clears the selection.
+  const previewMode: 'artwork' | 'custom' = activeCustomPalette
+    ? 'custom'
+    : 'artwork';
+
+  const selectCustomPalette = (custom: BrandPalette) => {
+    applyBrandPalette(custom);
+    setActivePalette(custom.id);
+  };
+
+  const selectArtworkColors = () => {
+    if (previewMode === 'artwork') return;
+
+    setPalette([...paletteDefaults]);
+    setColorCount(defaultColors);
+    setActivePalette(null);
+  };
+
+  const selectCustomMode = () => {
+    if (previewMode === 'custom') return;
+
+    const remembered = lastCustomIdRef.current;
+    const target =
+      brandPalettes.find((p) => p.id === remembered) ?? brandPalettes[0];
+
+    if (target) selectCustomPalette(target);
   };
 
   // Toggle the background between opaque and transparent. Transparency is
@@ -555,7 +699,7 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
   const previewBackground = palette.length > 0 ? palette[0] : 'transparent';
   const expandIconColor = getExpandIconColor(previewBackground);
 
-  // A zero-alpha background (a transparent brand palette) previews over a
+  // A zero-alpha background (a transparent custom palette) previews over a
   // checkerboard, the usual "this is transparent" affordance.
   const isTransparentBackground =
     /^#[0-9a-f]{8}$/i.test(previewBackground) &&
@@ -755,41 +899,100 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
                 {brandPalettes.length > 0 && (
                   <div className={styles.brandPalettes}>
                     <span className={styles.brandPalettesLabel}>
-                      Apply brand palette
+                      Preview colors
                     </span>
-                    <div className={styles.brandPaletteChips}>
-                      {brandPalettes.map((brand) => (
-                        <button
-                          key={brand.id}
-                          type="button"
-                          className={styles.brandPaletteChip}
-                          title={`Apply palette "${brand.name}"`}
-                          onClick={() => applyBrandPalette(brand)}
-                        >
-                          <span
-                            className={styles.brandSwatches}
-                            aria-hidden="true"
-                          >
-                            {brand.colors.map((color, index) => (
-                              <span
-                                key={`${color}-${index}`}
-                                className={
-                                  index === 0 && brand.transparentBackground
-                                    ? `${styles.brandSwatch} ${styles.brandSwatchTransparent}`
-                                    : styles.brandSwatch
-                                }
-                                style={
-                                  index === 0 && brand.transparentBackground
-                                    ? undefined
-                                    : { backgroundColor: color }
-                                }
-                              />
-                            ))}
-                          </span>
-                          {brand.name}
-                        </button>
-                      ))}
+                    <div
+                      className={styles.modeToggle}
+                      role="radiogroup"
+                      aria-label="Preview colors"
+                    >
+                      <button
+                        type="button"
+                        role="radio"
+                        aria-checked={previewMode === 'artwork'}
+                        className={
+                          previewMode === 'artwork'
+                            ? `${styles.modeOption} ${styles.modeOptionActive}`
+                            : styles.modeOption
+                        }
+                        onClick={selectArtworkColors}
+                      >
+                        Artwork colors
+                      </button>
+                      <button
+                        type="button"
+                        role="radio"
+                        aria-checked={previewMode === 'custom'}
+                        className={
+                          previewMode === 'custom'
+                            ? `${styles.modeOption} ${styles.modeOptionActive}`
+                            : styles.modeOption
+                        }
+                        onClick={selectCustomMode}
+                      >
+                        Custom palette
+                      </button>
                     </div>
+
+                    {previewMode === 'custom' && (
+                      <div
+                        className={styles.brandPaletteChips}
+                        role="radiogroup"
+                        aria-label="Custom palette"
+                      >
+                        {brandPalettes.map((brand) => {
+                          const isActive = brand.id === brandState.activePaletteId;
+                          const label = brand.name || 'Untitled palette';
+
+                          return (
+                            <button
+                              key={brand.id}
+                              type="button"
+                              role="radio"
+                              aria-checked={isActive}
+                              aria-label={label}
+                              className={
+                                isActive
+                                  ? `${styles.brandPaletteChip} ${styles.brandPaletteChipActive}`
+                                  : styles.brandPaletteChip
+                              }
+                              title={
+                                brand.name
+                                  ? `Preview in "${brand.name}"`
+                                  : 'Preview in this palette'
+                              }
+                              onClick={() => selectCustomPalette(brand)}
+                            >
+                              <span
+                                className={styles.brandSwatches}
+                                aria-hidden="true"
+                              >
+                                {brand.colors.map((color, index) => (
+                                  <span
+                                    key={`${color}-${index}`}
+                                    className={
+                                      index === 0 && brand.transparentBackground
+                                        ? `${styles.brandSwatch} ${styles.brandSwatchTransparent}`
+                                        : styles.brandSwatch
+                                    }
+                                    style={
+                                      index === 0 && brand.transparentBackground
+                                        ? undefined
+                                        : { backgroundColor: color }
+                                    }
+                                  />
+                                ))}
+                              </span>
+                              {brand.name && (
+                                <span className={styles.brandChipName}>
+                                  {brand.name}
+                                </span>
+                              )}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
                   </div>
                 )}
               </div>

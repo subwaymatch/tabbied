@@ -130,7 +130,8 @@
   cursor: pointer;
 }
 
-/* Saved brand palettes (managed on /artworks) as one-click presets. */
+/* "Preview colors" control (mirrors the gallery bar): switch the artwork
+   between its own colors and a saved custom palette (managed on /artworks). */
 .brandPalettes {
   margin-top: 1.5rem;
 }
@@ -144,10 +145,54 @@
   color: var(--gray);
 }
 
+/* Two-option segmented control naming both preview modes. */
+.modeToggle {
+  display: inline-flex;
+  padding: 0.2rem;
+  border-radius: 2rem;
+  background-color: #eceef1;
+}
+
+.modeOption {
+  appearance: none;
+  padding: 0.35rem 0.9rem;
+  border: none;
+  border-radius: 2rem;
+  background-color: transparent;
+  color: var(--gray-medium);
+  font-family: var(--font-sans-serif);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: color 120ms ease;
+}
+
+.modeOption:hover {
+  color: var(--gray-dark);
+}
+
+.modeOption:focus-visible {
+  outline: 2px solid var(--blue-medium);
+  outline-offset: 2px;
+}
+
+.modeOptionActive,
+.modeOptionActive:hover {
+  background-color: white;
+  box-shadow: 0 1px 2px rgba(35, 37, 41, 0.14);
+  color: var(--gray-dark);
+  font-weight: 600;
+}
+
 .brandPaletteChips {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.brandChipName {
+  white-space: nowrap;
 }
 
 .brandPaletteChip {
@@ -174,6 +219,18 @@
 .brandPaletteChip:focus-visible {
   outline: 2px solid var(--blue-medium);
   outline-offset: 2px;
+}
+
+/* The palette currently applied/previewed reads as filled and selected. */
+.brandPaletteChipActive,
+.brandPaletteChipActive:hover {
+  border-color: var(--gray-dark);
+  background-color: var(--gray-dark);
+  color: white;
+}
+
+.brandPaletteChipActive .brandSwatches {
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 .brandSwatches {

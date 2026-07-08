@@ -68,8 +68,8 @@ const toColorInputValue = (hex: string): string => {
 export default function BrandPaletteBar() {
   const { palettes, activePaletteId } = useBrandPalettes();
 
-  // Preview mode is derived from whether a brand palette is active, but the
-  // "Brand palette" segment needs a palette to switch *to* — remember the last
+  // Preview mode is derived from whether a custom palette is active, but the
+  // "Custom palette" segment needs a palette to switch *to* — remember the last
   // one so toggling back restores the user's choice rather than jumping to the
   // first palette every time.
   const lastBrandIdRef = useRef<string | null>(null);
@@ -112,11 +112,7 @@ export default function BrandPaletteBar() {
   const saveDraft = () => {
     if (!draft) return;
 
-    if (draft.name.trim().length === 0) {
-      setDraftError('Give the palette a name.');
-      return;
-    }
-
+    // The name is optional — a nameless palette just shows its colors.
     const invalid = draft.colors.find((color) => !isValidPaletteColor(color));
 
     if (invalid !== undefined) {
@@ -201,7 +197,7 @@ export default function BrandPaletteBar() {
   );
 
   return (
-    <section className={styles.bar} aria-label="Brand palette">
+    <section className={styles.bar} aria-label="Custom palette">
       {palettes.length === 0 ? (
         // No saved palettes: nothing to preview yet, so collapse to a single
         // invitation to create one.
@@ -215,8 +211,8 @@ export default function BrandPaletteBar() {
               <Plus size={16} /> New palette
             </button>
             <span className={styles.emptyHint}>
-              Preview every design in your brand colors — palettes stay in this
-              browser.
+              Preview every design in your custom colors — palettes stay in
+              this browser.
             </span>
           </div>
           <button
@@ -229,138 +225,153 @@ export default function BrandPaletteBar() {
           {fileInput}
         </div>
       ) : (
-        <div className={styles.barRow}>
-          <div className={styles.controls}>
-            <span className={styles.previewLabel}>Preview colors</span>
-            <div
-              className={styles.modeToggle}
-              role="radiogroup"
-              aria-label="Preview colors"
-            >
-              <button
-                type="button"
-                role="radio"
-                aria-checked={mode === 'artwork'}
-                className={
-                  mode === 'artwork'
-                    ? `${styles.modeOption} ${styles.modeOptionActive}`
-                    : styles.modeOption
-                }
-                onClick={() => selectMode('artwork')}
+        <>
+          <div className={styles.barRow}>
+            <div className={styles.controls}>
+              <span className={styles.previewLabel}>Preview colors</span>
+              <div
+                className={styles.modeToggle}
+                role="radiogroup"
+                aria-label="Preview colors"
               >
-                Artwork colors
-              </button>
-              <button
-                type="button"
-                role="radio"
-                aria-checked={mode === 'brand'}
-                className={
-                  mode === 'brand'
-                    ? `${styles.modeOption} ${styles.modeOptionActive}`
-                    : styles.modeOption
-                }
-                onClick={() => selectMode('brand')}
-              >
-                Brand palette
-              </button>
+                <button
+                  type="button"
+                  role="radio"
+                  aria-checked={mode === 'artwork'}
+                  className={
+                    mode === 'artwork'
+                      ? `${styles.modeOption} ${styles.modeOptionActive}`
+                      : styles.modeOption
+                  }
+                  onClick={() => selectMode('artwork')}
+                >
+                  Artwork colors
+                </button>
+                <button
+                  type="button"
+                  role="radio"
+                  aria-checked={mode === 'brand'}
+                  className={
+                    mode === 'brand'
+                      ? `${styles.modeOption} ${styles.modeOptionActive}`
+                      : styles.modeOption
+                  }
+                  onClick={() => selectMode('brand')}
+                >
+                  Custom palette
+                </button>
+              </div>
+
+              {mode === 'artwork' && (
+                <span className={styles.modeHint}>
+                  Each design shows its own colors
+                </span>
+              )}
             </div>
 
-            {mode === 'artwork' ? (
-              <span className={styles.modeHint}>
-                Each design shows its own colors
-              </span>
-            ) : (
-              <div
-                className={styles.chips}
-                role="radiogroup"
-                aria-label="Active palette"
+            <div className={styles.actions}>
+              <button
+                type="button"
+                className={styles.textButton}
+                onClick={() => openEditor()}
               >
-                {palettes.map((palette) => {
-                  const isActive = palette.id === activePaletteId;
+                <Plus size={16} /> New palette
+              </button>
+              <button
+                type="button"
+                className={styles.textButton}
+                onClick={() => fileInputRef.current?.click()}
+              >
+                <Upload size={16} /> Import
+              </button>
+              <button
+                type="button"
+                className={styles.textButton}
+                onClick={exportPalettes}
+              >
+                <Download size={16} /> Export
+              </button>
+              {fileInput}
+            </div>
+          </div>
 
-                  return (
-                    <div
-                      key={palette.id}
-                      role="radio"
-                      aria-checked={isActive}
-                      tabIndex={0}
-                      className={
-                        isActive
-                          ? `${styles.chip} ${styles.chipActive}`
-                          : styles.chip
+          {/* The palette chips sit on their own line below the mode row so
+              adding palettes never reflows the New / Import / Export actions. */}
+          {mode === 'brand' && (
+            <div
+              className={styles.chips}
+              role="radiogroup"
+              aria-label="Active palette"
+            >
+              {palettes.map((palette) => {
+                const isActive = palette.id === activePaletteId;
+                const label = palette.name || 'Untitled palette';
+
+                return (
+                  <div
+                    key={palette.id}
+                    role="radio"
+                    aria-checked={isActive}
+                    aria-label={label}
+                    tabIndex={0}
+                    className={
+                      isActive
+                        ? `${styles.chip} ${styles.chipActive}`
+                        : styles.chip
+                    }
+                    // Clicking a non-active chip selects it; clicking the
+                    // already-active chip opens its editor (A3).
+                    onClick={() =>
+                      isActive ? openEditor(palette) : setActivePalette(palette.id)
+                    }
+                    onKeyDown={(event) => {
+                      if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        if (isActive) openEditor(palette);
+                        else setActivePalette(palette.id);
                       }
-                      onClick={() => setActivePalette(palette.id)}
-                      onKeyDown={(event) => {
-                        if (event.key === 'Enter' || event.key === ' ') {
-                          event.preventDefault();
-                          setActivePalette(palette.id);
-                        }
-                      }}
-                    >
-                      <span className={styles.swatches} aria-hidden="true">
-                        {palette.colors.map((color, index) => (
-                          <span
-                            key={`${color}-${index}`}
-                            className={
-                              index === 0 && palette.transparentBackground
-                                ? `${styles.swatch} ${styles.swatchTransparent}`
-                                : styles.swatch
-                            }
-                            style={
-                              index === 0 && palette.transparentBackground
-                                ? undefined
-                                : { backgroundColor: color }
-                            }
-                          />
-                        ))}
-                      </span>
-                      {palette.name}
-                      {isActive && (
-                        <button
-                          type="button"
-                          className={styles.chipEdit}
-                          aria-label={`Edit palette ${palette.name}`}
-                          title="Edit palette"
-                          onClick={(event) => {
-                            event.stopPropagation();
-                            openEditor(palette);
-                          }}
-                        >
-                          <Pencil size={14} />
-                        </button>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-
-          <div className={styles.actions}>
-            <button
-              type="button"
-              className={styles.textButton}
-              onClick={() => openEditor()}
-            >
-              <Plus size={16} /> New palette
-            </button>
-            <button
-              type="button"
-              className={styles.textButton}
-              onClick={() => fileInputRef.current?.click()}
-            >
-              <Upload size={16} /> Import
-            </button>
-            <button
-              type="button"
-              className={styles.textButton}
-              onClick={exportPalettes}
-            >
-              <Download size={16} /> Export
-            </button>
-            {fileInput}
-          </div>
-        </div>
+                    }}
+                  >
+                    <span className={styles.swatches} aria-hidden="true">
+                      {palette.colors.map((color, index) => (
+                        <span
+                          key={`${color}-${index}`}
+                          className={
+                            index === 0 && palette.transparentBackground
+                              ? `${styles.swatch} ${styles.swatchTransparent}`
+                              : styles.swatch
+                          }
+                          style={
+                            index === 0 && palette.transparentBackground
+                              ? undefined
+                              : { backgroundColor: color }
+                          }
+                        />
+                      ))}
+                    </span>
+                    {palette.name && (
+                      <span className={styles.chipName}>{palette.name}</span>
+                    )}
+                    {isActive && (
+                      <button
+                        type="button"
+                        className={styles.chipEdit}
+                        aria-label={`Edit ${label}`}
+                        title="Edit palette"
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          openEditor(palette);
+                        }}
+                      >
+                        <Pencil size={14} />
+                      </button>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </>
       )}
 
       {status && (
@@ -393,7 +404,7 @@ export default function BrandPaletteBar() {
               <>
                 <div className={styles.dialogField}>
                   <label className={styles.dialogLabel} htmlFor="palette-name">
-                    Name
+                    Name <span className={styles.labelHint}>(optional)</span>
                   </label>
                   <input
                     id="palette-name"
