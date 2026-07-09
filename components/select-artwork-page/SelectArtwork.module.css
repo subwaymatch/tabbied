@@ -32,9 +32,14 @@
   color: white;
 }
 
-/* After the color rules above so the hover feedback wins on white titles too. */
+/* A gentle hover cue (B6): a soft fade rather than the previous strong pink,
+   placed after the color rules above so it wins on white titles too. */
 .galleryCard:hover h4 {
-  color: var(--pink);
+  color: var(--gray-medium);
+}
+
+.galleryCard:hover h4.white {
+  color: rgba(255, 255, 255, 0.72);
 }
 
 /* Live css-doodle thumbnail: a square frame that clips the scaled artwork.

@@ -617,6 +617,48 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     });
   };
 
+  // Copy the current URL — it fully encodes the palette, options, seed and
+  // aspect ratio, so the link reopens this exact artwork (B4).
+  const copyShareLink = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+    } catch {
+      // Clipboard unavailable (insecure context / denied) — nothing to do.
+    }
+  };
+
+  // Copy a ready-to-paste <TabbiedArtwork> snippet for this exact artwork (B4).
+  const copyReactComponent = async () => {
+    const activePalette = palette.slice(0, colorCount);
+    const paletteLiteral = activePalette.map((color) => `'${color}'`).join(', ');
+    const optionEntries = artwork.options.map(
+      (option, index) => [option.id, optionValues[index]] as const
+    );
+    const optionsLiteral = optionEntries
+      .map(([id, value]) =>
+        typeof value === 'string' ? `${id}: '${value}'` : `${id}: ${value}`
+      )
+      .join(', ');
+
+    const lines = [
+      `import { TabbiedArtwork } from 'tabbied/react';`,
+      `import { ${artwork.slug} } from 'tabbied/artworks';`,
+      ``,
+      `<TabbiedArtwork`,
+      `  artwork={${artwork.slug}}`,
+      `  seed="${seed}"`,
+      `  palette={[${paletteLiteral}]}`,
+      ...(optionEntries.length ? [`  options={{ ${optionsLiteral} }}`] : []),
+      `/>`,
+    ];
+
+    try {
+      await navigator.clipboard.writeText(lines.join('\n'));
+    } catch {
+      // Clipboard unavailable — nothing to do.
+    }
+  };
+
   // A draft palette (mid-edit in the dialog) overlaid onto this artwork's slots
   // for a live preview, without committing to the editable palette state.
   const overlayPreviewColors = (colors: string[]): string[] => {
@@ -737,7 +779,13 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
 
   return (
     <div className={styles.pageWrapper}>
-      <EditArtworkHeader artworkName={artwork.name} onRedraw={randomizeSeed} onExport={exportArtwork} />
+      <EditArtworkHeader
+        artworkName={artwork.name}
+        onRedraw={randomizeSeed}
+        onExportPng={exportArtwork}
+        onCopyLink={copyShareLink}
+        onCopyReactComponent={copyReactComponent}
+      />
 
       <main className={styles.editArtworkSection}>
         <Dialog.Root open={isExpanded} onOpenChange={setIsExpanded}>

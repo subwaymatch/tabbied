@@ -17,6 +17,21 @@
   }
 }
 
+/* Right-aligned action cluster (copied-toast + Redraw + Export dropdown). */
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.6rem;
+}
+
+/* Transient "Copied" confirmation for the clipboard export options. */
+.copied {
+  font-size: 0.85rem;
+  color: var(--gray-medium);
+  white-space: nowrap;
+}
+
 .btn {
   border: none;
   display: inline-flex;
@@ -30,6 +45,12 @@
   height: 2.75rem;
   border-radius: 0.15rem;
   cursor: pointer;
+}
+
+/* Chevron on the Export trigger, nudged off the label. */
+.chevronIcon {
+  margin-left: 0.35rem;
+  opacity: 0.85;
 }
 
 .btn:focus-visible {
@@ -49,12 +70,59 @@
 .btnExport {
   color: white;
   background-color: var(--red-high-contrast);
-  margin-left: 0.6rem;
 }
 
-.btnExport:hover {
+.btnExport:hover,
+.btnExport[data-popup-open] {
   background-color: #fd0066; /* color.scale($red-high-contrast, +6% lightness) */
   box-shadow: 0 0 0.75rem rgba(237, 0, 95, 0.2);
+}
+
+/* ---- Export dropdown menu ---- */
+
+.menuPositioner {
+  z-index: 60;
+}
+
+.menuPopup {
+  min-width: 14rem;
+  padding: 0.35rem;
+  border-radius: 0.5rem;
+  background-color: white;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+  outline: 1px solid rgba(35, 37, 41, 0.08);
+  transform-origin: var(--transform-origin);
+  transition: opacity 120ms ease, transform 120ms ease;
+}
+
+.menuPopup[data-starting-style],
+.menuPopup[data-ending-style] {
+  opacity: 0;
+  transform: scale(0.97);
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.6rem;
+  border-radius: 0.3rem;
+  font-family: var(--font-sans-serif);
+  font-size: 0.95rem;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--gray-dark);
+  cursor: pointer;
+  user-select: none;
+}
+
+.menuItem[data-highlighted] {
+  background-color: var(--gray-ultra-light);
+}
+
+.menuItem svg {
+  color: var(--gray-medium);
+  flex: none;
 }
 
 @media (max-width: 991.98px) {
