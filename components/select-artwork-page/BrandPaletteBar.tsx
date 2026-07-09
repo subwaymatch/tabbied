@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { Download, Plus, Upload } from 'lucide-react';
+import { Plus, Upload } from 'lucide-react';
+import PaletteActions from 'components/palette/PaletteActions';
 import PaletteChips from 'components/palette/PaletteChips';
 import PaletteEditorDialog from 'components/palette/PaletteEditorDialog';
 import { usePaletteEditor } from 'components/palette/usePaletteEditor';
@@ -126,27 +127,11 @@ export default function BrandPaletteBar() {
             </div>
 
             <div className={styles.actions}>
-              <button
-                type="button"
-                className={styles.textButton}
-                onClick={() => editor.openEditor()}
-              >
-                <Plus size={16} /> New palette
-              </button>
-              <button
-                type="button"
-                className={styles.textButton}
-                onClick={openFilePicker}
-              >
-                <Upload size={16} /> Import
-              </button>
-              <button
-                type="button"
-                className={styles.textButton}
-                onClick={exportPalettes}
-              >
-                <Download size={16} /> Export
-              </button>
+              <PaletteActions
+                onNewPalette={() => editor.openEditor()}
+                onImport={openFilePicker}
+                onExport={exportPalettes}
+              />
               {fileInput}
             </div>
           </div>

@@ -24,11 +24,11 @@ import ButtonSelectGroup from 'components/ButtonSelectGroup';
 import ValueSlider from 'components/ValueSlider';
 import ToggleSwitch from 'components/ToggleSwitch';
 import ColorSwatch from 'components/ColorSwatch';
+import PaletteActions from 'components/palette/PaletteActions';
 import PaletteChips from 'components/palette/PaletteChips';
 import PaletteEditorDialog from 'components/palette/PaletteEditorDialog';
 import { usePaletteEditor } from 'components/palette/usePaletteEditor';
 import { usePaletteImportExport } from 'components/palette/usePaletteImportExport';
-import { Download, Upload } from 'lucide-react';
 import { isTransparentHex, randomHexColor, toOpaqueHex } from 'lib/color';
 import {
   setActivePalette,
@@ -569,8 +569,8 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
   };
 
   // Shared palette editor + import/export (B2): the individual page uses the
-  // same UI as the gallery bar. Saving here also applies the palette to this
-  // artwork and marks it active.
+  // same chips, edit dialog, and New-palette split button as the gallery bar.
+  // Saving here also applies the palette to this artwork and marks it active.
   const editor = usePaletteEditor({
     onSaved: (palette) => selectCustomPalette(palette),
   });
@@ -958,27 +958,11 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
                   </div>
 
                   <div className={styles.brandActions}>
-                    <button
-                      type="button"
-                      className={styles.brandActionButton}
-                      onClick={() => editor.openEditor()}
-                    >
-                      <Plus size={16} /> New palette
-                    </button>
-                    <button
-                      type="button"
-                      className={styles.brandActionButton}
-                      onClick={openFilePicker}
-                    >
-                      <Upload size={16} /> Import
-                    </button>
-                    <button
-                      type="button"
-                      className={styles.brandActionButton}
-                      onClick={exportPalettes}
-                    >
-                      <Download size={16} /> Export
-                    </button>
+                    <PaletteActions
+                      onNewPalette={() => editor.openEditor()}
+                      onImport={openFilePicker}
+                      onExport={exportPalettes}
+                    />
                     {fileInput}
                   </div>
 

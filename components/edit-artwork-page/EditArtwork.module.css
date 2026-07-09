@@ -194,37 +194,13 @@
   font-weight: 600;
 }
 
-/* New / Import / Export actions, matching the gallery bar (B2). */
+/* New-palette split button (+ Import/Export menu), matching the gallery bar. */
 .brandActions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.6rem 1.25rem;
   margin-top: 0.85rem;
-}
-
-.brandActionButton {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0;
-  border: none;
-  background: transparent;
-  color: var(--gray-medium);
-  font-family: var(--font-sans-serif);
-  font-size: 0.9rem;
-  line-height: 1.4;
-  cursor: pointer;
-  transition: color 120ms ease;
-}
-
-.brandActionButton:hover {
-  color: var(--gray-dark);
-}
-
-.brandActionButton:focus-visible {
-  outline: 2px solid var(--blue-medium);
-  outline-offset: 2px;
 }
 
 /* Shared <PaletteChips> spacing within the section. */
