@@ -71,25 +71,6 @@
   margin-bottom: 0;
 }
 
-.randomizeButton {
-  appearance: none;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.35rem;
-  color: var(--gray-medium);
-  background-color: transparent;
-  border: none;
-  border-radius: 0.3rem;
-  transition: color 120ms ease, background-color 120ms ease;
-}
-
-.randomizeButton:hover {
-  color: var(--gray-dark);
-  background-color: var(--gray-light);
-}
-
 /* Background and inks as labeled groups, split by a hairline divider. */
 .paletteGroups {
   display: flex;

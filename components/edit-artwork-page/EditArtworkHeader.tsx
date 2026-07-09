@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState, type MouseEvent } from 'react';
 import { Menu } from '@base-ui-components/react/menu';
 import {
-  RefreshCw,
   ArrowDownToLine,
   ChevronDown,
   ImageDown,
@@ -17,11 +16,17 @@ import {
   armGalleryScrollRestore,
   consumeGalleryNavigation,
 } from 'lib/galleryScroll';
+import ShuffleMenuButton from './ShuffleMenuButton';
 import styles from './EditArtworkHeader.module.css';
 
 type EditArtworkHeaderProps = {
   artworkName: string;
-  onRedraw: () => void;
+  /** Shuffle everything (new layout + new colors). */
+  onShuffleAll: () => void;
+  /** Shuffle the layout only (reseed). */
+  onShuffleLayout: () => void;
+  /** Shuffle the colors only (reroll the palette). */
+  onShuffleColors: () => void;
   /** Download the current artwork as a PNG. */
   onExportPng: () => void;
   /** Copy the current (fully-encoded) URL to the clipboard. */
@@ -32,7 +37,9 @@ type EditArtworkHeaderProps = {
 
 export default function EditArtworkHeader({
   artworkName,
-  onRedraw,
+  onShuffleAll,
+  onShuffleLayout,
+  onShuffleColors,
   onExportPng,
   onCopyLink,
   onCopyReactComponent,
@@ -117,14 +124,11 @@ export default function EditArtworkHeader({
 
               {/* aria-labels keep the buttons named on small screens, where
                   the text labels are hidden and only the icons remain. */}
-              <button
-                className={styles.btn}
-                onClick={onRedraw}
-                aria-label="Redraw"
-              >
-                <RefreshCw className={styles.reactIcon} size={18} />
-                <span className={styles.label}>Redraw</span>
-              </button>
+              <ShuffleMenuButton
+                onShuffleAll={onShuffleAll}
+                onShuffleLayout={onShuffleLayout}
+                onShuffleColors={onShuffleColors}
+              />
 
               {/* Export is a dropdown: a PNG download plus clipboard exports. */}
               <Menu.Root>

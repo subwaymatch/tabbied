@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { Dialog } from '@base-ui-components/react/dialog';
-import { Shuffle, Expand, X, Minus, Plus } from 'lucide-react';
+import { Expand, X, Minus, Plus } from 'lucide-react';
 import useMediaQuery from 'lib/useMediaQuery';
 import type { Artwork, ArtworkOption } from 'lib/artwork';
 import {
@@ -781,7 +781,12 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     <div className={styles.pageWrapper}>
       <EditArtworkHeader
         artworkName={artwork.name}
-        onRedraw={randomizeSeed}
+        onShuffleAll={() => {
+          randomizeSeed();
+          randomizePalette();
+        }}
+        onShuffleLayout={randomizeSeed}
+        onShuffleColors={randomizePalette}
         onExportPng={exportArtwork}
         onCopyLink={copyShareLink}
         onCopyReactComponent={copyReactComponent}
@@ -858,15 +863,9 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
               <div className={styles.optionBox}>
                 <div className={styles.paletteHeading}>
                   <h3>Palette</h3>
-                  <button
-                    type="button"
-                    className={styles.randomizeButton}
-                    onClick={randomizePalette}
-                    aria-label="Randomize palette"
-                    title="Randomize palette"
-                  >
-                    <Shuffle size={18} />
-                  </button>
+                  {/* Color randomization now lives in the header's Shuffle
+                      control ("Shuffle colors"), so the two randomize actions
+                      share one place (B5). */}
                   {minColors < maxColors && (
                     <div
                       className={styles.colorCountGroup}

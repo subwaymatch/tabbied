@@ -1,0 +1,130 @@
+/* Split "Shuffle" button matching the header's dark action buttons: a main
+   segment (runs the current default scope) joined to a chevron that opens the
+   scope menu, divided by a hairline. */
+.group {
+  display: inline-flex;
+  align-items: stretch;
+  flex: none;
+  height: 2.75rem;
+  border-radius: 0.15rem;
+  background-color: var(--gray-dark);
+  transition: background-color 120ms ease, box-shadow 120ms ease;
+}
+
+.group:hover {
+  background-color: #2f3237; /* color.scale($gray-dark, +6% lightness) */
+  box-shadow: 0 0 0.75rem rgba(35, 37, 41, 0.2);
+}
+
+.main {
+  display: inline-flex;
+  align-items: center;
+  border: none;
+  background: transparent;
+  color: white;
+  font-family: var(--font-sans-serif);
+  font-size: 1rem;
+  font-weight: 300;
+  white-space: nowrap;
+  padding: 0 0.7rem 0 1rem;
+  cursor: pointer;
+}
+
+.icon {
+  margin-right: 0.4rem;
+}
+
+.chevron {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: white;
+  padding: 0 0.55rem;
+  cursor: pointer;
+}
+
+/* Hairline divider between the two segments. */
+.chevron::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 22%;
+  bottom: 22%;
+  width: 1px;
+  background-color: rgba(255, 255, 255, 0.22);
+}
+
+.main:focus-visible,
+.chevron:focus-visible {
+  outline: 2px solid var(--blue-medium);
+  outline-offset: -2px;
+}
+
+/* ---- Scope menu ---- */
+
+.positioner {
+  z-index: 60;
+}
+
+.popup {
+  min-width: 13rem;
+  padding: 0.35rem;
+  border-radius: 0.5rem;
+  background-color: white;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+  outline: 1px solid rgba(35, 37, 41, 0.08);
+  transform-origin: var(--transform-origin);
+  transition: opacity 120ms ease, transform 120ms ease;
+}
+
+.popup[data-starting-style],
+.popup[data-ending-style] {
+  opacity: 0;
+  transform: scale(0.97);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.6rem;
+  border-radius: 0.3rem;
+  font-family: var(--font-sans-serif);
+  font-size: 0.95rem;
+  color: var(--gray-dark);
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+}
+
+.item[data-highlighted] {
+  background-color: var(--gray-ultra-light);
+}
+
+.item svg {
+  color: var(--gray-medium);
+  flex: none;
+}
+
+/* Check marking the current default, pushed to the trailing edge. */
+.check {
+  margin-left: auto;
+}
+
+@media (max-width: 991.98px) {
+  .main {
+    font-size: 0.95rem;
+    padding: 0 0.5rem 0 0.75rem;
+  }
+
+  .main .label {
+    display: none;
+  }
+
+  .icon {
+    margin-right: 0;
+  }
+}

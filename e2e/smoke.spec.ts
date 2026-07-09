@@ -138,7 +138,7 @@ test.describe('Tabbied site', () => {
     ).toBeAttached();
 
     await expect(
-      page.getByRole('button', { name: 'Redraw' })
+      page.getByRole('button', { name: 'Shuffle', exact: true })
     ).toBeVisible();
     await expect(
       page.getByRole('button', { name: 'Export' })
@@ -302,11 +302,14 @@ test.describe('Tabbied site (mobile viewport)', () => {
     await page.goto('/artworks/radius?seed=0000');
 
     // Below the md breakpoint the text labels are display:none, leaving
-    // icon-only buttons — they must still expose an accessible name.
-    await expect(page.getByRole('button', { name: 'Redraw' })).toBeVisible();
+    // icon-only buttons — they must still expose an accessible name. The
+    // Shuffle split button defaults to "Shuffle" (reseeds + recolors).
+    await expect(
+      page.getByRole('button', { name: 'Shuffle', exact: true })
+    ).toBeVisible();
     await expect(page.getByRole('button', { name: 'Export' })).toBeVisible();
 
-    await page.getByRole('button', { name: 'Redraw' }).click();
+    await page.getByRole('button', { name: 'Shuffle', exact: true }).click();
     await expect(page).not.toHaveURL(/seed=0000/);
   });
 
