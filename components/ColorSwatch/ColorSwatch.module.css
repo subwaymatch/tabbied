@@ -1,0 +1,59 @@
+/* A native color input dressed as a small swatch button (replacing Pickr's
+   .pcr-button). Fill-and-shadow language, scales up slightly on hover/focus. */
+.swatch {
+  position: relative;
+  display: inline-block;
+  width: var(--swatch-size, 30px);
+  height: var(--swatch-size, 30px);
+  border-radius: 2px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.swatch:hover,
+.swatch:focus-within {
+  transform: scale(1.1, 1.1);
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.swatch:focus-within {
+  outline: 2px solid var(--blue-medium);
+  outline-offset: 2px;
+}
+
+/* Transparent (background) slot: the checkerboard reads through while the input
+   above stays clickable, so the picker still opens. */
+.swatchTransparent {
+  background-image: repeating-conic-gradient(#dfe3e8 0% 25%, #ffffff 0% 50%);
+  background-size: 10px 10px;
+}
+
+.input {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* Hide the solid swatch over the checkerboard, but keep the input clickable. */
+.swatchTransparent .input {
+  opacity: 0;
+}
+
+.input::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.input::-webkit-color-swatch {
+  border: none;
+  border-radius: 2px;
+}
+
+.input::-moz-color-swatch {
+  border: none;
+  border-radius: 2px;
+}

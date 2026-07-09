@@ -1,13 +1,13 @@
 /* Custom-palette controls above the gallery. The bar sheds its box and sits
    directly on the page, flush with the gallery grid: a "Preview colors" mode
-   selector (Artwork colors vs Custom palette), the saved-palette chips (shown
-   in custom mode, on their own line below), and JSON import/export. */
+   selector (Artwork colors vs Custom palette), the saved-palette chips (on
+   their own line below), and JSON import/export. */
 .bar {
   margin-bottom: 40px;
 }
 
-/* Populated bar: the mode selector (+ chips in brand mode) on the left, the
-   New / Import / Export actions on the right. */
+/* Populated bar: the mode selector on the left, the New / Import / Export
+   actions on the right. */
 .barRow {
   display: flex;
   flex-wrap: wrap;
@@ -77,72 +77,8 @@
 
 /* The saved-palette chips live on their own line below the mode row, so the
    list can grow without reflowing the New / Import / Export actions. */
-.chips {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.6rem;
+.barChips {
   margin-top: 1rem;
-}
-
-.chipName {
-  white-space: nowrap;
-}
-
-/* A selectable palette chip: swatch strip + name, in Tabbied's fill-and-shadow
-   language (no border). The active chip is marked with a soft brand-tinted
-   fill (no border), so selecting one doesn't change a chip's size. */
-.chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.45rem 0.9rem;
-  border: none;
-  border-radius: 2rem;
-  background-color: white;
-  box-shadow: 0 1px 2px rgba(35, 37, 41, 0.12);
-  color: var(--gray-medium);
-  font-family: var(--font-sans-serif);
-  font-size: 0.95rem;
-  line-height: 1.4;
-  cursor: pointer;
-  transition: box-shadow 120ms ease, color 120ms ease;
-}
-
-.chip:hover {
-  box-shadow: 0 1px 3px rgba(35, 37, 41, 0.2);
-  color: var(--gray-dark);
-}
-
-.chip:focus-visible {
-  outline: 2px solid var(--blue-medium);
-  outline-offset: 2px;
-}
-
-.chipActive,
-.chipActive:hover {
-  background-color: color-mix(in srgb, var(--pink) 8%, white);
-  color: var(--gray-dark);
-}
-
-.swatches {
-  display: inline-flex;
-  border-radius: 0.25rem;
-  overflow: hidden;
-  border: 1px solid rgba(35, 37, 41, 0.12);
-  line-height: 0;
-}
-
-.swatch {
-  display: inline-block;
-  width: 0.95rem;
-  height: 1.15rem;
-}
-
-/* First swatch of a transparent-background palette: mini checkerboard. */
-.swatchTransparent {
-  background-image: repeating-conic-gradient(#dfe3e8 0% 25%, #ffffff 0% 50%);
-  background-size: 8px 8px;
 }
 
 .actions {
@@ -152,8 +88,7 @@
   gap: 0.6rem 1.5rem;
 }
 
-/* Borderless text button with a leading icon (New palette / Import / Export,
-   plus the dialog's Add color / Delete / Cancel). */
+/* Borderless text button with a leading icon (New palette / Import / Export). */
 .textButton {
   display: inline-flex;
   align-items: center;
@@ -176,15 +111,6 @@
 .textButton:focus-visible {
   outline: 2px solid var(--blue-medium);
   outline-offset: 2px;
-}
-
-.textButton:disabled {
-  opacity: 0.45;
-  cursor: default;
-}
-
-.textButton:disabled:hover {
-  color: var(--gray-medium);
 }
 
 /* ---- Empty bar (no saved palettes) ---- */
@@ -248,262 +174,6 @@
 
 .statusError {
   color: var(--red-high-contrast);
-}
-
-/* ---- Palette editor dialog ---- */
-
-.dialogBackdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 1200;
-  background-color: rgba(0, 0, 0, 0.55);
-  opacity: 1;
-  transition: opacity 150ms ease;
-}
-
-.dialogBackdrop[data-starting-style],
-.dialogBackdrop[data-ending-style] {
-  opacity: 0;
-}
-
-.dialogPopup {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1201;
-  width: min(30rem, calc(100vw - 2rem));
-  max-height: min(85vh, 85dvh);
-  overflow-y: auto;
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-  background-color: white;
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
-}
-
-.dialogTitle {
-  color: var(--gray-dark);
-  font-size: 1.25rem;
-  font-weight: 600;
-  line-height: 1.4;
-}
-
-.dialogField {
-  margin-top: 1.25rem;
-}
-
-.dialogLabel {
-  display: block;
-  margin-bottom: 0.4rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--gray-dark);
-}
-
-/* Muted "(optional)" qualifier next to a field label. */
-.labelHint {
-  font-weight: 400;
-  color: var(--gray);
-}
-
-/* Filled inputs (no border) — the dialog speaks the same fill-and-shadow
-   language as the bar. */
-.nameInput {
-  width: 100%;
-  padding: 0.55rem 0.75rem;
-  border: none;
-  border-radius: 0.3rem;
-  background-color: var(--gray-ultra-light);
-  font-family: var(--font-sans-serif);
-  font-size: 1rem;
-  color: var(--gray-dark);
-  transition: box-shadow 120ms ease;
-}
-
-.nameInput:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--blue-medium) 15%, transparent);
-}
-
-/* ---- Dedicated background slot ---- */
-
-.bgRow {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-/* Native color input restyled into a plain swatch. */
-.colorInput {
-  width: 2.4rem;
-  height: 2.4rem;
-  padding: 0;
-  border: none;
-  border-radius: 0.3rem;
-  background: none;
-  box-shadow: inset 0 0 0 1px rgba(35, 37, 41, 0.12);
-  cursor: pointer;
-  flex: none;
-}
-
-.colorInput:disabled {
-  cursor: default;
-}
-
-.colorInput::-webkit-color-swatch-wrapper {
-  padding: 2px;
-}
-
-.colorInput::-webkit-color-swatch {
-  border: none;
-  border-radius: 0.2rem;
-}
-
-.colorInput::-moz-color-swatch {
-  border: none;
-  border-radius: 0.2rem;
-}
-
-/* Inert checkerboard swatch shown in the background slot while transparent. */
-.transparentSwatch {
-  width: 2.4rem;
-  height: 2.4rem;
-  border-radius: 0.3rem;
-  background-image: repeating-conic-gradient(#dfe3e8 0% 25%, #ffffff 0% 50%);
-  background-size: 9.6px 9.6px;
-  box-shadow: inset 0 0 0 1px rgba(35, 37, 41, 0.12);
-  flex: none;
-}
-
-/* Borderless hex fields: quiet values next to the swatch, with a subtle ring
-   only while focused. */
-.hexInput {
-  width: 7.5rem;
-  padding: 0.45rem 0.6rem;
-  border: none;
-  border-radius: 0.3rem;
-  background-color: var(--gray-ultra-light);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 0.95rem;
-  color: var(--gray-dark);
-  transition: background-color 120ms ease, box-shadow 120ms ease;
-}
-
-.hexInput:hover:not(:disabled) {
-  background-color: #f0f2f4;
-}
-
-.hexInput:focus-visible {
-  outline: none;
-  background-color: white;
-  box-shadow:
-    inset 0 0 0 1px var(--gray-light),
-    0 0 0 3px color-mix(in srgb, var(--blue-medium) 15%, transparent);
-}
-
-/* Hex value while the background is transparent: kept, but inert. */
-.hexInputInert {
-  opacity: 0.45;
-}
-
-/* Inline transparent switch pushed to the end of the background row. */
-.bgTransparent {
-  margin-left: auto;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  cursor: pointer;
-}
-
-.bgTransparentLabel {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--gray-dark);
-}
-
-/* ---- Ink color list ---- */
-
-.colorRows {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.colorRow {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-.removeColor {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  padding: 0;
-  margin-left: auto;
-  border: none;
-  border-radius: 0.3rem;
-  background: transparent;
-  color: var(--gray);
-  cursor: pointer;
-}
-
-.removeColor:hover:not(:disabled) {
-  color: var(--red-high-contrast);
-  background-color: var(--gray-ultra-light);
-}
-
-.removeColor:disabled {
-  opacity: 0.35;
-  cursor: default;
-}
-
-.addColor {
-  margin-top: 0.75rem;
-}
-
-.dialogError {
-  margin-top: 1rem;
-  font-size: 0.9rem;
-  color: var(--red-high-contrast);
-}
-
-.dialogActions {
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
-  margin-top: 1.5rem;
-}
-
-.dialogDelete {
-  margin-right: auto;
-}
-
-.saveButton {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.55rem 1.1rem;
-  border: none;
-  border-radius: 0.3rem;
-  background-color: var(--lime);
-  color: var(--gray-dark);
-  font-family: var(--font-sans-serif);
-  font-size: 0.95rem;
-  font-weight: 600;
-  line-height: 1.4;
-  cursor: pointer;
-  transition: background-color 120ms ease;
-}
-
-.saveButton:hover {
-  background-color: var(--lime-hover);
-}
-
-.saveButton:focus-visible {
-  outline: 2px solid var(--blue-medium);
-  outline-offset: 2px;
 }
 
 @media (max-width: 747.98px) {

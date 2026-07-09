@@ -71,30 +71,21 @@
   margin-bottom: 0;
 }
 
-.randomizeButton {
-  appearance: none;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.35rem;
-  color: var(--gray-medium);
-  background-color: transparent;
-  border: none;
-  border-radius: 0.3rem;
-  transition: color 120ms ease, background-color 120ms ease;
-}
-
-.randomizeButton:hover {
-  color: var(--gray-dark);
-  background-color: var(--gray-light);
-}
-
 /* Background and inks as labeled groups, split by a hairline divider. */
 .paletteGroups {
   display: flex;
   align-items: flex-start;
   gap: 2rem;
+}
+
+/* A row of native color swatches (background slot, or the ink list). */
+.swatchRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+  /* Room for the swatches' hover/focus scale so they aren't clipped. */
+  padding: 2px;
 }
 
 .paletteGroup {
@@ -184,69 +175,30 @@
   font-weight: 600;
 }
 
-.brandPaletteChips {
+/* New-palette split button (+ Import/Export menu), matching the gallery bar. */
+.brandActions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 0.75rem;
-}
-
-.brandChipName {
-  white-space: nowrap;
-}
-
-.brandPaletteChip {
-  display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.35rem 0.7rem;
-  border: 1px solid var(--gray-light);
-  border-radius: 2rem;
-  background-color: white;
+  gap: 0.6rem 1.25rem;
+  margin-top: 0.85rem;
+}
+
+/* Shared <PaletteChips> spacing within the section. */
+.brandChips {
+  margin-top: 0.85rem;
+}
+
+/* Import feedback (success or error). */
+.brandStatus {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
   color: var(--gray-medium);
-  font-family: var(--font-sans-serif);
-  font-size: 0.9rem;
-  line-height: 1.4;
-  cursor: pointer;
-  transition: border-color 120ms ease, color 120ms ease;
 }
 
-.brandPaletteChip:hover {
-  border-color: var(--gray);
-  color: var(--gray-dark);
-}
-
-.brandPaletteChip:focus-visible {
-  outline: 2px solid var(--blue-medium);
-  outline-offset: 2px;
-}
-
-/* The palette currently applied/previewed: a soft brand-tinted fill, matching
-   the gallery's active chip. */
-.brandPaletteChipActive,
-.brandPaletteChipActive:hover {
-  border-color: color-mix(in srgb, var(--pink) 35%, var(--gray-light));
-  background-color: color-mix(in srgb, var(--pink) 8%, white);
-  color: var(--gray-dark);
-}
-
-.brandSwatches {
-  display: inline-flex;
-  border-radius: 0.25rem;
-  overflow: hidden;
-  border: 1px solid rgba(35, 37, 41, 0.12);
-  line-height: 0;
-}
-
-.brandSwatch {
-  display: inline-block;
-  width: 0.8rem;
-  height: 1rem;
-}
-
-.brandSwatchTransparent {
-  background-image: repeating-conic-gradient(#dfe3e8 0% 25%, #ffffff 0% 50%);
-  background-size: 8px 8px;
+.brandStatusError {
+  color: var(--red-high-contrast);
 }
 
 /* Checkerboard behind zero-alpha (transparent-background) previews. */

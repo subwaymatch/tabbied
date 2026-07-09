@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from 'next';
 import 'styles/globals.css';
-import 'styles/pickr.css';
 
 export const metadata: Metadata = {
   title: 'Tabbied',

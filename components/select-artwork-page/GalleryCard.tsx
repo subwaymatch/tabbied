@@ -2,7 +2,11 @@
 
 import Link from 'next/link';
 import type { GalleryItem } from 'lib/artwork';
-import { previewPalette, useBrandPalettes } from 'lib/brandPalettes';
+import {
+  previewPalette,
+  useBrandPalettes,
+  useDraftPreview,
+} from 'lib/brandPalettes';
 import { markGalleryNavigation } from 'lib/galleryScroll';
 import GalleryDoodle, { isDarkColor } from './GalleryDoodle';
 import styles from './SelectArtwork.module.css';
@@ -12,7 +16,10 @@ import styles from './SelectArtwork.module.css';
 // title color — the authored white/dark flag only applies to artwork colors.
 export default function GalleryCard({ item }: { item: GalleryItem }) {
   const brandState = useBrandPalettes();
-  const palette = previewPalette(brandState);
+  // While a palette is being edited, every card recolors live to the draft
+  // (B1); otherwise it follows the active saved palette.
+  const draftPreview = useDraftPreview();
+  const palette = draftPreview ?? previewPalette(brandState);
 
   // A transparent background previews over a light checkerboard, so the title
   // renders dark there (isDarkColor treats non-hex as light).
