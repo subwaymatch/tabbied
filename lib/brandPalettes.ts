@@ -168,6 +168,39 @@ export function useBrandPalettes(): BrandPaletteState {
 }
 
 // ---------------------------------------------------------------------------
+// Live draft preview (transient — never persisted)
+// ---------------------------------------------------------------------------
+// While the palette editor dialog is open, the page's own artworks recolor to
+// the palette being edited. That live value is broadcast on its own channel
+// (separate from the persisted store, so it never touches localStorage) and
+// consumed by the gallery cards and the artwork preview. `null` = no draft
+// open, so consumers fall back to their normal palette.
+let draftPreview: string[] | null = null;
+const draftPreviewListeners = new Set<() => void>();
+
+export const setDraftPreview = (colors: string[] | null) => {
+  draftPreview = colors;
+  for (const listener of draftPreviewListeners) listener();
+};
+
+const subscribeDraftPreview = (listener: () => void): (() => void) => {
+  draftPreviewListeners.add(listener);
+  return () => draftPreviewListeners.delete(listener);
+};
+
+const getDraftPreview = (): string[] | null => draftPreview;
+const getDraftPreviewServerSnapshot = (): string[] | null => null;
+
+/** React hook: the live draft-preview colors, or null when no editor is open. */
+export function useDraftPreview(): string[] | null {
+  return useSyncExternalStore(
+    subscribeDraftPreview,
+    getDraftPreview,
+    getDraftPreviewServerSnapshot
+  );
+}
+
+// ---------------------------------------------------------------------------
 // Mutations
 // ---------------------------------------------------------------------------
 

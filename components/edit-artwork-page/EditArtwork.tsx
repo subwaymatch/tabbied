@@ -24,10 +24,16 @@ import ButtonSelectGroup from 'components/ButtonSelectGroup';
 import ValueSlider from 'components/ValueSlider';
 import ToggleSwitch from 'components/ToggleSwitch';
 import ColorSwatch from 'components/ColorSwatch';
+import PaletteChips from 'components/palette/PaletteChips';
+import PaletteEditorDialog from 'components/palette/PaletteEditorDialog';
+import { usePaletteEditor } from 'components/palette/usePaletteEditor';
+import { usePaletteImportExport } from 'components/palette/usePaletteImportExport';
+import { Download, Upload } from 'lucide-react';
 import { isTransparentHex, randomHexColor, toOpaqueHex } from 'lib/color';
 import {
   setActivePalette,
   useBrandPalettes,
+  useDraftPreview,
   type BrandPalette,
 } from 'lib/brandPalettes';
 import styles from './EditArtwork.module.css';
@@ -151,6 +157,11 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
   const brandPalettes = brandState.palettes;
   const activeCustomPalette =
     brandPalettes.find((p) => p.id === brandState.activePaletteId) ?? null;
+
+  // While a palette is being edited (in the dialog here or on the gallery), the
+  // preview recolors live to the draft (B1) without touching the artwork's own
+  // editable palette state.
+  const draftPreview = useDraftPreview();
 
   // A saved palette's colors mapped for the editor: a transparent background
   // becomes a zero-alpha color so the picker, URL and PNG export round-trip it.
@@ -557,6 +568,19 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     if (target) selectCustomPalette(target);
   };
 
+  // Shared palette editor + import/export (B2): the individual page uses the
+  // same UI as the gallery bar. Saving here also applies the palette to this
+  // artwork and marks it active.
+  const editor = usePaletteEditor({
+    onSaved: (palette) => selectCustomPalette(palette),
+  });
+  const {
+    status: importStatus,
+    exportPalettes,
+    openFilePicker,
+    fileInput,
+  } = usePaletteImportExport();
+
   // Toggle the background between opaque and transparent. Transparency is
   // carried as a zero-alpha background color (so the picker, URL and PNG export
   // all round-trip it), and the color itself is preserved across the toggle.
@@ -593,6 +617,25 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     });
   };
 
+  // A draft palette (mid-edit in the dialog) overlaid onto this artwork's slots
+  // for a live preview, without committing to the editable palette state.
+  const overlayPreviewColors = (colors: string[]): string[] => {
+    const next = [...paletteDefaults];
+    const limit = Math.min(colors.length, next.length);
+
+    for (let i = 0; i < limit; i += 1) next[i] = colors[i];
+
+    const count = Math.min(maxColors, Math.max(minColors, colors.length));
+
+    return next.slice(0, count);
+  };
+
+  // What the preview actually renders: the draft colors while a palette is being
+  // edited (B1), otherwise the artwork's own active palette slice.
+  const displayPalette = draftPreview
+    ? overlayPreviewColors(draftPreview)
+    : palette.slice(0, colorCount);
+
   // Props shared by the preview and the expanded dialog: the same seed +
   // options produce the same pattern at any size (it depends only on seed and
   // grid), so the dialog can render a larger copy that matches. The active
@@ -602,7 +645,7 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
   const artworkProps = {
     artwork,
     seed,
-    palette: palette.slice(0, colorCount),
+    palette: displayPalette,
     options: Object.fromEntries(
       artwork.options.map((option, index) => [option.id, optionValues[index]])
     ),
@@ -671,12 +714,19 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     ) : null;
   };
 
-  const previewBackground = palette.length > 0 ? palette[0] : 'transparent';
+  const previewBackground =
+    displayPalette.length > 0 ? displayPalette[0] : 'transparent';
   const expandIconColor = getExpandIconColor(previewBackground);
 
-  // A zero-alpha background (a transparent custom palette) previews over a
-  // checkerboard, the usual "this is transparent" affordance.
-  const isTransparentBackground = isTransparentHex(previewBackground);
+  // The preview's background is transparent when the rendered color0 is the
+  // literal `transparent` fill (a live draft) or a zero-alpha hex — either way
+  // it previews over a checkerboard.
+  const previewIsTransparent =
+    previewBackground === 'transparent' || isTransparentHex(previewBackground);
+
+  // The artwork's own background transparency drives the palette controls (the
+  // toggle + background swatch), independent of any live draft preview.
+  const bgIsTransparent = isTransparentHex(palette[0] ?? '');
 
   // Fit the artwork inside the viewport (with a little margin) for the dialog.
   const expanded = fitToBox(
@@ -694,7 +744,7 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
           <div
             ref={previewRef}
             className={
-              isTransparentBackground
+              previewIsTransparent
                 ? `${styles.previewWrapper} ${styles.previewTransparent}`
                 : styles.previewWrapper
             }
@@ -734,7 +784,7 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
               </Dialog.Close>
               <div
                 className={
-                  isTransparentBackground
+                  previewIsTransparent
                     ? `${styles.dialogDoodle} ${styles.previewTransparent}`
                     : styles.dialogDoodle
                 }
@@ -806,14 +856,13 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
                       {/* Changing the background color also lifts the
                           transparent state: a picked color is a concrete
                           #rrggbb, so it round-trips as opaque (and the toggle
-                          follows via isTransparentBackground). Opening the
-                          picker without changing anything keeps it transparent
-                          — the native input only fires onChange on a real
-                          change. */}
+                          follows via bgIsTransparent). Opening the picker
+                          without changing anything keeps it transparent — the
+                          native input only fires onChange on a real change. */}
                       <ColorSwatch
                         ariaLabel="Background color"
                         color={palette[0]}
-                        transparent={isTransparentBackground}
+                        transparent={bgIsTransparent}
                         onChange={(hex) => {
                           setPalette((prevPalette) => {
                             const newPalette = [...prevPalette];
@@ -864,111 +913,98 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
                 <label className={styles.transparentToggle}>
                   <ToggleSwitch
                     small
-                    isChecked={isTransparentBackground}
+                    isChecked={bgIsTransparent}
                     onChange={setTransparentBackground}
                   />
                   <span>Transparent background</span>
                 </label>
 
-                {brandPalettes.length > 0 && (
-                  <div className={styles.brandPalettes}>
-                    <span className={styles.brandPalettesLabel}>
-                      Preview colors
-                    </span>
-                    <div
-                      className={styles.modeToggle}
-                      role="radiogroup"
-                      aria-label="Preview colors"
+                {/* "Preview colors" — the same UI as the gallery bar (B2),
+                    shown even with no saved palettes so one can be created from
+                    here. Clicking a chip previews (or edits, if active) it. */}
+                <div className={styles.brandPalettes}>
+                  <span className={styles.brandPalettesLabel}>Preview colors</span>
+                  <div
+                    className={styles.modeToggle}
+                    role="radiogroup"
+                    aria-label="Preview colors"
+                  >
+                    <button
+                      type="button"
+                      role="radio"
+                      aria-checked={previewMode === 'artwork'}
+                      className={
+                        previewMode === 'artwork'
+                          ? `${styles.modeOption} ${styles.modeOptionActive}`
+                          : styles.modeOption
+                      }
+                      onClick={selectArtworkColors}
                     >
-                      <button
-                        type="button"
-                        role="radio"
-                        aria-checked={previewMode === 'artwork'}
-                        className={
-                          previewMode === 'artwork'
-                            ? `${styles.modeOption} ${styles.modeOptionActive}`
-                            : styles.modeOption
-                        }
-                        onClick={selectArtworkColors}
-                      >
-                        Artwork colors
-                      </button>
-                      <button
-                        type="button"
-                        role="radio"
-                        aria-checked={previewMode === 'custom'}
-                        className={
-                          previewMode === 'custom'
-                            ? `${styles.modeOption} ${styles.modeOptionActive}`
-                            : styles.modeOption
-                        }
-                        onClick={selectCustomMode}
-                      >
-                        Custom palette
-                      </button>
-                    </div>
-
-                    {/* The saved palettes are always listed (A5), even in
-                        "Artwork colors" mode — clicking one switches to it. */}
-                    <div
-                      className={styles.brandPaletteChips}
-                      role="radiogroup"
-                      aria-label="Custom palette"
+                      Artwork colors
+                    </button>
+                    <button
+                      type="button"
+                      role="radio"
+                      aria-checked={previewMode === 'custom'}
+                      className={
+                        previewMode === 'custom'
+                          ? `${styles.modeOption} ${styles.modeOptionActive}`
+                          : styles.modeOption
+                      }
+                      onClick={selectCustomMode}
                     >
-                      {brandPalettes.map((brand) => {
-                        const isActive = brand.id === brandState.activePaletteId;
-                        const label = brand.name || 'Untitled palette';
-
-                        return (
-                          <button
-                            key={brand.id}
-                            type="button"
-                            role="radio"
-                            aria-checked={isActive}
-                            aria-label={label}
-                            className={
-                              isActive
-                                ? `${styles.brandPaletteChip} ${styles.brandPaletteChipActive}`
-                                : styles.brandPaletteChip
-                            }
-                            title={
-                              brand.name
-                                ? `Preview in "${brand.name}"`
-                                : 'Preview in this palette'
-                            }
-                            onClick={() => selectCustomPalette(brand)}
-                          >
-                            <span
-                              className={styles.brandSwatches}
-                              aria-hidden="true"
-                            >
-                              {brand.colors.map((color, index) => (
-                                <span
-                                  key={`${color}-${index}`}
-                                  className={
-                                    index === 0 && brand.transparentBackground
-                                      ? `${styles.brandSwatch} ${styles.brandSwatchTransparent}`
-                                      : styles.brandSwatch
-                                  }
-                                  style={
-                                    index === 0 && brand.transparentBackground
-                                      ? undefined
-                                      : { backgroundColor: color }
-                                  }
-                                />
-                              ))}
-                            </span>
-                            {brand.name && (
-                              <span className={styles.brandChipName}>
-                                {brand.name}
-                              </span>
-                            )}
-                          </button>
-                        );
-                      })}
-                    </div>
+                      Custom palette
+                    </button>
                   </div>
-                )}
+
+                  <div className={styles.brandActions}>
+                    <button
+                      type="button"
+                      className={styles.brandActionButton}
+                      onClick={() => editor.openEditor()}
+                    >
+                      <Plus size={16} /> New palette
+                    </button>
+                    <button
+                      type="button"
+                      className={styles.brandActionButton}
+                      onClick={openFilePicker}
+                    >
+                      <Upload size={16} /> Import
+                    </button>
+                    <button
+                      type="button"
+                      className={styles.brandActionButton}
+                      onClick={exportPalettes}
+                    >
+                      <Download size={16} /> Export
+                    </button>
+                    {fileInput}
+                  </div>
+
+                  {/* The saved palettes are always listed (A5), even in
+                      "Artwork colors" mode — clicking one switches to it. */}
+                  <PaletteChips
+                    palettes={brandPalettes}
+                    activeId={brandState.activePaletteId}
+                    onSelect={selectCustomPalette}
+                    onEdit={editor.openEditor}
+                    className={styles.brandChips}
+                  />
+
+                  {importStatus && (
+                    <p
+                      className={
+                        importStatus.error
+                          ? `${styles.brandStatus} ${styles.brandStatusError}`
+                          : styles.brandStatus
+                      }
+                      role="status"
+                    >
+                      {importStatus.message}
+                    </p>
+                  )}
+                </div>
               </div>
             )}
 
@@ -992,6 +1028,17 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
           </div>
         </div>
       </main>
+
+      <PaletteEditorDialog
+        draft={editor.draft}
+        setDraft={editor.setDraft}
+        draftError={editor.draftError}
+        onClose={editor.closeEditor}
+        onSave={editor.saveDraft}
+        onDelete={editor.removeDraftPalette}
+        onRandomize={editor.randomizeDraft}
+        setDraftColor={editor.setDraftColor}
+      />
     </div>
   );
 }

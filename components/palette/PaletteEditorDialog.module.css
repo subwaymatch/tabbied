@@ -1,0 +1,301 @@
+/* Shared palette editor dialog. The backdrop is deliberately faint so the page
+   behind it — whose artworks recolor live to the palette being edited — stays
+   visible (B1). */
+
+.dialogBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  background-color: rgba(0, 0, 0, 0.2);
+  opacity: 1;
+  transition: opacity 150ms ease;
+}
+
+.dialogBackdrop[data-starting-style],
+.dialogBackdrop[data-ending-style] {
+  opacity: 0;
+}
+
+.dialogPopup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1201;
+  width: min(30rem, calc(100vw - 2rem));
+  max-height: min(85vh, 85dvh);
+  overflow-y: auto;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  background-color: white;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
+}
+
+/* Title + randomize icon on one row (A3). */
+.dialogTitleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.dialogTitle {
+  color: var(--gray-dark);
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* Randomize-palette icon button in the dialog header (A3). */
+.randomizeButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: none;
+  border-radius: 0.3rem;
+  background: transparent;
+  color: var(--gray-medium);
+  cursor: pointer;
+  transition: color 120ms ease, background-color 120ms ease;
+}
+
+.randomizeButton:hover {
+  color: var(--gray-dark);
+  background-color: var(--gray-ultra-light);
+}
+
+.randomizeButton:focus-visible {
+  outline: 2px solid var(--blue-medium);
+  outline-offset: 2px;
+}
+
+.dialogField {
+  margin-top: 1.25rem;
+}
+
+.dialogLabel {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--gray-dark);
+}
+
+/* Muted "(optional)" qualifier next to a field label. */
+.labelHint {
+  font-weight: 400;
+  color: var(--gray);
+}
+
+/* Filled inputs (no border) — the dialog speaks the same fill-and-shadow
+   language as the bar. */
+.nameInput {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  border: none;
+  border-radius: 0.3rem;
+  background-color: var(--gray-ultra-light);
+  font-family: var(--font-sans-serif);
+  font-size: 1rem;
+  color: var(--gray-dark);
+  transition: box-shadow 120ms ease;
+}
+
+.nameInput:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--blue-medium) 15%, transparent);
+}
+
+/* ---- Dedicated background slot ---- */
+
+.bgRow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+/* Native color swatch (<ColorSwatch>) sized up a touch for the dialog. Only a
+   custom property + flex are set here so nothing clashes across CSS modules. */
+.dialogSwatch {
+  --swatch-size: 2.4rem;
+  flex: none;
+}
+
+/* Hex field: a fixed, non-editable "#" fused to the left of a borderless digits
+   input (A1). The wrapper carries the fill and the focus ring so the prefix and
+   the input read as a single control. */
+.hexField {
+  display: inline-flex;
+  align-items: center;
+  width: 7.5rem;
+  padding: 0.45rem 0.6rem;
+  border-radius: 0.3rem;
+  background-color: var(--gray-ultra-light);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.95rem;
+  color: var(--gray-dark);
+  transition: background-color 120ms ease, box-shadow 120ms ease;
+}
+
+.hexField:hover:not(.hexFieldInert) {
+  background-color: #f0f2f4;
+}
+
+.hexField:focus-within {
+  background-color: white;
+  box-shadow:
+    inset 0 0 0 1px var(--gray-light),
+    0 0 0 3px color-mix(in srgb, var(--blue-medium) 15%, transparent);
+}
+
+/* The non-editable "#" prefix — muted, and not a click/selection target. */
+.hexHash {
+  color: var(--gray);
+  user-select: none;
+  pointer-events: none;
+}
+
+/* The digits input itself: borderless; the wrapper owns the fill and ring. */
+.hexInput {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  outline: none;
+}
+
+/* Hex field while the background is transparent: kept, but inert. */
+.hexFieldInert {
+  opacity: 0.45;
+}
+
+/* Inline transparent switch pushed to the end of the background row. */
+.bgTransparent {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+}
+
+.bgTransparentLabel {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--gray-dark);
+}
+
+/* ---- Ink color list ---- */
+
+.colorRows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.colorRow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.removeColor {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  margin-left: auto;
+  border: none;
+  border-radius: 0.3rem;
+  background: transparent;
+  color: var(--gray);
+  cursor: pointer;
+}
+
+.removeColor:hover:not(:disabled) {
+  color: var(--red-high-contrast);
+  background-color: var(--gray-ultra-light);
+}
+
+.removeColor:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* Borderless text button with a leading icon (Add color / Delete / Cancel). */
+.textButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--gray-medium);
+  font-family: var(--font-sans-serif);
+  font-size: 0.95rem;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: color 120ms ease;
+}
+
+.textButton:hover {
+  color: var(--gray-dark);
+}
+
+.textButton:focus-visible {
+  outline: 2px solid var(--blue-medium);
+  outline-offset: 2px;
+}
+
+.addColor {
+  margin-top: 0.75rem;
+}
+
+.dialogError {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: var(--red-high-contrast);
+}
+
+.dialogActions {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.dialogDelete {
+  margin-right: auto;
+}
+
+.saveButton {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.55rem 1.1rem;
+  border: none;
+  border-radius: 0.3rem;
+  background-color: var(--lime);
+  color: var(--gray-dark);
+  font-family: var(--font-sans-serif);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: background-color 120ms ease;
+}
+
+.saveButton:hover {
+  background-color: var(--lime-hover);
+}
+
+.saveButton:focus-visible {
+  outline: 2px solid var(--blue-medium);
+  outline-offset: 2px;
+}

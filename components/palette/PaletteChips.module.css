@@ -1,0 +1,65 @@
+/* Saved-palette chips in Tabbied's fill-and-shadow language (no border). The
+   active chip gets a subtle neutral-gray fill (A6) — no size change on select. */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.45rem 0.9rem;
+  border: none;
+  border-radius: 2rem;
+  background-color: white;
+  box-shadow: 0 1px 2px rgba(35, 37, 41, 0.12);
+  color: var(--gray-medium);
+  font-family: var(--font-sans-serif);
+  font-size: 0.95rem;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: box-shadow 120ms ease, color 120ms ease;
+}
+
+.chip:hover {
+  box-shadow: 0 1px 3px rgba(35, 37, 41, 0.2);
+  color: var(--gray-dark);
+}
+
+.chip:focus-visible {
+  outline: 2px solid var(--blue-medium);
+  outline-offset: 2px;
+}
+
+.chipActive,
+.chipActive:hover {
+  background-color: color-mix(in srgb, var(--gray) 16%, white);
+  color: var(--gray-dark);
+}
+
+.chipName {
+  white-space: nowrap;
+}
+
+.swatches {
+  display: inline-flex;
+  border-radius: 0.25rem;
+  overflow: hidden;
+  border: 1px solid rgba(35, 37, 41, 0.12);
+  line-height: 0;
+}
+
+.swatch {
+  display: inline-block;
+  width: 0.95rem;
+  height: 1.15rem;
+}
+
+/* First swatch of a transparent-background palette: mini checkerboard. */
+.swatchTransparent {
+  background-image: repeating-conic-gradient(#dfe3e8 0% 25%, #ffffff 0% 50%);
+  background-size: 8px 8px;
+}

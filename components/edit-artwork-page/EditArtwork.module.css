@@ -194,69 +194,54 @@
   font-weight: 600;
 }
 
-.brandPaletteChips {
+/* New / Import / Export actions, matching the gallery bar (B2). */
+.brandActions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 0.75rem;
+  align-items: center;
+  gap: 0.6rem 1.25rem;
+  margin-top: 0.85rem;
 }
 
-.brandChipName {
-  white-space: nowrap;
-}
-
-.brandPaletteChip {
+.brandActionButton {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.35rem 0.7rem;
-  border: 1px solid var(--gray-light);
-  border-radius: 2rem;
-  background-color: white;
+  gap: 0.4rem;
+  padding: 0;
+  border: none;
+  background: transparent;
   color: var(--gray-medium);
   font-family: var(--font-sans-serif);
   font-size: 0.9rem;
   line-height: 1.4;
   cursor: pointer;
-  transition: border-color 120ms ease, color 120ms ease;
+  transition: color 120ms ease;
 }
 
-.brandPaletteChip:hover {
-  border-color: var(--gray);
+.brandActionButton:hover {
   color: var(--gray-dark);
 }
 
-.brandPaletteChip:focus-visible {
+.brandActionButton:focus-visible {
   outline: 2px solid var(--blue-medium);
   outline-offset: 2px;
 }
 
-/* The palette currently applied/previewed: a subtle neutral fill, matching
-   the gallery's active chip. */
-.brandPaletteChipActive,
-.brandPaletteChipActive:hover {
-  border-color: var(--gray);
-  background-color: color-mix(in srgb, var(--gray) 16%, white);
-  color: var(--gray-dark);
+/* Shared <PaletteChips> spacing within the section. */
+.brandChips {
+  margin-top: 0.85rem;
 }
 
-.brandSwatches {
-  display: inline-flex;
-  border-radius: 0.25rem;
-  overflow: hidden;
-  border: 1px solid rgba(35, 37, 41, 0.12);
-  line-height: 0;
+/* Import feedback (success or error). */
+.brandStatus {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--gray-medium);
 }
 
-.brandSwatch {
-  display: inline-block;
-  width: 0.8rem;
-  height: 1rem;
-}
-
-.brandSwatchTransparent {
-  background-image: repeating-conic-gradient(#dfe3e8 0% 25%, #ffffff 0% 50%);
-  background-size: 8px 8px;
+.brandStatusError {
+  color: var(--red-high-contrast);
 }
 
 /* Checkerboard behind zero-alpha (transparent-background) previews. */
