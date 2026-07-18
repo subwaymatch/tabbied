@@ -83,15 +83,11 @@ export default function GalleryDoodle({
     return () => observer.disconnect();
   }, []);
 
-  // The card title is overlaid on the doodle, and a random seed can paint busy
-  // cells right behind it. Fading the artwork's own background color (color0)
-  // to transparent keeps the title legible without looking like a foreign
-  // scrim. `#RRGGBB00` (not `transparent`) avoids fading through gray.
+  // The design's background color (color0) drives the loading shimmer's tone and
+  // the transparent-background checkerboard. The card name now sits below the
+  // tile (not overlaid), so no title-legibility gradient is needed.
   const background =
     palette?.[0] ?? galleryThumbnails[item.slug]?.palette?.[0] ?? item.palette[0];
-  const gradient = /^#[0-9a-f]{6}$/i.test(background ?? '')
-    ? `linear-gradient(to bottom, ${background}, ${background}00)`
-    : undefined;
 
   // Transparent-background previews sit on a checkerboard, the usual "this is
   // transparent" affordance.
@@ -132,9 +128,6 @@ export default function GalleryDoodle({
         }
         aria-hidden="true"
       />
-      {gradient && (
-        <div className={styles.titleGradient} style={{ background: gradient }} />
-      )}
     </div>
   );
 }

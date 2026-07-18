@@ -1,0 +1,22 @@
+/* Fixed-width palette strip: its color cells flex equally so any 3-7 color
+   palette fills the same width. Sized by the --strip-* vars (defaults 60x16). */
+.strip {
+  display: flex;
+  width: var(--strip-width, 60px);
+  height: var(--strip-height, 16px);
+  flex: none;
+  border-radius: 3px;
+  overflow: hidden;
+  border: 1px solid rgba(35, 37, 41, 0.12);
+}
+
+.cell {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Transparent background cell: the standard mini checkerboard. */
+.cellTransparent {
+  background-image: repeating-conic-gradient(#dfe3e8 0% 25%, #ffffff 0% 50%);
+  background-size: 8px 8px;
+}

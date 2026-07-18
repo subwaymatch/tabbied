@@ -4,15 +4,16 @@
   height: 100vh;
   height: 100dvh;
   overflow: hidden;
+  background: #ffffff;
 }
 
 .editArtworkSection {
   flex-grow: 1;
-  /* Allow this row to shrink below its content height so the options column can
-     scroll on short viewports instead of overflowing the page. */
   min-height: 0;
   display: flex;
 }
+
+/* ---- Preview pane ---- */
 
 .previewWrapper {
   position: relative;
@@ -21,184 +22,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1rem;
+  padding: 1.5rem;
 }
 
-.optionsWrapper {
-  flex: 1;
-  min-width: 0;
-  background-color: var(--gray-ultra-light);
-  display: flex;
-  justify-content: center;
-  /* `safe` keeps the content from being clipped at the top when it is taller
-     than the column — it falls back to start-alignment and lets it scroll. */
-  align-items: safe center;
-  overflow-y: auto;
-}
-
-.options {
-  width: 100%;
-  max-width: 32rem;
-  padding: 2.5rem;
-}
-
-@media (min-width: 992px) and (max-width: 1299.98px) {
-  .options {
-    padding: 1.75rem;
-  }
-}
-
-.optionBox {
-  margin-bottom: 2rem;
-}
-
-.optionBox h3 {
-  margin-bottom: 0.5rem;
-}
-
-.optionBox:last-child {
-  margin-bottom: 0;
-}
-
-.paletteHeading {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 1.1rem;
-}
-
-.paletteHeading h3 {
-  margin-bottom: 0;
-}
-
-/* Background and inks as labeled groups, split by a hairline divider. */
-.paletteGroups {
-  display: flex;
-  align-items: flex-start;
-  gap: 2rem;
-}
-
-/* A row of native color swatches (background slot, or the ink list). */
-.swatchRow {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 12px 16px;
-  /* Room for the swatches' hover/focus scale so they aren't clipped. */
-  padding: 2px;
-}
-
-.paletteGroup {
-  display: flex;
-  flex-direction: column;
-}
-
-.paletteGroupCentered {
-  align-items: center;
-}
-
-.groupDivider {
-  align-self: stretch;
-  width: 1px;
-  background-color: #e3e6ea;
-}
-
-/* "background" / "inks" captions under each swatch group. */
-.groupCaption {
-  font-size: 0.75rem;
-  color: var(--gray);
-  line-height: 1;
-}
-
-/* Explicit transparent-background switch below the swatches. */
-.transparentToggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  margin-top: 1rem;
-  font-size: 0.95rem;
-  color: var(--gray-medium);
-  cursor: pointer;
-}
-
-/* "Preview colors" control (mirrors the gallery bar): switch the artwork
-   between its own colors and a saved custom palette (managed on /artworks). */
-.brandPalettes {
-  margin-top: 1.5rem;
-}
-
-.brandPalettesLabel {
-  display: block;
-  margin-bottom: 0.6rem;
-  font-size: 0.8rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--gray);
-}
-
-/* Two-option segmented control naming both preview modes. */
-.modeToggle {
-  display: inline-flex;
-  padding: 0.2rem;
-  border-radius: 2rem;
-  background-color: #eceef1;
-}
-
-.modeOption {
-  appearance: none;
-  padding: 0.35rem 0.9rem;
-  border: none;
-  border-radius: 2rem;
-  background-color: transparent;
-  color: var(--gray-medium);
-  font-family: var(--font-sans-serif);
-  font-size: 0.9rem;
-  line-height: 1.4;
-  cursor: pointer;
-  transition: color 120ms ease;
-}
-
-.modeOption:hover {
-  color: var(--gray-dark);
-}
-
-.modeOption:focus-visible {
-  outline: 2px solid var(--blue-medium);
-  outline-offset: 2px;
-}
-
-.modeOptionActive,
-.modeOptionActive:hover {
-  background-color: white;
-  box-shadow: 0 1px 2px rgba(35, 37, 41, 0.14);
-  color: var(--gray-dark);
-  font-weight: 600;
-}
-
-/* New-palette split button (+ Import/Export menu), matching the gallery bar. */
-.brandActions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.6rem 1.25rem;
-  margin-top: 0.85rem;
-}
-
-/* Shared <PaletteChips> spacing within the section. */
-.brandChips {
-  margin-top: 0.85rem;
-}
-
-/* Import feedback (success or error). */
-.brandStatus {
-  margin-top: 0.75rem;
-  font-size: 0.85rem;
-  line-height: 1.5;
-  color: var(--gray-medium);
-}
-
-.brandStatusError {
-  color: var(--red-high-contrast);
+.doodleFrame {
+  display: inline-block;
+  line-height: 0;
+  box-shadow: 16px 16px 32px rgba(0, 0, 0, 0.1);
 }
 
 /* Checkerboard behind zero-alpha (transparent-background) previews. */
@@ -207,99 +37,403 @@
   background-size: 18px 18px;
 }
 
-/* Joined - / + pair for adding and removing palette colors. */
-.colorCountGroup {
-  display: inline-flex;
-  border: 1px solid var(--gray-light);
-  border-radius: 0.3rem;
-  overflow: hidden;
-}
-
-.colorCountButton {
-  appearance: none;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.3rem 0.55rem;
-  color: var(--gray-medium);
-  background-color: transparent;
-  border: none;
-  transition: color 120ms ease, background-color 120ms ease;
-}
-
-.colorCountButton + .colorCountButton {
-  border-left: 1px solid var(--gray-light);
-}
-
-.colorCountButton:hover:not(:disabled) {
-  color: var(--gray-dark);
-  background-color: var(--gray-light);
-}
-
-.colorCountButton:disabled {
-  color: var(--gray-light);
-  cursor: default;
-}
-
-.valueSliderWrapper {
-  max-width: 25rem;
-}
-
-.aspectRatioOption {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.7rem;
-  padding: 0.7rem 0;
-  line-height: 1;
-}
-
-/* Fixed-height slot so portrait and landscape rectangles occupy the same
-   vertical space, keeping every aspect-ratio button the same height. */
-.aspectRatioRectSlot {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 20px;
-}
-
-/* Hollow rectangle previewing the ratio's shape. Borrows the button's text
-   color so it tracks the hover/selected states. */
-.aspectRatioRect {
-  border: 1.5px solid currentColor;
-  border-radius: 1px;
-}
-
-.doodleFrame {
-  display: inline-block;
-  box-shadow: 16px 16px 32px 0 rgba(0, 0, 0, 0.1);
-}
-
-/* Expand-to-dialog button, pinned to the top-right of the preview. Its color is
-   set inline so it adapts to the current background. */
 .expandButton {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: 14px;
+  right: 14px;
   z-index: 2;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 38px;
+  height: 38px;
   padding: 0;
   border: none;
-  background-color: transparent;
+  border-radius: 4px;
+  background-color: rgba(35, 37, 41, 0.16);
   cursor: pointer;
-  border-radius: 0.3rem;
   transition: background-color 120ms ease;
 }
 
 .expandButton:hover {
-  background-color: rgba(127, 127, 127, 0.18);
+  background-color: rgba(35, 37, 41, 0.3);
 }
+
+/* ---- Options panel (grouped inspector) ---- */
+
+.panel {
+  flex: none;
+  width: 400px;
+  border-left: 1px solid #eceef1;
+  background: #fafbfc;
+  overflow-y: auto;
+}
+
+.group {
+  padding: 18px 28px 20px;
+}
+
+.group + .group {
+  border-top: 1px solid #eceef1;
+}
+
+.groupTitle {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #646d7b;
+}
+
+/* ---- Colors group ---- */
+
+.colorsRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.bgGroup {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.bgSwatchBox {
+  display: inline-flex;
+  gap: 6px;
+  padding: 5px;
+  border: 1px solid #e3e6ea;
+  border-radius: 6px;
+}
+
+.bgSwatch {
+  position: relative;
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+  flex: none;
+  border-radius: 3px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  transition: transform 120ms ease;
+}
+
+.bgSwatch:hover {
+  transform: scale(1.1);
+}
+
+.bgInput {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.bgInput::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.bgInput::-webkit-color-swatch,
+.bgInput::-moz-color-swatch {
+  border: none;
+  border-radius: 3px;
+}
+
+/* Dark strip along the bottom edge marking this swatch as the background. */
+.bgStrip {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 5px;
+  background: rgba(35, 37, 41, 0.35);
+  pointer-events: none;
+}
+
+.transButton {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  flex: none;
+  padding: 0;
+  border: 2px solid #e3e6ea;
+  border-radius: 3px;
+  background: repeating-conic-gradient(#dfe3e8 0% 25%, #ffffff 0% 50%) 0 0 / 8px
+    8px;
+  color: #232529;
+  cursor: pointer;
+  transition: border-color 120ms ease;
+}
+
+.transButton:hover {
+  border-color: #98a0af;
+}
+
+.transButtonActive {
+  border-color: #232529;
+}
+
+.groupCaption {
+  font-size: 13px;
+  color: #98a0af;
+  line-height: 1;
+}
+
+.bgGroup .groupCaption {
+  text-align: center;
+}
+
+.inksGroup {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.inksRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+}
+
+.inksWrap {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.inkSwatch {
+  --swatch-size: 34px;
+  border-radius: 3px;
+}
+
+.countGroup {
+  display: inline-flex;
+  flex: none;
+  align-self: flex-start;
+  margin-top: 3px;
+  border: 1px solid #e3e6ea;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.countButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex: none;
+  border: none;
+  background: #ffffff;
+  color: #646d7b;
+  cursor: pointer;
+  transition: color 120ms ease, background-color 120ms ease;
+}
+
+.countButton + .countButton {
+  border-left: 1px solid #e3e6ea;
+}
+
+.countButton:hover:not(:disabled) {
+  color: #4a5160;
+  background: #f8f9fa;
+}
+
+.countButton:disabled {
+  color: #ced3d9;
+  cursor: default;
+}
+
+/* ---- Palette chip sections ---- */
+
+.chipsSection {
+  margin-top: 18px;
+}
+
+.chipsSection + .chipsSection {
+  margin-top: 16px;
+}
+
+.chipsHeader {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.chipsLabel {
+  font-size: 14px;
+  color: #98a0af;
+}
+
+.chipsRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.newChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 11px;
+  border: 1px solid #e3e6ea;
+  border-radius: 16px;
+  background: transparent;
+  font-family: var(--font-sans-serif);
+  font-size: 13px;
+  color: #646d7b;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 120ms ease, border-color 120ms ease;
+}
+
+.newChip:hover {
+  color: #232529;
+  border-color: #98a0af;
+}
+
+.newChip:focus-visible {
+  outline: 2px solid var(--blue-medium);
+  outline-offset: 2px;
+}
+
+/* ---- Layout group ---- */
+
+.layoutRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.layoutLabel {
+  font-size: 13.5px;
+  color: #646d7b;
+}
+
+.layoutValue {
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  color: #98a0af;
+}
+
+.ratioTiles {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.ratioTile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 32px;
+  border: 1.5px solid #e3e6ea;
+  border-radius: 4px;
+  background: #ffffff;
+  color: #98a0af;
+  cursor: pointer;
+  transition: color 120ms ease, border-color 120ms ease;
+}
+
+.ratioTile:hover {
+  color: #4a5160;
+}
+
+.ratioTileActive {
+  border-color: #232529;
+  color: #232529;
+}
+
+.ratioTile:focus-visible {
+  outline: 2px solid var(--blue-medium);
+  outline-offset: 2px;
+}
+
+.ratioGlyph {
+  border: 1.5px solid currentColor;
+  border-radius: 1px;
+}
+
+.segmented {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 6px;
+  background: #eceef1;
+}
+
+.segment {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  font-family: var(--font-sans-serif);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  color: #646d7b;
+  cursor: pointer;
+  transition: color 120ms ease;
+}
+
+.segment:hover {
+  color: #4a5160;
+}
+
+.segmentActive,
+.segmentActive:hover {
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(35, 37, 41, 0.14);
+  font-weight: 600;
+  color: #232529;
+}
+
+.segment:focus-visible {
+  outline: 2px solid var(--blue-medium);
+  outline-offset: 1px;
+}
+
+.sliderBlock {
+  margin-top: 16px;
+}
+
+.sliderBlock .layoutRow {
+  margin-top: 0;
+}
+
+.sliderBlock > *:nth-child(2) {
+  margin-top: 4px;
+}
+
+/* ---- Effects group ---- */
+
+.effectsRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 14px;
+  font-size: 13.5px;
+  color: #646d7b;
+  cursor: pointer;
+}
+
+/* ---- Expand dialog ---- */
 
 .dialogBackdrop {
   position: fixed;
@@ -354,7 +488,6 @@
   background-color: rgba(0, 0, 0, 0.7);
 }
 
-/* Visually hidden, but available to assistive tech (the dialog's title). */
 .srOnly {
   position: absolute;
   width: 1px;
@@ -370,6 +503,7 @@
 @media (max-width: 991.98px) {
   .pageWrapper {
     height: auto;
+    overflow: visible;
   }
 
   .editArtworkSection {
@@ -377,24 +511,18 @@
   }
 
   .previewWrapper {
+    min-height: 55vh;
     padding-top: 2rem;
     padding-bottom: 2rem;
   }
 
-  .options {
-    max-width: none;
-    padding: 1.5rem;
-  }
-
-  .optionBox {
-    margin-bottom: 1.5rem;
-  }
-
-  .optionBox h3 {
-    margin-bottom: 0.2rem;
-  }
-
   .doodleFrame {
     box-shadow: none;
+  }
+
+  .panel {
+    width: auto;
+    border-left: none;
+    border-top: 1px solid #eceef1;
   }
 }

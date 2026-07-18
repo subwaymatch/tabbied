@@ -9,7 +9,6 @@ import {
   upsertPalette,
   type BrandPalette,
 } from 'lib/brandPalettes';
-import { randomHexColor } from 'lib/color';
 
 // A palette being created or edited in the dialog. Colors are background
 // (color0) first, then the inks; `transparent` is tracked separately so the
@@ -110,12 +109,22 @@ export function usePaletteEditor({
     );
   };
 
-  // Roll a fresh random color into every slot; the background keeps its own
-  // transparency state.
-  const randomizeDraft = () => {
-    setDraft((prev) =>
-      prev ? { ...prev, colors: prev.colors.map(() => randomHexColor()) } : prev
-    );
+  // Reorder just the ink colors (a Fisher-Yates shuffle); the background stays
+  // put. This is the dialog's "shuffle" affordance — it rearranges the palette
+  // you already chose rather than rolling new random colors.
+  const shuffleDraftOrder = () => {
+    setDraft((prev) => {
+      if (!prev) return prev;
+
+      const inks = prev.colors.slice(1);
+
+      for (let i = inks.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [inks[i], inks[j]] = [inks[j], inks[i]];
+      }
+
+      return { ...prev, colors: [prev.colors[0], ...inks] };
+    });
   };
 
   const saveDraft = () => {
@@ -155,7 +164,7 @@ export function usePaletteEditor({
     openEditor,
     closeEditor,
     setDraftColor,
-    randomizeDraft,
+    shuffleDraftOrder,
     saveDraft,
     removeDraftPalette,
   };

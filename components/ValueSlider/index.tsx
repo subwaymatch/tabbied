@@ -11,6 +11,8 @@ type ValueSliderProps = {
   onChange: (value: number) => void;
   /** Accessible name for the thumb (e.g. the option's display name). */
   label?: string;
+  /** Hide the built-in numeric readout (when the host shows the value itself). */
+  hideValue?: boolean;
 };
 
 export default function ValueSlider({
@@ -20,6 +22,7 @@ export default function ValueSlider({
   value,
   onChange,
   label,
+  hideValue = false,
 }: ValueSliderProps) {
   return (
     <Slider.Root
@@ -40,9 +43,11 @@ export default function ValueSlider({
             />
           </Slider.Track>
         </Slider.Control>
-        <Slider.Value className={styles.value}>
-          {(_formatted, values) => values[0].toFixed(1)}
-        </Slider.Value>
+        {!hideValue && (
+          <Slider.Value className={styles.value}>
+            {(_formatted, values) => values[0].toFixed(1)}
+          </Slider.Value>
+        )}
       </div>
     </Slider.Root>
   );

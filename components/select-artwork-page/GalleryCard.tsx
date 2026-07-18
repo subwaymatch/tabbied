@@ -8,33 +8,30 @@ import {
   useDraftPreview,
 } from 'lib/brandPalettes';
 import { markGalleryNavigation } from 'lib/galleryScroll';
-import GalleryDoodle, { isDarkColor } from './GalleryDoodle';
+import GalleryDoodle from './GalleryDoodle';
 import styles from './SelectArtwork.module.css';
 
-// One gallery card: title + live thumbnail. Client-side because the preview
-// follows the brand-palette selection (localStorage), which also decides the
-// title color — the authored white/dark flag only applies to artwork colors.
+// One gallery card: a live thumbnail with its name below it (no overlay).
+// Client-side because the preview follows the selected palette (localStorage),
+// applied to every design in the grid.
 export default function GalleryCard({ item }: { item: GalleryItem }) {
   const brandState = useBrandPalettes();
-  // While a palette is being edited, every card recolors live to the draft
-  // (B1); otherwise it follows the active saved palette.
+  // While a palette is being edited, every card recolors live to the draft;
+  // otherwise it follows the active saved or library palette.
   const draftPreview = useDraftPreview();
   const palette = draftPreview ?? previewPalette(brandState);
-
-  // A transparent background previews over a light checkerboard, so the title
-  // renders dark there (isDarkColor treats non-hex as light).
-  const white = palette ? isDarkColor(palette[0]) : item.white;
 
   return (
     <Link
       href={`/artworks/${item.slug}?seed=0000`}
       prefetch={false}
       onClick={markGalleryNavigation}
+      className={styles.card}
     >
-      <div className={styles.galleryCard}>
-        <h4 className={white ? styles.white : undefined}>{item.name}</h4>
+      <div className={styles.tile}>
         <GalleryDoodle item={item} palette={palette} />
       </div>
+      <h3 className={styles.cardName}>{item.name}</h3>
     </Link>
   );
 }

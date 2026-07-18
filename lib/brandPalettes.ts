@@ -10,6 +10,11 @@
 'use client';
 
 import { useSyncExternalStore } from 'react';
+import {
+  findLibraryPalette,
+  isLibraryPaletteId,
+  type LibraryPalette,
+} from './paletteLibrary';
 
 export type BrandPalette = {
   id: string;
@@ -96,9 +101,12 @@ const readState = (): BrandPaletteState => {
     const palettes = Array.isArray(parsed.palettes)
       ? parsed.palettes.filter(isValidPalette).map(normalizePalette)
       : [];
+    // The active id may name a saved palette or a curated library palette
+    // (both can be applied to the gallery previews), so accept either.
     const activePaletteId =
       typeof parsed.activePaletteId === 'string' &&
-      palettes.some((palette) => palette.id === parsed.activePaletteId)
+      (palettes.some((palette) => palette.id === parsed.activePaletteId) ||
+        isLibraryPaletteId(parsed.activePaletteId))
         ? parsed.activePaletteId
         : null;
 
@@ -237,10 +245,56 @@ export const setActivePalette = (id: string | null) => {
   writeState({
     ...state,
     activePaletteId:
-      id !== null && state.palettes.some((palette) => palette.id === id)
+      id !== null &&
+      (state.palettes.some((palette) => palette.id === id) ||
+        isLibraryPaletteId(id))
         ? id
         : null,
   });
+};
+
+// A curated library palette adapted to the BrandPalette shape (library palettes
+// never carry a transparent background) so the same resolvers/renderers apply.
+const libraryAsBrand = (library: LibraryPalette): BrandPalette => ({
+  id: library.id,
+  name: library.name,
+  colors: [...library.colors],
+});
+
+/**
+ * The active palette resolved from the saved palettes first, then the curated
+ * library — or null when the artwork's own colors apply.
+ */
+export const resolveActivePalette = (
+  state: BrandPaletteState
+): BrandPalette | null => {
+  if (state.activePaletteId === null) return null;
+
+  const saved = state.palettes.find(
+    (palette) => palette.id === state.activePaletteId
+  );
+
+  if (saved) return saved;
+
+  const library = findLibraryPalette(state.activePaletteId);
+
+  return library ? libraryAsBrand(library) : null;
+};
+
+/**
+ * Save a fresh, editable copy of a curated library palette into Your Palettes
+ * (a new id, so it's independent of the library original) and return it.
+ */
+export const copyLibraryPalette = (library: LibraryPalette): BrandPalette => {
+  const copy: BrandPalette = {
+    id: createPaletteId(),
+    name: library.name,
+    colors: [...library.colors],
+  };
+
+  upsertPalette(copy);
+
+  return copy;
 };
 
 // ---------------------------------------------------------------------------
@@ -352,9 +406,7 @@ export const resolvePaletteColors = (palette: BrandPalette): string[] =>
 export const previewPalette = (
   state: BrandPaletteState
 ): string[] | undefined => {
-  const active = state.palettes.find(
-    (palette) => palette.id === state.activePaletteId
-  );
+  const active = resolveActivePalette(state);
 
   return active ? resolvePaletteColors(active) : undefined;
 };

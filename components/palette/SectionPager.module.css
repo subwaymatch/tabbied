@@ -1,0 +1,45 @@
+.pager {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: auto;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: #98a0af;
+  cursor: pointer;
+  transition: background-color 120ms ease;
+}
+
+.button:hover:not(:disabled) {
+  background: #f1f3f5;
+}
+
+.button:disabled {
+  color: #dfe3e8;
+  cursor: default;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--blue-medium);
+  outline-offset: 1px;
+}
+
+.prevIcon {
+  transform: rotate(180deg);
+}
+
+.label {
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  color: #b6bcc7;
+}
