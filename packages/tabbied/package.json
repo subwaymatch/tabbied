@@ -1,6 +1,6 @@
 {
   "name": "tabbied",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Tabbied generative artworks: a framework-agnostic core plus a React component, powered by css-doodle.",
   "type": "module",
   "license": "MIT",
