@@ -16,13 +16,11 @@ export default function PaletteRow({
   transparentBackground = false,
   name,
   active,
-  meta,
   showEdit = false,
   showDelete = false,
   editLabel,
   editTitle = 'Edit palette',
   deleteLabel,
-  deleteConfirming = false,
   onClick,
   onEdit,
   onDelete,
@@ -31,13 +29,11 @@ export default function PaletteRow({
   transparentBackground?: boolean;
   name: string;
   active: boolean;
-  meta?: string;
   showEdit?: boolean;
   showDelete?: boolean;
   editLabel?: string;
   editTitle?: string;
   deleteLabel?: string;
-  deleteConfirming?: boolean;
   onClick: () => void;
   onEdit?: () => void;
   onDelete?: () => void;
@@ -65,7 +61,6 @@ export default function PaletteRow({
       >
         {name}
       </span>
-      {meta && <span className={styles.meta}>{meta}</span>}
       {active && (
         <span className={styles.check}>
           <Check size={14} />
@@ -89,10 +84,8 @@ export default function PaletteRow({
           role="button"
           tabIndex={0}
           aria-label={deleteLabel}
-          title={deleteConfirming ? 'Click again to delete' : 'Delete palette'}
-          className={
-            deleteConfirming ? `${styles.delete} ${styles.deleteConfirm}` : styles.delete
-          }
+          title="Delete palette"
+          className={styles.delete}
           onClick={stop(onDelete)}
           onKeyDown={stop(onDelete)}
         >

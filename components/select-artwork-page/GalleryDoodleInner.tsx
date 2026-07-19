@@ -29,10 +29,22 @@ export default function GalleryDoodleInner({
   onReady?: () => void;
 }) {
   const config = galleryThumbnails[item.slug];
+  const artwork = artworks[item.slug];
 
   const [redrawInterval] = useState(
     () => REDRAW_INTERVAL_MS + Math.random() * REDRAW_STAGGER_MS
   );
+
+  // Gallery thumbnails render dense: for designs that expose a `frequency`
+  // option, draw at a random frequency in [0.8, 1.0] (a fresh value per mount,
+  // like the seed) rather than each design's authored thumbnail frequency.
+  const hasFrequency = artwork?.options?.some(
+    (option) => option.id === 'frequency'
+  );
+  const [thumbFrequency] = useState(() => 0.8 + Math.random() * 0.2);
+  const options = hasFrequency
+    ? { ...config?.options, frequency: thumbFrequency }
+    : config?.options;
 
   // Thumbnails show the design at its default color count: the active slice
   // of the palette (TabbiedArtwork expands it so the style's higher color
@@ -50,9 +62,9 @@ export default function GalleryDoodleInner({
   // size. onReady fires on first paint, letting the parent drop its shimmer.
   return (
     <TabbiedArtwork
-      artwork={artworks[item.slug]}
+      artwork={artwork}
       palette={palette ?? baseColors.slice(0, defaultCount)}
-      options={config?.options}
+      options={options}
       fit="cover"
       coverRender={{ ...DEFAULT_RENDER, ...config?.render }}
       redrawInterval={redrawInterval}

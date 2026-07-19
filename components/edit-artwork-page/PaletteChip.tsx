@@ -6,8 +6,8 @@ import styles from './PaletteChip.module.css';
 
 /**
  * A one-click palette chip for the editor's Colors group: a small swatch strip
- * plus name, rendered as a pill. The active chip gets a dark outline; saved
- * chips carry a delete affordance (with an inline "click again" confirm state).
+ * plus name, rendered as a pill. The active chip gets a dark outline; custom
+ * chips carry a delete affordance that removes the palette on the first click.
  */
 export default function PaletteChip({
   colors,
@@ -17,7 +17,6 @@ export default function PaletteChip({
   title,
   onClick,
   canDelete = false,
-  deleteConfirming = false,
   deleteLabel,
   onDelete,
 }: {
@@ -28,7 +27,6 @@ export default function PaletteChip({
   title: string;
   onClick: () => void;
   canDelete?: boolean;
-  deleteConfirming?: boolean;
   deleteLabel?: string;
   onDelete?: () => void;
 }) {
@@ -50,12 +48,8 @@ export default function PaletteChip({
           role="button"
           tabIndex={0}
           aria-label={deleteLabel}
-          title={deleteConfirming ? 'Click again to delete' : 'Delete palette'}
-          className={
-            deleteConfirming
-              ? `${styles.delete} ${styles.deleteConfirm}`
-              : styles.delete
-          }
+          title="Delete palette"
+          className={styles.delete}
           onClick={(event) => {
             event.stopPropagation();
             onDelete();

@@ -40,7 +40,6 @@ export default function GalleryRail({
   onEditCustom,
   onEditLibrary,
   onDelete,
-  deleteConfirmingId,
   onNewPalette,
   browserOpen,
   onOpenBrowser,
@@ -57,7 +56,6 @@ export default function GalleryRail({
   onEditCustom: (palette: BrandPalette) => void;
   onEditLibrary: (palette: LibraryPalette) => void;
   onDelete: (id: string) => void;
-  deleteConfirmingId: string | null;
   onNewPalette: () => void;
   browserOpen: boolean;
   onOpenBrowser: () => void;
@@ -88,7 +86,6 @@ export default function GalleryRail({
           palettes={palettes}
           library={library}
           activeId={selectedId}
-          deleteConfirmingId={deleteConfirmingId}
           onApply={onApply}
           onEditCustom={onEditCustom}
           onEditLibrary={onEditLibrary}
@@ -143,7 +140,6 @@ export default function GalleryRail({
                   editLabel={`Edit ${palette.name} (saves as a copy)`}
                   editTitle="Edit palette (saves as a copy)"
                   deleteLabel={`Delete ${palette.name || 'palette'}`}
-                  deleteConfirming={deleteConfirmingId === palette.id}
                   onClick={() => {
                     if (active) {
                       if (kind === 'library') onEditLibrary(palette);

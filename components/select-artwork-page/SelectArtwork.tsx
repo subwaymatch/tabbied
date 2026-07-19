@@ -12,7 +12,6 @@ import {
 } from 'lib/brandPalettes';
 import { PALETTE_LIBRARY, type LibraryPalette } from 'lib/paletteLibrary';
 import { usePaletteEditor } from 'components/palette/usePaletteEditor';
-import { useConfirmDelete } from 'components/palette/useConfirmDelete';
 import PaletteEditorDialog from 'components/palette/PaletteEditorDialog';
 import GalleryRail from './GalleryRail';
 import GalleryCard from './GalleryCard';
@@ -138,10 +137,11 @@ export default function SelectArtwork({ gallery }: { gallery: GalleryItem[] }) {
     },
   });
 
-  const confirmDelete = useConfirmDelete((id) => {
+  // Delete a custom palette on the first click of its ✕ (no confirm step).
+  const removePalette = (id: string) => {
     deletePalette(id);
     if (selectedId === id) applyPalette(null, true);
-  });
+  };
 
   const filtered = useMemo(
     () =>
@@ -194,8 +194,7 @@ export default function SelectArtwork({ gallery }: { gallery: GalleryItem[] }) {
         onApply={(id) => applyPalette(id)}
         onEditCustom={onEditCustom}
         onEditLibrary={onEditLibrary}
-        onDelete={confirmDelete.request}
-        deleteConfirmingId={confirmDelete.pendingId}
+        onDelete={removePalette}
         onNewPalette={() => editor.openEditor()}
         browserOpen={browserOpen}
         onOpenBrowser={() => setBrowserOpen(true)}

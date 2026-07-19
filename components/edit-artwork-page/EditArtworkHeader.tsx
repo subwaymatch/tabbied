@@ -2,7 +2,7 @@
 
 import NextLink from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect, useRef, useState, type MouseEvent } from 'react';
+import { useEffect, useState, type MouseEvent } from 'react';
 import { Menu } from '@base-ui-components/react/menu';
 import {
   ArrowDownToLine,
@@ -50,26 +50,9 @@ export default function EditArtworkHeader({
   // sets on click, consumed here on mount).
   const [cameFromGallery, setCameFromGallery] = useState(false);
 
-  // Brief "Copied" confirmation for the clipboard export options.
-  const [copied, setCopied] = useState<string | null>(null);
-  const copiedTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
   useEffect(() => {
     setCameFromGallery(consumeGalleryNavigation());
   }, []);
-
-  useEffect(
-    () => () => {
-      if (copiedTimer.current) clearTimeout(copiedTimer.current);
-    },
-    []
-  );
-
-  const flashCopied = (message: string) => {
-    setCopied(message);
-    if (copiedTimer.current) clearTimeout(copiedTimer.current);
-    copiedTimer.current = setTimeout(() => setCopied(null), 1800);
-  };
 
   // Go back through history so the gallery's previous scroll position is
   // restored. Modified clicks (open in new tab) fall through to the href.
@@ -111,12 +94,6 @@ export default function EditArtworkHeader({
       </div>
 
       <div className={styles.actions}>
-        {copied && (
-          <span className={styles.copied} role="status" aria-live="polite">
-            {copied}
-          </span>
-        )}
-
         <ShuffleMenuButton
           onShuffleAll={onShuffleAll}
           onShuffleLayout={onShuffleLayout}
@@ -146,19 +123,13 @@ export default function EditArtworkHeader({
                 </Menu.Item>
                 <Menu.Item
                   className={styles.menuItem}
-                  onClick={() => {
-                    void onCopyLink();
-                    flashCopied('Link copied');
-                  }}
+                  onClick={() => void onCopyLink()}
                 >
                   <LinkIcon size={15} /> Copy shareable link
                 </Menu.Item>
                 <Menu.Item
                   className={styles.menuItem}
-                  onClick={() => {
-                    void onCopyReactComponent();
-                    flashCopied('React component copied');
-                  }}
+                  onClick={() => void onCopyReactComponent()}
                 >
                   <CodeXml size={15} /> Copy React component
                 </Menu.Item>

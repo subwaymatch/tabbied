@@ -21,6 +21,7 @@ import {
 import { TabbiedArtwork, type TabbiedArtworkHandle } from 'tabbied/react';
 import EditArtworkHeader from 'components/edit-artwork-page/EditArtworkHeader';
 import PaletteChip from 'components/edit-artwork-page/PaletteChip';
+import Toaster, { toaster } from 'components/Toaster';
 import ValueSlider from 'components/ValueSlider';
 import ToggleSwitch from 'components/ToggleSwitch';
 import ColorSwatch from 'components/ColorSwatch';
@@ -28,7 +29,6 @@ import PaletteEditorDialog from 'components/palette/PaletteEditorDialog';
 import PaletteBrowser from 'components/palette/PaletteBrowser';
 import SectionPager from 'components/palette/SectionPager';
 import { usePaletteEditor } from 'components/palette/usePaletteEditor';
-import { useConfirmDelete } from 'components/palette/useConfirmDelete';
 import { PALETTE_LIBRARY, type LibraryPalette } from 'lib/paletteLibrary';
 import {
   isTransparentHex,
@@ -480,10 +480,11 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     },
   });
 
-  const confirmDelete = useConfirmDelete((id) => {
+  // Delete a custom palette on the first click of its ✕ (no confirm step).
+  const removePalette = (id: string) => {
     deletePalette(id);
     if (paletteSource === id) setPaletteSource('custom');
-  });
+  };
 
   // Apply a saved (custom) palette to the editor's swatches + share it with the
   // gallery. Clicking the already-active custom chip opens it for editing.
@@ -555,17 +556,23 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
   };
 
   const exportArtwork = async () => {
-    await doodleRef.current?.exportImage({
-      scale: Math.ceil(3000 / Math.max(width, height)),
-      download: true,
-    });
+    try {
+      await doodleRef.current?.exportImage({
+        scale: Math.ceil(3000 / Math.max(width, height)),
+        download: true,
+      });
+      toaster.add({ title: 'PNG downloaded' });
+    } catch {
+      toaster.add({ title: 'Could not export the PNG' });
+    }
   };
 
   const copyShareLink = async () => {
     try {
       await navigator.clipboard.writeText(window.location.href);
+      toaster.add({ title: 'Link copied to clipboard' });
     } catch {
-      // Clipboard unavailable — nothing to do.
+      toaster.add({ title: 'Could not copy the link' });
     }
   };
 
@@ -595,8 +602,9 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
 
     try {
       await navigator.clipboard.writeText(lines.join('\n'));
+      toaster.add({ title: 'React component copied' });
     } catch {
-      // Clipboard unavailable — nothing to do.
+      toaster.add({ title: 'Could not copy the component' });
     }
   };
 
@@ -833,11 +841,10 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
               palettes={brandPalettes}
               library={PALETTE_LIBRARY}
               activeId={paletteSource}
-              deleteConfirmingId={confirmDelete.pendingId}
               onApply={onBrowserApply}
               onEditCustom={(p) => editor.openEditor(p)}
               onEditLibrary={(p) => editor.openEditorAsCopy(p)}
-              onDelete={confirmDelete.request}
+              onDelete={removePalette}
               onNewPalette={() => editor.openEditor()}
               onClose={() => setBrowserOpen(false)}
             />
@@ -1002,11 +1009,10 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
                             : onSelectCustomChip(palette)
                         }
                         canDelete={kind === 'custom'}
-                        deleteConfirming={confirmDelete.pendingId === palette.id}
                         deleteLabel={`Delete ${palette.name || 'palette'}`}
                         onDelete={
                           kind === 'custom'
-                            ? () => confirmDelete.request(palette.id)
+                            ? () => removePalette(palette.id)
                             : undefined
                         }
                       />
@@ -1084,6 +1090,8 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
         onRandomize={editor.randomizeDraft}
         setDraftColor={editor.setDraftColor}
       />
+
+      <Toaster />
     </div>
   );
 }

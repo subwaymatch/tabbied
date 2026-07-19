@@ -24,7 +24,6 @@ export default function PaletteBrowser({
   palettes,
   library,
   activeId,
-  deleteConfirmingId,
   onApply,
   onEditCustom,
   onEditLibrary,
@@ -36,7 +35,6 @@ export default function PaletteBrowser({
   palettes: BrandPalette[];
   library: LibraryPalette[];
   activeId: string | null;
-  deleteConfirmingId: string | null;
   onApply: (id: string) => void;
   onEditCustom: (palette: BrandPalette) => void;
   onEditLibrary: (palette: LibraryPalette) => void;
@@ -136,7 +134,6 @@ export default function PaletteBrowser({
               }
               name={palette.name || 'Untitled'}
               active={active}
-              meta={`${palette.colors.length} colors`}
               showEdit
               showDelete={kind === 'custom'}
               editLabel={`Edit ${palette.name || 'palette'}${
@@ -148,7 +145,6 @@ export default function PaletteBrowser({
                   : 'Edit palette'
               }
               deleteLabel={`Delete ${palette.name || 'palette'}`}
-              deleteConfirming={deleteConfirmingId === palette.id}
               onClick={() => {
                 if (active) {
                   if (kind === 'library') onEditLibrary(palette);

@@ -103,6 +103,9 @@
   flex: 1;
   min-height: 0;
   overflow-y: auto;
+  /* Rows nudge 2px on hover; clip that so it never spawns a horizontal
+     scrollbar around the list. */
+  overflow-x: hidden;
 }
 
 .rail .list {
