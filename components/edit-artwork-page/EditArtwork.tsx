@@ -3,7 +3,18 @@
 import { useEffect, useRef, useState } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { Dialog } from '@base-ui-components/react/dialog';
-import { Check, ChevronRight, Expand, X, Minus, Plus } from 'lucide-react';
+import {
+  ArrowLeft,
+  Check,
+  ChevronRight,
+  CodeXml,
+  Expand,
+  ImageDown,
+  Link as LinkIcon,
+  Minus,
+  Plus,
+  X,
+} from 'lucide-react';
 import useMediaQuery from 'lib/useMediaQuery';
 import type { Artwork, ArtworkOption } from 'lib/artwork';
 import {
@@ -28,6 +39,12 @@ import ColorSwatch from 'components/ColorSwatch';
 import PaletteEditorDialog from 'components/palette/PaletteEditorDialog';
 import PaletteBrowser from 'components/palette/PaletteBrowser';
 import SectionPager from 'components/palette/SectionPager';
+import {
+  SHUFFLE_ACTIONS,
+  SHUFFLE_STORAGE_KEY,
+  isShuffleAction,
+  type ShuffleAction,
+} from 'components/edit-artwork-page/shuffleActions';
 import { usePaletteEditor } from 'components/palette/usePaletteEditor';
 import { PALETTE_LIBRARY, type LibraryPalette } from 'lib/paletteLibrary';
 import {
@@ -154,6 +171,25 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
   const [chipsPage, setChipsPage] = useState(0);
   const [browserOpen, setBrowserOpen] = useState(false);
 
+  // The default shuffle scope, shared by the desktop split button and the
+  // mobile 7d panel. Starts at 'all' for SSR, then restores the saved choice.
+  const [shuffleAction, setShuffleAction] = useState<ShuffleAction>('all');
+
+  // Mobile (7d) inline panel shown in the editing region below the preview.
+  // 'palettes' reuses the shared browser (browserOpen).
+  const [mobilePanel, setMobilePanel] = useState<'shuffle' | 'export' | null>(
+    null
+  );
+
+  useEffect(() => {
+    try {
+      const saved = window.localStorage.getItem(SHUFFLE_STORAGE_KEY);
+      if (isShuffleAction(saved)) setShuffleAction(saved);
+    } catch {
+      // Ignore storage access failures (private mode, etc.).
+    }
+  }, []);
+
   const customPaletteColors = (custom: BrandPalette): string[] =>
     custom.colors.map((color, index) =>
       index === 0 && custom.transparentBackground ? `${color}00` : color
@@ -273,14 +309,19 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
   const selfWrites = useRef<Set<string>>(new Set());
   const isScreenXS = useMediaQuery('(max-width: 747.99px)');
   const isTwoColumn = useMediaQuery('(min-width: 992px)');
+  // Below the two-column breakpoint the editor uses the compact 7d layout: a
+  // fixed preview with an icon-button header and inline shuffle/export panels.
+  const isMobile = useMediaQuery('(max-width: 991.98px)');
   const baseWidth = isScreenXS ? 240 : 360;
 
+  // The preview is a bounded box in every layout now (a flex-filled pane on
+  // desktop, a fixed 300px band on mobile 7d), so the artwork simply fits the
+  // measured box.
   const { width, height } = previewSize
     ? fitToBox(
         aspectRatio,
         previewSize.width * PREVIEW_FIT_MARGIN,
-        (isTwoColumn ? previewSize.height : (viewport?.height ?? 800) * 0.6) *
-          PREVIEW_FIT_MARGIN
+        previewSize.height * PREVIEW_FIT_MARGIN
       )
     : fitToBox(aspectRatio, baseWidth, baseWidth * 1.5);
 
@@ -441,6 +482,48 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     );
     setPaletteSource('custom');
   };
+
+  // Run a shuffle scope: reseed the layout, reroll the colors, or both.
+  const runShuffle = (id: ShuffleAction) => {
+    if (id === 'all') {
+      randomizeSeed();
+      randomizePalette();
+    } else if (id === 'layout') {
+      randomizeSeed();
+    } else {
+      randomizePalette();
+    }
+  };
+
+  // Make a scope the new default (persisted) without running it.
+  const selectShuffleAction = (id: ShuffleAction) => {
+    setShuffleAction(id);
+    try {
+      window.localStorage.setItem(SHUFFLE_STORAGE_KEY, id);
+    } catch {
+      // Ignore storage access failures.
+    }
+  };
+
+  // ---- Mobile (7d) inline panels ----
+  const openShufflePanel = () => {
+    setBrowserOpen(false);
+    setMobilePanel('shuffle');
+  };
+  const openExportPanel = () => {
+    setBrowserOpen(false);
+    setMobilePanel('export');
+  };
+  const openBrowser = () => {
+    setMobilePanel(null);
+    setBrowserOpen(true);
+  };
+  const closeMobilePanel = () => {
+    setMobilePanel(null);
+    setBrowserOpen(false);
+  };
+  // The header's back arrow closes an open panel before leaving the editor.
+  const mobilePanelOpen = mobilePanel !== null || browserOpen;
 
   const changeColorCount = (delta: number) => {
     setColorCount((prev) =>
@@ -754,19 +837,136 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     return null;
   };
 
+  // Mobile (7d): the inline "Shuffle" panel — scope radios plus a run button
+  // labelled with the current scope. Selecting a scope persists it; the run
+  // button applies it (repeatedly, for a fresh arrangement each tap).
+  const renderShufflePanel = () => {
+    const current =
+      SHUFFLE_ACTIONS.find((a) => a.id === shuffleAction) ?? SHUFFLE_ACTIONS[0];
+    const RunIcon = current.Icon;
+
+    return (
+      <div className={styles.mobilePanel}>
+        <div className={styles.mobilePanelHead}>
+          <span className={styles.mobilePanelTitle}>Shuffle</span>
+          <button
+            type="button"
+            className={styles.mobilePanelBack}
+            onClick={closeMobilePanel}
+          >
+            <ArrowLeft size={14} /> Back to editor
+          </button>
+        </div>
+
+        <div
+          className={styles.scopeGroup}
+          role="radiogroup"
+          aria-label="Shuffle scope"
+        >
+          {SHUFFLE_ACTIONS.map(({ id, label, Icon }) => {
+            const active = id === shuffleAction;
+
+            return (
+              <button
+                key={id}
+                type="button"
+                role="radio"
+                aria-checked={active}
+                className={
+                  active
+                    ? `${styles.scopeOption} ${styles.scopeOptionActive}`
+                    : styles.scopeOption
+                }
+                onClick={() => selectShuffleAction(id)}
+              >
+                <Icon className={styles.scopeIcon} size={16} />
+                <span className={styles.scopeLabel}>{label}</span>
+                {active && <Check size={15} aria-hidden="true" />}
+              </button>
+            );
+          })}
+        </div>
+
+        <button
+          type="button"
+          className={styles.runShuffle}
+          onClick={() => runShuffle(shuffleAction)}
+        >
+          <RunIcon size={16} /> {current.label}
+        </button>
+        <p className={styles.runHint}>
+          Tap again for a new arrangement — the preview above updates live.
+        </p>
+      </div>
+    );
+  };
+
+  // Mobile (7d): the inline "Export" panel — the same three actions as the
+  // desktop dropdown, each returning to the editor once fired (a toast reports
+  // the result).
+  const renderExportPanel = () => (
+    <div className={styles.mobilePanel}>
+      <div className={styles.mobilePanelHead}>
+        <span className={styles.mobilePanelTitle}>Export</span>
+        <button
+          type="button"
+          className={styles.mobilePanelBack}
+          onClick={closeMobilePanel}
+        >
+          <ArrowLeft size={14} /> Back to editor
+        </button>
+      </div>
+
+      <div className={styles.exportList}>
+        <button
+          type="button"
+          className={styles.exportRow}
+          onClick={() => {
+            void exportArtwork();
+            closeMobilePanel();
+          }}
+        >
+          <ImageDown className={styles.exportIcon} size={16} /> Download PNG
+        </button>
+        <button
+          type="button"
+          className={styles.exportRow}
+          onClick={() => {
+            void copyShareLink();
+            closeMobilePanel();
+          }}
+        >
+          <LinkIcon className={styles.exportIcon} size={16} /> Copy shareable link
+        </button>
+        <button
+          type="button"
+          className={styles.exportRow}
+          onClick={() => {
+            void copyReactComponent();
+            closeMobilePanel();
+          }}
+        >
+          <CodeXml className={styles.exportIcon} size={16} /> Copy React component
+        </button>
+      </div>
+    </div>
+  );
+
   return (
     <div className={styles.pageWrapper}>
       <EditArtworkHeader
         artworkName={artwork.name}
-        onShuffleAll={() => {
-          randomizeSeed();
-          randomizePalette();
-        }}
-        onShuffleLayout={randomizeSeed}
-        onShuffleColors={randomizePalette}
+        shuffleAction={shuffleAction}
+        onRunShuffle={runShuffle}
+        onSelectShuffle={selectShuffleAction}
         onExportPng={exportArtwork}
         onCopyLink={copyShareLink}
         onCopyReactComponent={copyReactComponent}
+        mobile={isMobile}
+        mobilePanelOpen={mobilePanelOpen}
+        onOpenShufflePanel={openShufflePanel}
+        onOpenExportPanel={openExportPanel}
+        onCloseMobilePanel={closeMobilePanel}
       />
 
       <main className={styles.editArtworkSection}>
@@ -846,8 +1046,12 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
               onEditLibrary={(p) => editor.openEditorAsCopy(p)}
               onDelete={removePalette}
               onNewPalette={() => editor.openEditor()}
-              onClose={() => setBrowserOpen(false)}
+              onClose={closeMobilePanel}
             />
+          ) : isMobile && mobilePanel === 'shuffle' ? (
+            <div className={styles.panelScroll}>{renderShufflePanel()}</div>
+          ) : isMobile && mobilePanel === 'export' ? (
+            <div className={styles.panelScroll}>{renderExportPanel()}</div>
           ) : (
           <div className={styles.panelScroll}>
           {palette.length > 0 && (
@@ -972,7 +1176,9 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
               <div className={styles.chipsSection}>
                 <div className={styles.chipsHeader}>
                   <span className={styles.chipsLabel}>Palettes</span>
-                  {chipsPageCount > 1 && (
+                  {/* Mobile (7d) shows every chip in one horizontal scroll row;
+                      desktop paginates instead. */}
+                  {!isMobile && chipsPageCount > 1 && (
                     <SectionPager
                       page={clampedChipsPage}
                       pageCount={chipsPageCount}
@@ -981,8 +1187,14 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
                     />
                   )}
                 </div>
-                <div className={styles.chipsRow}>
-                  {chipRows.map(({ kind, palette }) => {
+                <div
+                  className={
+                    isMobile
+                      ? `${styles.chipsRow} ${styles.chipsRowScroll}`
+                      : styles.chipsRow
+                  }
+                >
+                  {(isMobile ? mergedChips : chipRows).map(({ kind, palette }) => {
                     const active = paletteSource === palette.id;
 
                     return (
@@ -1031,7 +1243,7 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
                   <button
                     type="button"
                     className={`${styles.chipsAction} ${styles.browseAll}`}
-                    onClick={() => setBrowserOpen(true)}
+                    onClick={openBrowser}
                     title="Browse all palettes"
                   >
                     Browse all palettes <ChevronRight size={13} />

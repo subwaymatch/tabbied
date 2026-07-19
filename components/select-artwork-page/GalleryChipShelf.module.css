@@ -1,0 +1,116 @@
+/* Mobile (7a): the merged palette list as a horizontal, scrollable chip shelf.
+   Sticks to the top of the scroll region so it stays reachable as the grid
+   scrolls. Chips scroll sideways; the trailing "All ›" pill opens the browser. */
+.shelf {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 -20px;
+  padding: 10px 20px 8px;
+  background: #ffffff;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.shelf::-webkit-scrollbar {
+  display: none;
+}
+
+.chip {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 12px;
+  border: none;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(35, 37, 41, 0.16);
+  font-family: var(--font-sans-serif);
+  cursor: pointer;
+  transition: box-shadow 120ms ease;
+}
+
+.chipActive {
+  box-shadow: 0 0 0 2px #232529;
+}
+
+.chip:focus-visible {
+  outline: 2px solid var(--blue-medium);
+  outline-offset: 2px;
+}
+
+.strip {
+  --strip-width: 46px;
+  --strip-height: 14px;
+  border-radius: 3px;
+  border: 1px solid rgba(35, 37, 41, 0.12);
+}
+
+.name {
+  font-size: 13px;
+  color: #646d7b;
+  white-space: nowrap;
+}
+
+.chipActive .name {
+  color: #232529;
+}
+
+.check {
+  display: inline-flex;
+  color: #ff3d8b;
+}
+
+/* Trailing ✕ (custom) / pencil (library) — a small tap target inset into the
+   chip's right padding so it doesn't widen the pill. */
+.trailing {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  flex: none;
+  margin: 0 -4px 0 -2px;
+  border-radius: 50%;
+  color: #c9cfd8;
+  cursor: pointer;
+  transition: color 120ms ease, background 120ms ease;
+}
+
+.trailing:hover {
+  color: #4a5160;
+}
+
+.chip:has(.check) .trailing {
+  color: #c9cfd8;
+}
+
+.allPill {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 9px 12px;
+  border: none;
+  border-radius: 20px;
+  background: #f1f3f5;
+  font-family: var(--font-sans-serif);
+  font-size: 13px;
+  color: #646d7b;
+  cursor: pointer;
+  transition: color 120ms ease;
+}
+
+.allPill:hover {
+  color: #232529;
+}
+
+.allPill:focus-visible {
+  outline: 2px solid var(--blue-medium);
+  outline-offset: 2px;
+}

@@ -395,19 +395,58 @@ test.describe('Tabbied site', () => {
 test.describe('Tabbied site (mobile viewport)', () => {
   test.use({ viewport: { width: 390, height: 664 } });
 
-  test('icon-only header buttons keep accessible names', async ({ page }) => {
+  test('the editor header opens inline shuffle / export panels (7d)', async ({
+    page,
+  }) => {
     await page.goto('/artworks/radius?seed=0000');
 
-    // Below the md breakpoint the text labels are display:none, leaving
-    // icon-only buttons — they must still expose an accessible name. The
-    // Shuffle split button defaults to "Shuffle" (reseeds + recolors).
-    await expect(
-      page.getByRole('button', { name: 'Shuffle', exact: true })
-    ).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Export' })).toBeVisible();
+    // The compact 7d header replaces the split buttons with icon buttons that
+    // open inline panels in the editing region (not run the action directly).
+    const shuffleBtn = page.getByRole('button', { name: 'Shuffle options' });
+    const exportBtn = page.getByRole('button', { name: 'Export options' });
+    await expect(shuffleBtn).toBeVisible({ timeout: 15000 });
+    await expect(exportBtn).toBeVisible();
 
+    // Opening the shuffle panel reveals the scope radios and a run button; the
+    // run button (labelled with the current scope) reseeds the artwork.
+    await shuffleBtn.click();
+    await expect(
+      page.getByRole('radio', { name: 'Shuffle layout' })
+    ).toBeVisible();
     await page.getByRole('button', { name: 'Shuffle', exact: true }).click();
     await expect(page).not.toHaveURL(/seed=0000/);
+
+    // The back arrow closes the open panel before it would leave the editor.
+    await page.getByRole('link', { name: 'Back to editor' }).click();
+    await expect(page.getByRole('heading', { name: 'Colors' })).toBeVisible();
+
+    // The export panel lists the three export actions.
+    await exportBtn.click();
+    await expect(
+      page.getByRole('button', { name: 'Copy React component' })
+    ).toBeVisible();
+  });
+
+  test('the gallery shows palettes as a horizontal chip shelf (7a)', async ({
+    page,
+  }) => {
+    await page.goto('/artworks');
+
+    // The fixed rail is hidden below the two-column breakpoint; the palettes
+    // become a horizontal chip shelf with a trailing "All ›" browser pill.
+    await expect(page.locator('aside')).toBeHidden();
+    await expect(
+      page.getByRole('button', { name: 'New Palette' })
+    ).toBeVisible({ timeout: 15000 });
+
+    const allPill = page.getByRole('button', { name: /^All/ });
+    await expect(allPill).toBeVisible();
+
+    // Tapping "All ›" swaps the shelf for the embedded palette browser.
+    await allPill.click();
+    await expect(
+      page.getByRole('button', { name: 'Close palette browser' })
+    ).toBeVisible();
   });
 
   test('hamburger drawer exposes the nav and GitHub on mobile', async ({

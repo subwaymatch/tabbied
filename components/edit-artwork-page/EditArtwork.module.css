@@ -296,6 +296,24 @@
   margin-top: 8px;
 }
 
+/* Mobile (7d): one horizontal, scrollable shelf of every palette chip. Bleeds
+   to the panel edges so chips can scroll fully off-screen. */
+.chipsRowScroll {
+  flex-wrap: nowrap;
+  margin: 8px -20px 0;
+  padding: 2px 20px 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.chipsRowScroll::-webkit-scrollbar {
+  display: none;
+}
+
+.chipsRowScroll > * {
+  flex: none;
+}
+
 /* "+ New Palette" (left) and "Browse all palettes ›" (right) under the chips. */
 .chipsActions {
   display: flex;
@@ -521,35 +539,156 @@
   border: 0;
 }
 
-@media (max-width: 991.98px) {
-  .pageWrapper {
-    height: auto;
-    overflow: visible;
-  }
+/* ---- Mobile (7d): compact editor — fixed preview band, scrolling controls ---- */
 
+@media (max-width: 991.98px) {
+  /* Keep the fixed-height card model (the page doesn't scroll); the editing
+     region below the preview scrolls instead. */
   .editArtworkSection {
-    display: block;
+    flex-direction: column;
   }
 
   .previewWrapper {
-    min-height: 55vh;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+    flex: none;
+    height: 300px;
+    padding: 1rem;
   }
 
   .doodleFrame {
-    box-shadow: none;
+    box-shadow: 10px 10px 24px rgba(0, 0, 0, 0.1);
   }
 
   .panel {
+    flex: 1;
+    min-height: 0;
     width: auto;
     border-left: none;
     border-top: 1px solid #eceef1;
-    display: block;
-    overflow: visible;
   }
+}
 
-  .panelScroll {
-    overflow: visible;
-  }
+/* ---- Mobile (7d) inline shuffle / export panels ---- */
+
+.mobilePanel {
+  padding: 14px 20px 24px;
+}
+
+.mobilePanelHead {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.mobilePanelTitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: #646d7b;
+}
+
+.mobilePanelBack {
+  margin-left: auto;
+  margin-right: -10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 10px;
+  border: none;
+  background: transparent;
+  font-family: var(--font-sans-serif);
+  font-size: 13px;
+  color: #646d7b;
+  cursor: pointer;
+  transition: color 120ms ease;
+}
+
+.mobilePanelBack:hover {
+  color: #232529;
+}
+
+.scopeGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 10px;
+}
+
+.scopeOption,
+.exportRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  font-family: var(--font-sans-serif);
+  font-size: 14px;
+  color: #232529;
+  cursor: pointer;
+  text-align: left;
+  transition: background 120ms ease;
+}
+
+.scopeOption:hover,
+.exportRow:hover {
+  background: #f1f3f5;
+}
+
+.scopeOptionActive {
+  background: #f1f3f5;
+}
+
+.scopeIcon,
+.exportIcon {
+  flex: none;
+  color: #646d7b;
+}
+
+.scopeLabel {
+  flex: 1;
+}
+
+.runShuffle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 48px;
+  margin-top: 14px;
+  border: none;
+  border-radius: 6px;
+  background: #232529;
+  color: #ffffff;
+  font-family: var(--font-sans-serif);
+  font-size: 14.5px;
+  cursor: pointer;
+  transition: background 120ms ease;
+}
+
+.runShuffle:hover {
+  background: #2f3237;
+}
+
+.runHint {
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #98a0af;
+  text-align: center;
+}
+
+.exportList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 10px;
+}
+
+.scopeOption:focus-visible,
+.exportRow:focus-visible,
+.runShuffle:focus-visible,
+.mobilePanelBack:focus-visible {
+  outline: 2px solid var(--blue-medium);
+  outline-offset: 2px;
 }

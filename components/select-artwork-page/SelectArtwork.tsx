@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
+import useMediaQuery from 'lib/useMediaQuery';
 import type { GalleryItem } from 'lib/artwork';
 import {
   deletePalette,
@@ -14,6 +15,7 @@ import { PALETTE_LIBRARY, type LibraryPalette } from 'lib/paletteLibrary';
 import { usePaletteEditor } from 'components/palette/usePaletteEditor';
 import PaletteEditorDialog from 'components/palette/PaletteEditorDialog';
 import GalleryRail from './GalleryRail';
+import GalleryMobileHeader from './GalleryMobileHeader';
 import GalleryCard from './GalleryCard';
 import GalleryScrollRestorer from './GalleryScrollRestorer';
 import styles from './SelectArtwork.module.css';
@@ -49,6 +51,12 @@ const paginationWindow = (page: number, pageCount: number): (number | null)[] =>
 export default function SelectArtwork({ gallery }: { gallery: GalleryItem[] }) {
   const brandState = useBrandPalettes();
   const savedPalettes = brandState.palettes;
+
+  // Below the two-column breakpoint the fixed rail is replaced by the mobile
+  // header (7a). Rendering it only on mobile keeps its ~120 palette chips out of
+  // the desktop DOM; the `&&` placeholder holds the slot so the grid (a later
+  // sibling) never remounts when this toggles.
+  const isMobile = useMediaQuery('(max-width: 991.98px)');
 
   const [search, setSearch] = useState('');
   // The gallery page lives in the URL (?page=N) so it's shareable, survives a
@@ -183,6 +191,7 @@ export default function SelectArtwork({ gallery }: { gallery: GalleryItem[] }) {
     <main className={styles.gallery}>
       <GalleryScrollRestorer />
 
+      {!isMobile && (
       <GalleryRail
         search={search}
         onSearchChange={onSearchChange}
@@ -200,6 +209,25 @@ export default function SelectArtwork({ gallery }: { gallery: GalleryItem[] }) {
         onOpenBrowser={() => setBrowserOpen(true)}
         onCloseBrowser={() => setBrowserOpen(false)}
       />
+      )}
+
+      {isMobile && (
+      <GalleryMobileHeader
+        search={search}
+        onSearchChange={onSearchChange}
+        palettes={savedPalettes}
+        library={PALETTE_LIBRARY}
+        selectedId={selectedId}
+        onApply={(id) => applyPalette(id)}
+        onEditCustom={onEditCustom}
+        onEditLibrary={onEditLibrary}
+        onDelete={removePalette}
+        onNewPalette={() => editor.openEditor()}
+        browserOpen={browserOpen}
+        onOpenBrowser={() => setBrowserOpen(true)}
+        onCloseBrowser={() => setBrowserOpen(false)}
+      />
+      )}
 
       <div className={styles.mainColumn}>
         <div className={styles.mainHeader}>

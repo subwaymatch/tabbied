@@ -140,25 +140,66 @@
   flex: none;
 }
 
-@media (max-width: 991.98px) {
-  .titleWrap {
-    display: none;
-  }
+/* ---- Mobile (7d) compact header: back + centered title + icon buttons ---- */
 
-  .btn {
-    font-size: 14px;
-    padding: 0 10px;
-  }
+.headerMobile {
+  padding: 6px 8px;
+}
 
-  .btn .label {
-    display: none;
-  }
+.backIcon,
+.iconButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: color 120ms ease;
+}
 
-  .btn .reactIcon {
-    margin-right: 0;
-  }
+.backIcon {
+  color: #646d7b;
+}
 
-  .chevronIcon {
-    margin-left: 0.2rem;
-  }
+.backIcon:hover {
+  color: #ff3d8b;
+}
+
+.titleMobile {
+  flex: 1;
+  min-width: 0;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #232529;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.iconButton {
+  color: #232529;
+}
+
+.iconButton:hover {
+  color: #4a5160;
+}
+
+.iconButtonExport {
+  color: var(--red-high-contrast);
+}
+
+.iconButtonExport:hover {
+  color: #fd0066;
+}
+
+.backIcon:focus-visible,
+.iconButton:focus-visible {
+  outline: 2px solid var(--blue-medium);
+  outline-offset: -4px;
+  border-radius: 4px;
 }

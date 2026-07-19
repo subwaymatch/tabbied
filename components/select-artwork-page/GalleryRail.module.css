@@ -181,19 +181,12 @@
   color: #98a0af;
 }
 
-/* Below the two-column breakpoint the rail stacks above the grid, so it must
-   flow normally (not a fixed full-height column). */
+/* Below the two-column breakpoint the fixed rail is replaced by the mobile
+   header (GalleryMobileHeader): logo + GitHub, search, and the palettes as a
+   horizontal chip shelf. */
 @media (max-width: 991.98px) {
   .sidebar {
-    position: static;
-    width: auto;
-    height: auto;
-    overflow: visible;
-  }
-
-  .section {
-    flex: none;
-    overflow: visible;
+    display: none;
   }
 }
 
