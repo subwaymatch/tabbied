@@ -1,53 +1,73 @@
 .header {
-  padding: 1rem 0;
-  font-size: 1.1rem;
+  flex: none;
+  display: flex;
+  align-items: center;
+  padding: 12px 24px;
+  border-bottom: 1px solid #eceef1;
 }
 
-.header h1 {
-  color: var(--gray-dark);
+/* "← Gallery" back link. */
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+  font-size: 15px;
+  color: #646d7b;
+  transition: color 120ms ease;
 }
 
-.titleColumn {
-  display: none;
+.back:hover {
+  color: #ff3d8b;
 }
 
-@media (min-width: 992px) {
-  .titleColumn {
-    display: block;
-  }
+.titleWrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: 0;
 }
 
-/* Right-aligned action cluster (copied-toast + Redraw + Export dropdown). */
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #232529;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Right-aligned action cluster (copied-toast + Shuffle + Export). */
 .actions {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 0.6rem;
+  gap: 8px;
 }
 
-/* Transient "Copied" confirmation for the clipboard export options. */
 .copied {
-  font-size: 0.85rem;
+  font-size: 13px;
   color: var(--gray-medium);
   white-space: nowrap;
 }
 
 .btn {
-  border: none;
   display: inline-flex;
   align-items: center;
-  font-size: 1rem;
-  font-weight: 300;
-  color: white;
+  height: 40px;
+  padding: 0 12px 0 16px;
+  border: none;
+  border-radius: 3px;
+  color: #ffffff;
   background-color: var(--gray-dark);
-  padding-left: 1rem;
-  padding-right: 1rem;
-  height: 2.75rem;
-  border-radius: 0.15rem;
+  font-size: 14.5px;
+  font-weight: 300;
   cursor: pointer;
+  transition: background-color 120ms ease;
 }
 
-/* Chevron on the Export trigger, nudged off the label. */
 .chevronIcon {
   margin-left: 0.35rem;
   opacity: 0.85;
@@ -62,20 +82,15 @@
   margin-right: 0.4rem;
 }
 
-.btn:hover {
-  background-color: #2f3237; /* color.scale($gray-dark, +6% lightness) */
-  box-shadow: 0 0 0.75rem rgba(35, 37, 41, 0.2);
-}
-
 .btnExport {
-  color: white;
+  color: #ffffff;
   background-color: var(--red-high-contrast);
+  font-weight: 600;
 }
 
 .btnExport:hover,
 .btnExport[data-popup-open] {
-  background-color: #fd0066; /* color.scale($red-high-contrast, +6% lightness) */
-  box-shadow: 0 0 0.75rem rgba(237, 0, 95, 0.2);
+  background-color: #fd0066;
 }
 
 /* ---- Export dropdown menu ---- */
@@ -86,8 +101,8 @@
 
 .menuPopup {
   min-width: 14rem;
-  padding: 0.35rem;
-  border-radius: 0.5rem;
+  padding: 5px;
+  border-radius: 8px;
   background-color: white;
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
   outline: 1px solid rgba(35, 37, 41, 0.08);
@@ -104,42 +119,87 @@
 .menuItem {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.55rem 0.6rem;
-  border-radius: 0.3rem;
+  gap: 8px;
+  padding: 9px 10px;
+  border-radius: 5px;
   font-family: var(--font-sans-serif);
-  font-size: 0.95rem;
+  font-size: 13.5px;
   font-weight: 400;
   line-height: 1.4;
-  color: var(--gray-dark);
+  color: #232529;
   cursor: pointer;
   user-select: none;
 }
 
 .menuItem[data-highlighted] {
-  background-color: var(--gray-ultra-light);
+  background-color: #f8f9fa;
 }
 
 .menuItem svg {
-  color: var(--gray-medium);
+  color: #646d7b;
   flex: none;
 }
 
-@media (max-width: 991.98px) {
-  .header {
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
-  }
+/* ---- Mobile (7d) compact header: back + centered title + icon buttons ---- */
 
-  .btn {
-    font-size: 0.95rem;
-  }
+.headerMobile {
+  padding: 6px 8px;
+}
 
-  .btn .label {
-    display: none;
-  }
+.backIcon,
+.iconButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: color 120ms ease;
+}
 
-  .btn .reactIcon {
-    margin-right: 0;
-  }
+.backIcon {
+  color: #646d7b;
+}
+
+.backIcon:hover {
+  color: #ff3d8b;
+}
+
+.titleMobile {
+  flex: 1;
+  min-width: 0;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #232529;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.iconButton {
+  color: #232529;
+}
+
+.iconButton:hover {
+  color: #4a5160;
+}
+
+.iconButtonExport {
+  color: var(--red-high-contrast);
+}
+
+.iconButtonExport:hover {
+  color: #fd0066;
+}
+
+.backIcon:focus-visible,
+.iconButton:focus-visible {
+  outline: 2px solid var(--blue-medium);
+  outline-offset: -4px;
+  border-radius: 4px;
 }

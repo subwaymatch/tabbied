@@ -1,0 +1,111 @@
+/* Mobile (7a) gallery header. Hidden on the two-column desktop layout, where
+   the fixed rail (GalleryRail) takes over instead. */
+.wrapper {
+  display: none;
+}
+
+@media (max-width: 991.98px) {
+  .wrapper {
+    display: block;
+    padding: 14px 20px 0;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding-bottom: 2px;
+}
+
+.logo {
+  display: inline-flex;
+  color: #232529;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.github {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-right: -12px;
+  color: #98a0af;
+  transition: color 120ms ease;
+}
+
+.github:hover {
+  color: #4a5160;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 11px 2px;
+  border-bottom: 1px solid #e3e6ea;
+  color: #98a0af;
+  transition: border-color 120ms ease;
+}
+
+.search:hover,
+.search:focus-within {
+  border-color: #98a0af;
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  font-family: var(--font-sans-serif);
+  font-size: 14px;
+  color: #232529;
+  outline: none;
+}
+
+.previewRow {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-top: 20px;
+}
+
+.previewLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: #646d7b;
+}
+
+.newPalette {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 10px;
+  margin-right: -10px;
+  border: none;
+  background: transparent;
+  font-family: var(--font-sans-serif);
+  font-size: 13px;
+  color: #646d7b;
+  cursor: pointer;
+  transition: color 120ms ease;
+}
+
+.newPalette:hover {
+  color: #232529;
+}
+
+/* When "All ›" opens the browser, it takes the palette slot as a bounded,
+   internally scrolling panel (the same embedded browser as the desktop rail). */
+.browserPanel {
+  display: flex;
+  flex-direction: column;
+  height: 60vh;
+  height: 60dvh;
+  margin-top: 12px;
+}

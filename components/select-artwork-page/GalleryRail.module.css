@@ -1,0 +1,211 @@
+/* The gallery's white palette rail (3a): logo, search, one merged palette list
+   (custom then library), and a footer. Seamless white — no divider, no tint.
+   Headings, rows and buttons share one left edge (no horizontal padding). */
+/* Fixed full-height rail: it stays put while the design grid scrolls, so the
+   GitHub / Docs footer stays pinned to the bottom of the window. The palette
+   list (or the palette browser) takes the remaining space and scrolls inside.
+   The main column offsets itself by 264px (see SelectArtwork.module.css). */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 264px;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 28px 24px 24px 32px;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.logo {
+  display: inline-flex;
+  color: #232529;
+}
+
+/* Borderless search with only a bottom hairline. */
+.search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 28px;
+  padding: 9px 2px;
+  border-bottom: 1px solid #e3e6ea;
+  color: #98a0af;
+  transition: border-color 120ms ease;
+}
+
+.search:hover,
+.search:focus-within {
+  border-color: #98a0af;
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  font-family: var(--font-sans-serif);
+  font-size: 13.5px;
+  color: #232529;
+  outline: none;
+}
+
+.previewHeader {
+  display: flex;
+  align-items: center;
+  margin-top: 32px;
+}
+
+.previewLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: #646d7b;
+}
+
+.section {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.sectionLabel {
+  font-size: 14px;
+  color: #98a0af;
+}
+
+.emptyNote {
+  padding: 4px 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #98a0af;
+}
+
+/* "+ New Palette" — placeholder strip of empty cells + label. Shares the left
+   edge; hover darkens the label only (no wash). */
+.newPalette {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 18px;
+  padding: 8px 0;
+  border: none;
+  background: transparent;
+  font-family: var(--font-sans-serif);
+  font-size: 13px;
+  color: #646d7b;
+  cursor: pointer;
+  text-align: left;
+  transition: color 120ms ease;
+}
+
+.newPalette:hover {
+  color: #232529;
+}
+
+.newPalette:focus-visible,
+.browseAll:focus-visible {
+  outline: 2px solid var(--blue-medium);
+  outline-offset: -2px;
+}
+
+.newStrip {
+  display: flex;
+  width: 60px;
+  height: 16px;
+  flex: none;
+  border: 1px solid #ced3d9;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.newStrip > span {
+  flex: 1;
+}
+
+.newStrip > span:not(:last-child) {
+  border-right: 1px solid #ced3d9;
+}
+
+.newLabel {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.browseAll {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  align-self: flex-start;
+  margin-top: 8px;
+  padding: 6px 0;
+  border: none;
+  background: transparent;
+  font-family: var(--font-sans-serif);
+  font-size: 13px;
+  color: #646d7b;
+  cursor: pointer;
+  text-align: left;
+  transition: color 120ms ease, transform 120ms ease;
+}
+
+.browseAll:hover {
+  color: #232529;
+  transform: translateX(2px);
+}
+
+/* ---- Footer ---- */
+
+.footer {
+  flex: none;
+  padding-top: 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: #98a0af;
+}
+
+/* Below the two-column breakpoint the fixed rail is replaced by the mobile
+   header (GalleryMobileHeader): logo + GitHub, search, and the palettes as a
+   horizontal chip shelf. */
+@media (max-width: 991.98px) {
+  .sidebar {
+    display: none;
+  }
+}
+
+.footerLink {
+  display: inline-flex;
+  color: #98a0af;
+  transition: color 120ms ease;
+}
+
+.footerLink:hover {
+  color: #4a5160;
+}
+
+.footerDocs {
+  font-size: 13px;
+  color: #98a0af;
+  transition: color 120ms ease;
+}
+
+.footerDocs:hover {
+  color: #4a5160;
+}

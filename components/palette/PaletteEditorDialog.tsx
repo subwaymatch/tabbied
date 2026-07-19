@@ -1,21 +1,22 @@
 'use client';
 
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Dialog } from '@base-ui-components/react/dialog';
-import { Plus, Shuffle, Trash2, X } from 'lucide-react';
+import { Check, Plus, Shuffle, Trash2, X } from 'lucide-react';
 import ToggleSwitch from 'components/ToggleSwitch';
 import ColorSwatch from 'components/ColorSwatch';
 import useMediaQuery from 'lib/useMediaQuery';
-import {
-  MAX_PALETTE_COLORS,
-  MIN_PALETTE_COLORS,
-} from 'lib/brandPalettes';
 import type { PaletteDraft } from './usePaletteEditor';
 import styles from './PaletteEditorDialog.module.css';
 
-// A hex text field with a fixed, non-editable "#" fused to its left edge (A1).
-// The stored value keeps its leading "#", but the editable text is just the
-// digits — any "#" the user types or pastes is stripped back out.
+// A palette in the dialog holds 3-7 colors (background + 2-6 inks): remove is
+// disabled at the minimum and Add color is hidden at the maximum.
+const DIALOG_MIN_COLORS = 3;
+const DIALOG_MAX_COLORS = 7;
+
+// A hex text field with a fixed, non-editable "#" fused to its left edge. The
+// stored value keeps its leading "#", but the editable text is just the digits —
+// any "#" the user types or pastes is stripped back out.
 function HexField({
   value,
   disabled,
@@ -56,10 +57,9 @@ function HexField({
 }
 
 /**
- * The shared new/edit-palette dialog. Renders over a very low-opacity backdrop
- * so the page it sits on stays visible (its artworks recolor live as the draft
- * is edited — see usePaletteEditor). Used by the gallery bar and the individual
- * artwork page alike.
+ * The shared new/edit-palette dialog (4a): the single place palettes are
+ * created, edited, and deleted. Renders over a low-opacity backdrop so the page
+ * it sits on stays visible (its artworks recolor live as the draft is edited).
  */
 export default function PaletteEditorDialog({
   draft,
@@ -82,8 +82,18 @@ export default function PaletteEditorDialog({
 }) {
   const nameInputRef = useRef<HTMLInputElement>(null);
 
+  // The delete action confirms inline (Delete this palette? / Delete / Keep)
+  // rather than removing on the first click.
+  const [confirmingDelete, setConfirmingDelete] = useState(false);
+
+  // Reset the inline delete confirmation whenever the dialog opens on a
+  // different palette (or closes).
+  useEffect(() => {
+    setConfirmingDelete(false);
+  }, [draft?.id]);
+
   // On touch devices, auto-focusing the Name field pops the on-screen keyboard
-  // and it covers the dialog (A2). Detect a coarse primary pointer and skip the
+  // and it covers the dialog. Detect a coarse primary pointer and skip the
   // initial focus there; pointer/keyboard users still land in the Name field.
   const isCoarsePointer = useMediaQuery('(pointer: coarse)');
 
@@ -95,14 +105,11 @@ export default function PaletteEditorDialog({
       }}
     >
       <Dialog.Portal>
-        {/* Very low-opacity scrim: the page (and its live-recolored artworks)
-            stays visible behind the dialog. */}
+        {/* Low-opacity scrim: the page (and its live-recolored artworks) stays
+            visible behind the dialog. */}
         <Dialog.Backdrop className={styles.dialogBackdrop} />
         <Dialog.Popup
           className={styles.dialogPopup}
-          // Focus the Name field on open for pointer/keyboard users, but not on
-          // touch devices — there it would raise the on-screen keyboard and
-          // cover the dialog (A2).
           initialFocus={isCoarsePointer ? false : nameInputRef}
         >
           <div className={styles.dialogTitleRow}>
@@ -111,12 +118,12 @@ export default function PaletteEditorDialog({
             </Dialog.Title>
             <button
               type="button"
-              className={styles.randomizeButton}
+              className={styles.shuffleButton}
               onClick={onRandomize}
-              aria-label="Randomize palette"
-              title="Randomize palette"
+              aria-label="Randomize colors"
+              title="Randomize colors"
             >
-              <Shuffle size={18} />
+              <Shuffle size={17} />
             </button>
           </div>
 
@@ -142,9 +149,9 @@ export default function PaletteEditorDialog({
               <div className={styles.dialogField}>
                 <span className={styles.dialogLabel}>Background</span>
                 <div className={styles.bgRow}>
-                  {/* The picker stays clickable even while transparent (New2):
-                      opening it and picking a color turns the transparent switch
-                      off; leaving it unchanged keeps transparent on (the native
+                  {/* The picker stays clickable while transparent: opening it
+                      and picking a color turns the transparent switch off;
+                      leaving it unchanged keeps transparent on (the native
                       input only fires on a real change). */}
                   <ColorSwatch
                     className={styles.dialogSwatch}
@@ -168,7 +175,7 @@ export default function PaletteEditorDialog({
                   <HexField
                     value={draft.colors[0]}
                     disabled={draft.transparent}
-                    ariaLabel="Background color hex value"
+                    ariaLabel="Background hex value"
                     onValueChange={(hex) => setDraftColor(0, hex)}
                   />
                   <label className={styles.bgTransparent}>
@@ -207,7 +214,7 @@ export default function PaletteEditorDialog({
                           type="button"
                           className={styles.removeColor}
                           aria-label={`Remove color ${index}`}
-                          disabled={draft.colors.length <= MIN_PALETTE_COLORS}
+                          disabled={draft.colors.length <= DIALOG_MIN_COLORS}
                           onClick={() =>
                             setDraft({
                               ...draft,
@@ -215,17 +222,17 @@ export default function PaletteEditorDialog({
                             })
                           }
                         >
-                          <X size={16} />
+                          <X size={15} />
                         </button>
                       </div>
                     );
                   })}
                 </div>
 
-                {draft.colors.length < MAX_PALETTE_COLORS && (
+                {draft.colors.length < DIALOG_MAX_COLORS && (
                   <button
                     type="button"
-                    className={`${styles.textButton} ${styles.addColor}`}
+                    className={styles.addColor}
                     onClick={() =>
                       setDraft({
                         ...draft,
@@ -236,7 +243,7 @@ export default function PaletteEditorDialog({
                       })
                     }
                   >
-                    <Plus size={16} /> Add color
+                    <Plus size={15} /> Add color
                   </button>
                 )}
               </div>
@@ -244,22 +251,43 @@ export default function PaletteEditorDialog({
               {draftError && <p className={styles.dialogError}>{draftError}</p>}
 
               <div className={styles.dialogActions}>
-                {draft.existing && (
-                  <button
-                    type="button"
-                    className={`${styles.textButton} ${styles.dialogDelete}`}
-                    onClick={onDelete}
-                  >
-                    <Trash2 size={16} /> Delete
-                  </button>
-                )}
-                <Dialog.Close className={styles.textButton}>Cancel</Dialog.Close>
+                {draft.existing &&
+                  (confirmingDelete ? (
+                    <span className={styles.confirmDelete}>
+                      Delete this palette?
+                      <button
+                        type="button"
+                        className={styles.confirmDeleteButton}
+                        onClick={onDelete}
+                      >
+                        Delete
+                      </button>
+                      <button
+                        type="button"
+                        className={styles.confirmKeep}
+                        onClick={() => setConfirmingDelete(false)}
+                      >
+                        Keep
+                      </button>
+                    </span>
+                  ) : (
+                    <button
+                      type="button"
+                      className={styles.deleteButton}
+                      onClick={() => setConfirmingDelete(true)}
+                    >
+                      <Trash2 size={14} /> Delete
+                    </button>
+                  ))}
+                <Dialog.Close className={styles.cancelButton}>
+                  <X size={15} /> Cancel
+                </Dialog.Close>
                 <button
                   type="button"
                   className={styles.saveButton}
                   onClick={onSave}
                 >
-                  Save palette
+                  <Check size={15} /> Save palette
                 </button>
               </div>
             </>

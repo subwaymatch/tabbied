@@ -1,0 +1,183 @@
+/* Embedded palette browser. Fills its host (the gallery rail or the editor
+   panel); the list scrolls between a fixed header and a fixed "+ New Palette". */
+.browser {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* In the rail it grows to fill the aside between the logo and the footer. */
+.rail {
+  flex: 1;
+}
+
+/* In the editor panel it fills the flex column and scrolls its own list. */
+.panel {
+  flex: 1;
+  min-height: 0;
+}
+
+.head {
+  flex: none;
+}
+
+.rail .head {
+  margin-top: 28px;
+}
+
+.panel .head {
+  padding: 16px 28px 0;
+}
+
+.headRow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.headTitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: #646d7b;
+}
+
+.count {
+  margin-left: auto;
+  font-size: 13px;
+  color: #b6bcc7;
+}
+
+.close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: #98a0af;
+  cursor: pointer;
+  transition: color 120ms ease, background-color 120ms ease;
+}
+
+.close:hover {
+  color: #232529;
+  background: #f8f9fa;
+}
+
+.close:focus-visible {
+  outline: 2px solid var(--blue-medium);
+  outline-offset: 1px;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 9px 2px;
+  border-bottom: 1px solid #e3e6ea;
+  color: #98a0af;
+  transition: border-color 120ms ease;
+}
+
+.search:hover,
+.search:focus-within {
+  border-color: #98a0af;
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  font-family: var(--font-sans-serif);
+  font-size: 13.5px;
+  color: #232529;
+  outline: none;
+}
+
+.list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  /* Rows nudge 2px on hover; clip that so it never spawns a horizontal
+     scrollbar around the list. */
+  overflow-x: hidden;
+}
+
+.rail .list {
+  margin: 8px 0 0;
+}
+
+.panel .list {
+  padding: 4px 20px 12px;
+}
+
+.more {
+  padding: 12px;
+  text-align: center;
+  font-size: 13px;
+  color: #b6bcc7;
+}
+
+.empty {
+  padding: 32px 8px;
+  text-align: center;
+  font-size: 13px;
+  color: #98a0af;
+}
+
+.foot {
+  flex: none;
+}
+
+.panel .foot {
+  padding: 12px 28px 16px;
+  border-top: 1px solid #eceef1;
+}
+
+.newPalette {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 10px;
+  padding: 8px 0;
+  border: none;
+  background: transparent;
+  font-family: var(--font-sans-serif);
+  font-size: 13px;
+  color: #646d7b;
+  cursor: pointer;
+  text-align: left;
+  transition: color 120ms ease;
+}
+
+.newPalette:hover {
+  color: #232529;
+}
+
+.newPalette:focus-visible {
+  outline: 2px solid var(--blue-medium);
+  outline-offset: -2px;
+}
+
+.newStrip {
+  display: flex;
+  width: 60px;
+  height: 16px;
+  flex: none;
+  border: 1px solid #ced3d9;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.newStrip > span {
+  flex: 1;
+}
+
+.newStrip > span:not(:last-child) {
+  border-right: 1px solid #ced3d9;
+}

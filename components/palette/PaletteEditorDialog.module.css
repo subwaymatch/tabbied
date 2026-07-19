@@ -1,6 +1,6 @@
-/* Shared palette editor dialog. The backdrop is deliberately faint so the page
-   behind it — whose artworks recolor live to the palette being edited — stays
-   visible (B1). */
+/* Shared palette editor dialog (4a). The backdrop is deliberately faint so the
+   page behind it — whose artworks recolor live to the palette being edited —
+   stays visible. */
 
 .dialogBackdrop {
   position: fixed;
@@ -22,146 +22,134 @@
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1201;
-  width: min(30rem, calc(100vw - 2rem));
+  width: min(480px, calc(100vw - 2rem));
   max-height: min(85vh, 85dvh);
   overflow-y: auto;
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-  background-color: white;
+  padding: 28px 30px;
+  border-radius: 8px;
+  background-color: #ffffff;
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
 }
 
-/* Title + randomize icon on one row (A3). */
 .dialogTitleRow {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
+  gap: 6px;
 }
 
 .dialogTitle {
-  color: var(--gray-dark);
-  font-size: 1.25rem;
+  font-size: 20px;
   font-weight: 600;
-  line-height: 1.4;
+  line-height: 1.3;
+  color: #232529;
 }
 
-/* Randomize-palette icon button in the dialog header (A3). */
-.randomizeButton {
+/* Shuffle-color-order icon button, pushed to the trailing edge of the title. */
+.shuffleButton {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2rem;
-  height: 2rem;
+  width: 34px;
+  height: 34px;
+  margin-left: auto;
   padding: 0;
   border: none;
-  border-radius: 0.3rem;
+  border-radius: 6px;
   background: transparent;
-  color: var(--gray-medium);
+  color: #646d7b;
   cursor: pointer;
   transition: color 120ms ease, background-color 120ms ease;
 }
 
-.randomizeButton:hover {
-  color: var(--gray-dark);
-  background-color: var(--gray-ultra-light);
+.shuffleButton:hover {
+  color: #4a5160;
+  background: #f8f9fa;
 }
 
-.randomizeButton:focus-visible {
+.shuffleButton:focus-visible {
   outline: 2px solid var(--blue-medium);
   outline-offset: 2px;
 }
 
 .dialogField {
-  margin-top: 1.25rem;
+  margin-top: 20px;
 }
 
 .dialogLabel {
   display: block;
-  margin-bottom: 0.4rem;
-  font-size: 0.9rem;
+  margin-bottom: 8px;
+  font-size: 14px;
   font-weight: 600;
-  color: var(--gray-dark);
+  color: #232529;
 }
 
-/* Muted "(optional)" qualifier next to a field label. */
 .labelHint {
   font-weight: 400;
-  color: var(--gray);
+  color: #98a0af;
 }
 
-/* Filled inputs (no border) — the dialog speaks the same fill-and-shadow
-   language as the bar. */
+/* Name field: bordered (inset) so it reads as an outlined input. */
 .nameInput {
   width: 100%;
-  padding: 0.55rem 0.75rem;
+  box-sizing: border-box;
+  padding: 10px 12px;
   border: none;
-  border-radius: 0.3rem;
-  background-color: var(--gray-ultra-light);
+  border-radius: 6px;
+  background-color: #ffffff;
+  box-shadow: inset 0 0 0 1px #ced3d9;
   font-family: var(--font-sans-serif);
-  font-size: 1rem;
-  color: var(--gray-dark);
+  font-size: 14px;
+  color: #232529;
+  outline: none;
   transition: box-shadow 120ms ease;
 }
 
 .nameInput:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--blue-medium) 15%, transparent);
+  box-shadow: inset 0 0 0 2px #232529;
 }
 
-/* ---- Dedicated background slot ---- */
+/* ---- Background row ---- */
 
 .bgRow {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 10px;
 }
 
-/* Native color swatch (<ColorSwatch>) sized up a touch for the dialog. Only a
-   custom property + flex are set here so nothing clashes across CSS modules. */
 .dialogSwatch {
-  --swatch-size: 2.4rem;
+  --swatch-size: 38px;
   flex: none;
+  border-radius: 4px;
 }
 
-/* Hex field: a fixed, non-editable "#" fused to the left of a borderless digits
-   input (A1). The wrapper carries the fill and the focus ring so the prefix and
-   the input read as a single control. */
+/* Hex field: a fixed "#" fused to the left of a borderless digits input. */
 .hexField {
   display: inline-flex;
   align-items: center;
-  width: 7.5rem;
-  padding: 0.45rem 0.6rem;
-  border-radius: 0.3rem;
-  background-color: var(--gray-ultra-light);
+  width: 116px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background-color: #f8f9fa;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 0.95rem;
-  color: var(--gray-dark);
-  transition: background-color 120ms ease, box-shadow 120ms ease;
-}
-
-.hexField:hover:not(.hexFieldInert) {
-  background-color: #f0f2f4;
+  font-size: 13.5px;
+  color: #232529;
+  transition: box-shadow 120ms ease;
 }
 
 .hexField:focus-within {
-  background-color: white;
-  box-shadow:
-    inset 0 0 0 1px var(--gray-light),
-    0 0 0 3px color-mix(in srgb, var(--blue-medium) 15%, transparent);
+  box-shadow: inset 0 0 0 1px var(--gray-light);
 }
 
-/* The non-editable "#" prefix — muted, and not a click/selection target. */
 .hexHash {
-  color: var(--gray);
+  color: #98a0af;
   user-select: none;
   pointer-events: none;
 }
 
-/* The digits input itself: borderless; the wrapper owns the fill and ring. */
 .hexInput {
   flex: 1;
   min-width: 0;
+  width: 100%;
   padding: 0;
   border: none;
   background: transparent;
@@ -170,24 +158,22 @@
   outline: none;
 }
 
-/* Hex field while the background is transparent: kept, but inert. */
 .hexFieldInert {
   opacity: 0.45;
 }
 
-/* Inline transparent switch pushed to the end of the background row. */
+/* Transparent switch pushed to the end of the background row. */
 .bgTransparent {
   margin-left: auto;
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 9px;
   cursor: pointer;
 }
 
 .bgTransparentLabel {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--gray-dark);
+  font-size: 14px;
+  color: #232529;
 }
 
 /* ---- Ink color list ---- */
@@ -195,33 +181,34 @@
 .colorRows {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 8px;
 }
 
 .colorRow {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 10px;
 }
 
 .removeColor {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2rem;
-  height: 2rem;
+  width: 32px;
+  height: 32px;
   padding: 0;
   margin-left: auto;
   border: none;
-  border-radius: 0.3rem;
+  border-radius: 6px;
   background: transparent;
-  color: var(--gray);
+  color: #98a0af;
   cursor: pointer;
+  transition: color 120ms ease, background-color 120ms ease;
 }
 
 .removeColor:hover:not(:disabled) {
-  color: var(--red-high-contrast);
-  background-color: var(--gray-ultra-light);
+  color: #ed005f;
+  background-color: #f8f9fa;
 }
 
 .removeColor:disabled {
@@ -229,33 +216,23 @@
   cursor: default;
 }
 
-/* Borderless text button with a leading icon (Add color / Delete / Cancel). */
-.textButton {
+.addColor {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 6px;
+  margin-top: 12px;
   padding: 0;
   border: none;
   background: transparent;
-  color: var(--gray-medium);
+  color: #646d7b;
   font-family: var(--font-sans-serif);
-  font-size: 0.95rem;
-  line-height: 1.4;
+  font-size: 14px;
   cursor: pointer;
   transition: color 120ms ease;
 }
 
-.textButton:hover {
-  color: var(--gray-dark);
-}
-
-.textButton:focus-visible {
-  outline: 2px solid var(--blue-medium);
-  outline-offset: 2px;
-}
-
-.addColor {
-  margin-top: 0.75rem;
+.addColor:hover {
+  color: #4a5160;
 }
 
 .dialogError {
@@ -264,38 +241,160 @@
   color: var(--red-high-contrast);
 }
 
+/* ---- Footer actions ---- */
+
 .dialogActions {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
-  margin-top: 1.5rem;
+  justify-content: flex-end;
+  gap: 18px;
+  margin-top: 28px;
 }
 
-.dialogDelete {
+.deleteButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   margin-right: auto;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #98a0af;
+  font-family: var(--font-sans-serif);
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: color 120ms ease;
+}
+
+.deleteButton:hover {
+  color: #ed005f;
+}
+
+.confirmDelete {
+  margin-right: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13.5px;
+  color: #232529;
+}
+
+.confirmDeleteButton {
+  padding: 7px 12px;
+  border: none;
+  border-radius: 6px;
+  background: #ed005f;
+  color: #ffffff;
+  font-family: var(--font-sans-serif);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 120ms ease;
+}
+
+.confirmDeleteButton:hover {
+  background: #fd0066;
+}
+
+.confirmKeep {
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #646d7b;
+  font-family: var(--font-sans-serif);
+  font-size: 13px;
+  cursor: pointer;
+  transition: color 120ms ease;
+}
+
+.confirmKeep:hover {
+  color: #232529;
+}
+
+.cancelButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #646d7b;
+  font-family: var(--font-sans-serif);
+  font-size: 14px;
+  cursor: pointer;
+  transition: color 120ms ease;
+}
+
+.cancelButton:hover {
+  color: #4a5160;
 }
 
 .saveButton {
   display: inline-flex;
   align-items: center;
-  padding: 0.55rem 1.1rem;
+  gap: 7px;
+  padding: 11px 18px;
   border: none;
-  border-radius: 0.3rem;
-  background-color: var(--lime);
-  color: var(--gray-dark);
+  border-radius: 6px;
+  background-color: #232529;
+  color: #ffffff;
   font-family: var(--font-sans-serif);
-  font-size: 0.95rem;
+  font-size: 14px;
   font-weight: 600;
-  line-height: 1.4;
   cursor: pointer;
   transition: background-color 120ms ease;
 }
 
 .saveButton:hover {
-  background-color: var(--lime-hover);
+  background-color: #2f3237;
 }
 
-.saveButton:focus-visible {
+.saveButton:focus-visible,
+.cancelButton:focus-visible,
+.deleteButton:focus-visible {
   outline: 2px solid var(--blue-medium);
   outline-offset: 2px;
+}
+
+/* On phones the dialog docks to the bottom as a sheet (7c): a grab handle up
+   top, the form scrolls, and the Cancel / Save bar sticks to the bottom. */
+@media (max-width: 640px) {
+  .dialogPopup {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: none;
+    width: 100%;
+    max-width: 100%;
+    max-height: 92dvh;
+    padding: 6px 20px 0;
+    border-radius: 16px 16px 0 0;
+    transition: transform 220ms ease;
+  }
+
+  .dialogPopup[data-starting-style],
+  .dialogPopup[data-ending-style] {
+    transform: translateY(100%);
+  }
+
+  .dialogPopup::before {
+    content: '';
+    display: block;
+    width: 36px;
+    height: 4px;
+    margin: 8px auto 14px;
+    border-radius: 999px;
+    background: #e3e6ea;
+  }
+
+  .dialogActions {
+    position: sticky;
+    bottom: 0;
+    flex-wrap: wrap;
+    margin: 24px -20px 0;
+    padding: 12px 20px 16px;
+    background: #ffffff;
+    border-top: 1px solid #eceef1;
+  }
 }

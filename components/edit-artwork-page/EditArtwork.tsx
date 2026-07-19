@@ -1,9 +1,20 @@
 'use client';
 
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { Dialog } from '@base-ui-components/react/dialog';
-import { Expand, X, Minus, Plus } from 'lucide-react';
+import {
+  ArrowLeft,
+  Check,
+  ChevronRight,
+  CodeXml,
+  Expand,
+  ImageDown,
+  Link as LinkIcon,
+  Minus,
+  Plus,
+  X,
+} from 'lucide-react';
 import useMediaQuery from 'lib/useMediaQuery';
 import type { Artwork, ArtworkOption } from 'lib/artwork';
 import {
@@ -20,17 +31,32 @@ import {
 } from 'tabbied';
 import { TabbiedArtwork, type TabbiedArtworkHandle } from 'tabbied/react';
 import EditArtworkHeader from 'components/edit-artwork-page/EditArtworkHeader';
-import ButtonSelectGroup from 'components/ButtonSelectGroup';
+import PaletteChip from 'components/edit-artwork-page/PaletteChip';
+import Toaster, { toaster } from 'components/Toaster';
 import ValueSlider from 'components/ValueSlider';
 import ToggleSwitch from 'components/ToggleSwitch';
 import ColorSwatch from 'components/ColorSwatch';
-import PaletteActions from 'components/palette/PaletteActions';
-import PaletteChips from 'components/palette/PaletteChips';
 import PaletteEditorDialog from 'components/palette/PaletteEditorDialog';
-import { usePaletteEditor } from 'components/palette/usePaletteEditor';
-import { usePaletteImportExport } from 'components/palette/usePaletteImportExport';
-import { isTransparentHex, randomHexColor, toOpaqueHex } from 'lib/color';
+import PaletteBrowser from 'components/palette/PaletteBrowser';
+import SectionPager from 'components/palette/SectionPager';
 import {
+  SHUFFLE_ACTIONS,
+  SHUFFLE_STORAGE_KEY,
+  isShuffleAction,
+  type ShuffleAction,
+} from 'components/edit-artwork-page/shuffleActions';
+import { usePaletteEditor } from 'components/palette/usePaletteEditor';
+import { PALETTE_LIBRARY, type LibraryPalette } from 'lib/paletteLibrary';
+import {
+  isTransparentHex,
+  randomHexColor,
+  toColorInputValue,
+  toOpaqueHex,
+} from 'lib/color';
+import {
+  deletePalette,
+  getBrandPaletteState,
+  resolveActivePalette,
   setActivePalette,
   useBrandPalettes,
   useDraftPreview,
@@ -42,11 +68,18 @@ import styles from './EditArtwork.module.css';
 // aspect ratio so that cells stay (near-)square.
 const GRID_OPTION_ID = 'grid';
 
-// Longest edge of the little aspect-ratio preview rectangle, in pixels.
-const ASPECT_RATIO_RECT_SIZE = 20;
+// Chips per page in the merged Palettes section.
+const CHIP_PER_PAGE = 8;
+
+// Longest edge of the little aspect-ratio glyph rectangle, in pixels.
+const RATIO_GLYPH_SIZE = 12;
 
 // Fraction of the preview area the artwork fills, leaving a margin around it.
 const PREVIEW_FIT_MARGIN = 0.9;
+
+// The paletteSource marker for "the artwork's own colors" / a freely-edited
+// palette — neither highlights any chip.
+type PaletteSource = 'artwork' | 'custom' | string;
 
 // Largest width/height for `ratio` that fits inside a maxW × maxH box.
 const fitToBox = (ratio: AspectRatioId, maxW: number, maxH: number) => {
@@ -54,27 +87,6 @@ const fitToBox = (ratio: AspectRatioId, maxW: number, maxH: number) => {
   const scale = Math.min(maxW / rw, maxH / rh);
 
   return { width: Math.round(rw * scale), height: Math.round(rh * scale) };
-};
-
-// A hollow rectangle whose proportions mirror the aspect ratio, shown inside
-// each aspect-ratio button so the shape is visible at a glance. The rectangle
-// lives in a fixed-height slot so every button ends up the same height
-// regardless of whether the ratio is portrait or landscape.
-const renderAspectRatioOption = (option: string): ReactNode => {
-  const [rw, rh] = ASPECT_RATIOS[option as AspectRatioId];
-  const scale = ASPECT_RATIO_RECT_SIZE / Math.max(rw, rh);
-
-  return (
-    <span className={styles.aspectRatioOption}>
-      <span className={styles.aspectRatioRectSlot}>
-        <span
-          className={styles.aspectRatioRect}
-          style={{ width: `${rw * scale}px`, height: `${rh * scale}px` }}
-        />
-      </span>
-      <span>{option}</span>
-    </span>
-  );
 };
 
 // Parse a #rgb / #rrggbb / #rrggbbaa color into 0-255 channels (alpha ignored).
@@ -113,7 +125,6 @@ const getExpandIconColor = (background: string): string => {
     return 'var(--gray-dark)';
   }
 
-  // Perceived luminance (sRGB-weighted), normalized to 0-1.
   const luminance = (0.2126 * rgb.r + 0.7152 * rgb.g + 0.0722 * rgb.b) / 255;
 
   if (luminance < 0.5) {
@@ -133,15 +144,10 @@ const arraysEqual = (a: string[], b: string[]) =>
   a.length === b.length && a.every((value, index) => value === b[index]);
 
 export default function EditArtwork({ artwork }: { artwork: Artwork }) {
-  // A preset may pin itself to a single aspect ratio (e.g. Symmetry), in which
-  // case the selector is hidden and the ratio can't change.
   const lockedAspectRatio = artwork.lockAspectRatio ?? null;
   const defaultAspectRatio =
     lockedAspectRatio ?? artwork.defaultAspectRatio ?? DEFAULT_ASPECT_RATIO;
 
-  // Color-count bounds: the authored palette holds `max` entries (slot 0 is
-  // the background) and `colorCount` marks how many are active. Presets
-  // without a `colors` config keep their palette size fixed.
   const paletteDefaults = artwork.palette ?? [];
   const minColors = artwork.colors?.min ?? paletteDefaults.length;
   const maxColors = artwork.colors?.max ?? paletteDefaults.length;
@@ -150,28 +156,45 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  // Saved custom palettes (managed on /artworks), plus the one currently
-  // selected there. The selection is shared through localStorage, so opening an
-  // artwork picks up whatever palette the gallery is previewing in (A2).
   const brandState = useBrandPalettes();
   const brandPalettes = brandState.palettes;
-  const activeCustomPalette =
-    brandPalettes.find((p) => p.id === brandState.activePaletteId) ?? null;
+  // The active palette shared with the gallery — a saved palette or a curated
+  // library palette (opening an artwork picks up whatever the gallery previews).
+  const activeCustomPalette = resolveActivePalette(brandState);
 
-  // While a palette is being edited (in the dialog here or on the gallery), the
-  // preview recolors live to the draft (B1) without touching the artwork's own
-  // editable palette state.
   const draftPreview = useDraftPreview();
 
-  // A saved palette's colors mapped for the editor: a transparent background
-  // becomes a zero-alpha color so the picker, URL and PNG export round-trip it.
+  // Which palette (if any) the editor's swatches currently reflect, driving the
+  // chip outline. 'artwork'/'custom' highlight no chip; a palette id highlights
+  // that chip. Any manual swatch edit switches this to 'custom'.
+  const [paletteSource, setPaletteSource] = useState<PaletteSource>('artwork');
+  const [chipsPage, setChipsPage] = useState(0);
+  const [browserOpen, setBrowserOpen] = useState(false);
+
+  // The default shuffle scope, shared by the desktop split button and the
+  // mobile 7d panel. Starts at 'all' for SSR, then restores the saved choice.
+  const [shuffleAction, setShuffleAction] = useState<ShuffleAction>('all');
+
+  // Mobile (7d) inline panel shown in the editing region below the preview.
+  // 'palettes' reuses the shared browser (browserOpen).
+  const [mobilePanel, setMobilePanel] = useState<'shuffle' | 'export' | null>(
+    null
+  );
+
+  useEffect(() => {
+    try {
+      const saved = window.localStorage.getItem(SHUFFLE_STORAGE_KEY);
+      if (isShuffleAction(saved)) setShuffleAction(saved);
+    } catch {
+      // Ignore storage access failures (private mode, etc.).
+    }
+  }, []);
+
   const customPaletteColors = (custom: BrandPalette): string[] =>
     custom.colors.map((color, index) =>
       index === 0 && custom.transparentBackground ? `${color}00` : color
     );
 
-  // A saved palette overlaid onto this artwork's palette slots (background
-  // first), yielding the editor's palette + active color count.
   const customPaletteToEditor = (
     custom: BrandPalette
   ): { palette: string[]; count: number } => {
@@ -187,10 +210,6 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     };
   };
 
-  // Whether the URL already carried an explicit palette when the editor first
-  // mounted — captured on the first render, before our own sync writes any
-  // palette params. A deep/shared link with its own palette must win over the
-  // gallery's custom-palette selection.
   const urlHadPaletteAtMount = useRef<boolean | null>(null);
 
   if (urlHadPaletteAtMount.current === null) {
@@ -198,13 +217,8 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     urlHadPaletteAtMount.current = n >= minColors && n <= maxColors;
   }
 
-  // Guards the one-time initial application of the selected custom palette.
   const initialCustomApplied = useRef(false);
 
-  // The value an option takes according to the URL, falling back to the
-  // authored default when the param is absent or malformed, and clamped /
-  // validated against the option's own bounds (a hand-edited URL must not
-  // feed NaN or an out-of-range value into a control, which would blank it).
   const optionFromQuery = (option: ArtworkOption): OptionValue => {
     const queryVal = searchParams.get(option.id);
 
@@ -213,7 +227,6 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     }
 
     if (typeof option.default === 'number') {
-      // Number('') is 0, which would silently pass the NaN guard.
       const numericVal = queryVal.trim() === '' ? NaN : Number(queryVal);
 
       if (Number.isNaN(numericVal)) {
@@ -231,8 +244,6 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     }
 
     if (option.type === 'ButtonSelectGroup') {
-      // Grid values follow the aspect ratio (their list is dynamic), so they
-      // validate by shape; other groups must match an authored choice.
       if (option.id === GRID_OPTION_ID) {
         return /^\d+x\d+$/.test(queryVal) ? queryVal : option.default;
       }
@@ -243,9 +254,6 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     return queryVal;
   };
 
-  // The URL carries only the active colors, so the param count doubles as the
-  // color count. Stored palette entries beyond it are topped up from the
-  // authored defaults so re-adding a color always reveals a sensible value.
   const paletteStateFromQuery = (): { palette: string[]; count: number } => {
     const queryPalette = searchParams.getAll('palette');
 
@@ -259,9 +267,6 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
       };
     }
 
-    // No palette in the URL (e.g. arriving from a gallery card): open the
-    // artwork in the custom palette selected on /artworks, if any (A2). A
-    // shared link that carries its own palette above always wins.
     if (activeCustomPalette && paletteDefaults.length > 0) {
       return customPaletteToEditor(activeCustomPalette);
     }
@@ -277,9 +282,6 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
       : defaultAspectRatio;
   };
 
-  // State starts from the URL (shared / refreshed links) and falls back to the
-  // artwork defaults, so the first paint already shows the linked artwork
-  // instead of correcting itself after mount.
   const [palette, setPalette] = useState<string[]>(
     () => paletteStateFromQuery().palette
   );
@@ -304,51 +306,29 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
   const doodleRef = useRef<TabbiedArtworkHandle>(null);
   const previewRef = useRef<HTMLDivElement>(null);
 
-  // URL strings this component wrote via replaceState, awaiting their
-  // useSearchParams echo — so the sync-from effect can tell its own writes
-  // apart from external navigations (see the two URL-sync effects below).
   const selfWrites = useRef<Set<string>>(new Set());
   const isScreenXS = useMediaQuery('(max-width: 747.99px)');
   const isTwoColumn = useMediaQuery('(min-width: 992px)');
+  // Below the two-column breakpoint the editor uses the compact 7d layout: a
+  // fixed preview with an icon-button header and inline shuffle/export panels.
+  const isMobile = useMediaQuery('(max-width: 991.98px)');
   const baseWidth = isScreenXS ? 240 : 360;
 
-  // Remember the last custom palette chosen so the "Custom palette" segment can
-  // restore it after a detour through "Artwork colors" (A6).
-  const lastCustomIdRef = useRef<string | null>(null);
-
-  useEffect(() => {
-    if (brandState.activePaletteId !== null) {
-      lastCustomIdRef.current = brandState.activePaletteId;
-    }
-  }, [brandState.activePaletteId]);
-
-  // Scale the artwork to fill the preview area (leaving a margin) so it shows as
-  // large as the space allows. Until the preview is measured, fall back to the
-  // original fixed footprint. In the stacked (single-column) layout the preview
-  // height grows with the artwork, so the height is capped against the viewport
-  // there rather than measured to avoid a feedback loop.
+  // The preview is a bounded box in every layout now (a flex-filled pane on
+  // desktop, a fixed 300px band on mobile 7d), so the artwork simply fits the
+  // measured box.
   const { width, height } = previewSize
     ? fitToBox(
         aspectRatio,
         previewSize.width * PREVIEW_FIT_MARGIN,
-        (isTwoColumn ? previewSize.height : (viewport?.height ?? 800) * 0.6) *
-          PREVIEW_FIT_MARGIN
+        previewSize.height * PREVIEW_FIT_MARGIN
       )
     : fitToBox(aspectRatio, baseWidth, baseWidth * 1.5);
 
-  // Sync component state FROM the URL search params when they change for an
-  // external reason (back / forward navigation, or a shared link opened into
-  // this route). Our own writes are filtered out via selfWrites; each setter
-  // is still guarded so an unfiltered echo can't thrash state.
+  // Sync component state FROM the URL search params when they change externally.
   useEffect(() => {
     const currentParams = searchParams.toString();
 
-    // Ignore the searchParams change our own replaceState below just caused.
-    // Only a genuinely external change (back/forward, or a shared link opened
-    // into this route) should push URL → state. Without this, a delayed echo
-    // of our own write — which happens when a heavy render defers the App
-    // Router's searchParams update past the next input — reverts state to a
-    // stale value, and rapid edits visibly flip the artwork back and forth.
     if (selfWrites.current.has(currentParams)) {
       selfWrites.current.delete(currentParams);
       return;
@@ -389,30 +369,29 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
-  // Apply the gallery's selected custom palette on first load (A2), once. The
-  // brand-palette store returns its server snapshot (no selection) for the
-  // first render or two during hydration, so the useState initializer above
-  // can miss the selection; this fills it in as soon as the store resolves. It
-  // never overrides a URL that arrived with its own palette (a shared link).
+  // Apply the gallery's selected palette on first load, once, and mark it as the
+  // active chip. A shared link that carries its own palette wins (source stays
+  // "custom" — the link's colors, not a named palette).
   useEffect(() => {
     if (initialCustomApplied.current) return;
 
     if (urlHadPaletteAtMount.current || paletteDefaults.length === 0) {
       initialCustomApplied.current = true;
+      if (urlHadPaletteAtMount.current) setPaletteSource('custom');
       return;
     }
 
-    if (!activeCustomPalette) return; // wait for the store snapshot to resolve
+    if (!activeCustomPalette) return;
 
     initialCustomApplied.current = true;
     const { palette: nextPalette, count } =
       customPaletteToEditor(activeCustomPalette);
     setPalette(nextPalette);
     setColorCount(count);
+    setPaletteSource(activeCustomPalette.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeCustomPalette]);
 
-  // Track the viewport so the expanded dialog can size the artwork to fit.
   useEffect(() => {
     const updateViewport = () =>
       setViewport({ width: window.innerWidth, height: window.innerHeight });
@@ -423,7 +402,6 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     return () => window.removeEventListener('resize', updateViewport);
   }, []);
 
-  // Measure the preview area so the artwork can be scaled to fill it.
   useEffect(() => {
     const element = previewRef.current;
 
@@ -450,8 +428,6 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
 
   // Sync the URL search params FROM component state if necessary.
   useEffect(() => {
-    // Leave the URL untouched until it carries at least one search param
-    // (matches the original behaviour which skipped when only `id` was set).
     if (searchParams.toString() === '') {
       return;
     }
@@ -472,17 +448,9 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     const nextParams = newParams.toString();
 
     if (nextParams !== searchParams.toString()) {
-      // Mark this URL as our own so the sync-from effect above skips its echo
-      // instead of treating it as an external navigation. (Bounded: entries are
-      // consumed one-per-echo; the cap guards against the rare case where the
-      // App Router coalesces two writes into a single searchParams update.)
       if (selfWrites.current.size > 32) selfWrites.current.clear();
       selfWrites.current.add(nextParams);
 
-      // Native replaceState (which the App Router keeps in sync with
-      // useSearchParams) instead of router.replace: the page is fully static,
-      // so a router navigation would refetch an identical RSC payload from
-      // the CDN on every knob tweak — a network request per slider step.
       window.history.replaceState(null, '', `${pathname}?${nextParams}`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -501,26 +469,70 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     setSeed(randomSeed(4));
   };
 
-  // Randomize only the visible colors: hidden slots keep their stored values
-  // so re-adding a color reveals something deliberate, not a stray random.
+  // Randomize only the visible colors; hidden slots keep their stored values.
+  // A transparent background is preserved (only the inks reroll).
   const randomizePalette = () => {
     setPalette((prev) =>
-      prev.map((color, index) =>
-        index < colorCount ? randomHexColor() : color
-      )
+      prev.map((color, index) => {
+        if (index >= colorCount) return color;
+        if (index === 0 && isTransparentHex(color)) return color;
+
+        return randomHexColor();
+      })
     );
+    setPaletteSource('custom');
   };
+
+  // Run a shuffle scope: reseed the layout, reroll the colors, or both.
+  const runShuffle = (id: ShuffleAction) => {
+    if (id === 'all') {
+      randomizeSeed();
+      randomizePalette();
+    } else if (id === 'layout') {
+      randomizeSeed();
+    } else {
+      randomizePalette();
+    }
+  };
+
+  // Make a scope the new default (persisted) without running it.
+  const selectShuffleAction = (id: ShuffleAction) => {
+    setShuffleAction(id);
+    try {
+      window.localStorage.setItem(SHUFFLE_STORAGE_KEY, id);
+    } catch {
+      // Ignore storage access failures.
+    }
+  };
+
+  // ---- Mobile (7d) inline panels ----
+  const openShufflePanel = () => {
+    setBrowserOpen(false);
+    setMobilePanel('shuffle');
+  };
+  const openExportPanel = () => {
+    setBrowserOpen(false);
+    setMobilePanel('export');
+  };
+  const openBrowser = () => {
+    setMobilePanel(null);
+    setBrowserOpen(true);
+  };
+  const closeMobilePanel = () => {
+    setMobilePanel(null);
+    setBrowserOpen(false);
+  };
+  // The header's back arrow closes an open panel before leaving the editor.
+  const mobilePanelOpen = mobilePanel !== null || browserOpen;
 
   const changeColorCount = (delta: number) => {
     setColorCount((prev) =>
       Math.min(maxColors, Math.max(minColors, prev + delta))
     );
+    setPaletteSource('custom');
   };
 
-  // Apply a saved custom palette (see /artworks) to this artwork. The URL
-  // carries HEXA values, so a transparent background becomes the stored color
-  // with zero alpha — the transparent toggle stays reversible and PNG exports
-  // keep the real transparency.
+  // Apply a saved / library palette to the editor's swatches.
   const applyBrandPalette = (brand: BrandPalette) => {
     const colors = customPaletteColors(brand);
 
@@ -537,53 +549,73 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     setColorCount(Math.min(maxColors, Math.max(minColors, colors.length)));
   };
 
-  // "Preview colors" on the editor (A6): mirrors the gallery's control and
-  // shares its localStorage selection. Selecting a palette applies its colors
-  // *and* marks it active (so the gallery previews in it too); "Artwork colors"
-  // restores the authored defaults and clears the selection.
-  const previewMode: 'artwork' | 'custom' = activeCustomPalette
-    ? 'custom'
-    : 'artwork';
-
-  const selectCustomPalette = (custom: BrandPalette) => {
-    applyBrandPalette(custom);
-    setActivePalette(custom.id);
-  };
-
-  const selectArtworkColors = () => {
-    if (previewMode === 'artwork') return;
-
-    setPalette([...paletteDefaults]);
-    setColorCount(defaultColors);
-    setActivePalette(null);
-  };
-
-  const selectCustomMode = () => {
-    if (previewMode === 'custom') return;
-
-    const remembered = lastCustomIdRef.current;
-    const target =
-      brandPalettes.find((p) => p.id === remembered) ?? brandPalettes[0];
-
-    if (target) selectCustomPalette(target);
-  };
-
-  // Shared palette editor + import/export (B2): the individual page uses the
-  // same chips, edit dialog, and New-palette split button as the gallery bar.
-  // Saving here also applies the palette to this artwork and marks it active.
   const editor = usePaletteEditor({
-    onSaved: (palette) => selectCustomPalette(palette),
-  });
-  const {
-    status: importStatus,
-    exportPalettes,
-    openFilePicker,
-    fileInput,
-  } = usePaletteImportExport();
+    onSaved: (saved) => {
+      applyBrandPalette(saved);
+      setActivePalette(saved.id);
+      setPaletteSource(saved.id);
 
-  // Toggle the background between opaque and transparent. Transparency is
-  // carried as a zero-alpha background color (so the picker, URL and PNG export
-  // all round-trip it), and the color itself is preserved across the toggle.
+      // Jump the merged chip pager to the saved palette's page (custom first).
+      const state = getBrandPaletteState();
+      const index = state.palettes.findIndex((p) => p.id === saved.id);
+
+      if (index >= 0) setChipsPage(Math.floor(index / CHIP_PER_PAGE));
+    },
+  });
+
+  // Delete a custom palette on the first click of its ✕ (no confirm step).
+  const removePalette = (id: string) => {
+    deletePalette(id);
+    if (paletteSource === id) setPaletteSource('custom');
+  };
+
+  // Apply a saved (custom) palette to the editor's swatches + share it with the
+  // gallery. Clicking the already-active custom chip opens it for editing.
+  const applyCustomPalette = (saved: BrandPalette) => {
+    applyBrandPalette(saved);
+    setActivePalette(saved.id);
+    setPaletteSource(saved.id);
+  };
+
+  const onSelectCustomChip = (saved: BrandPalette) => {
+    if (paletteSource === saved.id) {
+      editor.openEditor(saved);
+      return;
+    }
+
+    applyCustomPalette(saved);
+  };
+
+  // Apply a library palette. Clicking the already-active one opens it as a copy
+  // (a new custom palette — editing never mutates the library).
+  const applyLibraryPalette = (library: LibraryPalette) => {
+    applyBrandPalette({ id: library.id, name: library.name, colors: library.colors });
+    setActivePalette(library.id);
+    setPaletteSource(library.id);
+  };
+
+  const onSelectLibraryChip = (library: LibraryPalette) => {
+    if (paletteSource === library.id) {
+      editor.openEditorAsCopy(library);
+      return;
+    }
+
+    applyLibraryPalette(library);
+  };
+
+  // The palette browser applies by id (resolving to a custom or library palette).
+  const onBrowserApply = (id: string) => {
+    const saved = brandPalettes.find((p) => p.id === id);
+
+    if (saved) {
+      applyCustomPalette(saved);
+      return;
+    }
+
+    const library = PALETTE_LIBRARY.find((p) => p.id === id);
+    if (library) applyLibraryPalette(library);
+  };
+
   const setTransparentBackground = (transparent: boolean) => {
     setPalette((prev) => {
       const next = [...prev];
@@ -595,8 +627,6 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     });
   };
 
-  // Switching the aspect ratio re-derives every grid option at its current
-  // density level so the preset keeps its intended coarseness and square cells.
   const changeAspectRatio = (nextRatio: AspectRatioId) => {
     setOptionValues((prev) =>
       prev.map((value, index) =>
@@ -609,25 +639,26 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
   };
 
   const exportArtwork = async () => {
-    await doodleRef.current?.exportImage({
-      // Cap the longer edge at ~3000px so exports stay a sensible size in any
-      // orientation.
-      scale: Math.ceil(3000 / Math.max(width, height)),
-      download: true,
-    });
-  };
-
-  // Copy the current URL — it fully encodes the palette, options, seed and
-  // aspect ratio, so the link reopens this exact artwork (B4).
-  const copyShareLink = async () => {
     try {
-      await navigator.clipboard.writeText(window.location.href);
+      await doodleRef.current?.exportImage({
+        scale: Math.ceil(3000 / Math.max(width, height)),
+        download: true,
+      });
+      toaster.add({ title: 'PNG downloaded' });
     } catch {
-      // Clipboard unavailable (insecure context / denied) — nothing to do.
+      toaster.add({ title: 'Could not export the PNG' });
     }
   };
 
-  // Copy a ready-to-paste <TabbiedArtwork> snippet for this exact artwork (B4).
+  const copyShareLink = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      toaster.add({ title: 'Link copied to clipboard' });
+    } catch {
+      toaster.add({ title: 'Could not copy the link' });
+    }
+  };
+
   const copyReactComponent = async () => {
     const activePalette = palette.slice(0, colorCount);
     const paletteLiteral = activePalette.map((color) => `'${color}'`).join(', ');
@@ -654,13 +685,12 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
 
     try {
       await navigator.clipboard.writeText(lines.join('\n'));
+      toaster.add({ title: 'React component copied' });
     } catch {
-      // Clipboard unavailable — nothing to do.
+      toaster.add({ title: 'Could not copy the component' });
     }
   };
 
-  // A draft palette (mid-edit in the dialog) overlaid onto this artwork's slots
-  // for a live preview, without committing to the editable palette state.
   const overlayPreviewColors = (colors: string[]): string[] => {
     const next = [...paletteDefaults];
     const limit = Math.min(colors.length, next.length);
@@ -672,18 +702,10 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     return next.slice(0, count);
   };
 
-  // What the preview actually renders: the draft colors while a palette is being
-  // edited (B1), otherwise the artwork's own active palette slice.
   const displayPalette = draftPreview
     ? overlayPreviewColors(draftPreview)
     : palette.slice(0, colorCount);
 
-  // Props shared by the preview and the expanded dialog: the same seed +
-  // options produce the same pattern at any size (it depends only on seed and
-  // grid), so the dialog can render a larger copy that matches. The active
-  // palette slice is passed as-is — TabbiedArtwork expands it so inactive
-  // color slots alias back into the active inks (this is what "removing" a
-  // color does).
   const artworkProps = {
     artwork,
     seed,
@@ -693,103 +715,258 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     ),
   } as const;
 
-  const getOptionControlComponent = (
-    option: ArtworkOption,
-    optionIndex: number
-  ): ReactNode => {
-    const controlValue = optionValues[optionIndex];
-    const onChange = (value: OptionValue) =>
-      setOptionByIndex(optionIndex, value);
-
-    let componentJsx: ReactNode = null;
-
-    switch (option.type) {
-      case 'ButtonSelectGroup': {
-        // Grid options follow the selected aspect ratio; everything else uses
-        // the choices declared in the preset JSON.
-        const buttonOptions =
-          option.id === GRID_OPTION_ID
-            ? getGridOptions(aspectRatio)
-            : option.options;
-
-        componentJsx =
-          buttonOptions && buttonOptions.length > 0 ? (
-            <ButtonSelectGroup
-              options={buttonOptions}
-              value={controlValue as string}
-              onChange={onChange}
-            />
-          ) : null;
-        break;
-      }
-      case 'Slider':
-        componentJsx = (
-          <div className={styles.valueSliderWrapper}>
-            <ValueSlider
-              min={option.min!}
-              max={option.max!}
-              step={option.step!}
-              value={controlValue as number}
-              onChange={onChange}
-              label={option.displayName}
-            />
-          </div>
-        );
-        break;
-      case 'ToggleSwitch':
-        componentJsx = (
-          <ToggleSwitch
-            isChecked={controlValue as boolean}
-            onChange={onChange}
-          />
-        );
-        break;
-      default:
-        break;
-    }
-
-    return componentJsx ? (
-      <div key={option.id} className={styles.optionBox}>
-        <h3>{option.displayName}</h3>
-        {componentJsx}
-      </div>
-    ) : null;
-  };
-
   const previewBackground =
     displayPalette.length > 0 ? displayPalette[0] : 'transparent';
   const expandIconColor = getExpandIconColor(previewBackground);
 
-  // The preview's background is transparent when the rendered color0 is the
-  // literal `transparent` fill (a live draft) or a zero-alpha hex — either way
-  // it previews over a checkerboard.
   const previewIsTransparent =
     previewBackground === 'transparent' || isTransparentHex(previewBackground);
 
-  // The artwork's own background transparency drives the palette controls (the
-  // toggle + background swatch), independent of any live draft preview.
   const bgIsTransparent = isTransparentHex(palette[0] ?? '');
 
-  // Fit the artwork inside the viewport (with a little margin) for the dialog.
   const expanded = fitToBox(
     aspectRatio,
     (viewport?.width ?? 1200) * 0.9,
     (viewport?.height ?? 800) * 0.9
   );
 
+  // ---- Grouped inspector controls ----
+
+  // One merged chip list: custom palettes first, then the read-only library.
+  const mergedChips = [
+    ...brandPalettes.map((palette) => ({ kind: 'custom' as const, palette })),
+    ...PALETTE_LIBRARY.map((palette) => ({ kind: 'library' as const, palette })),
+  ];
+  const chipsPageCount = Math.max(1, Math.ceil(mergedChips.length / CHIP_PER_PAGE));
+  const clampedChipsPage = Math.min(chipsPage, chipsPageCount - 1);
+  const chipRows = mergedChips.slice(
+    clampedChipsPage * CHIP_PER_PAGE,
+    clampedChipsPage * CHIP_PER_PAGE + CHIP_PER_PAGE
+  );
+
+  const hasEffects = artwork.options.some(
+    (option) => option.type === 'ToggleSwitch'
+  );
+
+  const renderRatioTile = (id: AspectRatioId) => {
+    const [rw, rh] = ASPECT_RATIOS[id];
+    const scale = RATIO_GLYPH_SIZE / Math.max(rw, rh);
+    const selected = id === aspectRatio;
+
+    return (
+      <button
+        key={id}
+        type="button"
+        title={id}
+        aria-label={id}
+        aria-pressed={selected}
+        className={
+          selected ? `${styles.ratioTile} ${styles.ratioTileActive}` : styles.ratioTile
+        }
+        onClick={() => changeAspectRatio(id)}
+      >
+        <span
+          className={styles.ratioGlyph}
+          style={{ width: `${rw * scale}px`, height: `${rh * scale}px` }}
+        />
+      </button>
+    );
+  };
+
+  const renderLayoutOption = (option: ArtworkOption, index: number) => {
+    const value = optionValues[index];
+    const onChange = (next: OptionValue) => setOptionByIndex(index, next);
+
+    if (option.type === 'ButtonSelectGroup') {
+      const options =
+        option.id === GRID_OPTION_ID
+          ? getGridOptions(aspectRatio)
+          : option.options;
+
+      if (!options || options.length === 0) return null;
+
+      const label = option.id === GRID_OPTION_ID ? 'Grid density' : option.displayName;
+
+      return (
+        <div className={styles.layoutRow} key={option.id}>
+          <span className={styles.layoutLabel}>{label}</span>
+          <div className={styles.segmented} role="group" aria-label={label}>
+            {options.map((opt) => (
+              <button
+                key={opt}
+                type="button"
+                aria-pressed={opt === value}
+                className={
+                  opt === value
+                    ? `${styles.segment} ${styles.segmentActive}`
+                    : styles.segment
+                }
+                onClick={() => onChange(opt)}
+              >
+                {opt}
+              </button>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    if (option.type === 'Slider') {
+      const step = option.step ?? 1;
+      const formatted = step < 1 ? Number(value).toFixed(1) : String(value);
+
+      return (
+        <div key={option.id} className={styles.sliderBlock}>
+          <div className={styles.layoutRow}>
+            <span className={styles.layoutLabel}>{option.displayName}</span>
+            <span className={styles.layoutValue}>{formatted}</span>
+          </div>
+          <ValueSlider
+            min={option.min!}
+            max={option.max!}
+            step={option.step!}
+            value={value as number}
+            onChange={onChange}
+            label={option.displayName}
+            hideValue
+          />
+        </div>
+      );
+    }
+
+    return null;
+  };
+
+  // Mobile (7d): the inline "Shuffle" panel — scope radios plus a run button
+  // labelled with the current scope. Selecting a scope persists it; the run
+  // button applies it (repeatedly, for a fresh arrangement each tap).
+  const renderShufflePanel = () => {
+    const current =
+      SHUFFLE_ACTIONS.find((a) => a.id === shuffleAction) ?? SHUFFLE_ACTIONS[0];
+    const RunIcon = current.Icon;
+
+    return (
+      <div className={styles.mobilePanel}>
+        <div className={styles.mobilePanelHead}>
+          <span className={styles.mobilePanelTitle}>Shuffle</span>
+          <button
+            type="button"
+            className={styles.mobilePanelBack}
+            onClick={closeMobilePanel}
+          >
+            <ArrowLeft size={14} /> Back to editor
+          </button>
+        </div>
+
+        <div
+          className={styles.scopeGroup}
+          role="radiogroup"
+          aria-label="Shuffle scope"
+        >
+          {SHUFFLE_ACTIONS.map(({ id, label, Icon }) => {
+            const active = id === shuffleAction;
+
+            return (
+              <button
+                key={id}
+                type="button"
+                role="radio"
+                aria-checked={active}
+                className={
+                  active
+                    ? `${styles.scopeOption} ${styles.scopeOptionActive}`
+                    : styles.scopeOption
+                }
+                onClick={() => selectShuffleAction(id)}
+              >
+                <Icon className={styles.scopeIcon} size={16} />
+                <span className={styles.scopeLabel}>{label}</span>
+                {active && <Check size={15} aria-hidden="true" />}
+              </button>
+            );
+          })}
+        </div>
+
+        <button
+          type="button"
+          className={styles.runShuffle}
+          onClick={() => runShuffle(shuffleAction)}
+        >
+          <RunIcon size={16} /> {current.label}
+        </button>
+        <p className={styles.runHint}>
+          Tap again for a new arrangement — the preview above updates live.
+        </p>
+      </div>
+    );
+  };
+
+  // Mobile (7d): the inline "Export" panel — the same three actions as the
+  // desktop dropdown, each returning to the editor once fired (a toast reports
+  // the result).
+  const renderExportPanel = () => (
+    <div className={styles.mobilePanel}>
+      <div className={styles.mobilePanelHead}>
+        <span className={styles.mobilePanelTitle}>Export</span>
+        <button
+          type="button"
+          className={styles.mobilePanelBack}
+          onClick={closeMobilePanel}
+        >
+          <ArrowLeft size={14} /> Back to editor
+        </button>
+      </div>
+
+      <div className={styles.exportList}>
+        <button
+          type="button"
+          className={styles.exportRow}
+          onClick={() => {
+            void exportArtwork();
+            closeMobilePanel();
+          }}
+        >
+          <ImageDown className={styles.exportIcon} size={16} /> Download PNG
+        </button>
+        <button
+          type="button"
+          className={styles.exportRow}
+          onClick={() => {
+            void copyShareLink();
+            closeMobilePanel();
+          }}
+        >
+          <LinkIcon className={styles.exportIcon} size={16} /> Copy shareable link
+        </button>
+        <button
+          type="button"
+          className={styles.exportRow}
+          onClick={() => {
+            void copyReactComponent();
+            closeMobilePanel();
+          }}
+        >
+          <CodeXml className={styles.exportIcon} size={16} /> Copy React component
+        </button>
+      </div>
+    </div>
+  );
+
   return (
     <div className={styles.pageWrapper}>
       <EditArtworkHeader
         artworkName={artwork.name}
-        onShuffleAll={() => {
-          randomizeSeed();
-          randomizePalette();
-        }}
-        onShuffleLayout={randomizeSeed}
-        onShuffleColors={randomizePalette}
+        shuffleAction={shuffleAction}
+        onRunShuffle={runShuffle}
+        onSelectShuffle={selectShuffleAction}
         onExportPng={exportArtwork}
         onCopyLink={copyShareLink}
         onCopyReactComponent={copyReactComponent}
+        mobile={isMobile}
+        mobilePanelOpen={mobilePanelOpen}
+        onOpenShufflePanel={openShufflePanel}
+        onOpenExportPanel={openExportPanel}
+        onCloseMobilePanel={closeMobilePanel}
       />
 
       <main className={styles.editArtworkSection}>
@@ -808,7 +985,7 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
               style={{ color: expandIconColor }}
               aria-label="Expand artwork"
             >
-              <Expand size={20} />
+              <Expand size={18} />
             </Dialog.Trigger>
 
             <div className={styles.doodleFrame}>
@@ -857,206 +1034,261 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
           </Dialog.Portal>
         </Dialog.Root>
 
-        <div className={styles.optionsWrapper}>
-          <div className={styles.options}>
-            {palette.length > 0 && (
-              <div className={styles.optionBox}>
-                <div className={styles.paletteHeading}>
-                  <h3>Palette</h3>
-                  {/* Color randomization now lives in the header's Shuffle
-                      control ("Shuffle colors"), so the two randomize actions
-                      share one place (B5). */}
-                  {minColors < maxColors && (
-                    <div
-                      className={styles.colorCountGroup}
-                      role="group"
-                      aria-label="Number of colors"
-                    >
-                      <button
-                        type="button"
-                        className={styles.colorCountButton}
-                        onClick={() => changeColorCount(-1)}
-                        disabled={colorCount <= minColors}
-                        aria-label="Remove color"
-                        title="Remove color"
-                      >
-                        <Minus size={16} />
-                      </button>
-                      <button
-                        type="button"
-                        className={styles.colorCountButton}
-                        onClick={() => changeColorCount(1)}
-                        disabled={colorCount >= maxColors}
-                        aria-label="Add color"
-                        title="Add color"
-                      >
-                        <Plus size={16} />
-                      </button>
-                    </div>
-                  )}
-                </div>
-                <div className={styles.paletteGroups}>
-                  <div
-                    className={`${styles.paletteGroup} ${styles.paletteGroupCentered}`}
-                  >
-                    <div className={styles.swatchRow}>
-                      {/* Changing the background color also lifts the
-                          transparent state: a picked color is a concrete
-                          #rrggbb, so it round-trips as opaque (and the toggle
-                          follows via bgIsTransparent). Opening the picker
-                          without changing anything keeps it transparent — the
-                          native input only fires onChange on a real change. */}
-                      <ColorSwatch
-                        ariaLabel="Background color"
-                        color={palette[0]}
-                        transparent={bgIsTransparent}
-                        onChange={(hex) => {
-                          setPalette((prevPalette) => {
-                            const newPalette = [...prevPalette];
-                            newPalette[0] = hex;
+        <div className={styles.panel}>
+          {browserOpen ? (
+            <PaletteBrowser
+              variant="panel"
+              palettes={brandPalettes}
+              library={PALETTE_LIBRARY}
+              activeId={paletteSource}
+              onApply={onBrowserApply}
+              onEditCustom={(p) => editor.openEditor(p)}
+              onEditLibrary={(p) => editor.openEditorAsCopy(p)}
+              onDelete={removePalette}
+              onNewPalette={() => editor.openEditor()}
+              onClose={closeMobilePanel}
+            />
+          ) : isMobile && mobilePanel === 'shuffle' ? (
+            <div className={styles.panelScroll}>{renderShufflePanel()}</div>
+          ) : isMobile && mobilePanel === 'export' ? (
+            <div className={styles.panelScroll}>{renderExportPanel()}</div>
+          ) : (
+          <div className={styles.panelScroll}>
+          {palette.length > 0 && (
+            <section className={styles.group}>
+              <h2 className={styles.groupTitle}>Colors</h2>
 
-                            return newPalette;
+              <div className={styles.colorsRow}>
+                <div className={styles.bgGroup}>
+                  <div
+                    className={styles.bgSwatchBox}
+                    role="group"
+                    aria-label="Background"
+                  >
+                    <span
+                      className={styles.bgSwatch}
+                      title="Background color"
+                    >
+                      <input
+                        type="color"
+                        className={styles.bgInput}
+                        aria-label="Background color"
+                        value={toColorInputValue(palette[0])}
+                        style={{ opacity: bgIsTransparent ? 0.3 : 1 }}
+                        onClick={(event) => {
+                          // While transparent, clicking the dimmed swatch just
+                          // switches back to the opaque color (no picker).
+                          if (bgIsTransparent) {
+                            event.preventDefault();
+                            setTransparentBackground(false);
+                          }
+                        }}
+                        onChange={(event) => {
+                          const hex = event.target.value;
+                          setPalette((prev) => {
+                            const next = [...prev];
+                            next[0] = hex;
+
+                            return next;
                           });
+                          setPaletteSource('custom');
                         }}
                       />
-                    </div>
-                    <span className={styles.groupCaption}>background</span>
+                      <span className={styles.bgStrip} aria-hidden="true" />
+                    </span>
+                    <button
+                      type="button"
+                      role="switch"
+                      aria-checked={bgIsTransparent}
+                      title="Transparent background"
+                      className={
+                        bgIsTransparent
+                          ? `${styles.transButton} ${styles.transButtonActive}`
+                          : styles.transButton
+                      }
+                      onClick={() => setTransparentBackground(!bgIsTransparent)}
+                    >
+                      {bgIsTransparent && <Check size={15} />}
+                    </button>
                   </div>
-
-                  {colorCount > 1 && (
-                    <>
-                      <span
-                        className={styles.groupDivider}
-                        aria-hidden="true"
-                      />
-                      <div className={styles.paletteGroup}>
-                        <div className={styles.swatchRow}>
-                          {palette.slice(1, colorCount).map((hex, inkIndex) => {
-                            const index = inkIndex + 1;
-
-                            return (
-                              <ColorSwatch
-                                key={`color${index}`}
-                                ariaLabel={`Color ${index + 1}`}
-                                color={hex}
-                                onChange={(newHex) => {
-                                  setPalette((prevPalette) => {
-                                    const newPalette = [...prevPalette];
-                                    newPalette[index] = newHex;
-
-                                    return newPalette;
-                                  });
-                                }}
-                              />
-                            );
-                          })}
-                        </div>
-                        <span className={styles.groupCaption}>inks</span>
-                      </div>
-                    </>
-                  )}
+                  <span className={styles.groupCaption}>background</span>
                 </div>
 
-                <label className={styles.transparentToggle}>
-                  <ToggleSwitch
-                    small
-                    isChecked={bgIsTransparent}
-                    onChange={setTransparentBackground}
-                  />
-                  <span>Transparent background</span>
-                </label>
+                <div className={styles.inksGroup}>
+                  <div className={styles.inksRow}>
+                    <div className={styles.inksWrap}>
+                      {palette.slice(1, colorCount).map((hex, inkIndex) => {
+                        const index = inkIndex + 1;
 
-                {/* "Preview colors" — the same UI as the gallery bar (B2),
-                    shown even with no saved palettes so one can be created from
-                    here. Clicking a chip previews (or edits, if active) it. */}
-                <div className={styles.brandPalettes}>
-                  <span className={styles.brandPalettesLabel}>Preview colors</span>
-                  <div
-                    className={styles.modeToggle}
-                    role="radiogroup"
-                    aria-label="Preview colors"
-                  >
-                    <button
-                      type="button"
-                      role="radio"
-                      aria-checked={previewMode === 'artwork'}
-                      className={
-                        previewMode === 'artwork'
-                          ? `${styles.modeOption} ${styles.modeOptionActive}`
-                          : styles.modeOption
-                      }
-                      onClick={selectArtworkColors}
-                    >
-                      Artwork colors
-                    </button>
-                    <button
-                      type="button"
-                      role="radio"
-                      aria-checked={previewMode === 'custom'}
-                      className={
-                        previewMode === 'custom'
-                          ? `${styles.modeOption} ${styles.modeOptionActive}`
-                          : styles.modeOption
-                      }
-                      onClick={selectCustomMode}
-                    >
-                      Custom palette
-                    </button>
+                        return (
+                          <ColorSwatch
+                            key={`color${index}`}
+                            className={styles.inkSwatch}
+                            ariaLabel={`Color ${index + 1}`}
+                            color={hex}
+                            onChange={(newHex) => {
+                              setPalette((prev) => {
+                                const next = [...prev];
+                                next[index] = newHex;
+
+                                return next;
+                              });
+                              setPaletteSource('custom');
+                            }}
+                          />
+                        );
+                      })}
+                    </div>
+
+                    {minColors < maxColors && (
+                      <div
+                        className={styles.countGroup}
+                        role="group"
+                        aria-label="Number of colors"
+                      >
+                        <button
+                          type="button"
+                          className={styles.countButton}
+                          onClick={() => changeColorCount(-1)}
+                          disabled={colorCount <= minColors}
+                          aria-label="Remove color"
+                          title="Remove color"
+                        >
+                          <Minus size={14} />
+                        </button>
+                        <button
+                          type="button"
+                          className={styles.countButton}
+                          onClick={() => changeColorCount(1)}
+                          disabled={colorCount >= maxColors}
+                          aria-label="Add color"
+                          title="Add color"
+                        >
+                          <Plus size={14} />
+                        </button>
+                      </div>
+                    )}
                   </div>
-
-                  <div className={styles.brandActions}>
-                    <PaletteActions
-                      onNewPalette={() => editor.openEditor()}
-                      onImport={openFilePicker}
-                      onExport={exportPalettes}
-                    />
-                    {fileInput}
-                  </div>
-
-                  {/* The saved palettes are always listed (A5), even in
-                      "Artwork colors" mode — clicking one switches to it. */}
-                  <PaletteChips
-                    palettes={brandPalettes}
-                    activeId={brandState.activePaletteId}
-                    onSelect={selectCustomPalette}
-                    onEdit={editor.openEditor}
-                    className={styles.brandChips}
-                  />
-
-                  {importStatus && (
-                    <p
-                      className={
-                        importStatus.error
-                          ? `${styles.brandStatus} ${styles.brandStatusError}`
-                          : styles.brandStatus
-                      }
-                      role="status"
-                    >
-                      {importStatus.message}
-                    </p>
-                  )}
+                  <span className={styles.groupCaption}>inks</span>
                 </div>
               </div>
-            )}
+
+              <div className={styles.chipsSection}>
+                <div className={styles.chipsHeader}>
+                  <span className={styles.chipsLabel}>Palettes</span>
+                  {/* Mobile (7d) shows every chip in one horizontal scroll row;
+                      desktop paginates instead. */}
+                  {!isMobile && chipsPageCount > 1 && (
+                    <SectionPager
+                      page={clampedChipsPage}
+                      pageCount={chipsPageCount}
+                      onPageChange={setChipsPage}
+                      label="palettes"
+                    />
+                  )}
+                </div>
+                <div
+                  className={
+                    isMobile
+                      ? `${styles.chipsRow} ${styles.chipsRowScroll}`
+                      : styles.chipsRow
+                  }
+                >
+                  {(isMobile ? mergedChips : chipRows).map(({ kind, palette }) => {
+                    const active = paletteSource === palette.id;
+
+                    return (
+                      <PaletteChip
+                        key={palette.id}
+                        colors={palette.colors}
+                        transparentBackground={
+                          kind === 'custom'
+                            ? palette.transparentBackground
+                            : false
+                        }
+                        name={palette.name || 'Untitled'}
+                        active={active}
+                        title={
+                          active
+                            ? kind === 'library'
+                              ? 'Edit this palette (saves as a copy)'
+                              : 'Edit this palette'
+                            : `Fill the swatches with "${palette.name || 'Untitled'}"`
+                        }
+                        onClick={() =>
+                          kind === 'library'
+                            ? onSelectLibraryChip(palette)
+                            : onSelectCustomChip(palette)
+                        }
+                        canDelete={kind === 'custom'}
+                        deleteLabel={`Delete ${palette.name || 'palette'}`}
+                        onDelete={
+                          kind === 'custom'
+                            ? () => removePalette(palette.id)
+                            : undefined
+                        }
+                      />
+                    );
+                  })}
+                </div>
+                <div className={styles.chipsActions}>
+                  <button
+                    type="button"
+                    className={styles.chipsAction}
+                    onClick={() => editor.openEditor()}
+                    title="Create a new palette"
+                  >
+                    <Plus size={13} /> New Palette
+                  </button>
+                  <button
+                    type="button"
+                    className={`${styles.chipsAction} ${styles.browseAll}`}
+                    onClick={openBrowser}
+                    title="Browse all palettes"
+                  >
+                    Browse all palettes <ChevronRight size={13} />
+                  </button>
+                </div>
+              </div>
+            </section>
+          )}
+
+          <section className={styles.group}>
+            <h2 className={styles.groupTitle}>Layout</h2>
 
             {!lockedAspectRatio && (
-              <div className={styles.optionBox}>
-                <h3>Aspect ratio</h3>
-                <ButtonSelectGroup
-                  options={[...ASPECT_RATIO_IDS]}
-                  value={aspectRatio}
-                  onChange={(value) =>
-                    changeAspectRatio(value as AspectRatioId)
-                  }
-                  renderOption={renderAspectRatioOption}
-                />
+              <div className={styles.layoutRow}>
+                <span className={styles.layoutLabel}>Aspect ratio</span>
+                <div className={styles.ratioTiles}>
+                  {ASPECT_RATIO_IDS.map((id) => renderRatioTile(id))}
+                </div>
               </div>
             )}
 
-            {artwork.options.map((option, optionIndex) =>
-              getOptionControlComponent(option, optionIndex)
+            {artwork.options.map((option, index) =>
+              renderLayoutOption(option, index)
             )}
+          </section>
+
+          {hasEffects && (
+            <section className={styles.group}>
+              <h2 className={styles.groupTitle}>Effects</h2>
+              {artwork.options.map((option, index) =>
+                option.type === 'ToggleSwitch' ? (
+                  <label key={option.id} className={styles.effectsRow}>
+                    {option.displayName}
+                    <ToggleSwitch
+                      small
+                      isChecked={optionValues[index] as boolean}
+                      onChange={(value) => setOptionByIndex(index, value)}
+                    />
+                  </label>
+                ) : null
+              )}
+            </section>
+          )}
           </div>
+          )}
         </div>
       </main>
 
@@ -1070,6 +1302,8 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
         onRandomize={editor.randomizeDraft}
         setDraftColor={editor.setDraftColor}
       />
+
+      <Toaster />
     </div>
   );
 }

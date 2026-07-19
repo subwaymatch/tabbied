@@ -1,0 +1,71 @@
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 11px;
+  border: none;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(35, 37, 41, 0.16);
+  font-family: var(--font-sans-serif);
+  font-size: 13px;
+  color: #646d7b;
+  cursor: pointer;
+  transition: box-shadow 120ms ease, color 120ms ease;
+}
+
+.chip:hover {
+  box-shadow: 0 1px 3px rgba(35, 37, 41, 0.22);
+  color: #232529;
+}
+
+.chip:focus-visible {
+  outline: 2px solid var(--blue-medium);
+  outline-offset: 2px;
+}
+
+.chipActive,
+.chipActive:hover {
+  box-shadow: 0 0 0 2px #232529;
+  color: #232529;
+}
+
+/* Chip strips are a touch smaller than the rail rows'. */
+.strip {
+  --strip-width: 46px;
+  --strip-height: 14px;
+}
+
+.name {
+  white-space: nowrap;
+}
+
+.delete {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex: none;
+  margin: 0 -3px 0 -1px;
+  border-radius: 50%;
+  color: #c9cfd8;
+  background: transparent;
+  cursor: pointer;
+  transition: color 120ms ease, background-color 120ms ease;
+}
+
+.delete:hover {
+  color: #ed005f;
+}
+
+.deleteConfirm,
+.deleteConfirm:hover {
+  color: #ffffff;
+  background: #ed005f;
+}
+
+.delete:focus-visible {
+  outline: 2px solid var(--blue-medium);
+  outline-offset: 1px;
+}

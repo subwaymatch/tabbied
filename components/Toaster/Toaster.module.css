@@ -1,0 +1,76 @@
+/* Bottom-right toast stack. */
+.viewport {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  width: 22rem;
+  max-width: calc(100vw - 2rem);
+  outline: none;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.8rem 0.9rem 0.8rem 1rem;
+  border-radius: 8px;
+  background: #232529;
+  color: #ffffff;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.22);
+  /* Base UI drives enter/leave via data attributes + these vars. */
+  transition: transform 260ms ease, opacity 260ms ease;
+}
+
+.toast[data-starting-style],
+.toast[data-ending-style] {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.body {
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.description {
+  margin-top: 0.15rem;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  flex: none;
+  padding: 0;
+  border: none;
+  border-radius: 5px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: color 120ms ease, background-color 120ms ease;
+}
+
+.close:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.close:focus-visible {
+  outline: 2px solid var(--blue-medium);
+  outline-offset: 1px;
+}

@@ -2,79 +2,77 @@
 
 import NextLink from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect, useRef, useState, type MouseEvent } from 'react';
+import { useEffect, useState, type MouseEvent } from 'react';
 import { Menu } from '@base-ui-components/react/menu';
 import {
   ArrowDownToLine,
+  ArrowLeft,
   ChevronDown,
   ImageDown,
   Link as LinkIcon,
   CodeXml,
+  Shuffle,
 } from 'lucide-react';
-import { Container, Row, Col } from 'components/layout';
 import {
   armGalleryScrollRestore,
   consumeGalleryNavigation,
 } from 'lib/galleryScroll';
 import ShuffleMenuButton from './ShuffleMenuButton';
+import type { ShuffleAction } from './shuffleActions';
 import styles from './EditArtworkHeader.module.css';
 
 type EditArtworkHeaderProps = {
   artworkName: string;
-  /** Shuffle everything (new layout + new colors). */
-  onShuffleAll: () => void;
-  /** Shuffle the layout only (reseed). */
-  onShuffleLayout: () => void;
-  /** Shuffle the colors only (reroll the palette). */
-  onShuffleColors: () => void;
+  /** The current default shuffle scope (shared with the mobile panel). */
+  shuffleAction: ShuffleAction;
+  /** Run a shuffle scope without changing the default. */
+  onRunShuffle: (id: ShuffleAction) => void;
+  /** Make a shuffle scope the new default (persisted). */
+  onSelectShuffle: (id: ShuffleAction) => void;
   /** Download the current artwork as a PNG. */
   onExportPng: () => void;
   /** Copy the current (fully-encoded) URL to the clipboard. */
   onCopyLink: () => void | Promise<void>;
   /** Copy a ready-to-paste <TabbiedArtwork> snippet to the clipboard. */
   onCopyReactComponent: () => void | Promise<void>;
+  /** Mobile (7d): render icon buttons that open inline shuffle/export panels. */
+  mobile: boolean;
+  /** Mobile: whether an inline panel (shuffle/export/palettes) is open. */
+  mobilePanelOpen: boolean;
+  /** Mobile: open the inline shuffle panel. */
+  onOpenShufflePanel: () => void;
+  /** Mobile: open the inline export panel. */
+  onOpenExportPanel: () => void;
+  /** Mobile: close whichever inline panel is open. */
+  onCloseMobilePanel: () => void;
 };
 
 export default function EditArtworkHeader({
   artworkName,
-  onShuffleAll,
-  onShuffleLayout,
-  onShuffleColors,
+  shuffleAction,
+  onRunShuffle,
+  onSelectShuffle,
   onExportPng,
   onCopyLink,
   onCopyReactComponent,
+  mobile,
+  mobilePanelOpen,
+  onOpenShufflePanel,
+  onOpenExportPanel,
+  onCloseMobilePanel,
 }: EditArtworkHeaderProps) {
   const router = useRouter();
 
-  // Whether this editor was opened from the gallery (a marker the gallery
-  // card sets on click, consumed here on mount). history.length alone can't
-  // tell — for a deep-linked editor the previous entry could be anything.
+  // Whether this editor was opened from the gallery (a marker the gallery card
+  // sets on click, consumed here on mount).
   const [cameFromGallery, setCameFromGallery] = useState(false);
-
-  // Brief "Copied" confirmation for the clipboard export options.
-  const [copied, setCopied] = useState<string | null>(null);
-  const copiedTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     setCameFromGallery(consumeGalleryNavigation());
   }, []);
 
-  useEffect(
-    () => () => {
-      if (copiedTimer.current) clearTimeout(copiedTimer.current);
-    },
-    []
-  );
-
-  const flashCopied = (message: string) => {
-    setCopied(message);
-    if (copiedTimer.current) clearTimeout(copiedTimer.current);
-    copiedTimer.current = setTimeout(() => setCopied(null), 1800);
-  };
-
   // Go back through history so the gallery's previous scroll position is
-  // restored (armed below; the gallery does the actual restore on mount).
-  // Modified clicks (open in new tab) fall through to the href.
+  // restored. Modified clicks (open in new tab) fall through to the href.
   const handleBack = (event: MouseEvent<HTMLAnchorElement>) => {
     if (
       event.defaultPrevented ||
@@ -87,11 +85,15 @@ export default function EditArtworkHeader({
       return;
     }
 
+    // Mobile: an open inline panel is closed first, before leaving the editor.
+    if (mobile && mobilePanelOpen) {
+      event.preventDefault();
+      onCloseMobilePanel();
+      return;
+    }
+
     event.preventDefault();
 
-    // A back navigation keeps the gallery entry (and its scroll) in place —
-    // but only when the previous entry is actually the gallery; otherwise
-    // navigate there normally (and leave the scroll-restore flag unarmed).
     if (cameFromGallery) {
       armGalleryScrollRestore();
       router.back();
@@ -100,86 +102,103 @@ export default function EditArtworkHeader({
     }
   };
 
+  if (mobile) {
+    return (
+      <header className={`${styles.header} ${styles.headerMobile}`}>
+        <NextLink
+          href="/artworks"
+          prefetch={false}
+          onClick={handleBack}
+          className={styles.backIcon}
+          aria-label={mobilePanelOpen ? 'Back to editor' : 'Back to gallery'}
+        >
+          <ArrowLeft size={18} aria-hidden="true" />
+        </NextLink>
+
+        <h1 className={styles.titleMobile}>{artworkName}</h1>
+
+        <button
+          type="button"
+          className={styles.iconButton}
+          onClick={onOpenShufflePanel}
+          aria-label="Shuffle options"
+          title="Shuffle"
+        >
+          <Shuffle size={17} />
+        </button>
+        <button
+          type="button"
+          className={`${styles.iconButton} ${styles.iconButtonExport}`}
+          onClick={onOpenExportPanel}
+          aria-label="Export options"
+          title="Export"
+        >
+          <ArrowDownToLine size={17} />
+        </button>
+      </header>
+    );
+  }
+
   return (
     <header className={styles.header}>
-      <Container>
-        <Row align="center">
-          <Col md={4} xs={6}>
-            <NextLink href="/artworks" prefetch={false} onClick={handleBack}>
-              ← Back to gallery
-            </NextLink>
-          </Col>
+      <NextLink
+        href="/artworks"
+        prefetch={false}
+        onClick={handleBack}
+        className={styles.back}
+      >
+        <ArrowLeft size={16} aria-hidden="true" /> Gallery
+      </NextLink>
 
-          <Col md={4} className={styles.titleColumn}>
-            <h1 className="align-center">{artworkName}</h1>
-          </Col>
+      <div className={styles.titleWrap}>
+        <h1 className={styles.title}>{artworkName}</h1>
+      </div>
 
-          <Col md={4} xs={6}>
-            <div className={styles.actions}>
-              {copied && (
-                <span className={styles.copied} role="status" aria-live="polite">
-                  {copied}
-                </span>
-              )}
+      <div className={styles.actions}>
+        <ShuffleMenuButton
+          action={shuffleAction}
+          onRun={onRunShuffle}
+          onSelect={onSelectShuffle}
+        />
 
-              {/* aria-labels keep the buttons named on small screens, where
-                  the text labels are hidden and only the icons remain. */}
-              <ShuffleMenuButton
-                onShuffleAll={onShuffleAll}
-                onShuffleLayout={onShuffleLayout}
-                onShuffleColors={onShuffleColors}
-              />
-
-              {/* Export is a dropdown: a PNG download plus clipboard exports. */}
-              <Menu.Root>
-                <Menu.Trigger
-                  className={`${styles.btn} ${styles.btnExport}`}
-                  aria-label="Export"
+        {/* Export is a dropdown: a PNG download plus clipboard exports. */}
+        <Menu.Root>
+          <Menu.Trigger
+            className={`${styles.btn} ${styles.btnExport}`}
+            aria-label="Export"
+          >
+            <ArrowDownToLine className={styles.reactIcon} size={16} />
+            <span className={styles.label}>Export</span>
+            <ChevronDown className={styles.chevronIcon} size={15} />
+          </Menu.Trigger>
+          <Menu.Portal>
+            <Menu.Positioner
+              className={styles.menuPositioner}
+              side="bottom"
+              align="end"
+              sideOffset={6}
+            >
+              <Menu.Popup className={styles.menuPopup}>
+                <Menu.Item className={styles.menuItem} onClick={onExportPng}>
+                  <ImageDown size={15} /> Download PNG
+                </Menu.Item>
+                <Menu.Item
+                  className={styles.menuItem}
+                  onClick={() => void onCopyLink()}
                 >
-                  <ArrowDownToLine className={styles.reactIcon} size={18} />
-                  <span className={styles.label}>Export</span>
-                  <ChevronDown className={styles.chevronIcon} size={16} />
-                </Menu.Trigger>
-                <Menu.Portal>
-                  <Menu.Positioner
-                    className={styles.menuPositioner}
-                    side="bottom"
-                    align="end"
-                    sideOffset={6}
-                  >
-                    <Menu.Popup className={styles.menuPopup}>
-                      <Menu.Item
-                        className={styles.menuItem}
-                        onClick={onExportPng}
-                      >
-                        <ImageDown size={16} /> Download PNG
-                      </Menu.Item>
-                      <Menu.Item
-                        className={styles.menuItem}
-                        onClick={() => {
-                          void onCopyLink();
-                          flashCopied('Link copied');
-                        }}
-                      >
-                        <LinkIcon size={16} /> Copy shareable link
-                      </Menu.Item>
-                      <Menu.Item
-                        className={styles.menuItem}
-                        onClick={() => {
-                          void onCopyReactComponent();
-                          flashCopied('React component copied');
-                        }}
-                      >
-                        <CodeXml size={16} /> Copy React component
-                      </Menu.Item>
-                    </Menu.Popup>
-                  </Menu.Positioner>
-                </Menu.Portal>
-              </Menu.Root>
-            </div>
-          </Col>
-        </Row>
-      </Container>
+                  <LinkIcon size={15} /> Copy shareable link
+                </Menu.Item>
+                <Menu.Item
+                  className={styles.menuItem}
+                  onClick={() => void onCopyReactComponent()}
+                >
+                  <CodeXml size={15} /> Copy React component
+                </Menu.Item>
+              </Menu.Popup>
+            </Menu.Positioner>
+          </Menu.Portal>
+        </Menu.Root>
+      </div>
     </header>
   );
 }

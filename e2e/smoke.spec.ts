@@ -28,7 +28,7 @@ test.describe('Tabbied site', () => {
 
     await expect(page).toHaveURL(/\/artworks/);
     await expect(
-      page.getByText('First, pick a pre-made design from our gallery.')
+      page.getByRole('heading', { name: 'Pick a design' })
     ).toBeVisible();
   });
 
@@ -41,8 +41,91 @@ test.describe('Tabbied site', () => {
 
     await page.waitForURL(/\/artworks\/radius/, { timeout: 15000 });
     await expect(
-      page.getByRole('link', { name: '← Back to gallery' })
+      page.getByRole('link', { name: 'Gallery' })
     ).toBeVisible({ timeout: 15000 });
+  });
+
+  test('gallery pagination is reflected in the URL and survives reload', async ({
+    page,
+  }) => {
+    await page.goto('/artworks');
+
+    // Jump to page 2 — the URL gains ?page=2 and the grid shows a new design.
+    const firstCard = page.locator('main a[href^="/artworks/"] h3').first();
+    const beforeName = await firstCard.textContent();
+    await page.getByRole('button', { name: '2', exact: true }).click();
+    await expect(page).toHaveURL(/[?&]page=2/);
+    await expect(firstCard).not.toHaveText(beforeName ?? '');
+    const page2Name = await firstCard.textContent();
+
+    // A reload lands directly on page 2 (the URL is the source of truth).
+    await page.reload();
+    await expect(page).toHaveURL(/[?&]page=2/);
+    await expect(firstCard).toHaveText(page2Name ?? '');
+
+    // Back returns to page 1 (the page param is dropped).
+    await page.goBack();
+    await expect(page).toHaveURL(/\/artworks\/?$/);
+    await expect(firstCard).toHaveText(beforeName ?? '');
+  });
+
+  test('the gallery sidebar stays fixed while the grid scrolls', async ({
+    page,
+  }) => {
+    await page.goto('/artworks');
+    await page
+      .locator('main css-doodle')
+      .first()
+      .waitFor({ state: 'attached', timeout: 15000 });
+
+    // The footer (GitHub / Docs) is pinned to the window, so scrolling the grid
+    // leaves it in place.
+    const footer = page.locator('aside a[aria-label="Tabbied on GitHub"]');
+    const before = await footer.boundingBox();
+    await page.evaluate(() => window.scrollTo(0, 1400));
+    await page.waitForTimeout(300);
+    const after = await footer.boundingBox();
+
+    expect(Math.abs((after?.y ?? 0) - (before?.y ?? 0))).toBeLessThan(4);
+  });
+
+  test('the palette browser fills the rail with a scrollable, infinite list', async ({
+    page,
+  }) => {
+    await page.goto('/artworks');
+    await page
+      .locator('main css-doodle')
+      .first()
+      .waitFor({ state: 'attached', timeout: 15000 });
+
+    await page.getByRole('button', { name: /Browse all palettes/ }).click();
+
+    // The list is a bounded scroll container that overflows its box (it auto-
+    // fills the available height).
+    const findScroller = () =>
+      page.evaluate(() => {
+        const el = [...document.querySelectorAll('aside *')].find(
+          (e) =>
+            getComputedStyle(e).overflowY === 'auto' &&
+            e.scrollHeight > e.clientHeight + 8
+        );
+        return el ? (el as HTMLElement).querySelectorAll('button').length : 0;
+      });
+
+    const rows0 = await findScroller();
+    expect(rows0).toBeGreaterThan(0);
+
+    // Scrolling to the bottom loads more rows (infinite scroll).
+    await page.evaluate(() => {
+      const el = [...document.querySelectorAll('aside *')].find(
+        (e) =>
+          getComputedStyle(e).overflowY === 'auto' &&
+          e.scrollHeight > e.clientHeight + 8
+      );
+      if (el) (el as HTMLElement).scrollTop = (el as HTMLElement).scrollHeight;
+    });
+
+    await expect.poll(findScroller).toBeGreaterThan(rows0);
   });
 
   test('"Back to gallery" returns to the previous scroll position', async ({
@@ -55,7 +138,15 @@ test.describe('Tabbied site', () => {
       .locator('main css-doodle')
       .first()
       .waitFor({ state: 'attached', timeout: 15000 });
-    await page.evaluate(() => window.scrollTo(0, 1600));
+
+    // The gallery is paginated, so scroll as far as this page allows.
+    const maxScroll = await page.evaluate(() => {
+      const el = document.scrollingElement!;
+      const max = el.scrollHeight - window.innerHeight;
+      window.scrollTo(0, max);
+      return max;
+    });
+    test.skip(maxScroll < 40, 'gallery too short to scroll on this viewport');
 
     // The gallery persists its scroll position so it can be restored on return.
     await expect
@@ -64,23 +155,23 @@ test.describe('Tabbied site', () => {
           Number(sessionStorage.getItem('tabbied:gallery-scroll-y'))
         )
       )
-      .toBeGreaterThan(1000);
+      .toBeGreaterThan(20);
     const before = await page.evaluate(() => window.scrollY);
 
-    // Open a card already in view, so clicking it does not move the page.
+    // Open a card fully in view, so Playwright does not auto-scroll to click it.
     const href = await page.evaluate(() => {
       const inView = [
         ...document.querySelectorAll('main a[href^="/artworks/"]'),
       ].find((el) => {
         const r = el.getBoundingClientRect();
-        return r.top > 140 && r.bottom < 600;
+        return r.top > 60 && r.bottom < window.innerHeight - 60;
       });
       return inView?.getAttribute('href') ?? null;
     });
     expect(href, 'expected a gallery card link within the viewport').not.toBeNull();
     await page.locator(`main a[href="${href}"]`).click();
 
-    await page.getByRole('link', { name: '← Back to gallery' }).click();
+    await page.getByRole('link', { name: 'Gallery' }).click();
     await expect(page).toHaveURL(/\/artworks\/?$/);
 
     // The gallery is restored to (approximately) where it was left.
@@ -144,8 +235,9 @@ test.describe('Tabbied site', () => {
       page.getByRole('button', { name: 'Export' })
     ).toBeVisible();
 
-    // Option controls coming from the artwork definition.
-    await expect(page.getByText('Columns and rows')).toBeVisible();
+    // Option controls coming from the artwork definition (the grid select is
+    // presented as "Grid density" in the redesigned inspector).
+    await expect(page.getByText('Grid density')).toBeVisible();
     await expect(page.getByText('4x6', { exact: true })).toBeVisible();
 
     // Regression guard: the generative grid must actually paint its cells.
@@ -195,7 +287,8 @@ test.describe('Tabbied site', () => {
     await expect(page).toHaveURL(/grid=6x9/);
 
     // Switch to a square canvas: the 6x9 (level 2) grid re-derives to 9x9.
-    await page.getByText('1:1', { exact: true }).click();
+    // Aspect ratios are icon tiles named by their id.
+    await page.getByRole('button', { name: '1:1' }).click();
 
     await expect(page).toHaveURL(/aspectRatio=1%3A1/);
     await expect(page).toHaveURL(/grid=9x9/);
@@ -213,7 +306,7 @@ test.describe('Tabbied site', () => {
     // Symmetry is no longer ratio-locked: it letterboxes its composition into
     // a centered 2:3 box, so the selector is offered like everywhere else.
     await expect(page.getByText('Aspect ratio')).toBeVisible();
-    await page.getByText('2:1', { exact: true }).click();
+    await page.getByRole('button', { name: '2:1' }).click();
 
     await expect(page).toHaveURL(/aspectRatio=2%3A1/);
 
@@ -288,9 +381,13 @@ test.describe('Tabbied site', () => {
     await page.goto('/artworks/radius?seed=ZZZZ&grid=9x9&aspectRatio=1%3A1');
 
     // Initial state comes from the URL (not corrected after mount), so the
-    // matching grid option must already be selected.
+    // matching grid density option must already be selected (aria-pressed).
     await expect(page.getByText('9x9', { exact: true })).toBeVisible();
-    const pressed = page.locator('[data-pressed]', { hasText: '9x9' });
+    const pressed = page.getByRole('button', {
+      name: '9x9',
+      exact: true,
+      pressed: true,
+    });
     await expect(pressed).toHaveCount(1);
   });
 });
@@ -298,19 +395,58 @@ test.describe('Tabbied site', () => {
 test.describe('Tabbied site (mobile viewport)', () => {
   test.use({ viewport: { width: 390, height: 664 } });
 
-  test('icon-only header buttons keep accessible names', async ({ page }) => {
+  test('the editor header opens inline shuffle / export panels (7d)', async ({
+    page,
+  }) => {
     await page.goto('/artworks/radius?seed=0000');
 
-    // Below the md breakpoint the text labels are display:none, leaving
-    // icon-only buttons — they must still expose an accessible name. The
-    // Shuffle split button defaults to "Shuffle" (reseeds + recolors).
-    await expect(
-      page.getByRole('button', { name: 'Shuffle', exact: true })
-    ).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Export' })).toBeVisible();
+    // The compact 7d header replaces the split buttons with icon buttons that
+    // open inline panels in the editing region (not run the action directly).
+    const shuffleBtn = page.getByRole('button', { name: 'Shuffle options' });
+    const exportBtn = page.getByRole('button', { name: 'Export options' });
+    await expect(shuffleBtn).toBeVisible({ timeout: 15000 });
+    await expect(exportBtn).toBeVisible();
 
+    // Opening the shuffle panel reveals the scope radios and a run button; the
+    // run button (labelled with the current scope) reseeds the artwork.
+    await shuffleBtn.click();
+    await expect(
+      page.getByRole('radio', { name: 'Shuffle layout' })
+    ).toBeVisible();
     await page.getByRole('button', { name: 'Shuffle', exact: true }).click();
     await expect(page).not.toHaveURL(/seed=0000/);
+
+    // The back arrow closes the open panel before it would leave the editor.
+    await page.getByRole('link', { name: 'Back to editor' }).click();
+    await expect(page.getByRole('heading', { name: 'Colors' })).toBeVisible();
+
+    // The export panel lists the three export actions.
+    await exportBtn.click();
+    await expect(
+      page.getByRole('button', { name: 'Copy React component' })
+    ).toBeVisible();
+  });
+
+  test('the gallery shows palettes as a horizontal chip shelf (7a)', async ({
+    page,
+  }) => {
+    await page.goto('/artworks');
+
+    // The fixed rail is hidden below the two-column breakpoint; the palettes
+    // become a horizontal chip shelf with a trailing "All ›" browser pill.
+    await expect(page.locator('aside')).toBeHidden();
+    await expect(
+      page.getByRole('button', { name: 'New Palette' })
+    ).toBeVisible({ timeout: 15000 });
+
+    const allPill = page.getByRole('button', { name: /^All/ });
+    await expect(allPill).toBeVisible();
+
+    // Tapping "All ›" swaps the shelf for the embedded palette browser.
+    await allPill.click();
+    await expect(
+      page.getByRole('button', { name: 'Close palette browser' })
+    ).toBeVisible();
   });
 
   test('hamburger drawer exposes the nav and GitHub on mobile', async ({
@@ -343,7 +479,9 @@ test.describe('Shared site header', () => {
   test('is reused on content pages and marks the active nav item', async ({
     page,
   }) => {
-    await page.goto('/artworks');
+    // The gallery (/artworks) now owns its own rail chrome, so the shared
+    // header is exercised on the docs page instead.
+    await page.goto('/docs/react');
 
     // The home-page header (logo nav + GitHub link) is reused here.
     await expect(
@@ -355,20 +493,11 @@ test.describe('Shared site header', () => {
       page.getByRole('button', { name: 'Open navigation menu' })
     ).toBeHidden();
 
-    // "Browse Artworks" is the current section, "Docs" is not. The
-    // active item is both flagged for assistive tech and given a style hook.
-    const browse = page.getByRole('link', { name: 'Browse Artworks' });
-    await expect(browse).toHaveAttribute('aria-current', 'page');
-    await expect(browse).toHaveClass(/active/);
-    await expect(
-      page.getByRole('link', { name: 'Docs' })
-    ).not.toHaveAttribute('aria-current', 'page');
-
-    // Navigating moves the active state onto the matching item.
-    await page.goto('/docs/react');
-    await expect(
-      page.getByRole('link', { name: 'Docs' })
-    ).toHaveAttribute('aria-current', 'page');
+    // "Docs" is the current section, "Browse Artworks" is not. The active item
+    // is both flagged for assistive tech and given a style hook.
+    const docs = page.getByRole('link', { name: 'Docs' });
+    await expect(docs).toHaveAttribute('aria-current', 'page');
+    await expect(docs).toHaveClass(/active/);
     await expect(
       page.getByRole('link', { name: 'Browse Artworks' })
     ).not.toHaveAttribute('aria-current', 'page');
@@ -381,12 +510,30 @@ test.describe('Shared site header', () => {
     await expect(page.locator('header a[aria-current="page"]')).toHaveCount(0);
   });
 
+  test('the gallery rail owns its chrome instead of the shared header', async ({
+    page,
+  }) => {
+    await page.goto('/artworks');
+
+    // The rail carries the logo, a GitHub link and Docs — but not the shared
+    // site nav or its hamburger.
+    await expect(
+      page.getByRole('link', { name: 'Tabbied on GitHub' })
+    ).toBeVisible();
+    await expect(
+      page.getByRole('button', { name: 'Open navigation menu' })
+    ).toHaveCount(0);
+    await expect(
+      page.getByRole('link', { name: 'Browse Artworks' })
+    ).toHaveCount(0);
+  });
+
   test('is not used on the individual artwork editor', async ({ page }) => {
     await page.goto('/artworks/radius');
 
     // The editor keeps its own header...
     await expect(
-      page.getByRole('link', { name: '← Back to gallery' })
+      page.getByRole('link', { name: 'Gallery' })
     ).toBeVisible({ timeout: 15000 });
 
     // ...and never renders the shared site nav.
