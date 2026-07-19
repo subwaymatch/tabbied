@@ -162,7 +162,153 @@ export const PALETTE_LIBRARY: LibraryPalette[] = [
   { id: 'lib-midnightoil', name: 'Midnight Oil', colors: ['#0d1b2a', '#1b263b', '#415a77', '#778da9', '#e0e1dd'] },
   { id: 'lib-tangerine', name: 'Tangerine', colors: ['#fff4e6', '#ff7b00', '#ff9505', '#16697a', '#489fb5'] },
   { id: 'lib-basalt', name: 'Slate Rose', colors: ['#f5ebe0', '#d6a2ad', '#7d5a5a', '#33272a'] },
+
+  // ---- Second expansion (favorite-words set + ~100 more stories) ----
+  // Named after a handful of favorite words, then a broad sweep of critters,
+  // botanicals, minerals and treats — same 3-7 color, background-first shape.
+  { id: 'lib-nozy', name: 'Nozy', colors: ['#fff4ec', '#ff7a5c', '#2ec4b6', '#ffd23e', '#2b2d42'] },
+  { id: 'lib-chipmunk', name: 'Chipmunk', colors: ['#f3e9d8', '#a9744f', '#e08e45', '#5b3a29', '#2f2a25'] },
+  { id: 'lib-pika', name: 'Pika', colors: ['#fff7d6', '#ffd400', '#f0a500', '#f04e37', '#2b2410'] },
+  { id: 'lib-bluebird', name: 'Bluebird', colors: ['#eef6ff', '#3a7bd5', '#1b4f9c', '#f4a259', '#12233f'] },
+
+  // Critters & birds
+  { id: 'lib-robin', name: 'Robin', colors: ['#f4efe6', '#6ab7c4', '#e2603f', '#2f3b3a'] },
+  { id: 'lib-sparrow', name: 'Sparrow', colors: ['#efe8dc', '#a68467', '#6b5340', '#2c2620'] },
+  { id: 'lib-finch', name: 'Finch', colors: ['#fdf6d8', '#f2c14e', '#e08a1e', '#3a3320', '#8a9b3c'] },
+  { id: 'lib-wren', name: 'Wren', colors: ['#efe6da', '#b08968', '#7f5539', '#3b2f2a'] },
+  { id: 'lib-magpie', name: 'Magpie', colors: ['#f4f5f7', '#0b0b0f', '#2b5d8a', '#8a94a3'] },
+  { id: 'lib-heron', name: 'Heron', colors: ['#eef2f3', '#7d97a1', '#3f5a63', '#20302f', '#c98a5e'] },
+  { id: 'lib-puffin', name: 'Puffin', colors: ['#f7f6f2', '#1a1a1a', '#ef6f45', '#3a6ea5'] },
+  { id: 'lib-otter', name: 'Otter', colors: ['#efe7dd', '#8f6b53', '#54382a', '#2a211c'] },
+  { id: 'lib-fox', name: 'Fox', colors: ['#fff2e6', '#e8722c', '#b5451b', '#2c2622'] },
+  { id: 'lib-lynx', name: 'Lynx', colors: ['#f2ede3', '#c9a66b', '#8a7355', '#40372c', '#7d8a7a'] },
+  { id: 'lib-koala', name: 'Koala', colors: ['#eef0f1', '#9aa5aa', '#5c666b', '#2f363a'] },
+  { id: 'lib-panda', name: 'Panda', colors: ['#f6f6f4', '#141414', '#6b7075', '#c1c6c9'] },
+  { id: 'lib-ferret', name: 'Ferret', colors: ['#f3ece0', '#cdb392', '#7c6551', '#302a24'] },
+  { id: 'lib-marmot', name: 'Marmot', colors: ['#efe6d8', '#b58a5e', '#6f4f34', '#33291f'] },
+  { id: 'lib-badger', name: 'Badger', colors: ['#f0f1f2', '#20242a', '#5b636b', '#a7aeb5'] },
+  { id: 'lib-beaver', name: 'Beaver', colors: ['#efe3d5', '#9c6b43', '#5e3d25', '#2b211a'] },
+  { id: 'lib-stoat', name: 'Stoat', colors: ['#fbf6ee', '#e6a23c', '#8a5a2b', '#2d2620'] },
+  { id: 'lib-newt', name: 'Newt', colors: ['#f0f6e6', '#8fbf3f', '#d98a2b', '#2e3320'] },
+  { id: 'lib-toad', name: 'Toad', colors: ['#eef1e4', '#7f9451', '#4a5a2e', '#2a2c22', '#c98a4a'] },
+  { id: 'lib-minnow', name: 'Minnow', colors: ['#eef7f6', '#8fd0c8', '#3f8f88', '#1d3b3a'] },
+  { id: 'lib-guppy', name: 'Guppy', colors: ['#fff0f5', '#ff8fab', '#5eaaef', '#ffd166', '#2b2d42'] },
+
+  // Botanical & garden
+  { id: 'lib-sprout', name: 'Sprout', colors: ['#f3f8e8', '#9bcf53', '#4f8a2f', '#233318'] },
+  { id: 'lib-basil', name: 'Basil', colors: ['#eef3e2', '#5a7d3c', '#31481f', '#20241a'] },
+  { id: 'lib-clover', name: 'Clover', colors: ['#eef6ea', '#4caf6d', '#2f6b45', '#183a28'] },
+  { id: 'lib-juniper', name: 'Juniper', colors: ['#e9f0ec', '#3f6b56', '#243f34', '#c07a4b'] },
+  { id: 'lib-thyme', name: 'Thyme', colors: ['#eef0e4', '#8a9a5b', '#55663a', '#2e3524'] },
+  { id: 'lib-bamboo', name: 'Bamboo', colors: ['#f4f6e9', '#a7b957', '#6f8a3c', '#3d4a26', '#d8c48a'] },
+  { id: 'lib-aloe', name: 'Aloe', colors: ['#eef6ef', '#7fbfa1', '#3f8f6a', '#1f4030'] },
+  { id: 'lib-willow', name: 'Willow', colors: ['#eef2e6', '#9db07a', '#5f7050', '#333b2b'] },
+  { id: 'lib-nettle', name: 'Nettle', colors: ['#e9efe0', '#6c8f4a', '#3a5228', '#20281a'] },
+  { id: 'lib-orchard', name: 'Orchard', colors: ['#f3f0e0', '#8fae4f', '#d24b3a', '#f2b134', '#33402a'] },
+  { id: 'lib-poppyseed', name: 'Poppyseed', colors: ['#f5efe6', '#d64545', '#3a3630', '#8a8574'] },
+  { id: 'lib-dahlia', name: 'Dahlia', colors: ['#fff0f2', '#e8557f', '#a12855', '#3a1e2c', '#f2b134'] },
+  { id: 'lib-peony', name: 'Peony', colors: ['#fff2f4', '#f2919f', '#c65b73', '#5a2f3c'] },
+  { id: 'lib-camellia', name: 'Camellia', colors: ['#fff3f5', '#e05c7a', '#9c2f4d', '#2e1f26', '#e9d9c0'] },
+  { id: 'lib-wisteria', name: 'Wisteria', colors: ['#f4f0fa', '#a892d6', '#6a55a3', '#332a4d'] },
+  { id: 'lib-iris', name: 'Iris', colors: ['#eef0fb', '#6b6fd6', '#3a3f8f', '#f2c14e', '#1c1f3a'] },
+  { id: 'lib-violetta', name: 'Violetta', colors: ['#f2e9fb', '#8a4fd6', '#5a2f9c', '#241640'] },
+  { id: 'lib-foxglove', name: 'Foxglove', colors: ['#fbeef7', '#c86fb0', '#7a3f78', '#301f38', '#8fd0c8'] },
+
+  // Blues, teals & water
+  { id: 'lib-cornflower', name: 'Cornflower', colors: ['#eff3ff', '#6a8fe0', '#3a56a3', '#1c2545'] },
+  { id: 'lib-marina', name: 'Marina', colors: ['#e9f4f7', '#4aa3b5', '#1f6a7d', '#0d2e38', '#f2b134'] },
+  { id: 'lib-harbor', name: 'Harbor', colors: ['#eef2f4', '#5b7a8a', '#2f4a5a', '#16232b'] },
+  { id: 'lib-cerulean', name: 'Cerulean', colors: ['#eaf6ff', '#2a9df4', '#1266b0', '#0a2f52'] },
+  { id: 'lib-fjord', name: 'Fjord', colors: ['#e8eff2', '#6d8a99', '#37525f', '#1a2a30', '#9db07a'] },
+  { id: 'lib-cove', name: 'Cove', colors: ['#eef8f6', '#5fc0b3', '#2c7c74', '#123b3a', '#ffcf6b'] },
+  { id: 'lib-nautical', name: 'Nautical', colors: ['#f3f5f2', '#1b3a5c', '#c1332d', '#e0d3b8'] },
+  { id: 'lib-mariner', name: 'Mariner', colors: ['#eef2f6', '#2f5d8a', '#17324f', '#e08a3c', '#0c1a2b'] },
+  { id: 'lib-frost', name: 'Frost', colors: ['#f4f9fb', '#bcdfe8', '#7aa8b8', '#3a5560'] },
+  { id: 'lib-glint', name: 'Glint', colors: ['#eefaff', '#79d0e5', '#2f8fb0', '#123542'] },
+  { id: 'lib-riptide', name: 'Riptide', colors: ['#e8f7f4', '#33c4b3', '#0f7a72', '#08302e'] },
+  { id: 'lib-tealight', name: 'Tealight', colors: ['#eef6f5', '#4fb0a5', '#237a72', '#f2c14e', '#12352f'] },
+
+  // Warm, sun & spice
+  { id: 'lib-apricot', name: 'Apricot', colors: ['#fff3e6', '#f7a55a', '#e26d3a', '#5a3320'] },
+  { id: 'lib-peachy', name: 'Peachy', colors: ['#fff0e8', '#ffb4a0', '#f2785c', '#7a3b2e'] },
+  { id: 'lib-turmeric', name: 'Turmeric', colors: ['#fff5d6', '#e8a020', '#b5661a', '#3a2c12'] },
+  { id: 'lib-cantaloupe', name: 'Cantaloupe', colors: ['#fff2e0', '#ffb15c', '#f47a52', '#6fae7b', '#33402a'] },
+  { id: 'lib-clementine', name: 'Clementine', colors: ['#fff1e2', '#ff8c2b', '#e0561f', '#2f6d6a'] },
+  { id: 'lib-papaya', name: 'Papaya', colors: ['#fff2e8', '#ff9068', '#f25c54', '#3a5a55', '#ffd166'] },
+  { id: 'lib-goldenrod', name: 'Goldenrod', colors: ['#fff8df', '#f2c11e', '#c98a00', '#3a3418'] },
+  { id: 'lib-custard', name: 'Custard', colors: ['#fffbe8', '#ffe08a', '#e0a83c', '#6b5320'] },
+  { id: 'lib-paprika', name: 'Paprika', colors: ['#fdeee4', '#d1462f', '#8a2b1e', '#2c1f1a', '#e0a83c'] },
+  { id: 'lib-harissa', name: 'Harissa', colors: ['#fdece4', '#c1301f', '#7a1e14', '#2b1512', '#e8a33d'] },
+  { id: 'lib-adobe', name: 'Adobe', colors: ['#f4e6d5', '#c67b4e', '#8a4a2f', '#3a2a20', '#6f8a5a'] },
+  { id: 'lib-sahara', name: 'Sahara', colors: ['#f6ecd6', '#dcb26a', '#a97b3c', '#4a3720'] },
+
+  // Pinks, berries & candy
+  { id: 'lib-bubblegum', name: 'Bubblegum', colors: ['#fff0f6', '#ff8fc4', '#ff4fa0', '#7a2f5c'] },
+  { id: 'lib-raspberry', name: 'Raspberry', colors: ['#fff0f3', '#e5396f', '#a11846', '#3a0f22'] },
+  { id: 'lib-guava', name: 'Guava', colors: ['#fff1ee', '#ff6f7d', '#e03e5a', '#3fae94', '#2b2436'] },
+  { id: 'lib-dragonfruit', name: 'Dragonfruit', colors: ['#fdeef6', '#e84f9c', '#8f2f7a', '#2c1a33', '#8fd94a'] },
+  { id: 'lib-mulberry', name: 'Mulberry', colors: ['#f6eef4', '#8a3a6b', '#54254a', '#281526'] },
+  { id: 'lib-boysenberry', name: 'Boysenberry', colors: ['#f3ecf3', '#6d2f6b', '#3f1c40', '#e0a83c'] },
+  { id: 'lib-currant', name: 'Currant', colors: ['#f5eef0', '#9c2a4d', '#5a1830', '#241019'] },
+  { id: 'lib-damson', name: 'Damson', colors: ['#efeaf2', '#5a3a75', '#33224a', '#8fae4f'] },
+  { id: 'lib-taffy', name: 'Taffy', colors: ['#fff2f7', '#ffb0d0', '#a0d8ef', '#ffd98a', '#2b2d42'] },
+  { id: 'lib-sherbet', name: 'Sherbet', colors: ['#fff6ef', '#ffb37a', '#ff8fb0', '#8fd0c8', '#3a3550'] },
+
+  // Sweets, coffee & bakery
+  { id: 'lib-caramel', name: 'Caramel', colors: ['#f6ecdb', '#c88a3c', '#8a5320', '#3a2818'] },
+  { id: 'lib-toffee', name: 'Toffee', colors: ['#f3e6d4', '#b57a45', '#6f4522', '#2e1f16'] },
+  { id: 'lib-mocha', name: 'Mocha', colors: ['#efe4d8', '#8a6650', '#4f382b', '#241a15'] },
+  { id: 'lib-latte', name: 'Latte', colors: ['#f5ece0', '#cbb08c', '#9a795a', '#4a3728'] },
+  { id: 'lib-praline', name: 'Praline', colors: ['#f2e6d6', '#c39366', '#7c5236', '#33241a', '#e0b84a'] },
+  { id: 'lib-nougat', name: 'Nougat', colors: ['#f6efe2', '#dcc39a', '#a98a63', '#5a4636'] },
+  { id: 'lib-matchalatte', name: 'Matcha Latte', colors: ['#f2f5e4', '#a7c07a', '#6f8a4a', '#e6d3b0', '#3a4028'] },
+  { id: 'lib-redvelvet', name: 'Red Velvet', colors: ['#f7ece6', '#a12a2f', '#611519', '#e8d3b0', '#2a1614'] },
+
+  // Minerals, metals & stone
+  { id: 'lib-pewter', name: 'Pewter', colors: ['#eef0f1', '#a0a7ad', '#5f676d', '#2f353a'] },
+  { id: 'lib-shale', name: 'Shale', colors: ['#e8eaec', '#8a929a', '#4a545c', '#242a30'] },
+  { id: 'lib-flint', name: 'Flint', colors: ['#e6e8ea', '#7c848c', '#3f474e', '#1a1f24', '#c98a5e'] },
+  { id: 'lib-basaltstone', name: 'Basalt', colors: ['#e9eaeb', '#565c62', '#2c3136', '#12151a'] },
+  { id: 'lib-quartz', name: 'Quartz', colors: ['#f6f2f4', '#d8c2cc', '#9a8592', '#4a3f47'] },
+  { id: 'lib-onyx', name: 'Onyx', colors: ['#111214', '#e7e9ec', '#5a626b', '#8a939c'] },
+  { id: 'lib-turquoise', name: 'Turquoise', colors: ['#e8f8f6', '#2ec7bd', '#12867e', '#5a3f9c', '#0c3634'] },
+  { id: 'lib-malachite', name: 'Malachite', colors: ['#e6f2ec', '#2f8f6a', '#155540', '#0a2a20', '#d8c48a'] },
+  { id: 'lib-lapis', name: 'Lapis', colors: ['#e9eefb', '#3a54c0', '#1f2f7d', '#f2c14e', '#121838'] },
+  { id: 'lib-amberstone', name: 'Amberstone', colors: ['#fff4dc', '#e8a63c', '#a35f1e', '#3a2814', '#7c6a3a'] },
+  { id: 'lib-copperore', name: 'Copper Ore', colors: ['#f2e7dd', '#c46a3c', '#7c3f24', '#2e6b5f', '#221a16'] },
+  { id: 'lib-gypsum', name: 'Gypsum', colors: ['#f7f4ef', '#ded3c2', '#a89880', '#54493c'] },
+
+  // Bold / electric / pop
+  { id: 'lib-punch', name: 'Punch', colors: ['#fff2f0', '#ff3b3b', '#ff9f1c', '#2ec4b6', '#1a1a24'] },
+  { id: 'lib-volt', name: 'Volt', colors: ['#0d0f14', '#c6ff00', '#00e5ff', '#ff2d95'] },
+  { id: 'lib-laser', name: 'Laser', colors: ['#0a0618', '#ff007a', '#7a04eb', '#00e0ff', '#f9f871'] },
+  { id: 'lib-cosmic', name: 'Cosmic', colors: ['#0b0725', '#5a2a86', '#e0479e', '#3fd0ff', '#ffd166'] },
+  { id: 'lib-tropic', name: 'Tropic', colors: ['#fdfff5', '#ff6b6b', '#ffd23e', '#2ec4b6', '#3a86ff'] },
+  { id: 'lib-zest', name: 'Zest', colors: ['#fbffe6', '#c4e02a', '#2ec4b6', '#ff5714', '#1a2420'] },
+  { id: 'lib-splash', name: 'Splash', colors: ['#f0fbff', '#00b4d8', '#ff5d8f', '#ffd166', '#12283a'] },
+  { id: 'lib-kaleido', name: 'Kaleido', colors: ['#fdfdfb', '#ff4d6d', '#4d96ff', '#38b000', '#ffca3a', '#6a4c93'] },
+  { id: 'lib-neonlime', name: 'Neon Lime', colors: ['#0e1108', '#b6ff2e', '#3fffb2', '#2b8a3e'] },
+  { id: 'lib-fiesta', name: 'Fiesta', colors: ['#fff6e9', '#e63946', '#f4a300', '#2a9d8f', '#264653'] },
+
+  // Muted, dusk & atmosphere
+  { id: 'lib-dusk', name: 'Dusk', colors: ['#2b2536', '#6b5a8a', '#c58a9a', '#f2c6a0', '#efe6df'] },
+  { id: 'lib-gloaming', name: 'Gloaming', colors: ['#1f2433', '#3f4a63', '#8a6f9c', '#e0a3a3', '#f4e4d4'] },
+  { id: 'lib-driftgray', name: 'Drift', colors: ['#eceae5', '#b7b2a6', '#7a746a', '#3f3b34'] },
+  { id: 'lib-clayrose', name: 'Clay Rose', colors: ['#f3e7e2', '#c58f80', '#8a5648', '#3a2b28'] },
+  { id: 'lib-sagebrush', name: 'Sagebrush', colors: ['#eef0e6', '#a3ad8c', '#6b7355', '#3a3f30', '#c98a5e'] },
+  { id: 'lib-heathland', name: 'Heathland', colors: ['#efe9ef', '#9a7d94', '#6a4f6b', '#3a2b3a', '#c9a24a'] },
+  { id: 'lib-oyster', name: 'Oyster', colors: ['#f2efe8', '#cfc4b4', '#9a8f7f', '#524a3f', '#8a9a9c'] },
+  { id: 'lib-loam', name: 'Loam', colors: ['#efe6d8', '#a98a5f', '#6f5638', '#33281e', '#7d8a5a'] },
+  { id: 'lib-tumbleweed', name: 'Tumbleweed', colors: ['#f3ecdc', '#cdae7c', '#9a7a4a', '#5a4a34', '#3a2e22'] },
+  { id: 'lib-driftpine', name: 'Drift Pine', colors: ['#eaefe9', '#8fae9a', '#4f7060', '#2a3f34', '#d8c48a'] },
 ];
+
+// The palette every gallery preview (and a freshly-opened editor) starts in.
+// The site no longer falls back to each artwork's own authored palette as the
+// default look; instead one curated library palette themes the whole gallery
+// until the visitor picks another. "Pop" is a white-background, six-color
+// spread of Tabbied's brand accents, so it reads cleanly across every design.
+export const DEFAULT_PALETTE_ID = 'lib-pop';
 
 const LIBRARY_BY_ID = new Map(PALETTE_LIBRARY.map((palette) => [palette.id, palette]));
 

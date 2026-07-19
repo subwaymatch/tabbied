@@ -1,17 +1,15 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState, type UIEvent } from 'react';
+import { useMemo, useState } from 'react';
 import { Search, X } from 'lucide-react';
 import type { BrandPalette } from 'lib/brandPalettes';
 import type { LibraryPalette } from 'lib/paletteLibrary';
+import { mergePalettes } from 'lib/paletteList';
 import PaletteRow from './PaletteRow';
+import { usePaletteReveal } from './usePaletteReveal';
 import styles from './PaletteBrowser.module.css';
 
 const PAGE = 16;
-
-type MergedEntry =
-  | { kind: 'custom'; palette: BrandPalette }
-  | { kind: 'library'; palette: LibraryPalette };
 
 /**
  * The embedded "Browse all palettes" browser: one merged, searchable, infinitely
@@ -43,45 +41,16 @@ export default function PaletteBrowser({
   onClose: () => void;
 }) {
   const [query, setQuery] = useState('');
-  const [count, setCount] = useState(PAGE);
-  const listRef = useRef<HTMLDivElement>(null);
 
-  const merged = useMemo<MergedEntry[]>(() => {
-    const q = query.trim().toLowerCase();
-    const match = (name: string) => !q || name.toLowerCase().includes(q);
+  const merged = useMemo(
+    () => mergePalettes(palettes, library, query),
+    [palettes, library, query]
+  );
 
-    return [
-      ...palettes
-        .filter((p) => match(p.name || 'untitled'))
-        .map((palette) => ({ kind: 'custom' as const, palette })),
-      ...library
-        .filter((p) => match(p.name))
-        .map((palette) => ({ kind: 'library' as const, palette })),
-    ];
-  }, [palettes, library, query]);
-
-  const shown = merged.slice(0, count);
-  const hasMore = shown.length < merged.length;
-
-  // Keep loading until the list overflows its container, so it always fills the
-  // available height and stays scrollable (otherwise the initial batch might fit
-  // on a tall viewport, leaving nothing to scroll and no way to reach the rest).
-  useEffect(() => {
-    const el = listRef.current;
-    if (el && hasMore && el.scrollHeight <= el.clientHeight) {
-      setCount((c) => c + PAGE);
-    }
-  }, [count, hasMore, merged.length]);
-
-  const onScroll = (event: UIEvent<HTMLDivElement>) => {
-    const el = event.currentTarget;
-    if (
-      el.scrollTop + el.clientHeight > el.scrollHeight - 120 &&
-      count < merged.length
-    ) {
-      setCount((c) => c + PAGE);
-    }
-  };
+  const { shown, hasMore, listRef, onScroll, reset } = usePaletteReveal(
+    merged,
+    PAGE
+  );
 
   return (
     <div
@@ -113,7 +82,7 @@ export default function PaletteBrowser({
             value={query}
             onChange={(event) => {
               setQuery(event.target.value);
-              setCount(PAGE);
+              reset();
             }}
             aria-label="Search palettes"
           />

@@ -1,23 +1,31 @@
-/* The gallery's white palette rail (3a): logo, search, one merged palette list
-   (custom then library), and a footer. Seamless white — no divider, no tint.
-   Headings, rows and buttons share one left edge (no horizontal padding). */
-/* Fixed full-height rail: it stays put while the design grid scrolls, so the
-   GitHub / Docs footer stays pinned to the bottom of the window. The palette
-   list (or the palette browser) takes the remaining space and scrolls inside.
-   The main column offsets itself by 264px (see SelectArtwork.module.css). */
+/* The gallery's desktop palette rail: logo + palette search pinned at the top,
+   the full merged palette list scrolling in the middle, and a pinned
+   "+ New Palette" with the GitHub / Docs footer at the bottom. Seamless white —
+   no divider or tint against the design grid. */
+/* Fixed full-height rail: it stays put while the design grid scrolls with the
+   document, so the "+ New Palette" footer stays pinned to the bottom of the
+   window and only the palette list scrolls. The main column offsets itself by
+   the rail width (see SelectArtwork.module.css). */
 .sidebar {
   position: fixed;
   top: 0;
   left: 0;
-  width: 264px;
+  width: 300px;
   height: 100vh;
   height: 100dvh;
   z-index: 1;
   display: flex;
   flex-direction: column;
-  padding: 28px 24px 24px 32px;
+  /* Small right padding leaves a slim gutter for the scrollbar; the top/list/
+     foot add their own right breathing room so content never crowds it. */
+  padding: 28px 10px 18px 28px;
   background: #ffffff;
   overflow: hidden;
+}
+
+.top {
+  flex: none;
+  padding-right: 18px;
 }
 
 .logo {
@@ -25,12 +33,12 @@
   color: #232529;
 }
 
-/* Borderless search with only a bottom hairline. */
+/* Borderless palette search with only a bottom hairline. */
 .search {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-top: 28px;
+  margin-top: 26px;
   padding: 9px 2px;
   border-bottom: 1px solid #e3e6ea;
   color: #98a0af;
@@ -53,54 +61,69 @@
   outline: none;
 }
 
-.previewHeader {
-  display: flex;
-  align-items: center;
-  margin-top: 32px;
-}
+/* ---- Scrolling palette list ---- */
 
-.previewLabel {
-  font-size: 14px;
-  font-weight: 600;
-  color: #646d7b;
-}
-
-.section {
+.list {
   flex: 1;
   min-height: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  margin-top: 20px;
+  margin-top: 14px;
+  /* Ample right padding so rows (and the 2px hover nudge) sit clear of the
+     scrollbar track. */
+  padding-right: 14px;
   overflow-y: auto;
   overflow-x: hidden;
+  /* Minimal scrollbar: a slim, low-contrast thumb that fades into the white
+     rail. Firefox honours the two `scrollbar-*` props; WebKit/Chromium use the
+     pseudo-elements below. */
+  scrollbar-width: thin;
+  scrollbar-color: #d4d9df transparent;
 }
 
-.sectionHeader {
-  display: flex;
-  align-items: center;
-  gap: 2px;
+.list::-webkit-scrollbar {
+  width: 10px;
 }
 
-.sectionLabel {
-  font-size: 14px;
-  color: #98a0af;
+.list::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-.emptyNote {
-  padding: 4px 0;
+.list::-webkit-scrollbar-thumb {
+  /* The transparent border + padding-box clip make the thumb read as a thin
+     pill floating in a gutter rather than a chunky bar. */
+  background-color: #dfe3e8;
+  border-radius: 999px;
+  border: 3px solid #ffffff;
+  background-clip: padding-box;
+}
+
+.list:hover::-webkit-scrollbar-thumb,
+.list::-webkit-scrollbar-thumb:hover {
+  background-color: #c6ccd3;
+}
+
+.empty {
+  padding: 24px 2px;
   font-size: 13px;
   line-height: 1.5;
   color: #98a0af;
 }
 
-/* "+ New Palette" — placeholder strip of empty cells + label. Shares the left
-   edge; hover darkens the label only (no wash). */
+/* ---- Pinned footer: "+ New Palette" ---- */
+
+.foot {
+  flex: none;
+  margin-top: 6px;
+  padding: 14px 18px 4px;
+  border-top: 1px solid #eceef1;
+}
+
+/* "+ New Palette" — placeholder strip of empty cells + label. Hover darkens the
+   label only (no wash). */
 .newPalette {
   display: flex;
   align-items: center;
   gap: 9px;
-  margin-top: 18px;
+  width: 100%;
   padding: 8px 0;
   border: none;
   background: transparent;
@@ -116,8 +139,7 @@
   color: #232529;
 }
 
-.newPalette:focus-visible,
-.browseAll:focus-visible {
+.newPalette:focus-visible {
   outline: 2px solid var(--blue-medium);
   outline-offset: -2px;
 }
@@ -148,39 +170,6 @@
   text-overflow: ellipsis;
 }
 
-.browseAll {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  align-self: flex-start;
-  margin-top: 8px;
-  padding: 6px 0;
-  border: none;
-  background: transparent;
-  font-family: var(--font-sans-serif);
-  font-size: 13px;
-  color: #646d7b;
-  cursor: pointer;
-  text-align: left;
-  transition: color 120ms ease, transform 120ms ease;
-}
-
-.browseAll:hover {
-  color: #232529;
-  transform: translateX(2px);
-}
-
-/* ---- Footer ---- */
-
-.footer {
-  flex: none;
-  padding-top: 24px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  color: #98a0af;
-}
-
 /* Below the two-column breakpoint the fixed rail is replaced by the mobile
    header (GalleryMobileHeader): logo + GitHub, search, and the palettes as a
    horizontal chip shelf. */
@@ -188,24 +177,4 @@
   .sidebar {
     display: none;
   }
-}
-
-.footerLink {
-  display: inline-flex;
-  color: #98a0af;
-  transition: color 120ms ease;
-}
-
-.footerLink:hover {
-  color: #4a5160;
-}
-
-.footerDocs {
-  font-size: 13px;
-  color: #98a0af;
-  transition: color 120ms ease;
-}
-
-.footerDocs:hover {
-  color: #4a5160;
 }

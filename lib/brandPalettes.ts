@@ -11,6 +11,7 @@
 
 import { useSyncExternalStore } from 'react';
 import {
+  DEFAULT_PALETTE_ID,
   findLibraryPalette,
   isLibraryPaletteId,
   type LibraryPalette,
@@ -31,7 +32,11 @@ export type BrandPalette = {
 
 export type BrandPaletteState = {
   palettes: BrandPalette[];
-  /** null = artwork default palettes. */
+  /**
+   * The palette previewed across the gallery. `null` is not "each artwork's own
+   * colors" anymore — the site always themes previews with a shared palette, so
+   * a null id resolves to DEFAULT_PALETTE_ID (see resolveActivePalette).
+   */
   activePaletteId: string | null;
 };
 
@@ -45,7 +50,7 @@ const HEX_COLOR = /^#(?:[0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})$/i;
 
 const DEFAULT_STATE: BrandPaletteState = {
   palettes: [],
-  activePaletteId: null,
+  activePaletteId: DEFAULT_PALETTE_ID,
 };
 
 export const isValidPaletteColor = (value: unknown): value is string =>
@@ -235,7 +240,10 @@ export const deletePalette = (id: string) => {
   writeState({
     ...state,
     palettes: state.palettes.filter((palette) => palette.id !== id),
-    activePaletteId: state.activePaletteId === id ? null : state.activePaletteId,
+    // Deleting the active palette reverts previews to the shared default rather
+    // than to a per-artwork look (which the gallery no longer has).
+    activePaletteId:
+      state.activePaletteId === id ? DEFAULT_PALETTE_ID : state.activePaletteId,
   });
 };
 
@@ -263,20 +271,22 @@ const libraryAsBrand = (library: LibraryPalette): BrandPalette => ({
 
 /**
  * The active palette resolved from the saved palettes first, then the curated
- * library — or null when the artwork's own colors apply.
+ * library. A null/unknown active id falls back to the shared default library
+ * palette, so the gallery is always themed by one palette (never each artwork's
+ * own colors). Returns null only in the impossible case that the default id has
+ * been dropped from the library.
  */
 export const resolveActivePalette = (
   state: BrandPaletteState
 ): BrandPalette | null => {
-  if (state.activePaletteId === null) return null;
+  const activeId = state.activePaletteId ?? DEFAULT_PALETTE_ID;
 
-  const saved = state.palettes.find(
-    (palette) => palette.id === state.activePaletteId
-  );
+  const saved = state.palettes.find((palette) => palette.id === activeId);
 
   if (saved) return saved;
 
-  const library = findLibraryPalette(state.activePaletteId);
+  const library =
+    findLibraryPalette(activeId) ?? findLibraryPalette(DEFAULT_PALETTE_ID);
 
   return library ? libraryAsBrand(library) : null;
 };
