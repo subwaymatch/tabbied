@@ -1,11 +1,23 @@
 /* The gallery's white palette rail (3a): logo, search, one merged palette list
    (custom then library), and a footer. Seamless white — no divider, no tint.
    Headings, rows and buttons share one left edge (no horizontal padding). */
+/* Fixed full-height rail: it stays put while the design grid scrolls, so the
+   GitHub / Docs footer stays pinned to the bottom of the window. The palette
+   list (or the palette browser) takes the remaining space and scrolls inside.
+   The main column offsets itself by 264px (see SelectArtwork.module.css). */
 .sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 264px;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   padding: 28px 24px 24px 32px;
   background: #ffffff;
+  overflow: hidden;
 }
 
 .logo {
@@ -54,10 +66,14 @@
 }
 
 .section {
+  flex: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   gap: 4px;
   margin-top: 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .sectionHeader {
@@ -157,12 +173,28 @@
 /* ---- Footer ---- */
 
 .footer {
-  margin-top: auto;
+  flex: none;
   padding-top: 24px;
   display: flex;
   align-items: center;
   gap: 14px;
   color: #98a0af;
+}
+
+/* Below the two-column breakpoint the rail stacks above the grid, so it must
+   flow normally (not a fixed full-height column). */
+@media (max-width: 991.98px) {
+  .sidebar {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+  }
+
+  .section {
+    flex: none;
+    overflow: visible;
+  }
 }
 
 .footerLink {

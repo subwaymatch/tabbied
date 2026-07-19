@@ -11,9 +11,10 @@
   flex: 1;
 }
 
-/* In the editor panel it owns the full panel height. */
+/* In the editor panel it fills the flex column and scrolls its own list. */
 .panel {
-  height: 100%;
+  flex: 1;
+  min-height: 0;
 }
 
 .head {

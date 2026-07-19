@@ -68,7 +68,7 @@ export default function PaletteEditorDialog({
   onClose,
   onSave,
   onDelete,
-  onShuffleOrder,
+  onRandomize,
   setDraftColor,
 }: {
   draft: PaletteDraft | null;
@@ -77,7 +77,7 @@ export default function PaletteEditorDialog({
   onClose: () => void;
   onSave: () => void;
   onDelete: () => void;
-  onShuffleOrder: () => void;
+  onRandomize: () => void;
   setDraftColor: (index: number, value: string) => void;
 }) {
   const nameInputRef = useRef<HTMLInputElement>(null);
@@ -119,9 +119,9 @@ export default function PaletteEditorDialog({
             <button
               type="button"
               className={styles.shuffleButton}
-              onClick={onShuffleOrder}
-              aria-label="Shuffle color order"
-              title="Shuffle color order"
+              onClick={onRandomize}
+              aria-label="Randomize colors"
+              title="Randomize colors"
             >
               <Shuffle size={17} />
             </button>

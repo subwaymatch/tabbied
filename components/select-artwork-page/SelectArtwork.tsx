@@ -287,7 +287,7 @@ export default function SelectArtwork({ gallery }: { gallery: GalleryItem[] }) {
         onClose={editor.closeEditor}
         onSave={editor.saveDraft}
         onDelete={editor.removeDraftPalette}
-        onShuffleOrder={editor.shuffleDraftOrder}
+        onRandomize={editor.randomizeDraft}
         setDraftColor={editor.setDraftColor}
       />
     </main>

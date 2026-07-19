@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState, type UIEvent } from 'react';
+import { useEffect, useMemo, useRef, useState, type UIEvent } from 'react';
 import { Search, X } from 'lucide-react';
 import type { BrandPalette } from 'lib/brandPalettes';
 import type { LibraryPalette } from 'lib/paletteLibrary';
@@ -46,6 +46,7 @@ export default function PaletteBrowser({
 }) {
   const [query, setQuery] = useState('');
   const [count, setCount] = useState(PAGE);
+  const listRef = useRef<HTMLDivElement>(null);
 
   const merged = useMemo<MergedEntry[]>(() => {
     const q = query.trim().toLowerCase();
@@ -63,6 +64,16 @@ export default function PaletteBrowser({
 
   const shown = merged.slice(0, count);
   const hasMore = shown.length < merged.length;
+
+  // Keep loading until the list overflows its container, so it always fills the
+  // available height and stays scrollable (otherwise the initial batch might fit
+  // on a tall viewport, leaving nothing to scroll and no way to reach the rest).
+  useEffect(() => {
+    const el = listRef.current;
+    if (el && hasMore && el.scrollHeight <= el.clientHeight) {
+      setCount((c) => c + PAGE);
+    }
+  }, [count, hasMore, merged.length]);
 
   const onScroll = (event: UIEvent<HTMLDivElement>) => {
     const el = event.currentTarget;
@@ -111,7 +122,7 @@ export default function PaletteBrowser({
         </label>
       </div>
 
-      <div className={styles.list} onScroll={onScroll}>
+      <div ref={listRef} className={styles.list} onScroll={onScroll}>
         {shown.map((entry) => {
           const { kind, palette } = entry;
           const active = palette.id === activeId;

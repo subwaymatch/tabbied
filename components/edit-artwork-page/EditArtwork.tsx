@@ -842,7 +842,7 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
               onClose={() => setBrowserOpen(false)}
             />
           ) : (
-          <>
+          <div className={styles.panelScroll}>
           {palette.length > 0 && (
             <section className={styles.group}>
               <h2 className={styles.groupTitle}>Colors</h2>
@@ -1069,7 +1069,7 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
               )}
             </section>
           )}
-          </>
+          </div>
           )}
         </div>
       </main>
@@ -1081,7 +1081,7 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
         onClose={editor.closeEditor}
         onSave={editor.saveDraft}
         onDelete={editor.removeDraftPalette}
-        onShuffleOrder={editor.shuffleDraftOrder}
+        onRandomize={editor.randomizeDraft}
         setDraftColor={editor.setDraftColor}
       />
     </div>

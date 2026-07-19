@@ -66,6 +66,16 @@
   width: 400px;
   border-left: 1px solid #eceef1;
   background: #fafbfc;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* The grouped inspector content scrolls within the panel; when the palette
+   browser is open it fills the panel and scrolls its own list instead. */
+.panelScroll {
+  flex: 1;
+  min-height: 0;
   overflow-y: auto;
 }
 
@@ -535,5 +545,11 @@
     width: auto;
     border-left: none;
     border-top: 1px solid #eceef1;
+    display: block;
+    overflow: visible;
+  }
+
+  .panelScroll {
+    overflow: visible;
   }
 }

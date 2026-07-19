@@ -69,6 +69,65 @@ test.describe('Tabbied site', () => {
     await expect(firstCard).toHaveText(beforeName ?? '');
   });
 
+  test('the gallery sidebar stays fixed while the grid scrolls', async ({
+    page,
+  }) => {
+    await page.goto('/artworks');
+    await page
+      .locator('main css-doodle')
+      .first()
+      .waitFor({ state: 'attached', timeout: 15000 });
+
+    // The footer (GitHub / Docs) is pinned to the window, so scrolling the grid
+    // leaves it in place.
+    const footer = page.locator('aside a[aria-label="Tabbied on GitHub"]');
+    const before = await footer.boundingBox();
+    await page.evaluate(() => window.scrollTo(0, 1400));
+    await page.waitForTimeout(300);
+    const after = await footer.boundingBox();
+
+    expect(Math.abs((after?.y ?? 0) - (before?.y ?? 0))).toBeLessThan(4);
+  });
+
+  test('the palette browser fills the rail with a scrollable, infinite list', async ({
+    page,
+  }) => {
+    await page.goto('/artworks');
+    await page
+      .locator('main css-doodle')
+      .first()
+      .waitFor({ state: 'attached', timeout: 15000 });
+
+    await page.getByRole('button', { name: /Browse all palettes/ }).click();
+
+    // The list is a bounded scroll container that overflows its box (it auto-
+    // fills the available height).
+    const findScroller = () =>
+      page.evaluate(() => {
+        const el = [...document.querySelectorAll('aside *')].find(
+          (e) =>
+            getComputedStyle(e).overflowY === 'auto' &&
+            e.scrollHeight > e.clientHeight + 8
+        );
+        return el ? (el as HTMLElement).querySelectorAll('button').length : 0;
+      });
+
+    const rows0 = await findScroller();
+    expect(rows0).toBeGreaterThan(0);
+
+    // Scrolling to the bottom loads more rows (infinite scroll).
+    await page.evaluate(() => {
+      const el = [...document.querySelectorAll('aside *')].find(
+        (e) =>
+          getComputedStyle(e).overflowY === 'auto' &&
+          e.scrollHeight > e.clientHeight + 8
+      );
+      if (el) (el as HTMLElement).scrollTop = (el as HTMLElement).scrollHeight;
+    });
+
+    await expect.poll(findScroller).toBeGreaterThan(rows0);
+  });
+
   test('"Back to gallery" returns to the previous scroll position', async ({
     page,
   }) => {

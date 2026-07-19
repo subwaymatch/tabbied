@@ -1,15 +1,17 @@
 /* Gallery (3a): a two-column layout — the white palette rail and the design
    grid — both plain white, with no divider or tint between them. */
 .gallery {
-  display: grid;
-  grid-template-columns: 264px 1fr;
+  position: relative;
   background: #ffffff;
   min-height: 100vh;
   min-height: 100dvh;
 }
 
+/* The rail is fixed to the viewport (see GalleryRail.module.css), so the main
+   column is offset by its width and scrolls with the document. */
 .mainColumn {
   min-width: 0;
+  margin-left: 264px;
   padding: 26px 32px 40px 28px;
 }
 
@@ -171,11 +173,11 @@
 /* Below the two-column breakpoint the rail stacks above the grid. */
 @media (max-width: 991.98px) {
   .gallery {
-    grid-template-columns: 1fr;
     min-height: 0;
   }
 
   .mainColumn {
+    margin-left: 0;
     padding: 20px 20px 40px;
   }
 }
