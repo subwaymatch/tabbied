@@ -4,7 +4,6 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import type { GalleryItem } from 'lib/artwork';
 import {
-  copyLibraryPalette,
   deletePalette,
   getBrandPaletteState,
   setActivePalette,
@@ -13,7 +12,6 @@ import {
 } from 'lib/brandPalettes';
 import { PALETTE_LIBRARY, type LibraryPalette } from 'lib/paletteLibrary';
 import { usePaletteEditor } from 'components/palette/usePaletteEditor';
-import { usePaletteImportExport } from 'components/palette/usePaletteImportExport';
 import { useConfirmDelete } from 'components/palette/useConfirmDelete';
 import PaletteEditorDialog from 'components/palette/PaletteEditorDialog';
 import GalleryRail from './GalleryRail';
@@ -21,21 +19,20 @@ import GalleryCard from './GalleryCard';
 import GalleryScrollRestorer from './GalleryScrollRestorer';
 import styles from './SelectArtwork.module.css';
 
-const PER_PAGE = 12;
-const ROWS_PER_SECTION = 4;
+const PER_PAGE = 20;
+const RAIL_PER_PAGE = 12;
 
 // Wait after the last palette pick before recoloring the grid, so rapidly
-// clicking through palettes recolors the (up to 12) thumbnails once, not once
-// per click (the rail highlight still updates instantly).
+// clicking through palettes recolors the thumbnails once, not once per click.
 const APPLY_DEBOUNCE_MS = 150;
 
-// The page numbers to render: first, last, and the current page ±1, with `null`
+// Page numbers to render: the first two, last two, and current ±2, with `null`
 // standing in for a collapsed range (an ellipsis).
 const paginationWindow = (page: number, pageCount: number): (number | null)[] => {
   const nums: number[] = [];
 
   for (let p = 1; p <= pageCount; p += 1) {
-    if (p === 1 || p === pageCount || Math.abs(p - page) <= 1) nums.push(p);
+    if (p <= 2 || p > pageCount - 2 || Math.abs(p - page) <= 2) nums.push(p);
   }
 
   const out: (number | null)[] = [];
@@ -55,18 +52,50 @@ export default function SelectArtwork({ gallery }: { gallery: GalleryItem[] }) {
   const savedPalettes = brandState.palettes;
 
   const [search, setSearch] = useState('');
+  // The gallery page lives in the URL (?page=N) so it's shareable, survives a
+  // refresh, and works with back/forward. It's read from the URL client-side
+  // (not useSearchParams) so the page keeps its server-rendered first paint
+  // instead of deopting to client-only rendering. Starts at 1 for SSR.
   const [page, setPage] = useState(1);
-  const [savedPage, setSavedPage] = useState(0);
-  const [libPage, setLibPage] = useState(0);
+  const [palettesPage, setPalettesPage] = useState(0);
+  const [browserOpen, setBrowserOpen] = useState(false);
 
-  // The rail's highlighted palette. Kept local so it updates instantly on click,
+  // Read the page from the URL on mount and on back/forward.
+  useEffect(() => {
+    const readPage = () => {
+      const raw = new URLSearchParams(window.location.search).get('page');
+      const n = raw ? parseInt(raw, 10) : 1;
+      setPage(Number.isFinite(n) && n >= 1 ? n : 1);
+    };
+
+    readPage();
+    window.addEventListener('popstate', readPage);
+
+    return () => window.removeEventListener('popstate', readPage);
+  }, []);
+
+  // Write ?page=N to the URL (dropping it for page 1). replace: for changes that
+  // aren't a deliberate page navigation (e.g. a search resetting to page 1).
+  const writePageToUrl = (nextPage: number, replace = false) => {
+    if (typeof window === 'undefined') return;
+
+    const params = new URLSearchParams(window.location.search);
+    if (nextPage <= 1) params.delete('page');
+    else params.set('page', String(nextPage));
+
+    const qs = params.toString();
+    const url = qs ? `${window.location.pathname}?${qs}` : window.location.pathname;
+
+    if (replace) window.history.replaceState(null, '', url);
+    else window.history.pushState(null, '', url);
+  };
+
+  // The rail's highlighted palette. Local so it updates instantly on click,
   // while the applied palette (which recolors the grid, read from the store by
   // each card) is written after a short debounce.
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const applyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Follow the store's active palette (initial hydration, cross-tab changes, or
-  // a selection made in the editor), unless a pick is mid-debounce.
   useEffect(() => {
     if (applyTimer.current) return;
     setSelectedId(brandState.activePaletteId);
@@ -100,16 +129,14 @@ export default function SelectArtwork({ gallery }: { gallery: GalleryItem[] }) {
 
   const editor = usePaletteEditor({
     onSaved: (palette) => {
+      // Saving/creating jumps the rail to the palette's page and applies it.
       const state = getBrandPaletteState();
       const index = state.palettes.findIndex((p) => p.id === palette.id);
 
-      if (index >= 0) setSavedPage(Math.floor(index / ROWS_PER_SECTION));
+      if (index >= 0) setPalettesPage(Math.floor(index / RAIL_PER_PAGE));
       applyPalette(palette.id, true);
     },
   });
-
-  const { status, exportPalettes, openFilePicker, fileInput } =
-    usePaletteImportExport();
 
   const confirmDelete = useConfirmDelete((id) => {
     deletePalette(id);
@@ -133,35 +160,22 @@ export default function SelectArtwork({ gallery }: { gallery: GalleryItem[] }) {
   );
   const pages = paginationWindow(clampedPage, pageCount);
 
+  const goToPage = (nextPage: number) => {
+    const clamped = Math.min(Math.max(1, nextPage), pageCount);
+    setPage(clamped);
+    writePageToUrl(clamped);
+  };
+
   const onSearchChange = (value: string) => {
     setSearch(value);
+    // A new search resets to page 1 — clear the page param (not a page nav).
     setPage(1);
+    writePageToUrl(1, true);
   };
 
-  const onSelectSaved = (palette: BrandPalette) => {
-    // Clicking the already-active palette opens it for editing (matching the
-    // editor's chips); otherwise it selects and applies it.
-    if (selectedId === palette.id) {
-      editor.openEditor(palette);
-      return;
-    }
-
-    applyPalette(palette.id);
-  };
-
-  const onSelectLibrary = (palette: LibraryPalette) => {
-    // A curated palette is read-only, so clicking the active one toggles back
-    // to each design's own colors.
-    applyPalette(selectedId === palette.id ? null : palette.id);
-  };
-
-  const onCopyLibrary = (palette: LibraryPalette) => {
-    const preCopyCount = getBrandPaletteState().palettes.length;
-    const copy = copyLibraryPalette(palette);
-
-    setSavedPage(Math.floor(preCopyCount / ROWS_PER_SECTION));
-    applyPalette(copy.id, true);
-  };
+  const onEditCustom = (palette: BrandPalette) => editor.openEditor(palette);
+  const onEditLibrary = (palette: LibraryPalette) =>
+    editor.openEditorAsCopy(palette);
 
   const hasResults = filtered.length > 0;
 
@@ -172,22 +186,20 @@ export default function SelectArtwork({ gallery }: { gallery: GalleryItem[] }) {
       <GalleryRail
         search={search}
         onSearchChange={onSearchChange}
-        onImport={openFilePicker}
-        onExport={exportPalettes}
-        fileInput={fileInput}
-        savedPalettes={savedPalettes}
+        palettes={savedPalettes}
         library={PALETTE_LIBRARY}
         selectedId={selectedId}
-        savedPage={savedPage}
-        onSavedPageChange={setSavedPage}
-        libPage={libPage}
-        onLibPageChange={setLibPage}
-        onSelectSaved={onSelectSaved}
-        onDeleteSaved={confirmDelete.request}
-        pendingDeleteId={confirmDelete.pendingId}
-        onSelectLibrary={onSelectLibrary}
-        onCopyLibrary={onCopyLibrary}
+        palettesPage={palettesPage}
+        onPalettesPageChange={setPalettesPage}
+        onApply={(id) => applyPalette(id)}
+        onEditCustom={onEditCustom}
+        onEditLibrary={onEditLibrary}
+        onDelete={confirmDelete.request}
+        deleteConfirmingId={confirmDelete.pendingId}
         onNewPalette={() => editor.openEditor()}
+        browserOpen={browserOpen}
+        onOpenBrowser={() => setBrowserOpen(true)}
+        onCloseBrowser={() => setBrowserOpen(false)}
       />
 
       <div className={styles.mainColumn}>
@@ -195,19 +207,6 @@ export default function SelectArtwork({ gallery }: { gallery: GalleryItem[] }) {
           <h1 className={styles.title}>Pick a design</h1>
           <span className={styles.count}>{filtered.length} designs</span>
         </div>
-
-        {status && (
-          <p
-            className={
-              status.error
-                ? `${styles.status} ${styles.statusError}`
-                : styles.status
-            }
-            role="status"
-          >
-            {status.message}
-          </p>
-        )}
 
         {hasResults ? (
           <>
@@ -222,7 +221,7 @@ export default function SelectArtwork({ gallery }: { gallery: GalleryItem[] }) {
                 <button
                   type="button"
                   className={styles.pageArrow}
-                  onClick={() => setPage(Math.max(1, clampedPage - 1))}
+                  onClick={() => goToPage(clampedPage - 1)}
                   disabled={clampedPage <= 1}
                   aria-label="Previous page"
                 >
@@ -247,7 +246,7 @@ export default function SelectArtwork({ gallery }: { gallery: GalleryItem[] }) {
                           ? `${styles.pageNumber} ${styles.pageNumberCurrent}`
                           : styles.pageNumber
                       }
-                      onClick={() => setPage(p)}
+                      onClick={() => goToPage(p)}
                       aria-current={p === clampedPage ? 'page' : undefined}
                     >
                       {p}
@@ -258,7 +257,7 @@ export default function SelectArtwork({ gallery }: { gallery: GalleryItem[] }) {
                 <button
                   type="button"
                   className={styles.pageArrow}
-                  onClick={() => setPage(Math.min(pageCount, clampedPage + 1))}
+                  onClick={() => goToPage(clampedPage + 1)}
                   disabled={clampedPage >= pageCount}
                   aria-label="Next page"
                 >

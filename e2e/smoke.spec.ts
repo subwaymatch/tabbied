@@ -45,6 +45,30 @@ test.describe('Tabbied site', () => {
     ).toBeVisible({ timeout: 15000 });
   });
 
+  test('gallery pagination is reflected in the URL and survives reload', async ({
+    page,
+  }) => {
+    await page.goto('/artworks');
+
+    // Jump to page 2 — the URL gains ?page=2 and the grid shows a new design.
+    const firstCard = page.locator('main a[href^="/artworks/"] h3').first();
+    const beforeName = await firstCard.textContent();
+    await page.getByRole('button', { name: '2', exact: true }).click();
+    await expect(page).toHaveURL(/[?&]page=2/);
+    await expect(firstCard).not.toHaveText(beforeName ?? '');
+    const page2Name = await firstCard.textContent();
+
+    // A reload lands directly on page 2 (the URL is the source of truth).
+    await page.reload();
+    await expect(page).toHaveURL(/[?&]page=2/);
+    await expect(firstCard).toHaveText(page2Name ?? '');
+
+    // Back returns to page 1 (the page param is dropped).
+    await page.goBack();
+    await expect(page).toHaveURL(/\/artworks\/?$/);
+    await expect(firstCard).toHaveText(beforeName ?? '');
+  });
+
   test('"Back to gallery" returns to the previous scroll position', async ({
     page,
   }) => {

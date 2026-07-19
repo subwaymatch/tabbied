@@ -355,3 +355,46 @@
   outline: 2px solid var(--blue-medium);
   outline-offset: 2px;
 }
+
+/* On phones the dialog docks to the bottom as a sheet (7c): a grab handle up
+   top, the form scrolls, and the Cancel / Save bar sticks to the bottom. */
+@media (max-width: 640px) {
+  .dialogPopup {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: none;
+    width: 100%;
+    max-width: 100%;
+    max-height: 92dvh;
+    padding: 6px 20px 0;
+    border-radius: 16px 16px 0 0;
+    transition: transform 220ms ease;
+  }
+
+  .dialogPopup[data-starting-style],
+  .dialogPopup[data-ending-style] {
+    transform: translateY(100%);
+  }
+
+  .dialogPopup::before {
+    content: '';
+    display: block;
+    width: 36px;
+    height: 4px;
+    margin: 8px auto 14px;
+    border-radius: 999px;
+    background: #e3e6ea;
+  }
+
+  .dialogActions {
+    position: sticky;
+    bottom: 0;
+    flex-wrap: wrap;
+    margin: 24px -20px 0;
+    padding: 12px 20px 16px;
+    background: #ffffff;
+    border-top: 1px solid #eceef1;
+  }
+}

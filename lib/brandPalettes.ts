@@ -281,21 +281,6 @@ export const resolveActivePalette = (
   return library ? libraryAsBrand(library) : null;
 };
 
-/**
- * Save a fresh, editable copy of a curated library palette into Your Palettes
- * (a new id, so it's independent of the library original) and return it.
- */
-export const copyLibraryPalette = (library: LibraryPalette): BrandPalette => {
-  const copy: BrandPalette = {
-    id: createPaletteId(),
-    name: library.name,
-    colors: [...library.colors],
-  };
-
-  upsertPalette(copy);
-
-  return copy;
-};
 
 // ---------------------------------------------------------------------------
 // JSON import / export

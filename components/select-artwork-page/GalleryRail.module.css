@@ -1,6 +1,6 @@
-/* The gallery's white palette rail (3a): logo, search, palette management
-   (Your Palettes + Palette Library) and a footer. Seamless white — no divider,
-   no tint — so it reads as one surface with the grid beside it. */
+/* The gallery's white palette rail (3a): logo, search, one merged palette list
+   (custom then library), and a footer. Seamless white — no divider, no tint.
+   Headings, rows and buttons share one left edge (no horizontal padding). */
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -41,46 +41,16 @@
   outline: none;
 }
 
-/* "Preview colors" header with the import/export actions. */
 .previewHeader {
   display: flex;
   align-items: center;
-  gap: 4px;
   margin-top: 32px;
 }
 
 .previewLabel {
-  display: inline-flex;
-  align-items: center;
-  margin-right: auto;
   font-size: 14px;
   font-weight: 600;
   color: #646d7b;
-}
-
-.iconButton {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  padding: 0;
-  border: none;
-  border-radius: 6px;
-  background: transparent;
-  color: #b6bcc7;
-  cursor: pointer;
-  transition: color 120ms ease, background-color 120ms ease;
-}
-
-.iconButton:hover {
-  color: #4a5160;
-  background: #f8f9fa;
-}
-
-.iconButton:focus-visible {
-  outline: 2px solid var(--blue-medium);
-  outline-offset: 2px;
 }
 
 .section {
@@ -96,129 +66,42 @@
   gap: 2px;
 }
 
-.libraryHeader {
-  margin-top: 24px;
-}
-
 .sectionLabel {
   font-size: 14px;
   color: #98a0af;
 }
 
-/* ---- Palette rows (saved + library) ---- */
-
-.row {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  padding: 8px 10px;
-  border: none;
-  border-radius: 6px;
-  background: transparent;
-  cursor: pointer;
-  text-align: left;
-  transition: background-color 120ms ease;
-}
-
-.row:hover {
-  background: #f8f9fa;
-}
-
-.row:focus-visible {
-  outline: 2px solid var(--blue-medium);
-  outline-offset: -2px;
-}
-
-.rowName {
-  flex: 1;
-  min-width: 0;
-  font-size: 13px;
-  font-weight: 400;
-  color: #7d8594;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  transition: color 120ms ease;
-}
-
-.rowNameActive {
-  color: #232529;
-}
-
-.rowCheck {
-  display: inline-flex;
-  color: #ff3d8b;
-}
-
-.rowDelete,
-.rowCopy {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 22px;
-  height: 22px;
-  flex: none;
-  border-radius: 50%;
-  color: #c9cfd8;
-  background: transparent;
-  cursor: pointer;
-  transition: color 120ms ease, background-color 120ms ease;
-}
-
-.rowDelete:hover {
-  color: #ed005f;
-}
-
-.rowDeleteConfirm,
-.rowDeleteConfirm:hover {
-  color: #ffffff;
-  background: #ed005f;
-}
-
-.rowCopy {
-  border-radius: 4px;
-}
-
-.rowCopy:hover {
-  color: #4a5160;
-}
-
-.rowDelete:focus-visible,
-.rowCopy:focus-visible {
-  outline: 2px solid var(--blue-medium);
-  outline-offset: 1px;
-}
-
 .emptyNote {
-  padding: 4px 10px;
+  padding: 4px 0;
   font-size: 13px;
   line-height: 1.5;
   color: #98a0af;
 }
 
-/* "+ New Palette" — a placeholder strip of empty cells + label. */
+/* "+ New Palette" — placeholder strip of empty cells + label. Shares the left
+   edge; hover darkens the label only (no wash). */
 .newPalette {
   display: flex;
   align-items: center;
   gap: 9px;
   margin-top: 18px;
-  padding: 8px 10px;
+  padding: 8px 0;
   border: none;
-  border-radius: 6px;
   background: transparent;
+  font-family: var(--font-sans-serif);
   font-size: 13px;
   color: #646d7b;
   cursor: pointer;
   text-align: left;
-  transition: background-color 120ms ease, color 120ms ease;
+  transition: color 120ms ease;
 }
 
 .newPalette:hover {
-  background: #f8f9fa;
   color: #232529;
 }
 
-.newPalette:focus-visible {
+.newPalette:focus-visible,
+.browseAll:focus-visible {
   outline: 2px solid var(--blue-medium);
   outline-offset: -2px;
 }
@@ -247,6 +130,28 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.browseAll {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  align-self: flex-start;
+  margin-top: 8px;
+  padding: 6px 0;
+  border: none;
+  background: transparent;
+  font-family: var(--font-sans-serif);
+  font-size: 13px;
+  color: #646d7b;
+  cursor: pointer;
+  text-align: left;
+  transition: color 120ms ease, transform 120ms ease;
+}
+
+.browseAll:hover {
+  color: #232529;
+  transform: translateX(2px);
 }
 
 /* ---- Footer ---- */

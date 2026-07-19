@@ -286,30 +286,41 @@
   margin-top: 8px;
 }
 
-.newChip {
+/* "+ New Palette" (left) and "Browse all palettes ›" (right) under the chips. */
+.chipsActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.chipsAction {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 11px;
-  border: 1px solid #e3e6ea;
-  border-radius: 16px;
+  padding: 6px 0;
+  border: none;
   background: transparent;
   font-family: var(--font-sans-serif);
   font-size: 13px;
   color: #646d7b;
   cursor: pointer;
   white-space: nowrap;
-  transition: color 120ms ease, border-color 120ms ease;
+  transition: color 120ms ease;
 }
 
-.newChip:hover {
+.chipsAction:hover {
   color: #232529;
-  border-color: #98a0af;
 }
 
-.newChip:focus-visible {
+.chipsAction:focus-visible {
   outline: 2px solid var(--blue-medium);
   outline-offset: 2px;
+}
+
+.browseAll {
+  margin-left: auto;
 }
 
 /* ---- Layout group ---- */

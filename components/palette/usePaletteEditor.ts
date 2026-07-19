@@ -4,11 +4,13 @@ import { useEffect, useState } from 'react';
 import {
   createPaletteId,
   deletePalette,
+  getBrandPaletteState,
   isValidPaletteColor,
   setDraftPreview,
   upsertPalette,
   type BrandPalette,
 } from 'lib/brandPalettes';
+import type { LibraryPalette } from 'lib/paletteLibrary';
 
 // A palette being created or edited in the dialog. Colors are background
 // (color0) first, then the inks; `transparent` is tracked separately so the
@@ -42,6 +44,32 @@ const newDraft = (): PaletteDraft => ({
   id: createPaletteId(),
   name: '',
   colors: [...STARTER_COLORS],
+  transparent: false,
+  existing: false,
+});
+
+// A unique "<Name> Custom" (then " 2", " 3", …) not already used by a saved
+// palette — the name a forked copy of a library palette gets.
+const uniqueCopyName = (baseName: string): string => {
+  const saved = getBrandPaletteState().palettes;
+  const root = `${baseName} Custom`.trim();
+  const taken = (name: string) =>
+    saved.some((p) => (p.name || '').toLowerCase() === name.toLowerCase());
+
+  if (!taken(root)) return root;
+
+  let index = 2;
+  while (taken(`${root} ${index}`)) index += 1;
+
+  return `${root} ${index}`;
+};
+
+// A draft that forks a read-only library palette into a NEW custom palette:
+// editing the library never mutates it. The dialog opens as "New palette".
+const copyDraftFromLibrary = (palette: LibraryPalette): PaletteDraft => ({
+  id: createPaletteId(),
+  name: uniqueCopyName(palette.name),
+  colors: [...palette.colors],
   transparent: false,
   existing: false,
 });
@@ -94,6 +122,13 @@ export function usePaletteEditor({
   const openEditor = (palette?: BrandPalette) => {
     setDraftError(null);
     setDraft(palette ? draftFromPalette(palette) : newDraft());
+  };
+
+  // Edit a library palette as a copy: opens the dialog pre-filled as a new
+  // custom palette ("<Name> Custom"), so saving never touches the library.
+  const openEditorAsCopy = (palette: LibraryPalette) => {
+    setDraftError(null);
+    setDraft(copyDraftFromLibrary(palette));
   };
 
   const closeEditor = () => setDraft(null);
@@ -162,6 +197,7 @@ export function usePaletteEditor({
     setDraft,
     draftError,
     openEditor,
+    openEditorAsCopy,
     closeEditor,
     setDraftColor,
     shuffleDraftOrder,

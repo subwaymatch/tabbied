@@ -1,0 +1,90 @@
+/* Merged palette-list row: shares one left edge with the headings and buttons
+   around it (no horizontal padding), and nudges 2px on hover with no wash. */
+.row {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  transition: transform 120ms ease;
+}
+
+.row:hover {
+  transform: translateX(2px);
+}
+
+.row:focus-visible {
+  outline: 2px solid var(--blue-medium);
+  outline-offset: -2px;
+}
+
+.name {
+  flex: 1;
+  min-width: 0;
+  font-size: 13px;
+  font-weight: 400;
+  color: #7d8594;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 120ms ease;
+}
+
+.nameActive {
+  color: #232529;
+}
+
+.meta {
+  flex: none;
+  font-size: 13px;
+  color: #c9cfd8;
+}
+
+.check {
+  display: inline-flex;
+  color: #ff3d8b;
+}
+
+.edit,
+.delete {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  flex: none;
+  border-radius: 4px;
+  color: #c9cfd8;
+  background: transparent;
+  cursor: pointer;
+  transition: color 120ms ease, background-color 120ms ease;
+}
+
+.edit:hover {
+  color: #4a5160;
+}
+
+.delete {
+  border-radius: 50%;
+}
+
+.delete:hover {
+  color: #ed005f;
+}
+
+.deleteConfirm,
+.deleteConfirm:hover {
+  color: #ffffff;
+  background: #ed005f;
+}
+
+.edit:focus-visible,
+.delete:focus-visible {
+  outline: 2px solid var(--blue-medium);
+  outline-offset: 1px;
+}

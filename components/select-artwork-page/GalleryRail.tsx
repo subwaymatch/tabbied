@@ -1,17 +1,17 @@
 'use client';
 
-import type { ReactNode } from 'react';
+import { useMemo } from 'react';
 import Link from 'next/link';
-import { Check, Download, Plus, Search, Upload, X } from 'lucide-react';
+import { ChevronRight, Search } from 'lucide-react';
 import LogoDoodle from 'components/main-page/LogoDoodle';
-import PaletteStrip from 'components/palette/PaletteStrip';
+import PaletteRow from 'components/palette/PaletteRow';
+import PaletteBrowser from 'components/palette/PaletteBrowser';
 import SectionPager from 'components/palette/SectionPager';
 import type { BrandPalette } from 'lib/brandPalettes';
 import type { LibraryPalette } from 'lib/paletteLibrary';
 import styles from './GalleryRail.module.css';
 
-// lucide-react dropped its GitHub brand glyph, so the mark is inlined (matching
-// the shared site header).
+// lucide-react dropped its GitHub brand glyph, so the mark is inlined.
 function GithubIcon({ size = 18 }: { size?: number }) {
   return (
     <svg
@@ -26,60 +26,55 @@ function GithubIcon({ size = 18 }: { size?: number }) {
   );
 }
 
-const PER_PAGE = 4;
+const PER_PAGE = 12;
 
 export default function GalleryRail({
   search,
   onSearchChange,
-  onImport,
-  onExport,
-  fileInput,
-  savedPalettes,
+  palettes,
   library,
   selectedId,
-  savedPage,
-  onSavedPageChange,
-  libPage,
-  onLibPageChange,
-  onSelectSaved,
-  onDeleteSaved,
-  pendingDeleteId,
-  onSelectLibrary,
-  onCopyLibrary,
+  palettesPage,
+  onPalettesPageChange,
+  onApply,
+  onEditCustom,
+  onEditLibrary,
+  onDelete,
+  deleteConfirmingId,
   onNewPalette,
+  browserOpen,
+  onOpenBrowser,
+  onCloseBrowser,
 }: {
   search: string;
   onSearchChange: (value: string) => void;
-  onImport: () => void;
-  onExport: () => void;
-  fileInput: ReactNode;
-  savedPalettes: BrandPalette[];
+  palettes: BrandPalette[];
   library: LibraryPalette[];
   selectedId: string | null;
-  savedPage: number;
-  onSavedPageChange: (page: number) => void;
-  libPage: number;
-  onLibPageChange: (page: number) => void;
-  onSelectSaved: (palette: BrandPalette) => void;
-  onDeleteSaved: (id: string) => void;
-  pendingDeleteId: string | null;
-  onSelectLibrary: (palette: LibraryPalette) => void;
-  onCopyLibrary: (palette: LibraryPalette) => void;
+  palettesPage: number;
+  onPalettesPageChange: (page: number) => void;
+  onApply: (id: string) => void;
+  onEditCustom: (palette: BrandPalette) => void;
+  onEditLibrary: (palette: LibraryPalette) => void;
+  onDelete: (id: string) => void;
+  deleteConfirmingId: string | null;
   onNewPalette: () => void;
+  browserOpen: boolean;
+  onOpenBrowser: () => void;
+  onCloseBrowser: () => void;
 }) {
-  const savedPageCount = Math.max(1, Math.ceil(savedPalettes.length / PER_PAGE));
-  const clampedSavedPage = Math.min(savedPage, savedPageCount - 1);
-  const savedRows = savedPalettes.slice(
-    clampedSavedPage * PER_PAGE,
-    clampedSavedPage * PER_PAGE + PER_PAGE
+  // One merged list: custom palettes first, then the read-only library.
+  const merged = useMemo(
+    () => [
+      ...palettes.map((palette) => ({ kind: 'custom' as const, palette })),
+      ...library.map((palette) => ({ kind: 'library' as const, palette })),
+    ],
+    [palettes, library]
   );
 
-  const libPageCount = Math.max(1, Math.ceil(library.length / PER_PAGE));
-  const clampedLibPage = Math.min(libPage, libPageCount - 1);
-  const libRows = library.slice(
-    clampedLibPage * PER_PAGE,
-    clampedLibPage * PER_PAGE + PER_PAGE
-  );
+  const pageCount = Math.max(1, Math.ceil(merged.length / PER_PAGE));
+  const clampedPage = Math.min(palettesPage, pageCount - 1);
+  const rows = merged.slice(clampedPage * PER_PAGE, clampedPage * PER_PAGE + PER_PAGE);
 
   return (
     <aside className={styles.sidebar}>
@@ -87,181 +82,117 @@ export default function GalleryRail({
         <LogoDoodle size={32} />
       </Link>
 
-      <label className={styles.search}>
-        <Search size={14} aria-hidden="true" />
-        <input
-          type="text"
-          placeholder="Search designs"
-          value={search}
-          onChange={(event) => onSearchChange(event.target.value)}
-          aria-label="Search designs"
+      {browserOpen ? (
+        <PaletteBrowser
+          variant="rail"
+          palettes={palettes}
+          library={library}
+          activeId={selectedId}
+          deleteConfirmingId={deleteConfirmingId}
+          onApply={onApply}
+          onEditCustom={onEditCustom}
+          onEditLibrary={onEditLibrary}
+          onDelete={onDelete}
+          onNewPalette={onNewPalette}
+          onClose={onCloseBrowser}
         />
-      </label>
+      ) : (
+        <>
+          <label className={styles.search}>
+            <Search size={14} aria-hidden="true" />
+            <input
+              type="text"
+              placeholder="Search designs"
+              value={search}
+              onChange={(event) => onSearchChange(event.target.value)}
+              aria-label="Search designs"
+            />
+          </label>
 
-      <div className={styles.previewHeader}>
-        <span className={styles.previewLabel}>Preview colors</span>
-        <button
-          type="button"
-          className={styles.iconButton}
-          onClick={onImport}
-          title="Import palettes"
-          aria-label="Import palettes"
-        >
-          <Upload size={14} />
-        </button>
-        <button
-          type="button"
-          className={styles.iconButton}
-          onClick={onExport}
-          title="Export palettes"
-          aria-label="Export palettes"
-        >
-          <Download size={14} />
-        </button>
-        {fileInput}
-      </div>
+          <div className={styles.previewHeader}>
+            <span className={styles.previewLabel}>Preview colors</span>
+          </div>
 
-      <div className={styles.section}>
-        <div className={styles.sectionHeader}>
-          <span className={styles.sectionLabel}>Your Palettes</span>
-          <SectionPager
-            page={clampedSavedPage}
-            pageCount={savedPageCount}
-            onPageChange={onSavedPageChange}
-            label="saved palettes"
-          />
-        </div>
-
-        {savedRows.map((palette) => {
-          const active = palette.id === selectedId;
-          const confirming = pendingDeleteId === palette.id;
-          const label = palette.name || 'Untitled';
-
-          return (
-            <button
-              key={palette.id}
-              type="button"
-              className={styles.row}
-              onClick={() => onSelectSaved(palette)}
-              title={active ? 'Edit this palette' : 'Preview every design in this palette'}
-            >
-              <PaletteStrip
-                colors={palette.colors}
-                transparentBackground={palette.transparentBackground}
-              />
-              <span
-                className={active ? `${styles.rowName} ${styles.rowNameActive}` : styles.rowName}
-              >
-                {label}
-              </span>
-              {active && (
-                <span className={styles.rowCheck}>
-                  <Check size={14} />
-                </span>
+          <div className={styles.section}>
+            <div className={styles.sectionHeader}>
+              <span className={styles.sectionLabel}>Palettes</span>
+              {merged.length > PER_PAGE && (
+                <SectionPager
+                  page={clampedPage}
+                  pageCount={pageCount}
+                  onPageChange={onPalettesPageChange}
+                  label="palettes"
+                />
               )}
-              <span
-                role="button"
-                tabIndex={0}
-                aria-label={`Delete ${label}`}
-                title={confirming ? 'Click again to delete' : 'Delete palette'}
-                className={
-                  confirming ? `${styles.rowDelete} ${styles.rowDeleteConfirm}` : styles.rowDelete
-                }
-                onClick={(event) => {
-                  event.stopPropagation();
-                  onDeleteSaved(palette.id);
-                }}
-                onKeyDown={(event) => {
-                  if (event.key === 'Enter' || event.key === ' ') {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    onDeleteSaved(palette.id);
+            </div>
+
+            {rows.map(({ kind, palette }) => {
+              const active = palette.id === selectedId;
+
+              return (
+                <PaletteRow
+                  key={palette.id}
+                  colors={palette.colors}
+                  transparentBackground={
+                    kind === 'custom' ? palette.transparentBackground : false
                   }
-                }}
-              >
-                <X size={12} strokeWidth={2.5} />
-              </span>
-            </button>
-          );
-        })}
+                  name={palette.name || 'Untitled'}
+                  active={active}
+                  showEdit={kind === 'library'}
+                  showDelete={kind === 'custom'}
+                  editLabel={`Edit ${palette.name} (saves as a copy)`}
+                  editTitle="Edit palette (saves as a copy)"
+                  deleteLabel={`Delete ${palette.name || 'palette'}`}
+                  deleteConfirming={deleteConfirmingId === palette.id}
+                  onClick={() => {
+                    if (active) {
+                      if (kind === 'library') onEditLibrary(palette);
+                      else onEditCustom(palette);
+                      return;
+                    }
+                    onApply(palette.id);
+                  }}
+                  onEdit={
+                    kind === 'library' ? () => onEditLibrary(palette) : undefined
+                  }
+                  onDelete={
+                    kind === 'custom' ? () => onDelete(palette.id) : undefined
+                  }
+                />
+              );
+            })}
 
-        {savedPalettes.length === 0 && (
-          <p className={styles.emptyNote}>
-            No palettes yet. Create your first one below.
-          </p>
-        )}
+            {palettes.length === 0 && (
+              <p className={styles.emptyNote}>
+                No palettes yet. Create your first one below.
+              </p>
+            )}
 
-        <button
-          type="button"
-          className={styles.newPalette}
-          onClick={onNewPalette}
-        >
-          <span className={styles.newStrip} aria-hidden="true">
-            <span />
-            <span />
-            <span />
-            <span />
-            <span />
-          </span>
-          <span className={styles.newLabel}>+ New Palette</span>
-        </button>
-
-        <div className={`${styles.sectionHeader} ${styles.libraryHeader}`}>
-          <span className={styles.sectionLabel}>Palette Library</span>
-          <SectionPager
-            page={clampedLibPage}
-            pageCount={libPageCount}
-            onPageChange={onLibPageChange}
-            label="palettes"
-          />
-        </div>
-
-        {libRows.map((palette) => {
-          const active = palette.id === selectedId;
-
-          return (
             <button
-              key={palette.id}
               type="button"
-              className={styles.row}
-              onClick={() => onSelectLibrary(palette)}
-              title="Preview every design in this palette"
+              className={styles.newPalette}
+              onClick={onNewPalette}
             >
-              <PaletteStrip colors={palette.colors} />
-              <span
-                className={active ? `${styles.rowName} ${styles.rowNameActive}` : styles.rowName}
-              >
-                {palette.name}
+              <span className={styles.newStrip} aria-hidden="true">
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
               </span>
-              {active && (
-                <span className={styles.rowCheck}>
-                  <Check size={14} />
-                </span>
-              )}
-              <span
-                role="button"
-                tabIndex={0}
-                aria-label={`Save a copy of ${palette.name}`}
-                title="Save a copy to your palettes"
-                className={styles.rowCopy}
-                onClick={(event) => {
-                  event.stopPropagation();
-                  onCopyLibrary(palette);
-                }}
-                onKeyDown={(event) => {
-                  if (event.key === 'Enter' || event.key === ' ') {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    onCopyLibrary(palette);
-                  }
-                }}
-              >
-                <Plus size={14} />
-              </span>
+              <span className={styles.newLabel}>+ New Palette</span>
             </button>
-          );
-        })}
-      </div>
+
+            <button
+              type="button"
+              className={styles.browseAll}
+              onClick={onOpenBrowser}
+            >
+              Browse all palettes <ChevronRight size={13} />
+            </button>
+          </div>
+        </>
+      )}
 
       <div className={styles.footer}>
         <a

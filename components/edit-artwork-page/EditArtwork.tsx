@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { Dialog } from '@base-ui-components/react/dialog';
-import { Check, Expand, X, Minus, Plus } from 'lucide-react';
+import { Check, ChevronRight, Expand, X, Minus, Plus } from 'lucide-react';
 import useMediaQuery from 'lib/useMediaQuery';
 import type { Artwork, ArtworkOption } from 'lib/artwork';
 import {
@@ -25,10 +25,11 @@ import ValueSlider from 'components/ValueSlider';
 import ToggleSwitch from 'components/ToggleSwitch';
 import ColorSwatch from 'components/ColorSwatch';
 import PaletteEditorDialog from 'components/palette/PaletteEditorDialog';
+import PaletteBrowser from 'components/palette/PaletteBrowser';
 import SectionPager from 'components/palette/SectionPager';
 import { usePaletteEditor } from 'components/palette/usePaletteEditor';
 import { useConfirmDelete } from 'components/palette/useConfirmDelete';
-import { PALETTE_LIBRARY } from 'lib/paletteLibrary';
+import { PALETTE_LIBRARY, type LibraryPalette } from 'lib/paletteLibrary';
 import {
   isTransparentHex,
   randomHexColor,
@@ -50,8 +51,8 @@ import styles from './EditArtwork.module.css';
 // aspect ratio so that cells stay (near-)square.
 const GRID_OPTION_ID = 'grid';
 
-// Chips per page in the Your Palettes / Palette Library sections.
-const CHIP_PER_PAGE = 4;
+// Chips per page in the merged Palettes section.
+const CHIP_PER_PAGE = 8;
 
 // Longest edge of the little aspect-ratio glyph rectangle, in pixels.
 const RATIO_GLYPH_SIZE = 12;
@@ -150,8 +151,8 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
   // chip outline. 'artwork'/'custom' highlight no chip; a palette id highlights
   // that chip. Any manual swatch edit switches this to 'custom'.
   const [paletteSource, setPaletteSource] = useState<PaletteSource>('artwork');
-  const [savedPage, setSavedPage] = useState(0);
-  const [libPage, setLibPage] = useState(0);
+  const [chipsPage, setChipsPage] = useState(0);
+  const [browserOpen, setBrowserOpen] = useState(false);
 
   const customPaletteColors = (custom: BrandPalette): string[] =>
     custom.colors.map((color, index) =>
@@ -471,10 +472,11 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
       setActivePalette(saved.id);
       setPaletteSource(saved.id);
 
+      // Jump the merged chip pager to the saved palette's page (custom first).
       const state = getBrandPaletteState();
       const index = state.palettes.findIndex((p) => p.id === saved.id);
 
-      if (index >= 0) setSavedPage(Math.floor(index / CHIP_PER_PAGE));
+      if (index >= 0) setChipsPage(Math.floor(index / CHIP_PER_PAGE));
     },
   });
 
@@ -483,25 +485,51 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     if (paletteSource === id) setPaletteSource('custom');
   });
 
-  // Select a saved palette chip: clicking the active one opens it for editing,
-  // otherwise apply + mark active (shared with the gallery).
-  const onSelectSavedChip = (saved: BrandPalette) => {
-    if (paletteSource === saved.id) {
-      editor.openEditor(saved);
-      return;
-    }
-
+  // Apply a saved (custom) palette to the editor's swatches + share it with the
+  // gallery. Clicking the already-active custom chip opens it for editing.
+  const applyCustomPalette = (saved: BrandPalette) => {
     applyBrandPalette(saved);
     setActivePalette(saved.id);
     setPaletteSource(saved.id);
   };
 
-  const onSelectLibraryChip = (library: (typeof PALETTE_LIBRARY)[number]) => {
-    const brand: BrandPalette = { id: library.id, name: library.name, colors: library.colors };
+  const onSelectCustomChip = (saved: BrandPalette) => {
+    if (paletteSource === saved.id) {
+      editor.openEditor(saved);
+      return;
+    }
 
-    applyBrandPalette(brand);
+    applyCustomPalette(saved);
+  };
+
+  // Apply a library palette. Clicking the already-active one opens it as a copy
+  // (a new custom palette — editing never mutates the library).
+  const applyLibraryPalette = (library: LibraryPalette) => {
+    applyBrandPalette({ id: library.id, name: library.name, colors: library.colors });
     setActivePalette(library.id);
     setPaletteSource(library.id);
+  };
+
+  const onSelectLibraryChip = (library: LibraryPalette) => {
+    if (paletteSource === library.id) {
+      editor.openEditorAsCopy(library);
+      return;
+    }
+
+    applyLibraryPalette(library);
+  };
+
+  // The palette browser applies by id (resolving to a custom or library palette).
+  const onBrowserApply = (id: string) => {
+    const saved = brandPalettes.find((p) => p.id === id);
+
+    if (saved) {
+      applyCustomPalette(saved);
+      return;
+    }
+
+    const library = PALETTE_LIBRARY.find((p) => p.id === id);
+    if (library) applyLibraryPalette(library);
   };
 
   const setTransparentBackground = (transparent: boolean) => {
@@ -613,24 +641,16 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
 
   // ---- Grouped inspector controls ----
 
-  const savedPageCount = Math.max(
-    1,
-    Math.ceil(brandPalettes.length / CHIP_PER_PAGE)
-  );
-  const clampedSavedPage = Math.min(savedPage, savedPageCount - 1);
-  const savedRows = brandPalettes.slice(
-    clampedSavedPage * CHIP_PER_PAGE,
-    clampedSavedPage * CHIP_PER_PAGE + CHIP_PER_PAGE
-  );
-
-  const libPageCount = Math.max(
-    1,
-    Math.ceil(PALETTE_LIBRARY.length / CHIP_PER_PAGE)
-  );
-  const clampedLibPage = Math.min(libPage, libPageCount - 1);
-  const libRows = PALETTE_LIBRARY.slice(
-    clampedLibPage * CHIP_PER_PAGE,
-    clampedLibPage * CHIP_PER_PAGE + CHIP_PER_PAGE
+  // One merged chip list: custom palettes first, then the read-only library.
+  const mergedChips = [
+    ...brandPalettes.map((palette) => ({ kind: 'custom' as const, palette })),
+    ...PALETTE_LIBRARY.map((palette) => ({ kind: 'library' as const, palette })),
+  ];
+  const chipsPageCount = Math.max(1, Math.ceil(mergedChips.length / CHIP_PER_PAGE));
+  const clampedChipsPage = Math.min(chipsPage, chipsPageCount - 1);
+  const chipRows = mergedChips.slice(
+    clampedChipsPage * CHIP_PER_PAGE,
+    clampedChipsPage * CHIP_PER_PAGE + CHIP_PER_PAGE
   );
 
   const hasEffects = artwork.options.some(
@@ -807,6 +827,22 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
         </Dialog.Root>
 
         <div className={styles.panel}>
+          {browserOpen ? (
+            <PaletteBrowser
+              variant="panel"
+              palettes={brandPalettes}
+              library={PALETTE_LIBRARY}
+              activeId={paletteSource}
+              deleteConfirmingId={confirmDelete.pendingId}
+              onApply={onBrowserApply}
+              onEditCustom={(p) => editor.openEditor(p)}
+              onEditLibrary={(p) => editor.openEditorAsCopy(p)}
+              onDelete={confirmDelete.request}
+              onNewPalette={() => editor.openEditor()}
+              onClose={() => setBrowserOpen(false)}
+            />
+          ) : (
+          <>
           {palette.length > 0 && (
             <section className={styles.group}>
               <h2 className={styles.groupTitle}>Colors</h2>
@@ -828,6 +864,14 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
                         aria-label="Background color"
                         value={toColorInputValue(palette[0])}
                         style={{ opacity: bgIsTransparent ? 0.3 : 1 }}
+                        onClick={(event) => {
+                          // While transparent, clicking the dimmed swatch just
+                          // switches back to the opaque color (no picker).
+                          if (bgIsTransparent) {
+                            event.preventDefault();
+                            setTransparentBackground(false);
+                          }
+                        }}
                         onChange={(event) => {
                           const hex = event.target.value;
                           setPalette((prev) => {
@@ -920,66 +964,72 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
 
               <div className={styles.chipsSection}>
                 <div className={styles.chipsHeader}>
-                  <span className={styles.chipsLabel}>Your Palettes</span>
-                  <SectionPager
-                    page={clampedSavedPage}
-                    pageCount={savedPageCount}
-                    onPageChange={setSavedPage}
-                    label="palettes"
-                  />
+                  <span className={styles.chipsLabel}>Palettes</span>
+                  {chipsPageCount > 1 && (
+                    <SectionPager
+                      page={clampedChipsPage}
+                      pageCount={chipsPageCount}
+                      onPageChange={setChipsPage}
+                      label="palettes"
+                    />
+                  )}
                 </div>
                 <div className={styles.chipsRow}>
-                  {savedRows.map((saved) => (
-                    <PaletteChip
-                      key={saved.id}
-                      colors={saved.colors}
-                      transparentBackground={saved.transparentBackground}
-                      name={saved.name || 'Untitled'}
-                      active={paletteSource === saved.id}
-                      title={
-                        paletteSource === saved.id
-                          ? 'Edit this palette'
-                          : `Fill the swatches with "${saved.name || 'Untitled'}"`
-                      }
-                      onClick={() => onSelectSavedChip(saved)}
-                      canDelete
-                      deleteConfirming={confirmDelete.pendingId === saved.id}
-                      deleteLabel={`Delete ${saved.name || 'palette'}`}
-                      onDelete={() => confirmDelete.request(saved.id)}
-                    />
-                  ))}
+                  {chipRows.map(({ kind, palette }) => {
+                    const active = paletteSource === palette.id;
+
+                    return (
+                      <PaletteChip
+                        key={palette.id}
+                        colors={palette.colors}
+                        transparentBackground={
+                          kind === 'custom'
+                            ? palette.transparentBackground
+                            : false
+                        }
+                        name={palette.name || 'Untitled'}
+                        active={active}
+                        title={
+                          active
+                            ? kind === 'library'
+                              ? 'Edit this palette (saves as a copy)'
+                              : 'Edit this palette'
+                            : `Fill the swatches with "${palette.name || 'Untitled'}"`
+                        }
+                        onClick={() =>
+                          kind === 'library'
+                            ? onSelectLibraryChip(palette)
+                            : onSelectCustomChip(palette)
+                        }
+                        canDelete={kind === 'custom'}
+                        deleteConfirming={confirmDelete.pendingId === palette.id}
+                        deleteLabel={`Delete ${palette.name || 'palette'}`}
+                        onDelete={
+                          kind === 'custom'
+                            ? () => confirmDelete.request(palette.id)
+                            : undefined
+                        }
+                      />
+                    );
+                  })}
+                </div>
+                <div className={styles.chipsActions}>
                   <button
                     type="button"
-                    className={styles.newChip}
+                    className={styles.chipsAction}
                     onClick={() => editor.openEditor()}
                     title="Create a new palette"
                   >
                     <Plus size={13} /> New Palette
                   </button>
-                </div>
-              </div>
-
-              <div className={styles.chipsSection}>
-                <div className={styles.chipsHeader}>
-                  <span className={styles.chipsLabel}>Palette Library</span>
-                  <SectionPager
-                    page={clampedLibPage}
-                    pageCount={libPageCount}
-                    onPageChange={setLibPage}
-                    label="palettes"
-                  />
-                </div>
-                <div className={styles.chipsRow}>
-                  {libRows.map((library) => (
-                    <PaletteChip
-                      key={library.id}
-                      colors={library.colors}
-                      name={library.name}
-                      active={paletteSource === library.id}
-                      title={`Fill the swatches with "${library.name}"`}
-                      onClick={() => onSelectLibraryChip(library)}
-                    />
-                  ))}
+                  <button
+                    type="button"
+                    className={`${styles.chipsAction} ${styles.browseAll}`}
+                    onClick={() => setBrowserOpen(true)}
+                    title="Browse all palettes"
+                  >
+                    Browse all palettes <ChevronRight size={13} />
+                  </button>
                 </div>
               </div>
             </section>
@@ -1018,6 +1068,8 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
                 ) : null
               )}
             </section>
+          )}
+          </>
           )}
         </div>
       </main>

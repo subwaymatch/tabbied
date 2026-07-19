@@ -199,8 +199,8 @@
 }
 
 .card:hover .tile {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 24px rgba(35, 37, 41, 0.16);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(35, 37, 41, 0.07);
 }
 
 .card:focus-visible {
