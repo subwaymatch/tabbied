@@ -47,6 +47,7 @@ import {
 } from 'components/edit-artwork-page/shuffleActions';
 import { usePaletteEditor } from 'components/palette/usePaletteEditor';
 import { PALETTE_LIBRARY, type LibraryPalette } from 'lib/paletteLibrary';
+import { mergePalettes } from 'lib/paletteList';
 import {
   isTransparentHex,
   randomHexColor,
@@ -733,10 +734,7 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
   // ---- Grouped inspector controls ----
 
   // One merged chip list: custom palettes first, then the read-only library.
-  const mergedChips = [
-    ...brandPalettes.map((palette) => ({ kind: 'custom' as const, palette })),
-    ...PALETTE_LIBRARY.map((palette) => ({ kind: 'library' as const, palette })),
-  ];
+  const mergedChips = mergePalettes(brandPalettes, PALETTE_LIBRARY);
   const chipsPageCount = Math.max(1, Math.ceil(mergedChips.length / CHIP_PER_PAGE));
   const clampedChipsPage = Math.min(chipsPage, chipsPageCount - 1);
   const chipRows = mergedChips.slice(

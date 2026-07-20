@@ -6,22 +6,25 @@ import useMediaQuery from 'lib/useMediaQuery';
 import type { GalleryItem } from 'lib/artwork';
 import {
   deletePalette,
-  getBrandPaletteState,
   setActivePalette,
   useBrandPalettes,
   type BrandPalette,
 } from 'lib/brandPalettes';
-import { PALETTE_LIBRARY, type LibraryPalette } from 'lib/paletteLibrary';
+import {
+  DEFAULT_PALETTE_ID,
+  PALETTE_LIBRARY,
+  type LibraryPalette,
+} from 'lib/paletteLibrary';
 import { usePaletteEditor } from 'components/palette/usePaletteEditor';
 import PaletteEditorDialog from 'components/palette/PaletteEditorDialog';
 import GalleryRail from './GalleryRail';
 import GalleryMobileHeader from './GalleryMobileHeader';
+import GalleryChipShelf from './GalleryChipShelf';
 import GalleryCard from './GalleryCard';
 import GalleryScrollRestorer from './GalleryScrollRestorer';
 import styles from './SelectArtwork.module.css';
 
 const PER_PAGE = 20;
-const RAIL_PER_PAGE = 12;
 
 // Wait after the last palette pick before recoloring the grid, so rapidly
 // clicking through palettes recolors the thumbnails once, not once per click.
@@ -64,7 +67,7 @@ export default function SelectArtwork({ gallery }: { gallery: GalleryItem[] }) {
   // (not useSearchParams) so the page keeps its server-rendered first paint
   // instead of deopting to client-only rendering. Starts at 1 for SSR.
   const [page, setPage] = useState(1);
-  const [palettesPage, setPalettesPage] = useState(0);
+  // Mobile only: the "All ›" chip-shelf pill swaps in the embedded browser.
   const [browserOpen, setBrowserOpen] = useState(false);
 
   // Read the page from the URL on mount and on back/forward.
@@ -100,12 +103,14 @@ export default function SelectArtwork({ gallery }: { gallery: GalleryItem[] }) {
   // The rail's highlighted palette. Local so it updates instantly on click,
   // while the applied palette (which recolors the grid, read from the store by
   // each card) is written after a short debounce.
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(DEFAULT_PALETTE_ID);
   const applyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (applyTimer.current) return;
-    setSelectedId(brandState.activePaletteId);
+    // A null active id means "the shared default palette" now (never per-artwork
+    // colors), so highlight the default chip rather than nothing.
+    setSelectedId(brandState.activePaletteId ?? DEFAULT_PALETTE_ID);
   }, [brandState.activePaletteId]);
 
   useEffect(
@@ -135,20 +140,16 @@ export default function SelectArtwork({ gallery }: { gallery: GalleryItem[] }) {
   };
 
   const editor = usePaletteEditor({
-    onSaved: (palette) => {
-      // Saving/creating jumps the rail to the palette's page and applies it.
-      const state = getBrandPaletteState();
-      const index = state.palettes.findIndex((p) => p.id === palette.id);
-
-      if (index >= 0) setPalettesPage(Math.floor(index / RAIL_PER_PAGE));
-      applyPalette(palette.id, true);
-    },
+    // Saving/creating applies the palette; the rail shows the full list, so a
+    // freshly saved custom palette is already at the top — no page to jump to.
+    onSaved: (palette) => applyPalette(palette.id, true),
   });
 
   // Delete a custom palette on the first click of its ✕ (no confirm step).
+  // Deleting the active palette reverts previews to the shared default.
   const removePalette = (id: string) => {
     deletePalette(id);
-    if (selectedId === id) applyPalette(null, true);
+    if (selectedId === id) applyPalette(DEFAULT_PALETTE_ID, true);
   };
 
   const filtered = useMemo(
@@ -198,16 +199,11 @@ export default function SelectArtwork({ gallery }: { gallery: GalleryItem[] }) {
         palettes={savedPalettes}
         library={PALETTE_LIBRARY}
         selectedId={selectedId}
-        palettesPage={palettesPage}
-        onPalettesPageChange={setPalettesPage}
         onApply={(id) => applyPalette(id)}
         onEditCustom={onEditCustom}
         onEditLibrary={onEditLibrary}
         onDelete={removePalette}
         onNewPalette={() => editor.openEditor()}
-        browserOpen={browserOpen}
-        onOpenBrowser={() => setBrowserOpen(true)}
-        onCloseBrowser={() => setBrowserOpen(false)}
       />
       )}
 
@@ -215,6 +211,7 @@ export default function SelectArtwork({ gallery }: { gallery: GalleryItem[] }) {
       <GalleryMobileHeader
         search={search}
         onSearchChange={onSearchChange}
+        onNewPalette={() => editor.openEditor()}
         palettes={savedPalettes}
         library={PALETTE_LIBRARY}
         selectedId={selectedId}
@@ -222,17 +219,35 @@ export default function SelectArtwork({ gallery }: { gallery: GalleryItem[] }) {
         onEditCustom={onEditCustom}
         onEditLibrary={onEditLibrary}
         onDelete={removePalette}
-        onNewPalette={() => editor.openEditor()}
         browserOpen={browserOpen}
-        onOpenBrowser={() => setBrowserOpen(true)}
         onCloseBrowser={() => setBrowserOpen(false)}
       />
       )}
 
+      {/* Mobile only: the palette chip shelf lives here — a direct child of the
+          document-scrolled gallery — so `position: sticky` keeps it pinned to
+          the top of the viewport across the whole grid scroll (nested inside the
+          header wrapper it could only stick within that short box). */}
+      {isMobile && !browserOpen && (
+        <GalleryChipShelf
+          className={styles.mobileShelf}
+          palettes={savedPalettes}
+          library={PALETTE_LIBRARY}
+          selectedId={selectedId}
+          onApply={(id) => applyPalette(id)}
+          onEditCustom={onEditCustom}
+          onEditLibrary={onEditLibrary}
+          onDelete={removePalette}
+          onBrowse={() => setBrowserOpen(true)}
+        />
+      )}
+
       <div className={styles.mainColumn}>
         <div className={styles.mainHeader}>
-          <h1 className={styles.title}>Pick a design</h1>
-          <span className={styles.count}>{filtered.length} designs</span>
+          <div className={styles.mainHeading}>
+            <h1 className={styles.title}>Pick a design</h1>
+            <span className={styles.count}>{filtered.length} designs</span>
+          </div>
         </div>
 
         {hasResults ? (

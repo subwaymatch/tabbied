@@ -59,12 +59,6 @@
   color: #ed005f;
 }
 
-.deleteConfirm,
-.deleteConfirm:hover {
-  color: #ffffff;
-  background: #ed005f;
-}
-
 .delete:focus-visible {
   outline: 2px solid var(--blue-medium);
   outline-offset: 1px;

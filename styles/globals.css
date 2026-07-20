@@ -113,12 +113,15 @@ th:not([align]) {
  * Guard against accidental horizontal scroll (and the right-side whitespace
  * it produces) on every page. A stray fixed-width or full-bleed element that
  * pokes past the viewport should be clipped rather than widen the document.
- * No sticky positioning is used anywhere, so clipping here is side-effect free.
+ * `clip` (not `hidden`) is deliberate: `overflow-x: hidden` forces `overflow-y`
+ * to compute to `auto`, making html/body a scroll container that defeats
+ * `position: sticky` descendants (e.g. the gallery's mobile palette shelf).
+ * `clip` still prevents horizontal scroll without creating that scroll port.
  */
 html,
 body {
   max-width: 100%;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {

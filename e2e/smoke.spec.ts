@@ -78,18 +78,20 @@ test.describe('Tabbied site', () => {
       .first()
       .waitFor({ state: 'attached', timeout: 15000 });
 
-    // The footer (GitHub / Docs) is pinned to the window, so scrolling the grid
-    // leaves it in place.
-    const footer = page.locator('aside a[aria-label="Tabbied on GitHub"]');
-    const before = await footer.boundingBox();
+    // The rail is fixed to the window, so scrolling the grid leaves its pinned
+    // "+ New Palette" footer button in place.
+    const newPalette = page
+      .locator('aside')
+      .getByRole('button', { name: /New Palette/ });
+    const before = await newPalette.boundingBox();
     await page.evaluate(() => window.scrollTo(0, 1400));
     await page.waitForTimeout(300);
-    const after = await footer.boundingBox();
+    const after = await newPalette.boundingBox();
 
     expect(Math.abs((after?.y ?? 0) - (before?.y ?? 0))).toBeLessThan(4);
   });
 
-  test('the palette browser fills the rail with a scrollable, infinite list', async ({
+  test('the palette rail shows a scrollable, infinite palette list', async ({
     page,
   }) => {
     await page.goto('/artworks');
@@ -98,10 +100,9 @@ test.describe('Tabbied site', () => {
       .first()
       .waitFor({ state: 'attached', timeout: 15000 });
 
-    await page.getByRole('button', { name: /Browse all palettes/ }).click();
-
-    // The list is a bounded scroll container that overflows its box (it auto-
-    // fills the available height).
+    // The rail lists every palette from the start (no "Browse all" step): a
+    // bounded scroll container that overflows its box (it auto-fills the
+    // available height) and loads more rows as it scrolls.
     const findScroller = () =>
       page.evaluate(() => {
         const el = [...document.querySelectorAll('aside *')].find(
@@ -515,10 +516,10 @@ test.describe('Shared site header', () => {
   }) => {
     await page.goto('/artworks');
 
-    // The rail carries the logo, a GitHub link and Docs — but not the shared
-    // site nav or its hamburger.
+    // The rail carries the Tabbied logo and its palette chrome — but not the
+    // shared site nav or its hamburger.
     await expect(
-      page.getByRole('link', { name: 'Tabbied on GitHub' })
+      page.locator('aside').getByRole('link', { name: 'Tabbied', exact: true })
     ).toBeVisible();
     await expect(
       page.getByRole('button', { name: 'Open navigation menu' })

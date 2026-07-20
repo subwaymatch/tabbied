@@ -6,19 +6,20 @@ import LogoDoodle from 'components/main-page/LogoDoodle';
 import PaletteBrowser from 'components/palette/PaletteBrowser';
 import type { BrandPalette } from 'lib/brandPalettes';
 import type { LibraryPalette } from 'lib/paletteLibrary';
-import GalleryChipShelf from './GalleryChipShelf';
 import GithubIcon from './GithubIcon';
 import styles from './GalleryMobileHeader.module.css';
 
 /**
  * Mobile (7a) gallery chrome: a compact logo + GitHub header, the design search,
- * a "Preview colors" row with "New Palette", and the palettes as a horizontal
- * chip shelf (or the embedded browser when "All ›" is tapped). Rendered above
- * the design grid; hidden by CSS on the two-column desktop layout.
+ * and a "Preview colors" row with "New Palette" (or the embedded browser when
+ * "All ›" is tapped). The palette chip shelf itself is rendered by SelectArtwork
+ * just below this header — as a direct child of the scrolling page — so it can
+ * stay pinned with `position: sticky` across the whole grid scroll.
  */
 export default function GalleryMobileHeader({
   search,
   onSearchChange,
+  onNewPalette,
   palettes,
   library,
   selectedId,
@@ -26,13 +27,12 @@ export default function GalleryMobileHeader({
   onEditCustom,
   onEditLibrary,
   onDelete,
-  onNewPalette,
   browserOpen,
-  onOpenBrowser,
   onCloseBrowser,
 }: {
   search: string;
   onSearchChange: (value: string) => void;
+  onNewPalette: () => void;
   palettes: BrandPalette[];
   library: LibraryPalette[];
   selectedId: string | null;
@@ -40,9 +40,7 @@ export default function GalleryMobileHeader({
   onEditCustom: (palette: BrandPalette) => void;
   onEditLibrary: (palette: LibraryPalette) => void;
   onDelete: (id: string) => void;
-  onNewPalette: () => void;
   browserOpen: boolean;
-  onOpenBrowser: () => void;
   onCloseBrowser: () => void;
 }) {
   return (
@@ -90,30 +88,17 @@ export default function GalleryMobileHeader({
           />
         </div>
       ) : (
-        <>
-          <div className={styles.previewRow}>
-            <span className={styles.previewLabel}>Preview colors</span>
-            <span className={styles.spacer} />
-            <button
-              type="button"
-              className={styles.newPalette}
-              onClick={onNewPalette}
-            >
-              <Plus size={14} /> New Palette
-            </button>
-          </div>
-
-          <GalleryChipShelf
-            palettes={palettes}
-            library={library}
-            selectedId={selectedId}
-            onApply={onApply}
-            onEditCustom={onEditCustom}
-            onEditLibrary={onEditLibrary}
-            onDelete={onDelete}
-            onBrowse={onOpenBrowser}
-          />
-        </>
+        <div className={styles.previewRow}>
+          <span className={styles.previewLabel}>Preview colors</span>
+          <span className={styles.spacer} />
+          <button
+            type="button"
+            className={styles.newPalette}
+            onClick={onNewPalette}
+          >
+            <Plus size={14} /> New Palette
+          </button>
+        </div>
       )}
     </div>
   );

@@ -39,12 +39,6 @@
   color: #232529;
 }
 
-.meta {
-  flex: none;
-  font-size: 13px;
-  color: #c9cfd8;
-}
-
 .check {
   display: inline-flex;
   color: #ff3d8b;
@@ -75,12 +69,6 @@
 
 .delete:hover {
   color: #ed005f;
-}
-
-.deleteConfirm,
-.deleteConfirm:hover {
-  color: #ffffff;
-  background: #ed005f;
 }
 
 .edit:focus-visible,

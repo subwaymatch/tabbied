@@ -8,11 +8,7 @@ import {
 } from 'tabbied/artworks';
 import type { ArtworkDefinition } from 'tabbied';
 
-export type {
-  ArtworkColors,
-  ArtworkOption,
-  ArtworkOptionType,
-} from 'tabbied';
+export type { ArtworkOption } from 'tabbied';
 
 export type Artwork = ArtworkDefinition;
 

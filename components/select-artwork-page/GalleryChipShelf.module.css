@@ -1,6 +1,10 @@
 /* Mobile (7a): the merged palette list as a horizontal, scrollable chip shelf.
-   Sticks to the top of the scroll region so it stays reachable as the grid
-   scrolls. Chips scroll sideways; the trailing "All ›" pill opens the browser. */
+   Rendered as a direct child of the document-scrolled gallery (not nested in the
+   header), so `position: sticky` pins it to the top of the viewport across the
+   whole grid scroll. Chips scroll sideways; the trailing "All ›" pill opens the
+   browser. Instead of a hard divider, the background is solid white behind the
+   chips and fades out over its bottom edge, so the pinned bar melts into the
+   grid scrolling beneath it rather than sitting on a visible line. */
 .shelf {
   position: sticky;
   top: 0;
@@ -8,9 +12,13 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  margin: 0 -20px;
-  padding: 10px 20px 8px;
-  background: #ffffff;
+  padding: 10px 20px 16px;
+  background: linear-gradient(
+    to bottom,
+    #ffffff 0%,
+    #ffffff 76%,
+    rgba(255, 255, 255, 0) 100%
+  );
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;

@@ -5,6 +5,7 @@ import { Check, ChevronRight, Pencil, X } from 'lucide-react';
 import PaletteStrip from 'components/palette/PaletteStrip';
 import type { BrandPalette } from 'lib/brandPalettes';
 import type { LibraryPalette } from 'lib/paletteLibrary';
+import { mergePalettes } from 'lib/paletteList';
 import styles from './GalleryChipShelf.module.css';
 
 /**
@@ -13,6 +14,7 @@ import styles from './GalleryChipShelf.module.css';
  * (edit-as-copy). A trailing "All ›" pill opens the embedded palette browser.
  */
 export default function GalleryChipShelf({
+  className,
   palettes,
   library,
   selectedId,
@@ -22,6 +24,7 @@ export default function GalleryChipShelf({
   onDelete,
   onBrowse,
 }: {
+  className?: string;
   palettes: BrandPalette[];
   library: LibraryPalette[];
   selectedId: string | null;
@@ -32,15 +35,12 @@ export default function GalleryChipShelf({
   onBrowse: () => void;
 }) {
   const merged = useMemo(
-    () => [
-      ...palettes.map((palette) => ({ kind: 'custom' as const, palette })),
-      ...library.map((palette) => ({ kind: 'library' as const, palette })),
-    ],
+    () => mergePalettes(palettes, library),
     [palettes, library]
   );
 
   return (
-    <div className={styles.shelf}>
+    <div className={className ? `${styles.shelf} ${className}` : styles.shelf}>
       {merged.map(({ kind, palette }) => {
         const active = palette.id === selectedId;
 
