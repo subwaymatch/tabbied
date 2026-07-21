@@ -39,7 +39,16 @@ function renderTitle(title: string): ReactNode {
   );
 }
 
-type Props = { site: Site; artwork: ArtworkDefinition };
+type ArtMap = Record<string, ArtworkDefinition>;
+type Props = { site: Site; artworks: ArtMap };
+
+// Pick the i-th artwork the site declares (cycling), resolved to its imported
+// definition. Each section/card uses a different index so a single site shows
+// several distinct Tabbied patterns, all sharing the one palette.
+function artAt(site: Site, artworks: ArtMap, i: number): ArtworkDefinition {
+  const slugs = site.artworks;
+  return artworks[slugs[((i % slugs.length) + slugs.length) % slugs.length]];
+}
 
 // One reusable artwork accent. `cover` fits fill their box edge-to-edge; the
 // density knob keeps hero cells bold and card cells finer.
@@ -66,7 +75,7 @@ function Art({
   );
 }
 
-export default function ShowcaseSite({ site, artwork }: Props) {
+export default function ShowcaseSite({ site, artworks }: Props) {
   const { colors } = site;
   const bg = colors[0];
   const c1 = colors[1] ?? bg;
@@ -95,10 +104,10 @@ export default function ShowcaseSite({ site, artwork }: Props) {
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link rel="stylesheet" href={site.fonts.href} precedence="default" />
 
-      {site.layout === 'split' && <SplitLayout site={site} artwork={artwork} />}
-      {site.layout === 'spotlight' && <SpotlightLayout site={site} artwork={artwork} />}
-      {site.layout === 'editorial' && <EditorialLayout site={site} artwork={artwork} />}
-      {site.layout === 'boutique' && <BoutiqueLayout site={site} artwork={artwork} />}
+      {site.layout === 'split' && <SplitLayout site={site} artworks={artworks} />}
+      {site.layout === 'spotlight' && <SpotlightLayout site={site} artworks={artworks} />}
+      {site.layout === 'editorial' && <EditorialLayout site={site} artworks={artworks} />}
+      {site.layout === 'boutique' && <BoutiqueLayout site={site} artworks={artworks} />}
     </div>
   );
 }
@@ -123,18 +132,19 @@ function Footer({ site }: { site: Site }) {
     <footer className={s.footer}>
       <span className={s.logo}>{site.brand}</span>
       <span>
-        © 2026 {site.brand} · {site.artwork} artwork via the Tabbied React
-        component — {site.paletteName} palette
+        © 2026 {site.brand} · {site.artworks.length} Tabbied artworks (
+        {site.artworks.join(' · ')}) via the React component — {site.paletteName}{' '}
+        palette
       </span>
     </footer>
   );
 }
 
-function Band({ site, artwork }: Props) {
+function Band({ site, artworks, index = 0 }: Props & { index?: number }) {
   return (
     <section className={s.band}>
       <div className={s.doodleBox} style={{ position: 'absolute', inset: 0 }}>
-        <Art artwork={artwork} palette={site.colors} seed={site.bandSeed} density={1} />
+        <Art artwork={artAt(site, artworks, index)} palette={site.colors} seed={site.bandSeed} density={1} />
       </div>
       <div className={s.bandScrim} />
       <div className={s.bandInner}>
@@ -145,7 +155,9 @@ function Band({ site, artwork }: Props) {
   );
 }
 
-function ItemGrid({ site, artwork }: Props) {
+// Each card uses the next artwork in the site's set, so a single grid shows
+// several distinct patterns in the shared palette.
+function ItemGrid({ site, artworks }: Props) {
   return (
     <section className={s.section}>
       <div className={s.sectionHead}>
@@ -153,10 +165,10 @@ function ItemGrid({ site, artwork }: Props) {
         <p>{site.sectionSub}</p>
       </div>
       <div className={s.grid}>
-        {site.items.map((it) => (
+        {site.items.map((it, i) => (
           <article className={s.card} key={it.seed}>
             <div className={s.cardMedia}>
-              <Art artwork={artwork} palette={site.colors} seed={it.seed} density={2} />
+              <Art artwork={artAt(site, artworks, i + 1)} palette={site.colors} seed={it.seed} density={2} />
             </div>
             <div className={s.cardBody}>
               <div className={s.cardEyebrow}>{it.eyebrow}</div>
@@ -171,7 +183,7 @@ function ItemGrid({ site, artwork }: Props) {
 }
 
 // ── Layouts ─────────────────────────────────────────────────────────────────
-function SplitLayout({ site, artwork }: Props) {
+function SplitLayout({ site, artworks }: Props) {
   return (
     <>
       <Nav site={site} />
@@ -186,7 +198,7 @@ function SplitLayout({ site, artwork }: Props) {
           </div>
         </div>
         <div className={s.splitArt}>
-          <Art artwork={artwork} palette={site.colors} seed={site.heroSeed} density={1} />
+          <Art artwork={artAt(site, artworks, 0)} palette={site.colors} seed={site.heroSeed} density={1} />
         </div>
       </header>
       {site.stats && (
@@ -199,20 +211,20 @@ function SplitLayout({ site, artwork }: Props) {
           ))}
         </div>
       )}
-      <ItemGrid site={site} artwork={artwork} />
-      <Band site={site} artwork={artwork} />
+      <ItemGrid site={site} artworks={artworks} />
+      <Band site={site} artworks={artworks} index={0} />
       <Footer site={site} />
     </>
   );
 }
 
-function SpotlightLayout({ site, artwork }: Props) {
+function SpotlightLayout({ site, artworks }: Props) {
   return (
     <>
       <Nav site={site} />
       <header className={s.spotHero}>
         <div className={s.doodleBox} style={{ position: 'absolute', inset: 0 }}>
-          <Art artwork={artwork} palette={site.colors} seed={site.heroSeed} density={1} />
+          <Art artwork={artAt(site, artworks, 0)} palette={site.colors} seed={site.heroSeed} density={1} />
         </div>
         <div className={s.spotScrim} />
         <div className={s.spotInner}>
@@ -234,14 +246,14 @@ function SpotlightLayout({ site, artwork }: Props) {
           </span>
         </div>
       )}
-      <ItemGrid site={site} artwork={artwork} />
-      <Band site={site} artwork={artwork} />
+      <ItemGrid site={site} artworks={artworks} />
+      <Band site={site} artworks={artworks} index={0} />
       <Footer site={site} />
     </>
   );
 }
 
-function EditorialLayout({ site, artwork }: Props) {
+function EditorialLayout({ site, artworks }: Props) {
   const [lead, ...rest] = site.items;
   return (
     <>
@@ -259,17 +271,17 @@ function EditorialLayout({ site, artwork }: Props) {
         ))}
       </nav>
       <div className={s.edCover}>
-        <Art artwork={artwork} palette={site.colors} seed={site.heroSeed} density={1} />
+        <Art artwork={artAt(site, artworks, 0)} palette={site.colors} seed={site.heroSeed} density={1} />
         <div className={s.edCoverCaption}>
           <div className={s.k}>{lead.eyebrow}</div>
           <h2>{lead.title}</h2>
         </div>
       </div>
       <div className={s.edStrip}>
-        {rest.concat(rest.length ? [] : [lead]).map((it) => (
+        {rest.concat(rest.length ? [] : [lead]).map((it, i) => (
           <article key={it.seed}>
             <div className={s.edArt}>
-              <Art artwork={artwork} palette={site.colors} seed={it.seed} density={2} />
+              <Art artwork={artAt(site, artworks, i + 1)} palette={site.colors} seed={it.seed} density={2} />
             </div>
             <div className={s.k}>{it.eyebrow}</div>
             <h3>{it.title}</h3>
@@ -277,19 +289,19 @@ function EditorialLayout({ site, artwork }: Props) {
           </article>
         ))}
       </div>
-      <Band site={site} artwork={artwork} />
+      <Band site={site} artworks={artworks} index={3} />
       <Footer site={site} />
     </>
   );
 }
 
-function BoutiqueLayout({ site, artwork }: Props) {
+function BoutiqueLayout({ site, artworks }: Props) {
   return (
     <>
       <Nav site={site} />
       <header className={s.boutHero}>
         <div className={s.doodleBox} style={{ position: 'absolute', inset: 0 }}>
-          <Art artwork={artwork} palette={site.colors} seed={site.heroSeed} density={1} />
+          <Art artwork={artAt(site, artworks, 0)} palette={site.colors} seed={site.heroSeed} density={1} />
         </div>
         <div className={s.boutScrim} />
         <div className={s.boutInner}>
@@ -305,10 +317,10 @@ function BoutiqueLayout({ site, artwork }: Props) {
           <h2>{site.sectionTitle}</h2>
         </div>
         <div className={s.scents}>
-          {site.items.map((it) => (
+          {site.items.map((it, i) => (
             <article className={s.scent} key={it.seed}>
               <div className={s.scentArt}>
-                <Art artwork={artwork} palette={site.colors} seed={it.seed} density={2} />
+                <Art artwork={artAt(site, artworks, i + 1)} palette={site.colors} seed={it.seed} density={2} />
               </div>
               <div className={s.scentBody}>
                 <div className={s.n}>{it.eyebrow}</div>
@@ -319,7 +331,7 @@ function BoutiqueLayout({ site, artwork }: Props) {
           ))}
         </div>
       </section>
-      <Band site={site} artwork={artwork} />
+      <Band site={site} artworks={artworks} index={0} />
       <Footer site={site} />
     </>
   );

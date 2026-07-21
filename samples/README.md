@@ -50,25 +50,31 @@ Output is committed under `public/samples/`, mirroring how
 
 ## React component builds (`/showcase/<slug>/`)
 
-| # | Site | Topic | Palette | Artwork | Layout |
-|---|------|-------|---------|---------|--------|
-| 11 | Solstice | Yoga & wellness retreat | Sunset | petal | split |
-| 12 | Harbor & Vine | Natural wine bar | Cranberry | quilt | editorial |
-| 13 | Lumen | Design & tech conference | Arcade | spectrum | spotlight |
-| 14 | Fathom | Ocean research nonprofit | Lagoon | lattice | split |
-| 15 | Ember & Oak | Wood-fire restaurant | Ember | windowpane | boutique |
-| 16 | Petal & Post | Florist & stationery studio | Blush | frond | split |
-| 17 | Northwind | Outdoor apparel brand | Forest | maze | spotlight |
-| 18 | Honeycomb | Kids' learning app | Honey | bokeh | split |
-| 19 | Facet | Fine jewelry brand | Jewel | prisma | boutique |
-| 20 | Seabright | Coastal skincare line | Seaglass | metro | split |
+Each of these renders **several** Tabbied artworks in a single shared palette —
+one for the hero, a different one per card/section, another for the closing band
+— so one site shows off four distinct patterns at once.
+
+| # | Site | Topic | Palette | Layout | Artworks |
+|---|------|-------|---------|--------|----------|
+| 11 | Solstice | Yoga & wellness retreat | Sunset | split | petal · blossom · spark · confetti |
+| 12 | Harbor & Vine | Natural wine bar | Cranberry | editorial | quilt · lattice · tesserae · domino |
+| 13 | Lumen | Design & tech conference | Arcade | spotlight | spectrum · prisma · bokeh · spark |
+| 14 | Fathom | Ocean research nonprofit | Lagoon | split | lattice · wavelet · ring · quoit |
+| 15 | Ember & Oak | Wood-fire restaurant | Ember | boutique | windowpane · chamfer · awning · merlon |
+| 16 | Petal & Post | Florist & stationery studio | Blush | split | frond · foliage · blossom · petal |
+| 17 | Northwind | Outdoor apparel brand | Forest | spotlight | maze · switchback · elbow · lattice |
+| 18 | Honeycomb | Kids' learning app | Honey | split | bokeh · polka · sprinkles · confetti |
+| 19 | Facet | Fine jewelry brand | Jewel | boutique | prisma · shard · chamfer · vitrail |
+| 20 | Seabright | Coastal skincare line | Seaglass | split | metro · wavelet · ring · quoit |
 
 These are real Next.js routes. Each `app/showcase/<slug>/page.tsx` imports its
-one preset from `tabbied/artworks` (so the bundler ships only what it uses) and
-renders [`components/showcase/ShowcaseSite`](../components/showcase/ShowcaseSite.tsx),
-a data-driven renderer that dresses one of four layouts (`split`, `spotlight`,
+handful of presets from `tabbied/artworks` (so the bundler ships only what it
+uses) and passes them as a slug→definition map to
+[`components/showcase/ShowcaseSite`](../components/showcase/ShowcaseSite.tsx), a
+data-driven renderer that dresses one of four layouts (`split`, `spotlight`,
 `editorial`, `boutique`) with the [`TabbiedArtwork`](../packages/tabbied/src/react/TabbiedArtwork.tsx)
-component. Content and theming live in
+component — cycling through the site's `artworks` list so each section shows a
+different pattern. Content and theming live in
 [`components/showcase/showcaseData.ts`](../components/showcase/showcaseData.ts);
 each site's palette becomes CSS custom properties, so one stylesheet themes all
 ten brands. They build with the rest of the site (`npm run build`).

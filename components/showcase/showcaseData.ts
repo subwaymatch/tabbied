@@ -25,8 +25,10 @@ export type ShowcaseSite = {
   slug: string;
   brand: string;
   topic: string;
-  /** Artwork slug — matches the preset imported in the route and the file name. */
+  /** Primary artwork slug — matches the gallery thumbnail and metadata. */
   artwork: string;
+  /** All artworks the site renders (primary first); each is imported by the route. */
+  artworks: string[];
   /** Library palette id + name (for the gallery) and colors (background first). */
   paletteId: string;
   paletteName: string;
@@ -72,6 +74,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     brand: 'Solstice',
     topic: 'Yoga & wellness retreat',
     artwork: 'petal',
+    artworks: ['petal', 'blossom', 'spark', 'confetti'],
     paletteId: 'lib-sunset',
     paletteName: 'Sunset',
     colors: ['#2b1d3a', '#ff6b6b', '#ffd23e', '#ff3d8b', '#7048e8'],
@@ -114,6 +117,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     brand: 'Harbor & Vine',
     topic: 'Natural wine bar',
     artwork: 'quilt',
+    artworks: ['quilt', 'lattice', 'tesserae', 'domino'],
     paletteId: 'lib-cranberry',
     paletteName: 'Cranberry',
     colors: ['#fbeef1', '#9e1946', '#e63946', '#1d3557'],
@@ -152,6 +156,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     brand: 'Lumen',
     topic: 'Design & technology conference',
     artwork: 'spectrum',
+    artworks: ['spectrum', 'prisma', 'bokeh', 'spark'],
     paletteId: 'lib-arcade',
     paletteName: 'Arcade',
     colors: ['#12002e', '#ff2079', '#00e5ff', '#f9f871', '#7a04eb'],
@@ -190,6 +195,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     brand: 'Fathom',
     topic: 'Ocean research nonprofit',
     artwork: 'lattice',
+    artworks: ['lattice', 'wavelet', 'ring', 'quoit'],
     paletteId: 'lib-lagoon',
     paletteName: 'Lagoon',
     colors: ['#04252b', '#0d9488', '#5eead4', '#fef9c3'],
@@ -233,6 +239,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     brand: 'Ember & Oak',
     topic: 'Wood-fire restaurant',
     artwork: 'windowpane',
+    artworks: ['windowpane', 'chamfer', 'awning', 'merlon'],
     paletteId: 'lib-ember',
     paletteName: 'Ember',
     colors: ['#1a0f0a', '#e0511f', '#ff9f1c', '#ffe8c7'],
@@ -270,6 +277,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     brand: 'Petal & Post',
     topic: 'Florist & stationery studio',
     artwork: 'frond',
+    artworks: ['frond', 'foliage', 'blossom', 'petal'],
     paletteId: 'lib-blush',
     paletteName: 'Blush',
     colors: ['#fff0f3', '#ff8fab', '#c9184a', '#590d22'],
@@ -312,6 +320,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     brand: 'Northwind',
     topic: 'Outdoor apparel brand',
     artwork: 'maze',
+    artworks: ['maze', 'switchback', 'elbow', 'lattice'],
     paletteId: 'lib-forest',
     paletteName: 'Forest',
     colors: ['#1e2d24', '#6ca31c', '#e7fce3', '#c9a227'],
@@ -350,6 +359,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     brand: 'Honeycomb',
     topic: "Kids' learning app",
     artwork: 'bokeh',
+    artworks: ['bokeh', 'polka', 'sprinkles', 'confetti'],
     paletteId: 'lib-honey',
     paletteName: 'Honey',
     colors: ['#fff9e6', '#f6c343', '#b8860b', '#3a2f0b'],
@@ -393,6 +403,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     brand: 'Facet',
     topic: 'Fine jewelry brand',
     artwork: 'prisma',
+    artworks: ['prisma', 'shard', 'chamfer', 'vitrail'],
     paletteId: 'lib-jewel',
     paletteName: 'Jewel',
     colors: ['#0b1021', '#5b2a86', '#2176ae', '#57b8ff', '#fbb13c'],
@@ -430,6 +441,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     brand: 'Seabright',
     topic: 'Coastal skincare line',
     artwork: 'metro',
+    artworks: ['metro', 'wavelet', 'ring', 'quoit'],
     paletteId: 'lib-seaglass',
     paletteName: 'Seaglass',
     colors: ['#f2fbf7', '#9ad1c9', '#5f9ea0', '#33576b'],
