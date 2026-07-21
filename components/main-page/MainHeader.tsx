@@ -23,8 +23,15 @@ function GithubIcon({ size = 24 }: { size?: number }) {
   );
 }
 
-const navItems = [
+// `external` items point at static files outside the Next app (e.g. the
+// /samples/ showcase, a plain-HTML export in public/). They render as a real
+// <a> so the browser does a full navigation instead of client-side routing,
+// which has no route to resolve for them.
+type NavItem = { href: string; label: string; external?: boolean };
+
+const navItems: NavItem[] = [
   { href: '/artworks', label: 'Browse Artworks' },
+  { href: '/samples/', label: 'Showcase', external: true },
   { href: '/docs/react', label: 'Docs' },
 ];
 
@@ -60,18 +67,25 @@ export default function MainHeader() {
           <Col className={styles.navColumn}>
             <ul className={styles.pageNavigation}>
               {navItems.map((item) => {
-                const isActive = currentPath === item.href;
+                const isActive = !item.external && currentPath === item.href;
+                const linkClass = isActive ? styles.active : undefined;
 
                 return (
                   <li key={item.label}>
-                    <Link
-                      href={item.href}
-                      prefetch={false}
-                      className={isActive ? styles.active : undefined}
-                      aria-current={isActive ? 'page' : undefined}
-                    >
-                      {item.label}
-                    </Link>
+                    {item.external ? (
+                      <a href={item.href} className={linkClass}>
+                        {item.label}
+                      </a>
+                    ) : (
+                      <Link
+                        href={item.href}
+                        prefetch={false}
+                        className={linkClass}
+                        aria-current={isActive ? 'page' : undefined}
+                      >
+                        {item.label}
+                      </Link>
+                    )}
                   </li>
                 );
               })}
@@ -120,7 +134,8 @@ export default function MainHeader() {
 
                     <nav className={styles.drawerNav}>
                       {navItems.map((item) => {
-                        const isActive = currentPath === item.href;
+                        const isActive =
+                          !item.external && currentPath === item.href;
 
                         return (
                           <Dialog.Close
@@ -131,11 +146,15 @@ export default function MainHeader() {
                                 : styles.drawerLink
                             }
                             render={
-                              <Link
-                                href={item.href}
-                                prefetch={false}
-                                aria-current={isActive ? 'page' : undefined}
-                              />
+                              item.external ? (
+                                <a href={item.href} />
+                              ) : (
+                                <Link
+                                  href={item.href}
+                                  prefetch={false}
+                                  aria-current={isActive ? 'page' : undefined}
+                                />
+                              )
                             }
                           >
                             {item.label}

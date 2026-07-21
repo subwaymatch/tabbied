@@ -8,7 +8,11 @@ import { fileURLToPath } from 'node:url';
 import { doodle } from './lib/tabbied-embed.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const OUT = __dirname;
+// Tooling lives in samples/; the built sites are emitted into public/samples/
+// so the static export serves them live at /samples/ (mirrors how
+// scripts/optimize-images.mjs writes into public/images/).
+const OUT = path.resolve(__dirname, '../public/samples');
+fs.mkdirSync(OUT, { recursive: true });
 
 // ---------------------------------------------------------------------------
 // Palettes — copied verbatim from lib/paletteLibrary.ts (background first).
@@ -1080,24 +1084,70 @@ for (const site of sites) {
 }
 
 // Gallery landing page (also uses a Tabbied artwork in its own hero).
-const galleryCards = sites.map((s, i) => {
-  const c = s.palette.colors;
-  const swatches = c.map((col) => `<span style="background:${col}"></span>`).join('');
-  const thumb = art({ slug: s.artwork, palette: c, options: { grid: '5x4' }, seed: `IDX${i}` });
+const galleryCard = ({ href, n, name, topic, paletteName, colors, artwork, seed }) => {
+  const swatches = colors.map((col) => `<span style="background:${col}"></span>`).join('');
+  const thumb = art({ slug: artwork, palette: colors, options: { grid: '5x4' }, seed });
   return `
-  <a class="card" href="./${s.dir}/index.html">
+  <a class="card" href="${href}">
     <div class="thumb">${thumb}</div>
     <div class="cbody">
-      <div class="ci"><span class="num">${String(i + 1).padStart(2, '0')}</span><h3>${s.name}</h3></div>
-      <p>${s.topic}</p>
-      <div class="foot"><div class="sw">${swatches}</div><div class="pn">${s.palette.name} · ${s.artwork}</div></div>
+      <div class="ci"><span class="num">${String(n).padStart(2, '0')}</span><h3>${name}</h3></div>
+      <p>${topic}</p>
+      <div class="foot"><div class="sw">${swatches}</div><div class="pn">${paletteName} · ${artwork}</div></div>
     </div>
   </a>`;
-}).join('');
+};
+
+const staticCards = sites
+  .map((s, i) =>
+    galleryCard({
+      href: `./${s.dir}/index.html`,
+      n: i + 1,
+      name: s.name,
+      topic: s.topic,
+      paletteName: s.palette.name,
+      colors: s.palette.colors,
+      artwork: s.artwork,
+      seed: `IDX${i}`,
+    })
+  )
+  .join('');
+
+// The ten React-component sites live as Next routes at /showcase/<slug>/ (see
+// components/showcase/ + app/showcase/). Their metadata is mirrored here so the
+// gallery can list all twenty builds in one place; the thumbnails are rendered
+// with the same static engine, and each card links to the live React page.
+const reactSites = [
+  { slug: 'solstice', name: 'Solstice', topic: 'Yoga & wellness retreat', artwork: 'petal', paletteName: 'Sunset', colors: ['#2b1d3a', '#ff6b6b', '#ffd23e', '#ff3d8b', '#7048e8'] },
+  { slug: 'harbor-and-vine', name: 'Harbor & Vine', topic: 'Natural wine bar', artwork: 'quilt', paletteName: 'Cranberry', colors: ['#fbeef1', '#9e1946', '#e63946', '#1d3557'] },
+  { slug: 'lumen', name: 'Lumen', topic: 'Design & tech conference', artwork: 'spectrum', paletteName: 'Arcade', colors: ['#12002e', '#ff2079', '#00e5ff', '#f9f871', '#7a04eb'] },
+  { slug: 'fathom', name: 'Fathom', topic: 'Ocean research nonprofit', artwork: 'lattice', paletteName: 'Lagoon', colors: ['#04252b', '#0d9488', '#5eead4', '#fef9c3'] },
+  { slug: 'ember-and-oak', name: 'Ember & Oak', topic: 'Wood-fire restaurant', artwork: 'windowpane', paletteName: 'Ember', colors: ['#1a0f0a', '#e0511f', '#ff9f1c', '#ffe8c7'] },
+  { slug: 'petal-and-post', name: 'Petal & Post', topic: 'Florist & stationery studio', artwork: 'frond', paletteName: 'Blush', colors: ['#fff0f3', '#ff8fab', '#c9184a', '#590d22'] },
+  { slug: 'northwind', name: 'Northwind', topic: 'Outdoor apparel brand', artwork: 'maze', paletteName: 'Forest', colors: ['#1e2d24', '#6ca31c', '#e7fce3', '#c9a227'] },
+  { slug: 'honeycomb', name: 'Honeycomb', topic: "Kids' learning app", artwork: 'bokeh', paletteName: 'Honey', colors: ['#fff9e6', '#f6c343', '#b8860b', '#3a2f0b'] },
+  { slug: 'facet', name: 'Facet', topic: 'Fine jewelry brand', artwork: 'prisma', paletteName: 'Jewel', colors: ['#0b1021', '#5b2a86', '#2176ae', '#57b8ff', '#fbb13c'] },
+  { slug: 'seabright', name: 'Seabright', topic: 'Coastal skincare line', artwork: 'metro', paletteName: 'Seaglass', colors: ['#f2fbf7', '#9ad1c9', '#5f9ea0', '#33576b'] },
+];
+
+const reactCards = reactSites
+  .map((s, i) =>
+    galleryCard({
+      href: `/showcase/${s.slug}/`,
+      n: i + 11,
+      name: s.name,
+      topic: s.topic,
+      paletteName: s.paletteName,
+      colors: s.colors,
+      artwork: s.artwork,
+      seed: `RCT${i}`,
+    })
+  )
+  .join('');
 
 const index = shell({
-  title: 'Made with Tabbied — 10 Sample Websites',
-  description: 'Ten sample websites showing how Tabbied generative artworks work as design accents, each themed with a palette from the library.',
+  title: 'Made with Tabbied — 20 Sample Websites',
+  description: 'Twenty sample websites showing how Tabbied generative artworks work as design accents — ten static HTML builds and ten built with the TabbiedArtwork React component.',
   favicon: '🎨',
   bg: '#0e0e13',
   assets: './assets',
@@ -1126,6 +1176,12 @@ body{font-family:'Space Grotesk',system-ui,sans-serif;color:#eef0f6}
 .sw{display:flex;gap:5px}
 .sw span{width:16px;height:16px;border-radius:50%;box-shadow:inset 0 0 0 1px #ffffff20}
 .pn{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#6d7290}
+.group{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin:0 0 24px}
+.group.two{margin-top:64px}
+.group h2{font-family:'Sora';font-weight:800;font-size:clamp(22px,3vw,30px);margin:0;letter-spacing:-.01em}
+.group .tag{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#3fffb2;border:1px solid #3fffb2aa;padding:5px 10px;border-radius:100px}
+.group p{margin:0;color:#9297b0;font-size:15px;flex:1 1 260px}
+.group code{font-family:ui-monospace,Menlo,monospace;color:#cfd3e6;font-size:13px}
 footer{text-align:center;padding:50px 24px;color:#797e98;font-size:14px;border-top:1px solid #ffffff10}
 footer a{color:#3fffb2}
 `,
@@ -1134,12 +1190,21 @@ footer a{color:#3fffb2}
   <div class="doodle-wrap">${art({ slug: 'spectrum', palette: PAL.neon.colors, options: { grid: '8x14', frequency: 1 }, seed: 'GAL01' })}</div>
   <div class="hero-inner">
     <div class="pre">Made with Tabbied</div>
-    <h1>Ten sites,<br><span>one pattern engine.</span></h1>
-    <p>Each of these sample websites uses a <strong>Tabbied</strong> generative artwork as its main design accent, themed end-to-end with a single palette from the Tabbied library. Same engine, ten completely different moods.</p>
+    <h1>Twenty sites,<br><span>one pattern engine.</span></h1>
+    <p>Each of these sample websites uses a <strong>Tabbied</strong> generative artwork as its main design accent, themed end-to-end with a single palette from the library. Ten are self-contained HTML; ten are built with the <code>TabbiedArtwork</code> React component. Same engine, twenty completely different moods.</p>
   </div>
 </header>
 <div class="wrap">
-  <div class="grid">${galleryCards}</div>
+  <div class="group">
+    <h2>Static HTML builds</h2><span class="tag">HTML</span>
+    <p>Self-contained pages that embed the css-doodle engine directly.</p>
+  </div>
+  <div class="grid">${staticCards}</div>
+  <div class="group two">
+    <h2>React component builds</h2><span class="tag">React</span>
+    <p>Live Next.js pages rendered with the <code>TabbiedArtwork</code> component.</p>
+  </div>
+  <div class="grid">${reactCards}</div>
 </div>
 <footer>
   Built with <a href="https://tabbied.com">Tabbied</a> · generative artworks powered by css-doodle. Open any card to view the full site.
@@ -1148,4 +1213,14 @@ footer a{color:#3fffb2}
 });
 fs.writeFileSync(path.join(OUT, 'index.html'), index);
 console.log('wrote index.html');
-console.log('done —', sites.length, 'sites');
+
+// Copy the vendored css-doodle runtime into the output so the live pages have
+// no external dependency (the source of truth is samples/assets/).
+const assetsOut = path.join(OUT, 'assets');
+fs.mkdirSync(assetsOut, { recursive: true });
+fs.copyFileSync(
+  path.join(__dirname, 'assets', 'css-doodle.min.js'),
+  path.join(assetsOut, 'css-doodle.min.js')
+);
+console.log('copied assets/css-doodle.min.js');
+console.log('done —', sites.length, 'sites →', path.relative(path.resolve(__dirname, '..'), OUT));
