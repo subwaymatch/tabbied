@@ -1,0 +1,208 @@
+/* The showcase gallery (/samples/) — lists all twenty sample sites with live
+   TabbiedArtwork thumbnails. Dark, brand-accent theme, independent of the main
+   site chrome. */
+
+.page {
+  --bg: #0e0e13;
+  min-height: 100vh;
+  background: var(--bg);
+  color: #eef0f6;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.page *,
+.page *::before,
+.page *::after {
+  box-sizing: border-box;
+}
+
+.hero {
+  position: relative;
+  min-height: 62vh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  text-align: center;
+  border-bottom: 1px solid #ffffff12;
+}
+.heroArt {
+  position: absolute;
+  inset: 0;
+  opacity: 0.5;
+}
+.heroArt > * {
+  width: 100%;
+  height: 100%;
+}
+.heroScrim {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(100% 90% at 50% 30%, transparent, #0e0e13cc 60%, #0e0e13);
+}
+.heroInner {
+  position: relative;
+  z-index: 4;
+  padding: 80px 24px;
+  max-width: 720px;
+}
+.pre {
+  font-size: 13px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: #3fffb2;
+  margin-bottom: 24px;
+}
+.hero h1 {
+  font-family: 'Sora', system-ui, sans-serif;
+  font-weight: 800;
+  font-size: clamp(40px, 8vw, 104px);
+  line-height: 0.94;
+  margin: 0;
+  letter-spacing: -0.03em;
+}
+.hero h1 span {
+  background: linear-gradient(96deg, #3eecff, #3fffb2 45%, #ff3d8b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hero p {
+  max-width: 620px;
+  margin: 26px auto 0;
+  color: #b8bdd0;
+  font-size: clamp(15px, 2vw, 19px);
+  line-height: 1.6;
+}
+.hero code {
+  font-family: ui-monospace, Menlo, monospace;
+  color: #cfd3e6;
+  font-size: 0.92em;
+}
+
+.wrap {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: clamp(50px, 7vw, 90px) clamp(20px, 5vw, 48px);
+}
+.group {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin: 0 0 24px;
+}
+.group.two {
+  margin-top: 64px;
+}
+.group h2 {
+  font-family: 'Sora', system-ui, sans-serif;
+  font-weight: 800;
+  font-size: clamp(22px, 3vw, 30px);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.group .tag {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #3fffb2;
+  border: 1px solid #3fffb2aa;
+  padding: 5px 10px;
+  border-radius: 100px;
+}
+.group p {
+  margin: 0;
+  color: #9297b0;
+  font-size: 15px;
+  flex: 1 1 260px;
+}
+.group code {
+  font-family: ui-monospace, Menlo, monospace;
+  color: #cfd3e6;
+  font-size: 13px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 26px;
+}
+.card {
+  text-decoration: none;
+  color: inherit;
+  background: #16161f;
+  border: 1px solid #ffffff10;
+  border-radius: 18px;
+  overflow: hidden;
+  transition: transform 0.3s, border-color 0.3s;
+}
+.card:hover {
+  transform: translateY(-6px);
+  border-color: #3fffb2;
+}
+.thumb {
+  position: relative;
+  height: 190px;
+  overflow: hidden;
+}
+.thumb > * {
+  width: 100%;
+  height: 100%;
+}
+.cbody {
+  padding: 20px 22px 24px;
+}
+.ci {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+.ci .num {
+  font-family: 'Sora', system-ui, sans-serif;
+  font-weight: 800;
+  color: #4a4f66;
+  font-size: 15px;
+}
+.ci h3 {
+  font-family: 'Sora', system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+  margin: 0;
+}
+.cbody p {
+  margin: 8px 0 18px;
+  color: #9297b0;
+  font-size: 15px;
+}
+.foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.sw {
+  display: flex;
+  gap: 5px;
+}
+.sw span {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px #ffffff20;
+}
+.pn {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6d7290;
+}
+.footer {
+  text-align: center;
+  padding: 50px 24px;
+  color: #797e98;
+  font-size: 14px;
+  border-top: 1px solid #ffffff10;
+}
+.footer a {
+  color: #3fffb2;
+}

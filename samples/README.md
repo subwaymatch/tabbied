@@ -17,6 +17,12 @@ They come in two flavours that demonstrate the two ways to consume the library:
 
 The whole set is browsable from the site header (**Showcase** →
 [`/samples/`](/samples/)), a gallery that lists all twenty builds in two groups.
+The gallery is itself a React route ([`app/samples/page.tsx`](../app/samples/page.tsx))
+whose thumbnails are live `TabbiedArtwork` components, so nothing is stretched.
+
+> Note on links: the site is a static export with `trailingSlash: true`, so a
+> sample lives at `/samples/<dir>/` — the directory URL, **not**
+> `/samples/<dir>/index.html` (that form 404s under trailing-slash hosting).
 
 ## Static HTML builds (`/samples/…`)
 
@@ -39,10 +45,12 @@ substitution the engine does at runtime — see
 [`lib/tabbied-embed.mjs`](./lib/tabbied-embed.mjs), a dependency-free port of
 [`packages/tabbied/src/core/doodleSource.ts`](../packages/tabbied/src/core/doodleSource.ts).
 `css-doodle` is vendored into the output so the pages render with no build step
-and no runtime network calls (web fonts aside). Regenerate with:
+and no runtime network calls (web fonts aside). The generator emits only the ten
+site pages plus the vendored runtime; the gallery is the React route above.
+Regenerate with:
 
 ```bash
-node samples/generate.mjs   # writes public/samples/ (sites, gallery, assets)
+node samples/generate.mjs   # writes public/samples/<dir>/ + assets/
 ```
 
 Output is committed under `public/samples/`, mirroring how
