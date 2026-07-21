@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Nocturne — Fragrance for the Small Hours</title>
+<meta name="description" content="A perfume house composing fragrances for the small hours of the night." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌙</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="../assets/css-doodle.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#12071f;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+css-doodle{display:block;width:100%;height:100%}
+img{max-width:100%}
+a{color:inherit}
+.doodle-wrap{position:absolute;inset:0;overflow:hidden}
+
+:root{--night:#12071f;--violet:#5a189a;--orchid:#9d4edd;--lilac:#e0aaff}
+body{font-family:'Jost',system-ui,sans-serif;color:#efe6ff;letter-spacing:.01em}
+.nav{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:26px clamp(20px,5vw,64px)}
+.nav .logo{font-family:'Cormorant Garamond';font-weight:500;font-size:26px;letter-spacing:.28em;text-transform:uppercase}
+.nav ul{display:flex;gap:34px;list-style:none;margin:0;padding:0;font-size:13px;letter-spacing:.18em;text-transform:uppercase;font-weight:300}
+.nav a{text-decoration:none;opacity:.8}
+.hero{position:relative;min-height:100vh;display:grid;place-items:center;overflow:hidden}
+.hero .doodle-wrap{opacity:.9}
+.hero::after{content:'';position:absolute;inset:0;background:radial-gradient(90% 80% at 50% 45%,transparent,#12071fd0 70%,#12071f)}
+.hero-inner{position:relative;z-index:4;text-align:center;padding:0 24px}
+.hero .pre{font-size:13px;letter-spacing:.5em;text-transform:uppercase;color:var(--lilac);margin-bottom:30px}
+.hero h1{font-family:'Cormorant Garamond';font-weight:400;font-size:clamp(58px,14vw,190px);line-height:.86;margin:0;letter-spacing:.02em}
+.hero h1 em{font-style:italic;color:var(--orchid)}
+.hero p{font-family:'Cormorant Garamond';font-size:clamp(18px,2.4vw,26px);font-style:italic;color:#d9c9f0;margin:26px auto 0;max-width:520px}
+.hero .btn{margin-top:44px;display:inline-block;border:1px solid #ffffff40;color:#efe6ff;padding:16px 40px;text-decoration:none;font-size:13px;letter-spacing:.24em;text-transform:uppercase;transition:background .3s,color .3s}
+.hero .btn:hover{background:#efe6ff;color:var(--night)}
+.collection{padding:clamp(70px,10vw,140px) clamp(20px,5vw,64px);max-width:1200px;margin:0 auto}
+.collection .head{text-align:center;margin-bottom:70px}
+.collection .head .pre{font-size:12px;letter-spacing:.4em;text-transform:uppercase;color:var(--lilac)}
+.collection h2{font-family:'Cormorant Garamond';font-weight:400;font-size:clamp(34px,5vw,64px);margin:14px 0 0;letter-spacing:.01em}
+.scents{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2px;background:#ffffff14}
+.scent{background:var(--night);padding:0;text-align:center;position:relative}
+.scent .ph{height:340px;position:relative;overflow:hidden}
+.scent .ph::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,#12071f)}
+.scent .b{padding:26px 24px 40px;margin-top:-40px;position:relative;z-index:3}
+.scent .no{font-size:12px;letter-spacing:.3em;color:var(--lilac)}
+.scent h3{font-family:'Cormorant Garamond';font-weight:400;font-size:30px;margin:10px 0 8px;letter-spacing:.03em}
+.scent .notes{font-style:italic;font-family:'Cormorant Garamond';font-size:17px;color:#c4b1e0}
+.scent .price{margin-top:16px;font-size:14px;letter-spacing:.14em;color:#efe6ff}
+.quote{position:relative;text-align:center;padding:clamp(80px,12vw,160px) 24px;overflow:hidden}
+.quote .doodle-wrap{opacity:.5}
+.quote::after{content:'';position:absolute;inset:0;background:#12071fb0}
+.quote blockquote{position:relative;z-index:3;font-family:'Cormorant Garamond';font-style:italic;font-weight:400;font-size:clamp(26px,4.5vw,52px);max-width:840px;margin:0 auto;line-height:1.24}
+footer{border-top:1px solid #ffffff1a;padding:56px clamp(20px,5vw,64px);display:flex;justify-content:space-between;flex-wrap:wrap;gap:18px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#a892c4}
+footer .logo{font-family:'Cormorant Garamond';font-size:20px;letter-spacing:.28em;color:#efe6ff}
+@media(max-width:720px){.nav ul{display:none}}
+
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="logo">Nocturne</div>
+  <ul><li><a href="#collection">Collection</a></li><li><a href="#">The House</a></li><li><a href="#">Discovery Set</a></li></ul>
+</nav>
+<header class="hero">
+  <div class="doodle-wrap"><style>css-doodle[data-tabbied="art30"]{--color0: #12071f; --color1: #5a189a; --color2: #9d4edd; --color3: #e0aaff; --color4: #5a189a; --color5: #9d4edd; /* Random color generator variable */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(0.999) { background-color: var(--randomColor); -webkit-clip-path: polygon(@pick( '0 0, 101% 0, 101% 101%', '0 0, 101% 0, 0 101%', '0 0, 101% 101%, 0 101%', '101% 0, 101% 101%, 0 101%' )); clip-path: polygon(@pick( '0 0, 101% 0, 101% 101%', '0 0, 101% 0, 0 101%', '0 0, 101% 101%, 0 101%', '101% 0, 101% 101%, 0 101%' )); -webkit-transition: .2s ease 100ms; transition: .2s ease 100ms; -webkit-transform: clip-path; transform: clip-path; } );}</style><css-doodle data-tabbied="art30" use="var(--rule)" seed="NOCT9">:doodle { @grid: 10x15; @size: 100% 100%; text-align:center; box-sizing:border-box } :container { background:var(--color0); overflow:hidden; }</css-doodle></div>
+  <div class="hero-inner">
+    <div class="pre">Eau de Parfum · Extrait</div>
+    <h1>After<em>dark</em></h1>
+    <p>Fragrance composed for the small hours — when the city quiets and scent speaks loudest.</p>
+    <a class="btn" href="#collection">Discover the collection</a>
+  </div>
+</header>
+<section class="collection" id="collection">
+  <div class="head"><div class="pre">The Maison Collection</div><h2>Seven hours of night</h2></div>
+  <div class="scents">
+    
+    <article class="scent">
+      <div class="ph"><style>css-doodle[data-tabbied="art31"]{--color0: #12071f; --color1: #5a189a; --color2: #9d4edd; --color3: #e0aaff; --color4: #5a189a; --color5: #9d4edd; /* Random color generator variable */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(0.999) { background-color: var(--randomColor); -webkit-clip-path: polygon(@pick( '0 0, 101% 0, 101% 101%', '0 0, 101% 0, 0 101%', '0 0, 101% 101%, 0 101%', '101% 0, 101% 101%, 0 101%' )); clip-path: polygon(@pick( '0 0, 101% 0, 101% 101%', '0 0, 101% 0, 0 101%', '0 0, 101% 101%, 0 101%', '101% 0, 101% 101%, 0 101%' )); -webkit-transition: .2s ease 100ms; transition: .2s ease 100ms; -webkit-transform: clip-path; transform: clip-path; } );}</style><css-doodle data-tabbied="art31" use="var(--rule)" seed="n1">:doodle { @grid: 8x12; @size: 100% 100%; text-align:center; box-sizing:border-box } :container { background:var(--color0); overflow:hidden; }</css-doodle></div>
+      <div class="b"><div class="no">N° 01</div><h3>Velvet Hour</h3><div class="notes">iris · suede · black plum</div><div class="price">£165 · 50ml</div></div>
+    </article>
+    <article class="scent">
+      <div class="ph"><style>css-doodle[data-tabbied="art32"]{--color0: #12071f; --color1: #5a189a; --color2: #9d4edd; --color3: #e0aaff; --color4: #5a189a; --color5: #9d4edd; /* Random color generator variable */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(0.999) { background-color: var(--randomColor); -webkit-clip-path: polygon(@pick( '0 0, 101% 0, 101% 101%', '0 0, 101% 0, 0 101%', '0 0, 101% 101%, 0 101%', '101% 0, 101% 101%, 0 101%' )); clip-path: polygon(@pick( '0 0, 101% 0, 101% 101%', '0 0, 101% 0, 0 101%', '0 0, 101% 101%, 0 101%', '101% 0, 101% 101%, 0 101%' )); -webkit-transition: .2s ease 100ms; transition: .2s ease 100ms; -webkit-transform: clip-path; transform: clip-path; } );}</style><css-doodle data-tabbied="art32" use="var(--rule)" seed="n2">:doodle { @grid: 10x15; @size: 100% 100%; text-align:center; box-sizing:border-box } :container { background:var(--color0); overflow:hidden; }</css-doodle></div>
+      <div class="b"><div class="no">N° 02</div><h3>Midnight Bloom</h3><div class="notes">tuberose · incense · amber</div><div class="price">£180 · 50ml</div></div>
+    </article>
+    <article class="scent">
+      <div class="ph"><style>css-doodle[data-tabbied="art33"]{--color0: #12071f; --color1: #5a189a; --color2: #9d4edd; --color3: #e0aaff; --color4: #5a189a; --color5: #9d4edd; /* Random color generator variable */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(0.999) { background-color: var(--randomColor); -webkit-clip-path: polygon(@pick( '0 0, 101% 0, 101% 101%', '0 0, 101% 0, 0 101%', '0 0, 101% 101%, 0 101%', '101% 0, 101% 101%, 0 101%' )); clip-path: polygon(@pick( '0 0, 101% 0, 101% 101%', '0 0, 101% 0, 0 101%', '0 0, 101% 101%, 0 101%', '101% 0, 101% 101%, 0 101%' )); -webkit-transition: .2s ease 100ms; transition: .2s ease 100ms; -webkit-transform: clip-path; transform: clip-path; } );}</style><css-doodle data-tabbied="art33" use="var(--rule)" seed="n3">:doodle { @grid: 9x13; @size: 100% 100%; text-align:center; box-sizing:border-box } :container { background:var(--color0); overflow:hidden; }</css-doodle></div>
+      <div class="b"><div class="no">N° 03</div><h3>Last Train</h3><div class="notes">vetiver · smoke · bergamot</div><div class="price">£150 · 50ml</div></div>
+    </article>
+  </div>
+</section>
+<section class="quote">
+  <div class="doodle-wrap"><style>css-doodle[data-tabbied="art34"]{--color0: #12071f; --color1: #5a189a; --color2: #9d4edd; --color3: #e0aaff; --color4: #5a189a; --color5: #9d4edd; /* Random color generator variable */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(0.999) { background-color: var(--randomColor); -webkit-clip-path: polygon(@pick( '0 0, 101% 0, 101% 101%', '0 0, 101% 0, 0 101%', '0 0, 101% 101%, 0 101%', '101% 0, 101% 101%, 0 101%' )); clip-path: polygon(@pick( '0 0, 101% 0, 101% 101%', '0 0, 101% 0, 0 101%', '0 0, 101% 101%, 0 101%', '101% 0, 101% 101%, 0 101%' )); -webkit-transition: .2s ease 100ms; transition: .2s ease 100ms; -webkit-transform: clip-path; transform: clip-path; } );}</style><css-doodle data-tabbied="art34" use="var(--rule)" seed="QNOCT">:doodle { @grid: 12x18; @size: 100% 100%; text-align:center; box-sizing:border-box } :container { background:var(--color0); overflow:hidden; }</css-doodle></div>
+  <blockquote>“A perfume is a memory you can wear before it happens.”</blockquote>
+</section>
+<footer>
+  <div class="logo">Nocturne</div>
+  <div>© 2026 Maison Nocturne · Composed with Tabbied — Amethyst palette</div>
+</footer>
+
+</body>
+</html>

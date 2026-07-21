@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Terra — Handmade Ceramics Studio</title>
+<meta name="description" content="A small-batch ceramics studio making tableware and vessels thrown by hand." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏺</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<script src="../assets/css-doodle.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#f7ede2;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+css-doodle{display:block;width:100%;height:100%}
+img{max-width:100%}
+a{color:inherit}
+.doodle-wrap{position:absolute;inset:0;overflow:hidden}
+
+:root{--bg:#f7ede2;--rust:#c1502e;--umber:#84582c;--ink:#2f3e46}
+body{font-family:'Inter',system-ui,sans-serif;color:#2f3e46}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:26px clamp(20px,5vw,72px);position:relative;z-index:10}
+.nav .logo{font-family:'Fraunces';font-size:24px;font-weight:600;letter-spacing:-.01em}
+.nav ul{display:flex;gap:34px;list-style:none;margin:0;padding:0;font-size:14px}
+.nav a{text-decoration:none;opacity:.75}
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:0;align-items:stretch;min-height:82vh}
+.hero-copy{padding:clamp(40px,7vw,110px) clamp(24px,5vw,72px);display:flex;flex-direction:column;justify-content:center}
+.tag{font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:var(--rust);margin-bottom:22px}
+.hero h1{font-family:'Fraunces';font-weight:400;font-size:clamp(44px,7vw,88px);line-height:1.02;margin:0;letter-spacing:-.02em}
+.hero h1 em{font-style:italic;color:var(--rust)}
+.hero-copy p{max-width:440px;font-size:17px;line-height:1.7;color:#84582c;margin:28px 0 0}
+.hero-copy .row{margin-top:38px;display:flex;gap:16px;align-items:center}
+.btn{display:inline-block;padding:15px 30px;border-radius:2px;text-decoration:none;font-size:14px;letter-spacing:.02em}
+.btn.solid{background:var(--ink);color:#f7ede2}
+.btn.link{color:var(--ink);border-bottom:1px solid var(--rust);padding:15px 2px}
+.hero-art{position:relative;overflow:hidden;background:var(--rust)}
+.strip{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #c1502e33;border-bottom:1px solid #c1502e33}
+.strip div{padding:30px clamp(20px,4vw,48px);border-right:1px solid #c1502e22}
+.strip .n{font-family:'Fraunces';font-size:34px}
+.strip .l{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#84582c;margin-top:6px}
+.shop{padding:clamp(60px,9vw,120px) clamp(24px,5vw,72px);max-width:1180px;margin:0 auto}
+.shop h2{font-family:'Fraunces';font-weight:400;font-size:clamp(30px,5vw,52px);margin:0 0 8px;letter-spacing:-.02em}
+.shop .sub{color:#84582c;margin:0 0 46px}
+.pieces{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:22px}
+.piece{background:#fff8f0;border:1px solid #c1502e1f;border-radius:4px;overflow:hidden}
+.piece .ph{aspect-ratio:4/5;position:relative;overflow:hidden}
+.piece .info{padding:18px 20px;display:flex;justify-content:space-between;align-items:baseline}
+.piece h3{font-family:'Fraunces';font-weight:400;font-size:19px;margin:0}
+.piece .price{color:var(--rust);font-size:15px}
+.band{position:relative;height:340px;overflow:hidden;margin-top:20px;display:grid;place-items:center}
+.band .doodle-wrap{filter:saturate(1.05)}
+.band::after{content:'';position:absolute;inset:0;background:#2f3e4644}
+.band blockquote{position:relative;z-index:3;font-family:'Fraunces';font-style:italic;font-weight:400;color:#f7ede2;font-size:clamp(24px,4vw,44px);max-width:820px;text-align:center;margin:0;padding:0 24px;line-height:1.25}
+footer{padding:60px clamp(24px,5vw,72px);display:flex;justify-content:space-between;flex-wrap:wrap;gap:18px;font-size:14px;color:#84582c}
+footer .logo{font-family:'Fraunces';font-size:20px;color:#2f3e46}
+@media(max-width:820px){.hero{grid-template-columns:1fr}.hero-art{min-height:300px}.nav ul{display:none}}
+
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="logo">Terra</div>
+  <ul><li><a href="#shop">Shop</a></li><li><a href="#">Studio</a></li><li><a href="#">Classes</a></li><li><a href="#">Journal</a></li></ul>
+</nav>
+<header class="hero">
+  <div class="hero-copy">
+    <div class="tag">Small-batch · Thrown by hand</div>
+    <h1>Quiet objects for <em>everyday</em> rituals.</h1>
+    <p>Each piece is wheel-thrown, glazed, and fired in our riverside studio — no two exactly alike, all made to be used.</p>
+    <div class="row"><a class="btn solid" href="#shop">Shop the collection</a><a class="btn link" href="#">Book a class →</a></div>
+  </div>
+  <div class="hero-art"><style>css-doodle[data-tabbied="art5"]{--color0: #f7ede2; --color1: #c1502e; --color2: #84582c; --color3: #2f3e46; --color4: #c1502e; --color5: #84582c; /* Tonal pebble colors */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ /* Random corner rounding carves circles, drops and leaves; border-radius is animatable so reseeds morph one silhouette into the next */ @random(0.999) { width: 82%; height: 82%; margin: 9%; background: var(--randomColor); border-radius: @pick(50%, 50% 50% 50% 0, 50% 50% 0 50%, 50% 0 50% 50%, 0 50% 50% 50%, 50% 0, 0 50%); -webkit-transform: rotate(@pick(0deg, 90deg, 180deg, 270deg)); transform: rotate(@pick(0deg, 90deg, 180deg, 270deg)); } /* A few pebbles are small ones */ @random(0.2) { width: 38%; height: 38%; margin: 31%; } -webkit-transition: ease 400ms; transition: ease 400ms; );}</style><css-doodle data-tabbied="art5" use="var(--rule)" seed="TERRA">:doodle { @grid: 5x7; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+</header>
+<div class="strip">
+  <div><div class="n">1,400°</div><div class="l">Stoneware firing</div></div>
+  <div><div class="n">6 wks</div><div class="l">Kiln to table</div></div>
+  <div><div class="n">100%</div><div class="l">Lead-free glaze</div></div>
+</div>
+<section class="shop" id="shop">
+  <h2>The Riverstone Collection</h2>
+  <p class="sub">Tableware toned after wet clay and dusk.</p>
+  <div class="pieces">
+    
+    <article class="piece">
+      <div class="ph"><style>css-doodle[data-tabbied="art6"]{--color0: #f7ede2; --color1: #c1502e; --color2: #84582c; --color3: #2f3e46; --color4: #c1502e; --color5: #84582c; /* Tonal pebble colors */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ /* Random corner rounding carves circles, drops and leaves; border-radius is animatable so reseeds morph one silhouette into the next */ @random(0.999) { width: 82%; height: 82%; margin: 9%; background: var(--randomColor); border-radius: @pick(50%, 50% 50% 50% 0, 50% 50% 0 50%, 50% 0 50% 50%, 0 50% 50% 50%, 50% 0, 0 50%); -webkit-transform: rotate(@pick(0deg, 90deg, 180deg, 270deg)); transform: rotate(@pick(0deg, 90deg, 180deg, 270deg)); } /* A few pebbles are small ones */ @random(0.2) { width: 38%; height: 38%; margin: 31%; } -webkit-transition: ease 400ms; transition: ease 400ms; );}</style><css-doodle data-tabbied="art6" use="var(--rule)" seed="p1">:doodle { @grid: 4x5; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+      <div class="info"><h3>Ripple Bowl</h3><span class="price">$48</span></div>
+    </article>
+    <article class="piece">
+      <div class="ph"><style>css-doodle[data-tabbied="art7"]{--color0: #f7ede2; --color1: #c1502e; --color2: #84582c; --color3: #2f3e46; --color4: #c1502e; --color5: #84582c; /* Tonal pebble colors */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ /* Random corner rounding carves circles, drops and leaves; border-radius is animatable so reseeds morph one silhouette into the next */ @random(0.999) { width: 82%; height: 82%; margin: 9%; background: var(--randomColor); border-radius: @pick(50%, 50% 50% 50% 0, 50% 50% 0 50%, 50% 0 50% 50%, 0 50% 50% 50%, 50% 0, 0 50%); -webkit-transform: rotate(@pick(0deg, 90deg, 180deg, 270deg)); transform: rotate(@pick(0deg, 90deg, 180deg, 270deg)); } /* A few pebbles are small ones */ @random(0.2) { width: 38%; height: 38%; margin: 31%; } -webkit-transition: ease 400ms; transition: ease 400ms; );}</style><css-doodle data-tabbied="art7" use="var(--rule)" seed="p2">:doodle { @grid: 3x4; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+      <div class="info"><h3>Ember Mug</h3><span class="price">$34</span></div>
+    </article>
+    <article class="piece">
+      <div class="ph"><style>css-doodle[data-tabbied="art8"]{--color0: #f7ede2; --color1: #c1502e; --color2: #84582c; --color3: #2f3e46; --color4: #c1502e; --color5: #84582c; /* Tonal pebble colors */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ /* Random corner rounding carves circles, drops and leaves; border-radius is animatable so reseeds morph one silhouette into the next */ @random(0.999) { width: 82%; height: 82%; margin: 9%; background: var(--randomColor); border-radius: @pick(50%, 50% 50% 50% 0, 50% 50% 0 50%, 50% 0 50% 50%, 0 50% 50% 50%, 50% 0, 0 50%); -webkit-transform: rotate(@pick(0deg, 90deg, 180deg, 270deg)); transform: rotate(@pick(0deg, 90deg, 180deg, 270deg)); } /* A few pebbles are small ones */ @random(0.2) { width: 38%; height: 38%; margin: 31%; } -webkit-transition: ease 400ms; transition: ease 400ms; );}</style><css-doodle data-tabbied="art8" use="var(--rule)" seed="p3">:doodle { @grid: 5x6; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+      <div class="info"><h3>Dune Vase</h3><span class="price">$92</span></div>
+    </article>
+    <article class="piece">
+      <div class="ph"><style>css-doodle[data-tabbied="art9"]{--color0: #f7ede2; --color1: #c1502e; --color2: #84582c; --color3: #2f3e46; --color4: #c1502e; --color5: #84582c; /* Tonal pebble colors */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ /* Random corner rounding carves circles, drops and leaves; border-radius is animatable so reseeds morph one silhouette into the next */ @random(0.999) { width: 82%; height: 82%; margin: 9%; background: var(--randomColor); border-radius: @pick(50%, 50% 50% 50% 0, 50% 50% 0 50%, 50% 0 50% 50%, 0 50% 50% 50%, 50% 0, 0 50%); -webkit-transform: rotate(@pick(0deg, 90deg, 180deg, 270deg)); transform: rotate(@pick(0deg, 90deg, 180deg, 270deg)); } /* A few pebbles are small ones */ @random(0.2) { width: 38%; height: 38%; margin: 31%; } -webkit-transition: ease 400ms; transition: ease 400ms; );}</style><css-doodle data-tabbied="art9" use="var(--rule)" seed="p4">:doodle { @grid: 4x5; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+      <div class="info"><h3>Tide Plate</h3><span class="price">$56</span></div>
+    </article>
+  </div>
+</section>
+<section class="band">
+  <div class="doodle-wrap"><style>css-doodle[data-tabbied="art10"]{--color0: #f7ede2; --color1: #c1502e; --color2: #84582c; --color3: #2f3e46; --color4: #c1502e; --color5: #84582c; /* Tonal pebble colors */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ /* Random corner rounding carves circles, drops and leaves; border-radius is animatable so reseeds morph one silhouette into the next */ @random(0.999) { width: 82%; height: 82%; margin: 9%; background: var(--randomColor); border-radius: @pick(50%, 50% 50% 50% 0, 50% 50% 0 50%, 50% 0 50% 50%, 0 50% 50% 50%, 50% 0, 0 50%); -webkit-transform: rotate(@pick(0deg, 90deg, 180deg, 270deg)); transform: rotate(@pick(0deg, 90deg, 180deg, 270deg)); } /* A few pebbles are small ones */ @random(0.2) { width: 38%; height: 38%; margin: 31%; } -webkit-transition: ease 400ms; transition: ease 400ms; );}</style><css-doodle data-tabbied="art10" use="var(--rule)" seed="BANDT">:doodle { @grid: 8x4; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+  <blockquote>“We make things that ask to be picked up.”</blockquote>
+</section>
+<footer>
+  <div class="logo">Terra Ceramics</div>
+  <div>© 2026 Terra Studio · Pattern by Tabbied — Terracotta palette</div>
+</footer>
+
+</body>
+</html>

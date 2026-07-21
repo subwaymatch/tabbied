@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Verdant — Plants for Small Spaces</title>
+<meta name="description" content="A neighbourhood plant shop delivering easy-care houseplants across the city." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="../assets/css-doodle.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#f4faf0;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+css-doodle{display:block;width:100%;height:100%}
+img{max-width:100%}
+a{color:inherit}
+.doodle-wrap{position:absolute;inset:0;overflow:hidden}
+
+:root{--paper:#f4faf0;--green:#2d6a4f;--mint:#95d5b2;--forest:#1b4332}
+body{font-family:'DM Sans',system-ui,sans-serif;color:#1b4332}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:22px clamp(20px,5vw,64px);position:relative;z-index:10}
+.nav .logo{font-family:'DM Serif Display';font-size:26px;color:var(--forest)}
+.nav ul{display:flex;gap:30px;list-style:none;margin:0;padding:0;font-size:15px;font-weight:500}
+.nav a{text-decoration:none;opacity:.8}
+.nav .cart{background:var(--forest);color:var(--paper);padding:10px 18px;border-radius:100px;font-size:14px;font-weight:500}
+.hero{position:relative;margin:0 clamp(12px,3vw,32px);border-radius:30px;overflow:hidden;min-height:78vh;display:flex;align-items:flex-end;background:var(--forest)}
+.hero .doodle-wrap{opacity:.9}
+.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,#1b4332e0)}
+.hero-inner{position:relative;z-index:4;padding:clamp(30px,6vw,70px);color:var(--paper)}
+.hero h1{font-family:'DM Serif Display';font-weight:400;font-size:clamp(46px,9vw,120px);line-height:.92;margin:0;letter-spacing:-.01em}
+.hero p{max-width:460px;font-size:18px;line-height:1.6;margin:22px 0 30px;color:#e7f6ea}
+.btn{display:inline-block;background:var(--mint);color:var(--forest);padding:15px 30px;border-radius:100px;text-decoration:none;font-weight:700}
+.usp{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2px;background:#1b433212;margin:clamp(40px,6vw,70px) clamp(12px,3vw,32px) 0;border-radius:18px;overflow:hidden}
+.usp div{background:var(--paper);padding:26px 28px}
+.usp .e{font-size:24px}
+.usp h4{margin:12px 0 4px;font-size:16px}
+.usp p{margin:0;font-size:14px;color:#5a6f61}
+.shop{padding:clamp(50px,8vw,100px) clamp(20px,5vw,64px);max-width:1180px;margin:0 auto}
+.shop-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:40px;flex-wrap:wrap;gap:16px}
+.shop-head h2{font-family:'DM Serif Display';font-weight:400;font-size:clamp(30px,5vw,52px);margin:0}
+.shop-head a{color:var(--green);text-decoration:none;font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:24px}
+.plant{background:#fff;border-radius:20px;overflow:hidden;border:1px solid #1b433212;transition:transform .3s}
+.plant:hover{transform:translateY(-6px)}
+.plant .ph{aspect-ratio:1;position:relative;overflow:hidden}
+.plant .b{padding:18px 20px 22px}
+.plant .care{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--green);font-weight:700}
+.plant h3{font-family:'DM Serif Display';font-weight:400;font-size:22px;margin:8px 0 6px}
+.plant .row{display:flex;justify-content:space-between;align-items:center}
+.plant .price{font-weight:700}
+.plant .add{width:34px;height:34px;border-radius:50%;background:var(--forest);color:#fff;border:none;font-size:18px;cursor:pointer}
+footer{background:var(--forest);color:#cfe6d5;margin-top:clamp(40px,6vw,70px);padding:60px clamp(20px,5vw,64px);display:flex;justify-content:space-between;flex-wrap:wrap;gap:18px;font-size:14px}
+footer .logo{font-family:'DM Serif Display';color:#fff;font-size:22px}
+@media(max-width:720px){.nav ul{display:none}}
+
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="logo">Verdant</div>
+  <ul><li><a href="#shop">Shop</a></li><li><a href="#">Care Guides</a></li><li><a href="#">Gifts</a></li></ul>
+  <a class="cart" href="#">Cart · 2</a>
+</nav>
+<header class="hero">
+  <div class="doodle-wrap"><style>css-doodle[data-tabbied="art16"]{--color0: #f4faf0; --color1: #2d6a4f; --color2: #95d5b2; --color3: #1b4332; --color4: #2d6a4f; --color5: #95d5b2; /* Independent colors for the two ends of each leaf gradient */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --randomColor2: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(0.999) { width: 88%; height: 88%; margin: 6%; background: linear-gradient(135deg, var(--randomColor), var(--randomColor2)); /* Two rounded opposite corners make the leaf */ border-radius: 0 100%; -webkit-transform: rotate(@pick(0deg, 90deg)); transform: rotate(@pick(0deg, 90deg)); /* On or off option for displaying box shadows */  -webkit-transition: ease 400ms; transition: ease 400ms; } /* Occasionally a leaf gives way to a small berry */ @random(0.12) { width: 38%; height: 38%; margin: 31%; border-radius: 50%; background: var(--randomColor2); -webkit-transform: none; transform: none; } );}</style><css-doodle data-tabbied="art16" use="var(--rule)" seed="VRDNT">:doodle { @grid: 6x9; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+  <div class="hero-inner">
+    <h1>Green,<br>made easy.</h1>
+    <p>Hand-picked houseplants matched to your light, delivered to your door with everything they need to thrive.</p>
+    <a class="btn" href="#shop">Find your plant</a>
+  </div>
+</header>
+<div class="usp">
+  <div><div class="e">🚚</div><h4>Free local delivery</h4><p>Next-day, potted and ready.</p></div>
+  <div><div class="e">🌱</div><h4>30-day thrive promise</h4><p>We replace it if it struggles.</p></div>
+  <div><div class="e">💬</div><h4>Text-a-botanist</h4><p>Real care advice, anytime.</p></div>
+  <div><div class="e">♻️</div><h4>Peat-free potting</h4><p>Kinder soil, sturdier roots.</p></div>
+</div>
+<section class="shop" id="shop">
+  <div class="shop-head"><h2>Easy-care favourites</h2><a href="#">Browse all 120 →</a></div>
+  <div class="grid">
+    
+    <article class="plant">
+      <div class="ph"><style>css-doodle[data-tabbied="art17"]{--color0: #f4faf0; --color1: #2d6a4f; --color2: #95d5b2; --color3: #1b4332; --color4: #2d6a4f; --color5: #95d5b2; /* Independent colors for the two ends of each leaf gradient */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --randomColor2: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(0.999) { width: 88%; height: 88%; margin: 6%; background: linear-gradient(135deg, var(--randomColor), var(--randomColor2)); /* Two rounded opposite corners make the leaf */ border-radius: 0 100%; -webkit-transform: rotate(@pick(0deg, 90deg)); transform: rotate(@pick(0deg, 90deg)); /* On or off option for displaying box shadows */  -webkit-transition: ease 400ms; transition: ease 400ms; } /* Occasionally a leaf gives way to a small berry */ @random(0.12) { width: 38%; height: 38%; margin: 31%; border-radius: 50%; background: var(--randomColor2); -webkit-transform: none; transform: none; } );}</style><css-doodle data-tabbied="art17" use="var(--rule)" seed="v1">:doodle { @grid: 5x7; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+      <div class="b"><div class="care">Low light</div><h3>ZZ Plant</h3><div class="row"><span class="price">$32</span><button class="add" aria-label="Add">+</button></div></div>
+    </article>
+    <article class="plant">
+      <div class="ph"><style>css-doodle[data-tabbied="art18"]{--color0: #f4faf0; --color1: #2d6a4f; --color2: #95d5b2; --color3: #1b4332; --color4: #2d6a4f; --color5: #95d5b2; /* Independent colors for the two ends of each leaf gradient */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --randomColor2: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(0.999) { width: 88%; height: 88%; margin: 6%; background: linear-gradient(135deg, var(--randomColor), var(--randomColor2)); /* Two rounded opposite corners make the leaf */ border-radius: 0 100%; -webkit-transform: rotate(@pick(0deg, 90deg)); transform: rotate(@pick(0deg, 90deg)); /* On or off option for displaying box shadows */  -webkit-transition: ease 400ms; transition: ease 400ms; } /* Occasionally a leaf gives way to a small berry */ @random(0.12) { width: 38%; height: 38%; margin: 31%; border-radius: 50%; background: var(--randomColor2); -webkit-transform: none; transform: none; } );}</style><css-doodle data-tabbied="art18" use="var(--rule)" seed="v2">:doodle { @grid: 6x9; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+      <div class="b"><div class="care">Bright indirect</div><h3>Fiddle Fig</h3><div class="row"><span class="price">$68</span><button class="add" aria-label="Add">+</button></div></div>
+    </article>
+    <article class="plant">
+      <div class="ph"><style>css-doodle[data-tabbied="art19"]{--color0: #f4faf0; --color1: #2d6a4f; --color2: #95d5b2; --color3: #1b4332; --color4: #2d6a4f; --color5: #95d5b2; /* Independent colors for the two ends of each leaf gradient */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --randomColor2: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(0.999) { width: 88%; height: 88%; margin: 6%; background: linear-gradient(135deg, var(--randomColor), var(--randomColor2)); /* Two rounded opposite corners make the leaf */ border-radius: 0 100%; -webkit-transform: rotate(@pick(0deg, 90deg)); transform: rotate(@pick(0deg, 90deg)); /* On or off option for displaying box shadows */  -webkit-transition: ease 400ms; transition: ease 400ms; } /* Occasionally a leaf gives way to a small berry */ @random(0.12) { width: 38%; height: 38%; margin: 31%; border-radius: 50%; background: var(--randomColor2); -webkit-transform: none; transform: none; } );}</style><css-doodle data-tabbied="art19" use="var(--rule)" seed="v3">:doodle { @grid: 4x6; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+      <div class="b"><div class="care">Beginner</div><h3>Pothos</h3><div class="row"><span class="price">$24</span><button class="add" aria-label="Add">+</button></div></div>
+    </article>
+    <article class="plant">
+      <div class="ph"><style>css-doodle[data-tabbied="art20"]{--color0: #f4faf0; --color1: #2d6a4f; --color2: #95d5b2; --color3: #1b4332; --color4: #2d6a4f; --color5: #95d5b2; /* Independent colors for the two ends of each leaf gradient */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --randomColor2: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(0.999) { width: 88%; height: 88%; margin: 6%; background: linear-gradient(135deg, var(--randomColor), var(--randomColor2)); /* Two rounded opposite corners make the leaf */ border-radius: 0 100%; -webkit-transform: rotate(@pick(0deg, 90deg)); transform: rotate(@pick(0deg, 90deg)); /* On or off option for displaying box shadows */  -webkit-transition: ease 400ms; transition: ease 400ms; } /* Occasionally a leaf gives way to a small berry */ @random(0.12) { width: 38%; height: 38%; margin: 31%; border-radius: 50%; background: var(--randomColor2); -webkit-transform: none; transform: none; } );}</style><css-doodle data-tabbied="art20" use="var(--rule)" seed="v4">:doodle { @grid: 6x8; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+      <div class="b"><div class="care">Statement</div><h3>Bird of Paradise</h3><div class="row"><span class="price">$95</span><button class="add" aria-label="Add">+</button></div></div>
+    </article>
+  </div>
+</section>
+<footer>
+  <div class="logo">Verdant</div>
+  <div>© 2026 Verdant Plant Co. · Foliage pattern by Tabbied — Fern palette</div>
+</footer>
+
+</body>
+</html>

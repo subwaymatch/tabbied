@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Aurora Sound — Electronic Music Label</title>
+<meta name="description" content="An independent electronic music label releasing forward-looking club and ambient records." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎧</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@600;800&display=swap" rel="stylesheet">
+<script src="../assets/css-doodle.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#0d0d12;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+css-doodle{display:block;width:100%;height:100%}
+img{max-width:100%}
+a{color:inherit}
+.doodle-wrap{position:absolute;inset:0;overflow:hidden}
+
+:root{--bg:#0d0d12;--a:#3fffb2;--b:#3eecff;--c:#ff3d8b}
+body{font-family:'Space Grotesk',system-ui,sans-serif;color:#eef0ff}
+.nav{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:22px clamp(20px,5vw,64px);mix-blend-mode:difference}
+.nav .logo{font-family:'Sora';font-weight:800;letter-spacing:.16em;font-size:15px;text-transform:uppercase}
+.nav ul{display:flex;gap:30px;list-style:none;margin:0;padding:0;font-size:13px;letter-spacing:.1em;text-transform:uppercase}
+.nav a{text-decoration:none;opacity:.85}
+.hero{position:relative;min-height:100vh;display:grid;place-items:center;overflow:hidden}
+.hero .doodle-wrap{filter:saturate(1.1)}
+.hero::after{content:'';position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 42%,#0d0d1255 0,#0d0d12bb 55%,#0d0d12 100%)}
+.hero-inner{position:relative;z-index:5;text-align:center;padding:0 24px}
+.eyebrow{font-size:13px;letter-spacing:.42em;text-transform:uppercase;color:var(--a);margin-bottom:26px}
+.hero h1{font-family:'Sora';font-weight:800;font-size:clamp(52px,12vw,168px);line-height:.9;margin:0;letter-spacing:-.03em;background:linear-gradient(96deg,var(--b),var(--a) 40%,var(--c));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{max-width:520px;margin:28px auto 0;font-size:clamp(15px,2vw,18px);line-height:1.6;color:#c9cee6}
+.cta{display:inline-flex;gap:14px;margin-top:40px}
+.btn{padding:14px 28px;border-radius:100px;font-weight:500;font-size:14px;letter-spacing:.04em;text-decoration:none;border:1px solid transparent}
+.btn.solid{background:var(--a);color:#04120c}
+.btn.ghost{border-color:#ffffff33;color:#eef0ff}
+.marquee{border-top:1px solid #ffffff14;border-bottom:1px solid #ffffff14;overflow:hidden;white-space:nowrap;padding:16px 0;position:relative;z-index:5;background:#0d0d12}
+.marquee span{font-family:'Sora';font-weight:800;font-size:26px;letter-spacing:-.01em;color:#ffffff10;padding:0 22px}
+.marquee span b{color:var(--c);-webkit-text-stroke:0}
+.releases{padding:clamp(70px,10vw,130px) clamp(20px,5vw,64px);max-width:1200px;margin:0 auto}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:48px;flex-wrap:wrap}
+.sec-head h2{font-family:'Sora';font-weight:800;font-size:clamp(30px,5vw,52px);margin:0;letter-spacing:-.02em}
+.sec-head p{margin:0;color:#9aa0bd;max-width:360px;font-size:15px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:26px}
+.rel{border-radius:18px;overflow:hidden;background:#15151d;border:1px solid #ffffff10;transition:transform .3s ease,border-color .3s ease}
+.rel:hover{transform:translateY(-6px);border-color:var(--a)}
+.rel .cover{position:relative;aspect-ratio:1;overflow:hidden}
+.rel .meta{padding:18px 20px 22px}
+.rel .cat{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--a)}
+.rel h3{margin:8px 0 4px;font-family:'Sora';font-weight:600;font-size:20px}
+.rel .artist{color:#8b90ad;font-size:14px}
+footer{padding:64px clamp(20px,5vw,64px);border-top:1px solid #ffffff12;display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;color:#7c82a0;font-size:13px}
+footer .logo{font-family:'Sora';font-weight:800;letter-spacing:.16em;color:#eef0ff;text-transform:uppercase}
+@media(max-width:640px){.nav ul{display:none}}
+
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="logo">◈ Aurora</div>
+  <ul><li><a href="#releases">Releases</a></li><li><a href="#">Artists</a></li><li><a href="#">Events</a></li><li><a href="#">About</a></li></ul>
+</nav>
+<header class="hero">
+  <div class="doodle-wrap"><style>css-doodle[data-tabbied="art0"]{--color0: #0d0d12; --color1: #3fffb2; --color2: #3eecff; --color3: #ff3d8b; --color4: #3fffb2; --color5: #3eecff; --blob: @p(var(--color1), var(--color2), var(--color3), var(--color4)); --rule: ( @random(0.999) { :before { content: ''; position: absolute; inset: 7%; background: var(--blob); border-radius: @rand(30%, 70%) @rand(30%, 70%) @rand(30%, 70%) @rand(30%, 70%) / @rand(30%, 70%) @rand(30%, 70%) @rand(30%, 70%) @rand(30%, 70%); opacity: 0.85; transition: ease 700ms; } } );}</style><css-doodle data-tabbied="art0" use="var(--rule)" seed="AUR7">:doodle { @grid: 5x8; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+  <div class="hero-inner">
+    <div class="eyebrow">Independent · Est. 2019</div>
+    <h1>AURORA<br>SOUND</h1>
+    <p>A record label for forward-looking club, ambient, and everything that glows in between. Pressed with love, mixed for midnight.</p>
+    <div class="cta"><a class="btn solid" href="#releases">Latest Releases</a><a class="btn ghost" href="#">Listen Live</a></div>
+  </div>
+</header>
+<div class="marquee"><span>NEW SIGNINGS <b>✦</b> WAX &amp; DIGITAL <b>✦</b> DEEP CUTS <b>✦</b> AFTER HOURS <b>✦</b> NEW SIGNINGS <b>✦</b> WAX &amp; DIGITAL <b>✦</b> DEEP CUTS <b>✦</b> AFTER HOURS <b>✦</b></span></div>
+<section class="releases" id="releases">
+  <div class="sec-head">
+    <h2>Recent Releases</h2>
+    <p>Twelve inches and twelve bits — every drop mastered for the floor and the headphones.</p>
+  </div>
+  <div class="grid">
+    
+    <article class="rel">
+      <div class="cover"><style>css-doodle[data-tabbied="art1"]{--color0: #0d0d12; --color1: #3fffb2; --color2: #3eecff; --color3: #ff3d8b; --color4: #3fffb2; --color5: #3eecff; --blob: @p(var(--color1), var(--color2), var(--color3), var(--color4)); --rule: ( @random(0.999) { :before { content: ''; position: absolute; inset: 7%; background: var(--blob); border-radius: @rand(30%, 70%) @rand(30%, 70%) @rand(30%, 70%) @rand(30%, 70%) / @rand(30%, 70%) @rand(30%, 70%) @rand(30%, 70%) @rand(30%, 70%); opacity: 0.85; transition: ease 700ms; } } );}</style><css-doodle data-tabbied="art1" use="var(--rule)" seed="r1">:doodle { @grid: 6x6; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+      <div class="meta"><div class="cat">LP</div><h3>Neon Tides</h3><div class="artist">KAORU</div></div>
+    </article>
+    <article class="rel">
+      <div class="cover"><style>css-doodle[data-tabbied="art2"]{--color0: #0d0d12; --color1: #3fffb2; --color2: #3eecff; --color3: #ff3d8b; --color4: #3fffb2; --color5: #3eecff; --blob: @p(var(--color1), var(--color2), var(--color3), var(--color4)); --rule: ( @random(0.999) { :before { content: ''; position: absolute; inset: 7%; background: var(--blob); border-radius: @rand(30%, 70%) @rand(30%, 70%) @rand(30%, 70%) @rand(30%, 70%) / @rand(30%, 70%) @rand(30%, 70%) @rand(30%, 70%) @rand(30%, 70%); opacity: 0.85; transition: ease 700ms; } } );}</style><css-doodle data-tabbied="art2" use="var(--rule)" seed="r2">:doodle { @grid: 4x4; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+      <div class="meta"><div class="cat">EP</div><h3>Halcyon</h3><div class="artist">Vela &amp; Mør</div></div>
+    </article>
+    <article class="rel">
+      <div class="cover"><style>css-doodle[data-tabbied="art3"]{--color0: #0d0d12; --color1: #3fffb2; --color2: #3eecff; --color3: #ff3d8b; --color4: #3fffb2; --color5: #3eecff; --blob: @p(var(--color1), var(--color2), var(--color3), var(--color4)); --rule: ( @random(0.999) { :before { content: ''; position: absolute; inset: 7%; background: var(--blob); border-radius: @rand(30%, 70%) @rand(30%, 70%) @rand(30%, 70%) @rand(30%, 70%) / @rand(30%, 70%) @rand(30%, 70%) @rand(30%, 70%) @rand(30%, 70%); opacity: 0.85; transition: ease 700ms; } } );}</style><css-doodle data-tabbied="art3" use="var(--rule)" seed="r3">:doodle { @grid: 8x8; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+      <div class="meta"><div class="cat">Single</div><h3>Afterglow</h3><div class="artist">S U N J A</div></div>
+    </article>
+    <article class="rel">
+      <div class="cover"><style>css-doodle[data-tabbied="art4"]{--color0: #0d0d12; --color1: #3fffb2; --color2: #3eecff; --color3: #ff3d8b; --color4: #3fffb2; --color5: #3eecff; --blob: @p(var(--color1), var(--color2), var(--color3), var(--color4)); --rule: ( @random(0.999) { :before { content: ''; position: absolute; inset: 7%; background: var(--blob); border-radius: @rand(30%, 70%) @rand(30%, 70%) @rand(30%, 70%) @rand(30%, 70%) / @rand(30%, 70%) @rand(30%, 70%) @rand(30%, 70%) @rand(30%, 70%); opacity: 0.85; transition: ease 700ms; } } );}</style><css-doodle data-tabbied="art4" use="var(--rule)" seed="r4">:doodle { @grid: 5x5; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+      <div class="meta"><div class="cat">LP</div><h3>Static Bloom</h3><div class="artist">Orbit Theory</div></div>
+    </article>
+  </div>
+</section>
+<footer>
+  <div class="logo">◈ AURORA SOUND</div>
+  <div>© 2026 Aurora Sound. Artwork generated with Tabbied · Neon palette.</div>
+</footer>
+
+</body>
+</html>

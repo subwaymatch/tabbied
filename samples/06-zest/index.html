@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Zest — Bright, Fast, Weeknight Cooking</title>
+<meta name="description" content="A food publication for bright, fast, weeknight cooking you will actually make." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍋</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="../assets/css-doodle.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#fffbe6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+css-doodle{display:block;width:100%;height:100%}
+img{max-width:100%}
+a{color:inherit}
+.doodle-wrap{position:absolute;inset:0;overflow:hidden}
+
+:root{--cream:#fffbe6;--orange:#ff9f1c;--teal:#2ec4b6;--red:#e71d36}
+body{font-family:'Nunito Sans',system-ui,sans-serif;color:#26333a}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:20px clamp(20px,5vw,64px)}
+.nav .logo{font-family:'Baloo 2';font-weight:800;font-size:28px;color:var(--red);letter-spacing:-.01em}
+.nav ul{display:flex;gap:26px;list-style:none;margin:0;padding:0;font-weight:700;font-size:15px}
+.nav a{text-decoration:none}
+.nav .btn{background:var(--red);color:#fff;padding:11px 20px;border-radius:100px;font-weight:800}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(20px,4vw,50px);align-items:center;padding:clamp(20px,4vw,50px) clamp(20px,5vw,64px)}
+.hero-copy .kick{display:inline-block;background:var(--teal);color:#04302c;font-weight:800;padding:7px 16px;border-radius:100px;font-size:13px;letter-spacing:.04em;margin-bottom:20px}
+.hero h1{font-family:'Baloo 2';font-weight:800;font-size:clamp(44px,7vw,90px);line-height:.98;margin:0;color:#20140a}
+.hero h1 span{color:var(--orange)}
+.hero p{font-size:19px;line-height:1.6;max-width:440px;margin:20px 0 30px;color:#4a5560}
+.hero .row{display:flex;gap:14px;align-items:center}
+.btn2{display:inline-block;background:var(--orange);color:#fff;padding:15px 30px;border-radius:100px;text-decoration:none;font-weight:800;box-shadow:0 12px 24px -8px #ff9f1c88}
+.link{font-weight:800;color:var(--red);text-decoration:none}
+.hero-art{position:relative;aspect-ratio:1;border-radius:32px;overflow:hidden;box-shadow:0 30px 60px -24px #ff9f1c66;border:6px solid #fff}
+.ticker{background:var(--red);color:#fff;font-family:'Baloo 2';font-weight:800;padding:14px 0;overflow:hidden;white-space:nowrap}
+.ticker span{padding:0 20px;font-size:20px}
+.recipes{padding:clamp(50px,8vw,100px) clamp(20px,5vw,64px);max-width:1200px;margin:0 auto}
+.recipes h2{font-family:'Baloo 2';font-weight:800;font-size:clamp(30px,5vw,52px);margin:0 0 8px;color:#20140a}
+.recipes .sub{color:#5a6570;margin:0 0 42px;font-size:18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:26px}
+.rc{background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 16px 34px -22px #3a2a1088;transition:transform .3s}
+.rc:hover{transform:translateY(-6px) rotate(-.6deg)}
+.rc .ph{aspect-ratio:4/3;position:relative;overflow:hidden}
+.rc .tag{position:absolute;z-index:3;top:12px;left:12px;background:#ffffffe6;color:#20140a;font-weight:800;font-size:12px;padding:6px 12px;border-radius:100px}
+.rc .b{padding:18px 22px 24px}
+.rc h3{font-family:'Baloo 2';font-weight:800;font-size:22px;margin:0 0 6px;color:#20140a}
+.rc .meta{display:flex;gap:14px;color:#7a8590;font-weight:700;font-size:14px}
+footer{background:#20140a;color:#f0d9a8;padding:56px clamp(20px,5vw,64px);display:flex;justify-content:space-between;flex-wrap:wrap;gap:18px;font-size:15px}
+footer .logo{font-family:'Baloo 2';font-weight:800;color:var(--orange);font-size:26px}
+@media(max-width:820px){.hero{grid-template-columns:1fr}.nav ul{display:none}}
+
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="logo">Zest 🍋</div>
+  <ul><li><a href="#recipes">Recipes</a></li><li><a href="#">Quick</a></li><li><a href="#">Vegetarian</a></li><li><a href="#">Baking</a></li></ul>
+  <a class="btn" href="#">Get the box</a>
+</nav>
+<header class="hero">
+  <div class="hero-copy">
+    <span class="kick">30 minutes or less</span>
+    <h1>Dinner that <span>actually</span> gets made.</h1>
+    <p>Bright, punchy recipes with short lists and shorter cook times — the kind you cook on a Tuesday and brag about on Friday.</p>
+    <div class="row"><a class="btn2" href="#recipes">Tonight's recipe</a><a class="link" href="#">Browse all →</a></div>
+  </div>
+  <div class="hero-art"><style>css-doodle[data-tabbied="art25"]{--color0: #fffbe6; --color1: #ff9f1c; --color2: #2ec4b6; --color3: #e71d36; --color4: #ff9f1c; --color5: #2ec4b6; /* Random color generator variable */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(0.999) { :after { content: ''; position: absolute; @size: @rand(18%, 55%); left: @rand(2%, 60%); top: @rand(2%, 60%); background: var(--randomColor); -webkit-clip-path: @pick(circle(50% at 50% 50%), polygon(50% 0, 100% 100%, 0 100%), polygon(0 0, 100% 0, 100% 100%, 0 100%), inset(32% 0 32% 0)); clip-path: @pick(circle(50% at 50% 50%), polygon(50% 0, 100% 100%, 0 100%), polygon(0 0, 100% 0, 100% 100%, 0 100%), inset(32% 0 32% 0)); -webkit-transform: rotate(@rand(0deg, 359deg)); transform: rotate(@rand(0deg, 359deg)); -webkit-transition: ease 400ms; transition: ease 400ms; } } );}</style><css-doodle data-tabbied="art25" use="var(--rule)" seed="ZEST1">:doodle { @grid: 6x6; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+</header>
+<div class="ticker"><span>★ 15-MINUTE MEALS ★ ONE-PAN WONDERS ★ PANTRY HEROES ★ NO-CHOP NIGHTS ★ 15-MINUTE MEALS ★ ONE-PAN WONDERS ★ PANTRY HEROES ★ NO-CHOP NIGHTS ★</span></div>
+<section class="recipes" id="recipes">
+  <h2>This week's brightest</h2>
+  <p class="sub">Fresh from the test kitchen, sorted by how fast you'll be eating.</p>
+  <div class="grid">
+    
+    <article class="rc">
+      <div class="ph"><span class="tag">⏱ 20 min</span><style>css-doodle[data-tabbied="art26"]{--color0: #fffbe6; --color1: #ff9f1c; --color2: #2ec4b6; --color3: #e71d36; --color4: #ff9f1c; --color5: #2ec4b6; /* Random color generator variable */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(0.999) { :after { content: ''; position: absolute; @size: @rand(18%, 55%); left: @rand(2%, 60%); top: @rand(2%, 60%); background: var(--randomColor); -webkit-clip-path: @pick(circle(50% at 50% 50%), polygon(50% 0, 100% 100%, 0 100%), polygon(0 0, 100% 0, 100% 100%, 0 100%), inset(32% 0 32% 0)); clip-path: @pick(circle(50% at 50% 50%), polygon(50% 0, 100% 100%, 0 100%), polygon(0 0, 100% 0, 100% 100%, 0 100%), inset(32% 0 32% 0)); -webkit-transform: rotate(@rand(0deg, 359deg)); transform: rotate(@rand(0deg, 359deg)); -webkit-transition: ease 400ms; transition: ease 400ms; } } );}</style><css-doodle data-tabbied="art26" use="var(--rule)" seed="z1">:doodle { @grid: 5x4; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+      <div class="b"><h3>Chili-Lime Corn Bowls</h3><div class="meta"><span>🍽 4 servings</span><span>★ 4.9</span></div></div>
+    </article>
+    <article class="rc">
+      <div class="ph"><span class="tag">⏱ 15 min</span><style>css-doodle[data-tabbied="art27"]{--color0: #fffbe6; --color1: #ff9f1c; --color2: #2ec4b6; --color3: #e71d36; --color4: #ff9f1c; --color5: #2ec4b6; /* Random color generator variable */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(0.999) { :after { content: ''; position: absolute; @size: @rand(18%, 55%); left: @rand(2%, 60%); top: @rand(2%, 60%); background: var(--randomColor); -webkit-clip-path: @pick(circle(50% at 50% 50%), polygon(50% 0, 100% 100%, 0 100%), polygon(0 0, 100% 0, 100% 100%, 0 100%), inset(32% 0 32% 0)); clip-path: @pick(circle(50% at 50% 50%), polygon(50% 0, 100% 100%, 0 100%), polygon(0 0, 100% 0, 100% 100%, 0 100%), inset(32% 0 32% 0)); -webkit-transform: rotate(@rand(0deg, 359deg)); transform: rotate(@rand(0deg, 359deg)); -webkit-transition: ease 400ms; transition: ease 400ms; } } );}</style><css-doodle data-tabbied="art27" use="var(--rule)" seed="z2">:doodle { @grid: 6x5; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+      <div class="b"><h3>Blistered Tomato Orzo</h3><div class="meta"><span>🍽 2 servings</span><span>★ 4.9</span></div></div>
+    </article>
+    <article class="rc">
+      <div class="ph"><span class="tag">⏱ 30 min</span><style>css-doodle[data-tabbied="art28"]{--color0: #fffbe6; --color1: #ff9f1c; --color2: #2ec4b6; --color3: #e71d36; --color4: #ff9f1c; --color5: #2ec4b6; /* Random color generator variable */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(0.999) { :after { content: ''; position: absolute; @size: @rand(18%, 55%); left: @rand(2%, 60%); top: @rand(2%, 60%); background: var(--randomColor); -webkit-clip-path: @pick(circle(50% at 50% 50%), polygon(50% 0, 100% 100%, 0 100%), polygon(0 0, 100% 0, 100% 100%, 0 100%), inset(32% 0 32% 0)); clip-path: @pick(circle(50% at 50% 50%), polygon(50% 0, 100% 100%, 0 100%), polygon(0 0, 100% 0, 100% 100%, 0 100%), inset(32% 0 32% 0)); -webkit-transform: rotate(@rand(0deg, 359deg)); transform: rotate(@rand(0deg, 359deg)); -webkit-transition: ease 400ms; transition: ease 400ms; } } );}</style><css-doodle data-tabbied="art28" use="var(--rule)" seed="z3">:doodle { @grid: 5x4; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+      <div class="b"><h3>Sesame Crunch Noodles</h3><div class="meta"><span>🍽 4 servings</span><span>★ 4.9</span></div></div>
+    </article>
+    <article class="rc">
+      <div class="ph"><span class="tag">⏱ 25 min</span><style>css-doodle[data-tabbied="art29"]{--color0: #fffbe6; --color1: #ff9f1c; --color2: #2ec4b6; --color3: #e71d36; --color4: #ff9f1c; --color5: #2ec4b6; /* Random color generator variable */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(0.999) { :after { content: ''; position: absolute; @size: @rand(18%, 55%); left: @rand(2%, 60%); top: @rand(2%, 60%); background: var(--randomColor); -webkit-clip-path: @pick(circle(50% at 50% 50%), polygon(50% 0, 100% 100%, 0 100%), polygon(0 0, 100% 0, 100% 100%, 0 100%), inset(32% 0 32% 0)); clip-path: @pick(circle(50% at 50% 50%), polygon(50% 0, 100% 100%, 0 100%), polygon(0 0, 100% 0, 100% 100%, 0 100%), inset(32% 0 32% 0)); -webkit-transform: rotate(@rand(0deg, 359deg)); transform: rotate(@rand(0deg, 359deg)); -webkit-transition: ease 400ms; transition: ease 400ms; } } );}</style><css-doodle data-tabbied="art29" use="var(--rule)" seed="z4">:doodle { @grid: 6x5; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+      <div class="b"><h3>Charred Broccoli Tacos</h3><div class="meta"><span>🍽 3 servings</span><span>★ 4.9</span></div></div>
+    </article>
+  </div>
+</section>
+<footer>
+  <div class="logo">Zest 🍋</div>
+  <div>© 2026 Zest Kitchen · Confetti pattern by Tabbied — Citrus palette</div>
+</footer>
+
+</body>
+</html>

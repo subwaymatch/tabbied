@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Meridian — Payments Infrastructure</title>
+<meta name="description" content="Programmable payments infrastructure for modern software teams." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⬡</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;800&display=swap" rel="stylesheet">
+<script src="../assets/css-doodle.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#ffffff;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+css-doodle{display:block;width:100%;height:100%}
+img{max-width:100%}
+a{color:inherit}
+.doodle-wrap{position:absolute;inset:0;overflow:hidden}
+
+:root{--navy:#0a1a3f;--blue:#1e4fd6;--cyan:#3eecff;--pale:#eef4ff}
+body{font-family:'Manrope',system-ui,sans-serif;color:#0a1a3f}
+.nav{position:absolute;top:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:22px clamp(20px,5vw,64px);color:#eaf1ff}
+.nav .logo{font-weight:800;font-size:20px;letter-spacing:-.01em;display:flex;gap:9px;align-items:center}
+.nav .logo b{width:22px;height:22px;background:var(--cyan);border-radius:6px;display:inline-block;transform:rotate(45deg)}
+.nav ul{display:flex;gap:30px;list-style:none;margin:0;padding:0;font-size:14px;font-weight:500}
+.nav a{text-decoration:none;opacity:.85}
+.nav .signin{background:#ffffff;color:var(--navy);padding:10px 20px;border-radius:8px;font-weight:600}
+.hero{position:relative;min-height:100vh;overflow:hidden;color:#eaf1ff;display:flex;align-items:center;background:linear-gradient(160deg,#0a1a3f,#061029)}
+.hero .doodle-wrap{opacity:.55;mask-image:linear-gradient(180deg,transparent,#000 30%,#000 70%,transparent)}
+.hero::after{content:'';position:absolute;inset:0;background:radial-gradient(70% 60% at 78% 50%,transparent,#0a1a3f 80%)}
+.hero-inner{position:relative;z-index:5;padding:0 clamp(20px,5vw,64px);max-width:760px}
+.pill{display:inline-flex;align-items:center;gap:8px;background:#ffffff12;border:1px solid #ffffff22;padding:7px 14px;border-radius:100px;font-size:13px;font-weight:500;margin-bottom:26px}
+.pill b{color:var(--cyan)}
+.hero h1{font-size:clamp(42px,7vw,82px);line-height:1.02;letter-spacing:-.035em;margin:0;font-weight:800}
+.hero h1 span{background:linear-gradient(92deg,var(--cyan),var(--pale));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{font-size:clamp(16px,2vw,20px);line-height:1.6;color:#b7c6e6;max-width:540px;margin:26px 0 0}
+.hero .cta{display:flex;gap:14px;margin-top:38px;flex-wrap:wrap}
+.btn{padding:15px 28px;border-radius:10px;text-decoration:none;font-weight:600;font-size:15px}
+.btn.solid{background:var(--cyan);color:#04122b}
+.btn.ghost{border:1px solid #ffffff2e;color:#eaf1ff}
+.code{margin-top:44px;background:#0a1836cc;border:1px solid #ffffff1a;border-radius:14px;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:14px;padding:20px 22px;max-width:520px;line-height:1.7;box-shadow:0 30px 60px -20px #00081e}
+.code .k{color:var(--cyan)}.code .s{color:#9be7a0}.code .c{color:#6f83ad}
+.logos{padding:40px clamp(20px,5vw,64px);display:flex;gap:44px;flex-wrap:wrap;justify-content:center;align-items:center;opacity:.55;font-weight:700;letter-spacing:.02em;color:#0a1a3f;border-bottom:1px solid #0a1a3f14}
+.feat{max-width:1160px;margin:0 auto;padding:clamp(70px,9vw,120px) clamp(20px,5vw,64px)}
+.feat h2{font-size:clamp(30px,5vw,50px);letter-spacing:-.03em;margin:0 0 14px;font-weight:800}
+.feat .lead{color:#4a5a7c;max-width:520px;font-size:18px;margin:0 0 52px;line-height:1.6}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
+.card{border:1px solid #0a1a3f18;border-radius:16px;overflow:hidden;background:#fff;transition:box-shadow .3s,transform .3s}
+.card:hover{transform:translateY(-4px);box-shadow:0 24px 48px -24px #1e4fd666}
+.card .top{height:150px;position:relative;overflow:hidden;background:#0a1a3f}
+.card .b{padding:22px 24px 28px}
+.card h3{margin:0 0 8px;font-size:20px;font-weight:700}
+.card p{margin:0;color:#5a6a8a;font-size:15px;line-height:1.6}
+.big{position:relative;margin:0 clamp(12px,3vw,40px) clamp(40px,6vw,70px);border-radius:24px;overflow:hidden;min-height:420px;display:grid;place-items:center;background:#0a1a3f}
+.big .doodle-wrap{opacity:.9}
+.big::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#0a1a3fcc,#0a1a3f22 50%,#0a1a3fcc)}
+.big .in{position:relative;z-index:3;text-align:center;color:#eaf1ff;padding:0 24px}
+.big h2{font-size:clamp(30px,5vw,58px);letter-spacing:-.03em;margin:0 0 18px;font-weight:800}
+.big p{color:#b7c6e6;max-width:440px;margin:0 auto 28px;font-size:17px}
+footer{background:#0a1a3f;color:#9fb2d8;padding:60px clamp(20px,5vw,64px);display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;font-size:14px}
+footer .logo{color:#fff;font-weight:800;font-size:18px}
+@media(max-width:720px){.nav ul{display:none}}
+
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="logo"><b></b> Meridian</div>
+  <ul><li><a href="#">Products</a></li><li><a href="#features">Developers</a></li><li><a href="#">Pricing</a></li><li><a href="#">Docs</a></li></ul>
+  <a class="signin" href="#">Sign in</a>
+</nav>
+<header class="hero">
+  <div class="doodle-wrap"><style>css-doodle[data-tabbied="art11"]{--color0: #0a1a3f; --color1: #1e4fd6; --color2: #3eecff; --color3: #eef4ff; --color4: #1e4fd6; --color5: #3eecff; --node: @p(var(--color2), var(--color3), var(--color4), var(--color5)); --nx: @rand(18%, 66%); --ny: @rand(18%, 66%); --rule: ( margin: -0.5px; @random(0.7) { border-top: 2px solid var(--color1); } @random(0.7) { border-left: 2px solid var(--color1); } @random(0.16) { :after { content: ''; position: absolute; @size: 13%; left: var(--nx); top: var(--ny); background: var(--node); transition: ease 500ms; } } transition: ease 500ms; );}</style><css-doodle data-tabbied="art11" use="var(--rule)" seed="MRDN">:doodle { @grid: 12x18; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+  <div class="hero-inner">
+    <div class="pill"><b>●</b> New — Instant payouts in 40+ currencies</div>
+    <h1>Payments <span>infrastructure</span> for software that moves money.</h1>
+    <p>One API for cards, transfers, and ledgers. Ship compliant money movement in days, not quarters.</p>
+    <div class="cta"><a class="btn solid" href="#">Start building</a><a class="btn ghost" href="#">Book a demo</a></div>
+    <pre class="code"><span class="c">// charge a customer in 3 lines</span>
+<span class="k">const</span> pay = <span class="k">await</span> meridian.charges.create({
+  amount: <span class="s">4200</span>, currency: <span class="s">'usd'</span>,
+  source: token, capture: <span class="k">true</span>
+});</pre>
+  </div>
+</header>
+<div class="logos">NORTHWIND · LUMEN · CASCADE · OBERON · FLEETLY · HARBOR</div>
+<section class="feat" id="features">
+  <h2>Built for the whole money lifecycle.</h2>
+  <p class="lead">From the first authorization to reconciliation, Meridian gives your team programmable primitives with a real ledger underneath.</p>
+  <div class="cards">
+    
+    <article class="card">
+      <div class="top"><style>css-doodle[data-tabbied="art12"]{--color0: #0a1a3f; --color1: #1e4fd6; --color2: #3eecff; --color3: #eef4ff; --color4: #1e4fd6; --color5: #3eecff; --node: @p(var(--color2), var(--color3), var(--color4), var(--color5)); --nx: @rand(18%, 66%); --ny: @rand(18%, 66%); --rule: ( margin: -0.5px; @random(0.7) { border-top: 2px solid var(--color1); } @random(0.7) { border-left: 2px solid var(--color1); } @random(0.16) { :after { content: ''; position: absolute; @size: 13%; left: var(--nx); top: var(--ny); background: var(--node); transition: ease 500ms; } } transition: ease 500ms; );}</style><css-doodle data-tabbied="art12" use="var(--rule)" seed="m1">:doodle { @grid: 8x12; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+      <div class="b"><h3>Unified Ledger</h3><p>Double-entry accounting that stays correct at any scale, queryable in real time.</p></div>
+    </article>
+    <article class="card">
+      <div class="top"><style>css-doodle[data-tabbied="art13"]{--color0: #0a1a3f; --color1: #1e4fd6; --color2: #3eecff; --color3: #eef4ff; --color4: #1e4fd6; --color5: #3eecff; --node: @p(var(--color2), var(--color3), var(--color4), var(--color5)); --nx: @rand(18%, 66%); --ny: @rand(18%, 66%); --rule: ( margin: -0.5px; @random(0.7) { border-top: 2px solid var(--color1); } @random(0.7) { border-left: 2px solid var(--color1); } @random(0.16) { :after { content: ''; position: absolute; @size: 13%; left: var(--nx); top: var(--ny); background: var(--node); transition: ease 500ms; } } transition: ease 500ms; );}</style><css-doodle data-tabbied="art13" use="var(--rule)" seed="m2">:doodle { @grid: 10x15; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+      <div class="b"><h3>Adaptive Routing</h3><p>Route each transaction to the highest-converting path automatically.</p></div>
+    </article>
+    <article class="card">
+      <div class="top"><style>css-doodle[data-tabbied="art14"]{--color0: #0a1a3f; --color1: #1e4fd6; --color2: #3eecff; --color3: #eef4ff; --color4: #1e4fd6; --color5: #3eecff; --node: @p(var(--color2), var(--color3), var(--color4), var(--color5)); --nx: @rand(18%, 66%); --ny: @rand(18%, 66%); --rule: ( margin: -0.5px; @random(0.7) { border-top: 2px solid var(--color1); } @random(0.7) { border-left: 2px solid var(--color1); } @random(0.16) { :after { content: ''; position: absolute; @size: 13%; left: var(--nx); top: var(--ny); background: var(--node); transition: ease 500ms; } } transition: ease 500ms; );}</style><css-doodle data-tabbied="art14" use="var(--rule)" seed="m3">:doodle { @grid: 12x18; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+      <div class="b"><h3>Fraud Signals</h3><p>Risk scoring on every event, tuned to your traffic within a week.</p></div>
+    </article>
+  </div>
+</section>
+<section class="big">
+  <div class="doodle-wrap"><style>css-doodle[data-tabbied="art15"]{--color0: #0a1a3f; --color1: #1e4fd6; --color2: #3eecff; --color3: #eef4ff; --color4: #1e4fd6; --color5: #3eecff; --node: @p(var(--color2), var(--color3), var(--color4), var(--color5)); --nx: @rand(18%, 66%); --ny: @rand(18%, 66%); --rule: ( margin: -0.5px; @random(0.8) { border-top: 2px solid var(--color1); } @random(0.8) { border-left: 2px solid var(--color1); } @random(0.16) { :after { content: ''; position: absolute; @size: 13%; left: var(--nx); top: var(--ny); background: var(--node); transition: ease 500ms; } } transition: ease 500ms; );}</style><css-doodle data-tabbied="art15" use="var(--rule)" seed="BIGMR">:doodle { @grid: 14x22; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+  <div class="in">
+    <h2>Go live this quarter.</h2>
+    <p>Sandbox keys in a minute, production access after one review call.</p>
+    <a class="btn solid" href="#">Create an account</a>
+  </div>
+</section>
+<footer>
+  <div class="logo">⬡ Meridian</div>
+  <div>© 2026 Meridian, Inc. · Generative accents by Tabbied — Cobalt palette</div>
+</footer>
+
+</body>
+</html>

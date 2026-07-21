@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Shoreline — Coastal Architecture Studio</title>
+<meta name="description" content="An architecture studio designing calm, durable homes for the coast." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛵</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="../assets/css-doodle.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#eef4ed;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+css-doodle{display:block;width:100%;height:100%}
+img{max-width:100%}
+a{color:inherit}
+.doodle-wrap{position:absolute;inset:0;overflow:hidden}
+
+:root{--deep:#0b2545;--slate:#8da9c4;--foam:#eef4ed;--teal:#13a8a8}
+body{font-family:'Outfit',system-ui,sans-serif;color:#0b2545}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:26px clamp(20px,5vw,72px)}
+.nav .logo{font-family:'Spectral';font-weight:500;font-size:22px;letter-spacing:.08em}
+.nav ul{display:flex;gap:32px;list-style:none;margin:0;padding:0;font-size:14px;font-weight:400}
+.nav a{text-decoration:none;opacity:.75}
+.hero{display:grid;grid-template-columns:1fr 1fr;min-height:84vh}
+.hero-art{position:relative;overflow:hidden;background:var(--deep)}
+.hero-copy{display:flex;flex-direction:column;justify-content:center;padding:clamp(30px,5vw,90px) clamp(24px,5vw,72px)}
+.hero .pre{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--teal);margin-bottom:24px}
+.hero h1{font-family:'Spectral';font-weight:300;font-size:clamp(40px,6vw,80px);line-height:1.04;margin:0;letter-spacing:-.01em}
+.hero h1 b{font-weight:500}
+.hero p{font-size:18px;line-height:1.7;color:#8da9c4;max-width:420px;margin:26px 0 0}
+.hero .metae{margin-top:40px;display:flex;gap:40px}
+.hero .metae div .n{font-family:'Spectral';font-size:32px}
+.hero .metae div .l{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:#8da9c4}
+.work{padding:clamp(60px,9vw,120px) clamp(24px,5vw,72px);max-width:1200px;margin:0 auto}
+.work .head{display:flex;justify-content:space-between;align-items:end;flex-wrap:wrap;gap:16px;margin-bottom:46px}
+.work h2{font-family:'Spectral';font-weight:400;font-size:clamp(28px,4.5vw,48px);margin:0}
+.work .head p{margin:0;max-width:340px;color:#8da9c4;font-size:15px}
+.projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2px;background:#0b254518}
+.pj{position:relative;overflow:hidden;background:#fff}
+.pj .ph{height:300px;position:relative;overflow:hidden}
+.pj .b{padding:24px 26px 30px;display:flex;justify-content:space-between;align-items:baseline}
+.pj .n{font-family:'Spectral';font-size:24px;font-weight:400}
+.pj .loc{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal)}
+.pj .yr{color:#8da9c4;font-size:14px}
+.wide{position:relative;min-height:400px;display:grid;place-items:center;overflow:hidden;margin:0 clamp(12px,3vw,40px)}
+.wide .doodle-wrap{opacity:.92}
+.wide::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#0b2545aa,#0b254533 50%,#0b2545aa)}
+.wide .in{position:relative;z-index:3;text-align:center;color:var(--foam);padding:0 24px;max-width:640px}
+.wide h2{font-family:'Spectral';font-weight:300;font-size:clamp(28px,4.5vw,52px);margin:0 0 18px}
+.wide a{display:inline-block;border:1px solid #ffffff55;color:var(--foam);padding:14px 34px;text-decoration:none;font-size:13px;letter-spacing:.16em;text-transform:uppercase}
+footer{background:var(--deep);color:#b9cade;padding:60px clamp(24px,5vw,72px);display:flex;justify-content:space-between;flex-wrap:wrap;gap:18px;font-size:14px;margin-top:clamp(40px,6vw,80px)}
+footer .logo{font-family:'Spectral';color:var(--foam);font-size:20px}
+@media(max-width:820px){.hero{grid-template-columns:1fr}.hero-art{min-height:300px;order:-1}.nav ul{display:none}}
+
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="logo">SHORELINE</div>
+  <ul><li><a href="#work">Work</a></li><li><a href="#">Studio</a></li><li><a href="#">Approach</a></li><li><a href="#">Contact</a></li></ul>
+</nav>
+<header class="hero">
+  <div class="hero-copy">
+    <div class="pre">Architecture · Est. 2008</div>
+    <h1>Houses that <b>hold the weather</b> and let in the light.</h1>
+    <p>We design durable, low-slung homes for the coast — buildings that weather beautifully and sit lightly on the land.</p>
+    <div class="metae"><div><div class="n">60+</div><div class="l">Completed homes</div></div><div><div class="n">3</div><div class="l">RIBA awards</div></div></div>
+  </div>
+  <div class="hero-art"><style>css-doodle[data-tabbied="art35"]{--color0: #0b2545; --color1: #8da9c4; --color2: #eef4ed; --color3: #13a8a8; --color4: #8da9c4; --rule: ( z-index: calc(100 - @y); /* stripe and scallop share one emitted canvas color; rows stack so the scallop hangs over the row below */ --canvas: @p(var(--color1), var(--color1), var(--color2), var(--color3), var(--color4)); @random(0.999) { :before { content: ''; position: absolute; inset: 0; background: @var(--canvas); transition: ease 600ms; } :after { content: ''; position: absolute; left: 0; width: 100%; top: 96%; height: @rand(22%, 38%); border-radius: 0 0 50% 50%; background: @var(--canvas); transition: ease 600ms; } } );}</style><css-doodle data-tabbied="art35" use="var(--rule)" seed="SHORE">:doodle { @grid: 7x11; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+</header>
+<section class="work" id="work">
+  <div class="head"><h2>Selected work</h2><p>A decade of coastline, from single cabins to civic pavilions.</p></div>
+  <div class="projects">
+    
+    <article class="pj">
+      <div class="ph"><style>css-doodle[data-tabbied="art36"]{--color0: #0b2545; --color1: #8da9c4; --color2: #eef4ed; --color3: #13a8a8; --color4: #8da9c4; --rule: ( z-index: calc(100 - @y); /* stripe and scallop share one emitted canvas color; rows stack so the scallop hangs over the row below */ --canvas: @p(var(--color1), var(--color1), var(--color2), var(--color3), var(--color4)); @random(0.999) { :before { content: ''; position: absolute; inset: 0; background: @var(--canvas); transition: ease 600ms; } :after { content: ''; position: absolute; left: 0; width: 100%; top: 96%; height: @rand(22%, 38%); border-radius: 0 0 50% 50%; background: @var(--canvas); transition: ease 600ms; } } );}</style><css-doodle data-tabbied="art36" use="var(--rule)" seed="w1">:doodle { @grid: 6x8; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+      <div class="b"><div><div class="loc">Whitstable, UK</div><div class="n">Salt House</div></div><div class="yr">2024</div></div>
+    </article>
+    <article class="pj">
+      <div class="ph"><style>css-doodle[data-tabbied="art37"]{--color0: #0b2545; --color1: #8da9c4; --color2: #eef4ed; --color3: #13a8a8; --color4: #8da9c4; --rule: ( z-index: calc(100 - @y); /* stripe and scallop share one emitted canvas color; rows stack so the scallop hangs over the row below */ --canvas: @p(var(--color1), var(--color1), var(--color2), var(--color3), var(--color4)); @random(0.999) { :before { content: ''; position: absolute; inset: 0; background: @var(--canvas); transition: ease 600ms; } :after { content: ''; position: absolute; left: 0; width: 100%; top: 96%; height: @rand(22%, 38%); border-radius: 0 0 50% 50%; background: @var(--canvas); transition: ease 600ms; } } );}</style><css-doodle data-tabbied="art37" use="var(--rule)" seed="w2">:doodle { @grid: 8x10; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+      <div class="b"><div><div class="loc">Cape Cod, US</div><div class="n">Dune Pavilion</div></div><div class="yr">2023</div></div>
+    </article>
+    <article class="pj">
+      <div class="ph"><style>css-doodle[data-tabbied="art38"]{--color0: #0b2545; --color1: #8da9c4; --color2: #eef4ed; --color3: #13a8a8; --color4: #8da9c4; --rule: ( z-index: calc(100 - @y); /* stripe and scallop share one emitted canvas color; rows stack so the scallop hangs over the row below */ --canvas: @p(var(--color1), var(--color1), var(--color2), var(--color3), var(--color4)); @random(0.999) { :before { content: ''; position: absolute; inset: 0; background: @var(--canvas); transition: ease 600ms; } :after { content: ''; position: absolute; left: 0; width: 100%; top: 96%; height: @rand(22%, 38%); border-radius: 0 0 50% 50%; background: @var(--canvas); transition: ease 600ms; } } );}</style><css-doodle data-tabbied="art38" use="var(--rule)" seed="w3">:doodle { @grid: 7x9; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+      <div class="b"><div><div class="loc">Sagres, PT</div><div class="n">Harbour Rooms</div></div><div class="yr">2022</div></div>
+    </article>
+    <article class="pj">
+      <div class="ph"><style>css-doodle[data-tabbied="art39"]{--color0: #0b2545; --color1: #8da9c4; --color2: #eef4ed; --color3: #13a8a8; --color4: #8da9c4; --rule: ( z-index: calc(100 - @y); /* stripe and scallop share one emitted canvas color; rows stack so the scallop hangs over the row below */ --canvas: @p(var(--color1), var(--color1), var(--color2), var(--color3), var(--color4)); @random(0.999) { :before { content: ''; position: absolute; inset: 0; background: @var(--canvas); transition: ease 600ms; } :after { content: ''; position: absolute; left: 0; width: 100%; top: 96%; height: @rand(22%, 38%); border-radius: 0 0 50% 50%; background: @var(--canvas); transition: ease 600ms; } } );}</style><css-doodle data-tabbied="art39" use="var(--rule)" seed="w4">:doodle { @grid: 6x8; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+      <div class="b"><div><div class="loc">Bantry, IE</div><div class="n">Tidal Studio</div></div><div class="yr">2021</div></div>
+    </article>
+  </div>
+</section>
+<section class="wide">
+  <div class="doodle-wrap"><style>css-doodle[data-tabbied="art40"]{--color0: #0b2545; --color1: #8da9c4; --color2: #eef4ed; --color3: #13a8a8; --color4: #8da9c4; --rule: ( z-index: calc(100 - @y); /* stripe and scallop share one emitted canvas color; rows stack so the scallop hangs over the row below */ --canvas: @p(var(--color1), var(--color1), var(--color2), var(--color3), var(--color4)); @random(0.999) { :before { content: ''; position: absolute; inset: 0; background: @var(--canvas); transition: ease 600ms; } :after { content: ''; position: absolute; left: 0; width: 100%; top: 96%; height: @rand(22%, 38%); border-radius: 0 0 50% 50%; background: @var(--canvas); transition: ease 600ms; } } );}</style><css-doodle data-tabbied="art40" use="var(--rule)" seed="WIDESH">:doodle { @grid: 10x16; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+  <div class="in"><h2>Building something by the water?</h2><a href="#">Start a conversation</a></div>
+</section>
+<footer>
+  <div class="logo">Shoreline</div>
+  <div>© 2026 Shoreline Studio · Awning pattern by Tabbied — Ocean palette</div>
+</footer>
+
+</body>
+</html>

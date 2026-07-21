@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Sunday Press — Ideas, Design & Culture</title>
+<meta name="description" content="An independent magazine on design, technology, and the culture around them." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📰</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800;900&family=Newsreader:ital,opsz@0,6..72;1,6..72&display=swap" rel="stylesheet">
+<script src="../assets/css-doodle.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#f4f1ea;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+css-doodle{display:block;width:100%;height:100%}
+img{max-width:100%}
+a{color:inherit}
+.doodle-wrap{position:absolute;inset:0;overflow:hidden}
+
+:root{--paper:#f4f1ea;--red:#d7263d;--blue:#1b6ca8;--yellow:#f7b32b;--ink:#232529}
+body{font-family:'Archivo',system-ui,sans-serif;color:#232529}
+.masthead{border-bottom:3px solid var(--ink);padding:16px clamp(20px,5vw,64px);display:flex;justify-content:space-between;align-items:center}
+.masthead .date{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
+.masthead .sub{background:var(--ink);color:var(--paper);padding:8px 16px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;text-decoration:none}
+.title-row{text-align:center;padding:26px 20px 18px;border-bottom:1px solid var(--ink)}
+.title-row h1{font-family:'Archivo';font-weight:900;font-size:clamp(40px,10vw,120px);margin:0;letter-spacing:-.03em;line-height:.9}
+.title-row .tag{font-family:'Newsreader';font-style:italic;font-size:clamp(14px,2vw,20px);margin-top:8px;color:#444}
+.nav2{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;padding:12px;border-bottom:3px solid var(--ink);font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:600}
+.nav2 a{text-decoration:none}
+.lead-grid{display:grid;grid-template-columns:2fr 1fr;border-bottom:3px solid var(--ink)}
+.lead{border-right:1px solid var(--ink)}
+.lead .art{position:relative;height:clamp(280px,42vw,560px);overflow:hidden;border-bottom:1px solid var(--ink)}
+.lead .body{padding:clamp(20px,3vw,40px)}
+.lead .kicker{color:var(--red);font-weight:800;letter-spacing:.1em;text-transform:uppercase;font-size:13px}
+.lead h2{font-family:'Archivo';font-weight:800;font-size:clamp(28px,4.5vw,56px);line-height:1.02;letter-spacing:-.02em;margin:10px 0 14px}
+.lead p{font-family:'Newsreader';font-size:19px;line-height:1.6;color:#2a2a2a;max-width:56ch;margin:0}
+.lead .by{margin-top:18px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#555;font-weight:600}
+.side{display:flex;flex-direction:column}
+.side .item{padding:22px clamp(16px,2vw,28px);border-bottom:1px solid var(--ink)}
+.side .item:last-child{border-bottom:none}
+.side .n{font-family:'Archivo';font-weight:900;font-size:22px;color:var(--blue)}
+.side h3{font-weight:700;font-size:19px;margin:6px 0 6px;line-height:1.15}
+.side p{font-family:'Newsreader';margin:0;font-size:15px;color:#444}
+.strip{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:3px solid var(--ink)}
+.strip article{border-right:1px solid var(--ink);padding-bottom:22px}
+.strip article:last-child{border-right:none}
+.strip .art{height:180px;position:relative;overflow:hidden;border-bottom:1px solid var(--ink);margin-bottom:16px}
+.strip .kicker{color:var(--red);font-weight:800;font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:0 20px}
+.strip h3{font-weight:800;font-size:22px;margin:8px 20px 6px;line-height:1.05;letter-spacing:-.01em}
+.strip p{font-family:'Newsreader';margin:0 20px;color:#444;font-size:15px}
+footer{padding:40px clamp(20px,5vw,64px);display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;font-weight:600}
+@media(max-width:820px){.lead-grid{grid-template-columns:1fr}.lead{border-right:none}.strip{grid-template-columns:1fr}.strip article{border-right:none;border-bottom:1px solid var(--ink)}}
+
+</style>
+</head>
+<body>
+
+<div class="masthead"><div class="date">Vol. XII · Sunday, July 19, 2026</div><a class="sub" href="#">Subscribe — $6/mo</a></div>
+<div class="title-row"><h1>THE SUNDAY PRESS</h1><div class="tag">Ideas, design, and the culture around them.</div></div>
+<nav class="nav2"><a href="#">Design</a><a href="#">Technology</a><a href="#">Essays</a><a href="#">Interviews</a><a href="#">Archive</a></nav>
+<div class="lead-grid">
+  <article class="lead">
+    <div class="art"><style>css-doodle[data-tabbied="art21"]{--color0: #f4f1ea; --color1: #d7263d; --color2: #1b6ca8; --color3: #f7b32b; --color4: #232529; /* every primitive is just a border-radius, so all of them interpolate */ --form: @p('50% 50% 50% 50%', '100% 100% 0% 0%', '0% 0% 100% 100%', '100% 0% 0% 100%', '0% 100% 100% 0%', '0% 0% 0% 0%', '100% 0% 100% 0%', '0% 100% 0% 100%'); --bold: @p(var(--color1), var(--color2), var(--color3), var(--color4)); --rule: ( @random(0.999) { background: var(--bold); border-radius: var(--form); } transition: ease 600ms; );}</style><css-doodle data-tabbied="art21" use="var(--rule)" seed="PRESS">:doodle { @grid: 7x11; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+    <div class="body">
+      <div class="kicker">The Feature</div>
+      <h2>The Return of the Grid</h2>
+      <p>A generation of designers raised on infinite canvases is rediscovering the humble column grid — and finding, in its constraints, a strange new freedom. We spent a month with the studios rebuilding the web on first principles.</p>
+      <div class="by">By Mara Lindqvist · 14 min read</div>
+    </div>
+  </article>
+  <div class="side">
+    <div class="item"><div class="n">01</div><h3>Why every tool wants to be a canvas</h3><p>The quiet standardisation of creative software.</p></div>
+    <div class="item"><div class="n">02</div><h3>Colour, computed</h3><p>Generative palettes and the death of the swatch.</p></div>
+    <div class="item"><div class="n">03</div><h3>The typographer's dilemma</h3><p>When variable fonts made every weight possible.</p></div>
+  </div>
+</div>
+<div class="strip">
+  
+  <article>
+    <div class="art"><style>css-doodle[data-tabbied="art22"]{--color0: #f4f1ea; --color1: #d7263d; --color2: #1b6ca8; --color3: #f7b32b; --color4: #232529; /* every primitive is just a border-radius, so all of them interpolate */ --form: @p('50% 50% 50% 50%', '100% 100% 0% 0%', '0% 0% 100% 100%', '100% 0% 0% 100%', '0% 100% 100% 0%', '0% 0% 0% 0%', '100% 0% 100% 0%', '0% 100% 0% 100%'); --bold: @p(var(--color1), var(--color2), var(--color3), var(--color4)); --rule: ( @random(0.999) { background: var(--bold); border-radius: var(--form); } transition: ease 600ms; );}</style><css-doodle data-tabbied="art22" use="var(--rule)" seed="s1">:doodle { @grid: 6x9; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+    <div class="kicker">Design</div><h3>Systems that breathe</h3><p>On leaving room in a design system for the unplanned.</p>
+  </article>
+  <article>
+    <div class="art"><style>css-doodle[data-tabbied="art23"]{--color0: #f4f1ea; --color1: #d7263d; --color2: #1b6ca8; --color3: #f7b32b; --color4: #232529; /* every primitive is just a border-radius, so all of them interpolate */ --form: @p('50% 50% 50% 50%', '100% 100% 0% 0%', '0% 0% 100% 100%', '100% 0% 0% 100%', '0% 100% 100% 0%', '0% 0% 0% 0%', '100% 0% 100% 0%', '0% 100% 0% 100%'); --bold: @p(var(--color1), var(--color2), var(--color3), var(--color4)); --rule: ( @random(0.999) { background: var(--bold); border-radius: var(--form); } transition: ease 600ms; );}</style><css-doodle data-tabbied="art23" use="var(--rule)" seed="s2">:doodle { @grid: 8x12; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+    <div class="kicker">Technology</div><h3>Small software</h3><p>The revival of tools built by one person, for a few.</p>
+  </article>
+  <article>
+    <div class="art"><style>css-doodle[data-tabbied="art24"]{--color0: #f4f1ea; --color1: #d7263d; --color2: #1b6ca8; --color3: #f7b32b; --color4: #232529; /* every primitive is just a border-radius, so all of them interpolate */ --form: @p('50% 50% 50% 50%', '100% 100% 0% 0%', '0% 0% 100% 100%', '100% 0% 0% 100%', '0% 100% 100% 0%', '0% 0% 0% 0%', '100% 0% 100% 0%', '0% 100% 0% 100%'); --bold: @p(var(--color1), var(--color2), var(--color3), var(--color4)); --rule: ( @random(0.999) { background: var(--bold); border-radius: var(--form); } transition: ease 600ms; );}</style><css-doodle data-tabbied="art24" use="var(--rule)" seed="s3">:doodle { @grid: 5x8; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+    <div class="kicker">Essays</div><h3>In praise of the ugly draft</h3><p>The creative case for shipping something rough.</p>
+  </article>
+</div>
+<footer><div>© 2026 The Sunday Press</div><div>Cover art generated with Tabbied — Bauhaus palette</div></footer>
+
+</body>
+</html>
