@@ -12,9 +12,9 @@ import { SHOWCASE_SITES } from 'components/showcase/showcaseData';
 import s from './samples.module.css';
 
 export const metadata: Metadata = {
-  title: 'Made with Tabbied — 20 Sample Websites',
+  title: 'Made with Tabbied, 20 Sample Websites',
   description:
-    'Twenty sample websites using Tabbied generative artworks as design accents — ten static HTML builds and ten built with the TabbiedArtwork React component.',
+    'Twenty sample websites using Tabbied generative artworks as design accents, ten static HTML builds and ten built with the TabbiedArtwork React component.',
 };
 
 const ART: Record<string, ArtworkDefinition> = {

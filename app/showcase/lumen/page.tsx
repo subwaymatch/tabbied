@@ -10,7 +10,7 @@ const site = SHOWCASE_SITES.find((entry) => entry.slug === 'lumen')!;
 const artworks = { spectrum, prisma, bokeh, spark };
 
 export const metadata: Metadata = {
-  title: "Lumen — Design & technology conference",
+  title: "Lumen, Design & technology conference",
   description: "Three days on the edges of design, code, and craft. Lisbon, June 2026.",
 };
 

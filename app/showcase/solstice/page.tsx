@@ -10,7 +10,7 @@ const site = SHOWCASE_SITES.find((entry) => entry.slug === 'solstice')!;
 const artworks = { petal, blossom, spark, confetti };
 
 export const metadata: Metadata = {
-  title: "Solstice — Yoga & wellness retreat",
+  title: "Solstice, Yoga & wellness retreat",
   description: "Seven-day coastal yoga and breath-work retreats for small groups.",
 };
 

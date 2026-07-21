@@ -10,7 +10,7 @@ const site = SHOWCASE_SITES.find((entry) => entry.slug === 'seabright')!;
 const artworks = { metro, wavelet, ring, quoit };
 
 export const metadata: Metadata = {
-  title: "Seabright — Coastal skincare line",
+  title: "Seabright, Coastal skincare line",
   description: "Mineral-rich, reef-safe skincare made in small batches on the coast.",
 };
 

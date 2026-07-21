@@ -2,7 +2,7 @@
 // fictional brand whose primary design accent is a Tabbied artwork rendered by
 // the `TabbiedArtwork` React component (see ShowcaseSite.tsx). Every site is
 // themed with one palette from the Tabbied library (lib/paletteLibrary.ts) and
-// built around one preset artwork — a set deliberately distinct from the ten
+// built around one preset artwork, a set deliberately distinct from the ten
 // static-HTML samples under public/samples/, so the full showcase spans twenty
 // palette/artwork pairings.
 //
@@ -25,7 +25,7 @@ export type ShowcaseSite = {
   slug: string;
   brand: string;
   topic: string;
-  /** Primary artwork slug — matches the gallery thumbnail and metadata. */
+  /** Primary artwork slug, matches the gallery thumbnail and metadata. */
   artwork: string;
   /** All artworks the site renders (primary first); each is imported by the route. */
   artworks: string[];
@@ -60,7 +60,7 @@ export type ShowcaseSite = {
   /** Band accent grid + seed. */
   bandGrid: string;
   bandSeed: string;
-  /** split only — put the doodle panel on the left. */
+  /** split only, put the doodle panel on the left. */
   reverse?: boolean;
 };
 
@@ -68,7 +68,7 @@ const gf = (families: string) =>
   `https://fonts.googleapis.com/css2?${families}&display=swap`;
 
 export const SHOWCASE_SITES: ShowcaseSite[] = [
-  // 11 — Solstice · wellness / yoga retreat · Sunset · petal
+  // 11, Solstice · wellness / yoga retreat · Sunset · petal
   {
     slug: 'solstice',
     brand: 'Solstice',
@@ -88,7 +88,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     nav: ['Retreats', 'Classes', 'Teachers', 'Journal'],
     eyebrow: 'Coastal retreats · Small groups',
     title: 'Come back to {em}yourself{/em}.',
-    lede: 'Seven-day yoga and breath-work retreats on the edge of the Pacific — unhurried mornings, long horizons, and nothing to be but here.',
+    lede: 'Seven-day yoga and breath-work retreats on the edge of the Pacific, unhurried mornings, long horizons, and nothing to be but here.',
     primaryCta: 'See 2026 dates',
     secondaryCta: 'How it works',
     stats: [
@@ -111,7 +111,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     bandSeed: 'SOLBAND',
   },
 
-  // 12 — Harbor & Vine · natural wine bar · Cranberry · quilt
+  // 12, Harbor & Vine · natural wine bar · Cranberry · quilt
   {
     slug: 'harbor-and-vine',
     brand: 'Harbor & Vine',
@@ -131,7 +131,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     nav: ['The List', 'Menu', 'Events', 'Visit'],
     eyebrow: 'Low-intervention · By the glass',
     title: 'Wine that tastes {em}like somewhere{/em}.',
-    lede: 'A harbourside bar pouring small-grower, low-intervention bottles — funky, honest, and always a little alive.',
+    lede: 'A harbourside bar pouring small-grower, low-intervention bottles, funky, honest, and always a little alive.',
     primaryCta: 'See the list',
     secondaryCta: 'Book a table',
     ticker: ['NEW ARRIVALS', 'SKIN CONTACT', 'PÉT-NAT FRIDAYS', 'BY THE GLASS', 'CELLAR PICKS'],
@@ -150,7 +150,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     bandSeed: 'HVBAND',
   },
 
-  // 13 — Lumen · design conference · Arcade · spectrum
+  // 13, Lumen · design conference · Arcade · spectrum
   {
     slug: 'lumen',
     brand: 'Lumen',
@@ -170,7 +170,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     nav: ['Program', 'Speakers', 'Venue', 'Tickets'],
     eyebrow: 'June 4–6, 2026 · Lisbon',
     title: 'Where design meets {em}what’s next{/em}.',
-    lede: 'Three days on the edges of design, code, and craft — 60 speakers, one waterfront, and the whole industry in one room.',
+    lede: 'Three days on the edges of design, code, and craft, 60 speakers, one waterfront, and the whole industry in one room.',
     primaryCta: 'Get tickets',
     secondaryCta: 'View program',
     ticker: ['60 SPEAKERS', '3 STAGES', '2 WORKSHOPS DAYS', 'ONE WATERFRONT', 'LISBON 2026'],
@@ -189,7 +189,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     bandSeed: 'LUMBAND',
   },
 
-  // 14 — Fathom · ocean research nonprofit · Lagoon · lattice
+  // 14, Fathom · ocean research nonprofit · Lagoon · lattice
   {
     slug: 'fathom',
     brand: 'Fathom',
@@ -209,7 +209,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     nav: ['Research', 'Expeditions', 'Data', 'Support'],
     eyebrow: 'Marine science · Nonprofit',
     title: 'Mapping the ocean, {em}one fathom{/em} at a time.',
-    lede: 'We fund open expeditions and publish every reading — turning the deep sea into data anyone can build on.',
+    lede: 'We fund open expeditions and publish every reading, turning the deep sea into data anyone can build on.',
     primaryCta: 'Explore the data',
     secondaryCta: 'Our expeditions',
     stats: [
@@ -233,7 +233,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     reverse: true,
   },
 
-  // 15 — Ember & Oak · wood-fire restaurant · Ember · windowpane
+  // 15, Ember & Oak · wood-fire restaurant · Ember · windowpane
   {
     slug: 'ember-and-oak',
     brand: 'Ember & Oak',
@@ -271,7 +271,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     bandSeed: 'EMBBAND',
   },
 
-  // 16 — Petal & Post · florist + stationery · Blush · frond
+  // 16, Petal & Post · florist + stationery · Blush · frond
   {
     slug: 'petal-and-post',
     brand: 'Petal & Post',
@@ -291,7 +291,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     nav: ['Bouquets', 'Weddings', 'Stationery', 'Subscriptions'],
     eyebrow: 'Seasonal stems · Hand-printed',
     title: 'Flowers & paper, {em}sent with love{/em}.',
-    lede: 'A neighbourhood studio arranging seasonal blooms and letterpress cards — the whole gesture, wrapped and delivered.',
+    lede: 'A neighbourhood studio arranging seasonal blooms and letterpress cards, the whole gesture, wrapped and delivered.',
     primaryCta: 'Shop bouquets',
     secondaryCta: 'Wedding enquiries',
     stats: [
@@ -314,7 +314,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     bandSeed: 'PETBAND',
   },
 
-  // 17 — Northwind · outdoor apparel · Forest · maze
+  // 17, Northwind · outdoor apparel · Forest · maze
   {
     slug: 'northwind',
     brand: 'Northwind',
@@ -334,7 +334,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     nav: ['Men', 'Women', 'Gear', 'Field Notes'],
     eyebrow: 'Built for the backcountry',
     title: 'Made to be {em}worn out{/em}.',
-    lede: 'Hard-wearing layers for long days above the treeline — overbuilt, weather-beaten, and guaranteed for life.',
+    lede: 'Hard-wearing layers for long days above the treeline, overbuilt, weather-beaten, and guaranteed for life.',
     primaryCta: 'Shop the range',
     secondaryCta: 'Our guarantee',
     ticker: ['LIFETIME GUARANTEE', 'RECYCLED SHELLS', 'FIELD-TESTED', 'CARBON NEUTRAL', 'SINCE 1998'],
@@ -353,7 +353,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     bandSeed: 'NORBAND',
   },
 
-  // 18 — Honeycomb · kids learning app · Honey · bokeh
+  // 18, Honeycomb · kids learning app · Honey · bokeh
   {
     slug: 'honeycomb',
     brand: 'Honeycomb',
@@ -373,7 +373,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     nav: ['How it works', 'Ages', 'For schools', 'Pricing'],
     eyebrow: 'Ages 4–9 · Screen-time worth having',
     title: 'Little lessons that {em}feel like play{/em}.',
-    lede: 'Bite-size reading and number games that adapt to your child — five joyful minutes at a time, no ads, ever.',
+    lede: 'Bite-size reading and number games that adapt to your child, five joyful minutes at a time, no ads, ever.',
     primaryCta: 'Start free trial',
     secondaryCta: 'See a lesson',
     stats: [
@@ -397,7 +397,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     reverse: true,
   },
 
-  // 19 — Facet · fine jewelry · Jewel · prisma
+  // 19, Facet · fine jewelry · Jewel · prisma
   {
     slug: 'facet',
     brand: 'Facet',
@@ -417,7 +417,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     nav: ['Collections', 'Bespoke', 'Our Stones', 'Appointments'],
     eyebrow: 'Ethically sourced · Made to order',
     title: 'Light, {em}cut to keep{/em}.',
-    lede: 'Fine jewelry built around a single remarkable stone — traceable, hand-set, and made to outlast every trend.',
+    lede: 'Fine jewelry built around a single remarkable stone, traceable, hand-set, and made to outlast every trend.',
     primaryCta: 'View collections',
     secondaryCta: 'Book an appointment',
     sectionTitle: 'The Prism collection',
@@ -435,7 +435,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     bandSeed: 'FACBAND',
   },
 
-  // 20 — Seabright · coastal skincare · Seaglass · metro
+  // 20, Seabright · coastal skincare · Seaglass · metro
   {
     slug: 'seabright',
     brand: 'Seabright',
@@ -455,7 +455,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     nav: ['Shop', 'Ingredients', 'Ritual', 'About'],
     eyebrow: 'Reef-safe · Fragrance-free',
     title: 'Skincare with a {em}clear conscience{/em}.',
-    lede: 'Mineral-rich, reef-safe formulas made in small batches on the coast — kind to sensitive skin and the water it runs into.',
+    lede: 'Mineral-rich, reef-safe formulas made in small batches on the coast, kind to sensitive skin and the water it runs into.',
     primaryCta: 'Shop the range',
     secondaryCta: 'Our ingredients',
     stats: [

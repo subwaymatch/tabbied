@@ -2,9 +2,10 @@ import type { CSSProperties, ReactNode } from 'react';
 import { TabbiedArtwork } from 'tabbied/react';
 import type { ArtworkDefinition } from 'tabbied';
 import type { ShowcaseSite as Site } from './showcaseData';
+import { SHOWCASE_CONTENT } from './showcaseContent';
 import s from './ShowcaseSite.module.css';
 
-// ── Small color helpers (derive readable text/surfaces from the palette) ────
+// Color helpers (derive readable text/surfaces from the palette).
 function toRgb(hex: string): [number, number, number] {
   let h = hex.replace('#', '').trim();
   if (h.length === 3) h = h.split('').map((c) => c + c).join('');
@@ -26,7 +27,7 @@ function mix(a: string, b: string, t: number): string {
 }
 const onColor = (hex: string) => (luminance(hex) < 0.55 ? '#ffffff' : '#151515');
 
-// Split a hero title's single {em}…{/em} span into the accent color.
+// Split a hero title's single {em}...{/em} span into the accent color.
 function renderTitle(title: string): ReactNode {
   const m = title.match(/^(.*?)\{em\}(.*?)\{\/em\}(.*)$/);
   if (!m) return title;
@@ -42,36 +43,54 @@ function renderTitle(title: string): ReactNode {
 type ArtMap = Record<string, ArtworkDefinition>;
 type Props = { site: Site; artworks: ArtMap };
 
-// Pick the i-th artwork the site declares (cycling), resolved to its imported
-// definition. Each section/card uses a different index so a single site shows
-// several distinct Tabbied patterns, all sharing the one palette.
+// The i-th artwork the site declares (cycling), resolved to its definition.
 function artAt(site: Site, artworks: ArtMap, i: number): ArtworkDefinition {
   const slugs = site.artworks;
   return artworks[slugs[((i % slugs.length) + slugs.length) % slugs.length]];
 }
 
-// One reusable artwork accent. `cover` fits fill their box edge-to-edge; the
-// density knob keeps hero cells bold and card cells finer.
-function Art({
-  artwork,
+// A decorative artwork accent: cover fit (whole cells, no stretch) and, being
+// decorative, it re-seeds itself on an interval so the drawing shuffles over
+// time (paused off-screen and under prefers-reduced-motion by the component).
+function Decor({
+  def,
   palette,
-  seed,
-  density = 2,
+  density = 1,
 }: {
-  artwork: ArtworkDefinition;
+  def: ArtworkDefinition;
   palette: string[];
-  seed: string;
   density?: 0 | 1 | 2 | 3 | 4;
 }) {
   return (
     <TabbiedArtwork
-      artwork={artwork}
+      artwork={def}
       palette={palette}
-      seed={seed}
       fit="cover"
       density={density}
+      redrawInterval={4200}
       className={s.doodle}
     />
+  );
+}
+
+// Card artwork is replaced by a raster-image placeholder that carries a GPT
+// Image 2 prompt (visible, and in data-image-prompt) ready to generate and drop
+// a real image in. The site palette (and its background color) is appended to
+// every prompt so a generated image blends into the page.
+function withPalette(prompt: string, colors: string[]): string {
+  const bg = colors[0];
+  return `${prompt} Color palette: ${colors.join(', ')}. Use ${bg} as the background so the image blends into the page.`;
+}
+
+function ImageCard({ prompt, colors }: { prompt: string; colors: string[] }) {
+  const full = withPalette(prompt, colors);
+  return (
+    <figure className={s.imgph} data-image-prompt={full}>
+      <div className={s.imgphInner}>
+        <span className={s.imgphBadge}>◳ GPT Image 2 prompt</span>
+        <p className={s.imgphText}>{full}</p>
+      </div>
+    </figure>
   );
 }
 
@@ -81,7 +100,6 @@ export default function ShowcaseSite({ site, artworks }: Props) {
   const c1 = colors[1] ?? bg;
   const dark = luminance(bg) < 0.5;
 
-  // Darkest palette color for ink on light themes; light tint on dark themes.
   const darkest = [...colors].sort((a, b) => luminance(a) - luminance(b))[0];
   const ink = dark ? '#f5f3ef' : luminance(darkest) < 0.4 ? darkest : '#1c1e24';
 
@@ -92,27 +110,54 @@ export default function ShowcaseSite({ site, artworks }: Props) {
     '--onDark': '#f5f3ef',
     '--onC1': onColor(c1),
     '--card': dark ? mix(bg, '#ffffff', 0.07) : mix(bg, '#ffffff', 0.6),
+    '--soft': dark ? mix(bg, '#ffffff', 0.04) : mix(bg, '#ffffff', 0.45),
     '--line': dark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.10)',
     '--display': site.fonts.display,
     '--body': site.fonts.body,
   };
 
+  const content = SHOWCASE_CONTENT[site.slug];
+
   return (
     <div className={s.site} style={vars as CSSProperties}>
-      {/* Web fonts loaded at the document level (React hoists <link> to head). */}
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link rel="stylesheet" href={site.fonts.href} precedence="default" />
 
-      {site.layout === 'split' && <SplitLayout site={site} artworks={artworks} />}
-      {site.layout === 'spotlight' && <SpotlightLayout site={site} artworks={artworks} />}
-      {site.layout === 'editorial' && <EditorialLayout site={site} artworks={artworks} />}
-      {site.layout === 'boutique' && <BoutiqueLayout site={site} artworks={artworks} />}
+      {site.layout === 'split' && <SplitHero site={site} artworks={artworks} />}
+      {site.layout === 'spotlight' && <SpotlightHero site={site} artworks={artworks} />}
+      {site.layout === 'editorial' && <EditorialHero site={site} artworks={artworks} />}
+      {site.layout === 'boutique' && <BoutiqueHero site={site} artworks={artworks} />}
+
+      {site.stats && (
+        <div className={s.statStrip}>
+          {site.stats.map((st) => (
+            <div key={st.l}>
+              <div className={s.statN}>{st.n}</div>
+              <div className={s.statL}>{st.l}</div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {content && <About site={site} artworks={artworks} content={content} />}
+
+      <Items site={site} artworks={artworks} content={content} />
+
+      {content && <Features content={content} />}
+
+      {content && <Testimonials content={content} />}
+
+      <Band site={site} artworks={artworks} index={site.layout === 'editorial' ? 3 : 1} />
+
+      {content && <Newsletter content={content} />}
+
+      <Footer site={site} />
     </div>
   );
 }
 
-// ── Shared pieces ───────────────────────────────────────────────────────────
+// ---- Shared pieces --------------------------------------------------------
 function Nav({ site }: { site: Site }) {
   return (
     <nav className={s.nav}>
@@ -127,48 +172,62 @@ function Nav({ site }: { site: Site }) {
   );
 }
 
-function Footer({ site }: { site: Site }) {
+function CtaRow({ site }: { site: Site }) {
   return (
-    <footer className={s.footer}>
-      <span className={s.logo}>{site.brand}</span>
-      <span>
-        © 2026 {site.brand} · {site.artworks.length} Tabbied artworks (
-        {site.artworks.join(' · ')}) via the React component — {site.paletteName}{' '}
-        palette
-      </span>
-    </footer>
+    <div className={s.ctaRow}>
+      <a className={`${s.btn} ${s.btnSolid}`} href="#">{site.primaryCta}</a>
+      <a className={`${s.btn} ${s.btnGhost}`} href="#">{site.secondaryCta}</a>
+    </div>
   );
 }
 
-function Band({ site, artworks, index = 0 }: Props & { index?: number }) {
+type ContentProps = { content: NonNullable<ReturnType<typeof pickContent>> };
+function pickContent(slug: string) {
+  return SHOWCASE_CONTENT[slug];
+}
+
+function About({
+  site,
+  artworks,
+  content,
+}: Props & { content: ContentProps['content'] }) {
   return (
-    <section className={s.band}>
-      <div className={s.doodleBox} style={{ position: 'absolute', inset: 0 }}>
-        <Art artwork={artAt(site, artworks, index)} palette={site.colors} seed={site.bandSeed} density={1} />
+    <section className={s.about}>
+      <div className={s.aboutCopy}>
+        <div className={s.eyebrow}>{content.about.eyebrow}</div>
+        <h2>{content.about.title}</h2>
+        {content.about.body.map((p, i) => (
+          <p key={i}>{p}</p>
+        ))}
+        <ul className={s.points}>
+          {content.about.points.map((pt) => (
+            <li key={pt}>{pt}</li>
+          ))}
+        </ul>
       </div>
-      <div className={s.bandScrim} />
-      <div className={s.bandInner}>
-        <h2>{site.bandTitle}</h2>
-        <a className={`${s.btn} ${s.btnSolid}`} href="#">{site.bandCta}</a>
+      <div className={s.aboutArt}>
+        <Decor def={artAt(site, artworks, 2)} palette={site.colors} density={1} />
       </div>
     </section>
   );
 }
 
-// Each card uses the next artwork in the site's set, so a single grid shows
-// several distinct patterns in the shared palette.
-function ItemGrid({ site, artworks }: Props) {
+function Items({
+  site,
+  content,
+}: Props & { content?: ContentProps['content'] }) {
+  const promptFor = (seed: string) => content?.images[seed] ?? '';
   return (
-    <section className={s.section}>
+    <section className={s.section} id="items">
       <div className={s.sectionHead}>
         <h2>{site.sectionTitle}</h2>
         <p>{site.sectionSub}</p>
       </div>
       <div className={s.grid}>
-        {site.items.map((it, i) => (
+        {site.items.map((it) => (
           <article className={s.card} key={it.seed}>
             <div className={s.cardMedia}>
-              <Art artwork={artAt(site, artworks, i + 1)} palette={site.colors} seed={it.seed} density={2} />
+              <ImageCard prompt={promptFor(it.seed)} colors={site.colors} />
             </div>
             <div className={s.cardBody}>
               <div className={s.cardEyebrow}>{it.eyebrow}</div>
@@ -182,8 +241,96 @@ function ItemGrid({ site, artworks }: Props) {
   );
 }
 
-// ── Layouts ─────────────────────────────────────────────────────────────────
-function SplitLayout({ site, artworks }: Props) {
+function Features({ content }: ContentProps) {
+  return (
+    <section className={s.features}>
+      <div className={s.featGrid}>
+        {content.features.map((f, i) => (
+          <div className={s.feat} key={f.title}>
+            <div className={s.featNum}>{String(i + 1).padStart(2, '0')}</div>
+            <h3>{f.title}</h3>
+            <p>{f.body}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Testimonials({ content }: ContentProps) {
+  return (
+    <section className={s.section}>
+      <div className={s.quoteGrid}>
+        {content.testimonials.map((t) => (
+          <figure className={s.quote} key={t.name}>
+            <blockquote>“{t.quote}”</blockquote>
+            <figcaption>
+              <span className={s.qName}>{t.name}</span>
+              <span className={s.qRole}>{t.role}</span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Newsletter({ content }: ContentProps) {
+  return (
+    <section className={s.newsletter}>
+      <div className={s.newsletterInner}>
+        <h2>{content.newsletter.title}</h2>
+        <p>{content.newsletter.body}</p>
+        <form className={s.newsForm} action="#">
+          <input type="email" placeholder={content.newsletter.placeholder} aria-label="Email" />
+          <button type="submit" className={`${s.btn} ${s.btnSolid}`}>
+            {content.newsletter.cta}
+          </button>
+        </form>
+      </div>
+    </section>
+  );
+}
+
+function Band({ site, artworks, index = 0 }: Props & { index?: number }) {
+  return (
+    <section className={s.band}>
+      <div className={s.doodleBox} style={{ position: 'absolute', inset: 0 }}>
+        <Decor def={artAt(site, artworks, index)} palette={site.colors} density={1} />
+      </div>
+      <div className={s.bandScrim} />
+      <div className={s.bandInner}>
+        <h2>{site.bandTitle}</h2>
+        <a className={`${s.btn} ${s.btnSolid}`} href="#">{site.bandCta}</a>
+      </div>
+    </section>
+  );
+}
+
+function Footer({ site }: { site: Site }) {
+  return (
+    <footer className={s.footer}>
+      <div className={s.footTop}>
+        <span className={s.logo}>{site.brand}</span>
+        <nav className={s.footNav}>
+          {site.nav.map((n) => (
+            <a key={n} href="#">{n}</a>
+          ))}
+        </nav>
+      </div>
+      <div className={s.footBottom}>
+        <span>© 2026 {site.brand}. All rights reserved.</span>
+        <span>
+          {site.artworks.length} Tabbied artworks ({site.artworks.join(' · ')}) via
+          the React component, {site.paletteName} palette.
+        </span>
+      </div>
+    </footer>
+  );
+}
+
+// ---- Heroes (layout-specific) ---------------------------------------------
+function SplitHero({ site, artworks }: Props) {
   return (
     <>
       <Nav site={site} />
@@ -192,46 +339,30 @@ function SplitLayout({ site, artworks }: Props) {
           <div className={s.eyebrow}>{site.eyebrow}</div>
           <h1>{renderTitle(site.title)}</h1>
           <p className={s.lede}>{site.lede}</p>
-          <div className={s.ctaRow}>
-            <a className={`${s.btn} ${s.btnSolid}`} href="#">{site.primaryCta}</a>
-            <a className={`${s.btn} ${s.btnGhost}`} href="#">{site.secondaryCta}</a>
-          </div>
+          <CtaRow site={site} />
         </div>
         <div className={s.splitArt}>
-          <Art artwork={artAt(site, artworks, 0)} palette={site.colors} seed={site.heroSeed} density={1} />
+          <Decor def={artAt(site, artworks, 0)} palette={site.colors} density={1} />
         </div>
       </header>
-      {site.stats && (
-        <div className={s.statStrip}>
-          {site.stats.map((st) => (
-            <div key={st.l}>
-              <div className={s.statN}>{st.n}</div>
-              <div className={s.statL}>{st.l}</div>
-            </div>
-          ))}
-        </div>
-      )}
-      <ItemGrid site={site} artworks={artworks} />
-      <Band site={site} artworks={artworks} index={0} />
-      <Footer site={site} />
     </>
   );
 }
 
-function SpotlightLayout({ site, artworks }: Props) {
+function SpotlightHero({ site, artworks }: Props) {
   return (
     <>
       <Nav site={site} />
       <header className={s.spotHero}>
         <div className={s.doodleBox} style={{ position: 'absolute', inset: 0 }}>
-          <Art artwork={artAt(site, artworks, 0)} palette={site.colors} seed={site.heroSeed} density={1} />
+          <Decor def={artAt(site, artworks, 0)} palette={site.colors} density={1} />
         </div>
         <div className={s.spotScrim} />
         <div className={s.spotInner}>
           <div className={s.eyebrow}>{site.eyebrow}</div>
           <h1>{renderTitle(site.title)}</h1>
           <p className={s.lede}>{site.lede}</p>
-          <div className={s.ctaRow}>
+          <div className={`${s.ctaRow} ${s.ctaCenter}`}>
             <a className={`${s.btn} ${s.btnSolid}`} href="#">{site.primaryCta}</a>
             <a className={`${s.btn} ${s.btnGhost}`} href="#">{site.secondaryCta}</a>
           </div>
@@ -246,15 +377,13 @@ function SpotlightLayout({ site, artworks }: Props) {
           </span>
         </div>
       )}
-      <ItemGrid site={site} artworks={artworks} />
-      <Band site={site} artworks={artworks} index={0} />
-      <Footer site={site} />
     </>
   );
 }
 
-function EditorialLayout({ site, artworks }: Props) {
-  const [lead, ...rest] = site.items;
+function EditorialHero({ site }: Props) {
+  const lead = site.items[0];
+  const content = SHOWCASE_CONTENT[site.slug];
   return (
     <>
       <div className={s.edMast}>
@@ -271,37 +400,23 @@ function EditorialLayout({ site, artworks }: Props) {
         ))}
       </nav>
       <div className={s.edCover}>
-        <Art artwork={artAt(site, artworks, 0)} palette={site.colors} seed={site.heroSeed} density={1} />
+        <ImageCard prompt={content?.images[lead.seed] ?? ''} colors={site.colors} />
         <div className={s.edCoverCaption}>
           <div className={s.k}>{lead.eyebrow}</div>
           <h2>{lead.title}</h2>
         </div>
       </div>
-      <div className={s.edStrip}>
-        {rest.concat(rest.length ? [] : [lead]).map((it, i) => (
-          <article key={it.seed}>
-            <div className={s.edArt}>
-              <Art artwork={artAt(site, artworks, i + 1)} palette={site.colors} seed={it.seed} density={2} />
-            </div>
-            <div className={s.k}>{it.eyebrow}</div>
-            <h3>{it.title}</h3>
-            <p>{it.meta}</p>
-          </article>
-        ))}
-      </div>
-      <Band site={site} artworks={artworks} index={3} />
-      <Footer site={site} />
     </>
   );
 }
 
-function BoutiqueLayout({ site, artworks }: Props) {
+function BoutiqueHero({ site, artworks }: Props) {
   return (
     <>
       <Nav site={site} />
       <header className={s.boutHero}>
         <div className={s.doodleBox} style={{ position: 'absolute', inset: 0 }}>
-          <Art artwork={artAt(site, artworks, 0)} palette={site.colors} seed={site.heroSeed} density={1} />
+          <Decor def={artAt(site, artworks, 0)} palette={site.colors} density={1} />
         </div>
         <div className={s.boutScrim} />
         <div className={s.boutInner}>
@@ -311,28 +426,6 @@ function BoutiqueLayout({ site, artworks }: Props) {
           <a className={s.boutBtn} href="#">{site.primaryCta}</a>
         </div>
       </header>
-      <section className={s.collection}>
-        <div className={s.collectionHead}>
-          <div className={s.eyebrow}>{site.sectionSub}</div>
-          <h2>{site.sectionTitle}</h2>
-        </div>
-        <div className={s.scents}>
-          {site.items.map((it, i) => (
-            <article className={s.scent} key={it.seed}>
-              <div className={s.scentArt}>
-                <Art artwork={artAt(site, artworks, i + 1)} palette={site.colors} seed={it.seed} density={2} />
-              </div>
-              <div className={s.scentBody}>
-                <div className={s.n}>{it.eyebrow}</div>
-                <h3>{it.title}</h3>
-                <div className={s.meta}>{it.meta}</div>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-      <Band site={site} artworks={artworks} index={0} />
-      <Footer site={site} />
     </>
   );
 }

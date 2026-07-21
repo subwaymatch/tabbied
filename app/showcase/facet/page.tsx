@@ -10,7 +10,7 @@ const site = SHOWCASE_SITES.find((entry) => entry.slug === 'facet')!;
 const artworks = { prisma, shard, chamfer, vitrail };
 
 export const metadata: Metadata = {
-  title: "Facet — Fine jewelry brand",
+  title: "Facet, Fine jewelry brand",
   description: "Fine jewelry built around a single remarkable, traceable stone.",
 };
 

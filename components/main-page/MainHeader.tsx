@@ -42,7 +42,7 @@ function normalizePath(path: string) {
   return path.length > 1 ? path.replace(/\/+$/, '') : path;
 }
 
-// The shared site header — logo, page navigation, and GitHub link — reused on
+// The shared site header, logo, page navigation, and GitHub link, reused on
 // every route except the individual artwork editor (which has its own header).
 export default function MainHeader() {
   const currentPath = normalizePath(usePathname() ?? '/');
@@ -106,7 +106,7 @@ export default function MainHeader() {
                 <GithubIcon size={24} />
               </a>
 
-              {/* Hamburger opens a slide-in drawer — the only way to reach the
+              {/* Hamburger opens a slide-in drawer, the only way to reach the
                   nav (and GitHub) below 992px, where .navColumn is hidden. The
                   trigger is hidden again at >=992px where the inline nav shows. */}
               <Dialog.Root>

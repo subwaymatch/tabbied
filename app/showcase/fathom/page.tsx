@@ -10,7 +10,7 @@ const site = SHOWCASE_SITES.find((entry) => entry.slug === 'fathom')!;
 const artworks = { lattice, wavelet, ring, quoit };
 
 export const metadata: Metadata = {
-  title: "Fathom — Ocean research nonprofit",
+  title: "Fathom, Ocean research nonprofit",
   description: "Funding open ocean expeditions and publishing every reading as open data.",
 };
 

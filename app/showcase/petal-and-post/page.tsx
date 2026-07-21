@@ -10,7 +10,7 @@ const site = SHOWCASE_SITES.find((entry) => entry.slug === 'petal-and-post')!;
 const artworks = { frond, foliage, blossom, petal };
 
 export const metadata: Metadata = {
-  title: "Petal & Post — Florist & stationery studio",
+  title: "Petal & Post, Florist & stationery studio",
   description: "Seasonal blooms and hand-printed letterpress cards, delivered locally.",
 };
 

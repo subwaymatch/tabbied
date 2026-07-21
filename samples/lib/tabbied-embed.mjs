@@ -2,7 +2,7 @@
 // pipeline (see packages/tabbied/src/core/doodleSource.ts). Given an artwork
 // definition (the real JSON shipped in packages/tabbied/artworks) plus an
 // active palette and option values, it emits the exact <style> + <css-doodle>
-// pair the Tabbied engine mounts at runtime — so these sample sites render the
+// pair the Tabbied engine mounts at runtime, so these sample sites render the
 // designs the same way tabbied.com does, just baked into static HTML.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -76,15 +76,20 @@ let uidCounter = 0;
 
 /**
  * Build the scoped <style> and <css-doodle> markup for one artwork instance.
+ * The grid is left to the page runtime (samples/assets/tabbied-runtime.js),
+ * which sizes cells to the host box so nothing stretches and, when reseed is
+ * set, shuffles the drawing on an interval.
  *
  * @param {object} cfg
  * @param {string} cfg.slug     artwork slug (a file in packages/tabbied/artworks)
  * @param {string[]} cfg.palette active colors, background (color0) first
- * @param {object} [cfg.options] option-id -> value overrides (e.g. { grid: '8x12' })
+ * @param {object} [cfg.options] option-id to value overrides (e.g. { frequency: 1 })
  * @param {string} [cfg.seed]   css-doodle seed for a reproducible pattern
+ * @param {number} [cfg.cell]   target cell size in px (bigger is coarser)
+ * @param {number} [cfg.reseed] shuffle interval in ms (0 keeps it static)
  * @returns {{ style: string, element: string, uid: string }}
  */
-export function doodle({ slug, palette, options = {}, seed }) {
+export function doodle({ slug, palette, options = {}, seed, cell = 48, reseed = 0 }) {
   const art = loadArtwork(slug);
   const uid = `art${uidCounter++}`;
 
@@ -93,9 +98,13 @@ export function doodle({ slug, palette, options = {}, seed }) {
   const totalColors = Math.max(maxColors, active.length);
   const expanded = expandPalette(active, totalColors);
 
-  const optionValues = art.options.map((o) => options[o.id] ?? o.default);
+  // The runtime owns the grid (it derives cols/rows from the box), so pin the
+  // grid option to its default and strip the authored @grid from the source.
+  const optionValues = art.options.map((o) =>
+    o.id === 'grid' ? o.default : (options[o.id] ?? o.default)
+  );
 
-  const { styleCode, doodleCode } = buildDoodleSource({
+  let { styleCode, doodleCode } = buildDoodleSource({
     code: art.code,
     options: art.options,
     palette: expanded,
@@ -103,10 +112,13 @@ export function doodle({ slug, palette, options = {}, seed }) {
     width: '100%',
     height: '100%',
   });
+  doodleCode = doodleCode.replace(/@grid:\s*[^;]*;\s*/g, '');
 
   const seedAttr = seed != null ? ` seed="${seed}"` : '';
+  const reseedAttr = reseed > 0 ? ` data-reseed="${reseed}"` : '';
   const style = `css-doodle[data-tabbied="${uid}"]{${styleCode}}`;
-  const element = `<css-doodle data-tabbied="${uid}" use="var(--rule)"${seedAttr}>${doodleCode}</css-doodle>`;
+  const element =
+    `<css-doodle data-tabbied="${uid}" use="var(--rule)" grid="8x8" data-cell="${cell}"${reseedAttr}${seedAttr}>${doodleCode}</css-doodle>`;
 
   return { style, element, uid };
 }

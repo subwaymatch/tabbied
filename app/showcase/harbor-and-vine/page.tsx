@@ -10,7 +10,7 @@ const site = SHOWCASE_SITES.find((entry) => entry.slug === 'harbor-and-vine')!;
 const artworks = { quilt, lattice, tesserae, domino };
 
 export const metadata: Metadata = {
-  title: "Harbor & Vine — Natural wine bar",
+  title: "Harbor & Vine, Natural wine bar",
   description: "A harbourside bar pouring small-grower, low-intervention wine.",
 };
 

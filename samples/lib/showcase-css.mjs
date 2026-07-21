@@ -1,19 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Shoreline · Coastal architecture studio</title>
-<meta name="description" content="We design durable, low-slung homes for the coast. Buildings that weather beautifully and sit lightly on the land." />
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛵</text></svg>" />
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-<script src="../assets/css-doodle.min.js"></script>
-<script src="../assets/tabbied-runtime.js" defer></script>
-<style>
-html{scroll-behavior:smooth}
-body{margin:0;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-
+// Plain-CSS counterpart of components/showcase/ShowcaseSite.module.css, used by
+// the static-HTML sample sites. Everything themes off CSS custom properties
+// (--bg, --c1, --ink, --card, --soft, --line, --onC1, --display, --body) that
+// generate.mjs sets per site, so one stylesheet dresses all ten brands.
+export const SHOWCASE_CSS = `
 *,*::before,*::after{box-sizing:border-box}
 .site{min-height:100vh;background:var(--bg);color:var(--ink);font-family:var(--body);overflow-x:hidden}
 .site a{color:inherit}
@@ -144,95 +133,4 @@ css-doodle{display:block;width:100%;height:100%}
 .bout-in .lede{font-family:var(--display);font-style:italic;font-size:clamp(18px,2.4vw,26px);opacity:.82;max-width:520px;margin:24px auto 0}
 .bout-in .eyebrow{letter-spacing:.42em}
 .bout-btn{margin-top:40px;display:inline-block;border:1px solid currentColor;padding:15px 40px;text-decoration:none;font-size:13px;letter-spacing:.22em;text-transform:uppercase;opacity:.9}
-
-</style>
-</head>
-<body>
-<div class="site" style="--bg:#0b2545;--c1:#8da9c4;--ink:#f5f3ef;--onC1:#ffffff;--card:rgb(28, 52, 82);--soft:rgb(21, 46, 76);--line:rgba(255,255,255,0.12);--display:'Spectral', Georgia, serif;--body:'Outfit', system-ui, sans-serif">
-
-<nav class="nav">
-  <a class="logo" href="#">Shoreline</a>
-  <ul class="navlinks"><li><a href="#">Work</a></li><li><a href="#">Studio</a></li><li><a href="#">Approach</a></li><li><a href="#">Contact</a></li></ul>
-  <a class="navcta" href="#">Start a project</a>
-</nav>
-<header class="split-hero">
-  <div class="split-copy">
-    <div class="eyebrow">Architecture · Est. 2008</div>
-    <h1>Houses that hold the weather and <em class="em">let in the light</em>.</h1>
-    <p class="lede">We design durable, low-slung homes for the coast. Buildings that weather beautifully and sit lightly on the land.</p>
-    <div class="cta-row"><a class="btn btn-solid" href="#">Start a project</a><a class="btn btn-ghost" href="#">See our work</a></div>
-  </div>
-  <div class="split-art"><style>css-doodle[data-tabbied="art20"]{--color0: #0b2545; --color1: #8da9c4; --color2: #eef4ed; --color3: #13a8a8; --color4: #8da9c4; --rule: ( z-index: calc(100 - @y); /* stripe and scallop share one emitted canvas color; rows stack so the scallop hangs over the row below */ --canvas: @p(var(--color1), var(--color1), var(--color2), var(--color3), var(--color4)); @random(0.999) { :before { content: ''; position: absolute; inset: 0; background: @var(--canvas); transition: ease 600ms; } :after { content: ''; position: absolute; left: 0; width: 100%; top: 96%; height: @rand(22%, 38%); border-radius: 0 0 50% 50%; background: @var(--canvas); transition: ease 600ms; } } );}</style><css-doodle data-tabbied="art20" use="var(--rule)" grid="8x8" data-cell="58" data-reseed="4200">:doodle { @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
-</header>
-
-<div class="stat-strip"><div><div class="stat-n">60+</div><div class="stat-l">Completed homes</div></div><div><div class="stat-n">3</div><div class="stat-l">RIBA awards</div></div><div><div class="stat-n">18 yrs</div><div class="stat-l">On the coast</div></div></div>
-<section class="about">
-  <div class="about-copy">
-    <div class="eyebrow">Our approach</div>
-    <h2>Build for the wind, plan for the light</h2>
-    <p>We start every project by walking the site at different tides and times of day. The building follows from where the light lands and where the weather comes from.</p><p>We favour durable, low-maintenance materials that grey gracefully and belong to their coast.</p>
-    <ul class="points"><li>Site-led, weather-first</li><li>Materials that age well</li><li>Low-energy by design</li></ul>
-  </div>
-  <div class="about-art"><style>css-doodle[data-tabbied="art21"]{--color0: #0b2545; --color1: #8da9c4; --color2: #eef4ed; --color3: #13a8a8; --color4: #8da9c4; --color5: #eef4ed; --rule: ( --rot: @pick(0deg, 90deg, 180deg, 270deg); @random(0.999) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(0 0, 100% 100%, 0 100%); clip-path: polygon(0 0, 100% 100%, 0 100%); border-radius: 0 0 0 70%; -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );}</style><css-doodle data-tabbied="art21" use="var(--rule)" grid="8x8" data-cell="44" data-reseed="4200">:doodle { @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
-</section>
-<section class="section" id="items">
-  <div class="section-head"><h2>Selected work</h2><p>A decade of coastline, from cabins to civic rooms.</p></div>
-  <div class="grid">
-    <article class="card">
-      <div class="card-media"><figure class="imgph" data-image-prompt="A low-slung coastal house in weathered timber against a grey sky, calm architectural photography. Soft natural studio light, shallow depth of field, high detail, no text or logos. Color palette: #0b2545, #8da9c4, #eef4ed, #13a8a8. Use #0b2545 as the background so the image blends into the page."><div class="imgph-in"><span class="imgph-badge">◳ GPT Image 2 prompt</span><p class="imgph-text">A low-slung coastal house in weathered timber against a grey sky, calm architectural photography. Soft natural studio light, shallow depth of field, high detail, no text or logos. Color palette: #0b2545, #8da9c4, #eef4ed, #13a8a8. Use #0b2545 as the background so the image blends into the page.</p></div></figure></div>
-      <div class="card-body">
-        <div class="card-eyebrow">Whitstable, UK</div>
-        <h3>Salt House</h3>
-        <div class="card-meta">2024</div>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card-media"><figure class="imgph" data-image-prompt="A minimalist dune pavilion with large glass facing the sea, soft coastal daylight, architecture photo. Soft natural studio light, shallow depth of field, high detail, no text or logos. Color palette: #0b2545, #8da9c4, #eef4ed, #13a8a8. Use #0b2545 as the background so the image blends into the page."><div class="imgph-in"><span class="imgph-badge">◳ GPT Image 2 prompt</span><p class="imgph-text">A minimalist dune pavilion with large glass facing the sea, soft coastal daylight, architecture photo. Soft natural studio light, shallow depth of field, high detail, no text or logos. Color palette: #0b2545, #8da9c4, #eef4ed, #13a8a8. Use #0b2545 as the background so the image blends into the page.</p></div></figure></div>
-      <div class="card-body">
-        <div class="card-eyebrow">Cape Cod, US</div>
-        <h3>Dune Pavilion</h3>
-        <div class="card-meta">2023</div>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card-media"><figure class="imgph" data-image-prompt="A stone harbourside building with deep window reveals at dusk, serene architectural photograph. Soft natural studio light, shallow depth of field, high detail, no text or logos. Color palette: #0b2545, #8da9c4, #eef4ed, #13a8a8. Use #0b2545 as the background so the image blends into the page."><div class="imgph-in"><span class="imgph-badge">◳ GPT Image 2 prompt</span><p class="imgph-text">A stone harbourside building with deep window reveals at dusk, serene architectural photograph. Soft natural studio light, shallow depth of field, high detail, no text or logos. Color palette: #0b2545, #8da9c4, #eef4ed, #13a8a8. Use #0b2545 as the background so the image blends into the page.</p></div></figure></div>
-      <div class="card-body">
-        <div class="card-eyebrow">Sagres, PT</div>
-        <h3>Harbour Rooms</h3>
-        <div class="card-meta">2022</div>
-      </div>
-    </article></div>
-</section>
-<section class="features"><div class="feat-grid">
-    <div class="feat"><div class="feat-num">01</div><h3>Listen</h3><p>We spend time on the land before we draw a single line.</p></div>
-    <div class="feat"><div class="feat-num">02</div><h3>Design</h3><p>Low-slung forms that shelter, frame a view, and last.</p></div>
-    <div class="feat"><div class="feat-num">03</div><h3>Build</h3><p>We stay close through construction so the details survive.</p></div></div></section>
-<section class="section"><div class="testi-grid">
-    <figure class="testi"><blockquote>“They gave us a house that feels like the coast itself.”</blockquote><figcaption><span class="q-name">The Aldous family</span><span class="q-role">Salt House</span></figcaption></figure>
-    <figure class="testi"><blockquote>“Calm, rigorous, and a joy to build with.”</blockquote><figcaption><span class="q-name">J. Reis</span><span class="q-role">Contractor</span></figcaption></figure></div></section>
-<section class="band">
-  <div class="abs"><style>css-doodle[data-tabbied="art22"]{--color0: #0b2545; --color1: #8da9c4; --color2: #eef4ed; --color3: #13a8a8; --color4: #8da9c4; --color5: #eef4ed; --rule: ( @random(0.999) { background: repeating-linear-gradient(90deg, @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)) 0 30%, var(--color0) 30% 50%); opacity: @rand(0.55, 1); } -webkit-transition: ease 450ms; transition: ease 450ms; );}</style><css-doodle data-tabbied="art22" use="var(--rule)" grid="8x8" data-cell="58" data-reseed="4200">:doodle { @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
-  <div class="band-scrim"></div>
-  <div class="band-in"><h2>Building something by the water?</h2><a class="btn btn-solid" href="#">Start a conversation</a></div>
-</section>
-<section class="newsletter"><div class="news-in">
-  <h2>From the studio</h2>
-  <p>Occasional notes on new work, talks, and the odd open house.</p>
-  <form class="news-form" action="#">
-    <input type="email" placeholder="you@email.com" aria-label="Email">
-    <button type="submit" class="btn btn-solid">Follow along</button>
-  </form>
-</div></section>
-<footer class="footer">
-  <div class="foot-top">
-    <span class="logo">Shoreline</span>
-    <nav class="foot-nav"><a href="#">Work</a><a href="#">Studio</a><a href="#">Approach</a><a href="#">Contact</a></nav>
-  </div>
-  <div class="foot-bottom">
-    <span>© 2026 Shoreline. All rights reserved.</span>
-    <span>4 Tabbied artworks (awning · picket · sail · lattice) via css-doodle, Ocean palette.</span>
-  </div>
-</footer>
-</div>
-</body>
-</html>
+`;

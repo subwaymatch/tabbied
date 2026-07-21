@@ -10,7 +10,7 @@ const site = SHOWCASE_SITES.find((entry) => entry.slug === 'ember-and-oak')!;
 const artworks = { windowpane, chamfer, awning, merlon };
 
 export const metadata: Metadata = {
-  title: "Ember & Oak — Wood-fire restaurant",
+  title: "Ember & Oak, Wood-fire restaurant",
   description: "A single wood-fired hearth and a menu that changes with the market.",
 };
 

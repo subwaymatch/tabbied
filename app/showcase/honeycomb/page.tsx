@@ -10,7 +10,7 @@ const site = SHOWCASE_SITES.find((entry) => entry.slug === 'honeycomb')!;
 const artworks = { bokeh, polka, sprinkles, confetti };
 
 export const metadata: Metadata = {
-  title: "Honeycomb — Kids' learning app",
+  title: "Honeycomb, Kids' learning app",
   description: "Bite-size, adaptive reading and number games for ages 4 to 9. No ads.",
 };
 

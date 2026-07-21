@@ -10,7 +10,7 @@ const site = SHOWCASE_SITES.find((entry) => entry.slug === 'northwind')!;
 const artworks = { maze, switchback, elbow, lattice };
 
 export const metadata: Metadata = {
-  title: "Northwind — Outdoor apparel brand",
+  title: "Northwind, Outdoor apparel brand",
   description: "Hard-wearing layers for long days above the treeline, guaranteed for life.",
 };
 

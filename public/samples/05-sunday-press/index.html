@@ -3,93 +3,225 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>The Sunday Press — Ideas, Design & Culture</title>
+<title>The Sunday Press · Ideas, design &amp; culture</title>
 <meta name="description" content="An independent magazine on design, technology, and the culture around them." />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📰</text></svg>" />
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800;900&family=Newsreader:ital,opsz@0,6..72;1,6..72&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800;900&family=Newsreader:ital,opsz@0,6..72;1,6..72&display=swap" rel="stylesheet">
 <script src="../assets/css-doodle.min.js"></script>
+<script src="../assets/tabbied-runtime.js" defer></script>
 <style>
-*,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:#f4f1ea;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-css-doodle{display:block;width:100%;height:100%}
-img{max-width:100%}
-a{color:inherit}
-.doodle-wrap{position:absolute;inset:0;overflow:hidden}
+body{margin:0;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 
-:root{--paper:#f4f1ea;--red:#d7263d;--blue:#1b6ca8;--yellow:#f7b32b;--ink:#232529}
-body{font-family:'Archivo',system-ui,sans-serif;color:#232529}
-.masthead{border-bottom:3px solid var(--ink);padding:16px clamp(20px,5vw,64px);display:flex;justify-content:space-between;align-items:center}
-.masthead .date{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
-.masthead .sub{background:var(--ink);color:var(--paper);padding:8px 16px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;text-decoration:none}
-.title-row{text-align:center;padding:26px 20px 18px;border-bottom:1px solid var(--ink)}
-.title-row h1{font-family:'Archivo';font-weight:900;font-size:clamp(40px,10vw,120px);margin:0;letter-spacing:-.03em;line-height:.9}
-.title-row .tag{font-family:'Newsreader';font-style:italic;font-size:clamp(14px,2vw,20px);margin-top:8px;color:#444}
-.nav2{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;padding:12px;border-bottom:3px solid var(--ink);font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:600}
-.nav2 a{text-decoration:none}
-.lead-grid{display:grid;grid-template-columns:2fr 1fr;border-bottom:3px solid var(--ink)}
-.lead{border-right:1px solid var(--ink)}
-.lead .art{position:relative;height:clamp(280px,42vw,560px);overflow:hidden;border-bottom:1px solid var(--ink)}
-.lead .body{padding:clamp(20px,3vw,40px)}
-.lead .kicker{color:var(--red);font-weight:800;letter-spacing:.1em;text-transform:uppercase;font-size:13px}
-.lead h2{font-family:'Archivo';font-weight:800;font-size:clamp(28px,4.5vw,56px);line-height:1.02;letter-spacing:-.02em;margin:10px 0 14px}
-.lead p{font-family:'Newsreader';font-size:19px;line-height:1.6;color:#2a2a2a;max-width:56ch;margin:0}
-.lead .by{margin-top:18px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#555;font-weight:600}
-.side{display:flex;flex-direction:column}
-.side .item{padding:22px clamp(16px,2vw,28px);border-bottom:1px solid var(--ink)}
-.side .item:last-child{border-bottom:none}
-.side .n{font-family:'Archivo';font-weight:900;font-size:22px;color:var(--blue)}
-.side h3{font-weight:700;font-size:19px;margin:6px 0 6px;line-height:1.15}
-.side p{font-family:'Newsreader';margin:0;font-size:15px;color:#444}
-.strip{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:3px solid var(--ink)}
-.strip article{border-right:1px solid var(--ink);padding-bottom:22px}
-.strip article:last-child{border-right:none}
-.strip .art{height:180px;position:relative;overflow:hidden;border-bottom:1px solid var(--ink);margin-bottom:16px}
-.strip .kicker{color:var(--red);font-weight:800;font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:0 20px}
-.strip h3{font-weight:800;font-size:22px;margin:8px 20px 6px;line-height:1.05;letter-spacing:-.01em}
-.strip p{font-family:'Newsreader';margin:0 20px;color:#444;font-size:15px}
-footer{padding:40px clamp(20px,5vw,64px);display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;font-weight:600}
-@media(max-width:820px){.lead-grid{grid-template-columns:1fr}.lead{border-right:none}.strip{grid-template-columns:1fr}.strip article{border-right:none;border-bottom:1px solid var(--ink)}}
+*,*::before,*::after{box-sizing:border-box}
+.site{min-height:100vh;background:var(--bg);color:var(--ink);font-family:var(--body);overflow-x:hidden}
+.site a{color:inherit}
+css-doodle{display:block;width:100%;height:100%}
+.doodle-box{position:relative;overflow:hidden}
+.abs{position:absolute;inset:0;overflow:hidden}
+
+.nav{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px clamp(20px,5vw,64px);position:relative;z-index:20}
+.logo{font-family:var(--display);font-weight:700;font-size:23px;letter-spacing:-.01em;text-decoration:none}
+.navlinks{display:flex;gap:28px;list-style:none;margin:0;padding:0;font-size:14px;font-weight:500}
+.navlinks a{text-decoration:none;opacity:.82}
+.navcta{padding:10px 20px;border-radius:100px;background:var(--c1);color:var(--onC1);text-decoration:none;font-weight:600;font-size:14px}
+@media(max-width:760px){.navlinks{display:none}}
+
+.btn{display:inline-block;padding:15px 30px;border-radius:10px;text-decoration:none;font-weight:600;font-size:15px;border:1px solid transparent;cursor:pointer}
+.btn-solid{background:var(--c1);color:var(--onC1)}
+.btn-ghost{background:transparent;border-color:currentColor;opacity:.85}
+.cta-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-top:36px}
+.cta-center{justify-content:center}
+.eyebrow{font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:var(--c1);margin-bottom:22px;font-weight:600}
+
+.section{max-width:1200px;margin:0 auto;padding:clamp(60px,9vw,120px) clamp(20px,5vw,64px)}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:44px}
+.section-head h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,5vw,52px);letter-spacing:-.02em;margin:0}
+.section-head p{margin:0;max-width:340px;opacity:.7;font-size:15px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:24px}
+.card{border-radius:18px;overflow:hidden;background:var(--card);border:1px solid var(--line);transition:transform .3s ease}
+.card:hover{transform:translateY(-6px)}
+.card-media{aspect-ratio:4/3;position:relative;overflow:hidden}
+.card-body{padding:18px 20px 22px}
+.card-eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--c1);font-weight:600}
+.card-body h3{font-family:var(--display);font-weight:600;font-size:21px;margin:8px 0 6px}
+.card-meta{opacity:.65;font-size:14px}
+
+.imgph{position:absolute;inset:0;margin:0;display:flex;border-bottom:1px solid var(--line);
+  background:radial-gradient(120% 120% at 100% 0,color-mix(in srgb,var(--c1) 22%,transparent),transparent 60%),var(--soft)}
+.imgph-in{margin:auto;padding:16px 18px;text-align:center;max-width:92%}
+.imgph-badge{display:inline-block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--c1);
+  border:1px solid color-mix(in srgb,var(--c1) 55%,transparent);border-radius:100px;padding:4px 10px;margin-bottom:12px}
+.imgph-text{margin:0;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;line-height:1.5;opacity:.75;
+  display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
+
+.stat-strip{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stat-strip>div{padding:30px clamp(20px,4vw,48px);border-right:1px solid var(--line)}
+.stat-strip>div:last-child{border-right:none}
+.stat-n{font-family:var(--display);font-size:32px;font-weight:600}
+.stat-l{font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin-top:6px}
+
+.about{max-width:1200px;margin:0 auto;padding:clamp(60px,9vw,120px) clamp(20px,5vw,64px);display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,5vw,70px);align-items:center}
+.about.rev .about-copy{order:2}
+.about-copy h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,4.5vw,48px);letter-spacing:-.02em;margin:0 0 20px}
+.about-copy p{font-size:17px;line-height:1.7;opacity:.8;margin:0 0 16px;max-width:52ch}
+.points{list-style:none;margin:24px 0 0;padding:0;display:grid;gap:10px}
+.points li{position:relative;padding-left:26px;font-size:15.5px}
+.points li::before{content:"";position:absolute;left:0;top:.5em;width:10px;height:10px;border-radius:3px;background:var(--c1)}
+.about-art{position:relative;overflow:hidden;border-radius:18px;aspect-ratio:4/5;border:1px solid var(--line);background:var(--c1)}
+@media(max-width:820px){.about{grid-template-columns:1fr}.about.rev .about-copy{order:0}.about-art{aspect-ratio:16/10}}
+
+.features{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--soft)}
+.feat-grid{max-width:1200px;margin:0 auto;padding:clamp(40px,6vw,72px) clamp(20px,5vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(24px,4vw,48px)}
+.feat-num{font-family:var(--display);font-weight:700;font-size:15px;color:var(--c1);letter-spacing:.08em}
+.feat h3{font-family:var(--display);font-weight:600;font-size:21px;margin:10px 0 8px}
+.feat p{margin:0;opacity:.72;font-size:15px;line-height:1.6}
+
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.testi{margin:0;padding:30px 32px;border-radius:18px;background:var(--card);border:1px solid var(--line)}
+.testi blockquote{margin:0 0 18px;font-family:var(--display);font-size:clamp(19px,2.4vw,25px);line-height:1.35;letter-spacing:-.01em}
+.testi .q-name{font-weight:600;font-size:15px;display:block}
+.testi .q-role{font-size:13px;opacity:.6}
+
+.band{position:relative;min-height:360px;display:grid;place-items:center;overflow:hidden;margin:clamp(40px,6vw,80px) 0 0}
+.band-scrim{position:absolute;inset:0;background:linear-gradient(180deg,color-mix(in srgb,var(--bg) 82%,transparent),color-mix(in srgb,var(--bg) 40%,transparent) 50%,color-mix(in srgb,var(--bg) 82%,transparent))}
+.band-in{position:relative;z-index:3;text-align:center;padding:0 24px;max-width:640px}
+.band-in h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,4.6vw,50px);letter-spacing:-.02em;margin:0 0 24px;line-height:1.08}
+
+.newsletter{padding:clamp(56px,8vw,104px) clamp(20px,5vw,64px)}
+.news-in{max-width:620px;margin:0 auto;text-align:center}
+.news-in h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,4.4vw,46px);letter-spacing:-.02em;margin:0 0 12px}
+.news-in p{opacity:.75;font-size:17px;margin:0 0 26px}
+.news-form{display:flex;gap:10px;max-width:440px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+.news-form input{flex:1 1 220px;padding:14px 18px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-family:var(--body);font-size:15px}
+
+.footer{padding:48px 0 40px;font-size:14px;border-top:1px solid var(--line)}
+.foot-top{max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,64px) 26px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+.foot-top .logo{opacity:1}
+.foot-nav{display:flex;gap:24px;flex-wrap:wrap;font-size:14px}
+.foot-nav a{text-decoration:none;opacity:.75}
+.foot-bottom{max-width:1200px;margin:0 auto;padding:22px clamp(20px,5vw,64px) 0;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13px;opacity:.6}
+.em{color:var(--c1);font-style:inherit}
+
+/* Split hero */
+.split-hero{display:grid;grid-template-columns:1.02fr .98fr;align-items:stretch;min-height:82vh}
+.split-hero.rev .split-copy{order:2}
+.split-copy{display:flex;flex-direction:column;justify-content:center;padding:clamp(36px,6vw,96px) clamp(24px,5vw,72px)}
+.split-copy h1{font-family:var(--display);font-weight:600;font-size:clamp(40px,6.4vw,82px);line-height:1.02;letter-spacing:-.02em;margin:0}
+.split-copy .lede{font-size:18px;line-height:1.7;opacity:.78;max-width:440px;margin:26px 0 0}
+.split-art{position:relative;overflow:hidden;background:var(--c1);min-height:320px}
+@media(max-width:820px){.split-hero{grid-template-columns:1fr}.split-hero.rev .split-copy{order:0}.split-art{min-height:300px}}
+
+/* Spotlight hero */
+.spot-hero{position:relative;min-height:100vh;display:grid;place-items:center;overflow:hidden;text-align:center}
+.spot-scrim{position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 42%,color-mix(in srgb,var(--bg) 34%,transparent) 0,color-mix(in srgb,var(--bg) 78%,transparent) 55%,var(--bg) 100%)}
+.spot-in{position:relative;z-index:5;padding:0 24px;max-width:900px}
+.spot-in h1{font-family:var(--display);font-weight:800;font-size:clamp(46px,10vw,128px);line-height:.94;letter-spacing:-.03em;margin:0}
+.spot-in .lede{max-width:560px;margin:28px auto 0;font-size:clamp(16px,2vw,19px);line-height:1.6;opacity:.82}
+.marquee{overflow:hidden;white-space:nowrap;padding:15px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg)}
+.marquee span{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:.02em;padding:0 20px;color:var(--c1)}
+.marquee span i{color:var(--ink);opacity:.35;font-style:normal}
+
+/* Editorial */
+.ed-mast{display:flex;justify-content:space-between;align-items:center;padding:16px clamp(20px,5vw,64px);border-bottom:2px solid var(--ink);font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
+.ed-title{text-align:center;padding:30px 20px 20px;border-bottom:1px solid var(--ink)}
+.ed-title h1{font-family:var(--display);font-weight:700;font-size:clamp(40px,9vw,118px);letter-spacing:-.02em;line-height:.92;margin:0}
+.ed-title .lede{font-style:italic;opacity:.72;margin:12px 0 0;font-size:clamp(14px,2vw,20px)}
+.ed-nav{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;padding:12px;border-bottom:2px solid var(--ink);font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:600}
+.ed-nav a{text-decoration:none}
+.ed-cover{position:relative;height:clamp(300px,44vw,560px);overflow:hidden;border-bottom:2px solid var(--ink)}
+.ed-cap{position:absolute;z-index:3;left:0;right:0;bottom:0;padding:clamp(20px,4vw,44px);background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--bg) 92%,transparent))}
+.ed-cap .k{color:var(--c1);font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:13px}
+.ed-cap h2{font-family:var(--display);font-weight:700;font-size:clamp(26px,4vw,46px);margin:8px 0 0;letter-spacing:-.01em}
+
+/* Boutique */
+.bout-hero{position:relative;min-height:96vh;display:grid;place-items:center;overflow:hidden;text-align:center}
+.bout-scrim{position:absolute;inset:0;background:radial-gradient(92% 82% at 50% 44%,color-mix(in srgb,var(--bg) 30%,transparent),color-mix(in srgb,var(--bg) 82%,transparent) 68%,var(--bg))}
+.bout-in{position:relative;z-index:4;padding:0 24px;max-width:820px}
+.bout-in h1{font-family:var(--display);font-weight:500;font-size:clamp(52px,12vw,170px);line-height:.9;letter-spacing:.01em;margin:0}
+.bout-in .lede{font-family:var(--display);font-style:italic;font-size:clamp(18px,2.4vw,26px);opacity:.82;max-width:520px;margin:24px auto 0}
+.bout-in .eyebrow{letter-spacing:.42em}
+.bout-btn{margin-top:40px;display:inline-block;border:1px solid currentColor;padding:15px 40px;text-decoration:none;font-size:13px;letter-spacing:.22em;text-transform:uppercase;opacity:.9}
 
 </style>
 </head>
 <body>
+<div class="site" style="--bg:#f4f1ea;--c1:#d7263d;--ink:#232529;--onC1:#ffffff;--card:rgb(251, 249, 247);--soft:rgb(249, 247, 243);--line:rgba(0,0,0,0.10);--display:'Archivo', system-ui, sans-serif;--body:'Newsreader', Georgia, serif">
 
-<div class="masthead"><div class="date">Vol. XII · Sunday, July 19, 2026</div><a class="sub" href="#">Subscribe — $6/mo</a></div>
-<div class="title-row"><h1>THE SUNDAY PRESS</h1><div class="tag">Ideas, design, and the culture around them.</div></div>
-<nav class="nav2"><a href="#">Design</a><a href="#">Technology</a><a href="#">Essays</a><a href="#">Interviews</a><a href="#">Archive</a></nav>
-<div class="lead-grid">
-  <article class="lead">
-    <div class="art"><style>css-doodle[data-tabbied="art21"]{--color0: #f4f1ea; --color1: #d7263d; --color2: #1b6ca8; --color3: #f7b32b; --color4: #232529; /* every primitive is just a border-radius, so all of them interpolate */ --form: @p('50% 50% 50% 50%', '100% 100% 0% 0%', '0% 0% 100% 100%', '100% 0% 0% 100%', '0% 100% 100% 0%', '0% 0% 0% 0%', '100% 0% 100% 0%', '0% 100% 0% 100%'); --bold: @p(var(--color1), var(--color2), var(--color3), var(--color4)); --rule: ( @random(0.999) { background: var(--bold); border-radius: var(--form); } transition: ease 600ms; );}</style><css-doodle data-tabbied="art21" use="var(--rule)" seed="PRESS">:doodle { @grid: 7x11; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
-    <div class="body">
-      <div class="kicker">The Feature</div>
-      <h2>The Return of the Grid</h2>
-      <p>A generation of designers raised on infinite canvases is rediscovering the humble column grid — and finding, in its constraints, a strange new freedom. We spent a month with the studios rebuilding the web on first principles.</p>
-      <div class="by">By Mara Lindqvist · 14 min read</div>
-    </div>
-  </article>
-  <div class="side">
-    <div class="item"><div class="n">01</div><h3>Why every tool wants to be a canvas</h3><p>The quiet standardisation of creative software.</p></div>
-    <div class="item"><div class="n">02</div><h3>Colour, computed</h3><p>Generative palettes and the death of the swatch.</p></div>
-    <div class="item"><div class="n">03</div><h3>The typographer's dilemma</h3><p>When variable fonts made every weight possible.</p></div>
+<div class="ed-mast"><span>Vol. IV · No. 12</span><a class="navcta" href="#">Subscribe</a></div>
+<div class="ed-title"><h1>The Sunday Press</h1><p class="lede">An independent magazine on design, technology, and the culture around them.</p></div>
+<nav class="ed-nav"><a href="#">Design</a><a href="#">Technology</a><a href="#">Essays</a><a href="#">Archive</a></nav>
+<div class="ed-cover"><figure class="imgph" data-image-prompt="A bold editorial illustration of an abstract modernist grid in primary colors, Bauhaus poster style. Soft natural studio light, shallow depth of field, high detail, no text or logos. Color palette: #f4f1ea, #d7263d, #1b6ca8, #f7b32b, #232529. Use #f4f1ea as the background so the image blends into the page."><div class="imgph-in"><span class="imgph-badge">◳ GPT Image 2 prompt</span><p class="imgph-text">A bold editorial illustration of an abstract modernist grid in primary colors, Bauhaus poster style. Soft natural studio light, shallow depth of field, high detail, no text or logos. Color palette: #f4f1ea, #d7263d, #1b6ca8, #f7b32b, #232529. Use #f4f1ea as the background so the image blends into the page.</p></div></figure><div class="ed-cap"><div class="k">The Feature</div><h2>The Return of the Grid</h2></div></div>
+
+<section class="about">
+  <div class="about-copy">
+    <div class="eyebrow">About the Press</div>
+    <h2>Slow journalism about fast tools</h2>
+    <p>The Sunday Press is a reader-funded magazine that takes design and technology seriously without taking itself too seriously. No ads, no chum, just long reads and clean typography.</p><p>We publish one considered issue a month and keep the whole archive open.</p>
+    <ul class="points"><li>Reader-funded, no ads</li><li>One issue a month</li><li>Open archive, forever</li></ul>
   </div>
+  <div class="about-art"><style>css-doodle[data-tabbied="art12"]{--color0: #f4f1ea; --color1: #d7263d; --color2: #1b6ca8; --color3: #f7b32b; --color4: #232529; --color5: #d7263d; --a: @p(var(--color1), var(--color2), var(--color3)); --b: @p(var(--color3), var(--color4), var(--color5)); --rot: @p(0deg, 90deg, 180deg, 270deg); --rule: ( @random(0.999) { width: 86%; height: 86%; margin: 7%; background: var(--a); border-radius: 8%; transform: rotate(var(--rot)); :after { content: ''; position: absolute; left: 0; top: 50%; width: 100%; height: 50%; background: var(--b); border-radius: 0 0 10% 10%; transition: ease 500ms; } } transition: ease 500ms; );}</style><css-doodle data-tabbied="art12" use="var(--rule)" grid="8x8" data-cell="44" data-reseed="4200">:doodle { @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+</section>
+<section class="section" id="items">
+  <div class="section-head"><h2>In this issue</h2><p>Long reads from the current edition.</p></div>
+  <div class="grid">
+    <article class="card">
+      <div class="card-media"><figure class="imgph" data-image-prompt="A bold editorial illustration of an abstract modernist grid in primary colors, Bauhaus poster style. Soft natural studio light, shallow depth of field, high detail, no text or logos. Color palette: #f4f1ea, #d7263d, #1b6ca8, #f7b32b, #232529. Use #f4f1ea as the background so the image blends into the page."><div class="imgph-in"><span class="imgph-badge">◳ GPT Image 2 prompt</span><p class="imgph-text">A bold editorial illustration of an abstract modernist grid in primary colors, Bauhaus poster style. Soft natural studio light, shallow depth of field, high detail, no text or logos. Color palette: #f4f1ea, #d7263d, #1b6ca8, #f7b32b, #232529. Use #f4f1ea as the background so the image blends into the page.</p></div></figure></div>
+      <div class="card-body">
+        <div class="card-eyebrow">The Feature</div>
+        <h3>The Return of the Grid</h3>
+        <div class="card-meta">By Mara Lindqvist · 14 min</div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-media"><figure class="imgph" data-image-prompt="A clean flat-lay of a small laptop and notebook on a warm paper desk, minimal editorial photo. Soft natural studio light, shallow depth of field, high detail, no text or logos. Color palette: #f4f1ea, #d7263d, #1b6ca8, #f7b32b, #232529. Use #f4f1ea as the background so the image blends into the page."><div class="imgph-in"><span class="imgph-badge">◳ GPT Image 2 prompt</span><p class="imgph-text">A clean flat-lay of a small laptop and notebook on a warm paper desk, minimal editorial photo. Soft natural studio light, shallow depth of field, high detail, no text or logos. Color palette: #f4f1ea, #d7263d, #1b6ca8, #f7b32b, #232529. Use #f4f1ea as the background so the image blends into the page.</p></div></figure></div>
+      <div class="card-body">
+        <div class="card-eyebrow">Technology</div>
+        <h3>Small Software</h3>
+        <div class="card-meta">By Idris Bell · 9 min</div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-media"><figure class="imgph" data-image-prompt="A geometric collage of overlapping paper shapes in red, blue, and yellow, playful print-style artwork. Soft natural studio light, shallow depth of field, high detail, no text or logos. Color palette: #f4f1ea, #d7263d, #1b6ca8, #f7b32b, #232529. Use #f4f1ea as the background so the image blends into the page."><div class="imgph-in"><span class="imgph-badge">◳ GPT Image 2 prompt</span><p class="imgph-text">A geometric collage of overlapping paper shapes in red, blue, and yellow, playful print-style artwork. Soft natural studio light, shallow depth of field, high detail, no text or logos. Color palette: #f4f1ea, #d7263d, #1b6ca8, #f7b32b, #232529. Use #f4f1ea as the background so the image blends into the page.</p></div></figure></div>
+      <div class="card-body">
+        <div class="card-eyebrow">Essays</div>
+        <h3>In Praise of the Ugly Draft</h3>
+        <div class="card-meta">By Nora Vance · 7 min</div>
+      </div>
+    </article></div>
+</section>
+<section class="features"><div class="feat-grid">
+    <div class="feat"><div class="feat-num">01</div><h3>Read</h3><p>A monthly issue of essays, interviews, and criticism worth your Sunday.</p></div>
+    <div class="feat"><div class="feat-num">02</div><h3>Support</h3><p>Subscriptions keep it independent and the archive free.</p></div>
+    <div class="feat"><div class="feat-num">03</div><h3>Contribute</h3><p>We pay writers fairly and edit them generously.</p></div></div></section>
+<section class="section"><div class="testi-grid">
+    <figure class="testi"><blockquote>“The only newsletter I read start to finish.”</blockquote><figcaption><span class="q-name">Dana R.</span><span class="q-role">Subscriber</span></figcaption></figure>
+    <figure class="testi"><blockquote>“Design writing with a spine. Rare and welcome.”</blockquote><figcaption><span class="q-name">Theo M.</span><span class="q-role">Reader</span></figcaption></figure></div></section>
+<section class="band">
+  <div class="abs"><style>css-doodle[data-tabbied="art13"]{--color0: #f4f1ea; --color1: #d7263d; --color2: #1b6ca8; --color3: #f7b32b; --color4: #232529; --color5: #d7263d; --rule: ( --rot: @pick(0deg, 90deg, 180deg, 270deg); @random(0.999) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(0 0, 100% 0, 100% 50%, 66% 50%, 66% 100%, 33% 100%, 33% 50%, 0 50%); clip-path: polygon(0 0, 100% 0, 100% 50%, 66% 50%, 66% 100%, 33% 100%, 33% 50%, 0 50%); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );}</style><css-doodle data-tabbied="art13" use="var(--rule)" grid="8x8" data-cell="58" data-reseed="4200">:doodle { @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+  <div class="band-scrim"></div>
+  <div class="band-in"><h2>Six dollars a month keeps us independent.</h2><a class="btn btn-solid" href="#">Become a member</a></div>
+</section>
+<section class="newsletter"><div class="news-in">
+  <h2>The Sunday note</h2>
+  <p>A short dispatch each week with what we are reading and publishing.</p>
+  <form class="news-form" action="#">
+    <input type="email" placeholder="you@email.com" aria-label="Email">
+    <button type="submit" class="btn btn-solid">Subscribe free</button>
+  </form>
+</div></section>
+<footer class="footer">
+  <div class="foot-top">
+    <span class="logo">The Sunday Press</span>
+    <nav class="foot-nav"><a href="#">Design</a><a href="#">Technology</a><a href="#">Essays</a><a href="#">Archive</a></nav>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 The Sunday Press. All rights reserved.</span>
+    <span>4 Tabbied artworks (bauhaus · windowpane · domino · tetro) via css-doodle, Bauhaus palette.</span>
+  </div>
+</footer>
 </div>
-<div class="strip">
-  
-  <article>
-    <div class="art"><style>css-doodle[data-tabbied="art22"]{--color0: #f4f1ea; --color1: #d7263d; --color2: #1b6ca8; --color3: #f7b32b; --color4: #232529; /* every primitive is just a border-radius, so all of them interpolate */ --form: @p('50% 50% 50% 50%', '100% 100% 0% 0%', '0% 0% 100% 100%', '100% 0% 0% 100%', '0% 100% 100% 0%', '0% 0% 0% 0%', '100% 0% 100% 0%', '0% 100% 0% 100%'); --bold: @p(var(--color1), var(--color2), var(--color3), var(--color4)); --rule: ( @random(0.999) { background: var(--bold); border-radius: var(--form); } transition: ease 600ms; );}</style><css-doodle data-tabbied="art22" use="var(--rule)" seed="s1">:doodle { @grid: 6x9; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
-    <div class="kicker">Design</div><h3>Systems that breathe</h3><p>On leaving room in a design system for the unplanned.</p>
-  </article>
-  <article>
-    <div class="art"><style>css-doodle[data-tabbied="art23"]{--color0: #f4f1ea; --color1: #d7263d; --color2: #1b6ca8; --color3: #f7b32b; --color4: #232529; /* every primitive is just a border-radius, so all of them interpolate */ --form: @p('50% 50% 50% 50%', '100% 100% 0% 0%', '0% 0% 100% 100%', '100% 0% 0% 100%', '0% 100% 100% 0%', '0% 0% 0% 0%', '100% 0% 100% 0%', '0% 100% 0% 100%'); --bold: @p(var(--color1), var(--color2), var(--color3), var(--color4)); --rule: ( @random(0.999) { background: var(--bold); border-radius: var(--form); } transition: ease 600ms; );}</style><css-doodle data-tabbied="art23" use="var(--rule)" seed="s2">:doodle { @grid: 8x12; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
-    <div class="kicker">Technology</div><h3>Small software</h3><p>The revival of tools built by one person, for a few.</p>
-  </article>
-  <article>
-    <div class="art"><style>css-doodle[data-tabbied="art24"]{--color0: #f4f1ea; --color1: #d7263d; --color2: #1b6ca8; --color3: #f7b32b; --color4: #232529; /* every primitive is just a border-radius, so all of them interpolate */ --form: @p('50% 50% 50% 50%', '100% 100% 0% 0%', '0% 0% 100% 100%', '100% 0% 0% 100%', '0% 100% 100% 0%', '0% 0% 0% 0%', '100% 0% 100% 0%', '0% 100% 0% 100%'); --bold: @p(var(--color1), var(--color2), var(--color3), var(--color4)); --rule: ( @random(0.999) { background: var(--bold); border-radius: var(--form); } transition: ease 600ms; );}</style><css-doodle data-tabbied="art24" use="var(--rule)" seed="s3">:doodle { @grid: 5x8; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
-    <div class="kicker">Essays</div><h3>In praise of the ugly draft</h3><p>The creative case for shipping something rough.</p>
-  </article>
-</div>
-<footer><div>© 2026 The Sunday Press</div><div>Cover art generated with Tabbied — Bauhaus palette</div></footer>
-
 </body>
 </html>

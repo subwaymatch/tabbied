@@ -3,99 +3,236 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Zest — Bright, Fast, Weeknight Cooking</title>
-<meta name="description" content="A food publication for bright, fast, weeknight cooking you will actually make." />
+<title>Zest · Bright, fast weeknight cooking</title>
+<meta name="description" content="Bright, punchy recipes with short lists and shorter cook times, the kind you cook on a Tuesday and brag about on Friday." />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍋</text></svg>" />
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <script src="../assets/css-doodle.min.js"></script>
+<script src="../assets/tabbied-runtime.js" defer></script>
 <style>
-*,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:#fffbe6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-css-doodle{display:block;width:100%;height:100%}
-img{max-width:100%}
-a{color:inherit}
-.doodle-wrap{position:absolute;inset:0;overflow:hidden}
+body{margin:0;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 
-:root{--cream:#fffbe6;--orange:#ff9f1c;--teal:#2ec4b6;--red:#e71d36}
-body{font-family:'Nunito Sans',system-ui,sans-serif;color:#26333a}
-.nav{display:flex;justify-content:space-between;align-items:center;padding:20px clamp(20px,5vw,64px)}
-.nav .logo{font-family:'Baloo 2';font-weight:800;font-size:28px;color:var(--red);letter-spacing:-.01em}
-.nav ul{display:flex;gap:26px;list-style:none;margin:0;padding:0;font-weight:700;font-size:15px}
-.nav a{text-decoration:none}
-.nav .btn{background:var(--red);color:#fff;padding:11px 20px;border-radius:100px;font-weight:800}
-.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(20px,4vw,50px);align-items:center;padding:clamp(20px,4vw,50px) clamp(20px,5vw,64px)}
-.hero-copy .kick{display:inline-block;background:var(--teal);color:#04302c;font-weight:800;padding:7px 16px;border-radius:100px;font-size:13px;letter-spacing:.04em;margin-bottom:20px}
-.hero h1{font-family:'Baloo 2';font-weight:800;font-size:clamp(44px,7vw,90px);line-height:.98;margin:0;color:#20140a}
-.hero h1 span{color:var(--orange)}
-.hero p{font-size:19px;line-height:1.6;max-width:440px;margin:20px 0 30px;color:#4a5560}
-.hero .row{display:flex;gap:14px;align-items:center}
-.btn2{display:inline-block;background:var(--orange);color:#fff;padding:15px 30px;border-radius:100px;text-decoration:none;font-weight:800;box-shadow:0 12px 24px -8px #ff9f1c88}
-.link{font-weight:800;color:var(--red);text-decoration:none}
-.hero-art{position:relative;aspect-ratio:1;border-radius:32px;overflow:hidden;box-shadow:0 30px 60px -24px #ff9f1c66;border:6px solid #fff}
-.ticker{background:var(--red);color:#fff;font-family:'Baloo 2';font-weight:800;padding:14px 0;overflow:hidden;white-space:nowrap}
-.ticker span{padding:0 20px;font-size:20px}
-.recipes{padding:clamp(50px,8vw,100px) clamp(20px,5vw,64px);max-width:1200px;margin:0 auto}
-.recipes h2{font-family:'Baloo 2';font-weight:800;font-size:clamp(30px,5vw,52px);margin:0 0 8px;color:#20140a}
-.recipes .sub{color:#5a6570;margin:0 0 42px;font-size:18px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:26px}
-.rc{background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 16px 34px -22px #3a2a1088;transition:transform .3s}
-.rc:hover{transform:translateY(-6px) rotate(-.6deg)}
-.rc .ph{aspect-ratio:4/3;position:relative;overflow:hidden}
-.rc .tag{position:absolute;z-index:3;top:12px;left:12px;background:#ffffffe6;color:#20140a;font-weight:800;font-size:12px;padding:6px 12px;border-radius:100px}
-.rc .b{padding:18px 22px 24px}
-.rc h3{font-family:'Baloo 2';font-weight:800;font-size:22px;margin:0 0 6px;color:#20140a}
-.rc .meta{display:flex;gap:14px;color:#7a8590;font-weight:700;font-size:14px}
-footer{background:#20140a;color:#f0d9a8;padding:56px clamp(20px,5vw,64px);display:flex;justify-content:space-between;flex-wrap:wrap;gap:18px;font-size:15px}
-footer .logo{font-family:'Baloo 2';font-weight:800;color:var(--orange);font-size:26px}
-@media(max-width:820px){.hero{grid-template-columns:1fr}.nav ul{display:none}}
+*,*::before,*::after{box-sizing:border-box}
+.site{min-height:100vh;background:var(--bg);color:var(--ink);font-family:var(--body);overflow-x:hidden}
+.site a{color:inherit}
+css-doodle{display:block;width:100%;height:100%}
+.doodle-box{position:relative;overflow:hidden}
+.abs{position:absolute;inset:0;overflow:hidden}
+
+.nav{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px clamp(20px,5vw,64px);position:relative;z-index:20}
+.logo{font-family:var(--display);font-weight:700;font-size:23px;letter-spacing:-.01em;text-decoration:none}
+.navlinks{display:flex;gap:28px;list-style:none;margin:0;padding:0;font-size:14px;font-weight:500}
+.navlinks a{text-decoration:none;opacity:.82}
+.navcta{padding:10px 20px;border-radius:100px;background:var(--c1);color:var(--onC1);text-decoration:none;font-weight:600;font-size:14px}
+@media(max-width:760px){.navlinks{display:none}}
+
+.btn{display:inline-block;padding:15px 30px;border-radius:10px;text-decoration:none;font-weight:600;font-size:15px;border:1px solid transparent;cursor:pointer}
+.btn-solid{background:var(--c1);color:var(--onC1)}
+.btn-ghost{background:transparent;border-color:currentColor;opacity:.85}
+.cta-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-top:36px}
+.cta-center{justify-content:center}
+.eyebrow{font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:var(--c1);margin-bottom:22px;font-weight:600}
+
+.section{max-width:1200px;margin:0 auto;padding:clamp(60px,9vw,120px) clamp(20px,5vw,64px)}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:44px}
+.section-head h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,5vw,52px);letter-spacing:-.02em;margin:0}
+.section-head p{margin:0;max-width:340px;opacity:.7;font-size:15px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:24px}
+.card{border-radius:18px;overflow:hidden;background:var(--card);border:1px solid var(--line);transition:transform .3s ease}
+.card:hover{transform:translateY(-6px)}
+.card-media{aspect-ratio:4/3;position:relative;overflow:hidden}
+.card-body{padding:18px 20px 22px}
+.card-eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--c1);font-weight:600}
+.card-body h3{font-family:var(--display);font-weight:600;font-size:21px;margin:8px 0 6px}
+.card-meta{opacity:.65;font-size:14px}
+
+.imgph{position:absolute;inset:0;margin:0;display:flex;border-bottom:1px solid var(--line);
+  background:radial-gradient(120% 120% at 100% 0,color-mix(in srgb,var(--c1) 22%,transparent),transparent 60%),var(--soft)}
+.imgph-in{margin:auto;padding:16px 18px;text-align:center;max-width:92%}
+.imgph-badge{display:inline-block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--c1);
+  border:1px solid color-mix(in srgb,var(--c1) 55%,transparent);border-radius:100px;padding:4px 10px;margin-bottom:12px}
+.imgph-text{margin:0;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;line-height:1.5;opacity:.75;
+  display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
+
+.stat-strip{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stat-strip>div{padding:30px clamp(20px,4vw,48px);border-right:1px solid var(--line)}
+.stat-strip>div:last-child{border-right:none}
+.stat-n{font-family:var(--display);font-size:32px;font-weight:600}
+.stat-l{font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin-top:6px}
+
+.about{max-width:1200px;margin:0 auto;padding:clamp(60px,9vw,120px) clamp(20px,5vw,64px);display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,5vw,70px);align-items:center}
+.about.rev .about-copy{order:2}
+.about-copy h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,4.5vw,48px);letter-spacing:-.02em;margin:0 0 20px}
+.about-copy p{font-size:17px;line-height:1.7;opacity:.8;margin:0 0 16px;max-width:52ch}
+.points{list-style:none;margin:24px 0 0;padding:0;display:grid;gap:10px}
+.points li{position:relative;padding-left:26px;font-size:15.5px}
+.points li::before{content:"";position:absolute;left:0;top:.5em;width:10px;height:10px;border-radius:3px;background:var(--c1)}
+.about-art{position:relative;overflow:hidden;border-radius:18px;aspect-ratio:4/5;border:1px solid var(--line);background:var(--c1)}
+@media(max-width:820px){.about{grid-template-columns:1fr}.about.rev .about-copy{order:0}.about-art{aspect-ratio:16/10}}
+
+.features{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--soft)}
+.feat-grid{max-width:1200px;margin:0 auto;padding:clamp(40px,6vw,72px) clamp(20px,5vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(24px,4vw,48px)}
+.feat-num{font-family:var(--display);font-weight:700;font-size:15px;color:var(--c1);letter-spacing:.08em}
+.feat h3{font-family:var(--display);font-weight:600;font-size:21px;margin:10px 0 8px}
+.feat p{margin:0;opacity:.72;font-size:15px;line-height:1.6}
+
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.testi{margin:0;padding:30px 32px;border-radius:18px;background:var(--card);border:1px solid var(--line)}
+.testi blockquote{margin:0 0 18px;font-family:var(--display);font-size:clamp(19px,2.4vw,25px);line-height:1.35;letter-spacing:-.01em}
+.testi .q-name{font-weight:600;font-size:15px;display:block}
+.testi .q-role{font-size:13px;opacity:.6}
+
+.band{position:relative;min-height:360px;display:grid;place-items:center;overflow:hidden;margin:clamp(40px,6vw,80px) 0 0}
+.band-scrim{position:absolute;inset:0;background:linear-gradient(180deg,color-mix(in srgb,var(--bg) 82%,transparent),color-mix(in srgb,var(--bg) 40%,transparent) 50%,color-mix(in srgb,var(--bg) 82%,transparent))}
+.band-in{position:relative;z-index:3;text-align:center;padding:0 24px;max-width:640px}
+.band-in h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,4.6vw,50px);letter-spacing:-.02em;margin:0 0 24px;line-height:1.08}
+
+.newsletter{padding:clamp(56px,8vw,104px) clamp(20px,5vw,64px)}
+.news-in{max-width:620px;margin:0 auto;text-align:center}
+.news-in h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,4.4vw,46px);letter-spacing:-.02em;margin:0 0 12px}
+.news-in p{opacity:.75;font-size:17px;margin:0 0 26px}
+.news-form{display:flex;gap:10px;max-width:440px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+.news-form input{flex:1 1 220px;padding:14px 18px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-family:var(--body);font-size:15px}
+
+.footer{padding:48px 0 40px;font-size:14px;border-top:1px solid var(--line)}
+.foot-top{max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,64px) 26px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+.foot-top .logo{opacity:1}
+.foot-nav{display:flex;gap:24px;flex-wrap:wrap;font-size:14px}
+.foot-nav a{text-decoration:none;opacity:.75}
+.foot-bottom{max-width:1200px;margin:0 auto;padding:22px clamp(20px,5vw,64px) 0;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13px;opacity:.6}
+.em{color:var(--c1);font-style:inherit}
+
+/* Split hero */
+.split-hero{display:grid;grid-template-columns:1.02fr .98fr;align-items:stretch;min-height:82vh}
+.split-hero.rev .split-copy{order:2}
+.split-copy{display:flex;flex-direction:column;justify-content:center;padding:clamp(36px,6vw,96px) clamp(24px,5vw,72px)}
+.split-copy h1{font-family:var(--display);font-weight:600;font-size:clamp(40px,6.4vw,82px);line-height:1.02;letter-spacing:-.02em;margin:0}
+.split-copy .lede{font-size:18px;line-height:1.7;opacity:.78;max-width:440px;margin:26px 0 0}
+.split-art{position:relative;overflow:hidden;background:var(--c1);min-height:320px}
+@media(max-width:820px){.split-hero{grid-template-columns:1fr}.split-hero.rev .split-copy{order:0}.split-art{min-height:300px}}
+
+/* Spotlight hero */
+.spot-hero{position:relative;min-height:100vh;display:grid;place-items:center;overflow:hidden;text-align:center}
+.spot-scrim{position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 42%,color-mix(in srgb,var(--bg) 34%,transparent) 0,color-mix(in srgb,var(--bg) 78%,transparent) 55%,var(--bg) 100%)}
+.spot-in{position:relative;z-index:5;padding:0 24px;max-width:900px}
+.spot-in h1{font-family:var(--display);font-weight:800;font-size:clamp(46px,10vw,128px);line-height:.94;letter-spacing:-.03em;margin:0}
+.spot-in .lede{max-width:560px;margin:28px auto 0;font-size:clamp(16px,2vw,19px);line-height:1.6;opacity:.82}
+.marquee{overflow:hidden;white-space:nowrap;padding:15px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg)}
+.marquee span{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:.02em;padding:0 20px;color:var(--c1)}
+.marquee span i{color:var(--ink);opacity:.35;font-style:normal}
+
+/* Editorial */
+.ed-mast{display:flex;justify-content:space-between;align-items:center;padding:16px clamp(20px,5vw,64px);border-bottom:2px solid var(--ink);font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
+.ed-title{text-align:center;padding:30px 20px 20px;border-bottom:1px solid var(--ink)}
+.ed-title h1{font-family:var(--display);font-weight:700;font-size:clamp(40px,9vw,118px);letter-spacing:-.02em;line-height:.92;margin:0}
+.ed-title .lede{font-style:italic;opacity:.72;margin:12px 0 0;font-size:clamp(14px,2vw,20px)}
+.ed-nav{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;padding:12px;border-bottom:2px solid var(--ink);font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:600}
+.ed-nav a{text-decoration:none}
+.ed-cover{position:relative;height:clamp(300px,44vw,560px);overflow:hidden;border-bottom:2px solid var(--ink)}
+.ed-cap{position:absolute;z-index:3;left:0;right:0;bottom:0;padding:clamp(20px,4vw,44px);background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--bg) 92%,transparent))}
+.ed-cap .k{color:var(--c1);font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:13px}
+.ed-cap h2{font-family:var(--display);font-weight:700;font-size:clamp(26px,4vw,46px);margin:8px 0 0;letter-spacing:-.01em}
+
+/* Boutique */
+.bout-hero{position:relative;min-height:96vh;display:grid;place-items:center;overflow:hidden;text-align:center}
+.bout-scrim{position:absolute;inset:0;background:radial-gradient(92% 82% at 50% 44%,color-mix(in srgb,var(--bg) 30%,transparent),color-mix(in srgb,var(--bg) 82%,transparent) 68%,var(--bg))}
+.bout-in{position:relative;z-index:4;padding:0 24px;max-width:820px}
+.bout-in h1{font-family:var(--display);font-weight:500;font-size:clamp(52px,12vw,170px);line-height:.9;letter-spacing:.01em;margin:0}
+.bout-in .lede{font-family:var(--display);font-style:italic;font-size:clamp(18px,2.4vw,26px);opacity:.82;max-width:520px;margin:24px auto 0}
+.bout-in .eyebrow{letter-spacing:.42em}
+.bout-btn{margin-top:40px;display:inline-block;border:1px solid currentColor;padding:15px 40px;text-decoration:none;font-size:13px;letter-spacing:.22em;text-transform:uppercase;opacity:.9}
 
 </style>
 </head>
 <body>
+<div class="site" style="--bg:#fffbe6;--c1:#ff9f1c;--ink:#e71d36;--onC1:#ffffff;--card:rgb(255, 253, 245);--soft:rgb(255, 253, 241);--line:rgba(0,0,0,0.10);--display:'Baloo 2', system-ui, sans-serif;--body:'Nunito Sans', system-ui, sans-serif">
 
 <nav class="nav">
-  <div class="logo">Zest 🍋</div>
-  <ul><li><a href="#recipes">Recipes</a></li><li><a href="#">Quick</a></li><li><a href="#">Vegetarian</a></li><li><a href="#">Baking</a></li></ul>
-  <a class="btn" href="#">Get the box</a>
+  <a class="logo" href="#">Zest</a>
+  <ul class="navlinks"><li><a href="#">Recipes</a></li><li><a href="#">Quick</a></li><li><a href="#">Vegetarian</a></li><li><a href="#">Baking</a></li></ul>
+  <a class="navcta" href="#">Tonight's recipe</a>
 </nav>
-<header class="hero">
-  <div class="hero-copy">
-    <span class="kick">30 minutes or less</span>
-    <h1>Dinner that <span>actually</span> gets made.</h1>
-    <p>Bright, punchy recipes with short lists and shorter cook times — the kind you cook on a Tuesday and brag about on Friday.</p>
-    <div class="row"><a class="btn2" href="#recipes">Tonight's recipe</a><a class="link" href="#">Browse all →</a></div>
+<header class="split-hero">
+  <div class="split-copy">
+    <div class="eyebrow">30 minutes or less</div>
+    <h1>Dinner that <em class="em">actually</em> gets made.</h1>
+    <p class="lede">Bright, punchy recipes with short lists and shorter cook times, the kind you cook on a Tuesday and brag about on Friday.</p>
+    <div class="cta-row"><a class="btn btn-solid" href="#">Tonight's recipe</a><a class="btn btn-ghost" href="#">Browse all</a></div>
   </div>
-  <div class="hero-art"><style>css-doodle[data-tabbied="art25"]{--color0: #fffbe6; --color1: #ff9f1c; --color2: #2ec4b6; --color3: #e71d36; --color4: #ff9f1c; --color5: #2ec4b6; /* Random color generator variable */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(0.999) { :after { content: ''; position: absolute; @size: @rand(18%, 55%); left: @rand(2%, 60%); top: @rand(2%, 60%); background: var(--randomColor); -webkit-clip-path: @pick(circle(50% at 50% 50%), polygon(50% 0, 100% 100%, 0 100%), polygon(0 0, 100% 0, 100% 100%, 0 100%), inset(32% 0 32% 0)); clip-path: @pick(circle(50% at 50% 50%), polygon(50% 0, 100% 100%, 0 100%), polygon(0 0, 100% 0, 100% 100%, 0 100%), inset(32% 0 32% 0)); -webkit-transform: rotate(@rand(0deg, 359deg)); transform: rotate(@rand(0deg, 359deg)); -webkit-transition: ease 400ms; transition: ease 400ms; } } );}</style><css-doodle data-tabbied="art25" use="var(--rule)" seed="ZEST1">:doodle { @grid: 6x6; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+  <div class="split-art"><style>css-doodle[data-tabbied="art14"]{--color0: #fffbe6; --color1: #ff9f1c; --color2: #2ec4b6; --color3: #e71d36; --color4: #ff9f1c; --color5: #2ec4b6; /* Random color generator variable */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(0.999) { :after { content: ''; position: absolute; @size: @rand(18%, 55%); left: @rand(2%, 60%); top: @rand(2%, 60%); background: var(--randomColor); -webkit-clip-path: @pick(circle(50% at 50% 50%), polygon(50% 0, 100% 100%, 0 100%), polygon(0 0, 100% 0, 100% 100%, 0 100%), inset(32% 0 32% 0)); clip-path: @pick(circle(50% at 50% 50%), polygon(50% 0, 100% 100%, 0 100%), polygon(0 0, 100% 0, 100% 100%, 0 100%), inset(32% 0 32% 0)); -webkit-transform: rotate(@rand(0deg, 359deg)); transform: rotate(@rand(0deg, 359deg)); -webkit-transition: ease 400ms; transition: ease 400ms; } } );}</style><css-doodle data-tabbied="art14" use="var(--rule)" grid="8x8" data-cell="58" data-reseed="4200">:doodle { @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
 </header>
-<div class="ticker"><span>★ 15-MINUTE MEALS ★ ONE-PAN WONDERS ★ PANTRY HEROES ★ NO-CHOP NIGHTS ★ 15-MINUTE MEALS ★ ONE-PAN WONDERS ★ PANTRY HEROES ★ NO-CHOP NIGHTS ★</span></div>
-<section class="recipes" id="recipes">
-  <h2>This week's brightest</h2>
-  <p class="sub">Fresh from the test kitchen, sorted by how fast you'll be eating.</p>
-  <div class="grid">
-    
-    <article class="rc">
-      <div class="ph"><span class="tag">⏱ 20 min</span><style>css-doodle[data-tabbied="art26"]{--color0: #fffbe6; --color1: #ff9f1c; --color2: #2ec4b6; --color3: #e71d36; --color4: #ff9f1c; --color5: #2ec4b6; /* Random color generator variable */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(0.999) { :after { content: ''; position: absolute; @size: @rand(18%, 55%); left: @rand(2%, 60%); top: @rand(2%, 60%); background: var(--randomColor); -webkit-clip-path: @pick(circle(50% at 50% 50%), polygon(50% 0, 100% 100%, 0 100%), polygon(0 0, 100% 0, 100% 100%, 0 100%), inset(32% 0 32% 0)); clip-path: @pick(circle(50% at 50% 50%), polygon(50% 0, 100% 100%, 0 100%), polygon(0 0, 100% 0, 100% 100%, 0 100%), inset(32% 0 32% 0)); -webkit-transform: rotate(@rand(0deg, 359deg)); transform: rotate(@rand(0deg, 359deg)); -webkit-transition: ease 400ms; transition: ease 400ms; } } );}</style><css-doodle data-tabbied="art26" use="var(--rule)" seed="z1">:doodle { @grid: 5x4; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
-      <div class="b"><h3>Chili-Lime Corn Bowls</h3><div class="meta"><span>🍽 4 servings</span><span>★ 4.9</span></div></div>
-    </article>
-    <article class="rc">
-      <div class="ph"><span class="tag">⏱ 15 min</span><style>css-doodle[data-tabbied="art27"]{--color0: #fffbe6; --color1: #ff9f1c; --color2: #2ec4b6; --color3: #e71d36; --color4: #ff9f1c; --color5: #2ec4b6; /* Random color generator variable */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(0.999) { :after { content: ''; position: absolute; @size: @rand(18%, 55%); left: @rand(2%, 60%); top: @rand(2%, 60%); background: var(--randomColor); -webkit-clip-path: @pick(circle(50% at 50% 50%), polygon(50% 0, 100% 100%, 0 100%), polygon(0 0, 100% 0, 100% 100%, 0 100%), inset(32% 0 32% 0)); clip-path: @pick(circle(50% at 50% 50%), polygon(50% 0, 100% 100%, 0 100%), polygon(0 0, 100% 0, 100% 100%, 0 100%), inset(32% 0 32% 0)); -webkit-transform: rotate(@rand(0deg, 359deg)); transform: rotate(@rand(0deg, 359deg)); -webkit-transition: ease 400ms; transition: ease 400ms; } } );}</style><css-doodle data-tabbied="art27" use="var(--rule)" seed="z2">:doodle { @grid: 6x5; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
-      <div class="b"><h3>Blistered Tomato Orzo</h3><div class="meta"><span>🍽 2 servings</span><span>★ 4.9</span></div></div>
-    </article>
-    <article class="rc">
-      <div class="ph"><span class="tag">⏱ 30 min</span><style>css-doodle[data-tabbied="art28"]{--color0: #fffbe6; --color1: #ff9f1c; --color2: #2ec4b6; --color3: #e71d36; --color4: #ff9f1c; --color5: #2ec4b6; /* Random color generator variable */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(0.999) { :after { content: ''; position: absolute; @size: @rand(18%, 55%); left: @rand(2%, 60%); top: @rand(2%, 60%); background: var(--randomColor); -webkit-clip-path: @pick(circle(50% at 50% 50%), polygon(50% 0, 100% 100%, 0 100%), polygon(0 0, 100% 0, 100% 100%, 0 100%), inset(32% 0 32% 0)); clip-path: @pick(circle(50% at 50% 50%), polygon(50% 0, 100% 100%, 0 100%), polygon(0 0, 100% 0, 100% 100%, 0 100%), inset(32% 0 32% 0)); -webkit-transform: rotate(@rand(0deg, 359deg)); transform: rotate(@rand(0deg, 359deg)); -webkit-transition: ease 400ms; transition: ease 400ms; } } );}</style><css-doodle data-tabbied="art28" use="var(--rule)" seed="z3">:doodle { @grid: 5x4; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
-      <div class="b"><h3>Sesame Crunch Noodles</h3><div class="meta"><span>🍽 4 servings</span><span>★ 4.9</span></div></div>
-    </article>
-    <article class="rc">
-      <div class="ph"><span class="tag">⏱ 25 min</span><style>css-doodle[data-tabbied="art29"]{--color0: #fffbe6; --color1: #ff9f1c; --color2: #2ec4b6; --color3: #e71d36; --color4: #ff9f1c; --color5: #2ec4b6; /* Random color generator variable */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(0.999) { :after { content: ''; position: absolute; @size: @rand(18%, 55%); left: @rand(2%, 60%); top: @rand(2%, 60%); background: var(--randomColor); -webkit-clip-path: @pick(circle(50% at 50% 50%), polygon(50% 0, 100% 100%, 0 100%), polygon(0 0, 100% 0, 100% 100%, 0 100%), inset(32% 0 32% 0)); clip-path: @pick(circle(50% at 50% 50%), polygon(50% 0, 100% 100%, 0 100%), polygon(0 0, 100% 0, 100% 100%, 0 100%), inset(32% 0 32% 0)); -webkit-transform: rotate(@rand(0deg, 359deg)); transform: rotate(@rand(0deg, 359deg)); -webkit-transition: ease 400ms; transition: ease 400ms; } } );}</style><css-doodle data-tabbied="art29" use="var(--rule)" seed="z4">:doodle { @grid: 6x5; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
-      <div class="b"><h3>Charred Broccoli Tacos</h3><div class="meta"><span>🍽 3 servings</span><span>★ 4.9</span></div></div>
-    </article>
-  </div>
-</section>
-<footer>
-  <div class="logo">Zest 🍋</div>
-  <div>© 2026 Zest Kitchen · Confetti pattern by Tabbied — Citrus palette</div>
-</footer>
 
+<div class="stat-strip"><div><div class="stat-n">15 min</div><div class="stat-l">Fastest meals</div></div><div><div class="stat-n">1 pan</div><div class="stat-l">Less washing up</div></div><div><div class="stat-n">4.9★</div><div class="stat-l">Reader rating</div></div></div>
+<section class="about">
+  <div class="about-copy">
+    <div class="eyebrow">How Zest works</div>
+    <h2>Short lists, big flavour</h2>
+    <p>Every recipe is built around a handful of ingredients you can actually find and a cook time that fits a weeknight. We test each one until a tired person can nail it.</p><p>No ten-step reductions, no shopping for one obscure thing. Just fast food that tastes like you tried.</p>
+    <ul class="points"><li>Ten ingredients or fewer</li><li>One pan where we can</li><li>Tested by real weeknight cooks</li></ul>
+  </div>
+  <div class="about-art"><style>css-doodle[data-tabbied="art15"]{--color0: #fffbe6; --color1: #ff9f1c; --color2: #2ec4b6; --color3: #e71d36; --color4: #ff9f1c; /* Independent colors for the two sprinkles in each cell */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4)); --randomColor2: @p(var(--color1), var(--color2), var(--color3), var(--color4)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(0.999) { :before { content: ''; position: absolute; width: 62%; height: 16%; left: @rand(0%, 36%); top: @rand(4%, 40%); border-radius: 320px; background: var(--randomColor); -webkit-transform: rotate(@rand(0deg, 359deg)); transform: rotate(@rand(0deg, 359deg)); -webkit-transition: ease 400ms; transition: ease 400ms; } } /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(0.999) { :after { content: ''; position: absolute; width: 62%; height: 16%; left: @rand(2%, 38%); top: @rand(48%, 82%); border-radius: 320px; background: var(--randomColor2); -webkit-transform: rotate(@rand(0deg, 359deg)); transform: rotate(@rand(0deg, 359deg)); -webkit-transition: ease 400ms; transition: ease 400ms; } } );}</style><css-doodle data-tabbied="art15" use="var(--rule)" grid="8x8" data-cell="44" data-reseed="4200">:doodle { @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+</section>
+<section class="section" id="items">
+  <div class="section-head"><h2>This week's brightest</h2><p>Fresh from the test kitchen, sorted by speed.</p></div>
+  <div class="grid">
+    <article class="card">
+      <div class="card-media"><figure class="imgph" data-image-prompt="A vibrant chili-lime corn bowl in a colorful bowl, fresh and appetizing overhead food photo. Soft natural studio light, shallow depth of field, high detail, no text or logos. Color palette: #fffbe6, #ff9f1c, #2ec4b6, #e71d36. Use #fffbe6 as the background so the image blends into the page."><div class="imgph-in"><span class="imgph-badge">◳ GPT Image 2 prompt</span><p class="imgph-text">A vibrant chili-lime corn bowl in a colorful bowl, fresh and appetizing overhead food photo. Soft natural studio light, shallow depth of field, high detail, no text or logos. Color palette: #fffbe6, #ff9f1c, #2ec4b6, #e71d36. Use #fffbe6 as the background so the image blends into the page.</p></div></figure></div>
+      <div class="card-body">
+        <div class="card-eyebrow">20 min</div>
+        <h3>Chili-Lime Corn Bowls</h3>
+        <div class="card-meta">4 servings</div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-media"><figure class="imgph" data-image-prompt="A skillet of blistered cherry tomato orzo with basil, bright and saucy weeknight dinner. Soft natural studio light, shallow depth of field, high detail, no text or logos. Color palette: #fffbe6, #ff9f1c, #2ec4b6, #e71d36. Use #fffbe6 as the background so the image blends into the page."><div class="imgph-in"><span class="imgph-badge">◳ GPT Image 2 prompt</span><p class="imgph-text">A skillet of blistered cherry tomato orzo with basil, bright and saucy weeknight dinner. Soft natural studio light, shallow depth of field, high detail, no text or logos. Color palette: #fffbe6, #ff9f1c, #2ec4b6, #e71d36. Use #fffbe6 as the background so the image blends into the page.</p></div></figure></div>
+      <div class="card-body">
+        <div class="card-eyebrow">15 min</div>
+        <h3>Blistered Tomato Orzo</h3>
+        <div class="card-meta">2 servings</div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-media"><figure class="imgph" data-image-prompt="A tangle of sesame crunch noodles with scallions in a bowl, glossy and colorful food photo. Soft natural studio light, shallow depth of field, high detail, no text or logos. Color palette: #fffbe6, #ff9f1c, #2ec4b6, #e71d36. Use #fffbe6 as the background so the image blends into the page."><div class="imgph-in"><span class="imgph-badge">◳ GPT Image 2 prompt</span><p class="imgph-text">A tangle of sesame crunch noodles with scallions in a bowl, glossy and colorful food photo. Soft natural studio light, shallow depth of field, high detail, no text or logos. Color palette: #fffbe6, #ff9f1c, #2ec4b6, #e71d36. Use #fffbe6 as the background so the image blends into the page.</p></div></figure></div>
+      <div class="card-body">
+        <div class="card-eyebrow">30 min</div>
+        <h3>Sesame Crunch Noodles</h3>
+        <div class="card-meta">4 servings</div>
+      </div>
+    </article></div>
+</section>
+<section class="features"><div class="feat-grid">
+    <div class="feat"><div class="feat-num">01</div><h3>Pick</h3><p>Filter by time, mood, or what is wilting in the fridge.</p></div>
+    <div class="feat"><div class="feat-num">02</div><h3>Cook</h3><p>Clear steps, big photos, and a timer built into every recipe.</p></div>
+    <div class="feat"><div class="feat-num">03</div><h3>Brag</h3><p>Snap it, share it, and pretend it took longer than it did.</p></div></div></section>
+<section class="section"><div class="testi-grid">
+    <figure class="testi"><blockquote>“I cook from Zest four nights a week now.”</blockquote><figcaption><span class="q-name">Aya T.</span><span class="q-role">Subscriber</span></figcaption></figure>
+    <figure class="testi"><blockquote>“Finally recipes that respect a Tuesday.”</blockquote><figcaption><span class="q-name">Marco B.</span><span class="q-role">Home cook</span></figcaption></figure></div></section>
+<section class="band">
+  <div class="abs"><style>css-doodle[data-tabbied="art16"]{--color0: #fffbe6; --color1: #ff9f1c; --color2: #2ec4b6; --color3: #e71d36; --color4: #ff9f1c; --color5: #2ec4b6; /* Random color generator variable */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(0.999) { :after { content: ''; position: absolute; @size: @rand(22%, 86%); left: 50%; top: 50%; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%); border-radius: 50%; background: var(--randomColor); /* On or off option for hollow rings */  -webkit-transition: ease 400ms; transition: ease 400ms; } } );}</style><css-doodle data-tabbied="art16" use="var(--rule)" grid="8x8" data-cell="58" data-reseed="4200">:doodle { @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+  <div class="band-scrim"></div>
+  <div class="band-in"><h2>What's for dinner? We already answered that.</h2><a class="btn btn-solid" href="#">See tonight’s recipe</a></div>
+</section>
+<section class="newsletter"><div class="news-in">
+  <h2>Dinner, sorted</h2>
+  <p>One quick recipe in your inbox every weekday afternoon.</p>
+  <form class="news-form" action="#">
+    <input type="email" placeholder="you@email.com" aria-label="Email">
+    <button type="submit" class="btn btn-solid">Get the box</button>
+  </form>
+</div></section>
+<footer class="footer">
+  <div class="foot-top">
+    <span class="logo">Zest</span>
+    <nav class="foot-nav"><a href="#">Recipes</a><a href="#">Quick</a><a href="#">Vegetarian</a><a href="#">Baking</a></nav>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Zest. All rights reserved.</span>
+    <span>4 Tabbied artworks (confetti · polka · sprinkles · spark) via css-doodle, Citrus palette.</span>
+  </div>
+</footer>
+</div>
 </body>
 </html>

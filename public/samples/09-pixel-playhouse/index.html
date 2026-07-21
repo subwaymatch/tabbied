@@ -3,109 +3,238 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Pixel Playhouse — Indie Game Studio</title>
-<meta name="description" content="A tiny indie studio making cozy, colourful games about small worlds." />
+<title>Pixel Playhouse · Indie game studio</title>
+<meta name="description" content="A tiny studio making colourful, low-stress games you can lose an evening to. No crunch, just vibes." />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕹️</text></svg>" />
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Chivo:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chivo:wght@400;700;900&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 <script src="../assets/css-doodle.min.js"></script>
+<script src="../assets/tabbied-runtime.js" defer></script>
 <style>
-*,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:#2d0a45;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-css-doodle{display:block;width:100%;height:100%}
-img{max-width:100%}
-a{color:inherit}
-.doodle-wrap{position:absolute;inset:0;overflow:hidden}
+body{margin:0;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 
-:root{--purple:#2d0a45;--pink:#ff6ad5;--orchid:#c774e8;--sky:#94d0ff;--lav:#ad8cff}
-body{font-family:'Chivo',system-ui,sans-serif;color:#f4ecff}
-.nav{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:20px clamp(20px,5vw,64px)}
-.nav .logo{font-family:'Press Start 2P';font-size:14px;color:var(--sky);text-shadow:2px 2px 0 var(--pink)}
-.nav ul{display:flex;gap:26px;list-style:none;margin:0;padding:0;font-weight:600;font-size:14px}
-.nav a{text-decoration:none;opacity:.9}
-.nav .wish{background:var(--pink);color:#2d0a45;padding:10px 18px;border-radius:8px;font-weight:800;box-shadow:3px 3px 0 #00000040}
-.hero{position:relative;min-height:100vh;display:grid;place-items:center;overflow:hidden;background:linear-gradient(180deg,#2d0a45,#1a0530)}
-.hero .doodle-wrap{opacity:.85}
-.hero::after{content:'';position:absolute;inset:0;background:radial-gradient(80% 70% at 50% 42%,transparent,#2d0a45cc 72%)}
-.hero-inner{position:relative;z-index:5;text-align:center;padding:0 24px}
-.hero .badge{font-family:'Press Start 2P';font-size:11px;color:var(--sky);letter-spacing:.02em;margin-bottom:28px}
-.hero h1{font-family:'Press Start 2P';font-size:clamp(30px,8vw,86px);line-height:1.15;margin:0;color:#fff;text-shadow:4px 4px 0 var(--pink),8px 8px 0 var(--purple)}
-.hero p{font-size:clamp(16px,2vw,20px);max-width:520px;margin:34px auto 0;color:#d9c9f0;line-height:1.6}
-.hero .row{display:flex;gap:16px;justify-content:center;margin-top:40px;flex-wrap:wrap}
-.btn{font-family:'Chivo';font-weight:800;padding:15px 30px;border-radius:10px;text-decoration:none;box-shadow:4px 4px 0 #00000050}
-.btn.pink{background:var(--pink);color:#2d0a45}
-.btn.sky{background:var(--sky);color:#0a2540}
-.games{padding:clamp(60px,9vw,120px) clamp(20px,5vw,64px);max-width:1200px;margin:0 auto}
-.games h2{font-family:'Press Start 2P';font-size:clamp(18px,3vw,30px);margin:0 0 40px;color:var(--orchid)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:26px}
-.game{border-radius:16px;overflow:hidden;background:#20083a;border:2px solid #c774e855;box-shadow:6px 6px 0 #00000040;transition:transform .2s}
-.game:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 #00000050}
-.game .ph{aspect-ratio:16/10;position:relative;overflow:hidden;image-rendering:pixelated}
-.game .b{padding:18px 20px 22px}
-.game .status{font-family:'Press Start 2P';font-size:9px;color:var(--sky)}
-.game h3{font-size:22px;font-weight:800;margin:12px 0 6px}
-.game p{margin:0;color:#c0aede;font-size:14px}
-.strip{background:#ff6ad5;color:#2d0a45;font-family:'Press Start 2P';font-size:12px;padding:14px 0;overflow:hidden;white-space:nowrap}
-.strip span{padding:0 18px}
-.news{padding:clamp(50px,8vw,100px) clamp(20px,5vw,64px);max-width:820px;margin:0 auto;text-align:center}
-.news h2{font-family:'Press Start 2P';font-size:clamp(16px,2.6vw,24px);color:var(--sky);margin:0 0 16px}
-.news p{color:#d0bfec;font-size:17px;line-height:1.6;margin:0 0 26px}
-.news form{display:flex;gap:10px;max-width:420px;margin:0 auto;flex-wrap:wrap;justify-content:center}
-.news input{flex:1;min-width:200px;padding:14px 18px;border-radius:10px;border:2px solid #c774e8;background:#20083a;color:#fff;font-family:'Chivo';font-size:15px}
-footer{padding:50px clamp(20px,5vw,64px);text-align:center;color:#a892c4;font-size:14px;border-top:2px solid #c774e833}
-footer .logo{font-family:'Press Start 2P';font-size:12px;color:var(--sky);display:block;margin-bottom:12px}
-@media(max-width:720px){.nav ul{display:none}}
+*,*::before,*::after{box-sizing:border-box}
+.site{min-height:100vh;background:var(--bg);color:var(--ink);font-family:var(--body);overflow-x:hidden}
+.site a{color:inherit}
+css-doodle{display:block;width:100%;height:100%}
+.doodle-box{position:relative;overflow:hidden}
+.abs{position:absolute;inset:0;overflow:hidden}
+
+.nav{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px clamp(20px,5vw,64px);position:relative;z-index:20}
+.logo{font-family:var(--display);font-weight:700;font-size:23px;letter-spacing:-.01em;text-decoration:none}
+.navlinks{display:flex;gap:28px;list-style:none;margin:0;padding:0;font-size:14px;font-weight:500}
+.navlinks a{text-decoration:none;opacity:.82}
+.navcta{padding:10px 20px;border-radius:100px;background:var(--c1);color:var(--onC1);text-decoration:none;font-weight:600;font-size:14px}
+@media(max-width:760px){.navlinks{display:none}}
+
+.btn{display:inline-block;padding:15px 30px;border-radius:10px;text-decoration:none;font-weight:600;font-size:15px;border:1px solid transparent;cursor:pointer}
+.btn-solid{background:var(--c1);color:var(--onC1)}
+.btn-ghost{background:transparent;border-color:currentColor;opacity:.85}
+.cta-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-top:36px}
+.cta-center{justify-content:center}
+.eyebrow{font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:var(--c1);margin-bottom:22px;font-weight:600}
+
+.section{max-width:1200px;margin:0 auto;padding:clamp(60px,9vw,120px) clamp(20px,5vw,64px)}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:44px}
+.section-head h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,5vw,52px);letter-spacing:-.02em;margin:0}
+.section-head p{margin:0;max-width:340px;opacity:.7;font-size:15px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:24px}
+.card{border-radius:18px;overflow:hidden;background:var(--card);border:1px solid var(--line);transition:transform .3s ease}
+.card:hover{transform:translateY(-6px)}
+.card-media{aspect-ratio:4/3;position:relative;overflow:hidden}
+.card-body{padding:18px 20px 22px}
+.card-eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--c1);font-weight:600}
+.card-body h3{font-family:var(--display);font-weight:600;font-size:21px;margin:8px 0 6px}
+.card-meta{opacity:.65;font-size:14px}
+
+.imgph{position:absolute;inset:0;margin:0;display:flex;border-bottom:1px solid var(--line);
+  background:radial-gradient(120% 120% at 100% 0,color-mix(in srgb,var(--c1) 22%,transparent),transparent 60%),var(--soft)}
+.imgph-in{margin:auto;padding:16px 18px;text-align:center;max-width:92%}
+.imgph-badge{display:inline-block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--c1);
+  border:1px solid color-mix(in srgb,var(--c1) 55%,transparent);border-radius:100px;padding:4px 10px;margin-bottom:12px}
+.imgph-text{margin:0;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;line-height:1.5;opacity:.75;
+  display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
+
+.stat-strip{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stat-strip>div{padding:30px clamp(20px,4vw,48px);border-right:1px solid var(--line)}
+.stat-strip>div:last-child{border-right:none}
+.stat-n{font-family:var(--display);font-size:32px;font-weight:600}
+.stat-l{font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin-top:6px}
+
+.about{max-width:1200px;margin:0 auto;padding:clamp(60px,9vw,120px) clamp(20px,5vw,64px);display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,5vw,70px);align-items:center}
+.about.rev .about-copy{order:2}
+.about-copy h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,4.5vw,48px);letter-spacing:-.02em;margin:0 0 20px}
+.about-copy p{font-size:17px;line-height:1.7;opacity:.8;margin:0 0 16px;max-width:52ch}
+.points{list-style:none;margin:24px 0 0;padding:0;display:grid;gap:10px}
+.points li{position:relative;padding-left:26px;font-size:15.5px}
+.points li::before{content:"";position:absolute;left:0;top:.5em;width:10px;height:10px;border-radius:3px;background:var(--c1)}
+.about-art{position:relative;overflow:hidden;border-radius:18px;aspect-ratio:4/5;border:1px solid var(--line);background:var(--c1)}
+@media(max-width:820px){.about{grid-template-columns:1fr}.about.rev .about-copy{order:0}.about-art{aspect-ratio:16/10}}
+
+.features{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--soft)}
+.feat-grid{max-width:1200px;margin:0 auto;padding:clamp(40px,6vw,72px) clamp(20px,5vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(24px,4vw,48px)}
+.feat-num{font-family:var(--display);font-weight:700;font-size:15px;color:var(--c1);letter-spacing:.08em}
+.feat h3{font-family:var(--display);font-weight:600;font-size:21px;margin:10px 0 8px}
+.feat p{margin:0;opacity:.72;font-size:15px;line-height:1.6}
+
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.testi{margin:0;padding:30px 32px;border-radius:18px;background:var(--card);border:1px solid var(--line)}
+.testi blockquote{margin:0 0 18px;font-family:var(--display);font-size:clamp(19px,2.4vw,25px);line-height:1.35;letter-spacing:-.01em}
+.testi .q-name{font-weight:600;font-size:15px;display:block}
+.testi .q-role{font-size:13px;opacity:.6}
+
+.band{position:relative;min-height:360px;display:grid;place-items:center;overflow:hidden;margin:clamp(40px,6vw,80px) 0 0}
+.band-scrim{position:absolute;inset:0;background:linear-gradient(180deg,color-mix(in srgb,var(--bg) 82%,transparent),color-mix(in srgb,var(--bg) 40%,transparent) 50%,color-mix(in srgb,var(--bg) 82%,transparent))}
+.band-in{position:relative;z-index:3;text-align:center;padding:0 24px;max-width:640px}
+.band-in h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,4.6vw,50px);letter-spacing:-.02em;margin:0 0 24px;line-height:1.08}
+
+.newsletter{padding:clamp(56px,8vw,104px) clamp(20px,5vw,64px)}
+.news-in{max-width:620px;margin:0 auto;text-align:center}
+.news-in h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,4.4vw,46px);letter-spacing:-.02em;margin:0 0 12px}
+.news-in p{opacity:.75;font-size:17px;margin:0 0 26px}
+.news-form{display:flex;gap:10px;max-width:440px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+.news-form input{flex:1 1 220px;padding:14px 18px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-family:var(--body);font-size:15px}
+
+.footer{padding:48px 0 40px;font-size:14px;border-top:1px solid var(--line)}
+.foot-top{max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,64px) 26px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+.foot-top .logo{opacity:1}
+.foot-nav{display:flex;gap:24px;flex-wrap:wrap;font-size:14px}
+.foot-nav a{text-decoration:none;opacity:.75}
+.foot-bottom{max-width:1200px;margin:0 auto;padding:22px clamp(20px,5vw,64px) 0;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13px;opacity:.6}
+.em{color:var(--c1);font-style:inherit}
+
+/* Split hero */
+.split-hero{display:grid;grid-template-columns:1.02fr .98fr;align-items:stretch;min-height:82vh}
+.split-hero.rev .split-copy{order:2}
+.split-copy{display:flex;flex-direction:column;justify-content:center;padding:clamp(36px,6vw,96px) clamp(24px,5vw,72px)}
+.split-copy h1{font-family:var(--display);font-weight:600;font-size:clamp(40px,6.4vw,82px);line-height:1.02;letter-spacing:-.02em;margin:0}
+.split-copy .lede{font-size:18px;line-height:1.7;opacity:.78;max-width:440px;margin:26px 0 0}
+.split-art{position:relative;overflow:hidden;background:var(--c1);min-height:320px}
+@media(max-width:820px){.split-hero{grid-template-columns:1fr}.split-hero.rev .split-copy{order:0}.split-art{min-height:300px}}
+
+/* Spotlight hero */
+.spot-hero{position:relative;min-height:100vh;display:grid;place-items:center;overflow:hidden;text-align:center}
+.spot-scrim{position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 42%,color-mix(in srgb,var(--bg) 34%,transparent) 0,color-mix(in srgb,var(--bg) 78%,transparent) 55%,var(--bg) 100%)}
+.spot-in{position:relative;z-index:5;padding:0 24px;max-width:900px}
+.spot-in h1{font-family:var(--display);font-weight:800;font-size:clamp(46px,10vw,128px);line-height:.94;letter-spacing:-.03em;margin:0}
+.spot-in .lede{max-width:560px;margin:28px auto 0;font-size:clamp(16px,2vw,19px);line-height:1.6;opacity:.82}
+.marquee{overflow:hidden;white-space:nowrap;padding:15px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg)}
+.marquee span{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:.02em;padding:0 20px;color:var(--c1)}
+.marquee span i{color:var(--ink);opacity:.35;font-style:normal}
+
+/* Editorial */
+.ed-mast{display:flex;justify-content:space-between;align-items:center;padding:16px clamp(20px,5vw,64px);border-bottom:2px solid var(--ink);font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
+.ed-title{text-align:center;padding:30px 20px 20px;border-bottom:1px solid var(--ink)}
+.ed-title h1{font-family:var(--display);font-weight:700;font-size:clamp(40px,9vw,118px);letter-spacing:-.02em;line-height:.92;margin:0}
+.ed-title .lede{font-style:italic;opacity:.72;margin:12px 0 0;font-size:clamp(14px,2vw,20px)}
+.ed-nav{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;padding:12px;border-bottom:2px solid var(--ink);font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:600}
+.ed-nav a{text-decoration:none}
+.ed-cover{position:relative;height:clamp(300px,44vw,560px);overflow:hidden;border-bottom:2px solid var(--ink)}
+.ed-cap{position:absolute;z-index:3;left:0;right:0;bottom:0;padding:clamp(20px,4vw,44px);background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--bg) 92%,transparent))}
+.ed-cap .k{color:var(--c1);font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:13px}
+.ed-cap h2{font-family:var(--display);font-weight:700;font-size:clamp(26px,4vw,46px);margin:8px 0 0;letter-spacing:-.01em}
+
+/* Boutique */
+.bout-hero{position:relative;min-height:96vh;display:grid;place-items:center;overflow:hidden;text-align:center}
+.bout-scrim{position:absolute;inset:0;background:radial-gradient(92% 82% at 50% 44%,color-mix(in srgb,var(--bg) 30%,transparent),color-mix(in srgb,var(--bg) 82%,transparent) 68%,var(--bg))}
+.bout-in{position:relative;z-index:4;padding:0 24px;max-width:820px}
+.bout-in h1{font-family:var(--display);font-weight:500;font-size:clamp(52px,12vw,170px);line-height:.9;letter-spacing:.01em;margin:0}
+.bout-in .lede{font-family:var(--display);font-style:italic;font-size:clamp(18px,2.4vw,26px);opacity:.82;max-width:520px;margin:24px auto 0}
+.bout-in .eyebrow{letter-spacing:.42em}
+.bout-btn{margin-top:40px;display:inline-block;border:1px solid currentColor;padding:15px 40px;text-decoration:none;font-size:13px;letter-spacing:.22em;text-transform:uppercase;opacity:.9}
 
 </style>
 </head>
 <body>
+<div class="site" style="--bg:#2d0a45;--c1:#ff6ad5;--ink:#f5f3ef;--onC1:#ffffff;--card:rgb(60, 27, 82);--soft:rgb(53, 20, 76);--line:rgba(255,255,255,0.12);--display:'Chivo', system-ui, sans-serif;--body:'Space Grotesk', system-ui, sans-serif">
 
 <nav class="nav">
-  <div class="logo">PLAYHOUSE</div>
-  <ul><li><a href="#games">Games</a></li><li><a href="#">Studio</a></li><li><a href="#">Devlog</a></li></ul>
-  <a class="wish" href="#">♥ Wishlist</a>
+  <a class="logo" href="#">Pixel Playhouse</a>
+  <ul class="navlinks"><li><a href="#">Games</a></li><li><a href="#">Studio</a></li><li><a href="#">Devlog</a></li></ul>
+  <a class="navcta" href="#">Play the demo</a>
 </nav>
-<header class="hero">
-  <div class="doodle-wrap"><style>css-doodle[data-tabbied="art41"]{--color0: #2d0a45; --color1: #ff6ad5; --color2: #c774e8; --color3: #94d0ff; --color4: #ad8cff; --color5: #ff6ad5; --rule: ( --rot: @pick(0deg, 90deg, 180deg, 270deg); @random(0.999) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(0 0, 100% 0, 100% 50%, 66% 50%, 66% 100%, 33% 100%, 33% 50%, 0 50%); clip-path: polygon(0 0, 100% 0, 100% 50%, 66% 50%, 66% 100%, 33% 100%, 33% 50%, 0 50%); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );}</style><css-doodle data-tabbied="art41" use="var(--rule)" seed="PLAY8">:doodle { @grid: 9x14; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
-  <div class="hero-inner">
-    <div class="badge">▶ NOW IN EARLY ACCESS</div>
-    <h1>SUNSET<br>SUBURBIA</h1>
-    <p>A cozy little life-sim about a town that only exists at dusk. Grow a garden, meet the neighbours, keep the streetlights on.</p>
-    <div class="row"><a class="btn pink" href="#">▶ Play the demo</a><a class="btn sky" href="#games">See our games</a></div>
+<header class="spot-hero">
+  <div class="abs"><style>css-doodle[data-tabbied="art23"]{--color0: #2d0a45; --color1: #ff6ad5; --color2: #c774e8; --color3: #94d0ff; --color4: #ad8cff; --color5: #ff6ad5; --rule: ( --rot: @pick(0deg, 90deg, 180deg, 270deg); @random(0.999) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(0 0, 100% 0, 100% 50%, 66% 50%, 66% 100%, 33% 100%, 33% 50%, 0 50%); clip-path: polygon(0 0, 100% 0, 100% 50%, 66% 50%, 66% 100%, 33% 100%, 33% 50%, 0 50%); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );}</style><css-doodle data-tabbied="art23" use="var(--rule)" grid="8x8" data-cell="58" data-reseed="4200">:doodle { @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+  <div class="spot-scrim"></div>
+  <div class="spot-in">
+    <div class="eyebrow">▶ Now in early access</div>
+    <h1>Cozy games about <em class="em">small worlds</em>.</h1>
+    <p class="lede">A tiny studio making colourful, low-stress games you can lose an evening to. No crunch, just vibes.</p>
+    <div class="cta-row cta-center"><a class="btn btn-solid" href="#">Play the demo</a><a class="btn btn-ghost" href="#">See our games</a></div>
   </div>
 </header>
-<div class="strip"><span>★ PLAYHOUSE ARCADE ★ MADE BY 3 FRIENDS ★ NO CRUNCH, JUST VIBES ★ SOUNDTRACK ON BANDCAMP ★ PLAYHOUSE ARCADE ★ MADE BY 3 FRIENDS ★ SOUNDTRACK ON BANDCAMP ★</span></div>
-<section class="games" id="games">
-  <h2>OUR GAMES</h2>
-  <div class="grid">
-    
-    <article class="game">
-      <div class="ph"><style>css-doodle[data-tabbied="art42"]{--color0: #2d0a45; --color1: #ff6ad5; --color2: #c774e8; --color3: #94d0ff; --color4: #ad8cff; --color5: #ff6ad5; --rule: ( --rot: @pick(0deg, 90deg, 180deg, 270deg); @random(0.999) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(0 0, 100% 0, 100% 50%, 66% 50%, 66% 100%, 33% 100%, 33% 50%, 0 50%); clip-path: polygon(0 0, 100% 0, 100% 50%, 66% 50%, 66% 100%, 33% 100%, 33% 50%, 0 50%); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );}</style><css-doodle data-tabbied="art42" use="var(--rule)" seed="g1">:doodle { @grid: 7x11; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
-      <div class="b"><div class="status">OUT NOW</div><h3>Sunset Suburbia</h3><p>Dusk-only cozy life sim.</p></div>
-    </article>
-    <article class="game">
-      <div class="ph"><style>css-doodle[data-tabbied="art43"]{--color0: #2d0a45; --color1: #ff6ad5; --color2: #c774e8; --color3: #94d0ff; --color4: #ad8cff; --color5: #ff6ad5; --rule: ( --rot: @pick(0deg, 90deg, 180deg, 270deg); @random(0.999) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(0 0, 100% 0, 100% 50%, 66% 50%, 66% 100%, 33% 100%, 33% 50%, 0 50%); clip-path: polygon(0 0, 100% 0, 100% 50%, 66% 50%, 66% 100%, 33% 100%, 33% 50%, 0 50%); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );}</style><css-doodle data-tabbied="art43" use="var(--rule)" seed="g2">:doodle { @grid: 8x12; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
-      <div class="b"><div class="status">DEMO</div><h3>Neon Courier</h3><p>A rooftop delivery roguelite.</p></div>
-    </article>
-    <article class="game">
-      <div class="ph"><style>css-doodle[data-tabbied="art44"]{--color0: #2d0a45; --color1: #ff6ad5; --color2: #c774e8; --color3: #94d0ff; --color4: #ad8cff; --color5: #ff6ad5; --rule: ( --rot: @pick(0deg, 90deg, 180deg, 270deg); @random(0.999) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(0 0, 100% 0, 100% 50%, 66% 50%, 66% 100%, 33% 100%, 33% 50%, 0 50%); clip-path: polygon(0 0, 100% 0, 100% 50%, 66% 50%, 66% 100%, 33% 100%, 33% 50%, 0 50%); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );}</style><css-doodle data-tabbied="art44" use="var(--rule)" seed="g3">:doodle { @grid: 6x10; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
-      <div class="b"><div class="status">2027</div><h3>Tidepool</h3><p>Build a reef, one creature at a time.</p></div>
-    </article>
-    <article class="game">
-      <div class="ph"><style>css-doodle[data-tabbied="art45"]{--color0: #2d0a45; --color1: #ff6ad5; --color2: #c774e8; --color3: #94d0ff; --color4: #ad8cff; --color5: #ff6ad5; --rule: ( --rot: @pick(0deg, 90deg, 180deg, 270deg); @random(0.999) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(0 0, 100% 0, 100% 50%, 66% 50%, 66% 100%, 33% 100%, 33% 50%, 0 50%); clip-path: polygon(0 0, 100% 0, 100% 50%, 66% 50%, 66% 100%, 33% 100%, 33% 50%, 0 50%); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );}</style><css-doodle data-tabbied="art45" use="var(--rule)" seed="g4">:doodle { @grid: 9x14; @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
-      <div class="b"><div class="status">ARCHIVE</div><h3>Blockparty</h3><p>The falling-blocks game we started with.</p></div>
-    </article>
-  </div>
-</section>
-<section class="news">
-  <h2>JOIN THE PLAYHOUSE</h2>
-  <p>Devlogs, wallpapers, and the odd free prototype — about one email a month, no spam ever.</p>
-  <form onsubmit="return false"><input type="email" placeholder="you@email.com" aria-label="Email"><button class="btn pink" type="submit">Sign up</button></form>
-</section>
-<footer>
-  <span class="logo">PIXEL PLAYHOUSE</span>
-  © 2026 Pixel Playhouse · Tetro pattern by Tabbied — Vaporwave palette
-</footer>
 
+<div class="marquee"><span>MADE BY 3 FRIENDS <i>✦</i> NO CRUNCH <i>✦</i> SOUNDTRACK ON BANDCAMP <i>✦</i> PLAYHOUSE ARCADE <i>✦</i> MADE BY 3 FRIENDS <i>✦</i> NO CRUNCH <i>✦</i> SOUNDTRACK ON BANDCAMP <i>✦</i> PLAYHOUSE ARCADE <i>✦</i> </span></div>
+
+<section class="about">
+  <div class="about-copy">
+    <div class="eyebrow">The studio</div>
+    <h2>Three friends and a shared drive</h2>
+    <p>Pixel Playhouse is a three-person studio that makes the kind of games we want to come home to. Warm, weird, and never in a hurry.</p><p>We build in the open, post devlogs every Friday, and put the soundtrack up for free.</p>
+    <ul class="points"><li>Wishlist-friendly demos</li><li>Free soundtracks</li><li>Devlogs every Friday</li></ul>
+  </div>
+  <div class="about-art"><style>css-doodle[data-tabbied="art24"]{--color0: #2d0a45; --color1: #ff6ad5; --color2: #c774e8; --color3: #94d0ff; --color4: #ad8cff; --color5: #ff6ad5; /* set custom colors and inject z-index for the specific color to use for association */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( -webkit-transform:rotate(@pick(90deg, 180deg, 270deg, 360deg)); transform:rotate(@pick(90deg, 180deg, 270deg, 360deg)); /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(0.999) { background: var(--randomColor); -webkit-clip-path: @pick(circle(50% at 50% 50%), polygon(0 0, 0% 100%, 100% 100%), polygon(0 0, 100% 0, 100% 100%, 0% 100%)); clip-path: @pick(circle(50% at 50% 50%), polygon(0 0, 0% 100%, 100% 100%), polygon(0 0, 100% 0, 100% 100%, 0% 100%)); -webkit-transition: ease 400ms; transition: ease 400ms; } /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(0.999) { background: var(--randomColor); border-radius: 200px 200px 0px 0px; -webkit-clip-path:none; clip-path:none; /* On or off option for displaying box shadows */ -webkit-box-shadow:0 0 40px rgba(0,0,0,0.2); box-shadow:0 0 40px rgba(0,0,0,0.2); -webkit-transition: ease 400ms; transition: ease 400ms; } );}</style><css-doodle data-tabbied="art24" use="var(--rule)" grid="8x8" data-cell="44" data-reseed="4200">:doodle { @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+</section>
+<section class="section" id="items">
+  <div class="section-head"><h2>Our games</h2><p>Little worlds, made with care.</p></div>
+  <div class="grid">
+    <article class="card">
+      <div class="card-media"><figure class="imgph" data-image-prompt="A cozy pixel-art town at dusk with glowing streetlights, warm vaporwave pinks and purples, game screenshot. Soft natural studio light, shallow depth of field, high detail, no text or logos. Color palette: #2d0a45, #ff6ad5, #c774e8, #94d0ff, #ad8cff. Use #2d0a45 as the background so the image blends into the page."><div class="imgph-in"><span class="imgph-badge">◳ GPT Image 2 prompt</span><p class="imgph-text">A cozy pixel-art town at dusk with glowing streetlights, warm vaporwave pinks and purples, game screenshot. Soft natural studio light, shallow depth of field, high detail, no text or logos. Color palette: #2d0a45, #ff6ad5, #c774e8, #94d0ff, #ad8cff. Use #2d0a45 as the background so the image blends into the page.</p></div></figure></div>
+      <div class="card-body">
+        <div class="card-eyebrow">Out now</div>
+        <h3>Sunset Suburbia</h3>
+        <div class="card-meta">Dusk-only life sim</div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-media"><figure class="imgph" data-image-prompt="A neon rooftop delivery scene in pixel art, night city with pink and blue glow, indie game art. Soft natural studio light, shallow depth of field, high detail, no text or logos. Color palette: #2d0a45, #ff6ad5, #c774e8, #94d0ff, #ad8cff. Use #2d0a45 as the background so the image blends into the page."><div class="imgph-in"><span class="imgph-badge">◳ GPT Image 2 prompt</span><p class="imgph-text">A neon rooftop delivery scene in pixel art, night city with pink and blue glow, indie game art. Soft natural studio light, shallow depth of field, high detail, no text or logos. Color palette: #2d0a45, #ff6ad5, #c774e8, #94d0ff, #ad8cff. Use #2d0a45 as the background so the image blends into the page.</p></div></figure></div>
+      <div class="card-body">
+        <div class="card-eyebrow">Demo</div>
+        <h3>Neon Courier</h3>
+        <div class="card-meta">Rooftop delivery roguelite</div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-media"><figure class="imgph" data-image-prompt="A colorful pixel-art coral reef aquarium builder scene, playful pastel vaporwave palette. Soft natural studio light, shallow depth of field, high detail, no text or logos. Color palette: #2d0a45, #ff6ad5, #c774e8, #94d0ff, #ad8cff. Use #2d0a45 as the background so the image blends into the page."><div class="imgph-in"><span class="imgph-badge">◳ GPT Image 2 prompt</span><p class="imgph-text">A colorful pixel-art coral reef aquarium builder scene, playful pastel vaporwave palette. Soft natural studio light, shallow depth of field, high detail, no text or logos. Color palette: #2d0a45, #ff6ad5, #c774e8, #94d0ff, #ad8cff. Use #2d0a45 as the background so the image blends into the page.</p></div></figure></div>
+      <div class="card-body">
+        <div class="card-eyebrow">2027</div>
+        <h3>Tidepool</h3>
+        <div class="card-meta">Build a reef, one creature at a time</div>
+      </div>
+    </article></div>
+</section>
+<section class="features"><div class="feat-grid">
+    <div class="feat"><div class="feat-num">01</div><h3>Play</h3><p>Short, cozy sessions that respect your evening.</p></div>
+    <div class="feat"><div class="feat-num">02</div><h3>Wishlist</h3><p>Every game ships a demo before it asks for a cent.</p></div>
+    <div class="feat"><div class="feat-num">03</div><h3>Follow</h3><p>Weekly devlogs, wallpapers, and the odd prototype.</p></div></div></section>
+<section class="section"><div class="testi-grid">
+    <figure class="testi"><blockquote>“The comfort food of video games. I adore it.”</blockquote><figcaption><span class="q-name">pixelfox</span><span class="q-role">Player</span></figcaption></figure>
+    <figure class="testi"><blockquote>“Wishlisted on sight, refunded never.”</blockquote><figcaption><span class="q-name">mossy</span><span class="q-role">Player</span></figcaption></figure></div></section>
+<section class="band">
+  <div class="abs"><style>css-doodle[data-tabbied="art25"]{--color0: #2d0a45; --color1: #ff6ad5; --color2: #c774e8; --color3: #94d0ff; --color4: #ad8cff; --color5: #ff6ad5; /* Mostly-dark strokes with occasional accent colors */ --randomColor: @p(var(--color1), var(--color1), var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ /* Stroke direction comes from rotating the cell rather than from the gradient angle: transforms transition on reseed, gradients can't */ @random(0.999) { background: linear-gradient(45deg, transparent calc(50% - 8%), var(--randomColor) calc(50% - 8%) calc(50% + 8%), transparent calc(50% + 8%)); -webkit-transform: rotate(@pick(0deg, 90deg)); transform: rotate(@pick(0deg, 90deg)); } /* Occasional junction dots break up the lines */ @random(0.08) { background: none; :after { content: ''; position: absolute; @size: calc(8% * 2.6); left: 50%; top: 50%; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%); border-radius: 50%; background: var(--randomColor); -webkit-transition: ease 400ms; transition: ease 400ms; } } -webkit-transition: ease 400ms; transition: ease 400ms; );}</style><css-doodle data-tabbied="art25" use="var(--rule)" grid="8x8" data-cell="58" data-reseed="4200">:doodle { @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+  <div class="band-scrim"></div>
+  <div class="band-in"><h2>Come lose an evening in a small world.</h2><a class="btn btn-solid" href="#">Play the demo</a></div>
+</section>
+<section class="newsletter"><div class="news-in">
+  <h2>Join the Playhouse</h2>
+  <p>Devlogs, wallpapers, and the odd free prototype, about one email a month.</p>
+  <form class="news-form" action="#">
+    <input type="email" placeholder="you@email.com" aria-label="Email">
+    <button type="submit" class="btn btn-solid">Sign up</button>
+  </form>
+</div></section>
+<footer class="footer">
+  <div class="foot-top">
+    <span class="logo">Pixel Playhouse</span>
+    <nav class="foot-nav"><a href="#">Games</a><a href="#">Studio</a><a href="#">Devlog</a></nav>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Pixel Playhouse. All rights reserved.</span>
+    <span>4 Tabbied artworks (tetro · maze · bloks · domino) via css-doodle, Vaporwave palette.</span>
+  </div>
+</footer>
+</div>
 </body>
 </html>
