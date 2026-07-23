@@ -80,6 +80,48 @@
     for (var i = 0; i < nodes.length; i++) setup(nodes[i]);
   }
 
+  // Copy an image placeholder's full GPT Image 2 prompt to the clipboard.
+  function copyText(text, done) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } else {
+      fallback();
+    }
+    function fallback() {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+      } catch (e) {
+        /* ignore */
+      }
+      document.body.removeChild(ta);
+      done();
+    }
+  }
+
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    if (!t || !t.closest) return;
+    var btn = t.closest('[data-copy-prompt]');
+    if (!btn) return;
+    var fig = btn.closest('.imgph');
+    var text = fig && fig.getAttribute('data-image-prompt');
+    if (!text) return;
+    copyText(text, function () {
+      var original = btn.getAttribute('data-label') || btn.textContent;
+      btn.setAttribute('data-label', original);
+      btn.textContent = '✓ Copied';
+      setTimeout(function () {
+        btn.textContent = original;
+      }, 1600);
+    });
+  });
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', run);
   } else {

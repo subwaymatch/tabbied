@@ -79,7 +79,7 @@ function decor(site, i, cell = 54) {
 function imgCard(prompt, colors) {
   const bg = colors[0];
   const full = `${prompt} Color palette: ${colors.join(', ')}. Use ${bg} as the background so the image blends into the page.`;
-  return `<figure class="imgph" data-image-prompt="${esc(full)}"><div class="imgph-in"><span class="imgph-badge">◳ GPT Image 2 prompt</span><p class="imgph-text">${esc(full)}</p></div></figure>`;
+  return `<figure class="imgph" data-image-prompt="${esc(full)}"><div class="imgph-in"><span class="imgph-badge">◳ GPT Image 2 prompt</span><p class="imgph-text">${esc(full)}</p><button type="button" class="imgph-copy" data-copy-prompt aria-label="Copy prompt">⧉ Copy prompt</button></div></figure>`;
 }
 
 const renderTitle = (t) =>
@@ -227,7 +227,7 @@ function renderEditorial(site) {
 <div class="ed-mast"><span>Vol. IV · No. 12</span><a class="navcta" href="#">${site.primaryCta}</a></div>
 <div class="ed-title"><h1>${site.brand}</h1><p class="lede">${site.lede}</p></div>
 <nav class="ed-nav">${site.nav.map((n) => `<a href="#">${n}</a>`).join('')}</nav>
-<div class="ed-cover">${imgCard(site.images[lead.seed], site.colors)}<div class="ed-cap"><div class="k">${lead.eyebrow}</div><h2>${lead.title}</h2></div></div>
+<div class="ed-cover">${decor(site, 0, 58)}<div class="ed-cap"><div class="k">${lead.eyebrow}</div><h2>${lead.title}</h2></div></div>
 ${tailHTML(site, 3)}`;
 }
 

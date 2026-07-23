@@ -45,6 +45,8 @@ css-doodle{display:block;width:100%;height:100%}
   border:1px solid color-mix(in srgb,var(--c1) 55%,transparent);border-radius:100px;padding:4px 10px;margin-bottom:12px}
 .imgph-text{margin:0;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;line-height:1.5;opacity:.75;
   display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
+.imgph-copy{margin-top:14px;font:inherit;font-size:12px;font-weight:600;letter-spacing:.02em;color:var(--onC1);background:var(--c1);border:none;border-radius:100px;padding:7px 16px;cursor:pointer;transition:opacity .2s}
+.imgph-copy:hover{opacity:.88}
 
 .stat-strip{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .stat-strip>div{padding:30px clamp(20px,4vw,48px);border-right:1px solid var(--line)}

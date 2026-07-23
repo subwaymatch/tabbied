@@ -3,6 +3,7 @@ import { TabbiedArtwork } from 'tabbied/react';
 import type { ArtworkDefinition } from 'tabbied';
 import type { ShowcaseSite as Site } from './showcaseData';
 import { SHOWCASE_CONTENT } from './showcaseContent';
+import ImageCard from './ImageCard';
 import s from './ShowcaseSite.module.css';
 
 // Color helpers (derive readable text/surfaces from the palette).
@@ -70,27 +71,6 @@ function Decor({
       redrawInterval={4200}
       className={s.doodle}
     />
-  );
-}
-
-// Card artwork is replaced by a raster-image placeholder that carries a GPT
-// Image 2 prompt (visible, and in data-image-prompt) ready to generate and drop
-// a real image in. The site palette (and its background color) is appended to
-// every prompt so a generated image blends into the page.
-function withPalette(prompt: string, colors: string[]): string {
-  const bg = colors[0];
-  return `${prompt} Color palette: ${colors.join(', ')}. Use ${bg} as the background so the image blends into the page.`;
-}
-
-function ImageCard({ prompt, colors }: { prompt: string; colors: string[] }) {
-  const full = withPalette(prompt, colors);
-  return (
-    <figure className={s.imgph} data-image-prompt={full}>
-      <div className={s.imgphInner}>
-        <span className={s.imgphBadge}>◳ GPT Image 2 prompt</span>
-        <p className={s.imgphText}>{full}</p>
-      </div>
-    </figure>
   );
 }
 
@@ -381,9 +361,8 @@ function SpotlightHero({ site, artworks }: Props) {
   );
 }
 
-function EditorialHero({ site }: Props) {
+function EditorialHero({ site, artworks }: Props) {
   const lead = site.items[0];
-  const content = SHOWCASE_CONTENT[site.slug];
   return (
     <>
       <div className={s.edMast}>
@@ -400,7 +379,7 @@ function EditorialHero({ site }: Props) {
         ))}
       </nav>
       <div className={s.edCover}>
-        <ImageCard prompt={content?.images[lead.seed] ?? ''} colors={site.colors} />
+        <Decor def={artAt(site, artworks, 0)} palette={site.colors} density={1} />
         <div className={s.edCoverCaption}>
           <div className={s.k}>{lead.eyebrow}</div>
           <h2>{lead.title}</h2>

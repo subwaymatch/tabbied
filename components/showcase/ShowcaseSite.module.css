@@ -661,6 +661,23 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+.imgphCopy {
+  margin-top: 14px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--onC1);
+  background: var(--c1);
+  border: none;
+  border-radius: 100px;
+  padding: 7px 16px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.imgphCopy:hover {
+  opacity: 0.88;
+}
 
 .ctaCenter {
   justify-content: center;

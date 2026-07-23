@@ -65,11 +65,13 @@ Output is committed under `public/samples/`, mirroring how
 
 ### Image placeholders
 
-Product/card imagery is not a Tabbied artwork; it is a labelled placeholder that
-shows a ready-to-use **GPT Image 2** prompt (also in a `data-image-prompt`
-attribute). Each prompt has the site's color palette and background color
-appended, so a generated image blends into the page. Generate an image and swap
-the placeholder for an `<img>`. See
+Hero and other decorative slots keep their Tabbied artwork. Only product/card
+imagery is a placeholder: a labelled box showing a ready-to-use **GPT Image 2**
+prompt (also in a `data-image-prompt` attribute), with a **copy button** that
+lifts the full prompt to the clipboard (the visible text is clamped). Each
+prompt has the site's color palette and background color appended, so a
+generated image blends into the page. Generate an image and swap the placeholder
+for an `<img>`. See
 [gpt-image-2](https://developers.openai.com/api/docs/models/gpt-image-2).
 
 ## React component builds (`/showcase/<slug>/`)
