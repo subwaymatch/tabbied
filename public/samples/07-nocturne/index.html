@@ -35,7 +35,7 @@ css-doodle{display:block;width:100%;height:100%}
 .cta-center{justify-content:center}
 .eyebrow{font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:var(--c1);margin-bottom:22px;font-weight:600}
 
-.section{max-width:1200px;margin:0 auto;padding:clamp(60px,9vw,120px) clamp(20px,5vw,64px)}
+.section{max-width:1200px;margin:0 auto;padding:clamp(84px,11vw,172px) clamp(20px,5vw,64px)}
 .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:44px}
 .section-head h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,5vw,52px);letter-spacing:-.02em;margin:0}
 .section-head p{margin:0;max-width:340px;opacity:.7;font-size:15px}
@@ -65,7 +65,7 @@ css-doodle{display:block;width:100%;height:100%}
 .stat-n{font-family:var(--display);font-size:32px;font-weight:600}
 .stat-l{font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin-top:6px}
 
-.about{max-width:1200px;margin:0 auto;padding:clamp(60px,9vw,120px) clamp(20px,5vw,64px);display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,5vw,70px);align-items:center}
+.about{max-width:1200px;margin:0 auto;padding:clamp(84px,11vw,172px) clamp(20px,5vw,64px);display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,5vw,70px);align-items:center}
 .about.rev .about-copy{order:2}
 .about-copy h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,4.5vw,48px);letter-spacing:-.02em;margin:0 0 20px}
 .about-copy p{font-size:17px;line-height:1.7;opacity:.8;margin:0 0 16px;max-width:52ch}
@@ -76,7 +76,7 @@ css-doodle{display:block;width:100%;height:100%}
 @media(max-width:820px){.about{grid-template-columns:1fr}.about.rev .about-copy{order:0}.about-art{aspect-ratio:16/10}}
 
 .features{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--soft)}
-.feat-grid{max-width:1200px;margin:0 auto;padding:clamp(40px,6vw,72px) clamp(20px,5vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(24px,4vw,48px)}
+.feat-grid{max-width:1200px;margin:0 auto;padding:clamp(60px,8vw,108px) clamp(20px,5vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(24px,4vw,48px)}
 .feat-num{font-family:var(--display);font-weight:700;font-size:15px;color:var(--c1);letter-spacing:.08em}
 .feat h3{font-family:var(--display);font-weight:600;font-size:21px;margin:10px 0 8px}
 .feat p{margin:0;opacity:.72;font-size:15px;line-height:1.6}
@@ -87,12 +87,12 @@ css-doodle{display:block;width:100%;height:100%}
 .testi .q-name{font-weight:600;font-size:15px;display:block}
 .testi .q-role{font-size:13px;opacity:.6}
 
-.band{position:relative;min-height:360px;display:grid;place-items:center;overflow:hidden;margin:clamp(40px,6vw,80px) 0 0}
+.band{position:relative;min-height:470px;display:grid;place-items:center;overflow:hidden;margin:clamp(58px,8vw,116px) 0 0}
 .band-scrim{position:absolute;inset:0;background:linear-gradient(180deg,color-mix(in srgb,var(--bg) 82%,transparent),color-mix(in srgb,var(--bg) 40%,transparent) 50%,color-mix(in srgb,var(--bg) 82%,transparent))}
 .band-in{position:relative;z-index:3;text-align:center;padding:0 24px;max-width:640px}
 .band-in h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,4.6vw,50px);letter-spacing:-.02em;margin:0 0 24px;line-height:1.08}
 
-.newsletter{padding:clamp(56px,8vw,104px) clamp(20px,5vw,64px)}
+.newsletter{padding:clamp(76px,10vw,140px) clamp(20px,5vw,64px)}
 .news-in{max-width:620px;margin:0 auto;text-align:center}
 .news-in h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,4.4vw,46px);letter-spacing:-.02em;margin:0 0 12px}
 .news-in p{opacity:.75;font-size:17px;margin:0 0 26px}
@@ -147,10 +147,94 @@ css-doodle{display:block;width:100%;height:100%}
 .bout-in .eyebrow{letter-spacing:.42em}
 .bout-btn{margin-top:40px;display:inline-block;border:1px solid currentColor;padding:15px 40px;text-decoration:none;font-size:13px;letter-spacing:.22em;text-transform:uppercase;opacity:.9}
 
+/* New sections */
+.manifesto{position:relative;overflow:hidden;padding:clamp(96px,14vw,200px) clamp(20px,5vw,64px);text-align:center;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.manifesto-in{position:relative;z-index:2;max-width:900px;margin:0 auto}
+.manifesto-in p{font-family:var(--display);font-weight:500;font-size:clamp(26px,4.6vw,52px);line-height:1.18;letter-spacing:-.02em;margin:0}
+
+.alt-rows{max-width:1200px;margin:0 auto;padding:clamp(58px,8vw,124px) clamp(20px,5vw,64px);display:grid;gap:clamp(30px,5vw,72px)}
+.alt-row{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,64px);align-items:center}
+.alt-row.rev .alt-copy{order:2}
+.alt-copy h3{font-family:var(--display);font-weight:600;font-size:clamp(24px,3.4vw,38px);letter-spacing:-.02em;margin:0 0 14px}
+.alt-copy p{font-size:17px;line-height:1.7;opacity:.8;margin:0;max-width:46ch}
+.alt-media{position:relative;aspect-ratio:4/3;border-radius:18px;overflow:hidden;border:1px solid var(--line)}
+@media(max-width:820px){.alt-row{grid-template-columns:1fr}.alt-row.rev .alt-copy{order:0}}
+
+.icon-feat{max-width:1200px;margin:0 auto;padding:clamp(70px,9vw,130px) clamp(20px,5vw,64px)}
+.icon-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:clamp(28px,4vw,52px)}
+.icon-wrap{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:12px;background:color-mix(in srgb,var(--c1) 16%,transparent);color:var(--c1);margin-bottom:16px}
+.icon-wrap svg{width:24px;height:24px}
+.icon-item h3{font-family:var(--display);font-weight:600;font-size:20px;margin:0 0 8px}
+.icon-item p{margin:0;opacity:.72;font-size:15px;line-height:1.6}
+
+.gallery{max-width:1200px;margin:0 auto;padding:clamp(58px,8vw,116px) clamp(20px,5vw,64px)}
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.gallery-cell{position:relative;aspect-ratio:1;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+.gallery-cell:nth-child(4n+1){aspect-ratio:4/5}
+
+.big-quote{position:relative;overflow:hidden;min-height:470px;display:grid;place-items:center;padding:clamp(84px,11vw,172px) 24px}
+.big-quote-scrim{position:absolute;inset:0;background:color-mix(in srgb,var(--bg) 74%,transparent)}
+.big-quote-in{position:relative;z-index:2;text-align:center;max-width:900px;margin:0}
+.big-quote-in blockquote{font-family:var(--display);font-weight:500;font-size:clamp(24px,4vw,46px);line-height:1.24;letter-spacing:-.02em;margin:0 0 20px}
+.big-quote-in figcaption{font-size:15px;font-weight:600}
+.big-quote-in figcaption span{opacity:.6;font-weight:400}
+
+.stat-band{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:var(--c1);color:var(--onC1)}
+.stat-band>div{padding:clamp(30px,5vw,54px) clamp(20px,4vw,40px);background:var(--c1);text-align:center}
+.stat-band-n{font-family:var(--display);font-weight:700;font-size:clamp(32px,5vw,52px);letter-spacing:-.02em}
+.stat-band-l{font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.85;margin-top:8px}
+
+.faq-head{max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,64px)}
+.faq-head h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,5vw,48px);letter-spacing:-.02em;margin:0 0 24px}
+.faq-list{max-width:820px;margin:0 auto;padding:0 clamp(20px,5vw,64px)}
+.faq-item{border-top:1px solid var(--line);padding:20px 0}
+.faq-item:last-child{border-bottom:1px solid var(--line)}
+.faq-item summary{cursor:pointer;font-family:var(--display);font-weight:600;font-size:19px;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:"+";color:var(--c1);font-weight:400}
+.faq-item[open] summary::after{content:"\2013"}
+.faq-item p{margin:14px 0 0;opacity:.75;font-size:16px;line-height:1.6;max-width:60ch}
+
+.logos{max-width:1200px;margin:0 auto;padding:clamp(36px,5vw,60px) clamp(20px,5vw,64px);text-align:center;border-bottom:1px solid var(--line)}
+.logos-label{font-size:12px;letter-spacing:.22em;text-transform:uppercase;opacity:.5}
+.logos-row{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(20px,4vw,52px);margin-top:18px;font-family:var(--display);font-weight:700;font-size:clamp(15px,2vw,20px);letter-spacing:.04em;opacity:.55}
+
+/* Kits */
+.kit-soft .card{border:none;border-radius:22px;box-shadow:0 18px 40px -26px rgba(0,0,0,.55)}
+.kit-soft .btn{border-radius:100px}
+.kit-soft .about-art,.kit-soft .alt-media{border-radius:24px}
+.kit-soft .testi,.kit-soft .news-form input{border-radius:18px}
+
+.kit-editorial .card{background:transparent;border:none;border-radius:0}
+.kit-editorial .card-media{border:1px solid var(--ink);border-radius:0}
+.kit-editorial .card-body{padding-left:2px;padding-right:2px}
+.kit-editorial .btn{border-radius:2px}
+.kit-editorial .about-art,.kit-editorial .alt-media,.kit-editorial .gallery-cell{border-radius:0;border-color:var(--ink)}
+.kit-editorial .testi{border-radius:0}
+
+.kit-brutal .card{border:2px solid var(--ink);border-radius:0;box-shadow:5px 5px 0 var(--ink);background:var(--bg)}
+.kit-brutal .card:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink)}
+.kit-brutal .btn{border-radius:0;border:2px solid var(--ink)}
+.kit-brutal .btn-solid{box-shadow:4px 4px 0 var(--ink)}
+.kit-brutal .about-art,.kit-brutal .alt-media,.kit-brutal .gallery-cell,.kit-brutal .testi,.kit-brutal .icon-wrap,.kit-brutal .news-form input{border-radius:0}
+.kit-brutal .icon-wrap{border:2px solid var(--ink);background:transparent}
+.kit-brutal .testi{border:2px solid var(--ink)}
+
+.kit-bordered .card{border:1px solid var(--line);border-radius:8px;box-shadow:none}
+.kit-bordered .btn{border-radius:8px}
+.kit-bordered .about-art,.kit-bordered .alt-media,.kit-bordered .gallery-cell,.kit-bordered .testi{border-radius:8px}
+
+.kit-minimal .card{background:transparent;border:none;border-radius:0;box-shadow:none}
+.kit-minimal .card-body{padding-left:0;padding-right:0}
+.kit-minimal .card-media,.kit-minimal .about-art,.kit-minimal .alt-media,.kit-minimal .gallery-cell{border-radius:0}
+.kit-minimal .btn-solid{background:transparent;color:var(--c1);border:1px solid var(--c1)}
+.kit-minimal .testi{background:transparent;border:none;border-top:1px solid var(--line);border-radius:0;padding-left:0;padding-right:0}
+.kit-minimal .news-form input{border-radius:0}
+
 </style>
 </head>
 <body>
-<div class="site" style="--bg:#12071f;--c1:#5a189a;--ink:#f5f3ef;--onC1:#ffffff;--card:rgb(35, 24, 47);--soft:rgb(27, 17, 40);--line:rgba(255,255,255,0.12);--display:'Cormorant Garamond', Georgia, serif;--body:'Jost', system-ui, sans-serif">
+<div class="site kit-minimal" style="--bg:#12071f;--c1:#5a189a;--ink:#f5f3ef;--onC1:#ffffff;--card:rgb(35, 24, 47);--soft:rgb(27, 17, 40);--line:rgba(255,255,255,0.12);--display:'Cormorant Garamond', Georgia, serif;--body:'Jost', system-ui, sans-serif">
 
 <nav class="nav">
   <a class="logo" href="#">Nocturne</a>
@@ -158,7 +242,7 @@ css-doodle{display:block;width:100%;height:100%}
   <a class="navcta" href="#">Discover the collection</a>
 </nav>
 <header class="bout-hero">
-  <div class="abs"><style>css-doodle[data-tabbied="art18"]{--color0: #12071f; --color1: #5a189a; --color2: #9d4edd; --color3: #e0aaff; --color4: #5a189a; --color5: #9d4edd; /* Random color generator variable */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(0.999) { background-color: var(--randomColor); -webkit-clip-path: polygon(@pick( '0 0, 101% 0, 101% 101%', '0 0, 101% 0, 0 101%', '0 0, 101% 101%, 0 101%', '101% 0, 101% 101%, 0 101%' )); clip-path: polygon(@pick( '0 0, 101% 0, 101% 101%', '0 0, 101% 0, 0 101%', '0 0, 101% 101%, 0 101%', '101% 0, 101% 101%, 0 101%' )); -webkit-transition: .2s ease 100ms; transition: .2s ease 100ms; -webkit-transform: clip-path; transform: clip-path; } );}</style><css-doodle data-tabbied="art18" use="var(--rule)" grid="8x8" data-cell="58" data-reseed="4200">:doodle { @size: 100% 100%; text-align:center; box-sizing:border-box } :container { background:var(--color0); overflow:hidden; }</css-doodle></div>
+  <div class="abs"><style>css-doodle[data-tabbied="art19"]{--color0: #12071f; --color1: #5a189a; --color2: #9d4edd; --color3: #e0aaff; --color4: #5a189a; --color5: #9d4edd; /* Random color generator variable */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(0.999) { background-color: var(--randomColor); -webkit-clip-path: polygon(@pick( '0 0, 101% 0, 101% 101%', '0 0, 101% 0, 0 101%', '0 0, 101% 101%, 0 101%', '101% 0, 101% 101%, 0 101%' )); clip-path: polygon(@pick( '0 0, 101% 0, 101% 101%', '0 0, 101% 0, 0 101%', '0 0, 101% 101%, 0 101%', '101% 0, 101% 101%, 0 101%' )); -webkit-transition: .2s ease 100ms; transition: .2s ease 100ms; -webkit-transform: clip-path; transform: clip-path; } );}</style><css-doodle data-tabbied="art19" use="var(--rule)" grid="8x8" data-cell="58" data-reseed="4200">:doodle { @size: 100% 100%; text-align:center; box-sizing:border-box } :container { background:var(--color0); overflow:hidden; }</css-doodle></div>
   <div class="bout-scrim"></div>
   <div class="bout-in">
     <div class="eyebrow">Eau de Parfum · Extrait</div>
@@ -168,6 +252,10 @@ css-doodle{display:block;width:100%;height:100%}
   </div>
 </header>
 
+<section class="manifesto">
+  <div class="abs" style="opacity:.16"><style>css-doodle[data-tabbied="art20"]{--color0: #12071f; --color1: #5a189a; --color2: #9d4edd; --color3: #e0aaff; --color4: #5a189a; --color5: #9d4edd; --rule: ( @random(0.999) { :before { content: ''; position: absolute; left: 8%; top: 18%; @size: 64%; border-radius: 50%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); mix-blend-mode: screen; -webkit-transition: ease 450ms; transition: ease 450ms; } :after { content: ''; position: absolute; left: 28%; top: 18%; @size: 64%; border-radius: 50%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); mix-blend-mode: screen; -webkit-transition: ease 450ms; transition: ease 450ms; } } -webkit-transition: ease 450ms; transition: ease 450ms; );}</style><css-doodle data-tabbied="art20" use="var(--rule)" grid="8x8" data-cell="58" data-reseed="4200">:doodle { @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+  <div class="manifesto-in"><div class="eyebrow">The house</div><p>A perfume should change as the night does. We compose in a few notes, held in balance, that unfold for hours.</p></div>
+</section>
 <section class="about">
   <div class="about-copy">
     <div class="eyebrow">The house</div>
@@ -175,7 +263,7 @@ css-doodle{display:block;width:100%;height:100%}
     <p>Nocturne is a small perfume house that works the way a composer does: a few notes, held in balance, that unfold over hours. Each scent is built to change as the night goes on.</p><p>We bottle in refillable glass and never test on animals.</p>
     <ul class="points"><li>Extrait concentrations</li><li>Refillable glass</li><li>Never tested on animals</li></ul>
   </div>
-  <div class="about-art"><style>css-doodle[data-tabbied="art19"]{--color0: #12071f; --color1: #5a189a; --color2: #9d4edd; --color3: #e0aaff; --color4: #5a189a; --color5: #9d4edd; --rule: ( @random(0.999) { :before { content: ''; position: absolute; left: 8%; top: 18%; @size: 64%; border-radius: 50%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); mix-blend-mode: screen; -webkit-transition: ease 450ms; transition: ease 450ms; } :after { content: ''; position: absolute; left: 28%; top: 18%; @size: 64%; border-radius: 50%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); mix-blend-mode: screen; -webkit-transition: ease 450ms; transition: ease 450ms; } } -webkit-transition: ease 450ms; transition: ease 450ms; );}</style><css-doodle data-tabbied="art19" use="var(--rule)" grid="8x8" data-cell="44" data-reseed="4200">:doodle { @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+  <div class="about-art"><style>css-doodle[data-tabbied="art21"]{--color0: #12071f; --color1: #5a189a; --color2: #9d4edd; --color3: #e0aaff; --color4: #5a189a; --color5: #9d4edd; --rule: ( @random(0.999) { :before { content: ''; position: absolute; left: 8%; top: 18%; @size: 64%; border-radius: 50%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); mix-blend-mode: screen; -webkit-transition: ease 450ms; transition: ease 450ms; } :after { content: ''; position: absolute; left: 28%; top: 18%; @size: 64%; border-radius: 50%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); mix-blend-mode: screen; -webkit-transition: ease 450ms; transition: ease 450ms; } } -webkit-transition: ease 450ms; transition: ease 450ms; );}</style><css-doodle data-tabbied="art21" use="var(--rule)" grid="8x8" data-cell="44" data-reseed="4200">:doodle { @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
 </section>
 <section class="section" id="items">
   <div class="section-head"><h2>The Maison collection</h2><p>Seven hours of night, bottled.</p></div>
@@ -205,15 +293,28 @@ css-doodle{display:block;width:100%;height:100%}
       </div>
     </article></div>
 </section>
-<section class="features"><div class="feat-grid">
-    <div class="feat"><div class="feat-num">01</div><h3>Compose</h3><p>Our perfumer builds each scent around a single central accord.</p></div>
-    <div class="feat"><div class="feat-num">02</div><h3>Age</h3><p>Every batch rests for weeks before it is ever bottled.</p></div>
-    <div class="feat"><div class="feat-num">03</div><h3>Wear</h3><p>A discovery set lets you live with three before you commit.</p></div></div></section>
-<section class="section"><div class="testi-grid">
-    <figure class="testi"><blockquote>“Strangers stop me to ask what I am wearing.”</blockquote><figcaption><span class="q-name">Camille D.</span><span class="q-role">Client</span></figcaption></figure>
-    <figure class="testi"><blockquote>“It smells like a memory I have not made yet.”</blockquote><figcaption><span class="q-name">Iris N.</span><span class="q-role">Client</span></figcaption></figure></div></section>
+<section class="alt-rows">
+  <div class="alt-row">
+    <div class="alt-copy"><div class="eyebrow">The composition</div><h3>Built around one accord</h3><p>Each scent begins with a single idea and a few materials, layered so it opens, turns, and settles like a piece of music.</p></div>
+    <div class="alt-media"><figure class="imgph" data-image-prompt="A dark still life of a faceted perfume bottle among night flowers, deep violet. Soft natural light, shallow depth of field, high detail, no text or logos. Color palette: #12071f, #5a189a, #9d4edd, #e0aaff. Use #12071f as the background so the image blends into the page."><div class="imgph-in"><span class="imgph-badge">◳ GPT Image 2 prompt</span><p class="imgph-text">A dark still life of a faceted perfume bottle among night flowers, deep violet. Soft natural light, shallow depth of field, high detail, no text or logos. Color palette: #12071f, #5a189a, #9d4edd, #e0aaff. Use #12071f as the background so the image blends into the page.</p><button type="button" class="imgph-copy" data-copy-prompt aria-label="Copy prompt">⧉ Copy prompt</button></div></figure></div>
+  </div>
+  <div class="alt-row rev">
+    <div class="alt-copy"><div class="eyebrow">The maturation</div><h3>Rested before it is bottled</h3><p>Every batch sits for weeks so the materials marry, then it is decanted into refillable glass by hand.</p></div>
+    <div class="alt-media"><figure class="imgph" data-image-prompt="A perfumer's dim atelier with amber bottles and a single lamp, moody violet. Soft natural light, shallow depth of field, high detail, no text or logos. Color palette: #12071f, #5a189a, #9d4edd, #e0aaff. Use #12071f as the background so the image blends into the page."><div class="imgph-in"><span class="imgph-badge">◳ GPT Image 2 prompt</span><p class="imgph-text">A perfumer's dim atelier with amber bottles and a single lamp, moody violet. Soft natural light, shallow depth of field, high detail, no text or logos. Color palette: #12071f, #5a189a, #9d4edd, #e0aaff. Use #12071f as the background so the image blends into the page.</p><button type="button" class="imgph-copy" data-copy-prompt aria-label="Copy prompt">⧉ Copy prompt</button></div></figure></div>
+  </div></section>
+<section class="big-quote">
+  <div class="abs" style="opacity:.18"><style>css-doodle[data-tabbied="art22"]{--color0: #12071f; --color1: #5a189a; --color2: #9d4edd; --color3: #e0aaff; --color4: #5a189a; --color5: #9d4edd; /* Triangle orientation and ink roll once per cell; same-arity polygons morph between seeds */ --tri: @p(polygon(0% 0%, 100% 0%, 100% 100%), polygon(0% 0%, 100% 0%, 0% 100%), polygon(0% 0%, 100% 100%, 0% 100%), polygon(100% 0%, 100% 100%, 0% 100%)); --ink: @p(var(--color1), var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( margin: -0.5px; clip-path: var(--tri); @random(0.999) { background: var(--ink); } transition: ease 500ms; );}</style><css-doodle data-tabbied="art22" use="var(--rule)" grid="8x8" data-cell="58" data-reseed="4200">:doodle { @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+  <div class="big-quote-scrim"></div>
+  <figure class="big-quote-in"><blockquote>“It smells like a memory I have not made yet.”</blockquote><figcaption>Iris N., <span>Client</span></figcaption></figure>
+</section>
+<section class="icon-feat"><div class="icon-grid">
+  <div class="icon-item"><span class="icon-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg></span><h3>Composed for night</h3><p>Deeper materials that speak after dark.</p></div>
+  <div class="icon-item"><span class="icon-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-flask-conical" aria-hidden="true"><path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2"></path><path d="M6.453 15h11.094"></path><path d="M8.5 2h7"></path></svg></span><h3>Extrait strength</h3><p>High concentration, long on the skin.</p></div>
+  <div class="icon-item"><span class="icon-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-recycle" aria-hidden="true"><path d="M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5"></path><path d="M11 19h8.203a1.83 1.83 0 0 0 1.556-.89 1.784 1.784 0 0 0 0-1.775l-1.226-2.12"></path><path d="m14 16-3 3 3 3"></path><path d="M8.293 13.596 7.196 9.5 3.1 10.598"></path><path d="m9.344 5.811 1.093-1.892A1.83 1.83 0 0 1 11.985 3a1.784 1.784 0 0 1 1.546.888l3.943 6.843"></path><path d="m13.378 9.633 4.096 1.098 1.097-4.096"></path></svg></span><h3>Refillable glass</h3><p>Bring the bottle back, we fill it again.</p></div></div></section>
+<section class="gallery"><div class="gallery-grid"><div class="gallery-cell"><figure class="imgph" data-image-prompt="A faceted perfume bottle glowing amethyst on black velvet, luxurious. Soft natural light, shallow depth of field, high detail, no text or logos. Color palette: #12071f, #5a189a, #9d4edd, #e0aaff. Use #12071f as the background so the image blends into the page."><div class="imgph-in"><span class="imgph-badge">◳ GPT Image 2 prompt</span><p class="imgph-text">A faceted perfume bottle glowing amethyst on black velvet, luxurious. Soft natural light, shallow depth of field, high detail, no text or logos. Color palette: #12071f, #5a189a, #9d4edd, #e0aaff. Use #12071f as the background so the image blends into the page.</p><button type="button" class="imgph-copy" data-copy-prompt aria-label="Copy prompt">⧉ Copy prompt</button></div></figure></div><div class="gallery-cell"><figure class="imgph" data-image-prompt="A dark arrangement of night-blooming flowers, deep purple. Soft natural light, shallow depth of field, high detail, no text or logos. Color palette: #12071f, #5a189a, #9d4edd, #e0aaff. Use #12071f as the background so the image blends into the page."><div class="imgph-in"><span class="imgph-badge">◳ GPT Image 2 prompt</span><p class="imgph-text">A dark arrangement of night-blooming flowers, deep purple. Soft natural light, shallow depth of field, high detail, no text or logos. Color palette: #12071f, #5a189a, #9d4edd, #e0aaff. Use #12071f as the background so the image blends into the page.</p><button type="button" class="imgph-copy" data-copy-prompt aria-label="Copy prompt">⧉ Copy prompt</button></div></figure></div><div class="gallery-cell"><figure class="imgph" data-image-prompt="A minimalist flacon backlit in soft violet haze. Soft natural light, shallow depth of field, high detail, no text or logos. Color palette: #12071f, #5a189a, #9d4edd, #e0aaff. Use #12071f as the background so the image blends into the page."><div class="imgph-in"><span class="imgph-badge">◳ GPT Image 2 prompt</span><p class="imgph-text">A minimalist flacon backlit in soft violet haze. Soft natural light, shallow depth of field, high detail, no text or logos. Color palette: #12071f, #5a189a, #9d4edd, #e0aaff. Use #12071f as the background so the image blends into the page.</p><button type="button" class="imgph-copy" data-copy-prompt aria-label="Copy prompt">⧉ Copy prompt</button></div></figure></div><div class="gallery-cell"><figure class="imgph" data-image-prompt="A close-up of perfume being sprayed, a fine violet mist. Soft natural light, shallow depth of field, high detail, no text or logos. Color palette: #12071f, #5a189a, #9d4edd, #e0aaff. Use #12071f as the background so the image blends into the page."><div class="imgph-in"><span class="imgph-badge">◳ GPT Image 2 prompt</span><p class="imgph-text">A close-up of perfume being sprayed, a fine violet mist. Soft natural light, shallow depth of field, high detail, no text or logos. Color palette: #12071f, #5a189a, #9d4edd, #e0aaff. Use #12071f as the background so the image blends into the page.</p><button type="button" class="imgph-copy" data-copy-prompt aria-label="Copy prompt">⧉ Copy prompt</button></div></figure></div></div></section>
+<section class="section"><div class="faq-head"><h2>Questions</h2></div><div class="faq-list"><details class="faq-item"><summary>How long does it last?</summary><p>Our extraits sit close to the skin for eight hours or more.</p></details><details class="faq-item"><summary>Can I try before buying?</summary><p>The discovery set holds three, redeemable against a bottle.</p></details><details class="faq-item"><summary>Do you refill?</summary><p>Bring any Nocturne bottle back for a refill at a lower price.</p></details><details class="faq-item"><summary>Are they vegan?</summary><p>Fully vegan and never tested on animals.</p></details></div></section>
 <section class="band">
-  <div class="abs"><style>css-doodle[data-tabbied="art20"]{--color0: #12071f; --color1: #5a189a; --color2: #9d4edd; --color3: #e0aaff; --light: @p(var(--color1), var(--color2), var(--color3)); --d: @rand(26%, 88%); --lx: @rand(-10%, 60%); --ly: @rand(-10%, 60%); --lo: @rand(0.25, 0.9); --bl: @rand(1px, 6px); --rule: ( @random(0.9) { :after { content: ''; position: absolute; @size: var(--d); left: var(--lx); top: var(--ly); border-radius: 50%; background: var(--light); opacity: var(--lo); filter: blur(var(--bl)); transition: ease 800ms; } } );}</style><css-doodle data-tabbied="art20" use="var(--rule)" grid="8x8" data-cell="58" data-reseed="4200">:doodle { @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+  <div class="abs"><style>css-doodle[data-tabbied="art23"]{--color0: #12071f; --color1: #5a189a; --color2: #9d4edd; --color3: #e0aaff; --light: @p(var(--color1), var(--color2), var(--color3)); --d: @rand(26%, 88%); --lx: @rand(-10%, 60%); --ly: @rand(-10%, 60%); --lo: @rand(0.25, 0.9); --bl: @rand(1px, 6px); --rule: ( @random(0.9) { :after { content: ''; position: absolute; @size: var(--d); left: var(--lx); top: var(--ly); border-radius: 50%; background: var(--light); opacity: var(--lo); filter: blur(var(--bl)); transition: ease 800ms; } } );}</style><css-doodle data-tabbied="art23" use="var(--rule)" grid="8x8" data-cell="58" data-reseed="4200">:doodle { @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
   <div class="band-scrim"></div>
   <div class="band-in"><h2>A perfume is a memory you can wear before it happens.</h2><a class="btn btn-solid" href="#">Order a discovery set</a></div>
 </section>

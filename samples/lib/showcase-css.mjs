@@ -24,7 +24,7 @@ css-doodle{display:block;width:100%;height:100%}
 .cta-center{justify-content:center}
 .eyebrow{font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:var(--c1);margin-bottom:22px;font-weight:600}
 
-.section{max-width:1200px;margin:0 auto;padding:clamp(60px,9vw,120px) clamp(20px,5vw,64px)}
+.section{max-width:1200px;margin:0 auto;padding:clamp(84px,11vw,172px) clamp(20px,5vw,64px)}
 .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:44px}
 .section-head h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,5vw,52px);letter-spacing:-.02em;margin:0}
 .section-head p{margin:0;max-width:340px;opacity:.7;font-size:15px}
@@ -54,7 +54,7 @@ css-doodle{display:block;width:100%;height:100%}
 .stat-n{font-family:var(--display);font-size:32px;font-weight:600}
 .stat-l{font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin-top:6px}
 
-.about{max-width:1200px;margin:0 auto;padding:clamp(60px,9vw,120px) clamp(20px,5vw,64px);display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,5vw,70px);align-items:center}
+.about{max-width:1200px;margin:0 auto;padding:clamp(84px,11vw,172px) clamp(20px,5vw,64px);display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,5vw,70px);align-items:center}
 .about.rev .about-copy{order:2}
 .about-copy h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,4.5vw,48px);letter-spacing:-.02em;margin:0 0 20px}
 .about-copy p{font-size:17px;line-height:1.7;opacity:.8;margin:0 0 16px;max-width:52ch}
@@ -65,7 +65,7 @@ css-doodle{display:block;width:100%;height:100%}
 @media(max-width:820px){.about{grid-template-columns:1fr}.about.rev .about-copy{order:0}.about-art{aspect-ratio:16/10}}
 
 .features{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--soft)}
-.feat-grid{max-width:1200px;margin:0 auto;padding:clamp(40px,6vw,72px) clamp(20px,5vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(24px,4vw,48px)}
+.feat-grid{max-width:1200px;margin:0 auto;padding:clamp(60px,8vw,108px) clamp(20px,5vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(24px,4vw,48px)}
 .feat-num{font-family:var(--display);font-weight:700;font-size:15px;color:var(--c1);letter-spacing:.08em}
 .feat h3{font-family:var(--display);font-weight:600;font-size:21px;margin:10px 0 8px}
 .feat p{margin:0;opacity:.72;font-size:15px;line-height:1.6}
@@ -76,12 +76,12 @@ css-doodle{display:block;width:100%;height:100%}
 .testi .q-name{font-weight:600;font-size:15px;display:block}
 .testi .q-role{font-size:13px;opacity:.6}
 
-.band{position:relative;min-height:360px;display:grid;place-items:center;overflow:hidden;margin:clamp(40px,6vw,80px) 0 0}
+.band{position:relative;min-height:470px;display:grid;place-items:center;overflow:hidden;margin:clamp(58px,8vw,116px) 0 0}
 .band-scrim{position:absolute;inset:0;background:linear-gradient(180deg,color-mix(in srgb,var(--bg) 82%,transparent),color-mix(in srgb,var(--bg) 40%,transparent) 50%,color-mix(in srgb,var(--bg) 82%,transparent))}
 .band-in{position:relative;z-index:3;text-align:center;padding:0 24px;max-width:640px}
 .band-in h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,4.6vw,50px);letter-spacing:-.02em;margin:0 0 24px;line-height:1.08}
 
-.newsletter{padding:clamp(56px,8vw,104px) clamp(20px,5vw,64px)}
+.newsletter{padding:clamp(76px,10vw,140px) clamp(20px,5vw,64px)}
 .news-in{max-width:620px;margin:0 auto;text-align:center}
 .news-in h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,4.4vw,46px);letter-spacing:-.02em;margin:0 0 12px}
 .news-in p{opacity:.75;font-size:17px;margin:0 0 26px}

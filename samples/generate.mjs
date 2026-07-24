@@ -8,10 +8,27 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import React from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
+import * as Lucide from 'lucide-react';
 import { doodle } from './lib/tabbied-embed.mjs';
 import { SHOWCASE_CSS } from './lib/showcase-css.mjs';
+import { SHOWCASE_CSS_EXTRA } from './lib/showcase-css-extra.mjs';
+import { STATIC_SECTIONS } from './lib/static-sections.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+// Reuse the exact lucide icons the React sites use, rendered to static SVG.
+const iconCache = {};
+function icon(name) {
+  if (!iconCache[name]) {
+    const C = Lucide[name] || Lucide.Sparkles;
+    iconCache[name] = renderToStaticMarkup(
+      React.createElement(C, { width: 24, height: 24, strokeWidth: 1.75 })
+    );
+  }
+  return iconCache[name];
+}
 const OUT = path.resolve(__dirname, '../public/samples');
 fs.mkdirSync(OUT, { recursive: true });
 
@@ -150,12 +167,75 @@ const testiHTML = (site) => `
     )
     .join('')}</div></section>`;
 
-const bandHTML = (site, i) => `
+const bandHTML = (site) => {
+  const i = site.layout === 'editorial' ? 3 : 1;
+  return `
 <section class="band">
   <div class="abs">${decor(site, i, 58)}</div>
   <div class="band-scrim"></div>
   <div class="band-in"><h2>${site.bandTitle}</h2><a class="btn btn-solid" href="#">${site.bandCta}</a></div>
 </section>`;
+};
+
+const manifestoHTML = (site) =>
+  !site.manifesto ? '' : `
+<section class="manifesto">
+  <div class="abs" style="opacity:.16">${decor(site, 2, 58)}</div>
+  <div class="manifesto-in"><div class="eyebrow">${site.manifesto.kicker}</div><p>${site.manifesto.text}</p></div>
+</section>`;
+
+const altRowsHTML = (site) =>
+  !site.altRows ? '' : `
+<section class="alt-rows">${site.altRows
+    .map(
+      (r, i) => `
+  <div class="alt-row${i % 2 ? ' rev' : ''}">
+    <div class="alt-copy"><div class="eyebrow">${r.eyebrow}</div><h3>${r.title}</h3><p>${r.body}</p></div>
+    <div class="alt-media">${imgCard(r.image, site.colors)}</div>
+  </div>`
+    )
+    .join('')}</section>`;
+
+const iconFeaturesHTML = (site) =>
+  !site.iconFeatures ? '' : `
+<section class="icon-feat"><div class="icon-grid">${site.iconFeatures
+    .map(
+      (f) => `
+  <div class="icon-item"><span class="icon-wrap">${icon(f.icon)}</span><h3>${f.title}</h3><p>${f.body}</p></div>`
+    )
+    .join('')}</div></section>`;
+
+const galleryHTML = (site) =>
+  !site.gallery ? '' : `
+<section class="gallery"><div class="gallery-grid">${site.gallery
+    .map((p) => `<div class="gallery-cell">${imgCard(p, site.colors)}</div>`)
+    .join('')}</div></section>`;
+
+const bigQuoteHTML = (site) =>
+  !site.bigQuote ? '' : `
+<section class="big-quote">
+  <div class="abs" style="opacity:.18">${decor(site, 3, 58)}</div>
+  <div class="big-quote-scrim"></div>
+  <figure class="big-quote-in"><blockquote>“${site.bigQuote.quote}”</blockquote><figcaption>${site.bigQuote.name}, <span>${site.bigQuote.role}</span></figcaption></figure>
+</section>`;
+
+const faqHTML = (site) =>
+  !site.faq ? '' : `
+<section class="section"><div class="faq-head"><h2>Questions</h2></div><div class="faq-list">${site.faq
+    .map((f) => `<details class="faq-item"><summary>${f.q}</summary><p>${f.a}</p></details>`)
+    .join('')}</div></section>`;
+
+const logosHTML = (site) =>
+  !site.logos ? '' : `
+<section class="logos"><span class="logos-label">As seen in</span><div class="logos-row">${site.logos
+    .map((n) => `<span>${n}</span>`)
+    .join('')}</div></section>`;
+
+const statBandHTML = (site) =>
+  !site.stats ? '' : `
+<section class="stat-band">${site.stats
+    .map((s) => `<div><div class="stat-band-n">${s.n}</div><div class="stat-band-l">${s.l}</div></div>`)
+    .join('')}</section>`;
 
 const newsletterHTML = (site) => `
 <section class="newsletter"><div class="news-in">
@@ -179,15 +259,31 @@ const footerHTML = (site) => `
   </div>
 </footer>`;
 
-// The shared tail every layout shows below its hero.
-const tailHTML = (site, bandIndex) =>
-  statStripHTML(site) +
-  aboutHTML(site) +
-  itemsHTML(site) +
-  featuresHTML(site) +
-  testiHTML(site) +
-  bandHTML(site, bandIndex) +
-  newsletterHTML(site) +
+function renderSection(site, key) {
+  switch (key) {
+    case 'stats': return statStripHTML(site);
+    case 'statBand': return statBandHTML(site);
+    case 'about': return aboutHTML(site);
+    case 'manifesto': return manifestoHTML(site);
+    case 'altRows': return altRowsHTML(site);
+    case 'iconFeatures': return iconFeaturesHTML(site);
+    case 'items': return itemsHTML(site);
+    case 'gallery': return galleryHTML(site);
+    case 'features': return featuresHTML(site);
+    case 'testimonials': return testiHTML(site);
+    case 'bigQuote': return bigQuoteHTML(site);
+    case 'faq': return faqHTML(site);
+    case 'logos': return logosHTML(site);
+    case 'band': return bandHTML(site);
+    case 'newsletter': return newsletterHTML(site);
+    default: return '';
+  }
+}
+
+// The tail below each hero: the site's own ordered section list, then footer.
+const DEFAULT_SECTIONS = ['stats', 'about', 'items', 'features', 'testimonials', 'band', 'newsletter'];
+const tailHTML = (site) =>
+  (site.sections || DEFAULT_SECTIONS).map((k) => renderSection(site, k)).join('') +
   footerHTML(site);
 
 // ---- layouts --------------------------------------------------------------
@@ -202,7 +298,7 @@ function renderSplit(site) {
   </div>
   <div class="split-art">${decor(site, 0, 58)}</div>
 </header>
-${tailHTML(site, 1)}`;
+${tailHTML(site)}`;
 }
 
 function renderSpotlight(site) {
@@ -218,7 +314,7 @@ function renderSpotlight(site) {
   </div>
 </header>
 ${marqueeHTML(site)}
-${tailHTML(site, 1)}`;
+${tailHTML(site)}`;
 }
 
 function renderEditorial(site) {
@@ -228,7 +324,7 @@ function renderEditorial(site) {
 <div class="ed-title"><h1>${site.brand}</h1><p class="lede">${site.lede}</p></div>
 <nav class="ed-nav">${site.nav.map((n) => `<a href="#">${n}</a>`).join('')}</nav>
 <div class="ed-cover">${decor(site, 0, 58)}<div class="ed-cap"><div class="k">${lead.eyebrow}</div><h2>${lead.title}</h2></div></div>
-${tailHTML(site, 3)}`;
+${tailHTML(site)}`;
 }
 
 function renderBoutique(site) {
@@ -243,7 +339,7 @@ function renderBoutique(site) {
     <a class="bout-btn" href="#">${site.primaryCta}</a>
   </div>
 </header>
-${tailHTML(site, 1)}`;
+${tailHTML(site)}`;
 }
 
 const LAYOUTS = {
@@ -270,11 +366,11 @@ function render(site) {
 <style>
 html{scroll-behavior:smooth}
 body{margin:0;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-${SHOWCASE_CSS}
+${SHOWCASE_CSS}${SHOWCASE_CSS_EXTRA}
 </style>
 </head>
 <body>
-<div class="site" style="${cssVars(site)}">
+<div class="site kit-${site.kit || 'soft'}" style="${cssVars(site)}">
 ${body}
 </div>
 </body>
@@ -717,6 +813,9 @@ const SITES = [
     },
   },
 ];
+
+// Merge each site's kit + section composition + new-section content.
+for (const site of SITES) Object.assign(site, STATIC_SECTIONS[site.dir] || {});
 
 // ---- write ---------------------------------------------------------------
 for (const site of SITES) {

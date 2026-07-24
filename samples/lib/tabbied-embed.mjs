@@ -113,6 +113,10 @@ export function doodle({ slug, palette, options = {}, seed, cell = 48, reseed = 
     height: '100%',
   });
   doodleCode = doodleCode.replace(/@grid:\s*[^;]*;\s*/g, '');
+  // A couple of artwork code comments contain an em dash (U+2014); keep it out
+  // of the emitted HTML.
+  styleCode = styleCode.replace(/\u2014/g, '-');
+  doodleCode = doodleCode.replace(/\u2014/g, '-');
 
   const seedAttr = seed != null ? ` seed="${seed}"` : '';
   const reseedAttr = reseed > 0 ? ` data-reseed="${reseed}"` : '';

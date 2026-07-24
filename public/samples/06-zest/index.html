@@ -35,7 +35,7 @@ css-doodle{display:block;width:100%;height:100%}
 .cta-center{justify-content:center}
 .eyebrow{font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:var(--c1);margin-bottom:22px;font-weight:600}
 
-.section{max-width:1200px;margin:0 auto;padding:clamp(60px,9vw,120px) clamp(20px,5vw,64px)}
+.section{max-width:1200px;margin:0 auto;padding:clamp(84px,11vw,172px) clamp(20px,5vw,64px)}
 .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:44px}
 .section-head h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,5vw,52px);letter-spacing:-.02em;margin:0}
 .section-head p{margin:0;max-width:340px;opacity:.7;font-size:15px}
@@ -65,7 +65,7 @@ css-doodle{display:block;width:100%;height:100%}
 .stat-n{font-family:var(--display);font-size:32px;font-weight:600}
 .stat-l{font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin-top:6px}
 
-.about{max-width:1200px;margin:0 auto;padding:clamp(60px,9vw,120px) clamp(20px,5vw,64px);display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,5vw,70px);align-items:center}
+.about{max-width:1200px;margin:0 auto;padding:clamp(84px,11vw,172px) clamp(20px,5vw,64px);display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,5vw,70px);align-items:center}
 .about.rev .about-copy{order:2}
 .about-copy h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,4.5vw,48px);letter-spacing:-.02em;margin:0 0 20px}
 .about-copy p{font-size:17px;line-height:1.7;opacity:.8;margin:0 0 16px;max-width:52ch}
@@ -76,7 +76,7 @@ css-doodle{display:block;width:100%;height:100%}
 @media(max-width:820px){.about{grid-template-columns:1fr}.about.rev .about-copy{order:0}.about-art{aspect-ratio:16/10}}
 
 .features{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--soft)}
-.feat-grid{max-width:1200px;margin:0 auto;padding:clamp(40px,6vw,72px) clamp(20px,5vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(24px,4vw,48px)}
+.feat-grid{max-width:1200px;margin:0 auto;padding:clamp(60px,8vw,108px) clamp(20px,5vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(24px,4vw,48px)}
 .feat-num{font-family:var(--display);font-weight:700;font-size:15px;color:var(--c1);letter-spacing:.08em}
 .feat h3{font-family:var(--display);font-weight:600;font-size:21px;margin:10px 0 8px}
 .feat p{margin:0;opacity:.72;font-size:15px;line-height:1.6}
@@ -87,12 +87,12 @@ css-doodle{display:block;width:100%;height:100%}
 .testi .q-name{font-weight:600;font-size:15px;display:block}
 .testi .q-role{font-size:13px;opacity:.6}
 
-.band{position:relative;min-height:360px;display:grid;place-items:center;overflow:hidden;margin:clamp(40px,6vw,80px) 0 0}
+.band{position:relative;min-height:470px;display:grid;place-items:center;overflow:hidden;margin:clamp(58px,8vw,116px) 0 0}
 .band-scrim{position:absolute;inset:0;background:linear-gradient(180deg,color-mix(in srgb,var(--bg) 82%,transparent),color-mix(in srgb,var(--bg) 40%,transparent) 50%,color-mix(in srgb,var(--bg) 82%,transparent))}
 .band-in{position:relative;z-index:3;text-align:center;padding:0 24px;max-width:640px}
 .band-in h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,4.6vw,50px);letter-spacing:-.02em;margin:0 0 24px;line-height:1.08}
 
-.newsletter{padding:clamp(56px,8vw,104px) clamp(20px,5vw,64px)}
+.newsletter{padding:clamp(76px,10vw,140px) clamp(20px,5vw,64px)}
 .news-in{max-width:620px;margin:0 auto;text-align:center}
 .news-in h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,4.4vw,46px);letter-spacing:-.02em;margin:0 0 12px}
 .news-in p{opacity:.75;font-size:17px;margin:0 0 26px}
@@ -147,10 +147,94 @@ css-doodle{display:block;width:100%;height:100%}
 .bout-in .eyebrow{letter-spacing:.42em}
 .bout-btn{margin-top:40px;display:inline-block;border:1px solid currentColor;padding:15px 40px;text-decoration:none;font-size:13px;letter-spacing:.22em;text-transform:uppercase;opacity:.9}
 
+/* New sections */
+.manifesto{position:relative;overflow:hidden;padding:clamp(96px,14vw,200px) clamp(20px,5vw,64px);text-align:center;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.manifesto-in{position:relative;z-index:2;max-width:900px;margin:0 auto}
+.manifesto-in p{font-family:var(--display);font-weight:500;font-size:clamp(26px,4.6vw,52px);line-height:1.18;letter-spacing:-.02em;margin:0}
+
+.alt-rows{max-width:1200px;margin:0 auto;padding:clamp(58px,8vw,124px) clamp(20px,5vw,64px);display:grid;gap:clamp(30px,5vw,72px)}
+.alt-row{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,64px);align-items:center}
+.alt-row.rev .alt-copy{order:2}
+.alt-copy h3{font-family:var(--display);font-weight:600;font-size:clamp(24px,3.4vw,38px);letter-spacing:-.02em;margin:0 0 14px}
+.alt-copy p{font-size:17px;line-height:1.7;opacity:.8;margin:0;max-width:46ch}
+.alt-media{position:relative;aspect-ratio:4/3;border-radius:18px;overflow:hidden;border:1px solid var(--line)}
+@media(max-width:820px){.alt-row{grid-template-columns:1fr}.alt-row.rev .alt-copy{order:0}}
+
+.icon-feat{max-width:1200px;margin:0 auto;padding:clamp(70px,9vw,130px) clamp(20px,5vw,64px)}
+.icon-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:clamp(28px,4vw,52px)}
+.icon-wrap{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:12px;background:color-mix(in srgb,var(--c1) 16%,transparent);color:var(--c1);margin-bottom:16px}
+.icon-wrap svg{width:24px;height:24px}
+.icon-item h3{font-family:var(--display);font-weight:600;font-size:20px;margin:0 0 8px}
+.icon-item p{margin:0;opacity:.72;font-size:15px;line-height:1.6}
+
+.gallery{max-width:1200px;margin:0 auto;padding:clamp(58px,8vw,116px) clamp(20px,5vw,64px)}
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.gallery-cell{position:relative;aspect-ratio:1;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+.gallery-cell:nth-child(4n+1){aspect-ratio:4/5}
+
+.big-quote{position:relative;overflow:hidden;min-height:470px;display:grid;place-items:center;padding:clamp(84px,11vw,172px) 24px}
+.big-quote-scrim{position:absolute;inset:0;background:color-mix(in srgb,var(--bg) 74%,transparent)}
+.big-quote-in{position:relative;z-index:2;text-align:center;max-width:900px;margin:0}
+.big-quote-in blockquote{font-family:var(--display);font-weight:500;font-size:clamp(24px,4vw,46px);line-height:1.24;letter-spacing:-.02em;margin:0 0 20px}
+.big-quote-in figcaption{font-size:15px;font-weight:600}
+.big-quote-in figcaption span{opacity:.6;font-weight:400}
+
+.stat-band{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:var(--c1);color:var(--onC1)}
+.stat-band>div{padding:clamp(30px,5vw,54px) clamp(20px,4vw,40px);background:var(--c1);text-align:center}
+.stat-band-n{font-family:var(--display);font-weight:700;font-size:clamp(32px,5vw,52px);letter-spacing:-.02em}
+.stat-band-l{font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.85;margin-top:8px}
+
+.faq-head{max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,64px)}
+.faq-head h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,5vw,48px);letter-spacing:-.02em;margin:0 0 24px}
+.faq-list{max-width:820px;margin:0 auto;padding:0 clamp(20px,5vw,64px)}
+.faq-item{border-top:1px solid var(--line);padding:20px 0}
+.faq-item:last-child{border-bottom:1px solid var(--line)}
+.faq-item summary{cursor:pointer;font-family:var(--display);font-weight:600;font-size:19px;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:"+";color:var(--c1);font-weight:400}
+.faq-item[open] summary::after{content:"\2013"}
+.faq-item p{margin:14px 0 0;opacity:.75;font-size:16px;line-height:1.6;max-width:60ch}
+
+.logos{max-width:1200px;margin:0 auto;padding:clamp(36px,5vw,60px) clamp(20px,5vw,64px);text-align:center;border-bottom:1px solid var(--line)}
+.logos-label{font-size:12px;letter-spacing:.22em;text-transform:uppercase;opacity:.5}
+.logos-row{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(20px,4vw,52px);margin-top:18px;font-family:var(--display);font-weight:700;font-size:clamp(15px,2vw,20px);letter-spacing:.04em;opacity:.55}
+
+/* Kits */
+.kit-soft .card{border:none;border-radius:22px;box-shadow:0 18px 40px -26px rgba(0,0,0,.55)}
+.kit-soft .btn{border-radius:100px}
+.kit-soft .about-art,.kit-soft .alt-media{border-radius:24px}
+.kit-soft .testi,.kit-soft .news-form input{border-radius:18px}
+
+.kit-editorial .card{background:transparent;border:none;border-radius:0}
+.kit-editorial .card-media{border:1px solid var(--ink);border-radius:0}
+.kit-editorial .card-body{padding-left:2px;padding-right:2px}
+.kit-editorial .btn{border-radius:2px}
+.kit-editorial .about-art,.kit-editorial .alt-media,.kit-editorial .gallery-cell{border-radius:0;border-color:var(--ink)}
+.kit-editorial .testi{border-radius:0}
+
+.kit-brutal .card{border:2px solid var(--ink);border-radius:0;box-shadow:5px 5px 0 var(--ink);background:var(--bg)}
+.kit-brutal .card:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink)}
+.kit-brutal .btn{border-radius:0;border:2px solid var(--ink)}
+.kit-brutal .btn-solid{box-shadow:4px 4px 0 var(--ink)}
+.kit-brutal .about-art,.kit-brutal .alt-media,.kit-brutal .gallery-cell,.kit-brutal .testi,.kit-brutal .icon-wrap,.kit-brutal .news-form input{border-radius:0}
+.kit-brutal .icon-wrap{border:2px solid var(--ink);background:transparent}
+.kit-brutal .testi{border:2px solid var(--ink)}
+
+.kit-bordered .card{border:1px solid var(--line);border-radius:8px;box-shadow:none}
+.kit-bordered .btn{border-radius:8px}
+.kit-bordered .about-art,.kit-bordered .alt-media,.kit-bordered .gallery-cell,.kit-bordered .testi{border-radius:8px}
+
+.kit-minimal .card{background:transparent;border:none;border-radius:0;box-shadow:none}
+.kit-minimal .card-body{padding-left:0;padding-right:0}
+.kit-minimal .card-media,.kit-minimal .about-art,.kit-minimal .alt-media,.kit-minimal .gallery-cell{border-radius:0}
+.kit-minimal .btn-solid{background:transparent;color:var(--c1);border:1px solid var(--c1)}
+.kit-minimal .testi{background:transparent;border:none;border-top:1px solid var(--line);border-radius:0;padding-left:0;padding-right:0}
+.kit-minimal .news-form input{border-radius:0}
+
 </style>
 </head>
 <body>
-<div class="site" style="--bg:#fffbe6;--c1:#ff9f1c;--ink:#e71d36;--onC1:#ffffff;--card:rgb(255, 253, 245);--soft:rgb(255, 253, 241);--line:rgba(0,0,0,0.10);--display:'Baloo 2', system-ui, sans-serif;--body:'Nunito Sans', system-ui, sans-serif">
+<div class="site kit-soft" style="--bg:#fffbe6;--c1:#ff9f1c;--ink:#e71d36;--onC1:#ffffff;--card:rgb(255, 253, 245);--soft:rgb(255, 253, 241);--line:rgba(0,0,0,0.10);--display:'Baloo 2', system-ui, sans-serif;--body:'Nunito Sans', system-ui, sans-serif">
 
 <nav class="nav">
   <a class="logo" href="#">Zest</a>
@@ -164,19 +248,18 @@ css-doodle{display:block;width:100%;height:100%}
     <p class="lede">Bright, punchy recipes with short lists and shorter cook times, the kind you cook on a Tuesday and brag about on Friday.</p>
     <div class="cta-row"><a class="btn btn-solid" href="#">Tonight's recipe</a><a class="btn btn-ghost" href="#">Browse all</a></div>
   </div>
-  <div class="split-art"><style>css-doodle[data-tabbied="art15"]{--color0: #fffbe6; --color1: #ff9f1c; --color2: #2ec4b6; --color3: #e71d36; --color4: #ff9f1c; --color5: #2ec4b6; /* Random color generator variable */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(0.999) { :after { content: ''; position: absolute; @size: @rand(18%, 55%); left: @rand(2%, 60%); top: @rand(2%, 60%); background: var(--randomColor); -webkit-clip-path: @pick(circle(50% at 50% 50%), polygon(50% 0, 100% 100%, 0 100%), polygon(0 0, 100% 0, 100% 100%, 0 100%), inset(32% 0 32% 0)); clip-path: @pick(circle(50% at 50% 50%), polygon(50% 0, 100% 100%, 0 100%), polygon(0 0, 100% 0, 100% 100%, 0 100%), inset(32% 0 32% 0)); -webkit-transform: rotate(@rand(0deg, 359deg)); transform: rotate(@rand(0deg, 359deg)); -webkit-transition: ease 400ms; transition: ease 400ms; } } );}</style><css-doodle data-tabbied="art15" use="var(--rule)" grid="8x8" data-cell="58" data-reseed="4200">:doodle { @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+  <div class="split-art"><style>css-doodle[data-tabbied="art16"]{--color0: #fffbe6; --color1: #ff9f1c; --color2: #2ec4b6; --color3: #e71d36; --color4: #ff9f1c; --color5: #2ec4b6; /* Random color generator variable */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(0.999) { :after { content: ''; position: absolute; @size: @rand(18%, 55%); left: @rand(2%, 60%); top: @rand(2%, 60%); background: var(--randomColor); -webkit-clip-path: @pick(circle(50% at 50% 50%), polygon(50% 0, 100% 100%, 0 100%), polygon(0 0, 100% 0, 100% 100%, 0 100%), inset(32% 0 32% 0)); clip-path: @pick(circle(50% at 50% 50%), polygon(50% 0, 100% 100%, 0 100%), polygon(0 0, 100% 0, 100% 100%, 0 100%), inset(32% 0 32% 0)); -webkit-transform: rotate(@rand(0deg, 359deg)); transform: rotate(@rand(0deg, 359deg)); -webkit-transition: ease 400ms; transition: ease 400ms; } } );}</style><css-doodle data-tabbied="art16" use="var(--rule)" grid="8x8" data-cell="58" data-reseed="4200">:doodle { @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
 </header>
 
 <div class="stat-strip"><div><div class="stat-n">15 min</div><div class="stat-l">Fastest meals</div></div><div><div class="stat-n">1 pan</div><div class="stat-l">Less washing up</div></div><div><div class="stat-n">4.9★</div><div class="stat-l">Reader rating</div></div></div>
-<section class="about">
-  <div class="about-copy">
-    <div class="eyebrow">How Zest works</div>
-    <h2>Short lists, big flavour</h2>
-    <p>Every recipe is built around a handful of ingredients you can actually find and a cook time that fits a weeknight. We test each one until a tired person can nail it.</p><p>No ten-step reductions, no shopping for one obscure thing. Just fast food that tastes like you tried.</p>
-    <ul class="points"><li>Ten ingredients or fewer</li><li>One pan where we can</li><li>Tested by real weeknight cooks</li></ul>
-  </div>
-  <div class="about-art"><style>css-doodle[data-tabbied="art16"]{--color0: #fffbe6; --color1: #ff9f1c; --color2: #2ec4b6; --color3: #e71d36; --color4: #ff9f1c; /* Independent colors for the two sprinkles in each cell */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4)); --randomColor2: @p(var(--color1), var(--color2), var(--color3), var(--color4)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(0.999) { :before { content: ''; position: absolute; width: 62%; height: 16%; left: @rand(0%, 36%); top: @rand(4%, 40%); border-radius: 320px; background: var(--randomColor); -webkit-transform: rotate(@rand(0deg, 359deg)); transform: rotate(@rand(0deg, 359deg)); -webkit-transition: ease 400ms; transition: ease 400ms; } } /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(0.999) { :after { content: ''; position: absolute; width: 62%; height: 16%; left: @rand(2%, 38%); top: @rand(48%, 82%); border-radius: 320px; background: var(--randomColor2); -webkit-transform: rotate(@rand(0deg, 359deg)); transform: rotate(@rand(0deg, 359deg)); -webkit-transition: ease 400ms; transition: ease 400ms; } } );}</style><css-doodle data-tabbied="art16" use="var(--rule)" grid="8x8" data-cell="44" data-reseed="4200">:doodle { @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+<section class="manifesto">
+  <div class="abs" style="opacity:.16"><style>css-doodle[data-tabbied="art17"]{--color0: #fffbe6; --color1: #ff9f1c; --color2: #2ec4b6; --color3: #e71d36; --color4: #ff9f1c; /* Independent colors for the two sprinkles in each cell */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4)); --randomColor2: @p(var(--color1), var(--color2), var(--color3), var(--color4)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(0.999) { :before { content: ''; position: absolute; width: 62%; height: 16%; left: @rand(0%, 36%); top: @rand(4%, 40%); border-radius: 320px; background: var(--randomColor); -webkit-transform: rotate(@rand(0deg, 359deg)); transform: rotate(@rand(0deg, 359deg)); -webkit-transition: ease 400ms; transition: ease 400ms; } } /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(0.999) { :after { content: ''; position: absolute; width: 62%; height: 16%; left: @rand(2%, 38%); top: @rand(48%, 82%); border-radius: 320px; background: var(--randomColor2); -webkit-transform: rotate(@rand(0deg, 359deg)); transform: rotate(@rand(0deg, 359deg)); -webkit-transition: ease 400ms; transition: ease 400ms; } } );}</style><css-doodle data-tabbied="art17" use="var(--rule)" grid="8x8" data-cell="58" data-reseed="4200">:doodle { @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+  <div class="manifesto-in"><div class="eyebrow">The Zest rule</div><p>If a tired person cannot cook it on a Tuesday, it does not go in the box. Short lists, big flavour, every time.</p></div>
 </section>
+<section class="icon-feat"><div class="icon-grid">
+  <div class="icon-item"><span class="icon-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-timer" aria-hidden="true"><line x1="10" x2="14" y1="2" y2="2"></line><line x1="12" x2="15" y1="14" y2="11"></line><circle cx="12" cy="14" r="8"></circle></svg></span><h3>30 minutes</h3><p>Most recipes, start to plate, in half an hour.</p></div>
+  <div class="icon-item"><span class="icon-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-flame" aria-hidden="true"><path d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4"></path></svg></span><h3>One pan</h3><p>Less washing up, more eating.</p></div>
+  <div class="icon-item"><span class="icon-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-salad" aria-hidden="true"><path d="M7 21h10"></path><path d="M12 21a9 9 0 0 0 9-9H3a9 9 0 0 0 9 9Z"></path><path d="M11.38 12a2.4 2.4 0 0 1-.4-4.77 2.4 2.4 0 0 1 3.2-2.77 2.4 2.4 0 0 1 3.47-.63 2.4 2.4 0 0 1 3.37 3.37 2.4 2.4 0 0 1-1.1 3.7 2.51 2.51 0 0 1 .03 1.1"></path><path d="m13 12 4-4"></path><path d="M10.9 7.25A3.99 3.99 0 0 0 4 10c0 .73.2 1.41.54 2"></path></svg></span><h3>Ten ingredients</h3><p>Things you can actually find, nothing obscure.</p></div></div></section>
 <section class="section" id="items">
   <div class="section-head"><h2>This week's brightest</h2><p>Fresh from the test kitchen, sorted by speed.</p></div>
   <div class="grid">
@@ -205,15 +288,22 @@ css-doodle{display:block;width:100%;height:100%}
       </div>
     </article></div>
 </section>
-<section class="features"><div class="feat-grid">
-    <div class="feat"><div class="feat-num">01</div><h3>Pick</h3><p>Filter by time, mood, or what is wilting in the fridge.</p></div>
-    <div class="feat"><div class="feat-num">02</div><h3>Cook</h3><p>Clear steps, big photos, and a timer built into every recipe.</p></div>
-    <div class="feat"><div class="feat-num">03</div><h3>Brag</h3><p>Snap it, share it, and pretend it took longer than it did.</p></div></div></section>
+<section class="alt-rows">
+  <div class="alt-row">
+    <div class="alt-copy"><div class="eyebrow">Tested</div><h3>Cooked until a beginner can nail it</h3><p>Every recipe gets made again and again until the steps are foolproof and the timing is honest.</p></div>
+    <div class="alt-media"><figure class="imgph" data-image-prompt="A bright overhead shot of a colorful fresh weeknight dinner in a bowl. Soft natural light, shallow depth of field, high detail, no text or logos. Color palette: #fffbe6, #ff9f1c, #2ec4b6, #e71d36. Use #fffbe6 as the background so the image blends into the page."><div class="imgph-in"><span class="imgph-badge">◳ GPT Image 2 prompt</span><p class="imgph-text">A bright overhead shot of a colorful fresh weeknight dinner in a bowl. Soft natural light, shallow depth of field, high detail, no text or logos. Color palette: #fffbe6, #ff9f1c, #2ec4b6, #e71d36. Use #fffbe6 as the background so the image blends into the page.</p><button type="button" class="imgph-copy" data-copy-prompt aria-label="Copy prompt">⧉ Copy prompt</button></div></figure></div>
+  </div>
+  <div class="alt-row rev">
+    <div class="alt-copy"><div class="eyebrow">Fast</div><h3>Built for a real weeknight</h3><p>Short ingredient lists, short cook times, and a timer baked into every step so nothing burns.</p></div>
+    <div class="alt-media"><figure class="imgph" data-image-prompt="A skillet of vibrant vegetables sizzling on a stovetop, bright and fresh. Soft natural light, shallow depth of field, high detail, no text or logos. Color palette: #fffbe6, #ff9f1c, #2ec4b6, #e71d36. Use #fffbe6 as the background so the image blends into the page."><div class="imgph-in"><span class="imgph-badge">◳ GPT Image 2 prompt</span><p class="imgph-text">A skillet of vibrant vegetables sizzling on a stovetop, bright and fresh. Soft natural light, shallow depth of field, high detail, no text or logos. Color palette: #fffbe6, #ff9f1c, #2ec4b6, #e71d36. Use #fffbe6 as the background so the image blends into the page.</p><button type="button" class="imgph-copy" data-copy-prompt aria-label="Copy prompt">⧉ Copy prompt</button></div></figure></div>
+  </div></section>
+<section class="gallery"><div class="gallery-grid"><div class="gallery-cell"><figure class="imgph" data-image-prompt="A vibrant chili-lime corn bowl, appetizing overhead food photo. Soft natural light, shallow depth of field, high detail, no text or logos. Color palette: #fffbe6, #ff9f1c, #2ec4b6, #e71d36. Use #fffbe6 as the background so the image blends into the page."><div class="imgph-in"><span class="imgph-badge">◳ GPT Image 2 prompt</span><p class="imgph-text">A vibrant chili-lime corn bowl, appetizing overhead food photo. Soft natural light, shallow depth of field, high detail, no text or logos. Color palette: #fffbe6, #ff9f1c, #2ec4b6, #e71d36. Use #fffbe6 as the background so the image blends into the page.</p><button type="button" class="imgph-copy" data-copy-prompt aria-label="Copy prompt">⧉ Copy prompt</button></div></figure></div><div class="gallery-cell"><figure class="imgph" data-image-prompt="A skillet of blistered tomato orzo with basil. Soft natural light, shallow depth of field, high detail, no text or logos. Color palette: #fffbe6, #ff9f1c, #2ec4b6, #e71d36. Use #fffbe6 as the background so the image blends into the page."><div class="imgph-in"><span class="imgph-badge">◳ GPT Image 2 prompt</span><p class="imgph-text">A skillet of blistered tomato orzo with basil. Soft natural light, shallow depth of field, high detail, no text or logos. Color palette: #fffbe6, #ff9f1c, #2ec4b6, #e71d36. Use #fffbe6 as the background so the image blends into the page.</p><button type="button" class="imgph-copy" data-copy-prompt aria-label="Copy prompt">⧉ Copy prompt</button></div></figure></div><div class="gallery-cell"><figure class="imgph" data-image-prompt="A bowl of glossy sesame crunch noodles with scallions. Soft natural light, shallow depth of field, high detail, no text or logos. Color palette: #fffbe6, #ff9f1c, #2ec4b6, #e71d36. Use #fffbe6 as the background so the image blends into the page."><div class="imgph-in"><span class="imgph-badge">◳ GPT Image 2 prompt</span><p class="imgph-text">A bowl of glossy sesame crunch noodles with scallions. Soft natural light, shallow depth of field, high detail, no text or logos. Color palette: #fffbe6, #ff9f1c, #2ec4b6, #e71d36. Use #fffbe6 as the background so the image blends into the page.</p><button type="button" class="imgph-copy" data-copy-prompt aria-label="Copy prompt">⧉ Copy prompt</button></div></figure></div><div class="gallery-cell"><figure class="imgph" data-image-prompt="Charred broccoli tacos on a bright plate. Soft natural light, shallow depth of field, high detail, no text or logos. Color palette: #fffbe6, #ff9f1c, #2ec4b6, #e71d36. Use #fffbe6 as the background so the image blends into the page."><div class="imgph-in"><span class="imgph-badge">◳ GPT Image 2 prompt</span><p class="imgph-text">Charred broccoli tacos on a bright plate. Soft natural light, shallow depth of field, high detail, no text or logos. Color palette: #fffbe6, #ff9f1c, #2ec4b6, #e71d36. Use #fffbe6 as the background so the image blends into the page.</p><button type="button" class="imgph-copy" data-copy-prompt aria-label="Copy prompt">⧉ Copy prompt</button></div></figure></div></div></section>
 <section class="section"><div class="testi-grid">
     <figure class="testi"><blockquote>“I cook from Zest four nights a week now.”</blockquote><figcaption><span class="q-name">Aya T.</span><span class="q-role">Subscriber</span></figcaption></figure>
     <figure class="testi"><blockquote>“Finally recipes that respect a Tuesday.”</blockquote><figcaption><span class="q-name">Marco B.</span><span class="q-role">Home cook</span></figcaption></figure></div></section>
+<section class="section"><div class="faq-head"><h2>Questions</h2></div><div class="faq-list"><details class="faq-item"><summary>How does the box work?</summary><p>A recipe lands in your inbox every weekday afternoon.</p></details><details class="faq-item"><summary>Can I filter for diet?</summary><p>Yes, vegetarian, vegan, and quick filters on everything.</p></details><details class="faq-item"><summary>Do I need special equipment?</summary><p>A pan, a pot, and a knife. That is the whole kit.</p></details><details class="faq-item"><summary>Is it free?</summary><p>The weekday recipe is free. Members get the full archive.</p></details></div></section>
 <section class="band">
-  <div class="abs"><style>css-doodle[data-tabbied="art17"]{--color0: #fffbe6; --color1: #ff9f1c; --color2: #2ec4b6; --color3: #e71d36; --color4: #ff9f1c; --color5: #2ec4b6; /* Random color generator variable */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(0.999) { :after { content: ''; position: absolute; @size: @rand(22%, 86%); left: 50%; top: 50%; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%); border-radius: 50%; background: var(--randomColor); /* On or off option for hollow rings */  -webkit-transition: ease 400ms; transition: ease 400ms; } } );}</style><css-doodle data-tabbied="art17" use="var(--rule)" grid="8x8" data-cell="58" data-reseed="4200">:doodle { @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+  <div class="abs"><style>css-doodle[data-tabbied="art18"]{--color0: #fffbe6; --color1: #ff9f1c; --color2: #2ec4b6; --color3: #e71d36; --color4: #ff9f1c; --color5: #2ec4b6; /* Random color generator variable */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(0.999) { :after { content: ''; position: absolute; @size: @rand(22%, 86%); left: 50%; top: 50%; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%); border-radius: 50%; background: var(--randomColor); /* On or off option for hollow rings */  -webkit-transition: ease 400ms; transition: ease 400ms; } } );}</style><css-doodle data-tabbied="art18" use="var(--rule)" grid="8x8" data-cell="58" data-reseed="4200">:doodle { @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
   <div class="band-scrim"></div>
   <div class="band-in"><h2>What's for dinner? We already answered that.</h2><a class="btn btn-solid" href="#">See tonight’s recipe</a></div>
 </section>

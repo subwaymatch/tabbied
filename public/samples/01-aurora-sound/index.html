@@ -35,7 +35,7 @@ css-doodle{display:block;width:100%;height:100%}
 .cta-center{justify-content:center}
 .eyebrow{font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:var(--c1);margin-bottom:22px;font-weight:600}
 
-.section{max-width:1200px;margin:0 auto;padding:clamp(60px,9vw,120px) clamp(20px,5vw,64px)}
+.section{max-width:1200px;margin:0 auto;padding:clamp(84px,11vw,172px) clamp(20px,5vw,64px)}
 .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:44px}
 .section-head h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,5vw,52px);letter-spacing:-.02em;margin:0}
 .section-head p{margin:0;max-width:340px;opacity:.7;font-size:15px}
@@ -65,7 +65,7 @@ css-doodle{display:block;width:100%;height:100%}
 .stat-n{font-family:var(--display);font-size:32px;font-weight:600}
 .stat-l{font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin-top:6px}
 
-.about{max-width:1200px;margin:0 auto;padding:clamp(60px,9vw,120px) clamp(20px,5vw,64px);display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,5vw,70px);align-items:center}
+.about{max-width:1200px;margin:0 auto;padding:clamp(84px,11vw,172px) clamp(20px,5vw,64px);display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,5vw,70px);align-items:center}
 .about.rev .about-copy{order:2}
 .about-copy h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,4.5vw,48px);letter-spacing:-.02em;margin:0 0 20px}
 .about-copy p{font-size:17px;line-height:1.7;opacity:.8;margin:0 0 16px;max-width:52ch}
@@ -76,7 +76,7 @@ css-doodle{display:block;width:100%;height:100%}
 @media(max-width:820px){.about{grid-template-columns:1fr}.about.rev .about-copy{order:0}.about-art{aspect-ratio:16/10}}
 
 .features{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--soft)}
-.feat-grid{max-width:1200px;margin:0 auto;padding:clamp(40px,6vw,72px) clamp(20px,5vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(24px,4vw,48px)}
+.feat-grid{max-width:1200px;margin:0 auto;padding:clamp(60px,8vw,108px) clamp(20px,5vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(24px,4vw,48px)}
 .feat-num{font-family:var(--display);font-weight:700;font-size:15px;color:var(--c1);letter-spacing:.08em}
 .feat h3{font-family:var(--display);font-weight:600;font-size:21px;margin:10px 0 8px}
 .feat p{margin:0;opacity:.72;font-size:15px;line-height:1.6}
@@ -87,12 +87,12 @@ css-doodle{display:block;width:100%;height:100%}
 .testi .q-name{font-weight:600;font-size:15px;display:block}
 .testi .q-role{font-size:13px;opacity:.6}
 
-.band{position:relative;min-height:360px;display:grid;place-items:center;overflow:hidden;margin:clamp(40px,6vw,80px) 0 0}
+.band{position:relative;min-height:470px;display:grid;place-items:center;overflow:hidden;margin:clamp(58px,8vw,116px) 0 0}
 .band-scrim{position:absolute;inset:0;background:linear-gradient(180deg,color-mix(in srgb,var(--bg) 82%,transparent),color-mix(in srgb,var(--bg) 40%,transparent) 50%,color-mix(in srgb,var(--bg) 82%,transparent))}
 .band-in{position:relative;z-index:3;text-align:center;padding:0 24px;max-width:640px}
 .band-in h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,4.6vw,50px);letter-spacing:-.02em;margin:0 0 24px;line-height:1.08}
 
-.newsletter{padding:clamp(56px,8vw,104px) clamp(20px,5vw,64px)}
+.newsletter{padding:clamp(76px,10vw,140px) clamp(20px,5vw,64px)}
 .news-in{max-width:620px;margin:0 auto;text-align:center}
 .news-in h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,4.4vw,46px);letter-spacing:-.02em;margin:0 0 12px}
 .news-in p{opacity:.75;font-size:17px;margin:0 0 26px}
@@ -147,10 +147,94 @@ css-doodle{display:block;width:100%;height:100%}
 .bout-in .eyebrow{letter-spacing:.42em}
 .bout-btn{margin-top:40px;display:inline-block;border:1px solid currentColor;padding:15px 40px;text-decoration:none;font-size:13px;letter-spacing:.22em;text-transform:uppercase;opacity:.9}
 
+/* New sections */
+.manifesto{position:relative;overflow:hidden;padding:clamp(96px,14vw,200px) clamp(20px,5vw,64px);text-align:center;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.manifesto-in{position:relative;z-index:2;max-width:900px;margin:0 auto}
+.manifesto-in p{font-family:var(--display);font-weight:500;font-size:clamp(26px,4.6vw,52px);line-height:1.18;letter-spacing:-.02em;margin:0}
+
+.alt-rows{max-width:1200px;margin:0 auto;padding:clamp(58px,8vw,124px) clamp(20px,5vw,64px);display:grid;gap:clamp(30px,5vw,72px)}
+.alt-row{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,64px);align-items:center}
+.alt-row.rev .alt-copy{order:2}
+.alt-copy h3{font-family:var(--display);font-weight:600;font-size:clamp(24px,3.4vw,38px);letter-spacing:-.02em;margin:0 0 14px}
+.alt-copy p{font-size:17px;line-height:1.7;opacity:.8;margin:0;max-width:46ch}
+.alt-media{position:relative;aspect-ratio:4/3;border-radius:18px;overflow:hidden;border:1px solid var(--line)}
+@media(max-width:820px){.alt-row{grid-template-columns:1fr}.alt-row.rev .alt-copy{order:0}}
+
+.icon-feat{max-width:1200px;margin:0 auto;padding:clamp(70px,9vw,130px) clamp(20px,5vw,64px)}
+.icon-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:clamp(28px,4vw,52px)}
+.icon-wrap{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:12px;background:color-mix(in srgb,var(--c1) 16%,transparent);color:var(--c1);margin-bottom:16px}
+.icon-wrap svg{width:24px;height:24px}
+.icon-item h3{font-family:var(--display);font-weight:600;font-size:20px;margin:0 0 8px}
+.icon-item p{margin:0;opacity:.72;font-size:15px;line-height:1.6}
+
+.gallery{max-width:1200px;margin:0 auto;padding:clamp(58px,8vw,116px) clamp(20px,5vw,64px)}
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.gallery-cell{position:relative;aspect-ratio:1;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+.gallery-cell:nth-child(4n+1){aspect-ratio:4/5}
+
+.big-quote{position:relative;overflow:hidden;min-height:470px;display:grid;place-items:center;padding:clamp(84px,11vw,172px) 24px}
+.big-quote-scrim{position:absolute;inset:0;background:color-mix(in srgb,var(--bg) 74%,transparent)}
+.big-quote-in{position:relative;z-index:2;text-align:center;max-width:900px;margin:0}
+.big-quote-in blockquote{font-family:var(--display);font-weight:500;font-size:clamp(24px,4vw,46px);line-height:1.24;letter-spacing:-.02em;margin:0 0 20px}
+.big-quote-in figcaption{font-size:15px;font-weight:600}
+.big-quote-in figcaption span{opacity:.6;font-weight:400}
+
+.stat-band{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:var(--c1);color:var(--onC1)}
+.stat-band>div{padding:clamp(30px,5vw,54px) clamp(20px,4vw,40px);background:var(--c1);text-align:center}
+.stat-band-n{font-family:var(--display);font-weight:700;font-size:clamp(32px,5vw,52px);letter-spacing:-.02em}
+.stat-band-l{font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.85;margin-top:8px}
+
+.faq-head{max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,64px)}
+.faq-head h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,5vw,48px);letter-spacing:-.02em;margin:0 0 24px}
+.faq-list{max-width:820px;margin:0 auto;padding:0 clamp(20px,5vw,64px)}
+.faq-item{border-top:1px solid var(--line);padding:20px 0}
+.faq-item:last-child{border-bottom:1px solid var(--line)}
+.faq-item summary{cursor:pointer;font-family:var(--display);font-weight:600;font-size:19px;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:"+";color:var(--c1);font-weight:400}
+.faq-item[open] summary::after{content:"\2013"}
+.faq-item p{margin:14px 0 0;opacity:.75;font-size:16px;line-height:1.6;max-width:60ch}
+
+.logos{max-width:1200px;margin:0 auto;padding:clamp(36px,5vw,60px) clamp(20px,5vw,64px);text-align:center;border-bottom:1px solid var(--line)}
+.logos-label{font-size:12px;letter-spacing:.22em;text-transform:uppercase;opacity:.5}
+.logos-row{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(20px,4vw,52px);margin-top:18px;font-family:var(--display);font-weight:700;font-size:clamp(15px,2vw,20px);letter-spacing:.04em;opacity:.55}
+
+/* Kits */
+.kit-soft .card{border:none;border-radius:22px;box-shadow:0 18px 40px -26px rgba(0,0,0,.55)}
+.kit-soft .btn{border-radius:100px}
+.kit-soft .about-art,.kit-soft .alt-media{border-radius:24px}
+.kit-soft .testi,.kit-soft .news-form input{border-radius:18px}
+
+.kit-editorial .card{background:transparent;border:none;border-radius:0}
+.kit-editorial .card-media{border:1px solid var(--ink);border-radius:0}
+.kit-editorial .card-body{padding-left:2px;padding-right:2px}
+.kit-editorial .btn{border-radius:2px}
+.kit-editorial .about-art,.kit-editorial .alt-media,.kit-editorial .gallery-cell{border-radius:0;border-color:var(--ink)}
+.kit-editorial .testi{border-radius:0}
+
+.kit-brutal .card{border:2px solid var(--ink);border-radius:0;box-shadow:5px 5px 0 var(--ink);background:var(--bg)}
+.kit-brutal .card:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink)}
+.kit-brutal .btn{border-radius:0;border:2px solid var(--ink)}
+.kit-brutal .btn-solid{box-shadow:4px 4px 0 var(--ink)}
+.kit-brutal .about-art,.kit-brutal .alt-media,.kit-brutal .gallery-cell,.kit-brutal .testi,.kit-brutal .icon-wrap,.kit-brutal .news-form input{border-radius:0}
+.kit-brutal .icon-wrap{border:2px solid var(--ink);background:transparent}
+.kit-brutal .testi{border:2px solid var(--ink)}
+
+.kit-bordered .card{border:1px solid var(--line);border-radius:8px;box-shadow:none}
+.kit-bordered .btn{border-radius:8px}
+.kit-bordered .about-art,.kit-bordered .alt-media,.kit-bordered .gallery-cell,.kit-bordered .testi{border-radius:8px}
+
+.kit-minimal .card{background:transparent;border:none;border-radius:0;box-shadow:none}
+.kit-minimal .card-body{padding-left:0;padding-right:0}
+.kit-minimal .card-media,.kit-minimal .about-art,.kit-minimal .alt-media,.kit-minimal .gallery-cell{border-radius:0}
+.kit-minimal .btn-solid{background:transparent;color:var(--c1);border:1px solid var(--c1)}
+.kit-minimal .testi{background:transparent;border:none;border-top:1px solid var(--line);border-radius:0;padding-left:0;padding-right:0}
+.kit-minimal .news-form input{border-radius:0}
+
 </style>
 </head>
 <body>
-<div class="site" style="--bg:#0d0d12;--c1:#3fffb2;--ink:#f5f3ef;--onC1:#151515;--card:rgb(30, 30, 35);--soft:rgb(23, 23, 27);--line:rgba(255,255,255,0.12);--display:'Sora', system-ui, sans-serif;--body:'Space Grotesk', system-ui, sans-serif">
+<div class="site kit-brutal" style="--bg:#0d0d12;--c1:#3fffb2;--ink:#f5f3ef;--onC1:#151515;--card:rgb(30, 30, 35);--soft:rgb(23, 23, 27);--line:rgba(255,255,255,0.12);--display:'Sora', system-ui, sans-serif;--body:'Space Grotesk', system-ui, sans-serif">
 
 <nav class="nav">
   <a class="logo" href="#">Aurora Sound</a>
@@ -170,15 +254,12 @@ css-doodle{display:block;width:100%;height:100%}
 
 <div class="marquee"><span>NEW SIGNINGS <i>✦</i> WAX & DIGITAL <i>✦</i> DEEP CUTS <i>✦</i> AFTER HOURS <i>✦</i> NEW SIGNINGS <i>✦</i> WAX & DIGITAL <i>✦</i> DEEP CUTS <i>✦</i> AFTER HOURS <i>✦</i> </span></div>
 
-<section class="about">
-  <div class="about-copy">
-    <div class="eyebrow">The label</div>
-    <h2>Records made to glow in the dark</h2>
-    <p>Aurora Sound is a small crew of producers, cutters, and DJs who care as much about the sleeve as the mix. Every release is mastered twice, once for the club and once for the couch.</p><p>We press short runs on coloured wax, ship worldwide, and put the artist first on every split.</p>
-    <ul class="points"><li>Vinyl and lossless digital</li><li>Artist-first splits</li><li>Mastered for club and headphones</li></ul>
-  </div>
-  <div class="about-art"><style>css-doodle[data-tabbied="art1"]{--color0: #0d0d12; --color1: #3fffb2; --color2: #3eecff; --color3: #ff3d8b; --color4: #3fffb2; --color5: #3eecff; /* Triangle orientation and ink roll once per cell; same-arity polygons morph between seeds */ --tri: @p(polygon(0% 0%, 100% 0%, 100% 100%), polygon(0% 0%, 100% 0%, 0% 100%), polygon(0% 0%, 100% 100%, 0% 100%), polygon(100% 0%, 100% 100%, 0% 100%)); --ink: @p(var(--color1), var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( margin: -0.5px; clip-path: var(--tri); @random(0.999) { background: var(--ink); } transition: ease 500ms; );}</style><css-doodle data-tabbied="art1" use="var(--rule)" grid="8x8" data-cell="44" data-reseed="4200">:doodle { @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
-</section>
+<section class="logos"><span class="logos-label">As seen in</span><div class="logos-row"><span>RESIDENT ADVISOR</span><span>PITCHFORK</span><span>BOILER ROOM</span><span>MIXMAG</span><span>BANDCAMP</span><span>NTS</span></div></section>
+<section class="icon-feat"><div class="icon-grid">
+  <div class="icon-item"><span class="icon-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-radio" aria-hidden="true"><path d="M16.247 7.761a6 6 0 0 1 0 8.478"></path><path d="M19.075 4.933a10 10 0 0 1 0 14.134"></path><path d="M4.925 19.067a10 10 0 0 1 0-14.134"></path><path d="M7.753 16.239a6 6 0 0 1 0-8.478"></path><circle cx="12" cy="12" r="2"></circle></svg></span><h3>Weekly radio</h3><p>A two-hour show mining the catalogue and the crates.</p></div>
+  <div class="icon-item"><span class="icon-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-disc3 lucide-disc-3" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M6 12c0-1.7.7-3.2 1.8-4.2"></path><circle cx="12" cy="12" r="2"></circle><path d="M18 12c0 1.7-.7 3.2-1.8 4.2"></path></svg></span><h3>Coloured wax</h3><p>Short-run vinyl, cut and sleeved by hand.</p></div>
+  <div class="icon-item"><span class="icon-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-headphones" aria-hidden="true"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"></path></svg></span><h3>Mastered twice</h3><p>Once for the club, once for the couch.</p></div>
+  <div class="icon-item"><span class="icon-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar-days" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path><path d="M8 14h.01"></path><path d="M12 14h.01"></path><path d="M16 14h.01"></path><path d="M8 18h.01"></path><path d="M12 18h.01"></path><path d="M16 18h.01"></path></svg></span><h3>Label nights</h3><p>Residencies in three cities and counting.</p></div></div></section>
 <section class="section" id="items">
   <div class="section-head"><h2>Recent releases</h2><p>Twelve inches and twelve bits, mastered for the floor and the headphones.</p></div>
   <div class="grid">
@@ -207,13 +288,22 @@ css-doodle{display:block;width:100%;height:100%}
       </div>
     </article></div>
 </section>
-<section class="features"><div class="feat-grid">
-    <div class="feat"><div class="feat-num">01</div><h3>Sign</h3><p>We chase sounds, not follower counts, and give new artists room to grow.</p></div>
-    <div class="feat"><div class="feat-num">02</div><h3>Press</h3><p>Short-run coloured vinyl, cut and sleeved by people who love it.</p></div>
-    <div class="feat"><div class="feat-num">03</div><h3>Play</h3><p>Label nights and a weekly radio show that keeps the catalogue alive.</p></div></div></section>
-<section class="section"><div class="testi-grid">
-    <figure class="testi"><blockquote>“The only label whose whole catalogue I buy on sight.”</blockquote><figcaption><span class="q-name">DJ Verre</span><span class="q-role">Resident, Basement FM</span></figcaption></figure>
-    <figure class="testi"><blockquote>“They treated my first EP like it mattered. It did.”</blockquote><figcaption><span class="q-name">S U N J A</span><span class="q-role">Artist</span></figcaption></figure></div></section>
+<section class="gallery"><div class="gallery-grid"><div class="gallery-cell"><figure class="imgph" data-image-prompt="A glowing liquid light-wave album cover in vivid neon, abstract and futuristic. Soft natural light, shallow depth of field, high detail, no text or logos. Color palette: #0d0d12, #3fffb2, #3eecff, #ff3d8b. Use #0d0d12 as the background so the image blends into the page."><div class="imgph-in"><span class="imgph-badge">◳ GPT Image 2 prompt</span><p class="imgph-text">A glowing liquid light-wave album cover in vivid neon, abstract and futuristic. Soft natural light, shallow depth of field, high detail, no text or logos. Color palette: #0d0d12, #3fffb2, #3eecff, #ff3d8b. Use #0d0d12 as the background so the image blends into the page.</p><button type="button" class="imgph-copy" data-copy-prompt aria-label="Copy prompt">⧉ Copy prompt</button></div></figure></div><div class="gallery-cell"><figure class="imgph" data-image-prompt="A dark club dancefloor lit by teal and pink lasers, atmospheric. Soft natural light, shallow depth of field, high detail, no text or logos. Color palette: #0d0d12, #3fffb2, #3eecff, #ff3d8b. Use #0d0d12 as the background so the image blends into the page."><div class="imgph-in"><span class="imgph-badge">◳ GPT Image 2 prompt</span><p class="imgph-text">A dark club dancefloor lit by teal and pink lasers, atmospheric. Soft natural light, shallow depth of field, high detail, no text or logos. Color palette: #0d0d12, #3fffb2, #3eecff, #ff3d8b. Use #0d0d12 as the background so the image blends into the page.</p><button type="button" class="imgph-copy" data-copy-prompt aria-label="Copy prompt">⧉ Copy prompt</button></div></figure></div><div class="gallery-cell"><figure class="imgph" data-image-prompt="A close-up of a colored vinyl record catching neon light. Soft natural light, shallow depth of field, high detail, no text or logos. Color palette: #0d0d12, #3fffb2, #3eecff, #ff3d8b. Use #0d0d12 as the background so the image blends into the page."><div class="imgph-in"><span class="imgph-badge">◳ GPT Image 2 prompt</span><p class="imgph-text">A close-up of a colored vinyl record catching neon light. Soft natural light, shallow depth of field, high detail, no text or logos. Color palette: #0d0d12, #3fffb2, #3eecff, #ff3d8b. Use #0d0d12 as the background so the image blends into the page.</p><button type="button" class="imgph-copy" data-copy-prompt aria-label="Copy prompt">⧉ Copy prompt</button></div></figure></div><div class="gallery-cell"><figure class="imgph" data-image-prompt="A neon-lit DJ booth at night, glowing knobs and faders. Soft natural light, shallow depth of field, high detail, no text or logos. Color palette: #0d0d12, #3fffb2, #3eecff, #ff3d8b. Use #0d0d12 as the background so the image blends into the page."><div class="imgph-in"><span class="imgph-badge">◳ GPT Image 2 prompt</span><p class="imgph-text">A neon-lit DJ booth at night, glowing knobs and faders. Soft natural light, shallow depth of field, high detail, no text or logos. Color palette: #0d0d12, #3fffb2, #3eecff, #ff3d8b. Use #0d0d12 as the background so the image blends into the page.</p><button type="button" class="imgph-copy" data-copy-prompt aria-label="Copy prompt">⧉ Copy prompt</button></div></figure></div></div></section>
+<section class="alt-rows">
+  <div class="alt-row">
+    <div class="alt-copy"><div class="eyebrow">The label</div><h3>We press what we would play</h3><p>Every release is a record we would drop ourselves at 2am. If it does not move the floor, it does not get a catalogue number.</p></div>
+    <div class="alt-media"><figure class="imgph" data-image-prompt="A DJ playing a glowing neon-lit set in a dark club, cinematic. Soft natural light, shallow depth of field, high detail, no text or logos. Color palette: #0d0d12, #3fffb2, #3eecff, #ff3d8b. Use #0d0d12 as the background so the image blends into the page."><div class="imgph-in"><span class="imgph-badge">◳ GPT Image 2 prompt</span><p class="imgph-text">A DJ playing a glowing neon-lit set in a dark club, cinematic. Soft natural light, shallow depth of field, high detail, no text or logos. Color palette: #0d0d12, #3fffb2, #3eecff, #ff3d8b. Use #0d0d12 as the background so the image blends into the page.</p><button type="button" class="imgph-copy" data-copy-prompt aria-label="Copy prompt">⧉ Copy prompt</button></div></figure></div>
+  </div>
+  <div class="alt-row rev">
+    <div class="alt-copy"><div class="eyebrow">The artists</div><h3>First on every split</h3><p>Artists keep the lion’s share and the masters. We are here to press it, push it, and get out of the way.</p></div>
+    <div class="alt-media"><figure class="imgph" data-image-prompt="A music producer at a glowing studio console at night, neon accents. Soft natural light, shallow depth of field, high detail, no text or logos. Color palette: #0d0d12, #3fffb2, #3eecff, #ff3d8b. Use #0d0d12 as the background so the image blends into the page."><div class="imgph-in"><span class="imgph-badge">◳ GPT Image 2 prompt</span><p class="imgph-text">A music producer at a glowing studio console at night, neon accents. Soft natural light, shallow depth of field, high detail, no text or logos. Color palette: #0d0d12, #3fffb2, #3eecff, #ff3d8b. Use #0d0d12 as the background so the image blends into the page.</p><button type="button" class="imgph-copy" data-copy-prompt aria-label="Copy prompt">⧉ Copy prompt</button></div></figure></div>
+  </div></section>
+<section class="big-quote">
+  <div class="abs" style="opacity:.18"><style>css-doodle[data-tabbied="art1"]{--color0: #0d0d12; --color1: #3fffb2; --color2: #3eecff; --color3: #ff3d8b; --light: @p(var(--color1), var(--color2), var(--color3)); --d: @rand(26%, 88%); --lx: @rand(-10%, 60%); --ly: @rand(-10%, 60%); --lo: @rand(0.25, 0.9); --bl: @rand(1px, 6px); --rule: ( @random(0.9) { :after { content: ''; position: absolute; @size: var(--d); left: var(--lx); top: var(--ly); border-radius: 50%; background: var(--light); opacity: var(--lo); filter: blur(var(--bl)); transition: ease 800ms; } } );}</style><css-doodle data-tabbied="art1" use="var(--rule)" grid="8x8" data-cell="58" data-reseed="4200">:doodle { @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+  <div class="big-quote-scrim"></div>
+  <figure class="big-quote-in"><blockquote>“The only label whose whole catalogue I buy on sight.”</blockquote><figcaption>DJ Verre, <span>Resident, Basement FM</span></figcaption></figure>
+</section>
+<section class="section"><div class="faq-head"><h2>Questions</h2></div><div class="faq-list"><details class="faq-item"><summary>Do you take demos?</summary><p>Always. Send a private link, not an attachment, and give us two weeks.</p></details><details class="faq-item"><summary>Is everything on vinyl?</summary><p>Most releases, in short coloured runs, plus lossless digital.</p></details><details class="faq-item"><summary>Do you book the label nights?</summary><p>We do. Join the list for dates and guest slots.</p></details><details class="faq-item"><summary>Where do you ship?</summary><p>Worldwide, from the plant nearest you.</p></details></div></section>
 <section class="band">
   <div class="abs"><style>css-doodle[data-tabbied="art2"]{--color0: #0d0d12; --color1: #3fffb2; --color2: #3eecff; --color3: #ff3d8b; --color4: #3fffb2; --color5: #3eecff; --rule: ( --rot: @pick(0deg, 90deg, 180deg, 270deg); @random(0.999) { width: 88%; height: 88%; margin: 6%; border-radius: 50%; background: conic-gradient(from 0deg, @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)), @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)), @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)), @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)), @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5))); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );}</style><css-doodle data-tabbied="art2" use="var(--rule)" grid="8x8" data-cell="58" data-reseed="4200">:doodle { @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
   <div class="band-scrim"></div>
