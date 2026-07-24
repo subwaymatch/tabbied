@@ -174,6 +174,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     primaryCta: 'Get tickets',
     secondaryCta: 'View program',
     ticker: ['60 SPEAKERS', '3 STAGES', '2 WORKSHOPS DAYS', 'ONE WATERFRONT', 'LISBON 2026'],
+    stats: [{ n: '60', l: 'Speakers' }, { n: '3', l: 'Stages' }, { n: '2', l: 'Workshop days' }],
     sectionTitle: 'Featured speakers',
     sectionSub: 'A first look at the 2026 lineup.',
     items: [
@@ -338,6 +339,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     primaryCta: 'Shop the range',
     secondaryCta: 'Our guarantee',
     ticker: ['LIFETIME GUARANTEE', 'RECYCLED SHELLS', 'FIELD-TESTED', 'CARBON NEUTRAL', 'SINCE 1998'],
+    stats: [{ n: 'Lifetime', l: 'Guarantee' }, { n: '100%', l: 'Recycled shells' }, { n: '1998', l: 'Established' }],
     sectionTitle: 'New in the range',
     sectionSub: 'Layers that earn their place in the pack.',
     items: [
