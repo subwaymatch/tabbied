@@ -99,11 +99,18 @@ export type TextSlot = {
    */
   role?: CopyRole;
   /**
-   * The class the `<em>` accent carries on this page, captured at generate
-   * time. Class names are hashed in the export and rewritten in the download
+   * The class the accent carries on this page, captured at generate time.
+   * Class names are hashed in the export and rewritten in the download
    * package, so an `emphasis` slot cannot hardcode one.
    */
   emphasisClass?: string;
+  /**
+   * The tag the accent uses on this page - `em` on the five shared sites,
+   * but `span` wherever a bespoke page's stylesheet targets one (Cobalt Works
+   * styles `.hero h1 span`). Rebuilding the run with the wrong tag drops the
+   * styling silently, so it is read off the markup rather than assumed.
+   */
+  emphasisTag?: string;
 };
 
 export type ImageSlot = {

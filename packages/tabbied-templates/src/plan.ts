@@ -31,6 +31,7 @@ export type EditOperation =
       value: string;
       format: TextFormat;
       emphasisClass?: string;
+      emphasisTag?: string;
     }
   | { type: 'image'; id: string; src: string; alt?: string }
   | {
@@ -240,6 +241,7 @@ export function planEdits(
       value,
       format: slot.format,
       emphasisClass: slot.emphasisClass,
+      emphasisTag: slot.emphasisTag,
     });
   }
 

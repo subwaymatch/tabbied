@@ -100,16 +100,52 @@ export function decodeEntities(value: string): string {
 }
 
 /**
+ * The inline tags a template may use for its accent run.
+ *
+ * `<em>` is the house default, but the 52 bespoke pages were written before
+ * there was a convention and reach for whichever tag their stylesheet targets
+ * - Cobalt Works styles `.hero h1 span`. The accent is therefore a property of
+ * the page, read off the markup, never assumed.
+ */
+export const ACCENT_TAGS = ['em', 'span', 'i', 'b', 'strong', 'mark'] as const;
+
+/**
+ * Which tag carries the accent inside an element's inner HTML, if any.
+ *
+ * `<br>` is skipped: it is a line break in a headline, not an accent. The
+ * first remaining inline tag wins, because a slot that holds more than one
+ * accent is not a text slot (see htmlToTextValue).
+ */
+export function accentTagOf(html: string): string | null {
+  for (const match of html.matchAll(/<([a-z][a-z0-9]*)\b[^>]*>/gi)) {
+    const tag = match[1].toLowerCase();
+
+    if (tag === 'br') continue;
+
+    return (ACCENT_TAGS as readonly string[]).includes(tag) ? tag : null;
+  }
+
+  return null;
+}
+
+/**
  * Read an annotated element's inner HTML back into a slot value.
  *
- * The generator's side of the contract: an `<em>` becomes `{em}...{/em}` so the
- * value round-trips, and every other tag is dropped to its text. Dropping is
- * right rather than lossy-by-accident - a text slot promises "this is text",
- * and anything richer than one accent belongs in a different slot kind.
+ * The generator's side of the contract: the accent tag becomes `{em}...{/em}`
+ * so the value round-trips, and every other tag is dropped to its text.
+ * Dropping is right rather than lossy-by-accident - a text slot promises "this
+ * is text", and anything richer than one accent belongs in a different slot
+ * kind.
+ *
+ * `emphasisTag` is the page's own accent tag. It defaults to `em` so a caller
+ * that does not know one behaves exactly as this did before the bespoke pages
+ * needed a `<span>`.
  */
-export function htmlToTextValue(html: string): string {
+export function htmlToTextValue(html: string, emphasisTag = 'em'): string {
+  const tag = emphasisTag.toLowerCase();
+  const pattern = new RegExp(`<${tag}\\b[^>]*>([\\s\\S]*?)</${tag}>`, 'gi');
   const withMarkers = html.replace(
-    /<em\b[^>]*>([\s\S]*?)<\/em>/gi,
+    pattern,
     (_whole, inner: string) => `{em}${inner}{/em}`
   );
 
