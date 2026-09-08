@@ -1,10 +1,10 @@
-// The documents Studio stores and serves — one definition, three readers.
+// The documents Studio stores and serves - one definition, three readers.
 //
 // The Worker writes these (worker/routes/studio.ts, worker/routes/sites.ts),
 // the results page and the workspace read them, and worker/ai/schema.ts
 // validates the model's half of them. Three copies of the same shape is how a
 // field gets added to one and missed by the others, so the shape lives here.
-// worker → lib is the import direction the Worker already uses
+// worker -> lib is the import direction the Worker already uses
 // (lib/studioMatch.ts); lib never imports from worker/.
 import type { CopyRole, EditsDocument } from 'tabbied-templates';
 
@@ -53,7 +53,7 @@ export type StoredGeneration = {
   createdAt: string | Date;
 };
 
-/** A row in the account's history — what GET /api/studio/generations lists. */
+/** A row in the account's history - what GET /api/studio/generations lists. */
 export type GenerationSummary = {
   id: string;
   description: string;
@@ -92,9 +92,9 @@ export type SiteSummary = {
   updatedAt: string | Date;
 };
 
-/** What GET /api/studio/sites/:id returns — a site with its latest revision. */
+/** What GET /api/studio/sites/:id returns - a site with its latest revision. */
 export type SiteDocument = SiteSummary & {
-  /** The viewer is the person who made it — the editor shows only then. */
+  /** The viewer is the person who made it - the editor shows only then. */
   mine: boolean;
   generationId: string;
   directionIndex: number;
@@ -102,8 +102,8 @@ export type SiteDocument = SiteSummary & {
   specVersion: number;
   /**
    * True when the packaged template no longer matches the one this site was
-   * authored against. The document still applies — the engine reports any slot
-   * it cannot find — but the person should hear it from the page, not from a
+   * authored against. The document still applies - the engine reports any slot
+   * it cannot find - but the person should hear it from the page, not from a
    * missing headline.
    */
   templateChanged: boolean;

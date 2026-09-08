@@ -1,9 +1,9 @@
 /* ==========================================================================
-   SALZHAUS — contemporary dance, Basel
+   SALZHAUS - contemporary dance, Basel
    Batch three of the Swiss set, and the loud one: type at poster size, the
    full width of the viewport used as the measure, and almost no rules. What
    separates one thing from the next here is space, a change of ground, or a
-   pattern field — not a hairline. Inter throughout, tracked in a little.
+   pattern field - not a hairline. Inter throughout, tracked in a little.
    ========================================================================== */
 
 .page {
@@ -447,7 +447,7 @@
   mask-image: radial-gradient(ellipse 62% 70% at 78% 42%, #000 0%, transparent 78%);
 }
 
-/* A rotated running head in the left margin — the only thing on the page set
+/* A rotated running head in the left margin - the only thing on the page set
    sideways, and it is a label rather than content. */
 .sideLabel {
   position: absolute;

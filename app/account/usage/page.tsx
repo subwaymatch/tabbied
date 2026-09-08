@@ -5,7 +5,7 @@ import UsagePanel from 'components/account/UsagePanel';
 import styles from 'components/studio/studio.module.css';
 
 export const metadata: Metadata = {
-  title: 'Usage — Tabbied',
+  title: 'Usage - Tabbied',
   robots: { index: false, follow: false },
 };
 

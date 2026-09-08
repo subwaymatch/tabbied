@@ -4,8 +4,8 @@
 // on a timer: the hero skyline, the margin columns beside it, and the drifting
 // squares behind the story section. `Math.random()` at render time would make
 // the prerendered HTML disagree with the first client render and blow up
-// hydration, so the *initial* grid comes from a fixed seed — server and client
-// build the same one — and the timers that introduce real randomness only start
+// hydration, so the *initial* grid comes from a fixed seed - server and client
+// build the same one - and the timers that introduce real randomness only start
 // after mount, where drift no longer matters.
 //
 // The palettes and shape vocabulary below are the homepage's own; the pattern

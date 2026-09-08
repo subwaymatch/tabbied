@@ -1,7 +1,7 @@
 // The Tabbied toolset: four thin wrappers over catalog.json, plus whatever the
 // host adds (the stdio server adds `render_design`).
 //
-// Nothing here touches node or the Worker runtime — the host injects the two
+// Nothing here touches node or the Worker runtime - the host injects the two
 // things that differ (preview bytes, docs text) via ToolContext. That is what
 // lets the same definitions serve both transports, so a design an agent finds
 // over HTTP is described identically to one it finds over stdio.
@@ -45,7 +45,7 @@ const toolError = (message: string): ToolResult => ({
   isError: true,
 });
 
-/** Distinct values of a repeated field, sorted — the vocabulary actually in use. */
+/** Distinct values of a repeated field, sorted - the vocabulary actually in use. */
 function vocabulary(
   designs: CatalogDesign[],
   field: 'tags' | 'mood' | 'goodFor'
@@ -64,7 +64,7 @@ function asStringArray(value: unknown): string[] | null {
   return strings.length ? strings : null;
 }
 
-/** The compact form used in search hits — enough to shortlist, not the full record. */
+/** The compact form used in search hits - enough to shortlist, not the full record. */
 function summarize(design: CatalogDesign) {
   return {
     slug: design.slug,
@@ -110,8 +110,8 @@ function searchTool(catalog: Catalog): Tool {
     title: 'Search designs',
     description:
       `Find Tabbied designs by visible motif, feel, busyness, or intended use. ` +
-      `Filters combine with AND — listing two tags returns only designs carrying ` +
-      `both — so start broad and narrow. Returns compact entries including a ` +
+      `Filters combine with AND - listing two tags returns only designs carrying ` +
+      `both - so start broad and narrow. Returns compact entries including a ` +
       `preview image URL; follow up with preview_design to actually look at the ` +
       `shortlist before choosing, because these are pictures and the metadata ` +
       `only narrows the field. ${catalog.count} designs in total.`,
@@ -245,7 +245,7 @@ function searchTool(catalog: Catalog): Tool {
               total: catalog.count,
               note:
                 'No design satisfies every filter at once. Each filter on its ' +
-                'own matches the counts below — drop the ones scoring 0 (likely ' +
+                'own matches the counts below - drop the ones scoring 0 (likely ' +
                 'out of vocabulary) and relax the rest.',
               filtersIndependently: breakdown,
               vocabulary: {
@@ -280,8 +280,8 @@ function getDesignTool(catalog: Catalog): Tool {
     name: 'get_design',
     title: 'Get design details',
     description:
-      'The full catalog record for one design — palette, every option with its ' +
-      'range and default, SVG-export support, preview URL — plus ready-to-paste ' +
+      'The full catalog record for one design - palette, every option with its ' +
+      'range and default, SVG-export support, preview URL - plus ready-to-paste ' +
       'React and vanilla snippets. Call this once a slug is chosen; ' +
       'search_designs already returns enough to shortlist.',
     inputSchema: {
@@ -308,7 +308,7 @@ function getDesignTool(catalog: Catalog): Tool {
             (near.length
               ? `Closest slugs: ${near.join(', ')}. `
               : '') +
-            'Use search_designs to find one — slugs are opaque and cannot be guessed.'
+            'Use search_designs to find one - slugs are opaque and cannot be guessed.'
         );
       }
 
@@ -330,7 +330,7 @@ function getDesignTool(catalog: Catalog): Tool {
             // The number-one integration mistake, repeated here because an
             // agent that called get_design may never read llms-full.txt.
             sizing:
-              'A pattern has no intrinsic size — it fills its parent, and ' +
+              'A pattern has no intrinsic size - it fills its parent, and ' +
               'collapses to nothing in a parent that sizes to content. Pass ' +
               'height or aspectRatio when in doubt.',
             ...(design.svgExport.supported
@@ -359,7 +359,7 @@ function previewTool(context: ToolContext): Tool | null {
       `Return the rendered preview image for up to ${PREVIEW_MAX_SLUGS} designs, ` +
       'so you can see them rather than infer them from tags. Previews use each ' +
       "design's authored palette, default options, and a fixed seed. This is the " +
-      'step that makes a choice reliable — do it before committing to a slug.',
+      'step that makes a choice reliable - do it before committing to a slug.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -412,7 +412,7 @@ function previewTool(context: ToolContext): Tool | null {
           spent += data.length;
           content.push(
             text(
-              `${design.slug} — ${design.name}` +
+              `${design.slug} - ${design.name}` +
                 (design.description ? `: ${design.description}` : '')
             ),
             { type: 'image', data, mimeType }
@@ -471,7 +471,7 @@ function docsTool(context: ToolContext): Tool | null {
  *
  * The template tools join them here rather than in a separate assembly so a
  * host opts in by supplying their fetchers, exactly as it already does for
- * previews and docs — one context, and the tool list follows from what the
+ * previews and docs - one context, and the tool list follows from what the
  * host can actually resolve.
  */
 export function catalogTools(context: ToolContext): Tool[] {

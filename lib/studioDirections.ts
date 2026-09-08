@@ -2,8 +2,8 @@
 //
 // Server-only, like lib/siteCounts.ts: the catalog is 384 KB and the template
 // data pulls in every pattern definition, none of which should reach the
-// browser. What crosses to the client is this reduced list — 57 entries of
-// names, palettes and vocabulary, a few kilobytes — which the matcher in
+// browser. What crosses to the client is this reduced list - 57 entries of
+// names, palettes and vocabulary, a few kilobytes - which the matcher in
 // lib/studioMatch.ts then works over without another round trip.
 import catalog from 'tabbied/catalog.json';
 import { TEMPLATE_SITES } from 'components/template/templateData';
@@ -53,7 +53,7 @@ function toEntry(site: RawSite): StudioEntry {
     // "Black and white" should reach a palette that is mostly grey with one
     // accent, not only the handful with no colour at all.
     neutral: hues.length <= Math.floor(site.palette.length * 0.4),
-    // The card's second line — how the design feels, then what it is made of.
+    // The card's second line - how the design feels, then what it is made of.
     descriptors: [...moods.slice(0, 2), ...tags.slice(0, 1)].map(titleCase),
     topicTerms: Array.from(
       new Set([...tokenize(site.topic), ...tokenize(site.name)].map(stem))
@@ -63,8 +63,8 @@ function toEntry(site: RawSite): StudioEntry {
 
 /**
  * Both template collections, in the same order /templates lists them. The two
- * carry different field names for the same things — `brand`/`name`,
- * `pattern`/`patternSlug`, `colors`/`palette` — so they are normalised here the
+ * carry different field names for the same things - `brand`/`name`,
+ * `pattern`/`patternSlug`, `colors`/`palette` - so they are normalised here the
  * way that gallery normalises them for its cards.
  */
 export const STUDIO_ENTRIES: StudioEntry[] = [

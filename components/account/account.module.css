@@ -1,6 +1,6 @@
 /* The account area: its shell (masthead below, then a 1180px column), the
-   sub-navigation, and the pieces its pages are made of — cards, tables,
-   meters, fields. Tokens are Studio's (`--s-…`, studio.module.css), which
+   sub-navigation, and the pieces its pages are made of - cards, tables,
+   meters, fields. Tokens are Studio's (`--s-...`, studio.module.css), which
    every account page wraps itself in. */
 
 /* ── Shell ───────────────────────────────────────────────────────────────── */

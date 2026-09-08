@@ -1,8 +1,8 @@
-// J. Speck — dot fields and halftones.
+// J. Speck - dot fields and halftones.
 //
 // A radial-gradient with a hard stop is one dot; give it a background-size
 // smaller than the box and it tiles into a field. Change the tile and the
-// pitch changes; change the stop and the dot grows or shrinks — from a tint
+// pitch changes; change the stop and the dot grows or shrinks - from a tint
 // with texture in it up to a field so dense the gaps become the drawing.
 //
 // The converter turns a tiled layer into an SVG <pattern> holding one dot, so
@@ -42,7 +42,7 @@ add(
 
 add(
   'Polkadot',
-  'Big dots on a wide pitch — four or five to a cell and no more.',
+  'Big dots on a wide pitch - four or five to a cell and no more.',
   (c) => ({ rule: `${F} { ${dotted(c, '32%', '33.34%')} }${TR}` }),
   { pal: 27 }
 );
@@ -63,7 +63,7 @@ add(
 
 add(
   'Dotmatrix',
-  'A field of squares instead of dots — the same lattice, cut with straight edges.',
+  'A field of squares instead of dots - the same lattice, cut with straight edges.',
   (c) => ({
     rule: `${F} { background: ${ink(c)}; ${mskI(slotL('90deg', '11%', '20%'), slotL('0deg', '11%', '20%'))} }${TR}`,
   }),

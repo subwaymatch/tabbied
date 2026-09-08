@@ -2,7 +2,7 @@
 // worker/migrations/ are emitted from this file by `npm run db:generate`, never
 // hand-written.
 //
-// Two halves. The first four tables are better-auth's own — their *property*
+// Two halves. The first four tables are better-auth's own - their *property*
 // names are the contract (the Drizzle adapter looks up `schema.user.email` by
 // better-auth's field name, so those may not be renamed), while the SQL column
 // names underneath are ordinary snake_case. Run
@@ -117,8 +117,8 @@ export const verification = sqliteTable(
 /**
  * One answered description. Immutable once written, with a single declared
  * exception: `result` is patched to attach a generated image to a direction
- * that had none (see routes/studio.ts). The id is the capability — 128 bits of
- * randomness, and holding it is what grants read access to a shared link — so
+ * that had none (see routes/studio.ts). The id is the capability - 128 bits of
+ * randomness, and holding it is what grants read access to a shared link - so
  * it is never derived from the user or the text.
  */
 export const generation = sqliteTable(
@@ -131,14 +131,14 @@ export const generation = sqliteTable(
     description: text('description').notNull(),
     /** The validated directions document, as JSON. */
     result: text('result').notNull(),
-    /** 'ai' | 'matched-fallback' — how the three were actually chosen. */
+    /** 'ai' | 'matched-fallback' - how the three were actually chosen. */
     source: text('source').notNull(),
     model: text('model').notNull(),
     /**
      * The Responses API turn this document came from, to be quoted as
      * `previous_response_id` when a revision continues it. Nullable and must
      * stay so: a matched answer has no turn, and an upstream that does not
-     * store responses returns no id — a revision then restates the document
+     * store responses returns no id - a revision then restates the document
      * instead of chaining, which is a cost difference and not a failure.
      * Upstream retention is finite, so treat a stale id as a cache miss.
      */
@@ -173,7 +173,7 @@ export const site = sqliteTable(
     directionIndex: integer('direction_index').notNull(),
     /** The template slug, denormalised so a listing needs no join. */
     slug: text('slug').notNull(),
-    /** The brand name at creation — the listing's title. */
+    /** The brand name at creation - the listing's title. */
     title: text('title').notNull(),
     specVersion: integer('spec_version').notNull(),
     /** SHA-256 of the packaged index.html the first revision was authored for. */
@@ -208,7 +208,7 @@ export const revision = sqliteTable(
     /** What the person asked for, when this revision came from a request. */
     instruction: text('instruction'),
     /**
-     * 'ai' | 'manual' | 'fallback' — how the document changed. A fallback is
+     * 'ai' | 'manual' | 'fallback' - how the document changed. A fallback is
      * the three-string rebrand, written when the model could not hold the
      * full-document contract; the page says so.
      */
@@ -223,7 +223,7 @@ export const revision = sqliteTable(
 
 /**
  * The spend ledger. Read before every upstream call (today's totals against
- * the cap) and written after, from the response's own usage numbers — so the
+ * the cap) and written after, from the response's own usage numbers - so the
  * index that matters is (user, createdAt), which is exactly the daily query.
  */
 export const aiUsage = sqliteTable(
@@ -233,7 +233,7 @@ export const aiUsage = sqliteTable(
     userId: text('user_id')
       .notNull()
       .references(() => user.id, { onDelete: 'cascade' }),
-    /** 'directions' | 'direction-image' — capped separately. */
+    /** 'directions' | 'direction-image' - capped separately. */
     endpoint: text('endpoint').notNull(),
     model: text('model').notNull(),
     promptTokens: integer('prompt_tokens').notNull().default(0),
@@ -250,7 +250,7 @@ export const aiUsage = sqliteTable(
  *
  * These were on KV, which was wrong in a way worth recording: KV allows one
  * write per second to a key and *throws* on the second, so a client sending
- * two requests in a second — precisely the burst this exists to catch — turned
+ * two requests in a second - precisely the burst this exists to catch - turned
  * the intended 429 into a 500. It also has no compare-and-set, so the count
  * could only ever be approximate.
  *
@@ -260,7 +260,7 @@ export const aiUsage = sqliteTable(
  * table holds at most one row per user per endpoint.
  */
 export const rateWindow = sqliteTable('rate_window', {
-  /** "<endpoint>:<userId>" — the caller composes it. */
+  /** "<endpoint>:<userId>" - the caller composes it. */
   key: text('key').primaryKey(),
   count: integer('count').notNull(),
   /** When the current window ends, as unix seconds. */
@@ -270,7 +270,7 @@ export const rateWindow = sqliteTable('rate_window', {
 /**
  * Verification and reset mail in development, where no provider is configured.
  * Was KV; moved here so the Worker needs one datastore rather than two. Rows
- * are overwritten per address and are never written in production — the mailer
+ * are overwritten per address and are never written in production - the mailer
  * throws there instead, because a silently swallowed verification strands the
  * account.
  */

@@ -148,9 +148,9 @@ const ZONES = [
 ];
 
 const HOURS: [string, string][] = [
-  ['Monday to Thursday', '07:00 – 17:30'],
-  ['Friday', '07:00 – 16:00'],
-  ['Saturday', 'Trade counter, 08:00 – 12:00'],
+  ['Monday to Thursday', '07:00 - 17:30'],
+  ['Friday', '07:00 - 16:00'],
+  ['Saturday', 'Trade counter, 08:00 - 12:00'],
   ['Sunday and holidays', 'Closed'],
 ];
 
@@ -609,7 +609,7 @@ export default function BogenPapierPage() {
                   Four numbers we are prepared to publish.
                 </h2>
                 <p data-edit="figures.body" data-edit-max="240" data-edit-multiline className={styles.body}>
-                  Taken from the 2025 delivery ledger and the mill&rsquo;s own
+                  Taken from the 2025 delivery ledger and the mill's own
                   monthly returns. They are audited by nobody. They are here
                   because a merchant who will not print a number is asking you
                   to take the rest on trust.

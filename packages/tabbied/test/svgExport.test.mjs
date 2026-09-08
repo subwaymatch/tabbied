@@ -112,7 +112,7 @@ test('roundedRectPath emits plain rects and clamped rounded corners', () => {
 });
 
 test('sectorPath covers the expected quadrant', () => {
-  // CSS bearing 0..90deg (up → right, clockwise) is the top-right quadrant.
+  // CSS bearing 0..90deg (up -> right, clockwise) is the top-right quadrant.
   const d = sectorPath(0, 0, 10, 0, 90, 3);
   assert.equal(d, 'M0 0L0 -10A10 10 0 0 1 10 0Z');
   // >180deg spans set the large-arc flag.
@@ -157,7 +157,7 @@ test('parseConicSectors handles from/at prefixes (mask sectors)', () => {
 });
 
 test('parseConicSectors rejects smooth sweeps', () => {
-  // wedge's independently-rolled stop positions leave a 70deg→180deg blend.
+  // wedge's independently-rolled stop positions leave a 70deg->180deg blend.
   assert.throws(
     () =>
       parseConicSectors(
@@ -231,7 +231,7 @@ test('originBox insets the background positioning area by the border', () => {
   });
   assert.deepEqual(originBox(box, border, 'border-box'), box);
 
-  // A borderless box — every pattern that predates batch 11's frames — is
+  // A borderless box - every pattern that predates batch 11's frames - is
   // returned untouched, so nothing about those exports moves.
   const plain = {
     borderLeftWidth: '0px',
@@ -336,13 +336,13 @@ test('pseudoBoxFor leaves a borderless host untouched', () => {
 // ── SVG-export tiers ───────────────────────────────────────────────────────
 // The tier metadata drives real behaviour: `svgExport: false` disables the
 // download, `svgExportNote` puts a warning dialog in front of it. It is also
-// easy to lose — the batch generators rewrite every pattern file they own, so
+// easy to lose - the batch generators rewrite every pattern file they own, so
 // a tier that exists only in the generated JSON disappears the next time
 // anyone regenerates that batch. That is not a loud failure: the pattern keeps
 // working, the export just quietly becomes wrong. (It happened to `wedge`.)
 //
 // Pinning the three tiers here makes any such loss fail `npm test` instead.
-// Changing a design's tier is a deliberate act — update this list with it, and
+// Changing a design's tier is a deliberate act - update this list with it, and
 // update docs/svg-export.md, which these numbers are quoted in.
 const PATTERNS_DIR = path.join(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -356,7 +356,7 @@ const catalogue = fs
 
 const slugsWhere = (predicate) => catalogue.filter(predicate).map((a) => a.slug).sort();
 
-test('tier 1 — the designs SVG cannot represent still opt out', () => {
+test('tier 1 - the designs SVG cannot represent still opt out', () => {
   assert.deepEqual(slugsWhere((a) => a.svgExport === false), [
     'coil',
     'pinwheel',
@@ -365,7 +365,7 @@ test('tier 1 — the designs SVG cannot represent still opt out', () => {
   ]);
 });
 
-test('tier 2 — the designs that export with a caveat still carry their note', () => {
+test('tier 2 - the designs that export with a caveat still carry their note', () => {
   assert.deepEqual(slugsWhere((a) => Boolean(a.svgExportNote)), [
     'bokeh',
     'drypoint',
@@ -381,11 +381,11 @@ test('tier 2 — the designs that export with a caveat still carry their note', 
   ]);
 });
 
-test('tier 3 — no design makes its export tier conditional on an option', () => {
+test('tier 3 - no design makes its export tier conditional on an option', () => {
   // The Shadow toggle on bloks, cupola, foliage, mixtape, odessa, quarterfall
   // and radius was the only member of this tier, and it was removed rather
   // than left as a switch that quietly costs you a clean SVG. The mechanism
-  // still works — this pins that nothing is using it, so a design that grows
+  // still works - this pins that nothing is using it, so a design that grows
   // an option-level note has to come here and say so deliberately.
   assert.deepEqual(
     slugsWhere((a) => a.options.some((option) => option.svgExportNote)),
@@ -410,7 +410,7 @@ test('no pattern paints a box-shadow through an option', () => {
 
 test('a tier-1 design never also carries a note', () => {
   // The editor disables the download outright for these, so a note would
-  // never be shown — carrying one means the tier was set by mistake.
+  // never be shown - carrying one means the tier was set by mistake.
   for (const pattern of catalogue) {
     if (pattern.svgExport === false) {
       assert.equal(supportsSvgExport(pattern), false);

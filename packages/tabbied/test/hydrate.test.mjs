@@ -2,7 +2,7 @@
 // re-mount. patternConfigToAttributes() is what the React component puts on
 // its placeholder; patternConfigFromElement() is what a plain HTML template
 // reads back. If they drift, a packaged template silently loses its palette,
-// its options, or its motion — so the round trip is pinned here.
+// its options, or its motion - so the round trip is pinned here.
 //
 // Parsing only needs getAttribute(), so these run against a stub rather than
 // a DOM. hydratePatterns() itself (which mounts) is covered by
@@ -103,7 +103,7 @@ test('toggle options round trip as booleans', () => {
 
 test('a palette splits on top-level commas only', () => {
   // Authored palettes are hex or keywords, but the config takes any CSS
-  // color — and a functional one carries its own commas.
+  // color - and a functional one carries its own commas.
   const parsed = patternConfigFromElement(
     elementFor({
       'data-pattern': 'radius',
@@ -132,7 +132,7 @@ test('an unknown slug yields null rather than throwing', () => {
 
 test('unparseable attributes fall back to the authored defaults', () => {
   // A hand-edited template should degrade to the design's own defaults, not
-  // to a blank box — so a bad value is dropped, not fatal.
+  // to a blank box - so a bad value is dropped, not fatal.
   const parsed = patternConfigFromElement(
     elementFor({
       'data-pattern': 'radius',

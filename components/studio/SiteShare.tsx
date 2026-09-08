@@ -1,6 +1,6 @@
 'use client';
 
-// A site, read-only, at one revision — the thing a person sends to someone.
+// A site, read-only, at one revision - the thing a person sends to someone.
 //
 // No editor, no chrome beyond a title and the download: the id is the
 // capability, as with any generation link, and the revision number pins what
@@ -101,7 +101,7 @@ export default function SiteShare() {
         </div>
       </div>
 
-      <PreviewFrame html={html} problems={problems} title={`${site.title} — shared`} />
+      <PreviewFrame html={html} problems={problems} title={`${site.title} - shared`} />
     </>
   );
 }

@@ -1,5 +1,5 @@
-/* Gallery (3a): a two-column layout — the white palette rail and the design
-   grid — both plain white, with no divider or tint between them. */
+/* Gallery (3a): a two-column layout - the white palette rail and the design
+   grid - both plain white, with no divider or tint between them. */
 .gallery {
   /* Height of GalleryTopBar: the fixed rail starts below it, and the main
      column is inset by it. One number, two consumers. */
@@ -64,7 +64,7 @@
    minmax(auto, 1fr), and `min-width: auto` on a grid item floors the track at
    the item's min-content width. The cards carry `content-visibility: auto`
    (.doodleThumb), so once a card has been scrolled past, the size it last
-   rendered at becomes that floor — and narrowing the window could no longer
+   rendered at becomes that floor - and narrowing the window could no longer
    shrink the tracks, overflowing the column until a reload cleared the
    remembered size. The explicit 0 minimum lets tracks shrink on resize. */
 .grid {
@@ -118,7 +118,7 @@
 
 /* Below four columns the bands can no longer tile, so every tile narrows to one
    column and only its height still varies. Row spans are deliberately left
-   alone — that is what keeps the grid from flattening into a plain list. */
+   alone - that is what keeps the grid from flattening into a plain list. */
 @media (max-width: 1040.98px) {
   .grid > * {
     grid-column: span 1 !important;

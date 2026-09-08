@@ -33,7 +33,7 @@ const LINES = [
     stops: 12,
     minutes: 38,
     headway: '15 min',
-    span: '04:52–00:18',
+    span: '04:52-00:18',
   },
   {
     no: 'N2',
@@ -42,7 +42,7 @@ const LINES = [
     stops: 12,
     minutes: 51,
     headway: '20 min',
-    span: '05:04–23:41',
+    span: '05:04-23:41',
   },
   {
     no: 'N3',
@@ -51,7 +51,7 @@ const LINES = [
     stops: 8,
     minutes: 22,
     headway: '10 min',
-    span: '05:20–01:05',
+    span: '05:20-01:05',
   },
   {
     no: 'N4',
@@ -60,7 +60,7 @@ const LINES = [
     stops: 7,
     minutes: 29,
     headway: '12 min',
-    span: '04:10–00:52',
+    span: '04:10-00:52',
   },
   {
     no: 'N5',
@@ -69,7 +69,7 @@ const LINES = [
     stops: 19,
     minutes: 64,
     headway: '30 min',
-    span: '05:38–22:56',
+    span: '05:38-22:56',
   },
   {
     no: 'N9',
@@ -78,7 +78,7 @@ const LINES = [
     stops: 12,
     minutes: 41,
     headway: '60 min',
-    span: '00:40–04:40',
+    span: '00:40-04:40',
   },
 ];
 

@@ -1,4 +1,4 @@
-// L. Intersect — one shape cut by another, and only what they agree on left.
+// L. Intersect - one shape cut by another, and only what they agree on left.
 //
 // `mask-composite: intersect` takes a list of mask layers and keeps the part
 // every layer covers. It is the one CSS operator that makes genuinely new

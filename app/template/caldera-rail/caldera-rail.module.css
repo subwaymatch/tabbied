@@ -1,8 +1,8 @@
-/* ————————————————————————————————————————————————————————————
-   CALDERA — The Caldera Railway Company
+/* ------------------------------------------------------------
+   CALDERA - The Caldera Railway Company
    Vintage travel-poster system: parchment ground, navy ink,
    thick-and-thin rules, ticket-stub perforations, stamp badges.
-   ———————————————————————————————————————————————————————————— */
+   ------------------------------------------------------------ */
 
 .page {
   --parchment: #f0ead6;
@@ -40,7 +40,7 @@
   outline-color: var(--gold);
 }
 
-/* ————— Masthead ————— */
+/* ----- Masthead ----- */
 
 .masthead {
   text-align: center;
@@ -107,7 +107,7 @@
   color: var(--ember);
 }
 
-/* ————— Hero ————— */
+/* ----- Hero ----- */
 
 .hero {
   position: relative;
@@ -313,7 +313,7 @@
   line-height: 1.5;
 }
 
-/* ————— Divider band ————— */
+/* ----- Divider band ----- */
 
 .dividerBand {
   position: relative;
@@ -323,7 +323,7 @@
   background: var(--parchment);
 }
 
-/* ————— Section chrome ————— */
+/* ----- Section chrome ----- */
 
 .section,
 .sectionAlt {
@@ -392,7 +392,7 @@
   color: var(--ink-soft);
 }
 
-/* ————— Ticket-stub route cards ————— */
+/* ----- Ticket-stub route cards ----- */
 
 .ticketRow {
   display: grid;
@@ -528,14 +528,14 @@
   padding-top: 0.9rem;
 }
 
-/* ————— Route timeline ————— */
+/* ----- Route timeline ----- */
 
 .lineSection {
   position: relative;
   overflow: hidden;
 }
 
-/* A field of basted dashes — sleepers seen from above — under the stops. */
+/* A field of basted dashes - sleepers seen from above - under the stops. */
 .linePattern {
   position: absolute;
   inset: 0;
@@ -621,7 +621,7 @@
   color: var(--ink-soft);
 }
 
-/* ————— Aboard ————— */
+/* ----- Aboard ----- */
 
 .aboardGrid {
   display: grid;
@@ -768,7 +768,7 @@
   margin-right: auto;
 }
 
-/* ————— Fleet (dark patterned band) ————— */
+/* ----- Fleet (dark patterned band) ----- */
 
 .fleet {
   position: relative;
@@ -908,7 +908,7 @@
   font-size: 1.1rem;
 }
 
-/* ————— Journal quotes ————— */
+/* ----- Journal quotes ----- */
 
 .quoteRow {
   display: grid;
@@ -924,7 +924,7 @@
 }
 
 .quote::before {
-  content: '“';
+  content: '\201C';
   position: absolute;
   top: 0.4rem;
   left: 0;
@@ -948,7 +948,7 @@
   color: var(--ink-soft);
 }
 
-/* ————— Timetable ————— */
+/* ----- Timetable ----- */
 
 .tableScroll {
   overflow-x: auto;
@@ -1032,7 +1032,7 @@
   color: var(--ink-soft);
 }
 
-/* ————— Footer ————— */
+/* ----- Footer ----- */
 
 .footer {
   background: var(--navy);
@@ -1117,7 +1117,7 @@
   color: var(--apricot);
 }
 
-/* ————— Responsive ————— */
+/* ----- Responsive ----- */
 
 @media (max-width: 1000px) {
   .heroInner {

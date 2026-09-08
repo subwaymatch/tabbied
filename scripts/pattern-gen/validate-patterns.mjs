@@ -84,8 +84,8 @@ async function inspect(page) {
   }, [CELL_PROPS, PSEUDO_PROPS]);
 }
 
-// Patterns whose pattern is intentionally seed-independent — a pure positional
-// gradient — so reseeding is a no-op by design (the CSS transition still lets
+// Patterns whose pattern is intentionally seed-independent - a pure positional
+// gradient - so reseeding is a no-op by design (the CSS transition still lets
 // grid/palette changes morph). These skip the "reseed must differ" assertion.
 const STATIC_BY_DESIGN = new Set(['crescendo']);
 
@@ -183,7 +183,7 @@ await browser.close();
 
 if (failures.length) {
   console.log('FAILURES:');
-  for (const f of failures) console.log(' ', f.slug, '→', f.problems.join('; '));
+  for (const f of failures) console.log(' ', f.slug, '->', f.problems.join('; '));
   process.exit(1);
 }
-console.log(`all ${slugs.length} patterns render, reseed and keep their cells ✓`);
+console.log(`all ${slugs.length} patterns render, reseed and keep their cells`);

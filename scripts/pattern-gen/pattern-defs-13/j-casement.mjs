@@ -1,8 +1,8 @@
-// J. Casement — frames, and the openings cut through them.
+// J. Casement - frames, and the openings cut through them.
 //
 // Two directions, and the section runs both. A frame is a *union* of edge
 // slabs: four of them for a closed surround, three for one left open. An
-// opening is the complement — a union of two "everything but this band"
+// opening is the complement - a union of two "everything but this band"
 // layers, which leaves a rectangular hole exactly where the two bands cross,
 // because mask layers composite by adding coverage and only the intersection
 // of the two gaps is uncovered by both.
@@ -30,7 +30,7 @@ const { add, all } = section('J. Casement');
 const turned = (decls, turns = R4) =>
   `--rot: ${turns}; ${F} { ${decls} ${rot('@var(--rot)')} }${TR}`;
 
-/** Everything except the strip between `from` and `to` — a wall with a slot. */
+/** Everything except the strip between `from` and `to` - a wall with a slot. */
 const gapLin = (angle, from, to) =>
   `linear-gradient(${angle}, #000 0 ${from}, transparent ${from} ${to}, #000 ${to})`;
 

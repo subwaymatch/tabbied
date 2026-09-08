@@ -1,5 +1,5 @@
 /* ==========================================================================
-   COBALT WORKS — dry pigment mill, Sheffield
+   COBALT WORKS - dry pigment mill, Sheffield
    A trade-list page: the stock table is the hero content, the type is set
    small and dense, and the only extravagance is the blue. Pattern fields run
    full width with `transparent` in the background slot, so the bone paper
@@ -103,7 +103,7 @@
   inset: -20% -30vw;
   z-index: -1;
   /* The eyebrow measured 3.9:1 against the pattern's darkest passages while
-     averaging 7.6:1 — the colour was never the problem, the field under it
+     averaging 7.6:1 - the colour was never the problem, the field under it
      was. */
   opacity: 0.34;
   mask-image: linear-gradient(180deg, #000 0%, #000 50%, transparent 100%);

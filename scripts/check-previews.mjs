@@ -2,7 +2,7 @@
 // Every design must ship a committed preview image (public/previews/<slug>.webp)
 // and no preview may outlive its design. The catalog points agents at these
 // URLs (see generate-previews.mjs), so a missing file is a broken promise in
-// the published catalog — fail the build, don't let it rot.
+// the published catalog - fail the build, don't let it rot.
 //
 // Runs on prebuild/predev. Fix with `npm run previews` (or `npm run previews
 // <slug>` for one design).
@@ -20,7 +20,7 @@ const slugs = readdirSync(patternsDir)
 
 if (!existsSync(previewsDir)) {
   console.error(
-    'previews: public/previews/ is missing — run `npm run previews`.'
+    'previews: public/previews/ is missing - run `npm run previews`.'
   );
   process.exit(1);
 }
@@ -44,10 +44,10 @@ if (missing.length || orphans.length) {
     );
   }
   console.error(
-    `previews: ${missing.length} missing, ${orphans.length} orphan(s) — ` +
+    `previews: ${missing.length} missing, ${orphans.length} orphan(s) - ` +
       'run `npm run previews`.'
   );
   process.exit(1);
 }
 
-console.log(`previews: ${slugs.length} designs, all with a committed preview ✓`);
+console.log(`previews: ${slugs.length} designs, all with a committed preview`);

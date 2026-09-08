@@ -1,9 +1,9 @@
-// H. Bar — marks assembled from plain rectangles.
+// H. Bar - marks assembled from plain rectangles.
 //
 // No clip path, no mask, no gradient: an absolutely-positioned pseudo-element
 // with four offsets is a rectangle, and two of them are a cross, a tee, an
 // ell, a pair of rails. It is the least expressive tool in the batch and the
-// most exact — a rectangle exports as a <rect> with the same four numbers, so
+// most exact - a rectangle exports as a <rect> with the same four numbers, so
 // everything in this section sits at a flat zero against its live render.
 //
 // The section is about *placed* marks rather than fields: where a bar starts

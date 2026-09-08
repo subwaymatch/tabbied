@@ -1,9 +1,9 @@
-/* ————————————————————————————————————————————————
-   ZENITH — public observatory & planetarium
+/* ------------------------------------------------
+   ZENITH - public observatory & planetarium
    Deep-space dark, centered cosmic composition,
    soft glows, orbit-ring borders.
    Unbounded (display) + Space Mono (coordinates)
-   ———————————————————————————————————————————————— */
+   ------------------------------------------------ */
 
 .page {
   --space: #10002b;
@@ -33,7 +33,7 @@
   border-radius: 2px;
 }
 
-/* ——— hero ——— */
+/* --- hero --- */
 
 .hero {
   position: relative;
@@ -243,7 +243,7 @@
   margin-bottom: -2px;
 }
 
-/* ——— sections ——— */
+/* --- sections --- */
 
 .section {
   max-width: 62rem;
@@ -286,7 +286,7 @@
   color: var(--dim);
 }
 
-/* ——— tonight: shows ——— */
+/* --- tonight: shows --- */
 
 .showGrid {
   display: grid;
@@ -400,7 +400,7 @@
   }
 }
 
-/* ——— exhibits ——— */
+/* --- exhibits --- */
 
 .exhibitGrid {
   display: grid;
@@ -489,7 +489,7 @@
   }
 }
 
-/* ——— telescope ——— */
+/* --- telescope --- */
 
 .telescope {
   border-top: 1px solid var(--line);
@@ -567,7 +567,7 @@
   }
 }
 
-/* ——— panorama ——— */
+/* --- panorama --- */
 
 .panorama {
   position: relative;
@@ -605,7 +605,7 @@
   color: var(--orchid);
 }
 
-/* ——— visit ——— */
+/* --- visit --- */
 
 .visitGrid {
   display: grid;
@@ -684,7 +684,7 @@
   }
 }
 
-/* ——— membership ——— */
+/* --- membership --- */
 
 .tierGrid {
   display: grid;
@@ -752,7 +752,7 @@
 }
 
 .tierBody li::before {
-  content: '✦';
+  content: '\2726';
   position: absolute;
   left: 0;
   color: var(--violet);
@@ -784,7 +784,7 @@
   }
 }
 
-/* ——— school ——— */
+/* --- school --- */
 
 .school {
   border-top: 1px solid var(--line);
@@ -839,7 +839,7 @@
   }
 }
 
-/* ——— footer ——— */
+/* --- footer --- */
 
 .footer {
   border-top: 1px solid var(--line);

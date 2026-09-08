@@ -9,7 +9,7 @@ import { signOut, useSessionUser } from 'lib/authClient';
 import styles from './AccountHeader.module.css';
 
 // The account pages' masthead: the site's three destinations and, on the
-// right, the person — their initials, opening a menu that names the account
+// right, the person - their initials, opening a menu that names the account
 // and lets them leave it. Signed out (a shared link, an expired session) it
 // offers the door instead.
 

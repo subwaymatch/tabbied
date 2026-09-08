@@ -7,8 +7,8 @@
 // change plans one operation and runs it against the iframe's document; a
 // palette change plans the properties and the pattern-host rewrites, then asks
 // the runtime inside the iframe to draw its patterns again, since a rewritten
-// attribute is not a re-render. Nothing here writes markup — `writeText`
-// builds text nodes — so a person typing into these fields cannot put HTML
+// attribute is not a re-render. Nothing here writes markup - `writeText`
+// builds text nodes - so a person typing into these fields cannot put HTML
 // into the page any more than the model could.
 import { useCallback, useEffect, useMemo, useRef, useState, type RefObject } from 'react';
 import {
@@ -31,7 +31,7 @@ type Frame = HTMLIFrameElement & {
   contentWindow: (Window & { __tabbied?: { rehydrate: () => void } }) | null;
 };
 
-/** `hero.title` → `hero`; the section headings the form is grouped under. */
+/** `hero.title` -> `hero`; the section headings the form is grouped under. */
 const sectionOf = (id: string) => id.split('.')[0] ?? id;
 
 const prettify = (name: string) =>
@@ -286,7 +286,7 @@ export default function SiteEditor({
           <section className={styles.section}>
             <h3 className={styles.sectionTitle}>Draw from</h3>
             <p className={styles.hint}>
-              Your own pictures — a product, the shopfront, a look. Tick up to
+              Your own pictures - a product, the shopfront, a look. Tick up to
               four and the next picture is made from them.
             </p>
             <div className={styles.library}>
@@ -319,7 +319,7 @@ export default function SiteEditor({
                     if (file) void addReference(file);
                   }}
                 />
-                <span>{uploading ? 'Adding…' : '+ Add'}</span>
+                <span>{uploading ? 'Adding...' : '+ Add'}</span>
               </label>
             </div>
 
@@ -336,7 +336,7 @@ export default function SiteEditor({
                         // eslint-disable-next-line @next/next/no-img-element
                         <img src={src.startsWith('/api/') ? apiUrl(src) : src} alt="" />
                       ) : (
-                        <span className={styles.thumbEmpty}>Template&rsquo;s own</span>
+                        <span className={styles.thumbEmpty}>Template's own</span>
                       )}
                     </div>
                     <div className={styles.pictureMeta}>
@@ -348,7 +348,7 @@ export default function SiteEditor({
                         disabled={generating !== null}
                         onClick={() => void generate(slot)}
                       >
-                        {generating === slot.id ? 'Making…' : src ? 'Make another' : 'Make a picture'}
+                        {generating === slot.id ? 'Making...' : src ? 'Make another' : 'Make a picture'}
                       </button>
                     </div>
                   </div>
@@ -371,7 +371,7 @@ export default function SiteEditor({
           disabled={!dirty || saving}
           onClick={() => void save()}
         >
-          {saving ? 'Saving…' : dirty ? 'Save as a new revision' : 'Saved'}
+          {saving ? 'Saving...' : dirty ? 'Save as a new revision' : 'Saved'}
         </button>
       </div>
     </aside>

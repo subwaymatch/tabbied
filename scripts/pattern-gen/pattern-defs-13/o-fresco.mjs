@@ -1,9 +1,9 @@
-// O. Fresco — the fall of ink quantised into counted levels.
+// O. Fresco - the fall of ink quantised into counted levels.
 //
 // `stepFade()` writes a linear fall as flat translucent levels; `stepGlow()`
 // does the same on a circle. Every stop pair sits at the same position, so
-// both are hard-stop gradients that *read* as ramps — the levels come from the
-// alpha, not from interpolation — and the section works them the way a fresco
+// both are hard-stop gradients that *read* as ramps - the levels come from the
+// alpha, not from interpolation - and the section works them the way a fresco
 // is worked: a day's plaster at a time.
 //
 // The alpha is carried by the mask, not by the ink, so the levels stay real
@@ -30,7 +30,7 @@ const turned = (decls, turns = R4) =>
 
 add(
   'Giornata',
-  'A diagonal fall worked in four flat stages — one day’s plaster each.',
+  'A diagonal fall worked in four flat stages - one day\'s plaster each.',
   (c) => ({ rule: turned(faded(c, stepFade('135deg', 4)), R2) }),
   { pal: 5 }
 );

@@ -2,8 +2,8 @@
 //
 // Sessions come from /api/auth/get-session, which the export has no Worker
 // behind here, so each test answers it itself: no session, a member's, an
-// admin's. What is under test is the pages' own logic — who sees the nav,
-// who sees "Not found", that the data lands in the tables — not better-auth.
+// admin's. What is under test is the pages' own logic - who sees the nav,
+// who sees "Not found", that the data lands in the tables - not better-auth.
 import { test, expect, type Page } from '@playwright/test';
 import fs from 'node:fs';
 import path from 'node:path';

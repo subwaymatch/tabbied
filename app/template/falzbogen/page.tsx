@@ -25,10 +25,10 @@ const IMPOSITION = [
 ];
 
 const WORK = [
-  { n: '01', t: 'Edition binding', d: 'Sewn sections, cloth or quarter-leather, cased in by hand', run: '20 – 500', lead: '8 weeks' },
+  { n: '01', t: 'Edition binding', d: 'Sewn sections, cloth or quarter-leather, cased in by hand', run: '20 - 500', lead: '8 weeks' },
   { n: '02', t: 'Conservation', d: 'Rebacking, resewing, and leaving alone whatever can be left alone', run: '1', lead: 'By survey' },
-  { n: '03', t: 'Trade sewing', d: 'Section sewing for other binders and short-run printers', run: '50 – 5 000', lead: '3 weeks' },
-  { n: '04', t: 'Boxes and slipcases', d: 'Clamshells, drop-backs and phase boxes, measured off the book', run: '1 – 200', lead: '4 weeks' },
+  { n: '03', t: 'Trade sewing', d: 'Section sewing for other binders and short-run printers', run: '50 - 5 000', lead: '3 weeks' },
+  { n: '04', t: 'Boxes and slipcases', d: 'Clamshells, drop-backs and phase boxes, measured off the book', run: '1 - 200', lead: '4 weeks' },
   { n: '05', t: 'Blocking', d: 'Foil and blind, from brass, on cloth, paper or leather', run: 'Any', lead: '2 weeks' },
 ];
 
@@ -60,16 +60,16 @@ const FOLDS = [
 ];
 
 const STRUCTURES = [
-  ['Sewn on tapes', 'Cloth case', 'Opens flat to 170°', 'Editions, 20 – 500', '€ 34 / copy'],
-  ['Sewn on cords', 'Quarter leather', 'Opens flat to 160°', 'Editions, 20 – 120', '€ 96 / copy'],
-  ['Unsupported link', 'Paper case', 'Opens flat to 180°', 'Artists’ books', '€ 41 / copy'],
-  ['Coptic', 'Exposed spine', 'Opens flat to 180°', 'Artists’ books', '€ 52 / copy'],
+  ['Sewn on tapes', 'Cloth case', 'Opens flat to 170°', 'Editions, 20 - 500', '€ 34 / copy'],
+  ['Sewn on cords', 'Quarter leather', 'Opens flat to 160°', 'Editions, 20 - 120', '€ 96 / copy'],
+  ['Unsupported link', 'Paper case', 'Opens flat to 180°', 'Artists\' books', '€ 41 / copy'],
+  ['Coptic', 'Exposed spine', 'Opens flat to 180°', 'Artists\' books', '€ 52 / copy'],
   ['Long stitch', 'Limp vellum', 'Opens flat to 175°', 'Notebooks, editions', '€ 28 / copy'],
   ['Japanese stab', 'Soft cover', 'Does not open flat', 'Short run, single sheets', '€ 19 / copy'],
   ['Perfect, PUR', 'Soft cover', 'Opens flat to 150°', 'Runs over 300', '€ 6 / copy'],
-  ['Drop-back box', 'Cloth over board', '—', 'Any', '€ 118 each'],
-  ['Clamshell', 'Cloth over board', '—', 'Any', '€ 96 each'],
-  ['Phase box', 'Archival board', '—', 'Conservation', '€ 22 each'],
+  ['Drop-back box', 'Cloth over board', ' - ', 'Any', '€ 118 each'],
+  ['Clamshell', 'Cloth over board', ' - ', 'Any', '€ 96 each'],
+  ['Phase box', 'Archival board', ' - ', 'Conservation', '€ 22 each'],
 ];
 
 const MATERIALS = [
@@ -84,7 +84,7 @@ const MATERIALS = [
   ['Archival board', '1.5 mm', 'Boxes, conservation', 'Board', 'Held'],
   ['Linen thread', 'No. 18 / 25 / 30', 'Sewing', 'Thread', 'Held'],
   ['Wheat starch', 'Made weekly', 'Conservation adhesive', 'Adhesive', 'Made here'],
-  ['PVA, neutral', '—', 'Trade adhesive', 'Adhesive', 'Held'],
+  ['PVA, neutral', ' - ', 'Trade adhesive', 'Adhesive', 'Held'],
 ];
 
 const RECENT = [
@@ -172,7 +172,7 @@ export default function FalzbogenPage() {
 
         {/* ----------------------------------------------------- IMPOSITION
             The sheet, imposed. Eight pages a side, upside down on alternate
-            rows, exactly as it comes off the press — which is the closest a
+            rows, exactly as it comes off the press - which is the closest a
             web page gets to being a printed one. */}
         <section id="imposition" className={s.imposition} aria-labelledby="imp-h">
           <div className={s.secHead}>
@@ -340,7 +340,7 @@ export default function FalzbogenPage() {
         <section id="recent" className={s.listing} aria-labelledby="recent-h">
           <div className={s.secHead}>
             <h2 data-edit="recent.title" data-edit-max="60" id="recent-h">Off the bench</h2>
-            <p data-edit="recent.body" data-edit-max="240" data-edit-multiline>Work finished in the last three years, with the client&rsquo;s permission to say so.</p>
+            <p data-edit="recent.body" data-edit-max="240" data-edit-multiline>Work finished in the last three years, with the client's permission to say so.</p>
           </div>
           <ol className={s.table}>
             {RECENT.map((r, i) => (

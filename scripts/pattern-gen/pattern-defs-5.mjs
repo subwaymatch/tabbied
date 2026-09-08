@@ -1,15 +1,15 @@
-// Batch 5 — 200 structurally-distinct motifs (gallery orders 410+).
+// Batch 5 - 200 structurally-distinct motifs (gallery orders 410+).
 //
 // Every entry is its own shape / composition: a different primitive,
 // subdivision, symmetry or tiling. Palettes may repeat across designs (they are
-// different patterns), but no motif repeats — and none repeats a motif shipped
-// in batches 1–4 or the originals (see TAKEN below, which the add() helper
+// different patterns), but no motif repeats - and none repeats a motif shipped
+// in batches 1-4 or the originals (see TAKEN below, which the add() helper
 // enforces).
 //
 // House rules (matching every earlier batch):
-//   * reseed variation rides on a transition-able, *sampled* property —
-//     background-color, transform, clip-path, opacity, border or border-radius
-//     — never a gradient alone (gradients can't transition and would snap);
+//   * reseed variation rides on a transition-able, *sampled* property
+//     (background-color, transform, clip-path, opacity, border or border-radius),
+//     never a gradient alone (gradients can't transition and would snap);
 //   * a randomized custom prop used more than once is read via @var(--x);
 //   * every rule paints through @random(${shapeFrequency}) and ends in a
 //     transition so reseeds morph instead of snapping.
@@ -94,7 +94,7 @@ const PAL = [
 
 const TAKEN = new Set(
   (
-    // originals + batches 1–4 (shipped and trimmed library names), so batch 5
+    // originals + batches 1-4 (shipped and trimmed library names), so batch 5
     // never reuses a motif name/slug from anywhere in the project.
     'radius mixtape odessa symmetry veil blossom disque bloks terrain trigram ' +
     'ring maze pinwheel confetti foliage metro polka stitch weave ziggy pebble ' +
@@ -210,7 +210,7 @@ add('Wheelarc', 3, 'Three-quarter arcs leaving a gap that rolls around the rim e
   rule: `--rot: ${R4}; ${F} { width: 84%; height: 84%; margin: 8%; border-radius: 50%; background: ${ink(c)}; ${rot('@var(--rot)')} ${cp('polygon(0 0, 100% 0, 100% 100%, 50% 100%, 50% 50%, 0 50%)')} }${TR}`,
 }), { grid: '6x9', tg: '4x4', tf: 0.9 });
 
-add('Iris', 14, 'A soft glowing eye — a bright pupil ringed by a luminous halo, pulsing colour on reseed.', (c) => ({
+add('Iris', 14, 'A soft glowing eye - a bright pupil ringed by a luminous halo, pulsing colour on reseed.', (c) => ({
   vars: '',
   rule: `${F} { :after { content: ''; position: absolute; left: 50%; top: 50%; @size: 30%; margin: -15%; border-radius: 50%; background: ${ink(c)}; box-shadow: 0 0 calc(70px / @Y) calc(16px / @Y) ${ink(c)};${pt} } }${TR}`,
 }), { grid: '6x9', tg: '4x4', tf: 0.88 });
@@ -289,7 +289,7 @@ add('Discus', 13, 'Tilted ovals catching the throw mid-spin, each discus re-angl
 // B. Triangles, chevrons & wedges
 // ════════════════════════════════════════════════════════════════════════════
 
-add('Prow', 5, 'Bold triangles aimed like ships’ prows, each one swinging to a new heading on reseed.', (c) => ({
+add('Prow', 5, 'Bold triangles aimed like ships\' prows, each one swinging to a new heading on reseed.', (c) => ({
   vars: '',
   rule: `--rot: ${R4}; ${F} { background: ${ink(c)}; ${cp('polygon(50% 6%, 94% 94%, 6% 94%)')} ${rot('@var(--rot)')} }${TR}`,
 }), { grid: '6x9', tg: '5x5', tf: 0.95 });
@@ -339,7 +339,7 @@ add('Splittri', 6, 'Squares sliced corner to corner into two colours, the seam f
   rule: `--rot: ${R4}; ${F} { background: ${ink(c)}; ${rot('@var(--rot)')} :after { content: ''; position: absolute; inset: 0; background: ${ink(c)}; ${cp('polygon(0 0, 100% 0, 0 100%)')}${pt} } }${TR}`,
 }), { grid: '8x12', tg: '6x6', tf: 0.95 });
 
-add('Dogtooth', 28, 'Interlocking hound’s-tooth notches re-keying their teeth on every redraw.', (c) => ({
+add('Dogtooth', 28, 'Interlocking hound\'s-tooth notches re-keying their teeth on every redraw.', (c) => ({
   vars: '',
   rule: `--rot: ${R4}; ${F} { background: ${ink(c)}; ${cp('polygon(0 0, 60% 0, 60% 40%, 100% 40%, 100% 100%, 40% 100%, 40% 60%, 0 60%)')} ${rot('@var(--rot)')} }${TR}`,
 }), { grid: '6x9', tg: '5x5', tf: 0.95 });
@@ -686,7 +686,7 @@ add('Edgeband', 30, 'A band hugging one edge of each cell, the strip sliding to 
   rule: `${F} { background: ${ink(c)}; ${cp('@pick(polygon(0 0, 100% 0, 100% 28%, 0 28%), polygon(0 72%, 100% 72%, 100% 100%, 0 100%), polygon(0 0, 28% 0, 28% 100%, 0 100%), polygon(72% 0, 100% 0, 100% 100%, 72% 100%))')} }${TR}`,
 }), { grid: '6x9', tg: '5x5', tf: 0.95 });
 
-add('Doubinset', 17, 'Double frames — a square inside a ring inside a square — re-tinting layer by layer on reseed.', (c) => ({
+add('Doubinset', 17, 'Double frames - a square inside a ring inside a square - re-tinting layer by layer on reseed.', (c) => ({
   vars: '',
   rule: `${F} { background: ${ink(c)}; :before { content: ''; position: absolute; inset: 18%; background: var(--color0);${pt} } :after { content: ''; position: absolute; inset: 34%; background: ${ink(c)};${pt} } }${TR}`,
 }), { grid: '6x9', tg: '5x5', tf: 0.95 });
@@ -890,7 +890,7 @@ add('Lozengegrad', 38, 'Diamonds half in light and half in shadow, the cut turni
 }), { grid: '6x9', tg: '5x5', tf: 0.95 });
 
 // ════════════════════════════════════════════════════════════════════════════
-// H. Organic — leaves, blooms, waves & drops
+// H. Organic - leaves, blooms, waves & drops
 // ════════════════════════════════════════════════════════════════════════════
 
 add('Bud', 15, 'Plump buds tilting at every angle, each one re-tinting on reseed.', (c) => ({

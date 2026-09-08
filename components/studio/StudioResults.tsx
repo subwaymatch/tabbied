@@ -14,10 +14,10 @@ import styles from './StudioResults.module.css';
 
 // One page, two sources.
 //
-//   ?q=<description>  the matcher — scored in the browser, instant, offline,
+//   ?q=<description>  the matcher - scored in the browser, instant, offline,
 //                     and a pure function of the text, which is what made it
 //                     shareable.
-//   ?g=<id>           a stored generation — an LLM answer is not reproducible,
+//   ?g=<id>           a stored generation - an LLM answer is not reproducible,
 //                     so shareability moved into storage. The id is the
 //                     capability; the read needs no session.
 //
@@ -179,7 +179,7 @@ export default function StudioResults({ entries }: { entries: StudioEntry[] }) {
     [generationId, router]
   );
 
-  /** Imagery is per direction and on request — never three up front. */
+  /** Imagery is per direction and on request - never three up front. */
   const generateImage = useCallback(
     async (index: number) => {
       if (!generationId || !stored) {
@@ -227,7 +227,7 @@ export default function StudioResults({ entries }: { entries: StudioEntry[] }) {
     <div className={styles.main}>
       <h1 className={styles.title}>Three websites, ready to use</h1>
       <p className={styles.lede}>
-        Preview and download any &mdash; or all &mdash; of these. Want other
+        Preview and download any of these, or all of them. Want other
         options?{' '}
         <Link href="/studio" prefetch={false} className={styles.back}>
           Go back
@@ -246,8 +246,8 @@ export default function StudioResults({ entries }: { entries: StudioEntry[] }) {
           cheaper than pretending the model chose them. */}
       {stored?.result.source === 'matched-fallback' ? (
         <p className={styles.notice}>
-          The model didn&rsquo;t return a usable answer, so these are the
-          library&rsquo;s own best matches.
+          The model didn't return a usable answer, so these are the
+          library's own best matches.
         </p>
       ) : null}
 
@@ -332,8 +332,8 @@ export default function StudioResults({ entries }: { entries: StudioEntry[] }) {
                   </div>
 
                   <div className={styles.actions}>
-                    {/* A real link — middle-click, copy, no-script all land on
-                        the full page — that a plain click turns into the
+                    {/* A real link - middle-click, copy, no-script all land on
+                        the full page - that a plain click turns into the
                         dialog instead. */}
                     <Link
                       href={previewHref(generationId, direction, index)}
@@ -368,7 +368,7 @@ export default function StudioResults({ entries }: { entries: StudioEntry[] }) {
                         disabled={making !== null}
                         onClick={() => void makeSite(index)}
                       >
-                        {making === index ? 'Writing the page…' : 'Make this one'}
+                        {making === index ? 'Writing the page...' : 'Make this one'}
                       </button>
                     ) : null}
                     {generationId && stored && user && !direction.image ? (
@@ -378,7 +378,7 @@ export default function StudioResults({ entries }: { entries: StudioEntry[] }) {
                         disabled={imaging !== null}
                         onClick={() => void generateImage(index)}
                       >
-                        {imaging === index ? 'Making…' : 'Generate imagery'}
+                        {imaging === index ? 'Making...' : 'Generate imagery'}
                       </button>
                     ) : null}
                   </div>

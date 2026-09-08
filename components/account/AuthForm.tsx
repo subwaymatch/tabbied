@@ -34,7 +34,7 @@ const COPY = {
   },
 } as const;
 
-/** Where to land afterwards. Same-origin paths only — never an open redirect. */
+/** Where to land afterwards. Same-origin paths only - never an open redirect. */
 function safeNext(raw: string | null): string {
   return raw && raw.startsWith('/') && !raw.startsWith('//') ? raw : '/studio';
 }
@@ -43,7 +43,7 @@ function safeNext(raw: string | null): string {
 //
 // The Worker configures a provider or it does not (worker/auth.ts), and only
 // it knows which. The form asks once and draws a button per answer, so a
-// provider that is not set up is never a button that 500s on click — and with
+// provider that is not set up is never a button that 500s on click - and with
 // no Worker at all (the export served alone) the request fails quietly and
 // the form is email and password, which always works.
 
@@ -138,7 +138,7 @@ export default function AuthForm({ mode }: { mode: Mode }) {
     }
 
     // A new account has no session until the address is confirmed, so there is
-    // nowhere to send them yet — say so rather than bouncing to a page that
+    // nowhere to send them yet - say so rather than bouncing to a page that
     // will tell them they are signed out.
     if (mode === 'sign-up') {
       setSent(true);
@@ -174,7 +174,7 @@ export default function AuthForm({ mode }: { mode: Mode }) {
         <h1 className={styles.title}>Check your email</h1>
         <p className={styles.lede}>
           We sent a confirmation link to <strong>{email}</strong>. Follow it and
-          you&rsquo;ll be signed in.
+          you'll be signed in.
         </p>
         <p className={styles.swap}>
           <Link href="/studio">Back to Studio</Link>
@@ -242,7 +242,7 @@ export default function AuthForm({ mode }: { mode: Mode }) {
           <input
             type="password"
             autoComplete={mode === 'sign-up' ? 'new-password' : 'current-password'}
-            placeholder="••••••••"
+            placeholder={'\u2022'.repeat(8)}
             required
             minLength={8}
             value={password}
@@ -264,7 +264,7 @@ export default function AuthForm({ mode }: { mode: Mode }) {
       ) : null}
 
       <button type="submit" className={styles.submit} disabled={pending}>
-        {pending ? 'One moment…' : copy.submit}
+        {pending ? 'One moment...' : copy.submit}
       </button>
 
       <p className={styles.swap}>

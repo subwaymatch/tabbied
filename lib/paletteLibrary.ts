@@ -14,8 +14,8 @@
 // Two rules are worth keeping when adding more. No ink repeats its own
 // background, and every palette carries at least one ink with real contrast
 // against color0 (~3:1), so a design rendered in it always reads. Individual
-// inks may sit much closer than that — the pastel and tonal stories depend on
-// it — but a palette where *nothing* separates from the background renders as a
+// inks may sit much closer than that - the pastel and tonal stories depend on
+// it - but a palette where *nothing* separates from the background renders as a
 // blank sheet. Four of the soft pastels (Sorbet, Cotton, Macaron, Poolside)
 // predate the second rule and sit under it deliberately.
 
@@ -175,7 +175,7 @@ export const PALETTE_LIBRARY: LibraryPalette[] = [
 
   // ---- Second expansion (favorite-words set + ~100 more stories) ----
   // Named after a handful of favorite words, then a broad sweep of critters,
-  // botanicals, minerals and treats — same 3-7 color, background-first shape.
+  // botanicals, minerals and treats - same 3-7 color, background-first shape.
   { id: 'lib-nozy', name: 'Nozy', colors: ['#fff4ec', '#ff7a5c', '#2ec4b6', '#ffd23e', '#2b2d42'] },
   { id: 'lib-chipmunk', name: 'Chipmunk', colors: ['#f3e9d8', '#a9744f', '#e08e45', '#5b3a29', '#2f2a25'] },
   { id: 'lib-pika', name: 'Pika', colors: ['#fff7d6', '#ffd400', '#f0a500', '#f04e37', '#2b2410'] },
@@ -314,9 +314,9 @@ export const PALETTE_LIBRARY: LibraryPalette[] = [
   // ---- Third expansion (200 more, in sixteen stories) ----
   // Weather, hours, terrain, historic dyes, print and paper, glaze, metal,
   // minerals, orchard, spice, drink, places, design movements, interiors,
-  // deep water and garden flowers — same 3-7 color, background-first shape.
+  // deep water and garden flowers - same 3-7 color, background-first shape.
 
-  // Weather & sky — fronts, cloud decks and the light they leave.
+  // Weather & sky - fronts, cloud decks and the light they leave.
   { id: 'lib-squall', name: 'Squall', colors: ['#1d2530', '#4a5b6e', '#9fb3c8', '#e8eef4', '#f2c94c'] },
   { id: 'lib-monsoon', name: 'Monsoon', colors: ['#f0f4ef', '#2a6f6b', '#144d53', '#d98e04', '#1c2b2a'] },
   { id: 'lib-cirrus', name: 'Cirrus', colors: ['#eef6fc', '#b9d6ea', '#6f9fc4', '#2f5876'] },
@@ -332,7 +332,7 @@ export const PALETTE_LIBRARY: LibraryPalette[] = [
   { id: 'lib-blizzard', name: 'Blizzard', colors: ['#ffffff', '#dbe4ea', '#93a5b3', '#2f3a45'] },
   { id: 'lib-mistral', name: 'Mistral', colors: ['#eaf1f7', '#3f7bb0', '#1c4467', '#c9d9e5'] },
 
-  // Hours & light — the day told by whatever is lighting it.
+  // Hours & light - the day told by whatever is lighting it.
   { id: 'lib-cockcrow', name: 'Cockcrow', colors: ['#2a1f2b', '#d96a4a', '#f2a65a', '#f6e3c5'] },
   { id: 'lib-forenoon', name: 'Forenoon', colors: ['#fdfaf2', '#f0c419', '#6aa9d9', '#33475b'] },
   { id: 'lib-vespers', name: 'Vespers', colors: ['#2b2438', '#6a5a8c', '#c98fa5', '#f0d9c2'] },
@@ -346,7 +346,7 @@ export const PALETTE_LIBRARY: LibraryPalette[] = [
   { id: 'lib-candlelight', name: 'Candlelight', colors: ['#241a12', '#e0a44a', '#f2d9a8', '#a8622a'] },
   { id: 'lib-firelight', name: 'Firelight', colors: ['#170f0c', '#e2542a', '#f2a03d', '#f7dfae'] },
 
-  // Terrain — ground types, from limestone pavement to salt flat.
+  // Terrain - ground types, from limestone pavement to salt flat.
   { id: 'lib-karstpal', name: 'Karst', colors: ['#eceae4', '#b8b2a4', '#6e6a5e', '#33322c'] },
   { id: 'lib-moraine', name: 'Moraine', colors: ['#dfe3e6', '#8fa0a8', '#4f6068', '#2a3237', '#a8b88a'] },
   { id: 'lib-tarn', name: 'Tarn', colors: ['#0f2028', '#2d5766', '#6a9aa8', '#cfe4e8'] },
@@ -364,7 +364,7 @@ export const PALETTE_LIBRARY: LibraryPalette[] = [
   { id: 'lib-highland', name: 'Highland', colors: ['#e6e9e4', '#8a9a86', '#4f6252', '#2b332c', '#a86a52'] },
   { id: 'lib-scree', name: 'Scree', colors: ['#dcdcd8', '#a5a5a0', '#6b6b68', '#38383a'] },
 
-  // Dyes & pigments — historic colorants, named for the source.
+  // Dyes & pigments - historic colorants, named for the source.
   { id: 'lib-madder', name: 'Madder', colors: ['#f5ece4', '#b03a2e', '#7a2620', '#3a1c18'] },
   { id: 'lib-woad', name: 'Woad', colors: ['#eef1f6', '#3f5f9e', '#21365f', '#101a2e'] },
   { id: 'lib-cochineal', name: 'Cochineal', colors: ['#fdf2f2', '#c2185b', '#8a0f3c', '#2b1420'] },
@@ -384,7 +384,7 @@ export const PALETTE_LIBRARY: LibraryPalette[] = [
   { id: 'lib-sepia', name: 'Sepia', colors: ['#f4eee2', '#a07850', '#6b4c30', '#33241a'] },
   { id: 'lib-umber', name: 'Umber', colors: ['#ece4d6', '#8a6642', '#573f28', '#2a1e14'] },
 
-  // Print & paper — process inks and the stocks they sit on.
+  // Print & paper - process inks and the stocks they sit on.
   { id: 'lib-cyanotype', name: 'Cyanotype', colors: ['#0a3352', '#f0f6fa', '#7fb2d4', '#1f5f8a'] },
   { id: 'lib-risograph', name: 'Risograph', colors: ['#fffdf5', '#ff5c5c', '#3ad1c6', '#f5c518', '#2b2b2b'] },
   { id: 'lib-letterpress', name: 'Letterpress', colors: ['#f4f0e6', '#1a1a1a', '#6b6357', '#b03a2e'] },
@@ -398,7 +398,7 @@ export const PALETTE_LIBRARY: LibraryPalette[] = [
   { id: 'lib-blueprint', name: 'Blueprint', colors: ['#12345b', '#ffffff', '#8fb8d9', '#f2c94c'] },
   { id: 'lib-mimeograph', name: 'Mimeograph', colors: ['#f4f4ef', '#4a4fb0', '#8a8ed9', '#1f2140'] },
 
-  // Ceramics & glaze — kiln finishes and the clays under them.
+  // Ceramics & glaze - kiln finishes and the clays under them.
   { id: 'lib-celadon', name: 'Celadon', colors: ['#eef4ec', '#a8c7b0', '#6b9178', '#2f4a3c'] },
   { id: 'lib-tenmoku', name: 'Tenmoku', colors: ['#1a120c', '#4a2c17', '#8a5a2a', '#d9a441'] },
   { id: 'lib-raku', name: 'Raku', colors: ['#f0ece4', '#2b2b2b', '#8a5a3a', '#b5a642', '#6b7f8a'] },
@@ -412,7 +412,7 @@ export const PALETTE_LIBRARY: LibraryPalette[] = [
   { id: 'lib-bisque', name: 'Bisque', colors: ['#f6efe4', '#ddc9ab', '#a8886a', '#4a3a2c'] },
   { id: 'lib-lustreware', name: 'Lustreware', colors: ['#f5f0e6', '#b08d3f', '#6b4f22', '#d9c48a', '#2b2418'] },
 
-  // Metal & workshop — alloys, platings and shop-floor patina.
+  // Metal & workshop - alloys, platings and shop-floor patina.
   { id: 'lib-bronze', name: 'Bronze', colors: ['#f0eae0', '#a5703a', '#6b4622', '#2f2418', '#c9a05c'] },
   { id: 'lib-brass', name: 'Brass', colors: ['#f7f2e2', '#c9a227', '#8a6f18', '#3a3010'] },
   { id: 'lib-gunmetal', name: 'Gunmetal', colors: ['#22262b', '#4f565f', '#8a939c', '#d5dae0'] },
@@ -426,7 +426,7 @@ export const PALETTE_LIBRARY: LibraryPalette[] = [
   { id: 'lib-foundry', name: 'Foundry', colors: ['#1b1a18', '#4a4540', '#8a7f6f', '#e2542a'] },
   { id: 'lib-millscale', name: 'Millscale', colors: ['#26262a', '#4a4a52', '#7a7a86', '#b5b5be', '#d9a441'] },
 
-  // Stones & gems — mineral colour, cut and uncut.
+  // Stones & gems - mineral colour, cut and uncut.
   { id: 'lib-tourmaline', name: 'Tourmaline', colors: ['#f0f5f2', '#2f8a6b', '#d94f7a', '#1f3f38'] },
   { id: 'lib-peridot', name: 'Peridot', colors: ['#f4f8e4', '#a8c42c', '#6b8a18', '#33400c'] },
   { id: 'lib-garnet', name: 'Garnet', colors: ['#f6eeef', '#7a1c2b', '#b03a4a', '#2b0f14'] },
@@ -440,7 +440,7 @@ export const PALETTE_LIBRARY: LibraryPalette[] = [
   { id: 'lib-labradorite', name: 'Labradorite', colors: ['#1a2028', '#3f5a6b', '#6b8fa8', '#a8c4d4', '#d9a441'] },
   { id: 'lib-alabaster', name: 'Alabaster', colors: ['#f8f6f0', '#e0dbcf', '#a89f8c', '#4f4a3f'] },
 
-  // Orchard & hedgerow — fruit off a tree or a thorn.
+  // Orchard & hedgerow - fruit off a tree or a thorn.
   { id: 'lib-quince', name: 'Quince', colors: ['#fdf7e2', '#e0b93c', '#a8862a', '#6b7f3a', '#3a3418'] },
   { id: 'lib-greengage', name: 'Greengage', colors: ['#f2f6e0', '#a8c44a', '#6b8a2c', '#33401a'] },
   { id: 'lib-loquat', name: 'Loquat', colors: ['#fff5e2', '#e8a83c', '#b87a1a', '#4a3a12'] },
@@ -454,7 +454,7 @@ export const PALETTE_LIBRARY: LibraryPalette[] = [
   { id: 'lib-pomegranate', name: 'Pomegranate', colors: ['#f8eef0', '#a8203a', '#6b0f22', '#d95a6b', '#2b1218'] },
   { id: 'lib-medlar', name: 'Medlar', colors: ['#f2eadd', '#a8814a', '#6b4f2a', '#33281a', '#7a4a52'] },
 
-  // Spice & pantry — the shelf, ground and whole.
+  // Spice & pantry - the shelf, ground and whole.
   { id: 'lib-cardamom', name: 'Cardamom', colors: ['#f0f4e8', '#9ab07a', '#5f7a4a', '#2f3d24'] },
   { id: 'lib-sumac', name: 'Sumac', colors: ['#f7ece8', '#a83a2a', '#6b1f16', '#d9895a'] },
   { id: 'lib-fenugreek', name: 'Fenugreek', colors: ['#f7f0da', '#c9a83c', '#8a6f1c', '#4a3d12'] },
@@ -468,7 +468,7 @@ export const PALETTE_LIBRARY: LibraryPalette[] = [
   { id: 'lib-dukkah', name: 'Dukkah', colors: ['#f2ead8', '#a88a4a', '#6b5228', '#3a2c16', '#7a8a4a'] },
   { id: 'lib-chicory', name: 'Chicory', colors: ['#f0f0f5', '#4a4a8a', '#2b2b5f', '#a89a6a'] },
 
-  // Glass & drink — whatever is in the cup or the coupe.
+  // Glass & drink - whatever is in the cup or the coupe.
   { id: 'lib-cortado', name: 'Cortado', colors: ['#f5ece0', '#8a5a3a', '#4f3020', '#d9b58a'] },
   { id: 'lib-horchata', name: 'Horchata', colors: ['#faf3e8', '#e0cbaa', '#a8886a', '#4a3a2c', '#c9a05c'] },
   { id: 'lib-campari', name: 'Campari', colors: ['#fdf1ee', '#d9202a', '#a01018', '#2b0c0e', '#f2c94c'] },
@@ -482,7 +482,7 @@ export const PALETTE_LIBRARY: LibraryPalette[] = [
   { id: 'lib-limoncello', name: 'Limoncello', colors: ['#fffce6', '#f2d21c', '#c9a800', '#4a4208'] },
   { id: 'lib-pilsner', name: 'Pilsner', colors: ['#fdf6e0', '#e8c44a', '#b89a22', '#3a3212'] },
 
-  // Places — cities keyed to the colours they are painted in.
+  // Places - cities keyed to the colours they are painted in.
   { id: 'lib-lisbon', name: 'Lisbon', colors: ['#f5f2ea', '#2b6fa8', '#d9a441', '#a83a2a', '#33383d'] },
   { id: 'lib-marrakech', name: 'Marrakech', colors: ['#f2e2d0', '#c24a2a', '#d9903c', '#4a6b5a', '#2f2018'] },
   { id: 'lib-havana', name: 'Havana', colors: ['#f7f0e2', '#2ba88a', '#e8a83c', '#d94f4a', '#2b3a3a'] },
@@ -498,7 +498,7 @@ export const PALETTE_LIBRARY: LibraryPalette[] = [
   { id: 'lib-tangier', name: 'Tangier', colors: ['#f5efe2', '#2b7f8a', '#d98a2a', '#a83a4a', '#2b2a28'] },
   { id: 'lib-ushuaia', name: 'Ushuaia', colors: ['#eef2f4', '#3f6b8a', '#1f3f5a', '#a8b8c2', '#d9704a'] },
 
-  // Movements & eras — design periods and their house palettes.
+  // Movements & eras - design periods and their house palettes.
   { id: 'lib-memphis', name: 'Memphis', colors: ['#fdfdf8', '#ff3d8b', '#3eecff', '#ffd23e', '#2b2b2b'] },
   { id: 'lib-deco', name: 'Deco', colors: ['#12100e', '#c9a227', '#e8dcc0', '#2b6b6b'] },
   { id: 'lib-nouveau', name: 'Nouveau', colors: ['#f2eee0', '#6b7f4a', '#a8703f', '#3a4a3a', '#c9a86a'] },
@@ -512,7 +512,7 @@ export const PALETTE_LIBRARY: LibraryPalette[] = [
   { id: 'lib-streamline', name: 'Streamline', colors: ['#e8eaec', '#4f6b7f', '#a8b5bd', '#22303a', '#c9a227'] },
   { id: 'lib-secession', name: 'Secession', colors: ['#f4f1e6', '#2b6b6b', '#c9a227', '#1f1f1f', '#a83a4a'] },
 
-  // Interiors — surfaces, floors and soft furnishing.
+  // Interiors - surfaces, floors and soft furnishing.
   { id: 'lib-terrazzo', name: 'Terrazzo', colors: ['#f4f1ea', '#c25a52', '#4a7f8a', '#d9b83c', '#33302b'] },
   { id: 'lib-marmoreal', name: 'Marmoreal', colors: ['#f6f4f0', '#d8d2c6', '#8a8478', '#3a362f', '#6b7f7a'] },
   { id: 'lib-boucle', name: 'Boucle', colors: ['#f2ede4', '#ddd2c0', '#a8967c', '#55493a'] },
@@ -524,7 +524,7 @@ export const PALETTE_LIBRARY: LibraryPalette[] = [
   { id: 'lib-parquet', name: 'Parquet', colors: ['#efe2cc', '#b58a52', '#7a5228', '#3d2a16'] },
   { id: 'lib-toile', name: 'Toile', colors: ['#f6f2ea', '#2b4f7a', '#6b8fb5', '#1a2b42'] },
 
-  // Deep water — the ocean by depth, and what glows down there.
+  // Deep water - the ocean by depth, and what glows down there.
   { id: 'lib-abyssal', name: 'Abyssal', colors: ['#05080f', '#12233a', '#2b4f6b', '#6b9ab5'] },
   { id: 'lib-bathyal', name: 'Bathyal', colors: ['#081420', '#1b3a52', '#3f6b88', '#8ab5c9', '#d9e8ee'] },
   { id: 'lib-hadal', name: 'Hadal', colors: ['#03050a', '#1b3048', '#3f6b88', '#8fb8cc'] },
@@ -536,7 +536,7 @@ export const PALETTE_LIBRARY: LibraryPalette[] = [
   { id: 'lib-trench', name: 'Trench', colors: ['#060a10', '#1e3346', '#4a6b84', '#8fa8bd', '#c9a227'] },
   { id: 'lib-sonar', name: 'Sonar', colors: ['#04120c', '#0f3a26', '#2ba86b', '#8ce0b0'] },
 
-  // Garden flowers — a border in bloom.
+  // Garden flowers - a border in bloom.
   { id: 'lib-hellebore', name: 'Hellebore', colors: ['#f0f2ec', '#7f8a6b', '#4a5f4a', '#a86b8a', '#2b3328'] },
   { id: 'lib-delphinium', name: 'Delphinium', colors: ['#f0f3fb', '#3f5fc4', '#23388a', '#8aa8e0', '#1a2044'] },
   { id: 'lib-larkspur', name: 'Larkspur', colors: ['#f2f0fa', '#5a4fb0', '#33288a', '#a89ad9'] },

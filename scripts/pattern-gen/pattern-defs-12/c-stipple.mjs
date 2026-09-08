@@ -1,8 +1,8 @@
-// C. Stipple — a dot field with a ramp laid over it.
+// C. Stipple - a dot field with a ramp laid over it.
 //
 // Two mask layers intersected: a tiled dot field, and a smooth gradient. The
 // field decides where ink can go, the ramp decides how much of it survives, and
-// what comes out is a halftone that thins across the cell — dense at one edge,
+// what comes out is a halftone that thins across the cell - dense at one edge,
 // scattered in the middle, gone at the other.
 //
 // `mask-composite: intersect` is what multiplies them, and it exports as one

@@ -13,7 +13,7 @@ import { loadEditableCatalog } from '../lib/templateAssets';
 // The admin tier: reads over everything, for people whose user row says
 // `role = 'admin'`. Bans and impersonation are better-auth's own endpoints
 // under /api/auth/admin/* and are not repeated here; this is the data those
-// pages show. Every route runs the gate — the pages hiding themselves is
+// pages show. Every route runs the gate - the pages hiding themselves is
 // cosmetic.
 
 type AdminUser = { id: string; role?: string | null };

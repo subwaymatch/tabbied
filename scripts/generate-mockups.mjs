@@ -7,10 +7,10 @@
  *   packages/tabbied/patterns/<design>.json
  *      │  scripts/render-pattern.mjs (headless Chromium)
  *      ▼
- *   generated-images/refs/<id>-ref.png     ← the actual pattern, exact pixels
+ *   generated-images/refs/<id>-ref.png     <- the actual pattern, exact pixels
  *      │  POST /v1/images/edits  (multipart; the ref is the `image` field)
  *      ▼
- *   generated-images/mockups/<id>.png      ← the object wearing the pattern
+ *   generated-images/mockups/<id>.png      <- the object wearing the pattern
  *
  * Why the edits endpoint and not a text prompt: the model cannot execute
  * css-doodle, so describing the pattern in words yields something that merely
@@ -123,16 +123,16 @@ async function main() {
 
   // 1. Render each reference. Free, deterministic, and worth eyeballing before
   //    spending anything on the edit.
-  console.log(`Rendering ${list.length} pattern reference(s)…`);
+  console.log(`Rendering ${list.length} pattern reference(s)...`);
   mkdirSync(REF_DIR, { recursive: true });
   for (const m of list) {
     const out = join(REF_DIR, `${m.id}-ref.png`);
-    if (!opts.force && existsSync(out)) { console.log(`  • ${m.id} ref exists`); m._ref = out; continue; }
+    if (!opts.force && existsSync(out)) { console.log(`  - ${m.id} ref exists`); m._ref = out; continue; }
     const a = m.pattern;
     await renderPattern({ design: a.design, out, palette: a.palette ?? null, seed: a.seed ?? m.id,
                           width: a.width ?? 1024, height: a.height ?? 1024, fit: a.fit ?? 'grid',
                           cell: a.cell ?? null, scale: 2 });
-    console.log(`  ✓ ${m.id}-ref.png (${a.design})`);
+    console.log(`  ok ${m.id}-ref.png (${a.design})`);
     m._ref = out;
   }
   if (opts.refsOnly) return console.log(`\nReferences in ${REF_DIR}. Review, then rerun without --refs-only.`);
@@ -142,7 +142,7 @@ async function main() {
   mkdirSync(opts.out, { recursive: true });
 
   const todo = list.filter((m) => {
-    if (!opts.force && existsSync(join(opts.out, `${m.id}.png`))) { console.log(`  • skip ${m.id} (exists)`); return false; }
+    if (!opts.force && existsSync(join(opts.out, `${m.id}.png`))) { console.log(`  - skip ${m.id} (exists)`); return false; }
     return true;
   });
   if (!todo.length) return console.log('Nothing to generate.');
@@ -161,8 +161,8 @@ async function main() {
           fidelity: opts.fidelity, model, key,
         });
         writeFileSync(join(opts.out, `${m.id}.png`), buf);
-        ok++; console.log(`  ✓ ${m.id}.png (${(buf.length / 1e6).toFixed(2)}MB)`);
-      } catch (err) { failed++; console.error(`  ✗ ${m.id}: ${err.message}`); }
+        ok++; console.log(`  ok ${m.id}.png (${(buf.length / 1e6).toFixed(2)}MB)`);
+      } catch (err) { failed++; console.error(`  failed ${m.id}: ${err.message}`); }
       await sleep(250);
     }
   }

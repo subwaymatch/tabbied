@@ -4,8 +4,8 @@
 // and an edits document it computes *what* would change, as data. The DOM step
 // (apply.ts) is then a short, dull executor.
 //
-// The split is not ceremony. Everything interesting — validation, palette
-// resolution, option ranges, attribute serialization — is here, where it can
+// The split is not ceremony. Everything interesting - validation, palette
+// resolution, option ranges, attribute serialization - is here, where it can
 // be tested with `node --test` and no browser, and where the site builder can
 // call it to preview a change, the packager to write one, and an LLM pipeline
 // to check its own output before anyone sees it.
@@ -384,7 +384,7 @@ export function planEdits(
   return { operations, problems };
 }
 
-/** Just the problems — for a caller that wants to check before applying. */
+/** Just the problems - for a caller that wants to check before applying. */
 export function validateEdits(
   spec: TemplateSpec,
   document: EditsDocument
@@ -452,7 +452,7 @@ export const hasErrors = (problems: readonly Problem[]): boolean =>
 
 export function formatProblems(problems: readonly Problem[]): string {
   return problems
-    .map((problem) => `  ${problem.level}: ${problem.path} — ${problem.message}`)
+    .map((problem) => `  ${problem.level}: ${problem.path} - ${problem.message}`)
     .join('\n');
 }
 
@@ -460,7 +460,7 @@ function isPatternSlotWithRoles(slot: Slot): slot is PatternSlot {
   return slot.kind === 'pattern' && slot.paletteRoles != null;
 }
 
-/** Pattern slots that follow the brand palette — the ones a re-colour moves. */
+/** Pattern slots that follow the brand palette - the ones a re-colour moves. */
 export function recolourablePatternSlots(spec: TemplateSpec): PatternSlot[] {
   return spec.slots.filter(isPatternSlotWithRoles);
 }

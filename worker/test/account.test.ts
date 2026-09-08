@@ -32,7 +32,7 @@ describe('account usage', () => {
     expect(before.recent).toHaveLength(0);
 
     // A generation with no upstream is answered from the matcher and spends
-    // nothing, so the ledger stays empty — which is the honest number.
+    // nothing, so the ledger stays empty - which is the honest number.
     await SELF.fetch(`${ORIGIN}/api/studio/directions`, {
       method: 'POST',
       headers: { ...json, cookie },

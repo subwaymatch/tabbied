@@ -59,7 +59,7 @@ export default function PreviewFrame({
           // What stays denied is what this page actually has: the packaged
           // template's `<form action="#">` and its `<a href="#">` links cannot
           // navigate the top frame, submit, or open a popup. The content is
-          // first-party throughout — our template, our runtime — and the only
+          // first-party throughout - our template, our runtime - and the only
           // model-authored strings reach it as text nodes (`writeText` builds
           // them with createTextNode precisely so there is no markup path).
           // That reasoning holds *until* user-supplied markup or images enter

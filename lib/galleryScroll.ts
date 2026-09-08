@@ -32,7 +32,7 @@ export function markGalleryNavigation(): void {
 }
 
 // One-shot read of the marker (consumed on the editor's mount). Without it,
-// "Back to gallery" must not use history.back() — the previous entry could be
+// "Back to gallery" must not use history.back() - the previous entry could be
 // anything (a search result, another site) when the editor was deep-linked.
 export function consumeGalleryNavigation(): boolean {
   try {

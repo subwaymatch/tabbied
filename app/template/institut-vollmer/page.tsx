@@ -262,11 +262,11 @@ const FIGURES = [
 const CONTACT = [
   { label: 'Address', value: 'Nordstrasse 44, 4058 Basel' },
   { label: 'Telephone', value: '+41 61 720 40 00' },
-  { label: 'Reception', value: 'Mon to Fri, 08.00–17.00' },
-  { label: 'Sample intake', value: 'Mon to Thu, 09.00–15.00' },
+  { label: 'Reception', value: 'Mon to Fri, 08.00-17.00' },
+  { label: 'Sample intake', value: 'Mon to Thu, 09.00-15.00' },
   { label: 'Tram', value: 'Line 8, stop Nordstrasse' },
   { label: 'Rail', value: 'Basel Badischer Bahnhof, 12 minutes on foot' },
-  { label: 'Deliveries', value: 'Gate 2, Hafenweg, 07.00–16.00' },
+  { label: 'Deliveries', value: 'Gate 2, Hafenweg, 07.00-16.00' },
   { label: 'Visitors', value: 'Photographic identification at reception' },
 ];
 
@@ -663,7 +663,7 @@ export default function InstitutVollmerPage() {
                 ))}
               </ul>
               <p data-edit="figures.figuresNote" data-edit-max="240" data-edit-multiline className={s.figuresNote}>
-                The full annual report, 64 pages including the auditor&rsquo;s
+                The full annual report, 64 pages including the auditor's
                 statement and every project title, is available on request and
                 is posted to members of the foundation council each April.
               </p>
@@ -733,14 +733,14 @@ export default function InstitutVollmerPage() {
                   kontakt@institut-vollmer.ch
                 </a>
                 <br />
-                Mon to Fri, 08.00–17.00
+                Mon to Fri, 08.00-17.00
               </p>
             </div>
             <div className={s.footColophon}>
               <p data-edit="footer.footLabel2" data-edit-max="240" data-edit-multiline className={s.footLabel}>Colophon</p>
               <p data-edit="footer.body" data-edit-max="240" data-edit-multiline>
                 Stiftung Institut Vollmer, established 1951 by Anna Vollmer
-                (1899–1981). Registered as a non-profit foundation under federal
+                (1899-1981). Registered as a non-profit foundation under federal
                 supervision. Set in Inter. Pattern fields generated with
                 Tabbied.
               </p>

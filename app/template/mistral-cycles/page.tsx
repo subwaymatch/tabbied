@@ -288,7 +288,7 @@ export default function MistralCyclesPage() {
             </article>
           </div>
           <p data-edit="phil.pullLine" data-edit-max="240" data-edit-multiline className={styles.pullLine}>
-            “A frame should be quiet. The road has enough to say.”
+            "A frame should be quiet. The road has enough to say."
           </p>
         </section>
 
@@ -424,7 +424,7 @@ export default function MistralCyclesPage() {
           </div>
           <p data-edit="geometry.tableNote" data-edit-max="240" data-edit-multiline className={styles.tableNote}>
             HT∠ head-tube angle · ST∠ seat-tube angle · CS chainstay length · WB
-            wheelbase. Trail figures assume 650B × 42 at size 51–55, 700C × 35
+            wheelbase. Trail figures assume 650B × 42 at size 51-55, 700C × 35
             above.
           </p>
         </section>
@@ -448,7 +448,7 @@ export default function MistralCyclesPage() {
               <div className={styles.wsText}>
                 <p data-edit="workshop.body" data-edit-max="240" data-edit-multiline>
                   The shop is a former die-cutting room on Anvil Street: north
-                  light, a concrete floor with forty years of other people&rsquo;s
+                  light, a concrete floor with forty years of other people's
                   work in it, and a ventilation fan we argue with every winter.
                   One bench holds the torch, the other holds the files. Frames
                   move between them slowly.
@@ -643,7 +643,7 @@ export default function MistralCyclesPage() {
           <div className={styles.footerCol}>
             <p data-edit="footer.footerLabel2" data-edit-max="240" data-edit-multiline className={styles.footerLabel}>HOURS</p>
             <p>
-              Tue–Fri 09:00–17:00
+              Tue-Fri 09:00-17:00
               <br />
               Visitors: Fridays only
             </p>

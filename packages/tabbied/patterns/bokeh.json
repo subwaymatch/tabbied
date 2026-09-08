@@ -4,7 +4,7 @@
   "galleryOrder": 81,
   "svgExportNote": "The blur is exported as an SVG filter effect. Browsers render it correctly, but some design tools (like Figma or Illustrator) import SVG filters imperfectly.",
   "galleryWhite": true,
-  "description": "Out-of-focus city lights swimming in the dark — discs drift, swell and refocus softly with every redraw.",
+  "description": "Out-of-focus city lights swimming in the dark - discs drift, swell and refocus softly with every redraw.",
   "tags": [
     "circles",
     "dots",

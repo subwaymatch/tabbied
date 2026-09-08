@@ -2,7 +2,7 @@
 //
 // These values used to live in components/template/TemplateSite.tsx and are
 // now shared with applyEdits, so the thing worth pinning is that the shared
-// implementation still produces what that component produced — a re-colour and
+// implementation still produces what that component produced - a re-colour and
 // a first render must agree, or a downloaded page differs from the one it was
 // downloaded from.
 import test from 'node:test';

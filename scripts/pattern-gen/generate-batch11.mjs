@@ -5,7 +5,7 @@
 // patterns shipped in another batch.
 //
 // On top of the house rules every batch is checked against, this one lints for
-// the CSS that would cost a design its clean SVG-export tier — box-shadow,
+// the CSS that would cost a design its clean SVG-export tier - box-shadow,
 // filter, blend modes, smooth conic sweeps, nested doodles and @svg payloads.
 // Both sets live in pattern-lints.mjs, shared with batch 12, which makes the
 // same promise. Those checks are the cheap first pass; validate-svg-batch11.mjs

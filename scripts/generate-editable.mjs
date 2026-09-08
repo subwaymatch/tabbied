@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Derive each template site's editable-section spec from the static export.
 //
-// Everything here is read out of out/template/<slug>/index.html — the current
+// Everything here is read out of out/template/<slug>/index.html - the current
 // text, the image sources, the pattern configuration, the brand palette. That
 // is the same doctrine as the download packager (see the "Downloadable
 // templates" section of CLAUDE.md): the spec is generated from the
@@ -10,8 +10,8 @@
 // built to avoid.
 //
 // **This script is also the build gate.** An annotation that resolves to
-// nothing — an image slot with no <img>, two elements sharing an id while
-// saying different things — exits non-zero. That failure is otherwise
+// nothing - an image slot with no <img>, two elements sharing an id while
+// saying different things - exits non-zero. That failure is otherwise
 // completely silent: the spec looks fine and the editor's control just does
 // nothing. The repo has been here before, with 278 gallery thumbnail configs
 // naming designs that no longer existed, and the cure was the same.
@@ -49,7 +49,7 @@ const only = process.argv.slice(2).filter((arg) => !arg.startsWith('-'));
 
 if (!existsSync(exportDir)) {
   console.error(
-    'editable: out/template is missing — run `next build` first ' +
+    'editable: out/template is missing - run `next build` first ' +
       '(`npm run build` does this for you).'
   );
   process.exit(1);
@@ -69,7 +69,7 @@ if (existsSync(designCatalogPath)) {
   designOptions = (slug) => byslug.get(slug);
 } else {
   console.warn(
-    'editable: packages/tabbied/catalog.json is missing — pattern slots will ' +
+    'editable: packages/tabbied/catalog.json is missing - pattern slots will ' +
       'carry no option ranges. Run `npm run build:packages`.'
   );
 }
@@ -77,7 +77,7 @@ if (existsSync(designCatalogPath)) {
 const titleOf = (html) => {
   const match = /<title[^>]*>([\s\S]*?)<\/title>/i.exec(html);
 
-  return match ? match[1].replace(/\s*[·|—-]\s*Tabbied\s*$/i, '').trim() : '';
+  return match ? match[1].replace(/\s*[·| - -]\s*Tabbied\s*$/i, '').trim() : '';
 };
 
 const fontsOf = (html) => {
@@ -121,8 +121,8 @@ for (const slug of slugs) {
   const { slots, root, problems } = extractFromHtml(html, { designOptions });
 
   // A site with no annotations is not a failure. Coverage is deliberately
-  // incremental — the shared-component sites are annotated first and the
-  // bespoke pages follow in batches — so an unannotated page is just one the
+  // incremental - the shared-component sites are annotated first and the
+  // bespoke pages follow in batches - so an unannotated page is just one the
   // editor cannot open yet.
   if (!root && slots.length === 0) {
     skipped += 1;
@@ -131,7 +131,7 @@ for (const slug of slugs) {
 
   if (!root) {
     failures.push(
-      `${slug}: ${slots.length} slot(s) but no [data-edit-root] — nothing ` +
+      `${slug}: ${slots.length} slot(s) but no [data-edit-root] - nothing ` +
         'declares how the palette is derived'
     );
     continue;
@@ -180,7 +180,7 @@ for (const slug of slugs) {
 if (failures.length > 0) {
   for (const failure of failures) console.error(`editable: ${failure}`);
   console.error(
-    `editable: ${failures.length} problem(s) — every annotation must resolve ` +
+    `editable: ${failures.length} problem(s) - every annotation must resolve ` +
       'to exactly one thing in the export.'
   );
   process.exit(1);
@@ -190,7 +190,7 @@ const counts = (spec, kind) =>
   spec.slots.filter((slot) => slot.kind === kind).length;
 
 // The aggregate index: what /create lists, and what the MCP `list_templates`
-// tool serves. Small enough to return whole — 57 entries needs no query
+// tool serves. Small enough to return whole - 57 entries needs no query
 // language.
 const catalog = {
   specVersion: SPEC_VERSION,
@@ -210,7 +210,7 @@ const catalog = {
     ],
     // Which pieces of brand copy this template can be handed. Studio reads
     // this to decide whether a generated direction can be previewed *as* the
-    // business, or only as the template in its colours — see brand.ts.
+    // business, or only as the template in its colours - see brand.ts.
     copyRoles: declaredCopyRoles(spec),
     slots: {
       text: counts(spec, 'text'),
@@ -236,6 +236,6 @@ const totals = specs.reduce(
 );
 
 console.log(
-  `editable: ${specs.length} site(s) — ${totals.text} text, ${totals.image} ` +
-    `image, ${totals.pattern} pattern slots; ${skipped} not yet annotated ✓`
+  `editable: ${specs.length} site(s) - ${totals.text} text, ${totals.image} ` +
+    `image, ${totals.pattern} pattern slots; ${skipped} not yet annotated`
 );

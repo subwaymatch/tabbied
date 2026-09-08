@@ -1,8 +1,8 @@
-// A. Falloff — one ink and one straight ramp.
+// A. Falloff - one ink and one straight ramp.
 //
 // The whole section is a single question: where does the ink stop being ink?
-// A `linear-gradient(#000 …, transparent …)` used as a mask answers it, and
-// moving the two stops is the entire design space — hold solid and then drop
+// A `linear-gradient(#000 ..., transparent ...)` used as a mask answers it, and
+// moving the two stops is the entire design space - hold solid and then drop
 // away, run the ramp corner to corner instead of edge to edge, break the fall
 // with a flat step, or shut the whole thing inside a bar so it fades along its
 // own length.

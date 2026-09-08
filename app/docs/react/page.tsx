@@ -45,7 +45,7 @@ export function Banner() {
   return <TabbiedPattern pattern={radius} seed="k9Pz" height={320} />;
 }`;
 
-const treeShakeCode = `// Import only what you render — bundlers ship just those presets.
+const treeShakeCode = `// Import only what you render - bundlers ship just those presets.
 import { radius, windowpane } from 'tabbied/patterns';
 
 // Building a gallery? The full record pulls in every design.
@@ -71,7 +71,7 @@ const fitCode = `// grid (default): the cell grid adapts to the container size
 
 // cover: a fixed-resolution render scaled uniformly to fill the box.
 // Every design is cell-tiled, so the render adapts to the box's shape
-// and tiles it with whole cells — nothing is cropped mid-cell
+// and tiles it with whole cells - nothing is cropped mid-cell
 <TabbiedPattern pattern={radius} fit="cover" />
 
 // fixed: an explicit canvas size in px (what the Tabbied editor uses)
@@ -86,7 +86,7 @@ const paletteCode = `<TabbiedPattern
   height={280}
 />`;
 
-const transparentCode = `// Any CSS color works for a slot — including 'transparent',
+const transparentCode = `// Any CSS color works for a slot - including 'transparent',
 // which drops the background entirely.
 <TabbiedPattern
   pattern={radius}
@@ -140,7 +140,7 @@ const a11yCode = `// Decorative (default): hidden from assistive tech.
   ariaLabel="Generative pattern of quarter circles"
 />`;
 
-const ssrCode = `// App Router: works directly in a Server Component tree — the
+const ssrCode = `// App Router: works directly in a Server Component tree - the
 // component itself is the client boundary.
 import { TabbiedPattern } from 'tabbied/react';
 import { radius } from 'tabbied/patterns';
@@ -157,7 +157,7 @@ const controller = createPattern(document.querySelector('#stage'), {
   seed: 'k9Pz',
   redrawInterval: 5200, // optional: reseed on a timer, gates included
   // Measured fits (grid/cover) mount asynchronously, once the
-  // host's size is known — drive the controller from onReady.
+  // host's size is known - drive the controller from onReady.
   onReady: async () => {
     controller.redraw(); // re-randomize the seed
     await controller.exportImage();
@@ -192,8 +192,8 @@ const myPattern: PatternDefinition = {
 };`;
 
 // The fit-mode gallery below. Every entry draws `radius` at the same seed into
-// the same landscape and portrait boxes, so the only variable on show is `fit`
-// — describing the modes in prose never makes clear how differently they treat
+// the same landscape and portrait boxes, so the only variable on show is `fit`;
+// describing the modes in prose never makes clear how differently they treat
 // a box that doesn't match the drawing.
 const FIT_DEMOS = [
   {
@@ -209,7 +209,7 @@ const FIT_DEMOS = [
   {
     fit: 'fixed',
     label: 'fit="fixed"',
-    note: 'A canvas of its own size — here 150 × 225, which each box crops.',
+    note: 'A canvas of its own size - here 150 × 225, which each box crops.',
   },
 ] as const;
 
@@ -218,7 +218,7 @@ function Code({ children }: { children: ReactNode }) {
 }
 
 // One fit mode, drawn into both box shapes. Density 1 (90px cells) keeps the
-// cells big enough to read as shapes at preview size — and to make it obvious
+// cells big enough to read as shapes at preview size - and to make it obvious
 // when they stay square.
 function FitDemo({
   fit,
@@ -327,17 +327,17 @@ export default function ReactDocsPage() {
                     </p>
                     <ul className={styles.list}>
                       <li>
-                        <Code>tabbied/react</Code> — the{' '}
+                        <Code>tabbied/react</Code> - the{' '}
                         <Code>TabbiedPattern</Code> component. It renders an
                         pattern into a normal, CSS-sizeable box, like an{' '}
                         <Code>&lt;img&gt;</Code>.
                       </li>
                       <li>
-                        <Code>tabbied/patterns</Code> — 100+ preset designs as
+                        <Code>tabbied/patterns</Code> - 100+ preset designs as
                         tree-shakeable <Code>PatternDefinition</Code> exports.
                       </li>
                       <li>
-                        <Code>tabbied</Code> — the framework-agnostic core
+                        <Code>tabbied</Code> - the framework-agnostic core
                         (<Code>createPattern</Code>) plus all shared types and
                         sizing helpers.
                       </li>
@@ -346,13 +346,13 @@ export default function ReactDocsPage() {
                       Patterns are deterministic: the same pattern, seed, grid
                       and options always draw the same design, at any size.
                       That makes patterns safe to use as reproducible brand
-                      assets — a seed is a design you can keep.
+                      assets - a seed is a design you can keep.
                     </p>
                   </Section>
 
                   <Section id="installation" title="Installation">
                     <p>
-                      React is an <em>optional</em> peer dependency — you only
+                      React is an <em>optional</em> peer dependency - you only
                       need it for the <Code>tabbied/react</Code> entry point.
                       The only hard dependency is css-doodle, which is
                       installed automatically.
@@ -397,7 +397,7 @@ export default function ReactDocsPage() {
                     />
                     <p>
                       Browse every design (and its options) in the{' '}
-                      <a href="/patterns/">gallery</a> — the preset export
+                      <a href="/patterns/">gallery</a> - the preset export
                       name is the slug in the editor URL.
                     </p>
                   </Section>
@@ -408,7 +408,7 @@ export default function ReactDocsPage() {
                       how big the element is, and <Code>fit</Code> says how the
                       drawing meets that box. A pattern has no intrinsic size,
                       so by default the box simply{' '}
-                      <strong>fills its containing block</strong> — drop one
+                      <strong>fills its containing block</strong> - drop one
                       into a sized parent and you are done.
                     </p>
                     <Example code={boxCode}>
@@ -425,7 +425,7 @@ export default function ReactDocsPage() {
                             <code>
                               &lt;TabbiedPattern pattern={'{radius}'} /&gt;
                             </code>
-                            No sizing props — it fills the 120px-tall box it was
+                            No sizing props - it fills the 120px-tall box it was
                             dropped into.
                           </figcaption>
                         </figure>
@@ -454,18 +454,18 @@ export default function ReactDocsPage() {
                     </p>
                     <ul className={styles.list}>
                       <li>
-                        <Code>fill</Code> (default <Code>true</Code>) —{' '}
+                        <Code>fill</Code> (default <Code>true</Code>) - {' '}
                         <Code>width: 100%; height: 100%</Code>. An explicit{' '}
                         <Code>width</Code>/<Code>height</Code> takes over that
                         axis; <Code>fill={'{false}'}</Code> leaves the box to a
                         class name or the surrounding layout.
                       </li>
                       <li>
-                        <Code>maxWidth</Code> / <Code>maxHeight</Code> — upper
+                        <Code>maxWidth</Code> / <Code>maxHeight</Code> - upper
                         bounds on the box.
                       </li>
                       <li>
-                        <Code>aspectRatio</Code> — derives the height from the
+                        <Code>aspectRatio</Code> - derives the height from the
                         width, so it pairs with <Code>maxWidth</Code> in a
                         parent that has no fixed height.
                       </li>
@@ -479,21 +479,21 @@ export default function ReactDocsPage() {
                     </p>
                     <p>
                       Whatever the box turns out to be, the pattern is fitted
-                      into it <strong>without distortion</strong> — nothing is
+                      into it <strong>without distortion</strong> - nothing is
                       ever scaled by a different factor horizontally than
                       vertically. <Code>fit</Code> picks which
                       non-distorting strategy is used:
                     </p>
                     <ul className={styles.list}>
                       <li>
-                        <Code>grid</Code> (default) — re-derives the cell grid
+                        <Code>grid</Code> (default) - re-derives the cell grid
                         from the measured container, so any box is tiled
                         edge-to-edge with whole, near-square cells. Tune the
                         density with <Code>cellSize</Code> (px) or{' '}
-                        <Code>density</Code> (0–4).
+                        <Code>density</Code> (0-4).
                       </li>
                       <li>
-                        <Code>cover</Code> — draws a fixed-resolution render
+                        <Code>cover</Code> - draws a fixed-resolution render
                         and scales it uniformly into the box, preserving the
                         authored proportions of fixed-px strokes and shadows.
                         The render follows the box&apos;s aspect ratio and
@@ -501,7 +501,7 @@ export default function ReactDocsPage() {
                         mid-cell.
                       </li>
                       <li>
-                        <Code>fixed</Code> — renders at an explicit canvas
+                        <Code>fixed</Code> - renders at an explicit canvas
                         size, <Code>width</Code>/<Code>height</Code> in px
                         (default 360 × 540). This is what the Tabbied editor
                         uses.
@@ -509,13 +509,13 @@ export default function ReactDocsPage() {
                     </ul>
                     <p>
                       Every design supports all three, so <Code>fit</Code> is a
-                      plain choice — omit it and you get <Code>grid</Code>.
+                      plain choice - omit it and you get <Code>grid</Code>.
                     </p>
                     <p>
                       Each column below is one mode, drawing the same pattern at
                       the same seed into a landscape box and a portrait one. The
                       differences only show up when the box stops matching the
-                      drawing — which is most of the time.
+                      drawing - which is most of the time.
                     </p>
                     <Example code={fitCode}>
                       <div className={styles.fitGrid}>
@@ -528,7 +528,7 @@ export default function ReactDocsPage() {
 
                   <Section id="palettes" title="Colors & palettes">
                     <p>
-                      Pass <Code>palette</Code> to recolor a design — the
+                      Pass <Code>palette</Code> to recolor a design - the
                       background color (<Code>color0</Code>) comes first,
                       followed by the inks. Passing fewer colors than the
                       pattern was authored with is fine: the unused slots
@@ -554,14 +554,14 @@ export default function ReactDocsPage() {
                         Trying a custom palette across every design? The{' '}
                         <a href="/patterns/">gallery</a> lets you save named
                         palettes (exportable as JSON) and preview all presets
-                        with them — including with a transparent background.
+                        with them - including with a transparent background.
                       </p>
                     </div>
                   </Section>
 
                   <Section id="options" title="Options">
                     <p>
-                      Every preset exposes adjustable <Code>options</Code> —
+                      Every preset exposes adjustable <Code>options</Code> -
                       the same controls the Tabbied editor shows. Pass them
                       keyed by option id; anything you omit uses the authored
                       default. Option ids and their allowed values live on the
@@ -594,7 +594,7 @@ export default function ReactDocsPage() {
                       The <Code>seed</Code> prop pins the pattern: omit it for
                       a random variation per mount, or set it to freeze a
                       design you like. Grab a ref to the component&apos;s
-                      handle to drive it imperatively —{' '}
+                      handle to drive it imperatively - {' '}
                       <Code>redraw()</Code> re-randomizes (or sets) the seed,
                       morphing designs with CSS transitions between
                       variations, and <Code>exportImage()</Code> saves a PNG.
@@ -606,7 +606,7 @@ export default function ReactDocsPage() {
                     <p>
                       <Code>exportImage()</Code> accepts{' '}
                       <Code>{'{ scale, name, download, detail }'}</Code> and
-                      resolves when css-doodle has produced the file — bump{' '}
+                      resolves when css-doodle has produced the file - bump{' '}
                       <Code>scale</Code> for print-resolution exports.
                     </p>
                     <p>
@@ -616,7 +616,7 @@ export default function ReactDocsPage() {
                       and scales to any resolution; pass{' '}
                       <Code>{'{ download: true }'}</Code> to save a{' '}
                       <Code>.svg</Code>. A few designs use smooth
-                      conic-gradient sweeps SVG can&apos;t express — they set{' '}
+                      conic-gradient sweeps SVG can&apos;t express - they set{' '}
                       <Code>svgExport: false</Code> in their definition, which{' '}
                       <Code>supportsSvgExport(pattern)</Code> checks.
                     </p>
@@ -624,7 +624,7 @@ export default function ReactDocsPage() {
 
                   <Section id="animation" title="Ambient animation">
                     <p>
-                      Set <Code>redrawInterval</Code> to reseed on a timer —
+                      Set <Code>redrawInterval</Code> to reseed on a timer -
                       the gallery&apos;s shimmer. Ticks are dropped while the
                       tab is hidden or the element is scrolled out of the
                       viewport, so a long page of animated patterns only pays
@@ -662,7 +662,7 @@ export default function ReactDocsPage() {
                     <p>
                       A pattern has two sources of movement, and{' '}
                       <Code>prefers-reduced-motion: reduce</Code> suppresses
-                      both — with no configuration and no props to pass:
+                      both - with no configuration and no props to pass:
                     </p>
                     <ul>
                       <li>
@@ -686,7 +686,7 @@ export default function ReactDocsPage() {
                       muted on the same terms.
                     </p>
                     <p>
-                      Nothing is lost either way — the pattern renders
+                      Nothing is lost either way - the pattern renders
                       identically, it just stops easing between states. The
                       preference is <em>observed</em>, not read once, so
                       toggling it while the page is open takes effect
@@ -700,7 +700,7 @@ export default function ReactDocsPage() {
                       registers a browser custom element on import) with a
                       built-in server placeholder: on the server and the first
                       client paint it renders the wrapper box filled with the
-                      pattern&apos;s background color — correct dimensions,
+                      pattern&apos;s background color - correct dimensions,
                       zero layout shift, no hydration mismatch. In the Next.js
                       App Router you can use it directly from Server
                       Components; no <Code>ssr: false</Code> ceremony needed.
@@ -721,7 +721,7 @@ export default function ReactDocsPage() {
                       <Code>exportImage()</Code>, <Code>exportSvg()</Code> and{' '}
                       <Code>destroy()</Code>.
                       It accepts the same config the component takes as props,
-                      minus the box props — the host element is yours to size,
+                      minus the box props - the host element is yours to size,
                       or run them through <Code>resolveBoxStyle()</Code>. That
                       includes <Code>redrawInterval</Code> and{' '}
                       <Code>paused</Code>: the timer and its reduced-motion,
@@ -758,9 +758,9 @@ export default function ReactDocsPage() {
                             <td>
                               <code>PatternDefinition</code>
                             </td>
-                            <td className={styles.defaultCol}>—</td>
+                            <td className={styles.defaultCol}> - </td>
                             <td>
-                              The pattern to render — a preset from{' '}
+                              The pattern to render - a preset from{' '}
                               <Code>tabbied/patterns</Code> or your own
                               definition.
                             </td>
@@ -811,7 +811,7 @@ export default function ReactDocsPage() {
                               &apos;grid&apos;
                             </td>
                             <td>
-                              How the drawing meets its box — never by
+                              How the drawing meets its box - never by
                               distorting it (see{' '}
                               <a href="#fit-modes">Sizing &amp; fit modes</a>).
                             </td>
@@ -834,7 +834,7 @@ export default function ReactDocsPage() {
                             <td>
                               <code>number | string</code>
                             </td>
-                            <td className={styles.defaultCol}>—</td>
+                            <td className={styles.defaultCol}> - </td>
                             <td>
                               Upper bounds on the box. Numbers are px.
                             </td>
@@ -844,9 +844,9 @@ export default function ReactDocsPage() {
                             <td>
                               <code>number | string</code>
                             </td>
-                            <td className={styles.defaultCol}>—</td>
+                            <td className={styles.defaultCol}> - </td>
                             <td>
-                              CSS <code>aspect-ratio</code> — derives the
+                              CSS <code>aspect-ratio</code> - derives the
                               height from the width.
                             </td>
                           </tr>
@@ -857,7 +857,7 @@ export default function ReactDocsPage() {
                             </td>
                             <td className={styles.defaultCol}>36</td>
                             <td>
-                              <Code>fit=&quot;grid&quot;</Code> — target cell
+                              <Code>fit=&quot;grid&quot;</Code> - target cell
                               size in px.
                             </td>
                           </tr>
@@ -868,7 +868,7 @@ export default function ReactDocsPage() {
                             </td>
                             <td className={styles.defaultCol}>4</td>
                             <td>
-                              <Code>fit=&quot;grid&quot;</Code> — authored
+                              <Code>fit=&quot;grid&quot;</Code> - authored
                               density level, an alternative to{' '}
                               <Code>cellSize</Code>.
                             </td>
@@ -937,7 +937,7 @@ export default function ReactDocsPage() {
                             <td>
                               <code>() =&gt; void</code>
                             </td>
-                            <td className={styles.defaultCol}>—</td>
+                            <td className={styles.defaultCol}> - </td>
                             <td>
                               Called once the first pattern render is
                               committed.
@@ -950,7 +950,7 @@ export default function ReactDocsPage() {
                             <td>
                               <code>string</code> / <code>CSSProperties</code>
                             </td>
-                            <td className={styles.defaultCol}>—</td>
+                            <td className={styles.defaultCol}> - </td>
                             <td>Applied to the wrapper box.</td>
                           </tr>
                         </tbody>
@@ -1013,7 +1013,7 @@ export default function ReactDocsPage() {
 
                     <h3 className={styles.minihead}>PatternDefinition</h3>
                     <p>
-                      Presets are plain data. You can author your own — the
+                      Presets are plain data. You can author your own - the
                       renderer only cares about the shape:
                     </p>
                     <CodeBlock
@@ -1022,7 +1022,7 @@ export default function ReactDocsPage() {
                     />
                     <p>
                       The full type (palette slots, option kinds, per-pattern
-                      sizing metadata) ships with the package —{' '}
+                      sizing metadata) ships with the package - {' '}
                       <Code>import type {'{ PatternDefinition }'} from
                       &apos;tabbied&apos;</Code>.
                     </p>
@@ -1038,7 +1038,7 @@ export default function ReactDocsPage() {
                       >
                         GitHub
                       </a>
-                      . The package is MIT-licensed — patterns you export are
+                      . The package is MIT-licensed - patterns you export are
                       yours to use anywhere.
                     </p>
                   </footer>

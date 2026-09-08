@@ -11,7 +11,7 @@ export const metadata = {
 };
 
 /* Bone, ink, one scarlet. Every field takes `transparent` in the background
-   slot so the paper of the page runs straight through the pattern — the
+   slot so the paper of the page runs straight through the pattern - the
    pattern is the ground here, not a picture pasted onto it. */
 const INK = '#101014';
 const RED = '#ff2d00';
@@ -23,7 +23,7 @@ const SEASON = [
     n: '01',
     title: 'Halle',
     sub: 'For fourteen dancers and one floor',
-    when: '11 – 27 Sep 2026',
+    when: '11 - 27 Sep 2026',
     room: 'Salzhaus, Halle A',
     min: '75',
   },
@@ -31,7 +31,7 @@ const SEASON = [
     n: '02',
     title: 'Zwischenraum',
     sub: 'A duet that never touches',
-    when: '06 – 15 Nov 2026',
+    when: '06 - 15 Nov 2026',
     room: 'Salzhaus, Studio 2',
     min: '48',
   },
@@ -39,7 +39,7 @@ const SEASON = [
     n: '03',
     title: 'Salz',
     sub: 'The piece the building is named after',
-    when: '15 Jan – 07 Feb 2027',
+    when: '15 Jan - 07 Feb 2027',
     room: 'Salzhaus, Halle A',
     min: '90',
   },
@@ -47,7 +47,7 @@ const SEASON = [
     n: '04',
     title: 'Der lange Gang',
     sub: 'Walked, not danced, for fifty minutes',
-    when: '05 – 14 Mar 2027',
+    when: '05 - 14 Mar 2027',
     room: 'Kaserne Basel',
     min: '50',
   },
@@ -55,7 +55,7 @@ const SEASON = [
     n: '05',
     title: 'Tafel',
     sub: 'Nine performers, one table, no chairs',
-    when: '09 – 25 Apr 2027',
+    when: '09 - 25 Apr 2027',
     room: 'Salzhaus, Halle A',
     min: '65',
   },
@@ -63,7 +63,7 @@ const SEASON = [
     n: '06',
     title: 'Nichts fällt',
     sub: 'Everything is caught before it lands',
-    when: '04 – 19 Jun 2027',
+    when: '04 - 19 Jun 2027',
     room: 'Salzhaus, Dach',
     min: '80',
   },
@@ -143,28 +143,28 @@ const PRINCIPLES = [
 const VISIT = [
   ['Address', 'Salzhaus, Uferstrasse 90, 4057 Basel'],
   ['Doors', 'One hour before, and the bar stays open after'],
-  ['Tickets', 'CHF 15 – 42, under 26 pays CHF 12 at any performance'],
+  ['Tickets', 'CHF 15 - 42, under 26 pays CHF 12 at any performance'],
   ['Access', 'Step-free to Halle A and Studio 2; the roof is by lift only'],
   ['Late', 'You will be seated. We would rather you came in late than not at all'],
   ['Photography', 'Yes, without flash, and not during Zwischenraum'],
 ];
 
-/* Day, hours, and whether the desk is shut — the third slot is
+/* Day, hours, and whether the desk is shut - the third slot is
    omitted on the days it is open. */
 const HOURS: [string, string, boolean?][] = [
   ['Monday', 'Shut', true],
-  ['Tuesday', '10 – 16'],
-  ['Wednesday', '10 – 16'],
-  ['Thursday', '10 – 16'],
-  ['Friday', '10 – 16'],
+  ['Tuesday', '10 - 16'],
+  ['Wednesday', '10 - 16'],
+  ['Thursday', '10 - 16'],
+  ['Friday', '10 - 16'],
   ['Performance days', 'Until curtain'],
   ['Sunday', 'Shut', true],
 ];
 
-/* When, what, and where — the footer dateline. */
+/* When, what, and where - the footer dateline. */
 const NEXT_UP: [string, string, string][] = [
-  ['12.04', 'Kessel — first night, with the full company', 'Grosse Halle'],
-  ['26.04', 'Kessel — played to a live score', 'Grosse Halle'],
+  ['12.04', 'Kessel - first night, with the full company', 'Grosse Halle'],
+  ['26.04', 'Kessel - played to a live score', 'Grosse Halle'],
   ['17.05', 'Studio showing, no set and no lights', 'Probebühne 2'],
 ];
 
@@ -496,7 +496,7 @@ export default function SalzhausPage() {
           <div>
             <p data-edit="contact.contactPre" data-edit-max="240" data-edit-multiline className={s.contactPre}>Box office</p>
             <a data-edit="contact.deskTel" data-edit-max="28" id="contact-h" className={s.deskTel} href="tel:+41610009090">
-              +41 61 000 90 90
+              +41&nbsp;61&nbsp;000&nbsp;90&nbsp;90
             </a>
             <p data-edit="contact.contactFine" data-edit-max="240" data-edit-multiline className={s.contactFine}>
               Uferstrasse 90, 4057 Basel. The office answers between 10 and 16,

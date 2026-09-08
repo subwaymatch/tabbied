@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ATELIERS BEAUFORT — sail loft, Lorient
+   ATELIERS BEAUFORT - sail loft, Lorient
    The scale is the layout. Thirteen full-width bands, force nought to twelve,
    each with its number set as tall as the band, and force four picked out in
    the accent because that is what the loft cuts for. Night navy ground, bone
@@ -482,7 +482,7 @@
   overflow: hidden;
 }
 
-/* No ground of its own — the band sits on the page colour, and the pattern
+/* No ground of its own - the band sits on the page colour, and the pattern
    drawn on a transparent slot is what separates it from its neighbours. */
 .quoteField {
   position: absolute;

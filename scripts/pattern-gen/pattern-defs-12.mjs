@@ -1,29 +1,29 @@
-// Batch 12 — 32 designs that export as native SVG with no caveat at all.
+// Batch 12 - 32 designs that export as native SVG with no caveat at all.
 //
 // Batch 11 asked what the catalogue looks like when the *format* is the
 // constraint: designs that download as true vector files with no warning
 // dialog, no filter effects for a design tool to mangle, and no sub-pixel
 // deviation from what is on screen. This batch keeps that rule and spends most
 // of its designs on the one part of the supported CSS subset the catalogue had
-// barely used — the smooth gradient.
+// barely used - the smooth gradient.
 //
 // Nineteen of the thirty-two are ramps: straight fades over a solid ink, dot
 // fields and ruled fields thinned across a cell, a glow thrown from a corner,
 // ramps shut inside a cut shape, and a fade posterized into flat alpha levels.
 // They are safe for the same reason the hard-edged ones are: a
 // <linearGradient> or <radialGradient> carries the same stops CSS did, and the
-// converter subdivides a colour→transparent run to account for CSS
+// converter subdivides a colour->transparent run to account for CSS
 // interpolating premultiplied alpha where SVG does not. Only *conic* blends
 // are impossible, and there are none.
 //
 // Every ramp is a mask over an ordinary background-color rather than a
-// two-colour background image. That keeps the ink transitionable — a reseed
-// morphs through the colour instead of snapping to it — and it makes the faded
+// two-colour background image. That keeps the ink transitionable - a reseed
+// morphs through the colour instead of snapping to it - and it makes the faded
 // end a real hole: set the background slot to transparent and the sheet shows
 // through a soft edge exactly as it does through a hard one.
 //
 // The remaining thirteen work in the hard-edged vocabulary batch 11
-// established — splits, chamfers, hard-stop radial bands, dot fields,
+// established - splits, chamfers, hard-stop radial bands, dot fields,
 // overlaps, mask intersections and border-radius forms.
 //
 // The thirteen families, in the order they ship:
@@ -96,7 +96,7 @@ for (const { title, all } of SECTIONS) {
     if (RESERVED.has(def.slug)) {
       throw new Error(`${def.slug}: slug is a JS reserved word`);
     }
-    // A name should never come to mean two different things — TAKEN12 carries
+    // A name should never come to mean two different things - TAKEN12 carries
     // every motif name used anywhere in the project, batch 11 included, plus
     // the designs cut before they shipped.
     if (TAKEN12.has(def.slug)) {

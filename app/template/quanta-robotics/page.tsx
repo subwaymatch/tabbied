@@ -165,7 +165,7 @@ const RESEARCH: ResearchArea[] = [
   {
     code: 'RA-04',
     name: 'Fleet learning',
-    copy: 'Every robot’s worst moment becomes every robot’s training data. Nightly consolidation across the whole fleet.',
+    copy: 'Every robot\'s worst moment becomes every robot\'s training data. Nightly consolidation across the whole fleet.',
     slug: 'quanta-ra-fleet',
     alt: 'A row of small robots in charging docks, light traces converging into a server cabinet',
     art: metro,
@@ -397,7 +397,7 @@ export default function QuantaRoboticsPage() {
               <article key={p.id} className={styles.platformCard}>
                 <header className={styles.platformHead}>
                   <h3 className={styles.platformName}>
-                    <span data-edit={`platformHead.platformId.${i}`} data-edit-max="60" className={styles.platformId}>{p.id}</span> “{p.codename}”
+                    <span data-edit={`platformHead.platformId.${i}`} data-edit-max="60" className={styles.platformId}>{p.id}</span> "{p.codename}"
                   </h3>
                   <p data-edit={`platformHead.platformStatus.${i}`} data-edit-max="240" data-edit-multiline className={styles.platformStatus} data-status={p.status}>
                     {p.status}

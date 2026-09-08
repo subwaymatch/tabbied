@@ -52,7 +52,7 @@ for (const def of defs) {
 // Batch 10 owns gallery orders 1100-1199, so a file already on disk is either
 // this batch's own output (safe to rewrite) or another batch's pattern (never
 // clobber it). The range is bounded at both ends so batch 11, which lives
-// above it, survives a batch-10 regeneration — while the range was open-ended
+// above it, survives a batch-10 regeneration - while the range was open-ended
 // this script deleted all of batch 11.
 const FIRST_ORDER = 1100;
 const LAST_ORDER = 1199;
@@ -121,7 +121,7 @@ for (const def of defs) {
     }
   }
   // Lint: a custom property whose value contains @-functions is a textual
-  // macro — every plain var(--x) reference re-rolls it. Shared rolls must be
+  // macro - every plain var(--x) reference re-rolls it. Shared rolls must be
   // emitted per cell and referenced via @var(--x) instead.
   const propDefs = [...style.matchAll(/(--[\w-]+)\s*:\s*([^;]*);/g)];
   for (const [, propName, propValue] of propDefs) {
@@ -132,7 +132,7 @@ for (const def of defs) {
     ].length;
     if (plainRefs > 1) {
       throw new Error(
-        `${def.slug}: randomized ${propName} referenced ${plainRefs}x via plain var() — re-rolls per reference; use a cell-level prop + @var()`
+        `${def.slug}: randomized ${propName} referenced ${plainRefs}x via plain var() - re-rolls per reference; use a cell-level prop + @var()`
       );
     }
   }
@@ -143,7 +143,7 @@ for (const def of defs) {
   // gap between elements).
   if (/var\(\s*--color0\s*\)/.test(style)) {
     throw new Error(
-      `${def.slug}: style paints var(--color0) — that knockout disappears on a transparent background`
+      `${def.slug}: style paints var(--color0) - that knockout disappears on a transparent background`
     );
   }
   // Exactly one frequency gate, so the slider always thins the whole field.

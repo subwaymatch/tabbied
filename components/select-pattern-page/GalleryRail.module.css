@@ -1,6 +1,6 @@
 /* The gallery's desktop palette rail: logo + palette search pinned at the top,
    the full merged palette list scrolling in the middle, and a pinned
-   "+ New Palette" with the GitHub / Docs footer at the bottom. Seamless white —
+   "+ New Palette" with the GitHub / Docs footer at the bottom. Seamless white -
    no divider or tint against the design grid. */
 /* Fixed rail: it stays put while the design grid scrolls with the document, so
    the "+ New Palette" footer stays pinned to the bottom of the window and only
@@ -116,7 +116,7 @@
   border-top: 1px solid #eceef1;
 }
 
-/* "+ New Palette" — placeholder strip of empty cells + label. Hover darkens the
+/* "+ New Palette" - placeholder strip of empty cells + label. Hover darkens the
    label only (no wash). */
 .newPalette {
   display: flex;

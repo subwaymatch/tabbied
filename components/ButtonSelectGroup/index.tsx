@@ -27,7 +27,7 @@ export default function ButtonSelectGroup({
       onValueChange={(groupValue) => {
         const next = groupValue[0];
 
-        // Ignore the empty array produced by clicking the active option —
+        // Ignore the empty array produced by clicking the active option -
         // one choice must always stay selected.
         if (next != null) {
           onChange(next);

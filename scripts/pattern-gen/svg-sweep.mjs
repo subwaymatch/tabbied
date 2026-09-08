@@ -8,7 +8,7 @@
 // classic script the way e2e/svg-export.spec.ts does), and requires:
 //
 //   1. doodleToSvg() does not throw (no SvgExportUnsupportedError);
-//   2. result.warnings is empty — a warning is exactly the signal that the
+//   2. result.warnings is empty - a warning is exactly the signal that the
 //      design would need an svgExportNote (blur, box-shadow, blend mode);
 //   3. the rasterized SVG matches a screenshot of the live element within the
 //      budget below, using the same anti-aliasing-tolerant diff as
@@ -23,7 +23,7 @@
 //
 // Env read here: SLUGS (comma-separated slugs; defaults to the whole batch),
 //                CHROMIUM_PATH, SVG_SEEDS (comma-separated, default two),
-//                SVG_GRID (grid override, e.g. 6x9 — the editor default),
+//                SVG_GRID (grid override, e.g. 6x9 - the editor default),
 //                SVG_CELL (px box per design, default 300),
 //                SVG_ARTIFACTS (dir for out.svg / mine.png / ref.png).
 import { chromium } from '@playwright/test';
@@ -241,7 +241,7 @@ export async function runSvgSweep({ defs, label, artifactsPrefix = 'tabbied-svg'
   );
   for (const slug of slugs) {
     if (!known.has(slug)) {
-      throw new Error(`no pattern JSON for ${slug} — run the generator first`);
+      throw new Error(`no pattern JSON for ${slug} - run the generator first`);
     }
   }
 
@@ -249,7 +249,7 @@ export async function runSvgSweep({ defs, label, artifactsPrefix = 'tabbied-svg'
   // with a square grid means cells are square, the way the design was authored.
   //
   // SVG_GRID overrides that for every design, which is how a batch gets checked
-  // at the *editor* default too — a non-square grid on a square canvas gives
+  // at the *editor* default too - a non-square grid on a square canvas gives
   // fractional, non-square cells, and a design whose edges land on clean pixel
   // boundaries at 5x5 can drift at 6x9.
   const gridFor = (slug) =>
@@ -352,10 +352,10 @@ export async function runSvgSweep({ defs, label, artifactsPrefix = 'tabbied-svg'
 
   if (failures.length) {
     console.log(`\nFAILURES (${failures.length}), artifacts in ${ARTIFACTS}:`);
-    for (const f of failures) console.log(`  ${f.slug} [${f.seed}] → ${f.problem}`);
+    for (const f of failures) console.log(`  ${f.slug} [${f.seed}] -> ${f.problem}`);
     process.exit(1);
   }
   console.log(
-    `\nall ${slugs.length} ${label} patterns export as native SVG with no warnings and match their live render (${checked} checks) ✓`
+    `\nall ${slugs.length} ${label} patterns export as native SVG with no warnings and match their live render (${checked} checks)`
   );
 }

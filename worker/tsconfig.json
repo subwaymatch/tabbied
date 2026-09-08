@@ -7,7 +7,7 @@
     "target": "ES2022",
     "lib": ["ES2022"],
     // workerd's globals, plus the `cloudflare:test` module the tests under
-    // worker/test/ import — they live inside this project, so its types have
+    // worker/test/ import - they live inside this project, so its types have
     // to be declared here or `npm run typecheck:worker` fails on them.
     "types": [
       "@cloudflare/workers-types",
@@ -15,6 +15,9 @@
     ],
     "module": "ESNext",
     "moduleResolution": "bundler",
+    // The migrations journal is imported so /api/health can say which
+    // migration this build expects. Wrangler bundles JSON on its own.
+    "resolveJsonModule": true,
     "strict": true,
     "noEmit": true,
     "skipLibCheck": true,

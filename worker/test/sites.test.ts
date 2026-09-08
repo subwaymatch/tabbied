@@ -3,8 +3,8 @@ import { beforeAll, describe, expect, it } from 'vitest';
 
 // The site tier end to end, minus the model: with no AI_API_KEY the directions
 // call answers from the matcher and the make call writes the three-string
-// floor, which exercises every row this tier writes and reads — the site, its
-// first revision, the pin, the listing — through the real routes, the real
+// floor, which exercises every row this tier writes and reads - the site, its
+// first revision, the pin, the listing - through the real routes, the real
 // D1, and the real packaged assets served by the assets binding.
 //
 // The session is a real one: sign up, read the verification link out of the
@@ -327,7 +327,7 @@ describe('making a site', () => {
     expect(sites).toHaveLength(2);
     expect(sites.map((site) => site.revisions).sort()).toEqual([1, 2]);
 
-    // Someone else sees nothing — the listing is by session, never by id.
+    // Someone else sees nothing - the listing is by session, never by id.
     const other = await signIn('other@example.com');
     const theirs = await SELF.fetch(`${ORIGIN}/api/studio/sites`, { headers: { cookie: other } });
     expect(((await theirs.json()) as { sites: unknown[] }).sites).toHaveLength(0);

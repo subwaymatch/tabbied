@@ -3,7 +3,7 @@
   "slug": "glyph",
   "galleryOrder": 44,
   "svgExportNote": "Quadrant edges may anti-alias a hair differently than the on-screen rendering.",
-  "description": "Every tile is a tiny 2x2 pixel glyph — each quadrant rolls ink, paper or a color on its own, spelling out an unreadable alphabet.",
+  "description": "Every tile is a tiny 2x2 pixel glyph - each quadrant rolls ink, paper or a color on its own, spelling out an unreadable alphabet.",
   "tags": [
     "squares",
     "grid",

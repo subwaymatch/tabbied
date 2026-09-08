@@ -22,7 +22,7 @@ const SHOWS = [
     n: '01',
     title: 'Nothing to Scale',
     who: 'Marta Reinholdt',
-    when: '12 Sep – 22 Nov 2026',
+    when: '12 Sep - 22 Nov 2026',
     what: 'Nine plaster volumes, none of them the size the drawings say',
     room: 'Halle',
   },
@@ -30,7 +30,7 @@ const SHOWS = [
     n: '02',
     title: 'A Room Lit From Below',
     who: 'Osei Ampofo',
-    when: '05 Dec 2026 – 14 Feb 2027',
+    when: '05 Dec 2026 - 14 Feb 2027',
     what: 'One light source, moved twice a day by a gallery attendant',
     room: 'Halle',
   },
@@ -38,7 +38,7 @@ const SHOWS = [
     n: '03',
     title: 'Two Hundred Grey',
     who: 'Group show, eleven artists',
-    when: '27 Feb – 09 May 2027',
+    when: '27 Feb - 09 May 2027',
     what: 'Everything in the show is the same value and nothing is the same colour',
     room: 'Halle + Kabinett',
   },
@@ -46,7 +46,7 @@ const SHOWS = [
     n: '04',
     title: 'The Building',
     who: 'Kubus',
-    when: '22 May – 29 Aug 2027',
+    when: '22 May - 29 Aug 2027',
     what: 'The kunsthalle exhibits itself: plans, arguments, and the wall we removed',
     room: 'Halle',
   },
@@ -57,7 +57,7 @@ const ROOMS = [
   ['Kabinett', '6.2 × 8.1 m', '3.4 m high', '180 lx max', 'No daylight'],
   ['Treppe', '4.0 × 4.0 m', '11.2 m high', 'Daylight only', 'Stairwell, hangable'],
   ['Keller', '9.0 × 14.5 m', '2.6 m high', '90 lx max', 'Damp, monitored'],
-  ['Hof', '18 × 24 m', 'Open to the sky', '—', 'Outdoor, summer only'],
+  ['Hof', '18 × 24 m', 'Open to the sky', ' - ', 'Outdoor, summer only'],
 ];
 
 const PRINCIPLES = [
@@ -102,7 +102,7 @@ const NUMBERS = [
 ];
 
 const VISIT = [
-  ['Open', 'Wednesday to Sunday, 11:00 – 18:00. Thursday until 22:00.'],
+  ['Open', 'Wednesday to Sunday, 11:00 - 18:00. Thursday until 22:00.'],
   ['Admission', '€ 9, concessions € 5, free on Thursdays and free under 18 always.'],
   ['Access', 'Step-free throughout except the Treppe, which is the stairwell.'],
   ['Photography', 'Yes, unless a wall label says otherwise, which is rare.'],
@@ -117,16 +117,16 @@ const SUPPORT = [
   ['Report', 'Published every March, with the budget, in full, as one PDF.'],
 ];
 
-/* Day, hours, and whether the desk is shut — the third slot is
+/* Day, hours, and whether the desk is shut - the third slot is
    omitted on the days it is open. */
 const HOURS: [string, string, boolean?][] = [
   ['Monday', 'Shut', true],
-  ['Tuesday', '11 – 18'],
-  ['Wednesday', '11 – 18'],
-  ['Thursday', '11 – 21'],
-  ['Friday', '11 – 18'],
-  ['Saturday', '10 – 18'],
-  ['Sunday', '10 – 18'],
+  ['Tuesday', '11 - 18'],
+  ['Wednesday', '11 - 18'],
+  ['Thursday', '11 - 21'],
+  ['Friday', '11 - 18'],
+  ['Saturday', '10 - 18'],
+  ['Sunday', '10 - 18'],
 ];
 
 export default function KubusPage() {
@@ -228,7 +228,7 @@ export default function KubusPage() {
             <p data-edit="statement.body2" data-edit-max="240" data-edit-multiline>
               Eleven people work here. Every exhibiting artist is paid a fee,
               which is set once a year by the board and printed in the annual
-              report next to everybody&rsquo;s salary band.
+              report next to everybody's salary band.
             </p>
           </div>
         </section>
@@ -391,11 +391,11 @@ export default function KubusPage() {
           <div>
             <p data-edit="contact.contactPre" data-edit-max="240" data-edit-multiline className={s.contactPre}>The desk, and when it is there</p>
             <a data-edit="contact.deskTel" data-edit-max="28" id="contact-h" className={s.deskTel} href="tel:+41610000400">
-              +41 61 000 04 00
+              +41&nbsp;61&nbsp;000&nbsp;04&nbsp;00
             </a>
             <p data-edit="contact.contactFine" data-edit-max="240" data-edit-multiline className={s.contactFine}>
               Depotstrasse 4. Proposals are read twice a year, in March and in
-              September, and answered inside six weeks either way — the desk
+              September, and answered inside six weeks either way - the desk
               cannot tell you anything the letter will not.
             </p>
           </div>

@@ -12,8 +12,8 @@ export const metadata = {
 };
 
 /* Cream ground, ink, one plum. Every decorative field takes `transparent` in
-   the background slot, so the paper of the page — and, in the plates, the
-   plate itself — is what shows through the drawing. */
+   the background slot, so the paper of the page - and, in the plates, the
+   plate itself - is what shows through the drawing. */
 const INK = '#191317';
 const ACCENT = '#5e2750';
 const GREY = '#8b8279';
@@ -92,14 +92,14 @@ const BUYING = [
   ['Teaching', 'Four people at a time, three days, twice a year. It is mostly washing.'],
 ];
 
-/* Day, hours, and whether the desk is shut — the third slot is
+/* Day, hours, and whether the desk is shut - the third slot is
    omitted on the days it is open. */
 const HOURS: [string, string, boolean?][] = [
   ['Monday', 'Vats down', true],
-  ['Tuesday', '09 – 17'],
-  ['Wednesday', '09 – 17'],
-  ['Thursday', '09 – 17'],
-  ['Friday', '09 – 15'],
+  ['Tuesday', '09 - 17'],
+  ['Wednesday', '09 - 17'],
+  ['Thursday', '09 - 17'],
+  ['Friday', '09 - 15'],
   ['Saturday', 'By arrangement'],
   ['Sunday', 'Shut', true],
 ];
@@ -396,7 +396,7 @@ export default function PurpurhausPage() {
           <div>
             <p data-edit="contact.contactPre" data-edit-max="240" data-edit-multiline className={s.contactPre}>The dye house</p>
             <a data-edit="contact.deskTel" data-edit-max="28" id="contact-h" className={s.deskTel} href="tel:+351220008800">
-              +351 22 000 88 00
+              +351&nbsp;22&nbsp;000&nbsp;88&nbsp;00
             </a>
             <p data-edit="contact.contactFine" data-edit-max="240" data-edit-multiline className={s.contactFine}>
               Rua de Miragaia 88, 4050 Porto. The recipe book is a PDF, it is

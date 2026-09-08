@@ -1,6 +1,6 @@
 'use client';
 
-// One direction, on the actual template — the three-string rebrand.
+// One direction, on the actual template - the three-string rebrand.
 //
 // Everything here happens in the browser and it has to: the edits engine works
 // against a DOM, the packaged template is a static asset, and the generation is
@@ -46,7 +46,7 @@ export default function StudioPreview() {
     }
 
     // The spec and the package are plain static assets, so they are fetched
-    // directly rather than through apiFetch — there is no API involved and no
+    // directly rather than through apiFetch - there is no API involved and no
     // session to carry.
     const [specResponse, htmlResponse] = await Promise.all([
       fetch(templateSpecUrl(direction.slug)),
@@ -110,7 +110,7 @@ export default function StudioPreview() {
     return (
       <div className={styles.frame}>
         <div className={styles.skeleton} aria-hidden="true" />
-        <p className={styles.loading}>Building the preview…</p>
+        <p className={styles.loading}>Building the preview...</p>
       </div>
     );
   }
@@ -148,7 +148,7 @@ export default function StudioPreview() {
       <PreviewFrame
         html={html}
         problems={problems}
-        title={`${direction.stance} — a preview built on the ${direction.name} template`}
+        title={`${direction.stance} - a preview built on the ${direction.name} template`}
       />
     </>
   );

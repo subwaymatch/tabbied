@@ -1,5 +1,5 @@
 /* ==========================================================================
-   LICHTFELD — lighting design, München
+   LICHTFELD - lighting design, München
    A page that behaves like the subject: almost everything is dark, and the
    warm yellow is spent only where light is actually being described. The
    pattern fields are falloff, radiance, sunray and dimmer, all on a
@@ -613,7 +613,7 @@
    columns of plain links on one flat surface, with the fine print under a
    hairline. The patterns have had the whole page to speak already. */
 
-/* Page and footer were within 1.15:1 of each other — near enough that the
+/* Page and footer were within 1.15:1 of each other - near enough that the
    seam read as a mistake, so the footer takes the page colour exactly.
    The light-page sites keep their dark footers: that contrast is the design. */
 .footer {

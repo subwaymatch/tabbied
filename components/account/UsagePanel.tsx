@@ -30,7 +30,7 @@ export default function UsagePanel() {
       .catch(() => setData('error'));
   }, []);
 
-  if (data === null) return <p className={styles.quiet}>Loading…</p>;
+  if (data === null) return <p className={styles.quiet}>Loading...</p>;
   if (data === 'error') return <p className={styles.quiet}>Could not load your usage.</p>;
 
   return (

@@ -2,7 +2,7 @@
 // one of the 57 finished designs rather than from an empty page.
 //
 // The design tools answer "which pattern?". These answer "which *site*, and
-// what am I allowed to change about it?" — which is a different question with a
+// what am I allowed to change about it?" - which is a different question with a
 // different answer shape. A template is a whole page somebody designed; the
 // useful move is not to regenerate it but to swap the brand out of it, and the
 // editable-section spec (docs/editable-templates.md) is exactly the list of
@@ -10,7 +10,7 @@
 //
 // Both tools are thin readers over artefacts the site already generates, so an
 // agent and the web builder are looking at the same bytes. Neither needs a
-// browser, which is why — unlike `render_design` — they work over the remote
+// browser, which is why - unlike `render_design` - they work over the remote
 // transport as well as stdio.
 import type {
   TemplateCatalog,
@@ -41,7 +41,7 @@ const toolError = (message: string): ToolResult => ({
  */
 const USAGE = {
   html:
-    'Download <downloads.html>. It is a standalone page — no build step. Edit ' +
+    'Download <downloads.html>. It is a standalone page - no build step. Edit ' +
     'by slot id: every editable element carries data-edit="<id>" (text), ' +
     'data-edit-image="<id>", or data-edit-pattern="<id>". The patterns come up ' +
     'via one hydratePatterns() call already wired into index.html.',
@@ -52,13 +52,13 @@ const USAGE = {
   colors:
     'Colour lives in one place: the element carrying data-edit-root holds ' +
     '--brand-0 (the ground) upward as inline custom properties, and the ' +
-    'stylesheet only reads var(--…). Re-colour by rewriting those. A pattern ' +
+    'stylesheet only reads var(--...). Re-colour by rewriting those. A pattern ' +
     'field with data-edit-roles follows the brand palette through that map; a ' +
     'literal "transparent" in the map must stay literal, because it is what ' +
     'lets the field read over a photograph.',
   text:
-    'A text slot whose format is "emphasis" carries {em}…{/em} markers around ' +
-    'the accented span. Keep them (or move them) — dropping them flattens an ' +
+    'A text slot whose format is "emphasis" carries {em}...{/em} markers around ' +
+    'the accented span. Keep them (or move them) - dropping them flattens an ' +
     'accent the design was built around. maxChars is the length the design was ' +
     'set for, not a hard limit.',
   programmatic:
@@ -113,7 +113,7 @@ function listTool(context: ToolContext): Tool | null {
         'plain HTML or as a React (Vite) project. Returns each one with its ' +
         'palette, the patterns it uses, and how many text/image/pattern slots ' +
         'are editable. Start here when the task is "build me a site" rather ' +
-        'than "pick me a pattern" — then get_template for the one you want. ' +
+        'than "pick me a pattern" - then get_template for the one you want. ' +
         'Only sites that have been annotated appear; the rest are not yet ' +
         'customizable.',
       inputSchema: {
@@ -178,7 +178,7 @@ function getTool(context: ToolContext): Tool | null {
       description:
         "A template's full editable-section spec: every text, image, and " +
         'pattern slot with its id and its current value, the brand palette, ' +
-        'the fonts, and the two download URLs. The slot ids are the contract — ' +
+        'the fonts, and the two download URLs. The slot ids are the contract - ' +
         'they exist in the downloaded markup as data-edit* attributes, so an ' +
         'id from this response is directly greppable in the files you ' +
         'download. Includes usage notes for editing each format.',

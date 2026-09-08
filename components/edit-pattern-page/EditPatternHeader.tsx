@@ -39,7 +39,7 @@ type EditPatternHeaderProps = {
   svgExportDisabled: boolean;
   /**
    * The current export has known limitations (filter-based effects or
-   * documented sub-pixel deviations) — mark the menu item with a warning.
+   * documented sub-pixel deviations) - mark the menu item with a warning.
    */
   svgExportWarning: boolean;
   /** Copy the current (fully-encoded) URL to the clipboard. */

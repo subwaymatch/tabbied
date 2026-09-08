@@ -31,14 +31,14 @@ printed on it. This is the pipeline below.
   packages/tabbied/patterns/<design>.json
        │  scripts/render-pattern.mjs   (headless Chromium, real css-doodle)
        ▼
-  generated-images/refs/<id>-ref.png          ← the pattern, exact pixels. Free.
-       │  scripts/generate-mockups.mjs → POST /v1/images/edits (multipart)
+  generated-images/refs/<id>-ref.png          <- the pattern, exact pixels. Free.
+       │  scripts/generate-mockups.mjs -> POST /v1/images/edits (multipart)
        ▼
-  generated-images/mockups/<id>.png           ← the object wearing it
-       │  sharp → WebP q92
+  generated-images/mockups/<id>.png           <- the object wearing it
+       │  sharp -> WebP q92
        ▼
-  public/images/mockups/<id>.webp             ← COMMITTED, served
-  lib/generated/images.js                     ←  manifest entry, base: /images/mockups
+  public/images/mockups/<id>.webp             <- COMMITTED, served
+  lib/generated/images.js                     <-  manifest entry, base: /images/mockups
 ```
 
 ## 2. Fidelity tiers: pick the cheapest exact option
@@ -151,7 +151,7 @@ So: **choose local, bold designs for tier 2, and use tier 1 for the ramps.**
 node scripts/generate-mockups.mjs --refs-only     # 1. render refs, free, review them
 node scripts/generate-mockups.mjs                 # 2. the paid edit
 # 3. review each mockup against its reference before promoting
-#    (sharp → WebP q92 into public/images/mockups, then:)
+#    (sharp -> WebP q92 into public/images/mockups, then:)
 npm run build:images
 ```
 

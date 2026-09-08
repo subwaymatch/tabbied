@@ -15,7 +15,7 @@ export const VERSION = '0.2.0';
  */
 export const INSTRUCTIONS = `Tabbied is a catalog of generative patterns (css-doodle) usable as backgrounds, textures, posters, and exported SVG/PNG assets.
 
-Designs are addressed by slug, and slugs are opaque — "cleat", "karst", "radius" say nothing about what they look like. Never guess one: call search_designs, which filters on a closed vocabulary of motifs, moods, density, and intended use.
+Designs are addressed by slug, and slugs are opaque - "cleat", "karst", "radius" say nothing about what they look like. Never guess one: call search_designs, which filters on a closed vocabulary of motifs, moods, density, and intended use.
 
 Metadata narrows the field; it does not settle it. These are pictures, so call preview_design on your shortlist and look before you commit. Choosing off tags alone is the main way this goes wrong.
 

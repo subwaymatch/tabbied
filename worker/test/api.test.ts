@@ -14,7 +14,7 @@ describe('the platform tier', () => {
     await expect(response.json()).resolves.toMatchObject({ status: 'ok' });
   });
 
-  it('lists the social providers it can complete — none, here', async () => {
+  it('lists the social providers it can complete - none, here', async () => {
     // The test environment configures no client ids, so the honest answer is
     // an empty list: the sign-in form then draws no provider buttons at all.
     const response = await SELF.fetch('https://x/api/auth-providers');
@@ -56,7 +56,7 @@ describe('generation requires a session', () => {
   });
 
   it('404s a generation that does not exist', async () => {
-    // Reads are unauthenticated by design — the id is the capability — so the
+    // Reads are unauthenticated by design - the id is the capability - so the
     // failure mode for a bad link is "not found", never "not allowed".
     const response = await SELF.fetch('https://x/api/studio/generations/nope');
 
@@ -109,7 +109,7 @@ describe('the schema is the boundary', () => {
       body: JSON.stringify({ description: 'hi' }),
     });
 
-    // Anonymous, so the auth gate answers first — the point is that neither
+    // Anonymous, so the auth gate answers first - the point is that neither
     // path ever reaches the upstream.
     expect([400, 401]).toContain(response.status);
   });

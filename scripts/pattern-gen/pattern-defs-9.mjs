@@ -1,9 +1,9 @@
-// Batch 9 — 22 motifs (gallery orders 1000+); 23 as authored, less Wireframe.
+// Batch 9 - 22 motifs (gallery orders 1000+); 23 as authored, less Wireframe.
 //
 // Every batch before this one draws a *tile*: each cell is an independent
 // motif, and the canvas is however many copies of it happen to fit. This batch
 // works the other way round. Almost every design here reads the cell's address
-// — @x, @y against @X, @Y — and uses it to place that cell inside one larger
+// (@x, @y against @X, @Y) and uses it to place that cell inside one larger
 // picture. Change the grid and you do not get more of the same motif, you get
 // the same composition at a different resolution.
 //
@@ -11,7 +11,7 @@
 // used: real maths on the cell's coordinates (@sqrt for distance from the
 // centre of the sheet, @atan2 for its bearing, @sin for the wave fields),
 // conic gradients, which are the only way to sweep a value round an angle, and
-// SVG *stroke* — line art rather than filled shapes.
+// SVG *stroke* - line art rather than filled shapes.
 //
 //   A. Radial fields      distance from the centre of the *canvas* drives the
 //                         cell (Epicentre, Pivot, Fulcrum, Centroid).
@@ -32,14 +32,14 @@
 //
 //   * exactly one @random(${shapeFrequency}) gate per design, so the frequency
 //     slider always thins the field;
-//   * every design samples a transition-able ink per cell —
-//     background-color, color, border-color or box-shadow — so a reseed
+//   * every design samples a transition-able ink per cell -
+//     background-color, color, border-color or box-shadow - so a reseed
 //     morphs. background-image is deliberately excluded from the validator's
 //     reseed check: a design whose only variation lived in a gradient would
 //     snap instead of morphing;
 //   * a randomized custom prop read more than once goes through @var(--x);
 //   * nothing paints var(--color0). A hole knocked out in the background
-//     colour is a fake hole — set the background slot to transparent and it
+//     colour is a fake hole - set the background slot to transparent and it
 //     stops erasing anything. Every gap here is a mask, a clip-path hole, or
 //     a gap between elements, and validate-batch9.mjs re-renders the whole
 //     batch over a checkerboard with the background slot set to #00000000 and
@@ -55,7 +55,7 @@ const isDark = (hex) => {
   return (0.2126 * ((n >> 16) & 255) + 0.7152 * ((n >> 8) & 255) + 0.0722 * (n & 255)) / 255 < 0.5;
 };
 
-// Ink picker over color1..color(c-1) (color0 is the background — never painted).
+// Ink picker over color1..color(c-1) (color0 is the background - never painted).
 const ink = (c, s = 1) => {
   const a = [];
   for (let i = s; i <= c - 1; i++) a.push(`var(--color${i})`);
@@ -79,7 +79,7 @@ const R4 = '@pick(0deg, 90deg, 180deg, 270deg)';
 const R8 = '@pick(0deg, 45deg, 90deg, 135deg, 180deg, 225deg, 270deg, 315deg)';
 
 // A px length authored for a six-column grid and scaled down as the grid
-// densifies — the idiom Ring and Terrain already use. Border and shadow widths
+// densifies - the idiom Ring and Terrain already use. Border and shadow widths
 // take lengths only, never percentages.
 const u = (v) => `calc(${v}px * 6 / @size-col)`;
 
@@ -89,7 +89,7 @@ const u = (v) => `calc(${v}px * 6 / @size-col)`;
 // them holds its composition at any grid density.
 //
 // One hard constraint shapes how they are written. css-doodle's @calc honours
-// operator precedence, but a *bare grouping paren* does not survive it —
+// operator precedence, but a *bare grouping paren* does not survive it -
 // `@calc(90 - 74 * (2 * @x / @X - 1))` quietly evaluates the group to zero and
 // the whole field goes flat. Only a function call's own parentheses are safe,
 // so every grouping below is done with @abs(), @sqrt() or @atan2() rather than
@@ -128,11 +128,11 @@ const pieMask = (deg, from = '0deg') =>
 
 // ── stroke helpers ─────────────────────────────────────────────────────────
 // @svg() as a mask, drawing with stroke rather than fill. `d` is fixed path
-// data — calc() does not survive inside a path's `d`, so anything that has to
+// data - calc() does not survive inside a path's `d`, so anything that has to
 // vary per cell varies through a repeated element's own attributes instead.
 //
 // The cap matters. A round cap overhangs the end of a segment by half the
-// stroke width, which reads as a rounded terminal on an open stroke — right
+// stroke width, which reads as a rounded terminal on an open stroke - right
 // for these designs, but wrong on a path that stops at a corner, where the
 // overhang shows as a thorn poking out past the join. A design like that
 // wants `butt` and a neighbouring miter join to fill the corner instead.
@@ -221,7 +221,7 @@ const PAL = [
 ];
 
 // Every motif name used anywhere in the project so far, including the designs
-// authored for batches 7 and 8 and cut before they shipped — a name should
+// authored for batches 7 and 8 and cut before they shipped - a name should
 // never come to mean two different things.
 const TAKEN = new Set(
   (
@@ -361,7 +361,7 @@ const add = (name, palIdx, description, build, cfg = {}) => {
   const { vars, rule } = build(c);
   if (/var\(\s*--color0\s*\)/.test(`${vars} ${rule}`)) {
     throw new Error(
-      `${slug}: painting var(--color0) breaks on a transparent background — cut the shape instead`
+      `${slug}: painting var(--color0) breaks on a transparent background - cut the shape instead`
     );
   }
   all.push({
@@ -388,7 +388,7 @@ const add = (name, palIdx, description, build, cfg = {}) => {
 };
 
 // ══════════════════════════════════════════════════════════════════════════
-// A. Radial fields — distance from the centre of the *canvas* drives the cell.
+// A. Radial fields - distance from the centre of the *canvas* drives the cell.
 // ══════════════════════════════════════════════════════════════════════════
 
 add('Epicentre', 1, 'Discs at their largest in the middle of the sheet and shrinking all the way to the corners.', (c) => ({
@@ -396,7 +396,7 @@ add('Epicentre', 1, 'Discs at their largest in the middle of the sheet and shrin
   rule: `${F} { ${A(`left: 50%; top: 50%; width: ${ramp(94, 16, RAD)}; height: ${ramp(94, 16, RAD)}; ${xf('translate(-50%, -50%)')} border-radius: 50%; background: ${ink(c)};`)} }${TR}`,
 }), { tg: '6x6' });
 
-add('Pivot', 13, 'A square field given a twist that accumulates with the radius — flat in the middle, wrung out at the rim.', (c) => ({
+add('Pivot', 13, 'A square field given a twist that accumulates with the radius - flat in the middle, wrung out at the rim.', (c) => ({
   vars: '',
   rule: `${F} { ${A(`inset: 12%; background: ${ink(c)}; ${xf(`rotate(@calc(60 * ${RAD})deg)`)}`)} }${TR}`,
 }), { tg: '6x6' });
@@ -412,7 +412,7 @@ add('Centroid', 3, 'A plain grid of squares, lit from the middle: only the opaci
 }), { tg: '6x6' });
 
 // ══════════════════════════════════════════════════════════════════════════
-// B. Angular fields — @atan2 gives every cell its bearing from the middle of
+// B. Angular fields - @atan2 gives every cell its bearing from the middle of
 //    the sheet, so the whole canvas points or swirls as one thing.
 // ══════════════════════════════════════════════════════════════════════════
 
@@ -447,7 +447,7 @@ add('Dipole', 10, 'Two poles instead of one, and the field between them bending 
 }), { tg: '6x6' });
 
 // ══════════════════════════════════════════════════════════════════════════
-// C. Conic — conic-gradient is the only thing in CSS that sweeps a value round
+// C. Conic - conic-gradient is the only thing in CSS that sweeps a value round
 //    an angle, and as a mask its wedge is a real hole.
 // ══════════════════════════════════════════════════════════════════════════
 
@@ -455,12 +455,12 @@ add('Wedge', 2, 'A single wedge cut out of each cell, its angle rolled from a sh
   vars: '',
   rule: `--from: ${R8}; ${F} { background: ${ink(c)}; ${pieMask('@pick(70deg, 120deg, 180deg, 250deg)', '@var(--from)')} }${TR}`,
   // The two @pick() stop positions roll independently, so most cells get a
-  // smooth black-to-transparent conic fade rather than a hard-stop sector —
+  // smooth black-to-transparent conic fade rather than a hard-stop sector -
   // and SVG has no angular gradient. See docs/svg-export.md, tier 1.
 }), { grid: '6x9', tg: '5x5', svgExport: false });
 
 // ══════════════════════════════════════════════════════════════════════════
-// D. Line art — @svg used as a mask, drawing with stroke rather than fill.
+// D. Line art - @svg used as a mask, drawing with stroke rather than fill.
 // ══════════════════════════════════════════════════════════════════════════
 
 add('Charcoal', 43, 'Charcoal: broad, blunt strokes that almost close the paper up.', (c) => ({
@@ -474,7 +474,7 @@ add('Reedpen', 62, 'A reed pen: three strokes of the same length, laid down side
 }), { grid: '6x9', tg: '5x5' });
 
 // ══════════════════════════════════════════════════════════════════════════
-// E. Mirrors — @match on the cell's own address folds the canvas about an
+// E. Mirrors - @match on the cell's own address folds the canvas about an
 //    axis, so the composition is symmetrical however many cells it has.
 // ══════════════════════════════════════════════════════════════════════════
 
@@ -494,11 +494,11 @@ add('Foldback', 54, 'Arcs folded back on themselves at the centreline of the she
 }), { tg: '6x6' });
 
 // ══════════════════════════════════════════════════════════════════════════
-// F. Perspective — a skew or scale that builds across the sheet turns a flat
+// F. Perspective - a skew or scale that builds across the sheet turns a flat
 //    grid into a receding one.
 // ══════════════════════════════════════════════════════════════════════════
 
-add('Ortho', 29, 'No perspective at all — the same square everywhere, and only the weight of the line changing.', (c) => ({
+add('Ortho', 29, 'No perspective at all - the same square everywhere, and only the weight of the line changing.', (c) => ({
   vars: '',
   rule: `${F} { ${A(`inset: 6%; border-style: solid; border-color: ${ink(c)}; border-width: calc(@calc(1 + 7 * ${RY}) * 1px * 6 / @size-col); box-sizing: border-box;`)} }${TR}`,
 }), { tg: '6x6', min: 30 });
@@ -524,7 +524,7 @@ add('Raking', 38, 'A raking light: parallel bars whose lean builds steadily down
 }), { tg: '6x6' });
 
 // ══════════════════════════════════════════════════════════════════════════
-// G. Weights — rule width graded across the sheet, with nothing else moving.
+// G. Weights - rule width graded across the sheet, with nothing else moving.
 // ══════════════════════════════════════════════════════════════════════════
 
 add('Thickset', 2, 'Heavy throughout, and heavier still as it goes: frames that all but close up.', (c) => ({
@@ -532,7 +532,7 @@ add('Thickset', 2, 'Heavy throughout, and heavier still as it goes: frames that 
   rule: `${F} { ${A(`inset: 2%; border-style: solid; border-color: ${ink(c)}; border-width: ${wRamp(4, 15, RY)}; box-sizing: border-box;`)} }${TR}`,
 }), { tg: '6x6', min: 34 });
 
-// 23 as authored, less Wireframe (retired) — the count is asserted so a
+// 23 as authored, less Wireframe (retired) - the count is asserted so a
 // definition cannot be lost to a bad edit without the generator saying so.
 if (all.length !== 22) {
   throw new Error(`batch 9 must hold exactly 22 designs, found ${all.length}`);

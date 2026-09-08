@@ -2,8 +2,8 @@ import { z } from 'zod';
 
 // One schema, used three ways: it is sent upstream as JSON Schema
 // (`text.format`), it validates what comes back, and its inferred type is
-// what the rest of the Worker holds. An upstream that ignores `json_schema` —
-// some "compatible" servers do — therefore fails at the validate step with an
+// what the rest of the Worker holds. An upstream that ignores `json_schema` -
+// some "compatible" servers do - therefore fails at the validate step with an
 // attributable error rather than leaking a half-shape into the UI.
 
 /**

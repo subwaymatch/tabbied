@@ -3,8 +3,8 @@ import { buildSiteValidator, siteJsonSchema, siteSlots, slotLine } from '../ai/s
 import type { TemplateSpec } from 'tabbied-templates';
 
 // The schema the model is held to is built from the template's own spec, so
-// what matters is that it admits exactly the slots the page has — every one
-// required, nothing invented — and that the prompt line for a slot says what a
+// what matters is that it admits exactly the slots the page has - every one
+// required, nothing invented - and that the prompt line for a slot says what a
 // writer needs: what it is, how long, what it says now.
 
 const spec: TemplateSpec = {
@@ -76,9 +76,9 @@ describe('the site schema', () => {
     const [name, title, lede] = siteSlots(spec).map(slotLine);
 
     expect(name).toBe('- brand.name · brand.name; up to 24 characters · now: "Verdant"');
-    expect(title).toContain('Headline; up to 70 characters; may wrap one phrase in {em}…{/em}');
+    expect(title).toContain('Headline; up to 70 characters; may wrap one phrase in {em}...{/em}');
     // A long current value is cut, so a 300-slot page does not become a 30k-token prompt.
     expect(lede.length).toBeLessThan(220);
-    expect(lede.endsWith('…"')).toBe(true);
+    expect(lede.endsWith('..."')).toBe(true);
   });
 });

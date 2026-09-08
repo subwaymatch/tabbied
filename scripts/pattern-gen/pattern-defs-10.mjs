@@ -1,4 +1,4 @@
-// Batch 10 — 200 motifs (gallery orders 1100+).
+// Batch 10 - 200 motifs (gallery orders 1100+).
 //
 // Batch 9 asked what happens when the *canvas* is the unit rather than the
 // cell. This one sits between the two: most of these motifs are bigger than a
@@ -7,8 +7,8 @@
 // stops being a frame around each drawing and becomes the thing the drawing is
 // assembled from.
 //
-// It opens with the family this batch was asked for. Wedge — a conic-gradient
-// mask cutting one sector out of a solid cell — turned out to be the most
+// It opens with the family this batch was asked for. Wedge - a conic-gradient
+// mask cutting one sector out of a solid cell - turned out to be the most
 // liked design in batch 9, because of the way the sector *spreads*: a shape
 // that starts at a point and opens. Section A is thirty-six variations on
 // that: sectors from the centre, from a corner, from an edge, annular ones
@@ -34,14 +34,14 @@
 //
 //   * exactly one @random(${shapeFrequency}) gate per design, so the frequency
 //     slider always thins the field;
-//   * every design samples a transition-able ink per cell —
-//     background-color, color, border-color or box-shadow — so a reseed
+//   * every design samples a transition-able ink per cell -
+//     background-color, color, border-color or box-shadow - so a reseed
 //     morphs. background-image is deliberately excluded from the validator's
 //     reseed check: a design whose only variation lived in a gradient would
 //     snap instead of morphing;
 //   * a randomized custom prop read more than once goes through @var(--x);
 //   * nothing paints var(--color0). A hole knocked out in the background
-//     colour is a fake hole — set the background slot to transparent and it
+//     colour is a fake hole - set the background slot to transparent and it
 //     stops erasing anything. Every gap here is a mask, a clip-path hole or a
 //     gap between elements, and validate-batch10.mjs re-renders the whole
 //     batch over a checkerboard with the background slot set to #00000000 and
@@ -54,7 +54,7 @@ const isDark = (hex) => {
   return (0.2126 * ((n >> 16) & 255) + 0.7152 * ((n >> 8) & 255) + 0.0722 * (n & 255)) / 255 < 0.5;
 };
 
-// Ink picker over color1..color(c-1) (color0 is the background — never painted).
+// Ink picker over color1..color(c-1) (color0 is the background - never painted).
 const ink = (c, s = 1) => {
   const a = [];
   for (let i = s; i <= c - 1; i++) a.push(`var(--color${i})`);
@@ -93,7 +93,7 @@ const rampDeg = (a, b, t) =>
 // ── A: the spread ──────────────────────────────────────────────────────────
 // One sector of a circle, opening from a point. conic-gradient is the only
 // thing in CSS that sweeps a value round an angle, and used as a *mask* the
-// sector is cut rather than painted — so the part that is not the wedge is a
+// sector is cut rather than painted - so the part that is not the wedge is a
 // genuine hole and the design survives a transparent background.
 //
 // `at` moves the apex: 50% 50% puts it in the middle of the cell, 0% 100% in a
@@ -106,7 +106,7 @@ const pie = (deg, { from = '0deg', at = '50% 50%' } = {}) =>
 const fan = (on, period, { from = '0deg', at = '50% 50%' } = {}) =>
   msk(`repeating-conic-gradient(from ${from} at ${at}, #000 0 ${on}, transparent ${on} ${period})`);
 
-// A sector with its apex bored out — an annular sector. Two masks intersected:
+// A sector with its apex bored out - an annular sector. Two masks intersected:
 // the conic decides the angle, the radial decides the inner and outer radius.
 const arcSector = (deg, bore, { from = '0deg', at = '50% 50%' } = {}) =>
   `-webkit-mask: conic-gradient(from ${from} at ${at}, #000 0 ${deg}, transparent 0), radial-gradient(circle closest-side at ${at}, transparent ${bore}, #000 0); mask: conic-gradient(from ${from} at ${at}, #000 0 ${deg}, transparent 0), radial-gradient(circle closest-side at ${at}, transparent ${bore}, #000 0); -webkit-mask-composite: source-in; mask-composite: intersect;`;
@@ -230,7 +230,7 @@ const PAL = [
 ];
 
 // Every motif name used anywhere in the project so far, including the designs
-// authored for batches 7 and 8 and cut before they shipped — a name should
+// authored for batches 7 and 8 and cut before they shipped - a name should
 // never come to mean two different things.
 export const TAKEN = new Set(
   (
@@ -395,7 +395,7 @@ const add = (name, palIdx, description, build, cfg = {}) => {
   const { vars, rule } = build(c);
   if (/var\(\s*--color0\s*\)/.test(`${vars} ${rule}`)) {
     throw new Error(
-      `${slug}: painting var(--color0) breaks on a transparent background — cut the shape instead`
+      `${slug}: painting var(--color0) breaks on a transparent background - cut the shape instead`
     );
   }
   all.push({
@@ -423,7 +423,7 @@ const add = (name, palIdx, description, build, cfg = {}) => {
 
 
 // ════════════════════════════════════════════════════════════════════════════
-// A. Spread — one sector of a circle, opening from a point. Thirty-six ways to
+// A. Spread - one sector of a circle, opening from a point. Thirty-six ways to
 //    move the apex, change the angle, bore out the middle, pair the sectors up
 //    or open them into a whole fan.
 // ════════════════════════════════════════════════════════════════════════════
@@ -439,7 +439,7 @@ add('Spray', 32, 'A wide spray thrown from one edge, the cone opening to nearly 
 }), { tg: '5x5' });
 
 // ════════════════════════════════════════════════════════════════════════════
-// B. Super-tiles — the motif spans a two-by-two block of cells. Each cell
+// B. Super-tiles - the motif spans a two-by-two block of cells. Each cell
 //    draws the same quarter and the flips assemble it, so what you see is one
 //    drawing four cells wide rather than four copies of a small one.
 //
@@ -457,7 +457,7 @@ add('Frieze', 12, 'A running frieze two cells deep: the upper half of the motif 
 }), { grid: '8x12', tg: '6x6' });
 
 // ════════════════════════════════════════════════════════════════════════════
-// C. Interlock — figure and ground both inked, so no background shows through
+// C. Interlock - figure and ground both inked, so no background shows through
 //    at all and each shape keys into the ones beside it.
 // ════════════════════════════════════════════════════════════════════════════
 
@@ -469,7 +469,7 @@ add('Plait', 49, 'Three strands plaited, the one on top changing every row.', (c
 }), { grid: '8x12', tg: '6x6' });
 
 // ════════════════════════════════════════════════════════════════════════════
-// D. Counterform — the drawing is the hole. The cell is solid and the motif is
+// D. Counterform - the drawing is the hole. The cell is solid and the motif is
 //    cut out of it, so what you read is the shape of what is missing.
 // ════════════════════════════════════════════════════════════════════════════
 
@@ -484,7 +484,7 @@ add('Perforate', 31, 'A field of small perforations on a square pitch.', (c) => 
 }), { tg: '5x5' });
 
 // ════════════════════════════════════════════════════════════════════════════
-// E. Stacks — layered plates, offset from one another. No projection and no
+// E. Stacks - layered plates, offset from one another. No projection and no
 //    shading: the depth comes from nothing but the offset and the order the
 //    plates are painted in.
 // ════════════════════════════════════════════════════════════════════════════
@@ -493,7 +493,7 @@ const plates = (c, dx, dy, w = 66) =>
   `${B(`left: 6%; top: 6%; width: ${w}%; height: ${w}%; background: ${ink(c)};`)} ${A(`left: ${6 + dx}%; top: ${6 + dy}%; width: ${w}%; height: ${w}%; background: ${ink(c)};`)}`;
 
 // ════════════════════════════════════════════════════════════════════════════
-// F. Chains — links that run out of one cell and into the next, so the row is
+// F. Chains - links that run out of one cell and into the next, so the row is
 //    continuous rather than a set of separate marks.
 // ════════════════════════════════════════════════════════════════════════════
 
@@ -508,7 +508,7 @@ add('Staple', 53, 'A staple driven into the board, both legs showing.', (c) => (
 }), { tg: '5x5' });
 
 // ════════════════════════════════════════════════════════════════════════════
-// G. Corners — everything anchored at a corner of the cell rather than in the
+// G. Corners - everything anchored at a corner of the cell rather than in the
 //    middle of it, so the drawing happens where four cells meet.
 // ════════════════════════════════════════════════════════════════════════════
 
@@ -528,7 +528,7 @@ add('Abutment', 27, 'An abutment: the mass at the end of the arch that takes the
 }), { tg: '5x5' });
 
 // ════════════════════════════════════════════════════════════════════════════
-// H. Bands — mouldings and banding run across the sheet. The whole vocabulary
+// H. Bands - mouldings and banding run across the sheet. The whole vocabulary
 //    of a moulded edge, one profile per design.
 // ════════════════════════════════════════════════════════════════════════════
 

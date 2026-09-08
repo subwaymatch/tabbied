@@ -11,7 +11,7 @@
  * configs for the designs dropped in that move were left behind.
  *
  * The batch generators already delete the entries for designs they drop, but
- * only within the gallery-order range each one owns — anything removed outside
+ * only within the gallery-order range each one owns - anything removed outside
  * a generator (a migration, a hand-deleted JSON) rots unnoticed. This is the
  * backstop for that case.
  *
@@ -53,5 +53,5 @@ if (orphans.length) {
 }
 
 console.log(
-  `gallery thumbnails: ${entries.length} configs, all naming a shipped design ✓`
+  `gallery thumbnails: ${entries.length} configs, all naming a shipped design`
 );

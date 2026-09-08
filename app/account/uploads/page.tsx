@@ -5,7 +5,7 @@ import UploadsPanel from 'components/account/UploadsPanel';
 import styles from 'components/studio/studio.module.css';
 
 export const metadata: Metadata = {
-  title: 'Pictures — Tabbied',
+  title: 'Pictures - Tabbied',
   robots: { index: false, follow: false },
 };
 

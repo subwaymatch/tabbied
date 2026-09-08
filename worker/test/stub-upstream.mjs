@@ -3,7 +3,7 @@
 // paid API. Point AI_BASE_URL at http://localhost:8788/v1 in .dev.vars.
 //
 // It speaks the Responses API, and honours `text.format` the way a compliant
-// upstream does — the slug enum is read back out of the schema, so the answer
+// upstream does - the slug enum is read back out of the schema, so the answer
 // is always one the validator can accept. It also stores responses and honours
 // `previous_response_id`, which is what lets the chained repair turn be
 // exercised locally rather than only against OpenAI.
@@ -28,7 +28,7 @@ const read = (req) =>
 const PIXEL_WEBP =
   'UklGRlYAAABXRUJQVlA4WAoAAAAQAAAAAAAAAAAAQUxQSAwAAAABBxAR/Q9ERP8DAABWUDggGAAAADABAJ0BKgEAAQADADQlpAADcAD++/1QAA==';
 
-/** Response id → the slug enum that turn was asked for, so a chained turn can answer. */
+/** Response id -> the slug enum that turn was asked for, so a chained turn can answer. */
 const stored = new Map();
 
 const directionsFor = (slugs) =>
@@ -83,7 +83,7 @@ createServer(async (req, res) => {
       status: 'completed',
       model: 'stub-responses',
       output: [
-        // The reasoning item a reasoning model emits first — present so the
+        // The reasoning item a reasoning model emits first - present so the
         // walker in ai/client.ts is exercised rather than assumed.
         { type: 'reasoning', id: `rs_${id}`, summary: [] },
         {

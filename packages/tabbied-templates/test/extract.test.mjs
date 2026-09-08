@@ -1,6 +1,6 @@
 // Reading a spec back out of exported markup.
 //
-// The scanner is the part most likely to be quietly wrong — HTML has several
+// The scanner is the part most likely to be quietly wrong - HTML has several
 // shapes that defeat a regex, and the failure mode is a slot that silently
 // isn't there. These fixtures are the shapes the real export actually
 // contains: a headline with an accent span, a figure wrapping an image, a

@@ -21,17 +21,17 @@ const DEEP = '#14293d';
    row is one force, and the cut note is what it means for a sail. */
 const SCALE = [
   ['0', 'Calm', '< 1', 'Sea like a mirror', 'Nothing we make will help you'],
-  ['1', 'Light air', '1 – 3', 'Ripples, no foam', 'Code zero, and patience'],
-  ['2', 'Light breeze', '4 – 6', 'Small wavelets', 'Full main, light genoa'],
-  ['3', 'Gentle breeze', '7 – 10', 'Crests begin to break', 'The wardrobe is happy'],
-  ['4', 'Moderate breeze', '11 – 16', 'Fairly frequent white horses', 'Where we cut for'],
-  ['5', 'Fresh breeze', '17 – 21', 'Moderate waves, many white horses', 'First reef, no drama'],
-  ['6', 'Strong breeze', '22 – 27', 'Large waves, spray', 'Second reef, working jib'],
-  ['7', 'Near gale', '28 – 33', 'Sea heaps up, foam in streaks', 'Third reef, staysail'],
-  ['8', 'Gale', '34 – 40', 'Moderately high waves, edges break', 'Storm jib and honesty'],
-  ['9', 'Strong gale', '41 – 47', 'High waves, dense foam', 'Trysail. This is the cloth test'],
-  ['10', 'Storm', '48 – 55', 'Very high waves, sea white', 'Nothing set that we did not triple-stitch'],
-  ['11', 'Violent storm', '56 – 63', 'Exceptionally high waves', 'Everything below, everything lashed'],
+  ['1', 'Light air', '1 - 3', 'Ripples, no foam', 'Code zero, and patience'],
+  ['2', 'Light breeze', '4 - 6', 'Small wavelets', 'Full main, light genoa'],
+  ['3', 'Gentle breeze', '7 - 10', 'Crests begin to break', 'The wardrobe is happy'],
+  ['4', 'Moderate breeze', '11 - 16', 'Fairly frequent white horses', 'Where we cut for'],
+  ['5', 'Fresh breeze', '17 - 21', 'Moderate waves, many white horses', 'First reef, no drama'],
+  ['6', 'Strong breeze', '22 - 27', 'Large waves, spray', 'Second reef, working jib'],
+  ['7', 'Near gale', '28 - 33', 'Sea heaps up, foam in streaks', 'Third reef, staysail'],
+  ['8', 'Gale', '34 - 40', 'Moderately high waves, edges break', 'Storm jib and honesty'],
+  ['9', 'Strong gale', '41 - 47', 'High waves, dense foam', 'Trysail. This is the cloth test'],
+  ['10', 'Storm', '48 - 55', 'Very high waves, sea white', 'Nothing set that we did not triple-stitch'],
+  ['11', 'Violent storm', '56 - 63', 'Exceptionally high waves', 'Everything below, everything lashed'],
   ['12', 'Hurricane', '64 +', 'Air filled with foam and spray', 'The loft would like a word'],
 ];
 
@@ -44,18 +44,18 @@ const WORK = [
 ];
 
 const CLOTH = [
-  ['Dacron HTP', '280 g/m²', 'Cross-cut cruising', '8 – 12 years', 'Held'],
-  ['Dacron HTP', '380 g/m²', 'Heavy cruising, charter', '10 – 15 years', 'Held'],
-  ['Hydra Net Radial', '340 g/m²', 'Radial cruising', '10 – 14 years', 'Held'],
-  ['Laminate, Pentex', '295 g/m²', 'Fast cruising', '6 – 8 years', 'Held'],
-  ['Membrane, Aramid', '240 g/m²', 'Racing, inshore', '3 – 5 seasons', 'Made here'],
-  ['Membrane, Carbon', '210 g/m²', 'Racing, offshore', '2 – 4 seasons', 'Made here'],
-  ['Nylon, 0.75 oz', '25 g/m²', 'Spinnaker, light', '5 – 8 years', 'Held'],
-  ['Nylon, 1.5 oz', '50 g/m²', 'Spinnaker, all round', '6 – 10 years', 'Held'],
+  ['Dacron HTP', '280 g/m²', 'Cross-cut cruising', '8 - 12 years', 'Held'],
+  ['Dacron HTP', '380 g/m²', 'Heavy cruising, charter', '10 - 15 years', 'Held'],
+  ['Hydra Net Radial', '340 g/m²', 'Radial cruising', '10 - 14 years', 'Held'],
+  ['Laminate, Pentex', '295 g/m²', 'Fast cruising', '6 - 8 years', 'Held'],
+  ['Membrane, Aramid', '240 g/m²', 'Racing, inshore', '3 - 5 seasons', 'Made here'],
+  ['Membrane, Carbon', '210 g/m²', 'Racing, offshore', '2 - 4 seasons', 'Made here'],
+  ['Nylon, 0.75 oz', '25 g/m²', 'Spinnaker, light', '5 - 8 years', 'Held'],
+  ['Nylon, 1.5 oz', '50 g/m²', 'Spinnaker, all round', '6 - 10 years', 'Held'],
   ['Flax, No. 4', '410 g/m²', 'Classic, gaff rig', '20 years +', 'To order'],
   ['Cotton duck', '460 g/m²', 'Classic, museum work', '20 years +', 'To order'],
   ['Acrylic, solution dyed', '305 g/m²', 'Covers', '10 years', 'Held'],
-  ['Your own cloth', '—', 'We will cut it, once', '—', '—'],
+  ['Your own cloth', ' - ', 'We will cut it, once', ' - ', ' - '],
 ];
 
 const BUILT = [
@@ -99,9 +99,9 @@ const VISIT = [
   ['Guarantee', 'Five years on our stitching, and the cloth-maker warrants the cloth.'],
 ];
 
-/* When, what, and where — the footer dateline. */
+/* When, what, and where - the footer dateline. */
 const NEXT_UP: [string, string, string][] = [
-  ['08.03', 'Mainsail, Class 40 — three panels recut', 'On the floor'],
+  ['08.03', 'Mainsail, Class 40 - three panels recut', 'On the floor'],
   ['22.03', 'Genoa for a Bermudan 38, measured in February', 'Cut'],
   ['04.04', 'Storm jib for a delivery crew who asked twice', 'Sewn'],
 ];

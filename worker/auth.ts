@@ -13,13 +13,13 @@ import { sendMail } from './lib/mail';
 // It is a factory for the same reason `buildServer` is one on the MCP side:
 // a Worker isolate is shared across requests and across *environments* during
 // local dev, so capturing bindings in a module-scope singleton is a bug that
-// only shows up under concurrency. Construction is cheap — no I/O — and the
+// only shows up under concurrency. Construction is cheap - no I/O - and the
 // expensive part (session lookup) is a KV read, not a rebuild.
 
 function socialProviders(env: Env) {
   const providers: Record<string, { clientId: string; clientSecret: string }> = {};
 
-  // A provider is configured or it is absent — never half-declared, which
+  // A provider is configured or it is absent - never half-declared, which
   // renders a sign-in button that 500s on click.
   if (env.GITHUB_CLIENT_ID && env.GITHUB_CLIENT_SECRET) {
     providers.github = {
@@ -77,13 +77,13 @@ export function buildAuth(env: Env) {
 
     // Roles, bans and impersonation. The first admin is granted by hand
     // (`npm run admin:grant -- you@example.com`); after that /admin/users does
-    // it. Every /api/admin/* route reads the role server-side — the pages
+    // it. Every /api/admin/* route reads the role server-side - the pages
     // hiding themselves is cosmetic.
     plugins: [admin()],
 
     // Admins by configuration. `ADMIN_EMAILS` names accounts that get the role
     // without anyone running the grant script: set on the row as it is
-    // created, and — for an account that predates the setting — set the next
+    // created, and - for an account that predates the setting - set the next
     // time that person signs in. Compared case-insensitively, since an email
     // is.
     databaseHooks: {
@@ -118,7 +118,7 @@ export function buildAuth(env: Env) {
 
     session: {
       // A signed, short-lived copy of the session in the cookie itself, so the
-      // common case — an authenticated request — costs no database read at
+      // common case - an authenticated request - costs no database read at
       // all. Five minutes is the upstream default and the right trade here:
       // revoking a session takes at most that long to be felt, and the
       // endpoints that spend money re-check nothing more sensitive than
@@ -127,7 +127,7 @@ export function buildAuth(env: Env) {
     },
 
     rateLimit: {
-      // The default is an in-memory map, which is per-isolate — a distributed
+      // The default is an in-memory map, which is per-isolate - a distributed
       // brute force against the credential endpoints would be counted as a
       // handful of unrelated attempts. D1 is shared, so it is one count.
       storage: 'database',
@@ -173,14 +173,14 @@ export function buildAuth(env: Env) {
     advanced: {
       // The site and the API are the same origin in production, so the cookie
       // needs no cross-site relaxation. In dev they are :3000 and :8787, which
-      // is cross-*port* — same-site by the cookie spec — so only Secure has to
+      // is cross-*port* - same-site by the cookie spec - so only Secure has to
       // give way for plain http.
       useSecureCookies: !isDev(env),
     },
 
     // Dev only, and any loopback origin rather than a list of ports. The site
     // runs on :3000 while the Worker runs on :8787, `npm run preview` picks its
-    // own, and a test harness picks another again — a hardcoded pair silently
+    // own, and a test harness picks another again - a hardcoded pair silently
     // rejects every one it does not name, as "Invalid origin", which reads like
     // a bug in the form rather than a missing entry here.
     //

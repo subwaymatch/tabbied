@@ -11,7 +11,7 @@ import { radius, windowpane } from 'tabbied/patterns';
  *
  * `root` is scoped to this section on purpose. The page's <TabbiedPattern>
  * placeholders now serialize the same attributes, so an unscoped call would
- * find them too and mount a second controller on top of React's — which is
+ * find them too and mount a second controller on top of React's - which is
  * exactly the mistake the `root` option exists to prevent.
  */
 export function HydrateProbe() {
@@ -32,7 +32,7 @@ export function HydrateProbe() {
 
   return (
     <div ref={rootRef} style={{ display: 'grid', gap: 16 }}>
-      {/* Hand-written markup — no component, no props. */}
+      {/* Hand-written markup - no component, no props. */}
       <div
         id="hydrate-basic"
         data-pattern="radius"

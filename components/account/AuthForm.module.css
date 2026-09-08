@@ -1,6 +1,6 @@
-/* The account forms — sign in, sign up, the three password pages — and the
+/* The account forms - sign in, sign up, the three password pages - and the
    frame the account pages borrow for their signed-out and waiting states.
-   Tokens come from studio.module.css (`--s-…`), which every page that shows
+   Tokens come from studio.module.css (`--s-...`), which every page that shows
    one of these wraps itself in. */
 
 .form {
@@ -134,7 +134,7 @@
   border-color: var(--s-ink);
 }
 
-/* "Forgot your password?" — sits between the fields and the button. */
+/* "Forgot your password?" - sits between the fields and the button. */
 .aside {
   display: inline-block;
   margin: 20px 0 18px;

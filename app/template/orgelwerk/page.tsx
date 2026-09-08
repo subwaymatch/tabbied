@@ -12,8 +12,8 @@ export const metadata = {
 };
 
 /* Bone ground, ink, one pine green. Every decorative field takes
-   `transparent` in the background slot, so the paper of the page — and, in
-   the plates, the plate itself — is what shows through the drawing. */
+   `transparent` in the background slot, so the paper of the page - and, in
+   the plates, the plate itself - is what shows through the drawing. */
 const INK = '#141614';
 const ACCENT = '#1d6f5c';
 const GREY = '#87887f';
@@ -83,7 +83,7 @@ const STOPLIST = [
   ['Pedaal', 'Bourdon 16′', 'Oak, stopped', '30 pipes', 'Wooden'],
   ['Pedaal', 'Prestant 8′', 'Cast tin, 75 %', '30 pipes', 'Front, speaking'],
   ['Pedaal', 'Trompet 8′', 'Tin, reed', '30 pipes', 'Full-length resonator'],
-  ['Couplers', 'RW – HW, HW – P', 'Mechanical', '—', 'Shove coupler'],
+  ['Couplers', 'RW - HW, HW - P', 'Mechanical', ' - ', 'Shove coupler'],
 ];
 
 const BUILT = [
@@ -203,7 +203,7 @@ export default function OrgelwerkPage() {
         <section className={s.statement}>
           <p data-edit="statement.big" data-edit-max="240" data-edit-multiline className={s.big}>
             An organ is the only instrument that is built into a room, and the
-            room is not an acoustic afterthought — it is part of the
+            room is not an acoustic afterthought - it is part of the
             instrument. That is why the last five weeks of every job happen on
             a ladder in a cold church rather than in a warm workshop.
           </p>

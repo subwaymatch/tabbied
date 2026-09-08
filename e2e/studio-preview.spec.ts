@@ -57,7 +57,7 @@ const GENERATION = {
 test.describe('studio preview', () => {
   test.skip(
     REQUIRED.some((file) => !fs.existsSync(file)),
-    'run `npm run build` first — needs the exported route, the packaged template and the preview runtime'
+    'run `npm run build` first - needs the exported route, the packaged template and the preview runtime'
   );
 
   test.beforeEach(async ({ page }) => {
@@ -80,7 +80,7 @@ test.describe('studio preview', () => {
 
     const frame = page.frameLocator('iframe');
 
-    // Copy, on every element sharing the id — the brand name is in the
+    // Copy, on every element sharing the id - the brand name is in the
     // masthead and twice in the footer, and an edit reaches all of them.
     await expect(frame.locator('[data-edit="brand.name"]').first()).toHaveText(
       'Ye Joo Park',
@@ -100,7 +100,7 @@ test.describe('studio preview', () => {
     );
 
     // The palette reaches the page as inline custom properties, and the
-    // TemplateSite derivation recomputes the ones that are functions of it —
+    // TemplateSite derivation recomputes the ones that are functions of it -
     // that recomputation is what keeps body copy readable on a new ground.
     const style = await frame
       .locator('[data-edit-root]')
@@ -136,7 +136,7 @@ test.describe('studio preview', () => {
     const doodle = frame.locator('css-doodle').first();
 
     // The element existing is the custom element having been *defined* in the
-    // iframe's document — a registry is per-document, so this is the assertion
+    // iframe's document - a registry is per-document, so this is the assertion
     // that the runtime really ran in there.
     await expect(doodle).toHaveCount(1, { timeout: 15_000 });
     await expect
@@ -160,7 +160,7 @@ test.describe('studio preview', () => {
     await expect(nav).toBeVisible({ timeout: 15_000 });
 
     // `display: flex` comes from the packaged stylesheet, which is loaded by a
-    // relative href — so this fails if the injected <base> is missing or wrong,
+    // relative href - so this fails if the injected <base> is missing or wrong,
     // the failure that once had e2e/templates.spec.ts passing against a
     // completely unstyled page.
     await expect
@@ -171,7 +171,7 @@ test.describe('studio preview', () => {
   test('asks for nothing relative to the route', async ({ page }) => {
     // Chromium's preload scanner does not honour the injected <base> in a
     // srcdoc document: with relative hrefs it fetched every stylesheet and
-    // preloaded image against this route first — `/studio/preview/styles/…`,
+    // preloaded image against this route first - `/studio/preview/styles/...`,
     // a 404 and a console full of errors for a preview that then drew fine.
     // The builder now spells those references out as absolute paths under the
     // package, so nothing the frame asks for lives under the route.
@@ -200,8 +200,8 @@ test.describe('studio preview', () => {
       { timeout: 15_000 }
     );
 
-    // A `#…` link resolves against the <base> to the package's own URL, which
-    // is never the srcdoc document's URL — so without the bootstrap's handler
+    // A `#...` link resolves against the <base> to the package's own URL, which
+    // is never the srcdoc document's URL - so without the bootstrap's handler
     // the browser *navigates* the frame to the raw package: the rebrand gone,
     // the esm.sh bootstrap back. The template's nav links are `href="#"`;
     // pointing one at a real section id proves the scroll too.
@@ -223,7 +223,7 @@ test.describe('studio preview', () => {
 test.describe('results preview dialog', () => {
   test.skip(
     REQUIRED.some((file) => !fs.existsSync(file)),
-    'run `npm run build` first — needs the packaged templates and the preview runtime'
+    'run `npm run build` first - needs the packaged templates and the preview runtime'
   );
 
   test('opens the packaged template in place, asking for nothing relative to the route', async ({

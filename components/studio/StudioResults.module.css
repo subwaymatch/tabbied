@@ -192,8 +192,8 @@
   position: relative;
   height: 220px;
   overflow: hidden;
-  /* A ground under the box, so a generated image that is still loading — or
-     that carries transparency — reads as a frame rather than a hole in the
+  /* A ground under the box, so a generated image that is still loading - or
+     that carries transparency - reads as a frame rather than a hole in the
      card. The pattern render paints over it either way. */
   background-color: oklch(0 0 0 / 0.04);
   border-radius: 12px;

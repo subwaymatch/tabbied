@@ -24,7 +24,7 @@ export default function GalleryScrollRestorer() {
         }
       }
     } catch {
-      // Ignore unavailable sessionStorage — restoring is best-effort.
+      // Ignore unavailable sessionStorage - restoring is best-effort.
     }
 
     let ticking = false;

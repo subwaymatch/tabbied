@@ -1,4 +1,4 @@
-// G. Beacon — two fans of light thrown from opposite edges.
+// G. Beacon - two fans of light thrown from opposite edges.
 //
 // A hard-stop conic sector is the one angular form the converter can carry:
 // SVG has no angular gradient, so a sector whose colour changes anywhere but

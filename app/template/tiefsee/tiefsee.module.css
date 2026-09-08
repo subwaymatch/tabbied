@@ -1,5 +1,5 @@
 /* ==========================================================================
-   TIEFSEE — deep-sea research programme
+   TIEFSEE - deep-sea research programme
    The page is the water column: five full-bleed zone bands, each one darker
    than the one above it, so scrolling down is descending. Bone type on deep
    water, one cyan, and nothing enclosed by a rule anywhere on the page.
@@ -653,7 +653,7 @@
 }
 
 /* The emphasis is the sentence coming up to full strength, not a change of
-   hue — an accent this size would outshout the column grid below it. */
+   hue - an accent this size would outshout the column grid below it. */
 .footStatement em {
   font-style: normal;
   color: var(--bone);

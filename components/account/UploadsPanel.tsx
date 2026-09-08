@@ -63,7 +63,7 @@ export default function UploadsPanel() {
             if (file) void add(file);
           }}
         />
-        {busy === 'adding' ? 'Adding…' : 'Add a picture'}
+        {busy === 'adding' ? 'Adding...' : 'Add a picture'}
       </label>
       <p className={styles.quiet}>PNG, JPEG or WebP, up to 8 MB. Up to 60 pictures.</p>
 
@@ -74,7 +74,7 @@ export default function UploadsPanel() {
       ) : null}
 
       {uploads === null ? (
-        <p className={styles.quiet}>Loading…</p>
+        <p className={styles.quiet}>Loading...</p>
       ) : uploads.length === 0 ? (
         <p className={styles.quiet}>No pictures yet. They become references for the pictures Studio makes.</p>
       ) : (
@@ -91,7 +91,7 @@ export default function UploadsPanel() {
                   disabled={busy !== null}
                   onClick={() => void remove(upload.id)}
                 >
-                  {busy === upload.id ? 'Removing…' : 'Remove'}
+                  {busy === upload.id ? 'Removing...' : 'Remove'}
                 </button>
               </div>
             </li>

@@ -2,7 +2,7 @@
   "name": "Circuit",
   "slug": "circuit",
   "galleryOrder": 60,
-  "description": "Random walls of hairline traces with bright component nodes soldered in between — the board rewires itself on every redraw.",
+  "description": "Random walls of hairline traces with bright component nodes soldered in between - the board rewires itself on every redraw.",
   "tags": [
     "lines",
     "maze",

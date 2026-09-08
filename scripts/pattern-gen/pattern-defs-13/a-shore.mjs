@@ -1,10 +1,10 @@
-// A. Shore — land held against an edge, and the water that shapes it.
+// A. Shore - land held against an edge, and the water that shapes it.
 //
 // Every design starts from a slab of ground pushed up against one side of the
 // cell and asks what the sea does to it: bites a bay out of its seaward edge,
 // parts around an islet, leaves a bar lying offshore, or faces a second shore
 // across open water. Everything is a hard-stop radial or linear layer used as
-// a mask over one ink, so the water is a real hole — set the background slot
+// a mask over one ink, so the water is a real hole - set the background slot
 // to transparent and the sheet shows through every inlet.
 //
 // `farthest-side` radials are what keep the geometry honest at the edge: a

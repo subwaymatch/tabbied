@@ -34,7 +34,7 @@ export default function PackageTestPage() {
       </section>
 
       {/* Adaptive cover: a fixed-resolution render whose shape follows the
-          host, so a wide box is tiled with whole cells — nothing cut off
+          host, so a wide box is tiled with whole cells - nothing cut off
           mid-cell at the top or bottom edges. */}
       <section id="fit-cover">
         <h2>fit=&quot;cover&quot;</h2>
@@ -72,8 +72,8 @@ export default function PackageTestPage() {
       </section>
 
       {/* Ambient redraws. The timer, and its reduced-motion / tab-visibility
-          / viewport gates, live in the core controller — the prop is a
-          pass-through — so this section covers both entry points at once.
+          / viewport gates, live in the core controller - the prop is a
+          pass-through - so this section covers both entry points at once.
           The interval is short so the spec doesn't have to wait around. */}
       <section id="redraw-interval">
         <h2>redrawInterval</h2>

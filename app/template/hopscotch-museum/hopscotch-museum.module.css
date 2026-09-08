@@ -1,7 +1,7 @@
-/* ————————————————————————————————————————————————
-   HOPSCOTCH — children's discovery museum
+/* ------------------------------------------------
+   HOPSCOTCH - children's discovery museum
    bouncy, tilted, sticker-covered
-   ———————————————————————————————————————————————— */
+   ------------------------------------------------ */
 
 .page {
   --cream: #fff9ef;
@@ -35,7 +35,7 @@
   display: block;
 }
 
-/* ————— header ————— */
+/* ----- header ----- */
 
 .header {
   position: sticky;
@@ -117,7 +117,7 @@
   box-shadow: 5px 5px 0 var(--ink);
 }
 
-/* ————— hero ————— */
+/* ----- hero ----- */
 
 .hero {
   position: relative;
@@ -307,7 +307,7 @@
   }
 }
 
-/* ————— shared section bits ————— */
+/* ----- shared section bits ----- */
 
 .h2 {
   font-family: var(--display);
@@ -328,7 +328,7 @@
   margin: 0 0 2.2rem;
 }
 
-/* ————— today ————— */
+/* ----- today ----- */
 
 .today {
   max-width: 74rem;
@@ -415,7 +415,7 @@
   margin: 0;
 }
 
-/* ————— exhibits ————— */
+/* ----- exhibits ----- */
 
 .exhibits {
   max-width: 74rem;
@@ -548,7 +548,7 @@
   margin: 0;
 }
 
-/* ————— visit band (blue, zigzag edges) ————— */
+/* ----- visit band (blue, zigzag edges) ----- */
 
 .visit {
   margin-top: clamp(1rem, 3vw, 2rem);
@@ -705,7 +705,7 @@
 }
 
 .funList li:nth-child(4n + 1)::before {
-  content: '★';
+  content: '\2605';
   color: var(--yellow);
 }
 
@@ -724,7 +724,7 @@
   color: var(--blue);
 }
 
-/* ————— birthdays ————— */
+/* ----- birthdays ----- */
 
 .birthdays {
   position: relative;
@@ -820,7 +820,7 @@
   color: color-mix(in srgb, var(--ink) 72%, var(--cream));
 }
 
-/* ————— membership ————— */
+/* ----- membership ----- */
 
 .membership {
   padding: 0 clamp(1rem, 4vw, 2.5rem) clamp(3rem, 7vw, 5.5rem);
@@ -921,14 +921,14 @@
 }
 
 .memberPerks li::before {
-  content: '✔';
+  content: '\2714';
   position: absolute;
   left: 0;
   color: var(--green);
   font-weight: 800;
 }
 
-/* ————— field trips ————— */
+/* ----- field trips ----- */
 
 .fieldTrips {
   max-width: 74rem;
@@ -988,7 +988,7 @@
   font-size: 0.92rem;
 }
 
-/* ————— FAQ ————— */
+/* ----- FAQ ----- */
 
 .faq {
   max-width: 46rem;
@@ -1050,7 +1050,7 @@
   font-size: 0.95rem;
 }
 
-/* ————— footer ————— */
+/* ----- footer ----- */
 
 .footer {
   margin-top: 1rem;
@@ -1129,7 +1129,7 @@
   color: var(--red);
 }
 
-/* ————— responsive ————— */
+/* ----- responsive ----- */
 
 @media (max-width: 1000px) {
   .heroInner {
@@ -1167,7 +1167,7 @@
   }
 }
 
-/* tablet range — keep the whole bar on one line before the nav drops out */
+/* tablet range - keep the whole bar on one line before the nav drops out */
 @media (max-width: 900px) {
   .headerInner {
     gap: 0.8rem;

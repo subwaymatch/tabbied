@@ -1,7 +1,7 @@
 // SVG-export pixel-parity sweep (development tool).
 //
 // For each pattern, rasterizes doodleToSvg()'s output and diffs it against a
-// real screenshot of the live element (deviceScaleFactor 2) — the ground
+// real screenshot of the live element (deviceScaleFactor 2) - the ground
 // truth for what the user sees. The CI-friendly equivalent lives in
 // e2e/svg-export.spec.ts; this script is for fast iteration against a dev
 // server, with per-pattern results as they complete and failure artifacts

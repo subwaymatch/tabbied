@@ -1,7 +1,7 @@
-// Batch 8 — 10 motifs (gallery orders 900+).
+// Batch 8 - 10 motifs (gallery orders 900+).
 //
-// Where batch 7 works in the idiom of the hand-drawn originals — a clip-path
-// polygon typed out by hand, a border-radius, a pseudo-element — this batch is
+// Where batch 7 works in the idiom of the hand-drawn originals - a clip-path
+// polygon typed out by hand, a border-radius, a pseudo-element - this batch is
 // organised around the generators css-doodle ships with, and each design here
 // is one of them:
 //
@@ -25,7 +25,7 @@
 //     a real gap or an evenodd sub-path;
 //   * a mask clips the element's own box-shadows along with everything else;
 //   * inside @svg's `*N` repetition only the linear @n(-1) counter is
-//     available — @nx/@ny are @multiple-only — and parenthesised or modulo
+//     available - @nx/@ny are @multiple-only - and parenthesised or modulo
 //     arithmetic does not survive the trip, which is why the grids above are
 //     CSS gradient masks rather than SVG.
 //
@@ -38,7 +38,7 @@
 //     a gradient or an @svg would snap instead;
 //   * a randomized custom prop read more than once goes through @var(--x);
 //   * nothing paints var(--color0). A hole knocked out in the background
-//     colour is a fake hole — set the background slot to transparent and it
+//     colour is a fake hole - set the background slot to transparent and it
 //     stops erasing anything. validate-batch8.mjs re-renders the batch over a
 //     checkerboard with the background slot set to #00000000 and requires
 //     byte-identical cells.
@@ -50,7 +50,7 @@ const isDark = (hex) => {
   return (0.2126 * ((n >> 16) & 255) + 0.7152 * ((n >> 8) & 255) + 0.0722 * (n & 255)) / 255 < 0.5;
 };
 
-// Ink picker over color1..color(c-1) (color0 is the background — never painted).
+// Ink picker over color1..color(c-1) (color0 is the background - never painted).
 const ink = (c, s = 1) => {
   const a = [];
   for (let i = s; i <= c - 1; i++) a.push(`var(--color${i})`);
@@ -173,7 +173,7 @@ const PAL = [
 ];
 
 // Every motif name used anywhere in the project so far, including the designs
-// that were authored for batch 7 and cut before it shipped — a name should
+// that were authored for batch 7 and cut before it shipped - a name should
 // never come to mean two different things.
 const TAKEN = new Set(
   (
@@ -298,7 +298,7 @@ const add = (name, palIdx, description, build, cfg = {}) => {
   const { vars, rule } = build(c);
   if (/var\(\s*--color0\s*\)/.test(`${vars} ${rule}`)) {
     throw new Error(
-      `${slug}: painting var(--color0) breaks on a transparent background — cut the shape instead`
+      `${slug}: painting var(--color0) breaks on a transparent background - cut the shape instead`
     );
   }
   all.push({
@@ -325,7 +325,7 @@ const add = (name, palIdx, description, build, cfg = {}) => {
 };
 
 // ══════════════════════════════════════════════════════════════════════════
-// A. Computed outlines — @shape() walking an equation into a clip-path.
+// A. Computed outlines - @shape() walking an equation into a clip-path.
 // ══════════════════════════════════════════════════════════════════════════
 
 add('Evolute', 11, 'The evolute of an ellipse: an astroid stretched, so its four cusps stop being square.', (c) => ({
@@ -334,7 +334,7 @@ add('Evolute', 11, 'The evolute of an ellipse: an astroid stretched, so its four
 }), { tg: '5x5' });
 
 // ══════════════════════════════════════════════════════════════════════════
-// B. SVG masks — inline SVG decides the holes; the paint stays a sampled
+// B. SVG masks - inline SVG decides the holes; the paint stays a sampled
 //    background-color.
 // ══════════════════════════════════════════════════════════════════════════
 
@@ -354,7 +354,7 @@ add('Gravure', 19, 'Photogravure cells: a grid of square wells with the walls le
 }), { tg: '5x5' });
 
 // ══════════════════════════════════════════════════════════════════════════
-// C. Rule-driven fields — @match against the cell's own address, so the
+// C. Rule-driven fields - @match against the cell's own address, so the
 //    pattern is computed rather than rolled.
 // ══════════════════════════════════════════════════════════════════════════
 
@@ -368,13 +368,13 @@ add('Hilbert', 51, 'The Hilbert curve\'s four orientations, cycling by cell inde
   rule: `${F} { background: ${ink(c)}; ${cp('polygon(14% 14%, 34% 14%, 34% 66%, 66% 66%, 66% 14%, 86% 14%, 86% 86%, 14% 86%)')} ${xf('rotate(@calc(@i % 4 * 90)deg)')} }${TR}`,
 }), { grid: '8x12', tg: '6x6' });
 
-add('Hairpin', 39, 'A hairpin bend — the road doubling back on itself — turning a quarter with every column.', (c) => ({
+add('Hairpin', 39, 'A hairpin bend - the road doubling back on itself - turning a quarter with every column.', (c) => ({
   vars: '',
   rule: `${F} { background: ${ink(c)}; ${cp('polygon(10% 10%, 90% 10%, 90% 46%, 34% 46%, 34% 56%, 90% 56%, 90% 90%, 10% 90%, 10% 56%, 66% 56%, 66% 46%, 10% 46%)')} ${xf('rotate(@calc(@x % 4 * 90)deg)')} }${TR}`,
 }), { grid: '6x9', tg: '5x5' });
 
 // ══════════════════════════════════════════════════════════════════════════
-// D. Nested doodles — a whole second doodle used as the mask.
+// D. Nested doodles - a whole second doodle used as the mask.
 // ══════════════════════════════════════════════════════════════════════════
 
 add('Matryoshka', 18, 'A doodle inside a doodle: each cell holds a whole second grid, and only some of its cells are open.', (c) => ({

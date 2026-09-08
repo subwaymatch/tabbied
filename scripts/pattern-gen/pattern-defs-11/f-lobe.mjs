@@ -1,4 +1,4 @@
-// F. Lobe — everything border-radius can be talked into.
+// F. Lobe - everything border-radius can be talked into.
 //
 // One property, eight numbers: a corner radius per corner, each with its own
 // horizontal and vertical component. Set them all to half the box and you have
@@ -8,7 +8,7 @@
 // interpolates into every other, so a reseed morphs rather than cuts.
 //
 // The converter reads the eight computed values back and emits an SVG path
-// with matching elliptical arcs — the one thing to stay away from is putting a
+// with matching elliptical arcs - the one thing to stay away from is putting a
 // *border* on a partially-rounded box, which it refuses outright. Nothing here
 // has one.
 import { section, A, F, TR, ink, rot, R2, R4 } from './shared.mjs';

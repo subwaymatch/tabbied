@@ -7,7 +7,7 @@ on:
     branches: [main]
   # Otherwise main ships itself once a week: if anything is waiting, this
   # versions and publishes it without a human merging the version PR.
-  # Mondays, 17:23 UTC (a few minutes off the hour — GitHub delays crons
+  # Mondays, 17:23 UTC (a few minutes off the hour - GitHub delays crons
   # scheduled on it).
   schedule:
     - cron: '23 17 * * 1'
@@ -59,7 +59,7 @@ jobs:
       # them has to be built first. Only `tabbied` has a `prepublishOnly`, and
       # the other two deliberately don't: changesets publishes packages
       # concurrently, so a build at publish time would race `tabbied`'s own
-      # `rm -rf dist` — which `tabbied-mcp` compiles against. Build here, once,
+      # `rm -rf dist` - which `tabbied-mcp` compiles against. Build here, once,
       # in dependency order, and let publish be publish.
       - name: Build the packages
         run: npm run build:packages
@@ -119,7 +119,7 @@ jobs:
 
           # A version commit that landed but never published (a failed publish,
           # or a version PR merged while the schedule was idle) still needs
-          # shipping — `changeset publish` is a no-op when it doesn't.
+          # shipping - `changeset publish` is a no-op when it doesn't.
           if [ -n "$ahead_of_npm" ]; then
             echo 'mode=publish' >> "$GITHUB_OUTPUT"
             echo "-> publish (not on npm yet:$ahead_of_npm)"

@@ -40,7 +40,7 @@ const HOUSE = [
   { n: '01', t: 'We dye before we weave', d: 'Yarn-dyed, not piece-dyed. It costs more, it fades in a way people like, and it is why our indigo goes grey rather than patchy.' },
   { n: '02', t: 'One metre is a real order', d: 'The minimum is one metre and always has been. A cutting length is not a nuisance; it is how people find out whether they want forty.' },
   { n: '03', t: 'Forty-one qualities, no seasons', d: 'The book does not change in spring. Articles are retired only when a yarn stops being made, and we announce it a year ahead.' },
-  { n: '04', t: 'The loom is the limit', d: 'One hundred and fifty centimetres, because that is the reed. Anything wider is somebody else’s mill and we will tell you which.' },
+  { n: '04', t: 'The loom is the limit', d: 'One hundred and fifty centimetres, because that is the reed. Anything wider is somebody else\'s mill and we will tell you which.' },
 ];
 
 const NUMBERS = [

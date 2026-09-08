@@ -7,7 +7,7 @@ import 'css-doodle';
 // row, and @pn (pick-by-turn) hands each cell its entry from the two lists
 // below, so tile N's color and rounded corner stay paired. To make the logo
 // dynamic later, randomize these lists (e.g. swap @pn for @p) or vary them per
-// seed — the grid itself never needs to change.
+// seed - the grid itself never needs to change.
 //
 //   tile:   1 pink      2 green     3 (empty)
 //           4 charcoal  5 blue      6 pink

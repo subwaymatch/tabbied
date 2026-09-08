@@ -2,7 +2,7 @@
   "name": "Ogee",
   "slug": "ogee",
   "galleryOrder": 633,
-  "description": "An ogee lattice — every tile rounded on one pair of opposite corners, flipping with the checker to draw the onion curve.",
+  "description": "An ogee lattice - every tile rounded on one pair of opposite corners, flipping with the checker to draw the onion curve.",
   "tags": [
     "petals",
     "circles",

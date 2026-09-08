@@ -18,7 +18,7 @@ BETTER_AUTH_SECRET=dev-secret-change-me-0000000000000000000000
 DEV=1
 
 # The origin auth cookies and verification links are issued for. It must match
-# the port you actually browse — a link minted for :8787 and followed on :8790
+# the port you actually browse - a link minted for :8787 and followed on :8790
 # signs you in on the wrong server, and the session you come back with is empty.
 PUBLIC_ORIGIN=http://localhost:8787
 

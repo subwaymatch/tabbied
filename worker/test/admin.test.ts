@@ -24,7 +24,7 @@ describe('the admin tier', () => {
   beforeAll(async () => {
     member = await signIn('member@example.com');
     admin = await signIn('boss@example.com');
-    // The first admin comes from outside the app — scripts/admin-grant.mjs
+    // The first admin comes from outside the app - scripts/admin-grant.mjs
     // does this against D1; the test does it directly.
     await env.DB.prepare("UPDATE user SET role = 'admin' WHERE email = ?").bind('boss@example.com').run();
   });
@@ -90,7 +90,7 @@ describe('admins by configuration', () => {
   });
 
   it('promotes an existing account the next time it signs in', async () => {
-    // Created as a plain member, then named in the setting — simulated by
+    // Created as a plain member, then named in the setting - simulated by
     // clearing the role the hook just set and signing in again. The old
     // cookie stops working at once: the gate reads past the cookie cache.
     const first = await signIn('root@example.com');

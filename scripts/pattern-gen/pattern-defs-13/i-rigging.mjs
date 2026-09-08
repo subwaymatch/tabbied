@@ -1,8 +1,8 @@
-// I. Rigging — spars run out on the diagonal.
+// I. Rigging - spars run out on the diagonal.
 //
 // A spar is a hard linear band: the strip between two stops, at any angle.
 // Written as a mask layer rather than a pseudo-element it costs nothing to
-// have several, and they compose — one spar over a hull, or two run out
+// have several, and they compose - one spar over a hull, or two run out
 // parallel on the same lean.
 //
 // A band at 45deg is the one case worth watching in export: CSS and a vector

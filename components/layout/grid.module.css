@@ -3,7 +3,7 @@
  * the site actually used (Container / Row / Col with responsive spans, offsets,
  * ordering and gutter control). Spans/offsets/order are driven by CSS custom
  * properties set per breakpoint on each <Col>, with a fallback chain so an
- * unset breakpoint inherits the next smaller one — mirroring Bootstrap's
+ * unset breakpoint inherits the next smaller one - mirroring Bootstrap's
  * mobile-first cascade.
  *
  * Custom breakpoints (min-width): sm 748px, md 992px, lg 1300px.
@@ -37,7 +37,7 @@
 
 /*
  * Full-bleed below the md breakpoint (old `.container-fluid-on-mobile`).
- * Declared after the breakpoint max-widths so it wins in the 748–991px range.
+ * Declared after the breakpoint max-widths so it wins in the 748-991px range.
  */
 @media (max-width: 991.98px) {
   .containerFluidOnMobile {

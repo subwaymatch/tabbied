@@ -6,7 +6,7 @@
 //
 // The lints are in pattern-lints.mjs, shared with batch 11: the house rules
 // every batch is checked against, plus the CSS that would cost a design its
-// clean SVG-export tier — box-shadow, filter, blend modes, smooth conic
+// clean SVG-export tier - box-shadow, filter, blend modes, smooth conic
 // sweeps, nested doodles and @svg payloads. Those checks are the cheap first
 // pass; validate-svg-batch12.mjs is the real gate, running the shipped
 // converter over every rendered design.

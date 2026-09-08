@@ -1,4 +1,4 @@
-// E. Shirting — one stripe, four weights.
+// E. Shirting - one stripe, four weights.
 //
 // A single repeating-linear-gradient per design, used as a mask over one ink,
 // and the only thing that changes across the section is the ratio of rule to
@@ -14,7 +14,7 @@ import { section, F, TR, rot, faded, slotL, R2 } from './shared.mjs';
 const { add, all } = section('E. Shirting');
 
 /** A ruled field over one ink. Every design here is upright, so the turn is
- *  the half turn — a quarter would only swap warp for weft. */
+ *  the half turn - a quarter would only swap warp for weft. */
 const ruled = (c, layer) =>
   `--rot: ${R2}; ${F} { ${faded(c, layer)} ${rot('@var(--rot)')} }${TR}`;
 
@@ -34,7 +34,7 @@ add(
 
 add(
   'Fustian',
-  'A dense, hard-wearing rib — more ink than ground.',
+  'A dense, hard-wearing rib - more ink than ground.',
   (c) => ({ rule: ruled(c, slotL('90deg', '14%', '22%')) }),
   { pal: 57 }
 );

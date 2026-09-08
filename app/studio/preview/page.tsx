@@ -6,7 +6,7 @@ import StudioPreview from 'components/studio/StudioPreview';
 import styles from 'components/studio/studio.module.css';
 
 export const metadata: Metadata = {
-  title: 'Preview — Studio',
+  title: 'Preview - Studio',
   description:
     'A generated direction applied to the template it was built on, ready to download.',
 };

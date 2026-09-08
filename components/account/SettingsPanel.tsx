@@ -58,7 +58,7 @@ export default function SettingsPanel() {
           <input type="text" autoComplete="name" required value={name} onChange={(e) => setName(e.target.value)} />
         </label>
         <button type="submit" className={styles.button} disabled={busy !== null || name.trim() === (user?.name ?? '')}>
-          {busy === 'name' ? 'Saving…' : 'Save name'}
+          {busy === 'name' ? 'Saving...' : 'Save name'}
         </button>
       </form>
 
@@ -101,14 +101,14 @@ export default function SettingsPanel() {
           <input type="password" autoComplete="new-password" required minLength={8} value={confirm} onChange={(e) => setConfirm(e.target.value)} />
         </label>
         <button type="submit" className={styles.button} disabled={busy !== null}>
-          {busy === 'password' ? 'Changing…' : 'Change password'}
+          {busy === 'password' ? 'Changing...' : 'Change password'}
         </button>
       </form>
 
       <div className={styles.card}>
         <h2 className={styles.h3}>Signed in with</h2>
         {linked === null ? (
-          <p className={styles.quiet}>Loading…</p>
+          <p className={styles.quiet}>Loading...</p>
         ) : (
           <ul className={styles.providers}>
             {linked.map((account) => (
@@ -143,7 +143,7 @@ export default function SettingsPanel() {
           else router.push('/');
         }}
       >
-        {busy === 'delete' ? 'Deleting…' : 'Delete my account'}
+        {busy === 'delete' ? 'Deleting...' : 'Delete my account'}
       </button>
       </div>
     </div>

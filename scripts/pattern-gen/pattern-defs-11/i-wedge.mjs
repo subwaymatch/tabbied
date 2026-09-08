@@ -1,4 +1,4 @@
-// I. Wedge — triangles, points and tapers.
+// I. Wedge - triangles, points and tapers.
 //
 // A triangle is three numbers in a clip path and the only primitive here that
 // has a direction: both of these point somewhere. One halves the cell along

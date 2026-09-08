@@ -107,7 +107,7 @@ export default function GrafitPage() {
   return (
     <div
       className={s.page}
-      // Colour, declared where the stylesheet's own rule already declares it —
+      // Colour, declared where the stylesheet's own rule already declares it -
       // inline so it wins, and so a re-colour has one place to write. The
       // authored defaults stay in grafit.module.css as the fallback.
       style={{
@@ -194,8 +194,8 @@ export default function GrafitPage() {
         <section className={s.statement}>
           <p className={s.big} data-edit="statement.lead" data-edit-multiline data-edit-max="320">
             A pencil is clay and graphite in a ratio, wrapped in a wood that
-            sharpens cleanly. Everything else — the lacquer, the ferrule, the
-            name on the side — is decoration, and we would rather spend the
+            sharpens cleanly. Everything else - the lacquer, the ferrule, the
+            name on the side - is decoration, and we would rather spend the
             money on the clay.
           </p>
           <div className={s.statementMeta}>

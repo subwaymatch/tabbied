@@ -1,7 +1,7 @@
-// E. Bloom — the ramp run outwards from a point instead of across the cell.
+// E. Bloom - the ramp run outwards from a point instead of across the cell.
 //
 // A radial-gradient mask is a glow with none of the machinery of one: no
-// blur, no shadow, no filter — just stops on a circle. That matters here more
+// blur, no shadow, no filter - just stops on a circle. That matters here more
 // than anywhere else in the batch, because a glow is exactly the effect the
 // catalogue already had four caveated designs for (`bokeh`, `neon`, `lantern`,
 // `terrain` all reach for box-shadow or blur and all carry an svgExportNote).
@@ -14,7 +14,7 @@ import { section, A, F, TR, rot, faded, R4 } from './shared.mjs';
 
 const { add, all } = section('E. Bloom');
 
-/** One that does — anything anchored off the middle of the cell. */
+/** One that does - anything anchored off the middle of the cell. */
 const turned = (c, layer, turns = R4) =>
   `--rot: ${turns}; ${F} { ${faded(c, layer)} ${rot('@var(--rot)')} }${TR}`;
 

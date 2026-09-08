@@ -43,7 +43,7 @@ function randomSquare(rand: Rand): Square {
 }
 
 /**
- * Seeded like the hero's grids, and for the same reason — but note this one is
+ * Seeded like the hero's grids, and for the same reason - but note this one is
  * built inside the component rather than at module scope. A module-level
  * `Math.random()` would run once on the server and again in the browser and
  * produce two different backgrounds for the same markup.
@@ -97,7 +97,7 @@ export default function HomeStory({
       return;
     }
 
-    // A square fades out where it is, then reappears somewhere else — so the
+    // A square fades out where it is, then reappears somewhere else - so the
     // swap needs a second beat, and every pending one has to be cancellable.
     const pending = new Set<ReturnType<typeof setTimeout>>();
 

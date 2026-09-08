@@ -7,9 +7,9 @@ import styles from './PaletteRow.module.css';
 /**
  * One row in the merged palette list (custom palettes first, then the read-only
  * library), shared by the gallery rail and the embedded palette browser. Rows
- * share a single left edge — no horizontal padding, no hover background; hover
+ * share a single left edge - no horizontal padding, no hover background; hover
  * is a 2px translateX nudge. Clicking the row applies the palette (or, when it's
- * already active, opens the editor — handled by the caller's onClick).
+ * already active, opens the editor - handled by the caller's onClick).
  */
 export default function PaletteRow({
   colors,

@@ -1,8 +1,8 @@
-// N. Speck — hard-edged dot fields.
+// N. Speck - hard-edged dot fields.
 //
 // The same tiled radial-gradient section C fades, left alone: every dot the
 // same weight, all the way across. Change the tile and the pitch changes;
-// change the stop and the dot grows or shrinks — from a tint with texture in
+// change the stop and the dot grows or shrinks - from a tint with texture in
 // it up to a field so dense the gaps become the drawing.
 //
 // The converter turns a tiled layer into an SVG <pattern> holding one dot, so
@@ -23,7 +23,7 @@ add(
 
 add(
   'Gritfield',
-  'The finest field in the section — a texture rather than a pattern.',
+  'The finest field in the section - a texture rather than a pattern.',
   (c) => ({ rule: field(c, dotsL('28%', '9%')) }),
   { pal: 54 }
 );

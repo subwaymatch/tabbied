@@ -1,7 +1,7 @@
 /* ============================================================
-   QUANTA ROBOTICS — terminal / console aesthetic
+   QUANTA ROBOTICS - terminal / console aesthetic
    void #0B0E14 · phosphor #25E0C8 · slate #4A5568 · paper #E8ECF1
-   indigo #7A88FF · panel #1A2230 — sharp corners only
+   indigo #7A88FF · panel #1A2230 - sharp corners only
    ============================================================ */
 
 .page {
@@ -261,7 +261,7 @@
   transition: background 120ms ease, box-shadow 120ms ease;
 }
 
-/* stays filled on hover — with the outline gone, going transparent would
+/* stays filled on hover - with the outline gone, going transparent would
    have left the label floating with no control around it */
 .cmdPrimary:hover {
   background: #63e4d5;
@@ -382,7 +382,7 @@
   gap: clamp(1.25rem, 3vw, 2rem);
 }
 
-/* the card is a flat panel field now — no frame, no internal rules */
+/* the card is a flat panel field now - no frame, no internal rules */
 .platformCard {
   background: rgba(26, 34, 48, 0.62);
   display: flex;
@@ -489,7 +489,7 @@
   padding-bottom: 0.4rem;
 }
 
-/* no cell rules — a faint alternating field keeps the key/value pairs
+/* no cell rules - a faint alternating field keeps the key/value pairs
    scannable, and monospace alignment does the rest */
 .specTable th,
 .specTable td {

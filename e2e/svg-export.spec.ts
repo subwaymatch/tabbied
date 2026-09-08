@@ -1,7 +1,7 @@
 // Native SVG export: parity, validity, determinism and UI gating.
 //
 // Parity is verified by rasterizing doodleToSvg()'s output and diffing it
-// against a screenshot of the live element — the ground truth for what the
+// against a screenshot of the live element - the ground truth for what the
 // user sees. A representative pattern set runs by default; set
 // SVG_FULL_SWEEP=1 to run every supported pattern (slow, pre-release).
 import { test, expect, type Page } from '@playwright/test';
@@ -11,7 +11,7 @@ import path from 'node:path';
 const PACKAGE_DIR = path.join(__dirname, '..', 'packages', 'tabbied');
 
 // The compiled converter has no runtime imports, so it can be injected as a
-// classic script — the tests exercise the exact build that ships.
+// classic script - the tests exercise the exact build that ships.
 const injectedConverter =
   fs
     .readFileSync(path.join(PACKAGE_DIR, 'dist', 'core', 'svgExport.js'), 'utf8')
@@ -108,7 +108,7 @@ const REPRESENTATIVE = [
 // - stepramp: the same phenomenon as glyph, from edge *density* rather than
 //   contrast. It draws four full-width hard edges in every cell (one per alpha
 //   level), and the editor's default grid puts the cell boundaries on
-//   fractional pixels — 60.66px at 6x9 — so every one of those edges lands
+//   fractional pixels - 60.66px at 6x9 - so every one of those edges lands
 //   mid-device-pixel, where CSS snaps and SVG anti-aliases. This is a property
 //   of the geometry, not of the design: swept at a fractional cell size the
 //   shipped batch-11 catalogue lands in the same 0.5-1.8% band (toning 1.84%,
@@ -309,7 +309,7 @@ test.describe('native SVG export', () => {
   });
 
   test('editor downloads a native .svg file', async ({ page }) => {
-    // radius (shadow toggle off) has no limitations — no warning icon, no
+    // radius (shadow toggle off) has no limitations - no warning icon, no
     // confirmation dialog, straight to the download.
     await openPattern(page, 'radius');
     await page.getByRole('button', { name: 'Export' }).click();

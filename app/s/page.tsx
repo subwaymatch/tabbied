@@ -6,7 +6,7 @@ import SiteShare from 'components/studio/SiteShare';
 import styles from 'components/studio/studio.module.css';
 
 export const metadata: Metadata = {
-  title: 'Shared site — Studio',
+  title: 'Shared site - Studio',
   description: 'A website made in Tabbied Studio.',
   robots: { index: false, follow: false },
 };

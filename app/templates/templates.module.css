@@ -242,8 +242,8 @@
   transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
 }
 
-/* The card used to be one big anchor. It is a div now — the download row
-   holds anchors of its own and nesting them would be invalid — so the link
+/* The card used to be one big anchor. It is a div now - the download row
+   holds anchors of its own and nesting them would be invalid - so the link
    moved inward and takes everything above that row. */
 .cardLink {
   display: flex;

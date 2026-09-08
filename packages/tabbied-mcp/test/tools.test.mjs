@@ -1,4 +1,4 @@
-// The toolset, tested against the real catalog rather than a fixture — these
+// The toolset, tested against the real catalog rather than a fixture - these
 // tools exist to make an opaque set of 295 slugs queryable, so a test that
 // invented its own three-design catalog would pass while the thing users
 // actually query stayed broken.
@@ -44,7 +44,7 @@ test('exposes exactly the catalog tools, and drops the ones with no source', () 
   );
 
   // No fetchPreview / fetchDocs means those tools must not be advertised at
-  // all — a listed tool that always fails is worse than a missing one.
+  // all - a listed tool that always fails is worse than a missing one.
   const bare = createToolset(catalogTools({ catalog }));
   assert.deepEqual(
     bare.list().map((tool) => tool.name),

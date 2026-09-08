@@ -2,15 +2,15 @@
 // settings and verifies it paints, keeps its cells across a reseed (so
 // transitions animate), re-inks on that reseed, and logs no console errors.
 //
-// Batch 7 is the *scattered* batch — @rand() and @pick() place shapes, so
+// Batch 7 is the *scattered* batch - @rand() and @pick() place shapes, so
 // unlike batch 6 the geometry is allowed to move on reseed. What it does
 // inherit from batch 6 is background independence: re-rendering with the
 // background slot set to a zero-alpha color must produce byte-identical
 // cells. A design that knocked its holes out with var(--color0) would quietly
-// fill them in here. (Same seed → same rolls, so the two passes are directly
+// fill them in here. (Same seed -> same rolls, so the two passes are directly
 // comparable even though the design is random.)
 //
-// Contact sheets land in /tmp/sheet-b10-*.png — the transparent pass is shot
+// Contact sheets land in /tmp/sheet-b10-*.png - the transparent pass is shot
 // over a checkerboard so real holes are visible as see-through.
 // Set CHROMIUM_PATH to use a browser other than Playwright's own download,
 // and ONLY=slug,slug to narrow the run while authoring.
@@ -33,7 +33,7 @@ const ALL_CELLS = 9999;
 const TRANSPARENT = '#00000000';
 
 // Mirrors buildDoodleSource() in packages/tabbied/src/core/doodleSource.ts,
-// including the ToggleSwitch semantics (on → substitute the snippet, off →
+// including the ToggleSwitch semantics (on -> substitute the snippet, off ->
 // drop the token) that batch 10's Shadow / Rounded Corners switches rely on.
 function buildSource(pattern, { width, height, optionOverrides = {}, transparentBg = false }) {
   let style = pattern.code.style;
@@ -181,7 +181,7 @@ for (const chunk of chunks) {
     return { page, errors };
   };
 
-  // Pass 1 — the pattern's own palette, before and after a reseed.
+  // Pass 1 - the pattern's own palette, before and after a reseed.
   const { page, errors } = await openPage(buildPage(sourceFor(false)));
 
   await page.evaluate(() => {
@@ -205,7 +205,7 @@ for (const chunk of chunks) {
   await page.screenshot({ path: `/tmp/sheet-b10-${shot}-seed2.png`, fullPage: true });
   await page.close();
 
-  // Pass 2 — same seed, background slot switched to transparent.
+  // Pass 2 - same seed, background slot switched to transparent.
   const { page: clearPage, errors: clearErrors } = await openPage(
     buildPage(sourceFor(true), { checkerboard: true })
   );
@@ -244,9 +244,9 @@ await browser.close();
 
 if (failures.length) {
   console.log('FAILURES:');
-  for (const f of failures) console.log(' ', f.slug, '→', f.problems.join('; '));
+  for (const f of failures) console.log(' ', f.slug, '->', f.problems.join('; '));
   process.exit(1);
 }
 console.log(
-  `all ${defs.length} batch-10 patterns render, re-draw on reseed and render identically on a transparent background ✓`
+  `all ${defs.length} batch-10 patterns render, re-draw on reseed and render identically on a transparent background`
 );

@@ -5,7 +5,7 @@ import AuthForm, { AuthShell } from 'components/account/AuthForm';
 import styles from 'components/studio/studio.module.css';
 
 export const metadata: Metadata = {
-  title: 'Create an account — Tabbied',
+  title: 'Create an account - Tabbied',
   // Account pages have nothing to offer a search engine and everything to
   // lose from being indexed under a half-dozen near-identical titles.
   robots: { index: false, follow: false },

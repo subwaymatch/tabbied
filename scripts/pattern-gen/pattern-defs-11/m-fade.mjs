@@ -1,15 +1,15 @@
-// M. Fade — the one section with smooth gradients in it.
+// M. Fade - the one section with smooth gradients in it.
 //
 // Everywhere else in this batch a gradient is a set of hard stops standing in
 // for a shape. Here the blend is the point. A linear gradient exports
-// faithfully — a <linearGradient> with the same stops — and where a run goes
+// faithfully - a <linearGradient> with the same stops - and where a run goes
 // from a colour to transparent the converter subdivides it, because CSS
 // interpolates premultiplied alpha and SVG does not. Only *conic* blends are
 // impossible, and there are none here.
 //
 // Every fade is a mask over a solid ink rather than a two-colour gradient in
-// the background. That keeps the ink an ordinary background-color — so a
-// reseed morphs through the colour rather than snapping to it — and it makes
+// the background. That keeps the ink an ordinary background-color - so a
+// reseed morphs through the colour rather than snapping to it - and it makes
 // the faded part a real hole: set the background slot to transparent and the
 // sheet shows through the soft end exactly as it does through the hard one.
 import {

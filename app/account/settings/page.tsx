@@ -5,7 +5,7 @@ import SettingsPanel from 'components/account/SettingsPanel';
 import styles from 'components/studio/studio.module.css';
 
 export const metadata: Metadata = {
-  title: 'Settings — Tabbied',
+  title: 'Settings - Tabbied',
   robots: { index: false, follow: false },
 };
 

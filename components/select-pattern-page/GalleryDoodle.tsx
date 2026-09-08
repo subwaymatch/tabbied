@@ -43,7 +43,7 @@ export default function GalleryDoodle({
   palette,
 }: {
   item: GalleryItem;
-  /** Preview palette override (color0 first) — e.g. an active brand palette. */
+  /** Preview palette override (color0 first) - e.g. an active brand palette. */
   palette?: string[];
 }) {
   const frameRef = useRef<HTMLDivElement>(null);
@@ -51,7 +51,7 @@ export default function GalleryDoodle({
   // The gallery holds 100+ live doodles; rendering and reseeding all of them
   // at once chokes the main thread. Each card mounts its doodle only once it
   // approaches the viewport (and then stays mounted), and keeps its reseed
-  // animation running only while it remains nearby — so the total work is
+  // animation running only while it remains nearby - so the total work is
   // bounded by the viewport, not by the size of the gallery.
   const [hasApproached, setHasApproached] = useState(false);
   const [inView, setInView] = useState(false);

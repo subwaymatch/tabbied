@@ -1,7 +1,7 @@
 // Studio's matcher: prose in, three template sites out.
 //
 // This is deliberately not a model call. Everything Studio needs to answer with
-// already exists in the repo — 57 finished template sites, each built on one of
+// already exists in the repo - 57 finished template sites, each built on one of
 // the 295 patterns and one of the 437 palettes, each with a real preview page
 // and a real downloadable zip. So a description is matched against that library
 // rather than used to generate anything, and every result is a site a person can
@@ -54,7 +54,7 @@ const STOPWORDS = new Set([
 /**
  * Everyday words a person actually writes, mapped onto the closed catalog
  * vocabulary in packages/tabbied/scripts/catalog-vocabulary.mjs. One word may
- * legitimately imply two moods — "friendly" is both playful and organic.
+ * legitimately imply two moods - "friendly" is both playful and organic.
  */
 const MOOD_WORDS: Record<string, string[]> = {
   bold: ['bold'], strong: ['bold'], striking: ['bold'], confident: ['bold'],
@@ -114,7 +114,7 @@ const DENSITY_WORDS: Record<string, string> = {
 };
 
 /**
- * Crude suffix stripping — enough that "families" reaches "family" and
+ * Crude suffix stripping - enough that "families" reaches "family" and
  * "bakeries" reaches "bakery". Only used for topic matching, where the words
  * are ordinary nouns; the mood and colour maps are looked up on raw words.
  */
@@ -144,8 +144,8 @@ export function tokenize(text: string): string[] {
 
 /** Hue angle of a #rrggbb colour, or null when it is close to greyscale. */
 export function hexHue(hex: string): number | null {
-  // Palettes may carry a literal `transparent` in slot 0 — that is what lets a
-  // pattern field read over a photograph — so anything that is not a six-digit
+  // Palettes may carry a literal `transparent` in slot 0 - that is what lets a
+  // pattern field read over a photograph - so anything that is not a six-digit
   // hex simply has no hue.
   if (!/^#[0-9a-f]{6}$/i.test(hex)) {
     return null;
@@ -176,7 +176,7 @@ export function hexHue(hex: string): number | null {
   return ((hue * 60) % 360 + 360) % 360;
 }
 
-/** Shortest distance between two hue angles, 0–180. */
+/** Shortest distance between two hue angles, 0-180. */
 function hueDistance(a: number, b: number): number {
   const raw = Math.abs(a - b) % 360;
 
@@ -316,7 +316,7 @@ export function matchDirections(
     return { ...entry, score, reasons };
   });
 
-  // Ties — including the all-zero case of an empty description — break on a
+  // Ties - including the all-zero case of an empty description - break on a
   // hash of the text, so a given description always yields the same three and
   // two different descriptions rarely yield the same three.
   const tiebreak = (entry: StudioDirection) => hash(`${seed}:${entry.slug}`);

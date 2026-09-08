@@ -4,7 +4,7 @@ import type { JsonSchemaType } from '@modelcontextprotocol/server';
 
 //
 // The catalog types mirror what packages/tabbied/scripts/codegen.mjs emits into
-// catalog.json — deliberately structural rather than imported, so the MCP
+// catalog.json - deliberately structural rather than imported, so the MCP
 // server can also run against a catalog fetched over HTTP from a *different*
 // (older or newer) version of the site than the one it was built against.
 
@@ -72,7 +72,7 @@ export type TemplateCatalog = {
   templates: TemplateCatalogEntry[];
 };
 
-/** One site's editable-section spec. Slots stay opaque here — the tool passes
+/** One site's editable-section spec. Slots stay opaque here - the tool passes
  * them through, and their shape is owned by `tabbied-templates`. */
 export type TemplateSpec = {
   specVersion: number;
@@ -96,7 +96,7 @@ export type ToolContent =
 export type ToolResult = {
   content: ToolContent[];
   /**
-   * A *tool execution* error — bad slug, unrenderable design — as opposed to a
+   * A *tool execution* error - bad slug, unrenderable design - as opposed to a
    * JSON-RPC protocol error. The distinction matters: the spec asks clients to
    * feed these back to the model so it can self-correct, which is exactly what
    * should happen when an agent guesses a slug that doesn't exist.
@@ -108,7 +108,7 @@ export type ToolResult = {
  * Tool input schemas stay plain JSON Schema rather than Zod, because
  * `search_designs`'s enums are derived from the catalog at runtime (see
  * tools.ts) and so cannot be authored statically. Aliasing the SDK's own type
- * — a type-only import, no runtime weight — means a schema this package can't
+ * (a type-only import, no runtime weight) means a schema this package can't
  * actually register fails at `tsc` rather than at the first `tools/list`.
  */
 export type JsonSchema = JsonSchemaType;
@@ -140,7 +140,7 @@ export type ToolContext = {
   /** Resolves the llms-full.txt reference. Omit to drop `get_docs`. */
   fetchDocs?: () => Promise<string>;
   /**
-   * Resolves the editable-template index. Omit to drop both template tools —
+   * Resolves the editable-template index. Omit to drop both template tools -
    * a host with no access to the site's generated specs should not advertise
    * them.
    */

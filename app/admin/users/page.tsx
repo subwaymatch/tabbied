@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import AdminPage from 'components/admin/AdminPage';
 import UsersRoute from 'components/admin/UsersRoute';
 
-export const metadata: Metadata = { title: 'Users — Admin', robots: { index: false, follow: false } };
+export const metadata: Metadata = { title: 'Users - Admin', robots: { index: false, follow: false } };
 
 export default function Page() {
   return (

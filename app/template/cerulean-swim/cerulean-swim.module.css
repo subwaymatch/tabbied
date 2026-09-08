@@ -1,7 +1,7 @@
-/* ————————————————————————————————————————————————————————————————
-   CERULEAN — airy resort editorial
+/* ----------------------------------------------------------------
+   CERULEAN - airy resort editorial
    pale aqua ground / italic serif accents / curved wave dividers
-   ———————————————————————————————————————————————————————————————— */
+   ---------------------------------------------------------------- */
 
 .page {
   --foam: #f2fbfc;
@@ -44,7 +44,7 @@
   letter-spacing: 0.01em;
 }
 
-/* ————— masthead ————— */
+/* ----- masthead ----- */
 
 .masthead {
   padding: 1.4rem clamp(1.25rem, 4vw, 3rem) 0.75rem;
@@ -104,7 +104,7 @@
   text-align: center;
 }
 
-/* ————— hero ————— */
+/* ----- hero ----- */
 
 .hero {
   position: relative;
@@ -234,7 +234,7 @@
   line-height: 1;
 }
 
-/* ————— sections ————— */
+/* ----- sections ----- */
 
 .section {
   padding: clamp(3.5rem, 8vw, 7rem) clamp(1.25rem, 4vw, 3rem);
@@ -301,7 +301,7 @@
   max-width: 40em;
 }
 
-/* ————— lookbook ————— */
+/* ----- lookbook ----- */
 
 .lookGrid {
   display: grid;
@@ -338,7 +338,7 @@
   color: var(--teal);
 }
 
-/* ————— shop ————— */
+/* ----- shop ----- */
 
 .shopGrid {
   display: grid;
@@ -361,7 +361,7 @@
   box-shadow: 0 26px 44px -26px rgba(19, 77, 87, 0.5);
 }
 
-/* the cut-outs are opaque objects on a flat tint, not on a pattern — a soft
+/* the cut-outs are opaque objects on a flat tint, not on a pattern - a soft
    pocket of foam under each one keeps its silhouette instant anyway */
 .productStage {
   position: relative;
@@ -435,7 +435,7 @@
   padding: 0.3rem 0.9rem;
 }
 
-/* ————— ribbon divider ————— */
+/* ----- ribbon divider ----- */
 
 .ribbon {
   position: relative;
@@ -445,7 +445,7 @@
   border-radius: 100% 100% 0 0 / 3rem 3rem 0 0;
 }
 
-/* ————— fabric & fit ————— */
+/* ----- fabric & fit ----- */
 
 .fabricCols {
   display: grid;
@@ -500,7 +500,7 @@
   line-height: 1.1;
 }
 
-/* ————— care guide ————— */
+/* ----- care guide ----- */
 
 .careList {
   list-style: none;
@@ -543,7 +543,7 @@
   font-size: 0.95rem;
 }
 
-/* ————— water club ————— */
+/* ----- water club ----- */
 
 .club {
   position: relative;
@@ -659,7 +659,7 @@
   color: #56828a;
 }
 
-/* ————— stockists ————— */
+/* ----- stockists ----- */
 
 .stockists {
   list-style: none;
@@ -695,7 +695,7 @@
   color: var(--teal);
 }
 
-/* ————— footer ————— */
+/* ----- footer ----- */
 
 .footer {
   margin-top: clamp(2rem, 5vw, 3rem);
@@ -803,7 +803,7 @@
   border-bottom-color: var(--sun);
 }
 
-/* ————— responsive ————— */
+/* ----- responsive ----- */
 
 @media (max-width: 960px) {
   .lookGrid {

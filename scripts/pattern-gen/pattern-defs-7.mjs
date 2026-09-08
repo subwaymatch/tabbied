@@ -1,13 +1,13 @@
-// Batch 7 — 24 motifs (gallery orders 700+).
+// Batch 7 - 24 motifs (gallery orders 700+).
 //
 // Where batch 6 was the *ordered* batch (nothing placed by a dice roll), batch
 // 7 goes back to the hand-scattered feel of the eleven patterns Syung Hong
-// drew by hand — Radius, Mixtape, Odessa, Symmetry, Veil, Blossom, Disque,
-// Bloks, Terrain, Trigram and Ring (gallery orders 1–11). Those designs share
+// drew by hand - Radius, Mixtape, Odessa, Symmetry, Veil, Blossom, Disque,
+// Bloks, Terrain, Trigram and Ring (gallery orders 1-11). Those designs share
 // a very particular way of working:
 //
 //   * one shape per cell, its outline rolled out of a small, deliberately
-//     chosen library — four corner circles and a couple of triangles, not a
+//     chosen library - four corner circles and a couple of triangles, not a
 //     continuum;
 //   * the roll is coarse. @pick over five clip paths, four rotations, three
 //     heights. Nothing is sampled from a smooth range, so the field stays
@@ -19,13 +19,13 @@
 //   * every rule paints through exactly one @random(${shapeFrequency}) gate,
 //     so the frequency slider always thins the field; nested @random(k) blocks
 //     inside that gate are how a design varies itself (Blossom's trick);
-//   * reseed variation rides on a transition-able, *sampled* property —
-//     background-color, transform, clip-path, opacity, border — and every rule
+//   * reseed variation rides on a transition-able, *sampled* property -
+//     background-color, transform, clip-path, opacity, border - and every rule
 //     ends in a transition, so a redraw morphs;
 //   * a randomized custom prop read more than once goes through @var(--x)
 //     (a plain var() re-rolls at every occurrence);
 //   * nothing paints var(--color0). Batch 6 established that a hole knocked
-//     out in the background color is a fake hole — set the background slot to
+//     out in the background color is a fake hole - set the background slot to
 //     transparent and it stops erasing anything. Every gap here is real
 //     geometry: a clip-path hole, a mask, a border, or a gap between two
 //     elements. generate-batch7.mjs enforces this, and validate-batch7.mjs
@@ -38,7 +38,7 @@ const isDark = (hex) => {
   return (0.2126 * ((n >> 16) & 255) + 0.7152 * ((n >> 8) & 255) + 0.0722 * (n & 255)) / 255 < 0.5;
 };
 
-// Ink picker over color1..color(c-1) (color0 is the background — never painted).
+// Ink picker over color1..color(c-1) (color0 is the background - never painted).
 const ink = (c, s = 1) => {
   const a = [];
   for (let i = s; i <= c - 1; i++) a.push(`var(--color${i})`);
@@ -87,7 +87,7 @@ const rectHole = (x, y) => [
 
 // A square with a quarter-circle bite taken out of one corner. A single closed
 // loop, so the winding doesn't matter and mirroring is free. `r` is the bite's
-// radius in percent of the cell — at 100 the arc springs from one cell corner
+// radius in percent of the cell - at 100 the arc springs from one cell corner
 // and lands exactly on the next, leaving no straight stub between them.
 const coveBite = (r, corner = 'tl', steps = 16) => {
   const pts = [[100, 0], [100, 100], [0, 100], [0, r]];
@@ -187,8 +187,8 @@ const PAL = [
   ['#F5F3F4', '#0B090A', '#BA181B', '#E5383B', '#660708', '#A4161A'],
 ];
 
-// Every motif name used anywhere in the project so far — the shipped patterns,
-// the gallery thumbnail table and batches 1–6's definition files (including
+// Every motif name used anywhere in the project so far - the shipped patterns,
+// the gallery thumbnail table and batches 1-6's definition files (including
 // entries that were trimmed before shipping). add() refuses to reuse one.
 const TAKEN = new Set(
   (
@@ -280,7 +280,7 @@ const add = (name, palIdx, description, build, cfg = {}) => {
   const code = `${vars} ${rule}`;
   if (/var\(\s*--color0\s*\)/.test(code)) {
     throw new Error(
-      `${slug}: painting var(--color0) breaks on a transparent background — cut the shape instead`
+      `${slug}: painting var(--color0) breaks on a transparent background - cut the shape instead`
     );
   }
   all.push({
@@ -301,7 +301,7 @@ const add = (name, palIdx, description, build, cfg = {}) => {
 };
 
 // ══════════════════════════════════════════════════════════════════════════
-// A. After Radius, Mixtape and Veil — one shape per cell, its outline rolled
+// A. After Radius, Mixtape and Veil - one shape per cell, its outline rolled
 //    out of a short, deliberately chosen library.
 // ══════════════════════════════════════════════════════════════════════════
 
@@ -310,17 +310,17 @@ add('Quarterfall', 3, 'Radius hollowed out: the same rolled quarter-discs, but h
   rule: `--rot: ${R4}; ${F} { background: ${ink(c)}; ${cp('circle(100% at 0 0)')} ${rot('@var(--rot)')} @random(0.5) { ${msk('radial-gradient(circle farthest-side at 0% 0%, transparent 54%, #000 54%)')} } }${TR}`,
 }), { grid: '6x9', tg: '4x4' });
 
-add('Cornerbite', 51, 'Full squares with a quarter-circle bitten out of one corner — a deep bite on most, a shallow nick on the rest, the corner rolling a quarter turn at a time.', (c) => ({
+add('Cornerbite', 51, 'Full squares with a quarter-circle bitten out of one corner - a deep bite on most, a shallow nick on the rest, the corner rolling a quarter turn at a time.', (c) => ({
   vars: '',
   rule: `--rot: ${R4}; ${F} { background: ${ink(c)}; ${cp(coveBite(66, 'tl'))} ${rot('@var(--rot)')} @random(0.35) { ${cp(coveBite(30, 'tl'))} } }${TR}`,
 }), { grid: '6x9', tg: '5x5' });
 
-add('Chip', 12, 'Squares with two opposite corners knocked off, a few left whole — the chamfer turning a quarter at a time.', (c) => ({
+add('Chip', 12, 'Squares with two opposite corners knocked off, a few left whole - the chamfer turning a quarter at a time.', (c) => ({
   vars: '',
   rule: `--rot: ${R4}; ${F} { background: ${ink(c)}; ${cp('polygon(34% 0, 100% 0, 100% 66%, 66% 100%, 0 100%, 0 34%)')} ${rot('@var(--rot)')} @random(0.35) { ${cp('polygon(0 0, 100% 0, 100% 100%, 0 100%)')} } }${TR}`,
 }), { grid: '8x12', tg: '6x6' });
 
-add('Shatter', 33, "Mixtape's whole library at once — corner circles, half-square triangles, a centred disc — and one cell in five raked through with cut slots.", (c) => ({
+add('Shatter', 33, "Mixtape's whole library at once - corner circles, half-square triangles, a centred disc - and one cell in five raked through with cut slots.", (c) => ({
   vars: '',
   rule: `${F} { background: ${ink(c)}; ${cp(`@pick(${CORNER}, ${TRI}, circle(50% at 50% 50%))`)} @random(0.2) { ${slotMask('45deg', '7%', '17%')} } }${TR}`,
 }), { grid: '6x9', tg: '5x5' });
@@ -346,7 +346,7 @@ add('Drift', 26, 'Triangles all leaning the same way within a row and flipping o
 }), { grid: '10x15', tg: '8x8' });
 
 // ══════════════════════════════════════════════════════════════════════════
-// B. After Bloks and Ring — turned blocks under the Shadow switch, and rings
+// B. After Bloks and Ring - turned blocks under the Shadow switch, and rings
 //    breached so the gap walks around the rim.
 // ══════════════════════════════════════════════════════════════════════════
 
@@ -361,21 +361,21 @@ add('Lagoon', 38, 'Thick rings breached on one side, the gap swinging round the 
 }), { grid: '6x9', tg: '4x4' });
 
 // ══════════════════════════════════════════════════════════════════════════
-// C. Mouldings & openings — the profiles a mason cuts, and the holes a wall is
+// C. Mouldings & openings - the profiles a mason cuts, and the holes a wall is
 //    built around.
 // ══════════════════════════════════════════════════════════════════════════
 
-add('Scotia', 11, 'The scotia — a quarter-round hollow scooped out of the block, its arc springing from one corner of the cell and landing on the next.', (c) => ({
+add('Scotia', 11, 'The scotia - a quarter-round hollow scooped out of the block, its arc springing from one corner of the cell and landing on the next.', (c) => ({
   vars: '',
   rule: `--rot: ${R4}; ${F} { background: ${ink(c)}; ${cp(coveBite(100, 'tl'))} ${rot('@var(--rot)')} }${TR}`,
 }), { grid: '6x9', tg: '5x5' });
 
-add('Spandrel', 6, 'The spandrel — the triangle of wall left over where an arch meets its square frame.', (c) => ({
+add('Spandrel', 6, 'The spandrel - the triangle of wall left over where an arch meets its square frame.', (c) => ({
   vars: '',
   rule: `--rot: ${R4}; ${F} { background: ${ink(c)}; ${cp('polygon(0 0, 100% 0, 100% 100%, 0 100%)')} ${msk('radial-gradient(circle farthest-side at 50% 100%, transparent 74%, #000 74%)')} ${rot('@var(--rot)')} }${TR}`,
 }), { grid: '6x9', tg: '5x5' });
 
-add('Mullion', 4, 'Tall lights divided by mullions — three panes to an opening, the divisions cut, not drawn.', (c) => ({
+add('Mullion', 4, 'Tall lights divided by mullions - three panes to an opening, the divisions cut, not drawn.', (c) => ({
   vars: '',
   rule: `--rot: ${R2}; ${F} { ${A(`inset: 6%; background: ${ink(c)}; ${slotMask('90deg', '28%', '34%')}`)} ${rot('@var(--rot)')} }${TR}`,
 }), { grid: '6x9', tg: '5x5' });
@@ -386,7 +386,7 @@ add('Cavetto', 55, 'A hollow quarter-round run along the edge of every block, tu
 }), { grid: '8x12', tg: '6x6' });
 
 // ══════════════════════════════════════════════════════════════════════════
-// D. Rulings — what happens when two sets of parallel lines meet.
+// D. Rulings - what happens when two sets of parallel lines meet.
 // ══════════════════════════════════════════════════════════════════════════
 
 add('Moire', 23, 'Two rulings laid over each other a few degrees apart, so the beat between them draws its own pattern.', (c) => ({
@@ -400,7 +400,7 @@ add('Schist', 12, 'Schistosity: parallel planes of mica that split the rock into
 }), { grid: '6x9', tg: '5x5' });
 
 // ══════════════════════════════════════════════════════════════════════════
-// E. Type & print — the shapes a compositor thinks in.
+// E. Type & print - the shapes a compositor thinks in.
 // ══════════════════════════════════════════════════════════════════════════
 
 add('Kern', 45, 'Two letters tucked into each other\'s space until the gap between them reads even.', (c) => ({
@@ -414,7 +414,7 @@ add('Quire', 56, 'Folded sheets nested inside one another, the way a gathering i
 }), { grid: '6x9', tg: '5x5' });
 
 // ══════════════════════════════════════════════════════════════════════════
-// F. Stone — what a rock looks like when you cut it open.
+// F. Stone - what a rock looks like when you cut it open.
 // ══════════════════════════════════════════════════════════════════════════
 
 add('Karst', 60, 'Limestone pavement: solid clints with the grikes weathered clean through between them.', (c) => ({
@@ -423,7 +423,7 @@ add('Karst', 60, 'Limestone pavement: solid clints with the grikes weathered cle
 }), { grid: '6x9', tg: '5x5' });
 
 // ══════════════════════════════════════════════════════════════════════════
-// G. Folded paper & machined parts — a sheet creased, and a part bored.
+// G. Folded paper & machined parts - a sheet creased, and a part bored.
 // ══════════════════════════════════════════════════════════════════════════
 
 add('Miura', 58, 'The Miura fold: a tessellation of parallelograms that opens and closes in one pull.', (c) => ({

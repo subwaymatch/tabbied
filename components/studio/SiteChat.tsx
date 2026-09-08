@@ -136,7 +136,7 @@ export default function SiteChat({
             className={styles.send}
             disabled={busy !== null || instruction.trim().length < 3}
           >
-            {busy === 'asking' ? 'Changing…' : 'Change it'}
+            {busy === 'asking' ? 'Changing...' : 'Change it'}
           </button>
         </div>
       </form>
@@ -168,7 +168,7 @@ export default function SiteChat({
                 disabled={busy !== null}
                 onClick={() => void restore(row.n)}
               >
-                {busy === row.n ? 'Restoring…' : 'Restore'}
+                {busy === row.n ? 'Restoring...' : 'Restore'}
               </button>
             ) : (
               <span className={styles.current}>Current</span>

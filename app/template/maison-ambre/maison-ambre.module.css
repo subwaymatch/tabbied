@@ -1,7 +1,7 @@
-/* ————————————————————————————————————————————————————————————————
-   Maison Ambre — dark luxury: near-black ground, hairline gold,
+/* ----------------------------------------------------------------
+   Maison Ambre - dark luxury: near-black ground, hairline gold,
    thin wide-tracked Cormorant caps, roman numerals, smoke motifs.
-   ———————————————————————————————————————————————————————————————— */
+   ---------------------------------------------------------------- */
 
 .page {
   --noir: #141210;
@@ -47,7 +47,7 @@
   color: var(--ivory);
 }
 
-/* ———————————————————————————————————————————————————— masthead */
+/* ---------------------------------------------------- masthead */
 
 .masthead {
   text-align: center;
@@ -108,7 +108,7 @@
   border-bottom-color: var(--gold);
 }
 
-/* ————————————————————————————————————————————————————————— hero */
+/* --------------------------------------------------------- hero */
 
 .hero {
   position: relative;
@@ -131,7 +131,7 @@
   display: block;
 }
 
-/* a full-bleed drift of Tabbied dust over the hero photograph — screened in,
+/* a full-bleed drift of Tabbied dust over the hero photograph - screened in,
    so only the light marks land and the plate stays deep */
 .heroMist {
   position: absolute;
@@ -219,7 +219,7 @@
   color: var(--noir);
 }
 
-/* ——————————————————————————————————————————————— section heads */
+/* ----------------------------------------------- section heads */
 
 .sectionHead {
   text-align: center;
@@ -265,7 +265,7 @@
   margin: 1.6rem auto 0;
 }
 
-/* ———————————————————————————————————————————————————— la maison */
+/* ---------------------------------------------------- la maison */
 
 .maison {
   max-width: 62rem;
@@ -328,7 +328,7 @@
   line-height: 1;
 }
 
-/* ————————————————————————————————————————————————————— les eaux */
+/* ----------------------------------------------------- les eaux */
 
 .eaux {
   position: relative;
@@ -514,7 +514,7 @@
   color: var(--gold);
 }
 
-/* ————————————————————————————————————————————————— les matières */
+/* ------------------------------------------------- les matières */
 
 .matieres {
   position: relative;
@@ -590,7 +590,7 @@
   color: var(--champagne);
 }
 
-/* ————————————————————————————————————————————————— archive band */
+/* ------------------------------------------------- archive band */
 
 .archive {
   position: relative;
@@ -645,7 +645,7 @@
   color: var(--gold);
 }
 
-/* ——————————————————————————————————————————————————————— le nez */
+/* ------------------------------------------------------- le nez */
 
 .nez {
   max-width: 68rem;
@@ -665,7 +665,7 @@
   margin: 0;
 }
 
-/* an opaque studio plate, filling a frame of its own — no motif behind a face */
+/* an opaque studio plate, filling a frame of its own - no motif behind a face */
 .portraitFrame {
   position: relative;
   aspect-ratio: 4 / 5;
@@ -723,7 +723,7 @@
   color: var(--champagne);
 }
 
-/* ————————————————————————————————————————————————————— l'atelier */
+/* ----------------------------------------------------- l'atelier */
 
 .atelier {
   max-width: 68rem;
@@ -785,7 +785,7 @@
   color: rgba(251, 246, 234, 0.75);
 }
 
-/* —————————————————————————————————————————————————————— visites */
+/* ------------------------------------------------------ visites */
 
 .visites {
   border-top: 1px solid var(--hairline);
@@ -846,7 +846,7 @@
   text-underline-offset: 4px;
 }
 
-/* ——————————————————————————————————————————————————————— footer */
+/* ------------------------------------------------------- footer */
 
 .footer {
   border-top: 1px solid var(--hairline);
@@ -921,7 +921,7 @@
   color: var(--gold);
 }
 
-/* ————————————————————————————————————————————————— responsive */
+/* ------------------------------------------------- responsive */
 
 @media (max-width: 64rem) {
   .maisonColumns {

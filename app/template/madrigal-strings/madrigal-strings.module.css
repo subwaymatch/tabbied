@@ -1,5 +1,5 @@
 /* ============================================================
-   MADRIGAL — concert-programme classicism
+   MADRIGAL - concert-programme classicism
    aubergine #2D132C · wine #801336 · carmine #C72C41
    vermilion #EE4540 · gold #F0C419 · parchment #FFE9C7
    ============================================================ */
@@ -116,7 +116,7 @@
   padding: clamp(3rem, 7vw, 5rem) 1.25rem clamp(3rem, 7vw, 5rem);
 }
 
-/* a full-bleed field of lunette windows behind the whole opening spread —
+/* a full-bleed field of lunette windows behind the whole opening spread -
    the arches echo the plate above the title */
 .heroField {
   position: absolute;
@@ -680,7 +680,7 @@
 
 /* An opaque studio photograph, not a cut-out: it fills an arched plate on the
    page's own aubergine, with the gold keyline the other plates use. No pattern
-   behind a face, and no drop-shadow — the frame carries the lift. */
+   behind a face, and no drop-shadow - the frame carries the lift. */
 .luthierPlate {
   margin: 0;
 }
@@ -792,7 +792,7 @@
   text-align: center;
 }
 
-/* the closing spread answers the opening one — the same lunette windows,
+/* the closing spread answers the opening one - the same lunette windows,
    printed a shade quieter */
 .visitingField {
   position: absolute;

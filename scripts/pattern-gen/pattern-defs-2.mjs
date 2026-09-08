@@ -7,7 +7,7 @@ export const batch2 = [
     order: 105,
     white: true,
     description:
-      'Camera irises dilating and stopping down across a dark contact sheet — ring thickness morphs between seeds like light being let in.',
+      'Camera irises dilating and stopping down across a dark contact sheet - ring thickness morphs between seeds like light being let in.',
     palette: ['#15171C', '#E8E6E1', '#F5B82E', '#3EECFF'],
     colors: { min: 2, max: 4, default: 2 },
     gridDefault: '8x12',
@@ -21,7 +21,7 @@ export const batch2 = [
     slug: 'argyle',
     order: 109,
     description:
-      'A lattice of lozenges whose vertices quiver from seed to seed — knitwear that never sits still.',
+      'A lattice of lozenges whose vertices quiver from seed to seed - knitwear that never sits still.',
     palette: ['#F4EFE4', '#7A1F3D', '#2F4156', '#C9A86A'],
     colors: { min: 2, max: 4, default: 4 },
     gridDefault: '8x12',
@@ -35,7 +35,7 @@ export const batch2 = [
     slug: 'bauhaus',
     order: 114,
     description:
-      'Circles, half-rounds, leaves and squares all cut from one border-radius — so every form morphs fluidly into the next on each redraw.',
+      'Circles, half-rounds, leaves and squares all cut from one border-radius - so every form morphs fluidly into the next on each redraw.',
     palette: ['#F2E9DC', '#E63329', '#1D3D8F', '#F0C02E', '#1A1A1A'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '8x12',
@@ -49,7 +49,7 @@ export const batch2 = [
     slug: 'halftone',
     order: 116,
     description:
-      'A halftone ramp printed top to bottom — dots grow with each row, and the whole screen shivers as every dot re-jitters per seed.',
+      'A halftone ramp printed top to bottom - dots grow with each row, and the whole screen shivers as every dot re-jitters per seed.',
     palette: ['#FAF7F0', '#232529', '#E6437D'],
     colors: { min: 2, max: 3, default: 2 },
     gridDefault: '10x15',
@@ -63,7 +63,7 @@ export const batch2 = [
     slug: 'elbow',
     order: 120,
     description:
-      'Fat pastel pipe elbows re-plumbing themselves quarter-turn by quarter-turn — the network reroutes on every redraw.',
+      'Fat pastel pipe elbows re-plumbing themselves quarter-turn by quarter-turn - the network reroutes on every redraw.',
     palette: ['#FBF6EF', '#FF8AAE', '#7EC8E3', '#FFC75F', '#9D89F2'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '8x12',
@@ -78,7 +78,7 @@ export const batch2 = [
     order: 127,
     white: true,
     description:
-      'Silver film grain breathing in the dark — every cell fades to its own new exposure, slowly, like static settling.',
+      'Silver film grain breathing in the dark - every cell fades to its own new exposure, slowly, like static settling.',
     palette: ['#0F0F10', '#E8E6E1', '#E63946'],
     colors: { min: 2, max: 3, default: 2 },
     gridDefault: '10x15',
@@ -92,7 +92,7 @@ export const batch2 = [
     slug: 'misprint',
     order: 128,
     description:
-      'Two riso plates sliding in and out of register — mirrored offsets pull the inks apart and let them overlap into new blends.',
+      'Two riso plates sliding in and out of register - mirrored offsets pull the inks apart and let them overlap into new blends.',
     palette: ['#FBF7EE', '#FF4D6D', '#2E86AB', '#F5B82E', '#7E4A8C'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '6x9',
@@ -106,7 +106,7 @@ export const batch2 = [
     slug: 'zipper',
     order: 135,
     description:
-      'Rows of rounded teeth meshing from alternate sides — the zip opens and closes a little differently on every redraw.',
+      'Rows of rounded teeth meshing from alternate sides - the zip opens and closes a little differently on every redraw.',
     palette: ['#F4EFE6', '#2F4156', '#E2543E', '#F5B82E', '#2BB3A3'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '8x12',

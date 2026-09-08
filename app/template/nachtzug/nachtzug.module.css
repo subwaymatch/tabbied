@@ -1,5 +1,5 @@
 /* ==========================================================================
-   NACHTZUG — sleeper train operator
+   NACHTZUG - sleeper train operator
    A timetable page for the dark. Deep blue-black ground, bone type, and a warm
    gold that only ever stands for lamplight. Pattern fields run full width with
    `transparent` in the background slot: rungs for sleeper berths, bothways for
@@ -604,7 +604,7 @@
    columns of plain links on one flat surface, with the fine print under a
    hairline. The patterns have had the whole page to speak already. */
 
-/* Page and footer were within 1.15:1 of each other — near enough that the
+/* Page and footer were within 1.15:1 of each other - near enough that the
    seam read as a mistake, so the footer takes the page colour exactly.
    The light-page sites keep their dark footers: that contrast is the design. */
 .footer {

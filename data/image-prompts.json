@@ -10,7 +10,7 @@
   },
   "projects": {
     "mistral-cycles": {
-      "title": "Mistral Cycles — handbuilt bicycle frames",
+      "title": "Mistral Cycles - handbuilt bicycle frames",
       "style": "product photograph",
       "paletteMode": "scene",
       "palette": {
@@ -41,7 +41,7 @@
       }
     },
     "zenith-observatory": {
-      "title": "Zenith — public observatory and planetarium",
+      "title": "Zenith - public observatory and planetarium",
       "style": "flat vector illustration",
       "paletteMode": "hex",
       "palette": {
@@ -54,7 +54,7 @@
       }
     },
     "maison-ambre": {
-      "title": "Maison Ambre — perfume house",
+      "title": "Maison Ambre - perfume house",
       "style": "product photograph",
       "paletteMode": "scene",
       "palette": {
@@ -85,7 +85,7 @@
       }
     },
     "cairn-expeditions": {
-      "title": "Cairn — alpine guiding service",
+      "title": "Cairn - alpine guiding service",
       "style": "editorial mountain landscape photograph",
       "paletteMode": "scene",
       "palette": {
@@ -116,7 +116,7 @@
       }
     },
     "hopscotch-museum": {
-      "title": "Hopscotch — children's discovery museum",
+      "title": "Hopscotch - children's discovery museum",
       "style": "flat vector illustration",
       "paletteMode": "hex",
       "palette": {
@@ -129,7 +129,7 @@
       }
     },
     "cerulean-swim": {
-      "title": "Cerulean — swimwear label",
+      "title": "Cerulean - swimwear label",
       "style": "editorial fashion photograph",
       "paletteMode": "scene",
       "palette": {
@@ -160,7 +160,7 @@
       }
     },
     "oxbow-workshop": {
-      "title": "Oxbow — furniture workshop",
+      "title": "Oxbow - furniture workshop",
       "style": "furniture product photograph",
       "paletteMode": "scene",
       "palette": {
@@ -191,7 +191,7 @@
       }
     },
     "piquant-provisions": {
-      "title": "Piquant Provisions — small-batch hot sauce",
+      "title": "Piquant Provisions - small-batch hot sauce",
       "style": "risograph illustration",
       "paletteMode": "hex",
       "palette": {
@@ -204,7 +204,7 @@
       }
     },
     "werkraum": {
-      "title": "Werkraum — architecture practice, Basel",
+      "title": "Werkraum - architecture practice, Basel",
       "style": "architectural photograph",
       "paletteMode": "scene",
       "palette": {
@@ -231,7 +231,7 @@
       }
     },
     "nordlicht": {
-      "title": "Nordlicht — cartography and survey, Tromsø",
+      "title": "Nordlicht - cartography and survey, Tromsø",
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
@@ -258,7 +258,7 @@
       }
     },
     "halbfett": {
-      "title": "Halbfett — type foundry, Zürich",
+      "title": "Halbfett - type foundry, Zürich",
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
@@ -285,7 +285,7 @@
       }
     },
     "hafen-sechs": {
-      "title": "Hafen Sechs — container port",
+      "title": "Hafen Sechs - container port",
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
@@ -312,7 +312,7 @@
       }
     },
     "klangwerk": {
-      "title": "Klangwerk — electroacoustic studio",
+      "title": "Klangwerk - electroacoustic studio",
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
@@ -339,7 +339,7 @@
       }
     },
     "mesura": {
-      "title": "Mesura — structural engineering",
+      "title": "Mesura - structural engineering",
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
@@ -366,7 +366,7 @@
       }
     },
     "seconde": {
-      "title": "Seconde — sports timing",
+      "title": "Seconde - sports timing",
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
@@ -393,7 +393,7 @@
       }
     },
     "cobalt-works": {
-      "title": "Cobalt Works — pigment manufacturer",
+      "title": "Cobalt Works - pigment manufacturer",
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
@@ -420,7 +420,7 @@
       }
     },
     "nullpunkt": {
-      "title": "Nullpunkt — metrology institute",
+      "title": "Nullpunkt - metrology institute",
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
@@ -447,7 +447,7 @@
       }
     },
     "sammlung-weiss": {
-      "title": "Sammlung Weiss — private art collection",
+      "title": "Sammlung Weiss - private art collection",
       "style": "architectural photograph",
       "paletteMode": "scene",
       "palette": {
@@ -474,7 +474,7 @@
       }
     },
     "frequenz": {
-      "title": "Frequenz — public radio station",
+      "title": "Frequenz - public radio station",
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
@@ -501,7 +501,7 @@
       }
     },
     "fonds-aubert": {
-      "title": "Fonds Aubert — records archive",
+      "title": "Fonds Aubert - records archive",
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
@@ -528,7 +528,7 @@
       }
     },
     "passform": {
-      "title": "Passform — bespoke tailoring",
+      "title": "Passform - bespoke tailoring",
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
@@ -555,7 +555,7 @@
       }
     },
     "meterware": {
-      "title": "Meterware — textile mill",
+      "title": "Meterware - textile mill",
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
@@ -582,7 +582,7 @@
       }
     },
     "sichtbeton": {
-      "title": "Sichtbeton — concrete engineering",
+      "title": "Sichtbeton - concrete engineering",
       "style": "architectural photograph",
       "paletteMode": "scene",
       "palette": {
@@ -609,7 +609,7 @@
       }
     },
     "kaella": {
-      "title": "Källa — municipal water utility",
+      "title": "Källa - municipal water utility",
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
@@ -636,7 +636,7 @@
       }
     },
     "nachtzug": {
-      "title": "Nachtzug — sleeper train operator",
+      "title": "Nachtzug - sleeper train operator",
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
@@ -663,7 +663,7 @@
       }
     },
     "lichtfeld": {
-      "title": "Lichtfeld — lighting design",
+      "title": "Lichtfeld - lighting design",
       "style": "architectural photograph",
       "paletteMode": "scene",
       "palette": {
@@ -690,7 +690,7 @@
       }
     },
     "silbersalz": {
-      "title": "Silbersalz — photographic laboratory",
+      "title": "Silbersalz - photographic laboratory",
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
@@ -717,7 +717,7 @@
       }
     },
     "kryss": {
-      "title": "Kryss — wayfinding studio",
+      "title": "Kryss - wayfinding studio",
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
@@ -744,7 +744,7 @@
       }
     },
     "quanta-robotics": {
-      "title": "Quanta — robotics laboratory",
+      "title": "Quanta - robotics laboratory",
       "style": "isometric illustration",
       "paletteMode": "hex",
       "palette": {
@@ -757,7 +757,7 @@
       }
     },
     "madrigal-strings": {
-      "title": "Madrigal — violin atelier",
+      "title": "Madrigal - violin atelier",
       "style": "editorial still-life photograph",
       "paletteMode": "scene",
       "palette": {
@@ -788,7 +788,7 @@
       }
     },
     "caldera-rail": {
-      "title": "Caldera — scenic railway journeys",
+      "title": "Caldera - scenic railway journeys",
       "style": "gouache travel illustration",
       "paletteMode": "hex",
       "palette": {
@@ -801,7 +801,7 @@
       }
     },
     "konzerthaus-halden": {
-      "title": "Konzerthaus Halden — concert hall",
+      "title": "Konzerthaus Halden - concert hall",
       "style": "architectural photograph",
       "paletteMode": "scene",
       "palette": {
@@ -832,7 +832,7 @@
       }
     },
     "institut-vollmer": {
-      "title": "Institut Vollmer — materials research",
+      "title": "Institut Vollmer - materials research",
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
@@ -863,7 +863,7 @@
       }
     },
     "linie-nord": {
-      "title": "Linie Nord — regional transit",
+      "title": "Linie Nord - regional transit",
       "style": "documentary transport photograph",
       "paletteMode": "scene",
       "palette": {
@@ -894,7 +894,7 @@
       }
     },
     "chronometrie-bex": {
-      "title": "Chronométrie Bex — watch manufacture",
+      "title": "Chronométrie Bex - watch manufacture",
       "style": "product photograph",
       "paletteMode": "scene",
       "palette": {
@@ -925,7 +925,7 @@
       }
     },
     "bogen-papier": {
-      "title": "Bogen Papier — paper merchant",
+      "title": "Bogen Papier - paper merchant",
       "style": "product photograph",
       "paletteMode": "scene",
       "palette": {
@@ -956,7 +956,7 @@
       }
     },
     "ember-and-oak": {
-      "title": "Ember & Oak — wood-fire restaurant",
+      "title": "Ember & Oak - wood-fire restaurant",
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
@@ -979,7 +979,7 @@
       }
     },
     "facet": {
-      "title": "Facet — fine jewellery",
+      "title": "Facet - fine jewellery",
       "style": "macro product photograph",
       "paletteMode": "scene",
       "palette": {
@@ -1002,7 +1002,7 @@
       }
     },
     "nocturne": {
-      "title": "Nocturne — fragrance",
+      "title": "Nocturne - fragrance",
       "style": "still-life photograph",
       "paletteMode": "scene",
       "palette": {
@@ -1025,7 +1025,7 @@
       }
     },
     "solstice": {
-      "title": "Solstice — yoga & wellness retreat",
+      "title": "Solstice - yoga & wellness retreat",
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
@@ -1048,7 +1048,7 @@
       }
     },
     "glockenhof": {
-      "title": "Glockenhof — bell foundry",
+      "title": "Glockenhof - bell foundry",
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
@@ -1075,7 +1075,7 @@
       }
     },
     "orgelwerk": {
-      "title": "Orgelwerk — pipe organ builders",
+      "title": "Orgelwerk - pipe organ builders",
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
@@ -1102,7 +1102,7 @@
       }
     },
     "marais-blanc": {
-      "title": "Marais Blanc — sea salt works",
+      "title": "Marais Blanc - sea salt works",
       "style": "landscape photograph",
       "paletteMode": "scene",
       "palette": {
@@ -1129,7 +1129,7 @@
       }
     },
     "ringmark": {
-      "title": "Ringmark — bird observatory and ringing station",
+      "title": "Ringmark - bird observatory and ringing station",
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
@@ -1151,12 +1151,12 @@
         },
         "Pale": {
           "hex": "#DEDCCE",
-          "as": "the observatory hut’s whitewashed walls and dry grass"
+          "as": "the observatory hut's whitewashed walls and dry grass"
         }
       }
     },
     "kupferwalz": {
-      "title": "Kupferwalz — copper rolling mill",
+      "title": "Kupferwalz - copper rolling mill",
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
@@ -1183,7 +1183,7 @@
       }
     },
     "purpurhaus": {
-      "title": "Purpurhaus — natural dye works",
+      "title": "Purpurhaus - natural dye works",
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
@@ -2270,7 +2270,7 @@
         },
         "Pale": {
           "hex": "#DEDCCE",
-          "as": "the observatory hut’s whitewashed walls and dry grass"
+          "as": "the observatory hut's whitewashed walls and dry grass"
         }
       }
     },
@@ -3950,14 +3950,14 @@
       "project": "halbfett",
       "set": "halbfett-tile",
       "slot": "tile",
-      "subject": "a printer’s composing stick holding a line of set metal type"
+      "subject": "a printer's composing stick holding a line of set metal type"
     },
     {
       "id": "halbfett-tile-specimen",
       "project": "halbfett",
       "set": "halbfett-tile",
       "slot": "tile",
-      "subject": "a wooden printer’s type case tray seen from directly above, its many small rectangular compartments empty, the worn wood grain and the dividers clearly visible"
+      "subject": "a wooden printer's type case tray seen from directly above, its many small rectangular compartments empty, the worn wood grain and the dividers clearly visible"
     },
     {
       "id": "kaella-tile-petri",
@@ -4048,7 +4048,7 @@
       "project": "mesura",
       "set": "mesura-tile",
       "slot": "tile",
-      "subject": "an engineer’s triangular scale rule beside a sharpened pencil"
+      "subject": "an engineer's triangular scale rule beside a sharpened pencil"
     },
     {
       "id": "mesura-tile-beam",
@@ -4118,7 +4118,7 @@
       "project": "nordlicht",
       "set": "nordlicht-tile",
       "slot": "tile",
-      "subject": "a surveyor’s theodolite head on its tribrach"
+      "subject": "a surveyor's theodolite head on its tribrach"
     },
     {
       "id": "nordlicht-tile-compass",
@@ -4160,7 +4160,7 @@
       "project": "passform",
       "set": "passform-tile",
       "slot": "tile",
-      "subject": "a part-unrolled roll of tailor’s canvas interlining"
+      "subject": "a part-unrolled roll of tailor's canvas interlining"
     },
     {
       "id": "passform-tile-tape",
@@ -4321,7 +4321,7 @@
       "project": "nocturne",
       "slot": "template",
       "size": "1536x1024",
-      "subject": "a perfumer’s bench with amber dropper bottles and one finished flacon, a hand reaching in from the right to set a bottle down. Photographed on a real camera with natural depth of field and true skin texture: visible pores, stray hairs, small asymmetries. Hands are anatomically correct with five fingers, natural joints and a plausible grip on anything held."
+      "subject": "a perfumer's bench with amber dropper bottles and one finished flacon, a hand reaching in from the right to set a bottle down. Photographed on a real camera with natural depth of field and true skin texture: visible pores, stray hairs, small asymmetries. Hands are anatomically correct with five fingers, natural joints and a plausible grip on anything held."
     },
     {
       "id": "nocturne-gallery-3",
@@ -4405,7 +4405,7 @@
       "project": "orgelwerk",
       "slot": "story",
       "size": "1024x1536",
-      "subject": "an organ builder’s voicing bench with a single pipe standing on a small windchest and hand tools laid out beside it"
+      "subject": "an organ builder's voicing bench with a single pipe standing on a small windchest and hand tools laid out beside it"
     },
     {
       "id": "orgelwerk-case",

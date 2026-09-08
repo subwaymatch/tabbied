@@ -32,7 +32,7 @@ export type TabbiedPatternHandle = {
   /** PNG export via css-doodle's element.export(). */
   exportImage: (options?: PatternExportOptions) => Promise<unknown>;
   /**
-   * Native SVG export — real vector primitives, no foreignObject. Not
+   * Native SVG export - real vector primitives, no foreignObject. Not
    * available for patterns with `svgExport: false` (see supportsSvgExport).
    */
   exportSvg: (options?: PatternSvgExportOptions) => Promise<SvgExportResult>;
@@ -55,21 +55,21 @@ export type TabbiedPatternProps = PatternBoxSize & {
   /** Option values keyed by option id; unset options use authored defaults. */
   options?: Record<string, OptionValue>;
   /**
-   * Fit strategy — how the drawing relates to this component's box (the box
+   * Fit strategy - how the drawing relates to this component's box (the box
    * itself is sized by `fill`/`width`/`height`/`maxWidth`/`maxHeight`):
    * `grid` (the default) re-derives the cell grid from the measured box,
    * `cover` scales a fixed-resolution render uniformly (preserving fixed-px
-   * effects) after reshaping it to the box — whole cells, nothing cropped
-   * mid-cell — and `fixed` renders at an explicit canvas size. No fit deforms
+   * effects) after reshaping it to the box - whole cells, nothing cropped
+   * mid-cell - and `fixed` renders at an explicit canvas size. No fit deforms
    * the pattern: nothing is scaled by a different factor horizontally than
    * vertically.
    */
   fit?: FitMode;
-  /** fit:"grid" — target cell size in px (default 36). */
+  /** fit:"grid" - target cell size in px (default 36). */
   cellSize?: number;
-  /** fit:"grid" — authored density level 0..4, alternative to cellSize. */
+  /** fit:"grid" - authored density level 0..4, alternative to cellSize. */
   density?: 0 | 1 | 2 | 3 | 4;
-  /** `cover` — render resolution override. */
+  /** `cover` - render resolution override. */
   coverRender?: CoverRender;
   /**
    * Re-randomize the seed every N ms (first redraw lands at a random point
@@ -78,7 +78,7 @@ export type TabbiedPatternProps = PatternBoxSize & {
    * viewport, so off-screen patterns cost nothing. Only meaningful when
    * `seed` is uncontrolled.
    *
-   * Reduced motion covers more than this timer — see the note on motion in
+   * Reduced motion covers more than this timer - see the note on motion in
    * the README: the designs' own cell transitions are muted too, so redraws
    * and resize-driven re-renders cut rather than morph.
    */
@@ -116,9 +116,9 @@ export type TabbiedPatternProps = PatternBoxSize & {
  *
  * `width`/`height`/`maxWidth`/`maxHeight`/`aspectRatio` bound it instead, and
  * `fill={false}` hands sizing back to a class name. Whatever the box turns out
- * to be, the pattern is fitted into it without distortion — see `fit`.
+ * to be, the pattern is fitted into it without distortion - see `fit`.
  *
- * The wrapper <div> is all that React renders — on the server and the first
+ * The wrapper <div> is all that React renders - on the server and the first
  * client paint it shows the pattern's background color (correct size, zero
  * CLS, no hydration mismatch, no raw-source flash). After mount, the
  * framework-free createPattern() controller owns the <css-doodle> inside it.
@@ -176,7 +176,7 @@ export const TabbiedPattern = forwardRef<
   };
   const configRef = useRef(config);
 
-  // Forward prop changes into the controller. Runs on every commit — the
+  // Forward prop changes into the controller. Runs on every commit - the
   // controller diffs the built source, so unchanged props are a cheap no-op
   // (this also makes the first run after mount a no-op, mirroring the
   // renderedSource guard the site components used).
@@ -185,7 +185,7 @@ export const TabbiedPattern = forwardRef<
     controllerRef.current?.update(config);
   });
 
-  // Mount once, destroy on unmount. StrictMode's mount→cleanup→mount cycle
+  // Mount once, destroy on unmount. StrictMode's mount->cleanup->mount cycle
   // simply builds a fresh controller (each renders exactly once).
   useEffect(() => {
     const host = hostRef.current;
@@ -260,8 +260,8 @@ export const TabbiedPattern = forwardRef<
       : { fill, width, height, maxWidth, maxHeight, aspectRatio }
   );
 
-  // The config as data-* attributes. On the client they are inert — the
-  // controller is driven by props — but they make a *server* render
+  // The config as data-* attributes. On the client they are inert - the
+  // controller is driven by props - but they make a *server* render
   // self-describing: the prerendered HTML then carries everything
   // hydratePatterns() needs to re-mount the pattern with no React and no
   // build step, which is what lets a static export be repackaged as a plain

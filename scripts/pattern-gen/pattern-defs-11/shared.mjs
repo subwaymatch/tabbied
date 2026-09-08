@@ -1,30 +1,30 @@
-// Batch 11 — shared vocabulary.
+// Batch 11 - shared vocabulary.
 //
 // Batch 11's constraint is not a motif, it is a *format*: every design in it
 // must export as native SVG with no caveat at all. No `svgExport: false`, no
 // `svgExportNote`, no converter warning, and pixel parity with the live render
 // well inside the house budget. That rules a lot of CSS out, and the ban is
-// enforced twice — by the lints in generate-batch11.mjs (which reject the
+// enforced twice - by the lints in generate-batch11.mjs (which reject the
 // unsafe declarations at authoring time) and by
 // validate-svg-batch11.mjs (which runs the shipped converter over every
 // design and fails on a throw, a warning or a pixel diff).
 //
 // What is off the table, and why (docs/svg-export.md has the full reasoning):
 //
-//   * box-shadow, filter: blur(), mix-blend-mode — these export as SVG
+//   * box-shadow, filter: blur(), mix-blend-mode - these export as SVG
 //     *filters*. Valid SVG that browsers render correctly, but design tools
 //     import filters imperfectly, which is exactly what an svgExportNote
 //     exists to warn about. The converter emits a warning for each.
-//   * repeating-conic-gradient — the converter rejects it outright.
-//   * conic-gradient with a nonzero span between two different colors — a
+//   * repeating-conic-gradient - the converter rejects it outright.
+//   * conic-gradient with a nonzero span between two different colors - a
 //     smooth angular sweep, which SVG has no primitive for. Hard-stop conic
 //     sectors are fine and are how this batch draws every pie and fan.
-//   * nested @doodle() images — they export cleanly but the *live* rendering
+//   * nested @doodle() images - they export cleanly but the *live* rendering
 //     shows hairline seams from rasterizing the nested foreignObject, so the
 //     export deviates from the screen by a documented ≤1px.
-//   * @svg() payloads — supported, but the browser rasterizes an @svg mask
+//   * @svg() payloads - supported, but the browser rasterizes an @svg mask
 //     with different sub-pixel rounding than the inlined symbol.
-//   * a border on a partially-rounded box — the converter throws, and mixed
+//   * a border on a partially-rounded box - the converter throws, and mixed
 //     border widths around rounded corners deviate by up to a pixel. A border
 //     may go on a square box or on a full circle, never in between; no design
 //     in the batch as it ships uses one.
@@ -43,7 +43,7 @@
 //   * every design samples a transition-able ink per cell (a background-color
 //     or border-color), so a reseed morphs rather than snapping;
 //   * a randomized custom property read more than once goes through @var(--x);
-//   * nothing paints var(--color0) — a hole knocked out in the background
+//   * nothing paints var(--color0) - a hole knocked out in the background
 //     colour stops being a hole the moment the background is transparent.
 
 export { TAKEN, RESERVED } from '../pattern-defs-10.mjs';
@@ -63,7 +63,7 @@ export const msk = (...layers) => {
 };
 
 /**
- * Mask layers intersected rather than added — the shape is what all the layers
+ * Mask layers intersected rather than added - the shape is what all the layers
  * agree on. `source-in` is the -webkit- spelling of `intersect`.
  */
 export const mskI = (...layers) => {
@@ -129,7 +129,7 @@ export const ringsL = (on, period, at = '50% 50%') =>
 export const pie1 = (deg, opts) => msk(pieL(deg, opts));
 export const slot1 = (angle, on, period) => msk(slotL(angle, on, period));
 
-/** A sector with its apex bored out — an annular sector. */
+/** A sector with its apex bored out - an annular sector. */
 export const arcSector = (deg, bore, { from = '0deg', at = '50% 50%' } = {}) =>
   mskI(pieL(deg, { from, at }), boreL(bore, at));
 

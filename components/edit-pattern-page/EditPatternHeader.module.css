@@ -6,7 +6,7 @@
   border-bottom: 1px solid oklch(0 0 0 / 0.1);
 }
 
-/* "← Gallery" back link. */
+/* "<- Gallery" back link. */
 .back {
   display: inline-flex;
   align-items: center;
@@ -47,7 +47,7 @@
   gap: 8px;
 }
 
-/* Shuffle is the quiet one of the pair — it is reached often and reversible,
+/* Shuffle is the quiet one of the pair - it is reached often and reversible,
    so it reads as a control rather than a call to action. */
 .btn {
   display: inline-flex;

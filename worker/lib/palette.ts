@@ -5,8 +5,8 @@ import { contrastRatio, isHexColor, mix, onColor } from 'tabbied-templates';
 //
 // The two rules are the palette library's own, not new ones invented here: no
 // ink may equal its background, and at least one ink must clear ~3:1 against
-// colour 0. A palette that fails is *repaired* deterministically — one pass,
-// nudging the nearest ink away from the ground — and only a palette repair
+// colour 0. A palette that fails is *repaired* deterministically - one pass,
+// nudging the nearest ink away from the ground - and only a palette repair
 // cannot save is discarded for the template's authored one. Regenerating
 // instead would spend money to re-roll dice we can simply load.
 
@@ -19,13 +19,13 @@ const REPAIR_STEP = 0.12;
 
 export type PaletteVerdict = {
   colors: string[];
-  /** 'clean' — as authored; 'repaired' — nudged; 'rejected' — unusable. */
+  /** 'clean' - as authored; 'repaired' - nudged; 'rejected' - unusable. */
   status: 'clean' | 'repaired' | 'rejected';
 };
 
 /**
  * Lowercase, and expand `#abc` to `#aabbcc`. Shorthand is a perfectly valid
- * colour — `isHexColor` accepts it and `toRgb` reads it — but everything
+ * colour - `isHexColor` accepts it and `toRgb` reads it - but everything
  * downstream stores and renders the six-digit form, so it is expanded here
  * rather than left for each consumer to handle differently.
  */
@@ -44,7 +44,7 @@ function normalise(hex: string): string {
 /**
  * Push `ink` away from `background` until it clears MIN_CONTRAST, by mixing it
  * toward whichever of black/white the background is not. Returns null when the
- * ink cannot get there — which happens for a colour already at the far end.
+ * ink cannot get there - which happens for a colour already at the far end.
  */
 function repairInk(ink: string, background: string): string | null {
   const target = onColor(background);
@@ -63,7 +63,7 @@ function repairInk(ink: string, background: string): string | null {
 
 /**
  * Validate a model-authored palette against the library's rules, repairing what
- * can be repaired. `fallback` is the template site's own palette — always a
+ * can be repaired. `fallback` is the template site's own palette - always a
  * valid one, since it shipped.
  */
 export function ensurePalette(
@@ -93,7 +93,7 @@ export function ensurePalette(
   }
 
   // Rule two: something has to be legible on the ground. If nothing is, repair
-  // the closest candidate rather than the first — the smallest edit that fixes
+  // the closest candidate rather than the first - the smallest edit that fixes
   // the palette is the one that keeps it the palette the model chose.
   if (distinct.some((ink) => contrastRatio(ink, background) >= MIN_CONTRAST)) {
     return { colors: [background, ...distinct], status: 'clean' };

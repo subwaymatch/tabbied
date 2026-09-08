@@ -12,8 +12,8 @@ export const metadata = {
 };
 
 /* Night ground, warm paper, one copper. Every decorative field takes
-   `transparent` in the background slot, so the ground of the page — and, in
-   the plates, the plate itself — is what shows through the drawing. */
+   `transparent` in the background slot, so the ground of the page - and, in
+   the plates, the plate itself - is what shows through the drawing. */
 const INK = '#efe7de';
 const ACCENT = '#b4552d';
 const GREY = '#7a736d';
@@ -39,7 +39,7 @@ const LINE = [
   { n: '02', t: 'Hot roll', d: 'Down to 12 mm in eleven passes while the slab is still red, which is the only cheap reduction there is', at: '820 °C' },
   { n: '03', t: 'Mill and pickle', d: 'Both faces skimmed, the oxide taken off in acid, and the coil weighed before anything else happens', at: 'Cold' },
   { n: '04', t: 'Cold roll', d: 'The gauge is made here, one pass at a time, with an anneal whenever the metal stops being willing', at: 'Cold' },
-  { n: '05', t: 'Anneal and cut', d: 'Softened to temper, levelled, and cut to sheet or slit to strip on the same line', at: '450 – 650 °C' },
+  { n: '05', t: 'Anneal and cut', d: 'Softened to temper, levelled, and cut to sheet or slit to strip on the same line', at: '450 - 650 °C' },
 ];
 
 const PRINCIPLES = [
@@ -75,11 +75,11 @@ const SPEC = [
   ['Temper R220', 'Annealed', '220 MPa min', 'Soft', 'Deep drawing, repoussé'],
   ['Temper R240', 'Quarter hard', '240 MPa min', 'Half soft', 'Folded panels'],
   ['Temper R290', 'Half hard', '290 MPa min', 'Springy', 'Standing seam'],
-  ['Width', 'Slit to order', '20 – 1 000 mm', '± 0.5 mm', 'Any gauge'],
+  ['Width', 'Slit to order', '20 - 1 000 mm', '± 0.5 mm', 'Any gauge'],
   ['Length', 'Cut to order', 'Up to 4 000 mm', '± 2 mm', 'Sheet only'],
-  ['Coil weight', 'As rolled', '80 – 2 400 kg', '—', 'Inner Ø 400 or 500'],
-  ['Finish', 'Mill', 'As rolled, bright', '—', 'Standard'],
-  ['Finish', 'Pre-patinated', 'Green or brown', '—', 'Six week lead'],
+  ['Coil weight', 'As rolled', '80 - 2 400 kg', ' - ', 'Inner Ø 400 or 500'],
+  ['Finish', 'Mill', 'As rolled, bright', ' - ', 'Standard'],
+  ['Finish', 'Pre-patinated', 'Green or brown', ' - ', 'Six week lead'],
 ];
 
 const SHIPPED = [
@@ -177,7 +177,7 @@ export default function KupferwalzPage() {
 
         {/* ----------------------------------------------------------- GAUGE
             Ten bars drawn at forty times their real thickness. The bar is
-            not a quantity beside the number — it is the number. */}
+            not a quantity beside the number - it is the number. */}
         <section id="gauge" className={s.gauge} aria-labelledby="gauge-h">
           <div className={s.secHead}>
             <h2 data-edit="gauge.title" data-edit-max="60" id="gauge-h">Ten gauges</h2>
@@ -221,8 +221,8 @@ export default function KupferwalzPage() {
               cold mill that has been rebuilt twice around its original frame.
             </p>
             <p data-edit="statement.body2" data-edit-max="240" data-edit-multiline>
-              We roll one alloy. Everything else about the order — gauge,
-              temper, width, finish — is a setting; the metal never changes.
+              We roll one alloy. Everything else about the order - gauge,
+              temper, width, finish - is a setting; the metal never changes.
             </p>
           </div>
         </section>
@@ -344,7 +344,7 @@ export default function KupferwalzPage() {
         <section id="shipped" className={s.listing} aria-labelledby="shipped-h">
           <div className={s.secHead}>
             <h2 data-edit="shipped.title" data-edit-max="60" id="shipped-h">Where it went</h2>
-            <p data-edit="shipped.body" data-edit-max="240" data-edit-multiline>Recent work, with the customer&rsquo;s permission. Roofs outlive everybody who argued about the budget.</p>
+            <p data-edit="shipped.body" data-edit-max="240" data-edit-multiline>Recent work, with the customer's permission. Roofs outlive everybody who argued about the budget.</p>
           </div>
           <ol className={s.table}>
             {SHIPPED.map((r, i) => (
@@ -421,7 +421,7 @@ export default function KupferwalzPage() {
             </p>
             <p className={`${s.field} ${s.fieldWide}`}>
               <label data-edit="contact.label5" htmlFor="notes">Temper, finish, anything unusual</label>
-              <textarea id="notes" name="notes" placeholder="Half hard, mill finish, interleaved — tell us what happens to it next" />
+              <textarea id="notes" name="notes" placeholder="Half hard, mill finish, interleaved - tell us what happens to it next" />
             </p>
             <button data-edit="contact.submit" data-edit-max="24" type="submit" className={s.submit}>
               Send it over

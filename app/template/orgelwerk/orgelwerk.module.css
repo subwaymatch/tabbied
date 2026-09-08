@@ -1,7 +1,7 @@
 /* ==========================================================================
-   ORGELWERK — pipe organ builders, Ghent
+   ORGELWERK - pipe organ builders, Ghent
    Batch four: the bold Swiss language of batch three, now with photography.
-   The rule the two media follow is that they never sit on top of each other —
+   The rule the two media follow is that they never sit on top of each other -
    scenes run full-bleed with the pattern bands *beside* them, and only the
    cut-out objects are composited, onto a pattern plate that is their surface.
    Every decorative field takes `transparent` in the background slot, so the
@@ -663,7 +663,7 @@
 }
 
 /* The footer opens with an object rather than a numeral. It sits on a pattern
-   plate — the page's own device for a cut-out — drawn on a transparent slot so
+   plate - the page's own device for a cut-out - drawn on a transparent slot so
    the plate is texture on the page rather than a panel laid over it. */
 .footObject {
   margin: 0 0 clamp(2.2rem, 5.5vw, 4.5rem);

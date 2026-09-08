@@ -1,4 +1,4 @@
-// D. Drybrush — a ruled field with a ramp laid over it.
+// D. Drybrush - a ruled field with a ramp laid over it.
 //
 // The same intersection as section C with a stripe field in place of the dot
 // field, and it behaves like a loaded brush running out: the rules stay the

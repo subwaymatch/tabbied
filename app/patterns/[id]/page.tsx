@@ -4,7 +4,7 @@ import { ebGaramond } from 'lib/fonts';
 import { getAllPatternIds, getPattern } from 'lib/pattern';
 import EditPattern from 'components/edit-pattern-page/EditPattern';
 
-// Replicates the old `getStaticPaths` with `fallback: false` — only the
+// Replicates the old `getStaticPaths` with `fallback: false` - only the
 // pattern ids known at build time are rendered, anything else 404s.
 export const dynamicParams = false;
 

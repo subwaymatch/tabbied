@@ -11,7 +11,7 @@ export const metadata = {
 };
 
 /* Deep water, bone, one cyan. Every field takes `transparent` in the
-   background slot, so the page's own water shows through the pattern — and
+   background slot, so the page's own water shows through the pattern - and
    the page gets darker the further down it you read. */
 const BONE = '#e6eef0';
 const CYAN = '#00d2e0';
@@ -24,7 +24,7 @@ const DEEP = '#0a1f2b';
 const ZONES = [
   {
     id: 'sunlit',
-    depth: '0 – 200',
+    depth: '0 - 200',
     name: 'Sunlit',
     latin: 'Epipelagic',
     shade: 0,
@@ -35,7 +35,7 @@ const ZONES = [
   },
   {
     id: 'twilight',
-    depth: '200 – 1 000',
+    depth: '200 - 1\u00a0000',
     name: 'Twilight',
     latin: 'Mesopelagic',
     shade: 22,
@@ -46,7 +46,7 @@ const ZONES = [
   },
   {
     id: 'midnight',
-    depth: '1 000 – 4 000',
+    depth: '1\u00a0000 - 4\u00a0000',
     name: 'Midnight',
     latin: 'Bathypelagic',
     shade: 44,
@@ -57,7 +57,7 @@ const ZONES = [
   },
   {
     id: 'abyss',
-    depth: '4 000 – 6 000',
+    depth: '4\u00a0000 - 6\u00a0000',
     name: 'Abyss',
     latin: 'Abyssopelagic',
     shade: 66,
@@ -68,7 +68,7 @@ const ZONES = [
   },
   {
     id: 'trench',
-    depth: '6 000 – 11 000',
+    depth: '6\u00a0000 - 11\u00a0000',
     name: 'Trench',
     latin: 'Hadopelagic',
     shade: 88,
@@ -84,7 +84,7 @@ const FLEET = [
   ['Nautilus 6000', 'Remote vehicle', 'Rated 6 000 m', '2018', 'Fibre tether, 8 km'],
   ['Kelpie', 'Autonomous glider', 'Rated 1 000 m', '2021', '90-day endurance'],
   ['Vollmer II', 'Crewed submersible', 'Rated 11 000 m', '2023', 'Three seats'],
-  ['Lander A – F', 'Free-fall landers', 'Rated 11 000 m', '2016 – 2024', 'Six units, ballast release'],
+  ['Lander A - F', 'Free-fall landers', 'Rated 11 000 m', '2016 - 2024', 'Six units, ballast release'],
 ];
 
 const CRUISES = [
@@ -114,7 +114,7 @@ const NUMBERS = [
   ['12', 'Months, maximum embargo'],
 ];
 
-/* x and y are percentages of the locator box, not coordinates —
+/* x and y are percentages of the locator box, not coordinates -
    the schematic is a diagram of relative position, nothing more. */
 const OFFICES = [
   { city: 'Kiel', role: 'Shore office and archive', addr: 'Schwentinestrasse 12, 24149', fix: '54.33 N  10.14 E', x: 30, y: 22, head: true },

@@ -1,11 +1,11 @@
-// Batch 13 — 42 designs that export as native SVG with no caveat at all.
+// Batch 13 - 42 designs that export as native SVG with no caveat at all.
 //
 // Batches 11 and 12 fixed the *format*: designs that download as true vector
 // files with no warning dialog, no filter effects for a design tool to mangle,
 // and no sub-pixel deviation from what is on screen. This batch keeps that
 // rule and changes the *anchor*: where those batches drew almost everything
 // from the middle of the cell outward, this one seats its geometry against the
-// cell's corners and edges — a shoreline held against one side, a frame
+// cell's corners and edges - a shoreline held against one side, a frame
 // hugging the perimeter, a light thrown in from an edge, a notch cut right
 // through to the border.
 //
@@ -89,7 +89,7 @@ for (const { title, all } of SECTIONS) {
     if (RESERVED.has(def.slug)) {
       throw new Error(`${def.slug}: slug is a JS reserved word`);
     }
-    // A name should never come to mean two different things — TAKEN13 carries
+    // A name should never come to mean two different things - TAKEN13 carries
     // every motif name used anywhere in the project, batches 11 and 12
     // included.
     if (TAKEN13.has(def.slug)) {

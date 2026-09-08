@@ -7,7 +7,7 @@ import { consume } from '../lib/ratelimit';
 
 // The counter that replaced the KV one. What matters is that it is exact:
 // KV could not compare-and-set, so it under-counted the burst it existed to
-// catch — and threw on a second write to the same key within a second, turning
+// catch - and threw on a second write to the same key within a second, turning
 // a 429 into a 500.
 
 const db = drizzle(env.DB, { schema });

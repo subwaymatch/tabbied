@@ -1,4 +1,4 @@
-// A. Split — one straight cut across the cell, with an ink either side.
+// A. Split - one straight cut across the cell, with an ink either side.
 //
 // The simplest thing a cell can do and still be a drawing: divide. Where the
 // cut lands, how it leans, whether the two parts touch or leave a gap between

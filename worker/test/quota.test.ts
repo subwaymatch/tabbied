@@ -6,8 +6,8 @@ import * as schema from '../db/schema';
 import { aiUsage, user } from '../db/schema';
 import { checkQuota, recordUsage } from '../lib/quota';
 
-// The ledger is the exact ceiling — the KV burst limiter in front of it is
-// explicitly approximate — so these run against a real D1 rather than a stub.
+// The ledger is the exact ceiling - the KV burst limiter in front of it is
+// explicitly approximate - so these run against a real D1 rather than a stub.
 
 const db = drizzle(env.DB, { schema });
 

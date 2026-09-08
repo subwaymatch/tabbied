@@ -3,7 +3,7 @@
 // packages/tabbied/patterns/*.json.
 //
 // Input: one or more JSON files, each `{ "<slug>": { tags, mood, density,
-// goodFor }, ... }` — the shape the tagging pass produces. Every entry is
+// goodFor }, ... }` - the shape the tagging pass produces. Every entry is
 // validated against the closed vocabulary before anything is written, and the
 // pattern files are rewritten with the metadata inserted right after
 // `description`, keeping the rest of the key order untouched.

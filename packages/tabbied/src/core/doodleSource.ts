@@ -26,7 +26,7 @@ const getColorsStyleCode = (colors: string[]): string =>
 // Grow an active palette up to the pattern's full slot count by cycling its
 // ink colors (everything after the color0 background). Pattern styles always
 // reference colors up to `max - 1`, so when fewer colors are active the unused
-// slots have to resolve to something — aliasing them back into the active inks
+// slots have to resolve to something - aliasing them back into the active inks
 // redraws the design with the reduced palette instead of leaving gaps.
 export const expandPalette = (
   colors: string[],

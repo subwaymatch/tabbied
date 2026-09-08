@@ -1,7 +1,7 @@
 // Executing an edit plan against a live document.
 //
 // Short on purpose: everything that needed a decision was made in plan.ts.
-// What is left is finding each annotated element and writing to it — and one
+// What is left is finding each annotated element and writing to it - and one
 // rule that is load-bearing far outside this file.
 //
 // **This never touches classes.** It sets text, attributes, and inline custom
@@ -42,7 +42,7 @@ type Root = ParentNode;
  * appears in several places: the brand name is in the masthead, the footer and
  * the copyright line; the primary call to action is in the nav and again in
  * the hero. Those are one editable thing, so they share an id and an edit
- * reaches all of them. The generator enforces the other half of that bargain —
+ * reaches all of them. The generator enforces the other half of that bargain -
  * elements sharing an id must currently say the same thing.
  */
 const queryAll = (root: Root, selector: string): Element[] =>
@@ -76,7 +76,7 @@ function imageElement(element: Element): Element | null {
  *
  * The accent's class is read off the element being replaced when there is one,
  * because class names are hashed in the export and rewritten again in the
- * download package — the spec's captured class is the fallback for a headline
+ * download package - the spec's captured class is the fallback for a headline
  * that had no accent until now.
  */
 function writeText(
@@ -253,7 +253,7 @@ export function applyPlan(root: Root, plan: EditPlan): ApplyResult {
   return { applied, problems };
 }
 
-/** Plan and apply in one step — the common case. */
+/** Plan and apply in one step - the common case. */
 export function applyEdits(
   root: Root,
   spec: TemplateSpec,

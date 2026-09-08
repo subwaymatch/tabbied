@@ -1,7 +1,7 @@
-# Template image pipeline (KIE AI) — RETIRED
+# Template image pipeline (KIE AI) - RETIRED
 
 > **This pipeline is retired. Future image generation uses the GPT Image 2
-> API exclusively** — see `docs/image-pipeline.md`. `gpt-image-2` now emits
+> API exclusively** - see `docs/image-pipeline.md`. `gpt-image-2` now emits
 > real alpha channels (`background: "transparent"`), so neither KIE's
 > generation API nor Kie.ai's background-removal API has a place in any
 > current workflow. These scripts and this README are kept as the record of
@@ -73,8 +73,8 @@ Working files live in the git-ignored `scripts/images/.batch/`.
 
 ## Regenerating an image you already have
 
-The pipeline is built to be additive — every step skips work it has already
-done — so redoing a finished image means opting out of all three skips. Each
+The pipeline is built to be additive - every step skips work it has already
+done - so redoing a finished image means opting out of all three skips. Each
 step spells that `--force`:
 
 ```bash
@@ -94,11 +94,11 @@ npm run images:import -- --force
 you: `--retry` only requeues tasks that *failed* or stalled, so a successful
 generation stays put no matter how often it is replanned.
 
-Scope with `--only`, which matches a site name (`meridian`) or any substring of an id — including an alias, so an id read
+Scope with `--only`, which matches a site name (`meridian`) or any substring of an id - including an alias, so an id read
 straight off a page finds the prompt that generates it. Without `--only`,
 `--force` regenerates **every** slot, which is a full paid run.
 
-Don't like the result? Just run the three commands again — each one rerolls the
+Don't like the result? Just run the three commands again - each one rerolls the
 seed on KIE's side. To go back to the prompt card instead, delete the file and
 reindex:
 
@@ -142,8 +142,8 @@ carrying the final composed string, palette clause included. This reads the buil
 pages so there is only one parser to keep honest.
 
 Each record gets an id of `react__<site>__<slot>-<index>`, for example
-`react__meridian__gallery-2`. (The `react__` segment is vestigial — there was
-once a second, static-HTML stack — but it is baked into 174 filenames, so it
+`react__meridian__gallery-2`. (The `react__` segment is vestigial - there was
+once a second, static-HTML stack - but it is baked into 174 filenames, so it
 stays.) That id is the output filename, so results route themselves back to
 slots. Identical prompts collapse to one generation,
 with the extra ids recorded as `aliases`.

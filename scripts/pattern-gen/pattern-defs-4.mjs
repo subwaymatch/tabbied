@@ -1,13 +1,13 @@
-// Batch 4 — 100 distinct geometric motifs (gallery orders 310+).
+// Batch 4 - 100 distinct geometric motifs (gallery orders 310+).
 //
 // Unlike a recolour set, every entry here is its own shape/composition: a
 // different primitive, subdivision, symmetry or tiling. Palettes may repeat
 // across designs (they are different patterns), but no motif repeats.
 //
-// House rules (matching batches 1–3 and the originals):
-//   * reseed variation rides on a transition-able, sampled property —
-//     background-color, transform, clip-path, opacity, border or border-radius
-//     — never a gradient alone (gradients can't transition and would snap);
+// House rules (matching batches 1-3 and the originals):
+//   * reseed variation rides on a transition-able, sampled property
+//     (background-color, transform, clip-path, opacity, border or border-radius),
+//     never a gradient alone (gradients can't transition and would snap);
 //   * a randomized custom prop used more than once is read via @var(--x);
 //   * every rule paints through @random(${shapeFrequency}) and ends in a
 //     transition so reseeds morph instead of snapping.
@@ -176,7 +176,7 @@ add('Hexbloom', 15, 'A honeycomb of flat-top hexagons, each cell re-inking on ev
   rule: `@random(\${shapeFrequency}) { background: ${ink(c)}; -webkit-clip-path: polygon(50% 0, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%); clip-path: polygon(50% 0, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%); }${TR}`,
 }));
 
-add('Octant', 20, 'Octagons set in a grid with little squares minding the gaps — re-coloured tile by tile.', (c) => ({
+add('Octant', 20, 'Octagons set in a grid with little squares minding the gaps - re-coloured tile by tile.', (c) => ({
   vars: '',
   rule: `@random(\${shapeFrequency}) { background: var(--color0); :after { content: ''; position: absolute; inset: 0; background: ${ink(c)}; -webkit-clip-path: polygon(30% 0, 70% 0, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0 70%, 0 30%); clip-path: polygon(30% 0, 70% 0, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0 70%, 0 30%);${pt} } }${TR}`,
 }));
@@ -267,7 +267,7 @@ add('Starflake', 1, 'Eight-pointed quilt stars, each ray re-colouring as the blo
   rule: `--rot: @pick(0deg, 90deg); @random(\${shapeFrequency}) { background: var(--color1); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); :after { content: ''; position: absolute; inset: 0; background: ${ink(c, 2)}; -webkit-clip-path: polygon(50% 0, 63% 37%, 100% 50%, 63% 63%, 50% 100%, 37% 63%, 0 50%, 37% 37%); clip-path: polygon(50% 0, 63% 37%, 100% 50%, 63% 63%, 50% 100%, 37% 63%, 0 50%, 37% 37%);${pt} } }${TR}`,
 }));
 
-add('Pinwheelstar', 19, 'A pinwheel of four right triangles spinning around the centre — the broken-dishes quilt block.', (c) => ({
+add('Pinwheelstar', 19, 'A pinwheel of four right triangles spinning around the centre - the broken-dishes quilt block.', (c) => ({
   vars: '',
   rule: `--rot: @pick(0deg, 90deg, 180deg, 270deg); @random(\${shapeFrequency}) { background: var(--color0); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); :before { content: ''; position: absolute; inset: 0; background: ${ink(c)}; -webkit-clip-path: polygon(0 0, 50% 0, 50% 50%); clip-path: polygon(0 0, 50% 0, 50% 50%);${pt} } :after { content: ''; position: absolute; inset: 0; background: ${ink(c)}; -webkit-clip-path: polygon(100% 0, 100% 50%, 50% 50%); clip-path: polygon(100% 0, 100% 50%, 50% 50%);${pt} } }${TR}`,
 }));
@@ -339,7 +339,7 @@ add('Quadrille', 4, 'Each cell split into four colour quadrants, a little mosaic
   rule: `@random(\${shapeFrequency}) { background: ${ink(c)}; :before { content: ''; position: absolute; left: 0; top: 0; @size: 50%; background: ${ink(c)};${pt} } :after { content: ''; position: absolute; right: 0; bottom: 0; @size: 50%; background: ${ink(c)};${pt} } }${TR}`,
 }));
 
-add('Passepartout', 0, 'Open square frames nested two deep — picture mats that re-colour, not fill, on reseed.', (c) => ({
+add('Passepartout', 0, 'Open square frames nested two deep - picture mats that re-colour, not fill, on reseed.', (c) => ({
   vars: '',
   rule: `@random(\${shapeFrequency}) { background: ${ink(c)}; :before { content: ''; position: absolute; inset: 16%; background: var(--color0);${pt} } :after { content: ''; position: absolute; inset: 32%; background: ${ink(c)};${pt} } }${TR}`,
 }));
@@ -425,7 +425,7 @@ add('Junction', 23, 'A clean grid of crossing rules studded with a node at each 
   rule: `margin: -0.5px; @random(\${shapeFrequency}) { border-top: @pick(5px, 9px) solid ${ink(c)}; border-left: @pick(5px, 9px) solid ${ink(c)}; } @random(0.3) { :after { content: ''; position: absolute; left: 0; top: 0; @size: 18%; margin: -9%; background: ${ink(c)};${pt} } }${TR}`,
 }), { grid: '10x15', tg: '7x7', tf: 0.95 });
 
-add('Wicket', 6, 'Croquet hoops — squared arches springing from the baseline, re-colouring on reseed.', (c) => ({
+add('Wicket', 6, 'Croquet hoops - squared arches springing from the baseline, re-colouring on reseed.', (c) => ({
   vars: '',
   rule: `@random(\${shapeFrequency}) { :after { content: ''; position: absolute; left: 18%; bottom: 0; width: 64%; height: 78%; border: 12px solid ${ink(c)}; border-bottom: none; border-radius: 60% 60% 0 0; box-sizing: border-box;${pt} } }${TR}`,
 }), { grid: '6x9', tg: '5x5', tf: 0.92 });
@@ -446,7 +446,7 @@ add('Tally', 25, 'Bundles of upright tally strokes with the odd diagonal cross-o
 }));
 
 // ── G. Diamonds & lozenges ─────────────────────────────────────────────────
-add('Lattice', 5, 'A diamond lattice of crossing diagonals with a coloured pip in each lozenge — argyle, re-pipped on reseed.', (c) => ({
+add('Lattice', 5, 'A diamond lattice of crossing diagonals with a coloured pip in each lozenge - argyle, re-pipped on reseed.', (c) => ({
   vars: '',
   rule: `@random(\${shapeFrequency}) { background: ${ink(c)}; :after { content: ''; position: absolute; inset: 26%; background: ${ink(c)}; -webkit-clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);${pt} } }${TR}`,
 }));
@@ -461,7 +461,7 @@ add('Diamondframe', 17, 'Open diamond outlines, a rotated windowpane that re-tin
   rule: `@random(\${shapeFrequency}) { background: ${ink(c)}; -webkit-clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); :after { content: ''; position: absolute; inset: 0; background: var(--color0); -webkit-clip-path: polygon(50% 18%, 82% 50%, 50% 82%, 18% 50%); clip-path: polygon(50% 18%, 82% 50%, 50% 82%, 18% 50%);${pt} } }${TR}`,
 }));
 
-add('Harlequin', 9, 'Two-tone harlequin diamonds — the classic motley, re-colouring on every redraw.', (c) => ({
+add('Harlequin', 9, 'Two-tone harlequin diamonds - the classic motley, re-colouring on every redraw.', (c) => ({
   vars: '',
   rule: `@random(\${shapeFrequency}) { background: ${ink(c)}; -webkit-clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }${TR}`,
 }));
@@ -477,7 +477,7 @@ add('Jewel', 13, 'Faceted gem diamonds with a bright table and shadowed pavilion
 }));
 
 // ── H. Chevrons, zigzags & steps (distinct shapes) ─────────────────────────
-add('Flight', 19, 'Flying-geese blocks — a big triangle flanked by two small ones, re-aiming on each seed.', (c) => ({
+add('Flight', 19, 'Flying-geese blocks - a big triangle flanked by two small ones, re-aiming on each seed.', (c) => ({
   vars: '',
   rule: `--rot: @pick(0deg, 90deg, 180deg, 270deg); @random(\${shapeFrequency}) { background: ${ink(c)}; -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); :after { content: ''; position: absolute; inset: 0; background: ${ink(c)}; -webkit-clip-path: polygon(50% 0, 100% 100%, 0 100%); clip-path: polygon(50% 0, 100% 100%, 0 100%);${pt} } }${TR}`,
 }));
@@ -523,7 +523,7 @@ add('Brickwork', 11, 'Running-bond bricks offset row by row, each course re-colo
   rule: `@random(\${shapeFrequency}) { width: 96%; height: 70%; margin: 15% 2%; border-radius: 6%; background: ${ink(c)}; } @match(y % 2 == 0) { :after { content: ''; position: absolute; left: -50%; top: 15%; width: 96%; height: 70%; border-radius: 6%; background: ${ink(c)};${pt} } }${TR}`,
 }), { grid: '6x9', tg: '5x5', tf: 0.95 });
 
-add('Parquet', 12, 'Basket-weave parquet — pairs of planks alternating upright and flat, re-laid on reseed.', (c) => ({
+add('Parquet', 12, 'Basket-weave parquet - pairs of planks alternating upright and flat, re-laid on reseed.', (c) => ({
   vars: '',
   rule: `--rot: @pick(0deg, 90deg); @random(\${shapeFrequency}) { background: repeating-linear-gradient(0deg, ${ink(c)} 0 24%, var(--color0) 24% 28%, ${ink(c)} 28% 52%, var(--color0) 52% 56%, ${ink(c)} 56% 80%, var(--color0) 80% 84%, ${ink(c)} 84% 100%); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); }${TR}`,
 }));
@@ -538,12 +538,12 @@ add('Stackbond', 5, 'Stack-bond tiles in tidy columns with grouted gaps, re-glaz
   rule: `@random(\${shapeFrequency}) { width: 88%; height: 88%; margin: 6%; border-radius: 10%; background: ${ink(c)}; }${TR}`,
 }));
 
-add('Pinwheelweave', 1, 'A parquet pinwheel — four planks circling a small square, re-spinning on each seed.', (c) => ({
+add('Pinwheelweave', 1, 'A parquet pinwheel - four planks circling a small square, re-spinning on each seed.', (c) => ({
   vars: '',
   rule: `--rot: @pick(0deg, 90deg, 180deg, 270deg); @random(\${shapeFrequency}) { background: var(--color0); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); :before { content: ''; position: absolute; left: 6%; top: 6%; width: 60%; height: 26%; background: ${ink(c)};${pt} } :after { content: ''; position: absolute; right: 6%; top: 6%; width: 26%; height: 60%; background: ${ink(c)};${pt} } }${TR}`,
 }));
 
-add('Weft', 28 % 28, 'Over-under basket weave — horizontal and vertical bands interlacing, re-threaded on reseed.', (c) => ({
+add('Weft', 28 % 28, 'Over-under basket weave - horizontal and vertical bands interlacing, re-threaded on reseed.', (c) => ({
   vars: '',
   rule: `@random(\${shapeFrequency}) { background: var(--color0); :before { content: ''; position: absolute; left: 0; top: 28%; width: 100%; height: 44%; background: ${ink(c)};${pt} } } @match((x + y) % 2 == 0) { :before { left: 28%; top: 0; width: 44%; height: 100%; } }${TR}`,
 }));
@@ -569,7 +569,7 @@ add('Halo', 14, 'Glowing dots haloed in soft light, each bloom re-colouring on r
   rule: `@random(\${shapeFrequency}) { :after { content: ''; position: absolute; left: 50%; top: 50%; @size: 36%; margin: -18%; border-radius: 50%; background: ${ink(c)}; box-shadow: 0 0 calc(120px / @Y) ${ink(c)}, 0 0 calc(260px / @Y) ${ink(c)};${pt} } }${TR}`,
 }), { grid: '6x9', tg: '5x5', tf: 0.9 });
 
-add('Moonphase', 1, 'A waxing-to-waning strip of phases — discs eaten away by an offset shadow that slides on reseed.', (c) => ({
+add('Moonphase', 1, 'A waxing-to-waning strip of phases - discs eaten away by an offset shadow that slides on reseed.', (c) => ({
   vars: '',
   rule: `@random(\${shapeFrequency}) { width: 80%; height: 80%; margin: 10%; border-radius: 50%; background: ${ink(c)}; :after { content: ''; position: absolute; @size: 100%; left: @pick(-60%, -30%, 0%, 30%, 60%); top: 0; border-radius: 50%; background: var(--color0);${pt} } }${TR}`,
 }), { grid: '6x9', tg: '4x4', tf: 0.9 });

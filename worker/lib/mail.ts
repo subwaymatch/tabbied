@@ -44,7 +44,7 @@ export async function sendMail(env: Env, mail: Mail): Promise<void> {
         target: devMail.email,
         set: { subject: mail.subject, url: mail.url, body: mail.text },
       });
-    console.log(`[mail:dev] ${mail.subject} → ${mail.to}\n  ${mail.url}`);
+    console.log(`[mail:dev] ${mail.subject} -> ${mail.to}\n  ${mail.url}`);
     return;
   }
 

@@ -1,11 +1,11 @@
-// `render_design` — the one tool that only exists over stdio.
+// `render_design` - the one tool that only exists over stdio.
 //
 // It shells out to the `tabbied` CLI rather than reimplementing rendering,
 // which is not laziness but the same rule the rest of this repo follows: the
 // only faithful renderer for a css-doodle pattern is css-doodle in a real
 // browser (see docs/svg-export.md). The CLI already owns the headless-browser
 // dance, the SVG converter, and the option parsing, so this is a wrapper over
-// argv — and a Worker, having no browser, simply doesn't offer the tool.
+// argv - and a Worker, having no browser, simply doesn't offer the tool.
 import { execFile } from 'node:child_process';
 import { mkdtemp, readFile, stat } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
@@ -21,7 +21,7 @@ const run = promisify(execFile);
 const RENDER_TIMEOUT_MS = 180_000;
 
 // A PNG returned inline is spent context. Past this the file stays on disk and
-// the agent gets the path — better a usable pointer than a truncated image.
+// the agent gets the path - better a usable pointer than a truncated image.
 const INLINE_BYTE_BUDGET = 1_500_000;
 
 const text = (value: string) => ({ type: 'text' as const, text: value });
@@ -38,7 +38,7 @@ export function renderTool(catalog: Catalog): Tool {
       title: 'Render a design to a file',
       description:
         'Render a design to SVG or PNG with a real browser, at any size, seed, ' +
-        'palette, and option set. Use this to produce an actual asset — or to ' +
+        'palette, and option set. Use this to produce an actual asset - or to ' +
         'preview a *customized* configuration, which preview_design cannot show ' +
         'you (it only has the stock palette and defaults). Needs Playwright ' +
         'installed alongside this server. Without "out" the image comes back ' +
@@ -51,7 +51,7 @@ export function renderTool(catalog: Catalog): Tool {
             type: 'string',
             enum: ['svg', 'png'],
             description:
-              'Vector or raster. A few designs cannot be vectorized — check ' +
+              'Vector or raster. A few designs cannot be vectorized - check ' +
               'svgExport on the design first.',
           },
           out: {
@@ -63,7 +63,7 @@ export function renderTool(catalog: Catalog): Tool {
           seed: {
             type: 'string',
             description:
-              'Fixed seed — the same seed always gives the same image. Random ' +
+              'Fixed seed - the same seed always gives the same image. Random ' +
               'when omitted.',
           },
           palette: {
@@ -234,7 +234,7 @@ export function renderTool(catalog: Catalog): Tool {
         return {
           content: [
             text(
-              `Rendered ${slug} to ${outPath} — ${Math.round(
+              `Rendered ${slug} to ${outPath} - ${Math.round(
                 png.byteLength / 1024
               )} KB, too large to return inline. Read it from that path, or ` +
                 're-render smaller (lower "scale", or a smaller width/height).'

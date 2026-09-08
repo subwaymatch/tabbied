@@ -12,8 +12,8 @@ export const metadata = {
 };
 
 /* Night ground, warm paper, one bronze. Every decorative field takes
-   `transparent` in the background slot, so the ground of the page — and, in
-   the plates, the plate itself — shows through the pattern rather than the
+   `transparent` in the background slot, so the ground of the page - and, in
+   the plates, the plate itself - shows through the pattern rather than the
    pattern painting its own backdrop over it. */
 const INK = '#f0ead8';
 const ACCENT = '#c89b3c';
@@ -24,13 +24,13 @@ const PANEL = '#221d18';
    so the row below is to scale and needs no caption to say so. */
 const PEAL = [
   { note: 'C', mm: 1960, kg: '4 780', year: '1782' },
-  { note: 'E♭', mm: 1650, kg: '2 890', year: '1782' },
+  { note: 'E\u266D', mm: 1650, kg: '2 890', year: '1782' },
   { note: 'F', mm: 1480, kg: '2 060', year: '1911' },
   { note: 'G', mm: 1310, kg: '1 470', year: '1782' },
-  { note: 'A♭', mm: 1230, kg: '1 180', year: '1948' },
-  { note: 'B♭', mm: 1100, kg: '870', year: '1948' },
+  { note: 'A\u266D', mm: 1230, kg: '1 180', year: '1948' },
+  { note: 'B\u266D', mm: 1100, kg: '870', year: '1948' },
   { note: 'C', mm: 980, kg: '610', year: '2004' },
-  { note: 'E♭', mm: 830, kg: '380', year: '2004' },
+  { note: 'E\u266D', mm: 830, kg: '380', year: '2004' },
 ];
 
 const OPERATIONS = [
@@ -71,12 +71,12 @@ const PRINCIPLES = [
 const CAST = [
   ['2026', 'Stiftskirche Wilten', 'Innsbruck', '1 470 kg', 'G, four bells'],
   ['2025', 'Pfarrkirche Sölden', 'Ötztal', '610 kg', 'C, recast of 1734'],
-  ['2025', 'Dom zu Brixen', 'Brixen', '2 890 kg', 'E♭, replacing 1943 loss'],
-  ['2024', 'Klosterkirche Stams', 'Stams', '380 kg', 'E♭, sanctus'],
-  ['2024', 'Rathausturm', 'Hall in Tirol', '870 kg', 'B♭, hour bell'],
+  ['2025', 'Dom zu Brixen', 'Brixen', '2 890 kg', 'E\u266D, replacing 1943 loss'],
+  ['2024', 'Klosterkirche Stams', 'Stams', '380 kg', 'E\u266D, sanctus'],
+  ['2024', 'Rathausturm', 'Hall in Tirol', '870 kg', 'B\u266D, hour bell'],
   ['2023', 'Kapelle St. Magdalena', 'Gschnitz', '210 kg', 'F, single'],
   ['2023', 'Pfarrkirche Zirl', 'Zirl', '4 780 kg', 'C, the largest since 1911'],
-  ['2022', 'Basilika Absam', 'Absam', '1 180 kg', 'A♭, third of five'],
+  ['2022', 'Basilika Absam', 'Absam', '1 180 kg', 'A\u266D, third of five'],
   ['2021', 'Friedhofskapelle', 'Telfs', '96 kg', 'A, hand bell'],
   ['2019', 'Universitätskirche', 'Innsbruck', '2 060 kg', 'F, recast of 1911'],
 ];
@@ -286,7 +286,7 @@ export default function GlockenhofPage() {
 
         {/* ------------------------------------------------------ PRINCIPLES
             Each plate is a pattern field on a transparent ground with a
-            cut-out object sitting on it — the pattern is the surface, the
+            cut-out object sitting on it - the pattern is the surface, the
             object is the subject. */}
         <section className={s.principles} aria-labelledby="pr-h">
           <div className={s.secHead}>
@@ -321,7 +321,7 @@ export default function GlockenhofPage() {
         <section id="cast" className={s.listing} aria-labelledby="cast-h">
           <div className={s.secHead}>
             <h2 data-edit="cast.title" data-edit-max="60" id="cast-h">Cast here</h2>
-            <p data-edit="cast.body" data-edit-max="240" data-edit-multiline>Recent work. A recast keeps the old bell&rsquo;s metal and, where we can read it, its inscription.</p>
+            <p data-edit="cast.body" data-edit-max="240" data-edit-multiline>Recent work. A recast keeps the old bell's metal and, where we can read it, its inscription.</p>
           </div>
           <ol className={s.table}>
             {CAST.map((r, i) => (

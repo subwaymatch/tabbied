@@ -1,4 +1,4 @@
-// N. Silk — linear ramps as sheen: where the light lies on the cloth.
+// N. Silk - linear ramps as sheen: where the light lies on the cloth.
 //
 // Not where the ink stops, but where the light sits. A ribbon whose ends
 // feather out instead of stopping, two ribbons fading in opposite directions,
@@ -6,8 +6,8 @@
 //
 // The last of those is the section's one real trick: clip-path decides the
 // silhouette and the mask decides how much of it is there. They are separate
-// steps in the Filter Effects model — children, then filter, then clip, then
-// mask — and the converter emits them in that order, so a faded sash is a
+// steps in the Filter Effects model - children, then filter, then clip, then
+// mask - and the converter emits them in that order, so a faded sash is a
 // <clipPath> and a <mask> on the same group rather than one shape trying to
 // approximate both.
 import {

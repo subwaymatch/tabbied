@@ -4,10 +4,10 @@
  * `public/images/sites/`, the files the site serves, then rebuild the manifest.
  *
  * Promotion follows the `cutout` flag:
- *   cutout: false → commits <id>.webp            (a scene, served full-bleed)
- *   cutout: true  → commits <id>-cutout.webp     (an object, placed on a pattern)
+ *   cutout: false -> commits <id>.webp            (a scene, served full-bleed)
+ *   cutout: true  -> commits <id>-cutout.webp     (an object, placed on a pattern)
  *
- * Cut-outs come straight from generation now — gpt-image-2 emits a real alpha
+ * Cut-outs come straight from generation now - gpt-image-2 emits a real alpha
  * channel (background:"transparent"), so <id>.png IS the cut-out and is promoted
  * under the -cutout name (the committed filename contract does not move). A
  * legacy <id>-cutout.png from the retired background-removal pass wins when
@@ -20,7 +20,7 @@
  *
  * Why WebP, and why this writes the served file directly: a 1536x1024 image is ~1.4 MB
  * as PNG and ~130 kB as WebP. And routing it through a second encoder later is a double
- * lossy pass — measured, promote-q92 → build-q80 lands at 35.58 dB PSNR against the PNG
+ * lossy pass - measured, promote-q92 -> build-q80 lands at 35.58 dB PSNR against the PNG
  * original while a single q80 encode is 37.41 dB. The second pass costs ~1.8 dB to save
  * ~3 kB. Because the promoted file IS the artifact, --quality is the quality users
  * actually see; it defaults to 92 rather than a serving-oriented 80.
@@ -83,7 +83,7 @@ function printHelp() {
  * Convert one image buffer to the committed WebP.
  * `nearLossless` is not used: these are photographic-ish raster renders, so plain
  * high-quality WebP is both smaller and visually equivalent. alphaQuality 100 matters
- * here — every cut-out lands on a busy pattern, where a lossy alpha edge shows.
+ * here - every cut-out lands on a busy pattern, where a lossy alpha edge shows.
  */
 export async function toWebp(buf, quality) {
   return sharp(buf).webp({ quality, alphaQuality: 100, effort: 6 }).toBuffer();
@@ -100,7 +100,7 @@ function plan(r, opts) {
   const cutStem = `${r.id}${CUTOUT_SUFFIX}`;
   // Generation returns the cut-out directly (background:"transparent"), so the
   // original IS the cut-out. A legacy <id>-cutout.png beside it is output from
-  // the retired removal pass and takes precedence — its sibling <id>.png is the
+  // the retired removal pass and takes precedence - its sibling <id>.png is the
   // OPAQUE original in that layout, and promoting it as the cut-out would ship
   // an un-cut image under the -cutout name.
   const legacy = existsSync(src(cutStem));
@@ -136,13 +136,13 @@ async function main() {
   let errors = 0;
   for (const r of selected) {
     const p = plan(r, opts);
-    if (p.error) { errors++; console.error(`  ✗ ${r.id}: ${p.error}`); continue; }
+    if (p.error) { errors++; console.error(`  failed ${r.id}: ${p.error}`); continue; }
     jobs.push(...p.jobs);
   }
   if (!jobs.length) { console.error("\nNothing to promote."); process.exit(1); }
 
   console.log(
-    `\nPromoting ${jobs.length} image(s) from ${opts.from} → public/images/sites ` +
+    `\nPromoting ${jobs.length} image(s) from ${opts.from} -> public/images/sites ` +
       `(webp q${opts.quality})${opts.dryRun ? " [dry-run]" : ""}\n`,
   );
   if (!opts.dryRun) mkdirSync(OUT_DIR, { recursive: true });
@@ -155,7 +155,7 @@ async function main() {
       if (!alpha || alpha.min === 255) {
         errors++;
         console.error(
-          `  ✗ ${job.out}: ${job.src}.png has no transparent pixels — a cut-out generated ` +
+          `  failed ${job.out}: ${job.src}.png has no transparent pixels - a cut-out generated ` +
             `before native alpha, or a failed transparency request. Regenerate it ` +
             `(cutout prompts send background:"transparent").`,
         );
@@ -166,17 +166,17 @@ async function main() {
     before += raw.length; after += webp.length;
     if (!opts.dryRun) writeFileSync(join(OUT_DIR, `${job.out}.webp`), webp);
     promoted++;
-    console.log(`  ✓ ${job.out}.webp  ${(raw.length / 1e6).toFixed(2)}MB → ${(webp.length / 1e6).toFixed(2)}MB`);
+    console.log(`  ok ${job.out}.webp  ${(raw.length / 1e6).toFixed(2)}MB -> ${(webp.length / 1e6).toFixed(2)}MB`);
   }
   console.log(
-    `\n${promoted} promoted · ${(before / 1e6).toFixed(1)}MB → ${(after / 1e6).toFixed(1)}MB ` +
+    `\n${promoted} promoted · ${(before / 1e6).toFixed(1)}MB -> ${(after / 1e6).toFixed(1)}MB ` +
       `(${after ? (before / after).toFixed(1) : "1.0"}x smaller)` +
       (errors ? ` · ${errors} skipped with errors` : ""),
   );
 
   if (opts.dryRun) return;
   if (opts.build) {
-    console.log("\nRebuilding the image manifest…");
+    console.log("\nRebuilding the image manifest...");
     execFileSync(process.execPath, [join(ROOT, "scripts", "build-image-manifest.mjs")], { stdio: "inherit" });
   } else {
     console.log("Skipped the manifest rebuild (--no-build); run `npm run build:images`.");

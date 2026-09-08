@@ -1,6 +1,6 @@
 // Turning a packaged template into a preview of a generated direction.
 //
-// The artefact previewed is the *download* — out/downloads/<slug>/index.html,
+// The artefact previewed is the *download* - out/downloads/<slug>/index.html,
 // the same bytes the Download button hands over. That is deliberate on both
 // counts. It is the only version of a template with no framework left in it,
 // so its patterns are `[data-pattern]` placeholders the edits engine can
@@ -16,16 +16,16 @@
 //   2. The bootstrap's esm.sh import is pointed at a same-origin bundle. The
 //      pinned CDN import is right for a stranger who unzipped the download
 //      years from now and wrong for this site drawing its own preview. The
-//      same script keeps the page's `#section` links in the page — see
+//      same script keeps the page's `#section` links in the page - see
 //      `bootstrap` for why a srcdoc document cannot do that on its own.
-//   3. The edits document — a direction's three strings, or a site's full
-//      revision — applied by the engine, exactly as an editor would apply it.
+//   3. The edits document - a direction's three strings, or a site's full
+//      revision - applied by the engine, exactly as an editor would apply it.
 //   4. Every relative stylesheet, image and script reference is spelled out
 //      as an absolute path under the package. The <base> already resolves
 //      them correctly, but Chromium's speculative preload scanner does not
 //      honour a <base> in an about:srcdoc document: it fetched each
 //      stylesheet and preloaded image against the *page's* URL first
-//      (`/studio/results/styles/base.css` — a 404, then `ERR_ABORTED` once
+//      (`/studio/results/styles/base.css` - a 404, then `ERR_ABORTED` once
 //      the parser caught up and fetched the right one). Nothing broke, and
 //      the console filled with errors that looked exactly like a broken
 //      preview. Absolute paths give the scanner nothing to guess.
@@ -68,7 +68,7 @@ const bootstrap =
   'window.__tabbied = { rehydrate };\n' +
   // A `#work` link in a srcdoc document is a navigation, not a scroll. The
   // document's own URL is `about:srcdoc`, and the link resolves against the
-  // <base> to `/downloads/<slug>/#work` — never the same URL, so the browser
+  // <base> to `/downloads/<slug>/#work` - never the same URL, so the browser
   // navigates the frame there: the raw package, with the rebrand gone and the
   // esm.sh bootstrap back. A sandbox does not stop a frame navigating itself.
   // So fragment links are handled here, as the scroll the template meant.
@@ -102,7 +102,7 @@ function rewriteBootstrap(documentEl: Document): Problem[] {
         level: 'error',
         path: 'runtime',
         message:
-          'the packaged template has no esm.sh bootstrap to replace — its patterns will not render',
+          'the packaged template has no esm.sh bootstrap to replace - its patterns will not render',
       },
     ];
   }
@@ -128,7 +128,7 @@ const RESOURCE_ATTRIBUTES: ReadonlyArray<readonly [selector: string, attribute: 
 const NOT_RELATIVE = /^(?:[a-z][a-z0-9+.-]*:|\/|#|$)/i;
 
 /**
- * `./styles/base.css` → `/downloads/<slug>/styles/base.css`. Resolved with the
+ * `./styles/base.css` -> `/downloads/<slug>/styles/base.css`. Resolved with the
  * URL parser against a throwaway origin so `./` and `../` mean what they mean.
  */
 function absolutise(value: string, root: string): string {
@@ -181,7 +181,7 @@ function absolutiseResources(documentEl: Document, root: string): void {
 export function buildPreviewDocument(options: {
   html: string;
   spec: TemplateSpec;
-  /** Any edits document — a three-string rebrand or a full revision. */
+  /** Any edits document - a three-string rebrand or a full revision. */
   edits: EditsDocument;
   slug: string;
 }): PreviewDocument {
@@ -189,7 +189,7 @@ export function buildPreviewDocument(options: {
   const parsed = new DOMParser().parseFromString(html, 'text/html');
   const head = parsed.head;
 
-  // First child, so it precedes every relative href and src in the document —
+  // First child, so it precedes every relative href and src in the document -
   // a <base> only governs what follows it.
   const base = parsed.createElement('base');
   base.setAttribute('href', packagedTemplateUrl(slug));

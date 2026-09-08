@@ -1,5 +1,5 @@
 // Native SVG export: walks a rendered <css-doodle>'s shadow DOM and maps the
-// computed styles of every painted box to real SVG primitives — rects, paths,
+// computed styles of every painted box to real SVG primitives - rects, paths,
 // gradients, clips, masks and filters. No <foreignObject>: the output renders
 // in design tools and non-browser rasterizers, not just HTML engines.
 //
@@ -161,7 +161,7 @@ export type Rgba = { r: number; g: number; b: number; a: number };
 
 /**
  * Parse a computed color. Chromium serializes computed sRGB colors as
- * rgb()/rgba(); anything else (color(), oklch(), …) is normalized by the
+ * rgb()/rgba(); anything else (color(), oklch(), ...) is normalized by the
  * caller through a DOM probe before reaching here.
  */
 export function parseRgbColor(value: string): Rgba | null {
@@ -179,7 +179,7 @@ export function parseRgbColor(value: string): Rgba | null {
 const rgbString = ({ r, g, b }: Rgba): string =>
   `rgb(${Math.round(r)},${Math.round(g)},${Math.round(b)})`;
 
-/** Parse a computed px length ("12.5px" → 12.5). */
+/** Parse a computed px length ("12.5px" -> 12.5). */
 const px = (value: string): number => {
   const n = parseFloat(value);
   return Number.isFinite(n) ? n : 0;
@@ -404,7 +404,7 @@ function parseStops(
   const stops: GradientStop[] = [];
   for (const part of parts) {
     // A color token followed by up to two positions (which may be calc()
-    // mixes — the patterns' anti-aliasing ramps). A bare position would be
+    // mixes - the patterns' anti-aliasing ramps). A bare position would be
     // a CSS interpolation hint, which SVG cannot express.
     const tokens = splitTopLevel(part, ' ').filter(Boolean);
     if (tokens.length === 0 || isPositionToken(tokens[0])) {
@@ -606,7 +606,7 @@ function radialGradientDef(
   ctx: Ctx,
   normalizeColor: (raw: string) => Rgba
 ): string {
-  // Preamble: "[shape] [size] [at <pos>]" — present when the first argument
+  // Preamble: "[shape] [size] [at <pos>]" - present when the first argument
   // does not parse as a color stop.
   let stopParts = args;
   let shape: 'circle' | 'ellipse' | null = null;
@@ -695,7 +695,7 @@ function radialGradientDef(
   const p = ctx.precision;
   const span = endPos - startPos;
   // Ellipses use a circle of radius rx scaled vertically by ry/rx around the
-  // center — this keeps `r` meaningful for stop offsets.
+  // center - this keeps `r` meaningful for stop offsets.
   const scaleY = ry / rx;
   const node: SvgNode = {
     tag: 'radialGradient',
@@ -719,7 +719,7 @@ function radialGradientDef(
     ),
   };
   // With spreadMethod=repeat the run must start at the circle edge fraction
-  // startPos/endPos — SVG has no r0, so a nonzero start cannot repeat inward
+  // startPos/endPos - SVG has no r0, so a nonzero start cannot repeat inward
   // faithfully. The catalog's repeating-radial gradients start at 0.
   if (repeating && startPos > 1e-4) {
     throw new SvgExportUnsupportedError('repeating-radial-gradient with nonzero first stop');
@@ -728,7 +728,7 @@ function radialGradientDef(
 }
 
 // ---------------------------------------------------------------------------
-// Conic gradients with hard stops → sector paths
+// Conic gradients with hard stops -> sector paths
 // ---------------------------------------------------------------------------
 
 type Sector = { from: number; to: number; color: Rgba };
@@ -781,7 +781,7 @@ export function parseConicSectors(
   flat[flat.length - 1].pos ??= 360;
   for (let i = 1; i < flat.length; i++) {
     if (flat[i].pos == null) {
-      // Positionless middle stops distribute evenly — but such stops always
+      // Positionless middle stops distribute evenly - but such stops always
       // sit inside a smooth blend, which is rejected below anyway.
       let j = i;
       while (flat[j].pos == null) j++;
@@ -855,7 +855,7 @@ type WalkEnv = {
 
 // Layout offsets (offsetLeft/offsetWidth) are integer-rounded, which turns
 // fractional grid tracks into visible 1px seams. Instead, measure fractional
-// boxes via getBoundingClientRect with every transform temporarily disabled —
+// boxes via getBoundingClientRect with every transform temporarily disabled -
 // transforms don't affect layout, and the browser never paints mid-task, so
 // the override is invisible.
 const MEASURE_OVERRIDE =
@@ -863,7 +863,7 @@ const MEASURE_OVERRIDE =
 
 // The patterns author `transition: ease 400ms` on their cells, so restoring
 // transforms and transitions in the same style recalc would *start* a
-// transition from the overridden state — and later getComputedStyle() calls
+// transition from the overridden state - and later getComputedStyle() calls
 // would read its t=0 (identity) frames. Unwind in two steps: restore
 // transforms while transitions are still muted, commit that with a forced
 // recalc, then unmute transitions (a no-op change that animates nothing).
@@ -882,7 +882,7 @@ function measureTree(
   const mute = document.createElement('style');
   mute.textContent = MUTE_MOTION;
   // The override style lives in the shadow root, so it can never reach the
-  // host <css-doodle> itself — and the `cover` fit scales the host with an
+  // host <css-doodle> itself - and the `cover` fit scales the host with an
   // inline transform. Left in place it would scale every measured box while
   // getComputedStyle keeps returning unscaled px (border widths, radii,
   // pseudo sizes, shadow offsets), silently distorting the export. Neutralize
@@ -1133,7 +1133,7 @@ function namespaceIds(markup: string, suffix: string): string {
  * Paint an SVG-image layer (css-doodle's @svg()/@doodle() backgrounds and
  * masks). Plain SVG payloads are inlined as scalable <symbol>s (kept
  * vector); foreignObject payloads (nested @doodle) are re-rendered in a
- * hidden shadow root and walked recursively — the output stays native.
+ * hidden shadow root and walked recursively - the output stays native.
  */
 function paintSvgDataUri(
   uri: string,
@@ -1186,7 +1186,7 @@ function paintSvgDataUri(
       },
     };
     if (ctx.maskMode) {
-      // Alpha→luminance for arbitrary content: force RGB to white, keep alpha.
+      // Alpha->luminance for arbitrary content: force RGB to white, keep alpha.
       const filterId = addDef(ctx, {
         tag: 'filter',
         attrs: {},
@@ -1287,7 +1287,7 @@ function paintBoxLayers(box: Box, cs: CSSStyleDeclaration, env: WalkEnv): SvgNod
           layers[i],
           shape,
           // The *positioning area* is the origin box (padding-box by
-          // default), not the border box — percentage stops and sizes
+          // default), not the border box - percentage stops and sizes
           // resolve against it. `shape` stays the border box, which is what
           // the layer is clipped to.
           originBox(box, cs, origins[i % origins.length]),
@@ -1311,7 +1311,7 @@ type BorderSide = 'top' | 'right' | 'bottom' | 'left';
  * Path along one side's border centerline, including the halves of the two
  * corner arcs that side owns (CSS splits each corner between its adjacent
  * sides at the 45° diagonal). Sharp corners run to the box corner; stroking
- * this path with the side's width reproduces CSS side borders — including
+ * this path with the side's width reproduces CSS side borders - including
  * windowpane's quarter-circle arcs and elbow's rounded pipe corner.
  */
 function sideBorderPath(
@@ -1455,7 +1455,7 @@ function paintBorders(
   }
 
   // Where differently-colored sides meet at a sharp corner, CSS miters at
-  // 45° — draw those sides as filled trapezoids. Same-colored sides (and
+  // 45° - draw those sides as filled trapezoids. Same-colored sides (and
   // rounded corners, whose 45° arc split miters inherently) keep centerline
   // strokes.
   const visible = new Map(sides.map((s) => [s.side, s.w]));
@@ -1834,7 +1834,7 @@ function boxShadowFilterUrl(cs: CSSStyleDeclaration, box: Box, env: WalkEnv): st
  * Neither kind of pseudo is laid out against the border box: an
  * absolutely-positioned one resolves its offsets against the padding box, a
  * static one is centred in the content box. On a borderless host the three
- * coincide — which is every pattern that predates batch 11's frames — but on a
+ * coincide - which is every pattern that predates batch 11's frames - but on a
  * bordered one, using the border box displaces the pseudo by the border width.
  *
  * Returns null when the pseudo has no area to paint.
@@ -1945,8 +1945,8 @@ function paintPaintedBox(
   let nodes = [...bgNodes, ...childNodes];
   if (nodes.length === 0) return [];
 
-  // Effects, innermost → outermost. Per the Filter Effects rendering model:
-  // children → filter → clip-path → mask → opacity/blend, with the transform
+  // Effects, innermost -> outermost. Per the Filter Effects rendering model:
+  // children -> filter -> clip-path -> mask -> opacity/blend, with the transform
   // mapping the final result.
   const blur = blurFilterUrl(cs, box, env);
   nodes = group(nodes, { filter: blur ?? undefined });
@@ -2028,7 +2028,7 @@ function paintElement(el: HTMLElement, env: WalkEnv): SvgNode[] {
 /**
  * Snapshot a live `<css-doodle>` element into a native SVG document.
  * Synchronous: reads the DOM as-is (callers should let render transitions
- * settle first — the tabbied controller's exportSvg() does).
+ * settle first - the tabbied controller's exportSvg() does).
  */
 export function doodleToSvg(
   element: HTMLElement,
@@ -2077,7 +2077,7 @@ export function doodleToSvg(
     const probe = probes[0];
     probe.style.color = '';
     probe.style.color = raw;
-    // An unparseable value leaves the property empty — fail loudly instead
+    // An unparseable value leaves the property empty - fail loudly instead
     // of silently inheriting some unrelated color.
     if (!probe.style.color) throw new SvgExportUnsupportedError('color', raw);
     const resolved = parseRgbColor(getComputedStyle(probe).color);
@@ -2095,7 +2095,7 @@ export function doodleToSvg(
 
   let bodyNodes: SvgNode[];
   try {
-    // The host's own background (usually transparent — tabbied patterns put
+    // The host's own background (usually transparent - tabbied patterns put
     // color0 on the grid container).
     const hostBg = normalizeColor(env.getStyle(element).backgroundColor);
     bodyNodes = [];

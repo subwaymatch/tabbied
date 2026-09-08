@@ -2,7 +2,7 @@
 //
 // Same seam as e2e/studio-preview.spec.ts, one document up: the route fetches
 // a stored *revision* rather than deriving three strings from a direction, and
-// what has to hold is that a full document — every text slot — lands on the
+// what has to hold is that a full document - every text slot - lands on the
 // packaged page and the page says what it knows about the document's state.
 import { test, expect } from '@playwright/test';
 import fs from 'node:fs';
@@ -48,7 +48,7 @@ const siteDocument = (overrides: Record<string, unknown> = {}) => ({
           'brand.name': 'Ye Joo Park',
           'hero.title': 'Property, {em}made personal{/em}.',
           'hero.lede': 'Residential, commercial, and property management.',
-          // Below the masthead — what the three-string preview cannot reach.
+          // Below the masthead - what the three-string preview cannot reach.
           'nav.0': 'Buy',
           'cta.primary': 'Book a valuation',
         },
@@ -62,7 +62,7 @@ const siteDocument = (overrides: Record<string, unknown> = {}) => ({
 test.describe('studio site', () => {
   test.skip(
     REQUIRED.some((file) => !fs.existsSync(file)),
-    'run `npm run build` first — needs the exported route, the packaged template and the preview runtime'
+    'run `npm run build` first - needs the exported route, the packaged template and the preview runtime'
   );
 
   test('renders the latest revision, masthead and below', async ({ page }) => {

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   FREQUENZ 94,6 — free radio, Graz
+   FREQUENZ 94,6 - free radio, Graz
    A schedule page that behaves like a transmission: the fields redraw faster
    than anywhere else in the batch (2.2s and 2.6s), the amber stands in for the
    on-air lamp, and the whole layout is a single column of times. Fields take
@@ -651,7 +651,7 @@
    columns of plain links on one flat surface, with the fine print under a
    hairline. The patterns have had the whole page to speak already. */
 
-/* Page and footer were within 1.15:1 of each other — near enough that the
+/* Page and footer were within 1.15:1 of each other - near enough that the
    seam read as a mistake, so the footer takes the page colour exactly.
    The light-page sites keep their dark footers: that contrast is the design. */
 .footer {

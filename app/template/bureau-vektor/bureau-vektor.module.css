@@ -1,5 +1,5 @@
 /* ==========================================================================
-   BUREAU VEKTOR — cantonal office of statistics
+   BUREAU VEKTOR - cantonal office of statistics
    The whitest page in the batch, and the one where the data is the picture:
    a twelve-bar chart at full width, four indicators at poster size on the
    accent ground, and no rules anywhere. Inter, tracked in, tabular figures
@@ -302,7 +302,7 @@
   transition: background 0.2s ease;
 }
 
-/* Provisional months are drawn open rather than solid — the chart says so
+/* Provisional months are drawn open rather than solid - the chart says so
    before the caption does. */
 .barFill[data-prov='yes'] {
   background: repeating-linear-gradient(
@@ -729,7 +729,7 @@
 }
 
 /* The emphasis is the sentence coming up to full strength, not a change of
-   hue — an accent this size would outshout the column grid below it. */
+   hue - an accent this size would outshout the column grid below it. */
 .footStatement em {
   font-style: normal;
   color: var(--paper);
@@ -849,7 +849,7 @@
     justify-self: start;
   }
 
-  /* Twelve bars stay twelve bars — the chart is the point — but the labels
+  /* Twelve bars stay twelve bars - the chart is the point - but the labels
      drop to every other month so they stop colliding. */
   .barVal {
     display: none;

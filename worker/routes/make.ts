@@ -12,7 +12,7 @@ import studio from './studio';
 // One prompt in, one site out. The person does not choose a template: the
 // directions call scores and picks three and names the one it would lead
 // with, and this makes that one. It is the two existing handlers run in
-// sequence, in-process, with the caller's own headers — so the session, the
+// sequence, in-process, with the caller's own headers - so the session, the
 // burst gates and the daily caps all apply exactly as they would to the two
 // clicks this replaces. Composing the handlers rather than their internals
 // keeps one implementation of each.
@@ -27,7 +27,7 @@ make.post('/', async (c) => {
   const parsed = requestSchema.safeParse(await c.req.json().catch(() => null));
 
   if (!parsed.success) {
-    return c.json({ error: 'Describe your business in 10–600 characters.' }, 400);
+    return c.json({ error: 'Describe your business in 10-600 characters.' }, 400);
   }
 
   const headers = new Headers(c.req.raw.headers);

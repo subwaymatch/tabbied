@@ -3,7 +3,7 @@
 // A site: the full document on its template, at its latest revision.
 //
 // The same shell as the direction preview, loading a different document. What
-// this page is *for* — editing, revising, exporting — lands on it in turn; the
+// this page is *for* - editing, revising, exporting - lands on it in turn; the
 // canvas is the part everything else needs first.
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
@@ -106,7 +106,7 @@ export default function StudioSite() {
     return (
       <div className={styles.frame}>
         <div className={styles.skeleton} aria-hidden="true" />
-        <p className={styles.loading}>Loading your site…</p>
+        <p className={styles.loading}>Loading your site...</p>
       </div>
     );
   }
@@ -145,11 +145,11 @@ export default function StudioSite() {
       {/* Two notices this page owns, distinct from the engine's. A fallback
           revision is the three-string rebrand, said out loud rather than passed
           off as the full document. Drift is the pinned template no longer
-          matching the packaged one — the document still applies, but a person
+          matching the packaged one - the document still applies, but a person
           should hear it here, not from a missing headline. */}
       {site.latest.source === 'fallback' ? (
         <p className={styles.notice} role="status">
-          The model didn&rsquo;t return a usable page, so only the brand name,
+          The model didn't return a usable page, so only the brand name,
           headline and tagline have been applied.
         </p>
       ) : null}
@@ -179,7 +179,7 @@ export default function StudioSite() {
         <PreviewFrame
           html={html}
           problems={problems}
-          title={`${site.title} — built on the ${site.templateName} template`}
+          title={`${site.title} - built on the ${site.templateName} template`}
           frameRef={frameRef}
         />
       </div>

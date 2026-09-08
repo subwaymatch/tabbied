@@ -3,10 +3,10 @@
 //
 // Two groups of rules live here:
 //
-//   * the *house* rules every batch since 6 has been checked against — one
+//   * the *house* rules every batch since 6 has been checked against - one
 //     frequency gate, a transitionable ink per cell, no plain var() re-rolls,
 //     nothing painted in the background colour;
-//   * the *SVG* rules that keep a design in tier 4 of docs/svg-export.md — no
+//   * the *SVG* rules that keep a design in tier 4 of docs/svg-export.md - no
 //     declaration that exports as an SVG filter, no smooth conic sweep, no
 //     border on a partially-rounded box.
 //
@@ -66,7 +66,7 @@ const splitTokens = (text) => {
 
 /**
  * A conic-gradient span whose endpoints differ in colour is a smooth angular
- * sweep — SVG has no angular gradient, and the converter throws on one. Only
+ * sweep - SVG has no angular gradient, and the converter throws on one. Only
  * hard stops are allowed: wherever the colour changes, the two stops must sit
  * at the same angle.
  *
@@ -96,7 +96,7 @@ export const assertHardStopConic = (slug, style) => {
     }
     // CSS clamps each stop position up to the largest one before it, which is
     // what makes `transparent 0` after a 90deg stop a hard stop rather than a
-    // backwards sweep. Model that before comparing — for the numeric ones;
+    // backwards sweep. Model that before comparing - for the numeric ones;
     // an unresolved expression is only ever compared against itself.
     let high = -Infinity;
     for (const stop of flat) {
@@ -110,7 +110,7 @@ export const assertHardStopConic = (slug, style) => {
       if (a.color === b.color) continue;
       if (a.pos === null || b.pos === null || a.pos !== b.pos) {
         throw new Error(
-          `${slug}: conic-gradient sweeps smoothly from ${a.color} to ${b.color} — SVG has no angular gradient`
+          `${slug}: conic-gradient sweeps smoothly from ${a.color} to ${b.color} - SVG has no angular gradient`
         );
       }
     }
@@ -143,7 +143,7 @@ export function lintPattern({ slug, style, doodle, options, palette, colors, bat
     }
   }
   // Lint: a custom property whose value contains @-functions is a textual
-  // macro — every plain var(--x) reference re-rolls it. Shared rolls must be
+  // macro - every plain var(--x) reference re-rolls it. Shared rolls must be
   // emitted per cell and referenced via @var(--x) instead.
   const propDefs = [...style.matchAll(/(--[\w-]+)\s*:\s*([^;]*);/g)];
   for (const [, propName, propValue] of propDefs) {
@@ -154,7 +154,7 @@ export function lintPattern({ slug, style, doodle, options, palette, colors, bat
     ].length;
     if (plainRefs > 1) {
       throw new Error(
-        `${slug}: randomized ${propName} referenced ${plainRefs}x via plain var() — re-rolls per reference; use a cell-level prop + @var()`
+        `${slug}: randomized ${propName} referenced ${plainRefs}x via plain var() - re-rolls per reference; use a cell-level prop + @var()`
       );
     }
   }
@@ -162,7 +162,7 @@ export function lintPattern({ slug, style, doodle, options, palette, colors, bat
   // is opaque. Cut the shape instead (clip-path hole, mask, or a gap).
   if (/var\(\s*--color0\s*\)/.test(style)) {
     throw new Error(
-      `${slug}: style paints var(--color0) — that knockout disappears on a transparent background`
+      `${slug}: style paints var(--color0) - that knockout disappears on a transparent background`
     );
   }
   // Exactly one frequency gate, so the slider always thins the whole field.
@@ -175,7 +175,7 @@ export function lintPattern({ slug, style, doodle, options, palette, colors, bat
   // The tier-4 rule: nothing that would need an svgExportNote.
   for (const [pattern, why] of SVG_BANNED) {
     if (pattern.test(style)) {
-      throw new Error(`${slug}: ${why} — ${batch} exports clean or not at all`);
+      throw new Error(`${slug}: ${why} - ${batch} exports clean or not at all`);
     }
   }
   assertHardStopConic(slug, style);
@@ -214,7 +214,7 @@ export function lintPattern({ slug, style, doodle, options, palette, colors, bat
   // morphs instead of snapping. background-image alone does not transition.
   if (!/(background|border)(-[a-z]+)?\s*:\s*[^;]*@p(ick)?\(/.test(style)) {
     throw new Error(
-      `${slug}: no per-cell randomized background/border ink — a reseed would snap`
+      `${slug}: no per-cell randomized background/border ink - a reseed would snap`
     );
   }
 }

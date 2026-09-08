@@ -35,14 +35,14 @@ for (const { file, maxWidth } of TARGETS) {
       : pipeline.jpeg({ quality: 78, progressive: true, mozjpeg: true });
 
   // Buffering decouples input from output (sharp can't write over its own
-  // input file); write the already-encoded buffer as-is — piping it through
+  // input file); write the already-encoded buffer as-is - piping it through
   // sharp() again would re-encode at library defaults, discarding the
   // quality/palette settings above.
   const buffer = await pipeline.toBuffer();
   await writeFile(filePath, buffer);
   const after = (await stat(filePath)).size;
   console.log(
-    `${file}: ${meta.width}px ${(before / 1024).toFixed(0)}KB → ` +
+    `${file}: ${meta.width}px ${(before / 1024).toFixed(0)}KB -> ` +
       `${Math.min(meta.width, maxWidth)}px ${(after / 1024).toFixed(0)}KB`
   );
 }

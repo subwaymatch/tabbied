@@ -1,7 +1,7 @@
 /**
  * Load, validate, resolve and render image prompts.
  *
- * Resolution cascade, first hit wins:  prompt → set → project → meta.defaults
+ * Resolution cascade, first hit wins:  prompt -> set -> project -> meta.defaults
  *
  * The prompt builder only CONCATENATES AUTHORED SENTENCES; it never invents prose.
  * Anything that has to read as English (a set description, a backdrop) is written by
@@ -27,7 +27,7 @@ export function loadPromptData(file) {
   return data;
 }
 
-/** prompt → set → project → meta.defaults */
+/** prompt -> set -> project -> meta.defaults */
 export function resolvePrompt(prompt, data) {
   const project = data.projects[prompt.project];
   if (!project) throw new Error(`prompt "${prompt.id}": unknown project "${prompt.project}"`);
@@ -75,10 +75,10 @@ export function buildPrompt(r) {
   // each colour anchored to a material before it has any purchase.
   const header =
     r.paletteMode === "scene"
-      ? "Palette — render these as the scene's real materials, surfaces, and light:"
-      : "Palette — use these colours and no others:";
+      ? "Palette - render these as the scene's real materials, surfaces, and light:"
+      : "Palette - use these colours and no others:";
   const lines = entries.map(([name, v]) =>
-    typeof v === "string" ? `${name}: ${v}` : `${name}: ${v.hex}${v.as ? ` — ${v.as}` : ""}`,
+    typeof v === "string" ? `${name}: ${v}` : `${name}: ${v.hex}${v.as ? ` - ${v.as}` : ""}`,
   );
   return `${head}\n\n${header}\n${lines.join("\n")}`;
 }

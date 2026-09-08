@@ -11,7 +11,7 @@ import HomeFooter from 'components/main-page/HomeFooter';
 import styles from 'components/main-page/home.module.css';
 
 export const metadata: Metadata = {
-  title: 'Tabbied — Free generative patterns and website templates',
+  title: 'Tabbied - Free generative patterns and website templates',
   description: `Explore a growing library of ${PATTERN_COUNT} customizable patterns and ${TEMPLATE_COUNT} free website templates, ready to edit, download, and use.`,
 };
 

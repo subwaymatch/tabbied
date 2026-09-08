@@ -134,7 +134,7 @@ export default function PaletteBrowser({
           );
         })}
 
-        {hasMore && <div className={styles.more}>Scroll for more…</div>}
+        {hasMore && <div className={styles.more}>Scroll for more...</div>}
         {merged.length === 0 && (
           <div className={styles.empty}>No palettes match your search.</div>
         )}

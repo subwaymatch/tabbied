@@ -1,6 +1,6 @@
 // The edit engine's decisions, with no DOM in sight.
 //
-// planEdits is where every judgement lives — what validates, what a palette
+// planEdits is where every judgement lives - what validates, what a palette
 // change implies for a pattern field, which attributes get written. Pinning it
 // here is what lets apply.ts stay a dull executor and be covered by one e2e
 // case rather than a matrix of them.

@@ -45,13 +45,13 @@ export type PatternColors = {
  * No fit distorts the drawing: `grid` re-derives the cell grid so cells stay
  * near-square at any box shape, `cover` scales a render uniformly, and `fixed`
  * draws at an explicit canvas size. Every design supports all three, so `fit`
- * is a plain choice — an unset one takes DEFAULT_FIT_MODE.
+ * is a plain choice - an unset one takes DEFAULT_FIT_MODE.
  */
 export type FitMode = 'grid' | 'cover' | 'fixed';
 
 /**
  * Per-pattern sizing metadata, all of it about the adaptive `grid` fit and all
- * of it optional. `minCellPx`/`maxCellPx` bound the derived cell size —
+ * of it optional. `minCellPx`/`maxCellPx` bound the derived cell size -
  * designs with fixed-px strokes and shadows need a floor so cells never shrink
  * past the look they were authored for.
  */
@@ -61,7 +61,7 @@ export type PatternSizing = {
   /**
    * The cell must be a whole multiple of this. A design that subdivides its
    * cell puts a boundary at `cell / n`, and an indivisible cell lands that
-   * boundary on a fraction of a pixel — which the browser seams, however
+   * boundary on a fraction of a pixel - which the browser seams, however
    * exact the outer grid is. Only the three designs that mask with a nested
    * `@doodle` need it: subdivide (2), fractal (3), matryoshka (4). Defaults
    * to 2, which also keeps centred rules and strokes off half-pixels.
@@ -91,7 +91,7 @@ export type PatternDefinition = {
   /** Sort position in the gallery (ascending). Unset sorts last. */
   galleryOrder?: number;
   /**
-   * False disables native SVG export — for designs that paint effects SVG
+   * False disables native SVG export - for designs that paint effects SVG
    * cannot represent (smooth conic-gradient sweeps). Defaults to true.
    */
   svgExport?: boolean;
@@ -100,7 +100,7 @@ export type PatternDefinition = {
    * exported as SVG filters that design tools import imperfectly, or
    * documented sub-pixel deviations from the on-screen rendering). Export
    * UIs should surface it before downloading. Options can carry their own
-   * conditional note — see PatternOption.svgExportNote.
+   * conditional note - see PatternOption.svgExportNote.
    */
   svgExportNote?: string;
 };
@@ -108,7 +108,7 @@ export type PatternDefinition = {
 /**
  * Whether a pattern can be exported as native SVG. False only for designs
  * whose definition opts out via `svgExport: false` (smooth conic-gradient
- * sweeps have no SVG equivalent). Lives here — not in the converter module —
+ * sweeps have no SVG equivalent). Lives here - not in the converter module -
  * so UI gating never pulls the converter into the bundle (exportSvg() loads
  * it on demand).
  */

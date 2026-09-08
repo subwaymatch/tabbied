@@ -52,7 +52,7 @@ export type HydratedPattern = {
 
 export type HydrateOptions = {
   /**
-   * Pattern definitions to resolve slugs against — the `patterns` record from
+   * Pattern definitions to resolve slugs against - the `patterns` record from
    * `tabbied/patterns`, or an array/subset of definitions if the page only
    * uses a few (which keeps the payload to just those).
    */
@@ -63,7 +63,7 @@ export type HydrateOptions = {
   selector?: string;
   /**
    * Called for an element whose slug isn't in `patterns`, or whose config is
-   * unusable. Defaults to a console.warn — a template with one bad slug
+   * unusable. Defaults to a console.warn - a template with one bad slug
    * should still mount the rest of its patterns.
    */
   onError?: (error: Error, element: HTMLElement) => void;
@@ -79,7 +79,7 @@ const hydrated = new WeakMap<Element, PatternController>();
 // ---- serialization -------------------------------------------------------
 
 // Values are joined with a separator and parsed back by splitting on it, so
-// the parse has to survive a CSS color that contains its own commas —
+// the parse has to survive a CSS color that contains its own commas -
 // `rgb(0, 0, 0)`. Every authored palette in the catalog is hex-or-keyword,
 // but the config takes any CSS color, so split at top level only.
 const splitTopLevel = (value: string, separator: string): string[] => {
@@ -236,7 +236,7 @@ const isFitMode = (value: string): value is FitMode =>
  * Returns null when the element carries no `data-pattern`, or when its slug
  * isn't in `patterns`. Individual attributes that don't parse are dropped
  * (the controller then uses the pattern's authored default) rather than
- * failing the whole element — a hand-edited template should degrade to the
+ * failing the whole element - a hand-edited template should degrade to the
  * design's defaults, not to a blank box.
  */
 export function patternConfigFromElement(
@@ -315,8 +315,8 @@ export function patternConfigFromElement(
  *
  * Idempotent: an element already hydrated by a previous call is skipped, and
  * its existing controller is returned. Not for use alongside the React
- * component — `TabbiedPattern` mounts its own controller on the same
- * placeholder — but the attributes it renders are exactly what this reads,
+ * component - `TabbiedPattern` mounts its own controller on the same
+ * placeholder - but the attributes it renders are exactly what this reads,
  * which is what lets a static export be repackaged as a plain HTML template.
  */
 export function hydratePatterns(options: HydrateOptions): HydratedPattern[] {
@@ -333,7 +333,7 @@ export function hydratePatterns(options: HydrateOptions): HydratedPattern[] {
   for (const element of root.querySelectorAll<HTMLElement>(selector)) {
     const existing = hydrated.get(element);
 
-    // A destroyed controller is inert forever — fall through and re-hydrate
+    // A destroyed controller is inert forever - fall through and re-hydrate
     // so a teardown/re-hydrate cycle (the README's own recipe) works.
     if (existing && !existing.destroyed) {
       mounted.push({ element, controller: existing });
@@ -347,7 +347,7 @@ export function hydratePatterns(options: HydrateOptions): HydratedPattern[] {
         new Error(
           `[tabbied] no pattern definition for "${element.getAttribute(
             PATTERN_ATTRIBUTE
-          )}" — pass it in \`patterns\``
+          )}" - pass it in \`patterns\``
         ),
         element
       );

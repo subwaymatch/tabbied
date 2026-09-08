@@ -7,7 +7,7 @@ import { slotLine, type SiteSlot } from './siteSchema';
 // is what keeps the endpoint task-shaped rather than a proxy.
 
 const candidateLine = (entry: StudioDirection) =>
-  `- ${entry.slug} · ${entry.name} — ${entry.topic}. ` +
+  `- ${entry.slug} · ${entry.name} - ${entry.topic}. ` +
   `Mood: ${entry.moods.join('/') || 'unstated'}. ` +
   `Motifs: ${entry.tags.slice(0, 4).join(', ') || 'unstated'}. ` +
   `Density: ${entry.density}. ` +
@@ -24,7 +24,7 @@ export function directionsSystemPrompt(candidates: StudioDirection[]): string {
     'Rules:',
     '- Choose only from the shortlist, by slug. Never invent a slug.',
     '- Choose three templates that read as three genuinely different',
-    '  directions — not three variations of one idea. Vary the mood, the',
+    '  directions - not three variations of one idea. Vary the mood, the',
     '  motif and the colour temperature.',
     '- Each palette starts with the background colour, then inks. At least one',
     '  ink must be clearly legible on that background; a palette where',
@@ -48,7 +48,7 @@ export const directionsUserPrompt = (description: string) =>
  * Brand imagery for one chosen direction. This borrows the offline pipeline's
  * prompt craft wholesale (docs/image-pipeline.md): one subject, no text, no
  * baked shadow, and the palette anchored to materials rather than named as
- * hexes — a bare hex has nothing to attach to in a photograph.
+ * hexes - a bare hex has nothing to attach to in a photograph.
  */
 export function directionImagePrompt(
   direction: StoredDirection,
@@ -56,7 +56,7 @@ export function directionImagePrompt(
 ): string {
   return [
     `A single photographic still life representing a business described as: ${description.slice(0, 240)}`,
-    `The brand direction is "${direction.stance}" — ${direction.why}`,
+    `The brand direction is "${direction.stance}" - ${direction.why}`,
     `Colour it from this palette, as real materials and surfaces rather than flat swatches: ${direction.palette.join(', ')}.`,
     'One subject, centred, three-quarter view, soft even studio light.',
     'No cast shadow. No text, letters, numbers, or logos.',
@@ -69,7 +69,7 @@ export function directionImagePrompt(
  *
  * The direction is restated rather than chained from the directions turn,
  * because that turn was a different task with a different schema; what this
- * call needs from it is the brief — stance, name, headline, tagline — and that
+ * call needs from it is the brief - stance, name, headline, tagline - and that
  * fits in a paragraph.
  */
 export function siteSystemPrompt(
@@ -88,19 +88,19 @@ export function siteSystemPrompt(
     '- Write for this business only. No placeholders, no lorem, no facts you',
     '  were not told. Where the template states a specific (a price, a date, a',
     '  count, a place), replace it with something honest for this business or',
-    '  with a general phrase — never leave the template\'s own.',
+    '  with a general phrase - never leave the template\'s own.',
     '- Keep each value the kind of thing it was: a nav label stays a short label,',
     '  a quote stays a quote, a footer line stays a footer line. Section order',
     '  and structure are not yours to change; only the words are.',
     '- Stay within each character budget. Single paragraph, no line breaks.',
-    '- Only a slot marked as allowing it may contain {em}…{/em}, and there it',
+    '- Only a slot marked as allowing it may contain {em}...{/em}, and there it',
     '  should wrap one short phrase for emphasis.',
     '- Use the brand name exactly as given, everywhere the template names the',
     '  business.',
     '',
     'The brand direction:',
     `- Template: ${templateName}`,
-    `- Direction: ${direction.stance} — ${direction.why}`,
+    `- Direction: ${direction.stance} - ${direction.why}`,
     copy ? `- Brand name: ${copy.brandName}` : '',
     copy ? `- Headline: ${copy.headline}` : '',
     copy ? `- Tagline: ${copy.tagline}` : '',
@@ -126,8 +126,8 @@ export function siteUserPrompt(description: string, slots: SiteSlot[]): string {
  * A picture for one image slot of a site. The slot's current alt text says
  * what kind of picture the template put there (a storefront, a product, a
  * portrait); the business and the direction say whose. The offline pipeline's
- * craft again: one subject, no text, palette as materials, and — because the
- * result is a cut-out on a real alpha channel — no cast shadow and nothing
+ * craft again: one subject, no text, palette as materials, and - because the
+ * result is a cut-out on a real alpha channel - no cast shadow and nothing
  * touching the edge.
  */
 export function siteImagePrompt(options: {
@@ -143,7 +143,7 @@ export function siteImagePrompt(options: {
     options.slotAlt
       ? `The template used this picture as: "${options.slotAlt.slice(0, 160)}". Make the equivalent for this business.`
       : 'Make a picture that suits this business.',
-    `The brand direction is "${options.stance}" — ${options.why}`,
+    `The brand direction is "${options.stance}" - ${options.why}`,
     `Colour it from this palette, as real materials and surfaces rather than flat swatches: ${options.palette.join(', ')}.`,
     options.references > 0
       ? 'Draw the subject, materials and setting from the reference pictures provided.'
@@ -157,7 +157,7 @@ export function siteImagePrompt(options: {
 
 /**
  * A conversational change to a site that already exists. The current text of
- * every slot is what the model is editing — not the template's, the person's —
+ * every slot is what the model is editing - not the template's, the person's -
  * and the instruction is fenced as data, like the description.
  */
 export function reviseSystemPrompt(direction: StoredDirection, templateName: string): string {
@@ -170,13 +170,13 @@ export function reviseSystemPrompt(direction: StoredDirection, templateName: str
     '- Return a change for each slot you alter, and no others. Untouched slots',
     '  must not appear in your answer.',
     '- Keep each value the kind of thing it was and within its length budget.',
-    '- Only a slot marked as allowing it may contain {em}…{/em}.',
+    '- Only a slot marked as allowing it may contain {em}...{/em}.',
     '- Set palette only if the request is about colours; otherwise null.',
     '- Do not invent facts about the business.',
     '- In "note", tell the owner in one sentence what you changed.',
     '',
     `The site is built on the ${templateName} template, in the direction`,
-    `"${direction.stance}" — ${direction.why}`,
+    `"${direction.stance}" - ${direction.why}`,
   ].join('\n');
 }
 

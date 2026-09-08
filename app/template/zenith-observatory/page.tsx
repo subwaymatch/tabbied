@@ -129,7 +129,7 @@ export default function ZenithObservatoryPage() {
         href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
       />
 
-      {/* ——— HERO ——— */}
+      {/* --- HERO --- */}
       <header data-edit-pattern="hero.field" data-edit-roles="0,2,3,4,5,6" className={styles.hero}>
         <TabbiedPattern
           pattern={spark}
@@ -143,7 +143,7 @@ export default function ZenithObservatoryPage() {
 
         <div className={styles.topRow}>
           <p className={styles.brand}>
-            <span aria-hidden="true">✦</span> ZENITH
+            <span aria-hidden="true">&#x2726;</span> ZENITH
           </p>
           <nav className={styles.nav} aria-label="Sections">
             <a data-edit="hero.tonight" data-edit-max="28" href="#tonight">Tonight</a>
@@ -160,7 +160,7 @@ export default function ZenithObservatoryPage() {
           <h1 className={styles.heroTitle}>
             Look up.
             <br />
-            We&rsquo;ll handle the rest.
+            We'll handle the rest.
           </h1>
           <p data-edit="hero.heroLede" data-edit-max="240" data-edit-multiline className={styles.heroLede}>
             The darkest public sky within two hours of the city, a telescope
@@ -205,7 +205,7 @@ export default function ZenithObservatoryPage() {
       </header>
 
       <main>
-        {/* ——— TONIGHT ——— */}
+        {/* --- TONIGHT --- */}
         <section id="tonight" className={styles.section} aria-labelledby="tonight-title">
           <p data-edit="tonight.kicker" data-edit-max="240" data-edit-multiline className={styles.kicker}>◍ TONIGHT AT ZENITH</p>
           <h2 data-edit="tonight.h2" data-edit-max="60" id="tonight-title" className={styles.h2}>
@@ -241,7 +241,7 @@ export default function ZenithObservatoryPage() {
           </div>
         </section>
 
-        {/* ——— EXHIBITS ——— */}
+        {/* --- EXHIBITS --- */}
         <section id="exhibits" className={styles.sectionWide} aria-labelledby="exhibits-title">
           <p data-edit="exhibits.kicker" data-edit-max="240" data-edit-multiline className={styles.kicker}>◍ THE FLOOR</p>
           <h2 data-edit="exhibits.h2" data-edit-max="60" id="exhibits-title" className={styles.h2}>
@@ -275,7 +275,7 @@ export default function ZenithObservatoryPage() {
           </div>
         </section>
 
-        {/* ——— TELESCOPE ——— */}
+        {/* --- TELESCOPE --- */}
         <section id="telescope" className={styles.telescope} aria-labelledby="scope-title">
           <div className={styles.scopeGrid}>
             <div className={styles.scopeMedia}>
@@ -328,7 +328,7 @@ export default function ZenithObservatoryPage() {
           </div>
         </section>
 
-        {/* ——— PANORAMA ——— */}
+        {/* --- PANORAMA --- */}
         <section className={styles.panorama} aria-label="The night sky from Cinder Ridge">
           <Figure editId="photo.zenith-panorama"
             slug="zenith-panorama"
@@ -336,12 +336,12 @@ export default function ZenithObservatoryPage() {
             className={styles.panoImg}
           />
           <blockquote className={styles.panoQuote}>
-            <p data-edit="panorama.body" data-edit-max="240" data-edit-multiline>&ldquo;The first time the dome opened, our six-year-old whispered. She whispered the whole drive home.&rdquo;</p>
+            <p data-edit="panorama.body" data-edit-max="240" data-edit-multiline>"The first time the dome opened, our six-year-old whispered. She whispered the whole drive home."</p>
             <cite data-edit="panorama.attribution" data-edit-max="48">Visitor log, 22 June 2025</cite>
           </blockquote>
         </section>
 
-        {/* ——— VISIT ——— */}
+        {/* --- VISIT --- */}
         <section id="visit" className={styles.section} aria-labelledby="visit-title">
           <p data-edit="visit.kicker" data-edit-max="240" data-edit-multiline className={styles.kicker}>◍ PLAN A VISIT</p>
           <h2 data-edit="visit.h2" data-edit-max="60" id="visit-title" className={styles.h2}>
@@ -352,15 +352,15 @@ export default function ZenithObservatoryPage() {
               <h3 data-edit="visit.title" data-edit-max="40">HOURS</h3>
               <ul className={styles.plainList}>
                 <li>
-                  <span data-edit="visit.text" data-edit-max="60">Wed – Sun</span>
-                  <span data-edit="visit.text2" data-edit-max="60">13:00 – 23:30</span>
+                  <span data-edit="visit.text" data-edit-max="60">Wed - Sun</span>
+                  <span data-edit="visit.text2" data-edit-max="60">13:00 - 23:30</span>
                 </li>
                 <li>
                   <span data-edit="visit.text3" data-edit-max="60">Viewing nights</span>
                   <span data-edit="visit.text4" data-edit-max="60">Sat, gates 21:00</span>
                 </li>
                 <li>
-                  <span data-edit="visit.text5" data-edit-max="60">Mon – Tue</span>
+                  <span data-edit="visit.text5" data-edit-max="60">Mon - Tue</span>
                   <span data-edit="visit.text6" data-edit-max="60">Closed (we sleep)</span>
                 </li>
                 <li>
@@ -399,7 +399,7 @@ export default function ZenithObservatoryPage() {
           </div>
         </section>
 
-        {/* ——— MEMBERSHIP ——— */}
+        {/* --- MEMBERSHIP --- */}
         <section id="membership" className={styles.sectionWide} aria-labelledby="member-title">
           <p data-edit="membership.kicker" data-edit-max="240" data-edit-multiline className={styles.kicker}>◍ MEMBERSHIP</p>
           <h2 data-edit="membership.h2" data-edit-max="60" id="member-title" className={styles.h2}>
@@ -439,7 +439,7 @@ export default function ZenithObservatoryPage() {
           </div>
         </section>
 
-        {/* ——— SCHOOL PROGRAMS ——— */}
+        {/* --- SCHOOL PROGRAMS --- */}
         <section className={styles.school} aria-labelledby="school-title">
           <div className={styles.schoolInner}>
             <p data-edit="school.kickerLeft" data-edit-max="240" data-edit-multiline className={styles.kickerLeft}>◍ FOR SCHOOLS</p>
@@ -479,7 +479,7 @@ export default function ZenithObservatoryPage() {
         </section>
       </main>
 
-      {/* ——— FOOTER ——— */}
+      {/* --- FOOTER --- */}
       <footer className={styles.footer}>
         <div data-edit-pattern="footer.field" data-edit-roles="0,2,3,4,5,6" className={styles.footerBand} aria-hidden="true">
           <TabbiedPattern
@@ -493,7 +493,7 @@ export default function ZenithObservatoryPage() {
         </div>
         <div className={styles.footerInner}>
           <p className={styles.footerBrand}>
-            <span aria-hidden="true">✦</span> ZENITH OBSERVATORY &amp; PLANETARIUM
+            <span aria-hidden="true">&#x2726;</span> ZENITH OBSERVATORY &amp; PLANETARIUM
           </p>
           <div className={styles.footerCols}>
             <div>
@@ -501,7 +501,7 @@ export default function ZenithObservatoryPage() {
               <p>
                 9 Cinder Ridge Road
                 <br />
-                Wed–Sun · 13:00–23:30
+                Wed-Sun · 13:00-23:30
               </p>
             </div>
             <div>

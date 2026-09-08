@@ -1,12 +1,12 @@
 // One-shot generator: emits packages/tabbied/patterns/<slug>.json for every definition and
 // prints the galleryThumbnails.ts entries to insert.
 //
-// ⚠ HISTORICAL — DO NOT RUN. The definitions in pattern-defs-1/2/3.mjs are a
+// HISTORICAL - DO NOT RUN. The definitions in pattern-defs-1/2/3.mjs are a
 // snapshot of how batches 1-3 were first produced, and the catalogue has moved
 // on without them. Running this today would:
 //
 //   * recreate 105 designs retired since (see "retire 15 designs", #41, and
-//     the cleanups around it) — this generator has no ownership range and so
+//     the cleanups around it) - this generator has no ownership range and so
 //     no way to prune, unlike generate-batch6.mjs and later;
 //   * overwrite `tetro` with an older, different design of the same name;
 //     the one that ships is defined in pattern-defs-4.mjs;
@@ -31,7 +31,7 @@ import { batch3 } from './pattern-defs-3.mjs';
 
 if (!process.env.I_KNOW_THIS_REWRITES_THE_CATALOGUE) {
   console.error(
-    'generate-patterns.mjs is historical and would corrupt the catalogue — see the note at the top of this file.'
+    'generate-patterns.mjs is historical and would corrupt the catalogue - see the note at the top of this file.'
   );
   process.exit(1);
 }
@@ -104,7 +104,7 @@ for (const def of defs) {
     }
   }
   // Lint: a custom property whose value contains @-functions is a textual
-  // macro — every plain var(--x) reference re-rolls it. Shared rolls must be
+  // macro - every plain var(--x) reference re-rolls it. Shared rolls must be
   // emitted per cell and referenced via @var(--x) instead.
   const propDefs = [...style.matchAll(/(--[\w-]+)\s*:\s*([^;]*);/g)];
   for (const [, propName, propValue] of propDefs) {
@@ -115,7 +115,7 @@ for (const def of defs) {
     ].length;
     if (plainRefs > 1) {
       throw new Error(
-        `${def.slug}: randomized ${propName} referenced ${plainRefs}x via plain var() — re-rolls per reference; use a cell-level prop + @var()`
+        `${def.slug}: randomized ${propName} referenced ${plainRefs}x via plain var() - re-rolls per reference; use a cell-level prop + @var()`
       );
     }
   }
@@ -149,7 +149,7 @@ for (const def of defs) {
     JSON.stringify(pattern, null, 2) + '\n'
   );
 
-  // Thumbnail config: square card → square-ish grid override plus any
+  // Thumbnail config: square card -> square-ish grid override plus any
   // option overrides declared by the definition.
   const thumbOptions = {};
   if (def.thumb?.grid) thumbOptions.grid = def.thumb.grid;

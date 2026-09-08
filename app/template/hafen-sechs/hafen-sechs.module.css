@@ -1,5 +1,5 @@
 /* ==========================================================================
-   HAFEN SECHS — container terminal, Bremerhaven
+   HAFEN SECHS - container terminal, Bremerhaven
    Dark, operational, data-first. The page reads like a berth board: rows of
    tabular figures, a single signal yellow, and pattern fields that behave like
    deck markings. Every field takes `transparent` in its background slot so the
@@ -710,7 +710,7 @@
    columns of plain links on one flat surface, with the fine print under a
    hairline. The patterns have had the whole page to speak already. */
 
-/* Page and footer were within 1.15:1 of each other — near enough that the
+/* Page and footer were within 1.15:1 of each other - near enough that the
    seam read as a mistake, so the footer takes the page colour exactly.
    The light-page sites keep their dark footers: that contrast is the design. */
 .footer {

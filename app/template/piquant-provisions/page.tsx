@@ -213,7 +213,7 @@ export default function PiquantProvisionsPage() {
         <nav aria-label="Page sections" className={styles.nav}>
           <a data-edit="topbar.lineup" data-edit-max="28" href="#lineup">The Lineup</a>
           <a data-edit="topbar.heat" data-edit-max="28" href="#heat">Heat Scale</a>
-          <a data-edit="topbar.process" data-edit-max="28" href="#process">How It&rsquo;s Made</a>
+          <a data-edit="topbar.process" data-edit-max="28" href="#process">How It's Made</a>
           <a data-edit="topbar.recipe" data-edit-max="28" href="#recipe">Recipe</a>
           <a data-edit="topbar.stockists" data-edit-max="28" href="#stockists">Stockists</a>
         </nav>
@@ -408,7 +408,7 @@ export default function PiquantProvisionsPage() {
             <div className={styles.processScrim} aria-hidden="true" />
           </div>
           <div className={styles.sectionHead}>
-            <p data-edit="process.sectionKicker" data-edit-max="240" data-edit-multiline className={styles.sectionKicker}>How it&rsquo;s made</p>
+            <p data-edit="process.sectionKicker" data-edit-max="240" data-edit-multiline className={styles.sectionKicker}>How it's made</p>
             <h2 data-edit="process.sectionTitle" data-edit-max="60" id="process-title" className={styles.sectionTitle}>
               Slow sauce, fast opinions
             </h2>
@@ -567,7 +567,7 @@ export default function PiquantProvisionsPage() {
           </p>
           <p data-edit="footer.footerBlurb" data-edit-max="240" data-edit-multiline className={styles.footerBlurb}>
             Made in small batches at 14 Beckoner Street, Port Alsey. Open
-            Fridays 12&ndash;6 for refills, arguments about heat levels, and
+            Fridays 12-6 for refills, arguments about heat levels, and
             the occasional free taco.
           </p>
           <nav aria-label="Footer" className={styles.footerNav}>

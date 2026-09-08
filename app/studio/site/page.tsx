@@ -6,7 +6,7 @@ import StudioSite from 'components/studio/StudioSite';
 import styles from 'components/studio/studio.module.css';
 
 export const metadata: Metadata = {
-  title: 'Your site — Studio',
+  title: 'Your site - Studio',
   description: 'A generated website on the template it was built on.',
   robots: { index: false, follow: false },
 };

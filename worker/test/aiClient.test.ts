@@ -4,7 +4,7 @@ import type { Env } from '../env';
 
 // The Responses API's answer is an *item in an array*, not a field, and two of
 // its failure modes look like an empty answer unless they are named. These
-// tests pin the walker and both of those, at the fetch boundary — nothing here
+// tests pin the walker and both of those, at the fetch boundary - nothing here
 // reaches a paid API.
 
 const env = (extra: Partial<Env> = {}) =>

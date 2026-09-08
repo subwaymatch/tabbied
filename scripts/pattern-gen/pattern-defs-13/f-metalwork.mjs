@@ -1,4 +1,4 @@
-// F. Metalwork — beads turned concentric on the lathe.
+// F. Metalwork - beads turned concentric on the lathe.
 //
 // A repeating-radial-gradient run from the centre of the cell: fine rings all
 // the way out, every one the same weight. The first stop has to sit at 0 or

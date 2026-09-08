@@ -2,8 +2,8 @@
 
 // A results card's Preview, without leaving the page.
 //
-// It shows the same artefact the full preview route shows — the packaged
-// download with the card's direction applied by the edits engine — for the
+// It shows the same artefact the full preview route shows - the packaged
+// download with the card's direction applied by the edits engine - for the
 // same reason: the live /template/<slug>/ page mounts its patterns through
 // React and ignores an attribute written from outside, while the package has
 // no framework left in it. The card's link still points at the full page, so
@@ -36,7 +36,7 @@ type State =
   | { status: 'ready'; html: string; problems: Problem[] };
 
 async function build(target: PreviewTarget): Promise<State> {
-  // Plain static assets, fetched directly — no API, no session.
+  // Plain static assets, fetched directly - no API, no session.
   const [specResponse, htmlResponse] = await Promise.all([
     fetch(templateSpecUrl(target.slug)),
     fetch(`${packagedTemplateUrl(target.slug)}index.html`),
@@ -143,7 +143,7 @@ export default function PreviewDialog({
                 {state.status === 'ready' ? (
                   <iframe
                     className={styles.iframe}
-                    title={`${target.stance ?? target.name} — a preview built on the ${target.name} template`}
+                    title={`${target.stance ?? target.name} - a preview built on the ${target.name} template`}
                     srcDoc={state.html}
                     // Same reasoning as PreviewFrame: `allow-same-origin` is
                     // what lets the document import the same-origin pattern
@@ -160,7 +160,7 @@ export default function PreviewDialog({
                 ) : (
                   <>
                     <div className={styles.skeleton} aria-hidden="true" />
-                    <p className={styles.status}>Building the preview…</p>
+                    <p className={styles.status}>Building the preview...</p>
                   </>
                 )}
               </div>

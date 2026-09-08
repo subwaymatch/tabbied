@@ -310,7 +310,7 @@ export default function CairnExpeditionsPage() {
                   <div className={styles.tripFoot}>
                     <span data-edit={`tripCard.tripPrice.${i}`} data-edit-max="60" className={styles.tripPrice}>{trip.price}</span>
                     <a data-edit={`tripCard.tripLink.${i}`} data-edit-max="28" className={styles.tripLink} href="#enquire">
-                      Reserve a rope →
+                      Reserve a rope &rarr;
                     </a>
                   </div>
                 </div>
@@ -348,8 +348,8 @@ export default function CairnExpeditionsPage() {
             </div>
             <blockquote className={styles.quote}>
               <p data-edit="approach.body" data-edit-max="240" data-edit-multiline>
-                “Nobody remembers a fast ascent. Everybody remembers feeling looked after at
-                4,000 metres.”
+                "Nobody remembers a fast ascent. Everybody remembers feeling looked after at
+                4,000 metres."
               </p>
               <cite data-edit="approach.attribution" data-edit-max="48">The line we hire guides by</cite>
             </blockquote>

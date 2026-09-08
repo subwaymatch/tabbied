@@ -67,7 +67,7 @@ export default function ImageCard({
 
   const button = (
     <button type="button" className={s.imgphCopy} onClick={copy} aria-label="Copy image prompt">
-      {copied ? '✓ Copied' : '⧉ Copy'}
+      {copied ? '\u2713 Copied' : '\u29C9 Copy'}
     </button>
   );
 

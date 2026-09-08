@@ -1,7 +1,7 @@
 /*
  * Studio's shell. Light, narrow, and quieter than the homepage: the two Studio
  * screens are a working surface rather than a pitch, so they carry their own
- * tokens instead of the dark `--h-…` set.
+ * tokens instead of the dark `--h-...` set.
  */
 .page {
   --s-paper: #ffffff;

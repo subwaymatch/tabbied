@@ -9,7 +9,7 @@ import { requireUser } from '../lib/session';
 // Reference pictures: a product, a place, a look the person wants the site to
 // draw from. Bytes go to R2 under up/<userId>/, the row goes to D1 so the
 // person's library can be listed without listing a bucket, and both are
-// scoped to the session — an upload is never reachable by a guessed id
+// scoped to the session - an upload is never reachable by a guessed id
 // through this route, only through the media route by its full key, which
 // carries the random id.
 

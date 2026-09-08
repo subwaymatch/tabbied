@@ -59,7 +59,7 @@ const PROGRAMME: Concert[] = [
     detail: 'Season opening. Wagner, Siegfried Idyll',
     artists: 'Halden Philharmonic, Ines Vogler',
     hall: 'Grosser Saal',
-    price: 'CHF 25–110',
+    price: 'CHF 25-110',
   },
   {
     no: '02',
@@ -81,7 +81,7 @@ const PROGRAMME: Concert[] = [
     detail: 'Berg, Seven Early Songs',
     artists: 'Halden Philharmonic, Tomás Berrio',
     hall: 'Grosser Saal',
-    price: 'CHF 30–125',
+    price: 'CHF 30-125',
   },
   {
     no: '04',
@@ -92,7 +92,7 @@ const PROGRAMME: Concert[] = [
     detail: 'Preludes and fugues, Trio Sonata No. 5',
     artists: 'Marthe Solberg, organ',
     hall: 'Grosser Saal',
-    price: 'CHF 20–45',
+    price: 'CHF 20-45',
   },
   {
     no: '05',
@@ -103,7 +103,7 @@ const PROGRAMME: Concert[] = [
     detail: 'Nielsen, Symphony No. 4',
     artists: 'Halden Philharmonic, Ines Vogler',
     hall: 'Grosser Saal',
-    price: 'CHF 30–125',
+    price: 'CHF 30-125',
   },
   {
     no: '06',
@@ -114,7 +114,7 @@ const PROGRAMME: Concert[] = [
     detail: 'Period instruments, 34 voices',
     artists: 'Halden Chorus, Bertrand Aeby',
     hall: 'Grosser Saal',
-    price: 'CHF 35–120',
+    price: 'CHF 35-120',
   },
   {
     no: '07',
@@ -125,7 +125,7 @@ const PROGRAMME: Concert[] = [
     detail: 'Weinberg, Symphony No. 10',
     artists: 'Junia Halvorsen, cello',
     hall: 'Grosser Saal',
-    price: 'CHF 30–125',
+    price: 'CHF 30-125',
   },
   {
     no: '08',
@@ -147,7 +147,7 @@ const PROGRAMME: Concert[] = [
     detail: 'Including one first performance in Halden',
     artists: 'Halden Philharmonic, Ines Vogler',
     hall: 'Grosser Saal',
-    price: 'CHF 25–110',
+    price: 'CHF 25-110',
   },
   {
     no: '10',
@@ -158,7 +158,7 @@ const PROGRAMME: Concert[] = [
     detail: 'Season close. Sold out in 2025 within 11 days',
     artists: 'Philharmonic and Chorus, Ines Vogler',
     hall: 'Grosser Saal',
-    price: 'CHF 40–150',
+    price: 'CHF 40-150',
   },
 ];
 
@@ -170,7 +170,7 @@ const SEASON_FIGURES = [
 ];
 
 const HALL_SPECS = [
-  { label: 'Built', value: '1961–1964' },
+  { label: 'Built', value: '1961-1964' },
   { label: 'Architect', value: 'Elsa Reinhardt' },
   { label: 'Acoustic refit', value: '2019, Kessler + Ost' },
   { label: 'Seats, Grosser Saal', value: '1,412' },
@@ -241,7 +241,7 @@ const TICKET_ROWS = [
   { label: 'Under 30', value: 'CHF 15, from 14 days before' },
   { label: 'Companion seat', value: 'Free with a registered ticket' },
   { label: 'Exchange', value: 'Up to 48 hours before, CHF 5 per ticket' },
-  { label: 'Box office', value: 'Tue to Fri 12.00–18.30, Sat 10.00–14.00' },
+  { label: 'Box office', value: 'Tue to Fri 12.00-18.30, Sat 10.00-14.00' },
   { label: 'Telephone', value: '+41 44 512 60 00' },
 ];
 
@@ -762,9 +762,9 @@ export default function KonzerthausHaldenPage() {
                   kasse@konzerthaus-halden.ch
                 </a>
                 <br />
-                Tue to Fri 12.00–18.30
+                Tue to Fri 12.00-18.30
                 <br />
-                Sat 10.00–14.00
+                Sat 10.00-14.00
               </p>
             </div>
             <div className={s.footColophon}>

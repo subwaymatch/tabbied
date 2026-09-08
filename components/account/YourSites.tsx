@@ -45,7 +45,7 @@ export default function YourSites() {
       </div>
 
       {state.status === 'loading' ? (
-        <p className={shell.empty}>Loading your sites…</p>
+        <p className={shell.empty}>Loading your sites...</p>
       ) : state.status === 'error' ? (
         <p className={shell.empty}>Could not load your sites right now.</p>
       ) : state.sites.length === 0 ? (

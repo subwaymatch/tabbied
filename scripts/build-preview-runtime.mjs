@@ -3,9 +3,9 @@
 //
 // Studio previews a *generated* direction by taking the packaged download for
 // its template, applying an edits document to it, and showing the result. The
-// download is the right artefact to show — it is framework-free, its patterns
+// download is the right artefact to show - it is framework-free, its patterns
 // are `[data-pattern]` placeholders rather than React, and it is literally what
-// the Download button hands over — but its own bootstrap imports tabbied from
+// the Download button hands over - but its own bootstrap imports tabbied from
 // esm.sh, pinned, so the shipped zip keeps rendering years from now. That is
 // correct for a stranger who unzipped it and wrong for this site, which would
 // then depend on a third-party CDN to draw its own preview.
@@ -30,7 +30,7 @@ const outFile = path.join(repoRoot, 'public', 'studio', 'preview-runtime.js');
 
 // The packager writes into public/downloads during a build (so the second
 // `next build` exports it) and into out/downloads when re-run by hand against
-// an existing export. Read whichever is there, newest first — the same
+// an existing export. Read whichever is there, newest first - the same
 // two-candidate shape e2e/editable.spec.ts uses for the spec.
 const downloadsDir = [
   path.join(repoRoot, 'public', 'downloads'),
@@ -39,7 +39,7 @@ const downloadsDir = [
 
 if (!downloadsDir) {
   console.error(
-    'build-preview-runtime: no downloads folder — run `npm run templates` first.'
+    'build-preview-runtime: no downloads folder - run `npm run templates` first.'
   );
   process.exit(1);
 }
@@ -69,7 +69,7 @@ const patterns = usedPatterns();
 
 if (patterns.length === 0) {
   console.error(
-    'build-preview-runtime: no [data-pattern] in public/downloads — the packager wrote nothing usable.'
+    'build-preview-runtime: no [data-pattern] in public/downloads - the packager wrote nothing usable.'
   );
   process.exit(1);
 }
@@ -92,8 +92,8 @@ const entry = [
   '',
   '// The editor rewrites data-* on a pattern host and needs it drawn again.',
   '// hydratePatterns skips an element it already mounted, so this tears the',
-  '// controllers down first — the same teardown/re-hydrate cycle the README',
-  '// documents — and mounts from the attributes as they now are.',
+  '// controllers down first - the same teardown/re-hydrate cycle the README',
+  '// documents - and mounts from the attributes as they now are.',
   'export const rehydrate = () => {',
   '  for (const { controller } of mounted) controller.destroy();',
   '  return hydrate();',
@@ -119,5 +119,5 @@ const bytes = statSync(outFile).size;
 
 console.log(
   `preview-runtime: ${patterns.length} pattern(s), ${(bytes / 1024).toFixed(0)} KB` +
-    (result.warnings.length ? ` — ${result.warnings.length} warning(s)` : '')
+    (result.warnings.length ? ` - ${result.warnings.length} warning(s)` : '')
 );

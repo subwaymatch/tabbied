@@ -6,7 +6,7 @@ import { VerifyEmailNotice } from 'components/account/PasswordForms';
 import styles from 'components/studio/studio.module.css';
 
 export const metadata: Metadata = {
-  title: 'Email confirmed — Tabbied',
+  title: 'Email confirmed - Tabbied',
   robots: { index: false, follow: false },
 };
 

@@ -2,14 +2,14 @@ import type { Env } from '../env';
 
 // The upstream, reached as a wire format rather than a vendor: text is
 // `${AI_BASE_URL}/responses`, images are `${AI_BASE_URL}/images/generations`,
-// both with a bearer key — OpenAI, an aggregator, a self-hosted server, or
+// both with a bearer key - OpenAI, an aggregator, a self-hosted server, or
 // Cloudflare AI Gateway in front of any of them are one environment variable
 // apart.
 //
 // The text half speaks the **Responses API**, which OpenAI recommends for new
 // work and which is the only one of the two that can carry a turn forward: a
 // response has an id, and quoting it as `previous_response_id` continues that
-// context server-side. Studio uses it twice — for the repair retry here, and
+// context server-side. Studio uses it twice - for the repair retry here, and
 // by storing the id on the generation row so a later revision can chain from
 // the answer a user actually kept.
 //
@@ -114,7 +114,7 @@ export type ChatResult = {
   model: string;
   /**
    * The id to quote as `previous_response_id` to continue this turn. Absent
-   * when the upstream did not store the response — every caller therefore
+   * when the upstream did not store the response - every caller therefore
    * treats chaining as an optimisation and keeps a full-context path.
    */
   responseId?: string;
@@ -142,8 +142,8 @@ type ResponsePayload = {
 /**
  * The assistant text out of an `output` array.
  *
- * A reasoning model emits at least two items — a `reasoning` item with no
- * content this code may read, then the `message` — and a model that declines
+ * A reasoning model emits at least two items - a `reasoning` item with no
+ * content this code may read, then the `message` - and a model that declines
  * emits a `refusal` part in place of `output_text`. Both are distinguished
  * here so the caller's error is attributable rather than "no content".
  */
@@ -177,13 +177,13 @@ function readOutputText(payload: ResponsePayload): string {
  *
  * `schema` is sent as `text.format` (the Responses spelling of what chat
  * completions called `response_format`) and the caller validates the parsed
- * answer against the same zod schema — an upstream that ignores strict
+ * answer against the same zod schema - an upstream that ignores strict
  * formatting therefore fails at the validate step with an attributable error
  * rather than leaking a half-shape into the UI.
  *
  * Pass `previousResponseId` to continue a stored turn: `input` is then the new
  * message only, and the upstream reassembles the rest. `instructions` are sent
- * every time regardless — the Responses API does not carry them forward.
+ * every time regardless - the Responses API does not carry them forward.
  */
 export async function respondJson(
   env: Env,
@@ -212,7 +212,7 @@ export async function respondJson(
     max_output_tokens: options.maxOutputTokens ?? 6_000,
     // Storing is what makes `previous_response_id` resolvable, which is the
     // whole reason this endpoint was chosen over chat completions. It also
-    // means prompts and answers are retained upstream — see §4 of
+    // means prompts and answers are retained upstream - see §4 of
     // agent-outputs/20260827-studio-ai-plan.md.
     store: true,
     ...(options.previousResponseId
@@ -262,8 +262,8 @@ export async function respondJson(
 export type ImageResult = { bytes: ArrayBuffer; contentType: string; model: string };
 
 /**
- * One image, as WebP. Transparency is a *parameter* — never a request in the
- * prose, which paints a fake checkerboard into the pixels — and gpt-image-2
+ * One image, as WebP. Transparency is a *parameter* - never a request in the
+ * prose, which paints a fake checkerboard into the pixels - and gpt-image-2
  * honours it natively, which is why this reaches one vendor and not two (see
  * docs/image-pipeline.md).
  *
@@ -282,7 +282,7 @@ export async function generateImage(
     size?: string;
     transparent?: boolean;
     /**
-     * Pictures to draw from — a product, a place, a look. With any given the
+     * Pictures to draw from - a product, a place, a look. With any given the
      * call goes to `/images/edits`, which is the endpoint that takes reference
      * images and is multipart rather than JSON; without, `/images/generations`
      * as before. The rest of the request is the same on both.

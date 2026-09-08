@@ -208,7 +208,7 @@ export default function TemplatesGallery() {
               <>
                 Live Next.js pages, each rendered by the same{' '}
                 <code>TabbiedPattern</code> component on its own palette and
-                presets — some with AI-generated imagery composited over the
+                presets - some with AI-generated imagery composited over the
                 patterns, the newest ten with the patterns carrying the page
                 on their own.
               </>

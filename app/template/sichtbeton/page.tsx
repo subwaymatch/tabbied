@@ -237,7 +237,7 @@ export default function SichtbetonPage() {
               <p data-edit="trials.body2" data-edit-max="240" data-edit-multiline>
                 The signed panel stays on site until practical completion. When
                 a dispute happens, and it does, the wall is compared to the
-                panel and not to anybody&rsquo;s memory of the panel.
+                panel and not to anybody's memory of the panel.
               </p>
             </div>
           </div>
@@ -433,7 +433,7 @@ export default function SichtbetonPage() {
               </div>
               <div key="Do you accept a photogra">
                 <dt data-edit="faq.term3" data-edit-max="28">Do you accept a photographic sample?</dt>
-                <dd data-edit="faq.body3" data-edit-max="200" data-edit-multiline>No. Concrete is a local material; a photograph of somebody else’s wall tells us nothing about your aggregate or your crew.</dd>
+                <dd data-edit="faq.body3" data-edit-max="200" data-edit-multiline>No. Concrete is a local material; a photograph of somebody else's wall tells us nothing about your aggregate or your crew.</dd>
               </div>
               <div key="Can defects be repaired?">
                 <dt data-edit="faq.term4" data-edit-max="28">Can defects be repaired?</dt>

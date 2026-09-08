@@ -95,7 +95,7 @@ export default function AdminPage({
   if (isPending) {
     return (
       <div className={styles.wrap}>
-        <p className={styles.quiet}>Checking your session…</p>
+        <p className={styles.quiet}>Checking your session...</p>
       </div>
     );
   }
@@ -161,9 +161,9 @@ export default function AdminPage({
             }}
           >
             {exporting === 'busy'
-              ? 'Exporting…'
+              ? 'Exporting...'
               : exporting === 'failed'
-                ? 'Export failed — try again'
+                ? 'Export failed - try again'
                 : 'Export users'}
           </button>
         </div>

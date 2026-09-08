@@ -1,7 +1,7 @@
 // One place that knows where the API is.
 //
 // In production the site and the Worker are the same origin, so the base is
-// empty and every call is a relative path — which is what lets the session
+// empty and every call is a relative path - which is what lets the session
 // cookie work with no CORS surface at all. In development `next dev` serves
 // :3000 while the Worker runs on :8787, so the base is set by `npm run dev` and
 // credentials have to be sent explicitly. Nothing else may hardcode a host.
@@ -22,7 +22,7 @@ export class ApiError extends Error {
 /**
  * A JSON call to the platform tier. Throws ApiError carrying the server's own
  * message, because every error the API returns is written to be read by a
- * person — a quota notice, a rate-limit notice, a sign-in prompt.
+ * person - a quota notice, a rate-limit notice, a sign-in prompt.
  */
 export async function apiFetch<T>(
   path: string,

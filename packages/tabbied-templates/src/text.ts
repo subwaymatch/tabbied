@@ -1,6 +1,6 @@
-// The `{em}…{/em}` convention for accented text.
+// The `{em}...{/em}` convention for accented text.
 //
-// The template sites mark one span of a headline as an accent — Tabbied's
+// The template sites mark one span of a headline as an accent - Tabbied's
 // house move, styled per site. It has to survive editing: if a headline slot
 // were plain text, the first person to change "Homes that {em}hold your
 // life{/em}." would silently lose the accent the design was built around.
@@ -19,7 +19,7 @@ const EMPHASIS_PATTERN = /\{em\}([\s\S]*?)\{\/em\}/g;
 /**
  * Split a value into plain and accented runs.
  *
- * An unclosed `{em}` is not an error — it is somebody halfway through typing —
+ * An unclosed `{em}` is not an error - it is somebody halfway through typing -
  * so it stays literal text rather than swallowing the rest of the headline.
  */
 export function parseEmphasis(value: string): TextSegment[] {
@@ -47,7 +47,7 @@ export function parseEmphasis(value: string): TextSegment[] {
   return segments;
 }
 
-/** The value with its markers removed — what the page reads as. */
+/** The value with its markers removed - what the page reads as. */
 export function stripEmphasis(value: string): string {
   return parseEmphasis(value)
     .map((segment) => segment.text)
@@ -65,10 +65,10 @@ const ENTITIES: Record<string, string> = {
   gt: '>',
   quot: '"',
   apos: "'",
-  nbsp: ' ',
+  nbsp: '\u00a0',
   '#39': "'",
   '#x27': "'",
-  '#8217': '’',
+  '#8217': '\u2019',
 };
 
 /**
@@ -102,9 +102,9 @@ export function decodeEntities(value: string): string {
 /**
  * Read an annotated element's inner HTML back into a slot value.
  *
- * The generator's side of the contract: an `<em>` becomes `{em}…{/em}` so the
+ * The generator's side of the contract: an `<em>` becomes `{em}...{/em}` so the
  * value round-trips, and every other tag is dropped to its text. Dropping is
- * right rather than lossy-by-accident — a text slot promises "this is text",
+ * right rather than lossy-by-accident - a text slot promises "this is text",
  * and anything richer than one accent belongs in a different slot kind.
  */
 export function htmlToTextValue(html: string): string {

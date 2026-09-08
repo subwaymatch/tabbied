@@ -1,6 +1,6 @@
-/* ————————————————————————————————————————————————
-   CAIRN EXPEDITIONS — photography-first, slate & ember
-   ———————————————————————————————————————————————— */
+/* ------------------------------------------------
+   CAIRN EXPEDITIONS - photography-first, slate & ember
+   ------------------------------------------------ */
 
 .page {
   --slate: #10222e;
@@ -46,7 +46,7 @@
   display: block;
 }
 
-/* ————— top bar ————— */
+/* ----- top bar ----- */
 
 .topbar {
   position: sticky;
@@ -124,7 +124,7 @@
   color: var(--slate);
 }
 
-/* ————— hero ————— */
+/* ----- hero ----- */
 
 .hero {
   position: relative;
@@ -259,14 +259,14 @@
   color: var(--ice);
 }
 
-/* ————— ridgeline divider band ————— */
+/* ----- ridgeline divider band ----- */
 
 .ridgeDivider {
   height: clamp(70px, 10vw, 120px);
   background: var(--slate);
 }
 
-/* ————— section chrome ————— */
+/* ----- section chrome ----- */
 
 .section,
 .sectionAlt {
@@ -316,7 +316,7 @@
   margin: 1.1rem 0 0;
 }
 
-/* ————— expeditions ————— */
+/* ----- expeditions ----- */
 
 .tripGrid {
   display: grid;
@@ -476,7 +476,7 @@
   color: var(--ember);
 }
 
-/* ————— approach — full-bleed map field ————— */
+/* ----- approach - full-bleed map field ----- */
 
 .approach {
   position: relative;
@@ -583,7 +583,7 @@
   color: var(--teal);
 }
 
-/* ————— stats band ————— */
+/* ----- stats band ----- */
 
 .statsBand {
   position: relative;
@@ -603,7 +603,7 @@
   margin-top: -1px;
 }
 
-/* The box itself is pinned inline (see page.tsx) — the package writes
+/* The box itself is pinned inline (see page.tsx) - the package writes
    width/height:100% inline on the wrapper, which a class cannot outrank. */
 .statsPattern {
   z-index: -1;
@@ -647,7 +647,7 @@
   margin-top: 0.4rem;
 }
 
-/* ————— gear ————— */
+/* ----- gear ----- */
 
 .gearLayout {
   display: grid;
@@ -811,7 +811,7 @@
   font-size: 0.92rem;
 }
 
-/* ————— guides ————— */
+/* ----- guides ----- */
 
 .guideGrid {
   display: grid;
@@ -829,7 +829,7 @@
   padding: 1.4rem;
 }
 
-/* opaque studio portrait, filling a fixed frame — no pattern behind a face */
+/* opaque studio portrait, filling a fixed frame - no pattern behind a face */
 .portraitFrame {
   position: relative;
   aspect-ratio: 4 / 5;
@@ -878,7 +878,7 @@
   max-width: 44rem;
 }
 
-/* ————— safety ————— */
+/* ----- safety ----- */
 
 .credGrid {
   display: grid;
@@ -918,7 +918,7 @@
   color: var(--teal);
 }
 
-/* ————— enquire — full-bleed ridgeline field ————— */
+/* ----- enquire - full-bleed ridgeline field ----- */
 
 .enquire {
   position: relative;
@@ -1033,7 +1033,7 @@
   color: var(--mist);
 }
 
-/* ————— footer ————— */
+/* ----- footer ----- */
 
 .footer {
   background: #0b1822;
@@ -1111,7 +1111,7 @@
   color: var(--ember);
 }
 
-/* ————— responsive ————— */
+/* ----- responsive ----- */
 
 @media (max-width: 1020px) {
   .tripGrid {
@@ -1156,7 +1156,7 @@
   }
 }
 
-/* tablet range — keep the whole bar on one line before the nav drops out */
+/* tablet range - keep the whole bar on one line before the nav drops out */
 @media (max-width: 940px) {
   .topbar {
     gap: 1rem;

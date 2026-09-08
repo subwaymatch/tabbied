@@ -1,6 +1,6 @@
 // Finding annotated elements in exported HTML, without a DOM.
 //
-// The generator reads a template's *current* values out of the static export —
+// The generator reads a template's *current* values out of the static export -
 // the same doctrine as the download packager: derive from what shipped, so the
 // spec can never disagree with the page it describes. That means scanning
 // markup in Node, where there is no document.
@@ -8,7 +8,7 @@
 // This is a real (small) tokenizer rather than a regex, and the reason is on
 // the record elsewhere in this repo: the CSS trimmer in package-templates.mjs
 // was written with naive `indexOf('{')` scanning and silently desynchronised
-// on a comment containing a brace. HTML has more of those traps, not fewer —
+// on a comment containing a brace. HTML has more of those traps, not fewer -
 // a `>` inside an attribute value, a comment containing markup, and script
 // bodies that are not markup at all.
 
@@ -35,7 +35,7 @@ const RAW_TEXT_ELEMENTS = new Set(['script', 'style', 'textarea', 'title']);
 export type ScannedElement = {
   /** Which annotation attribute matched. */
   attribute: string;
-  /** That attribute's value — the slot id, for the slot attributes. */
+  /** That attribute's value - the slot id, for the slot attributes. */
   value: string;
   tagName: string;
   attributes: Record<string, string>;

@@ -27,7 +27,7 @@ export default function AccountPage({
   eyebrow?: string;
   title: string;
   lede?: ReactNode;
-  /** Something to do, beside the title — the "+ New Studio request" pill. */
+  /** Something to do, beside the title - the "+ New Studio request" pill. */
   action?: { href: string; label: string };
   children: ReactNode;
 }) {
@@ -39,12 +39,12 @@ export default function AccountPage({
       <div className={styles.shell}>
         {isPending ? (
           <div className={styles.gate}>
-            <p className={styles.quiet}>Checking your session…</p>
+            <p className={styles.quiet}>Checking your session...</p>
           </div>
         ) : !user ? (
           <div className={styles.gate}>
             <p className={styles.eyebrow}>Account</p>
-            <h1 className={styles.title}>You&rsquo;re signed out</h1>
+            <h1 className={styles.title}>You're signed out</h1>
             <p className={styles.lede}>
               Signing in is only needed to generate with AI. Patterns, templates
               and library matches are open to everyone.{' '}

@@ -51,7 +51,7 @@ const EAUX = [
   },
   {
     numeral: 'III',
-    name: 'Voyage d’Or',
+    name: 'Voyage d\'Or',
     form: 'Parfum de voyage · 3 × 10 ml',
     price: '€95',
     slug: 'ambre-bottle-3-cutout',
@@ -102,17 +102,17 @@ const ATELIER_STEPS = [
 const STOCKISTS = [
   {
     city: 'Grasse',
-    lines: ['Maison Ambre · Atelier', '7 rue du Miel Doré', 'Tue – Sat · 10h – 18h'],
+    lines: ['Maison Ambre · Atelier', '7 rue du Miel Doré', 'Tue - Sat · 10h - 18h'],
     note: 'Private visits by appointment',
   },
   {
     city: 'Paris',
-    lines: ['Comptoir de la Brume', '14 passage des Orfèvres', 'Mon – Sat · 11h – 19h'],
+    lines: ['Comptoir de la Brume', '14 passage des Orfèvres', 'Mon - Sat · 11h - 19h'],
     note: 'Full collection & engraving',
   },
   {
     city: 'Kyoto',
-    lines: ['Salon Hakuro', '2-9 Kagerō-dōri, Higashiyama', 'Thu – Mon · 12h – 18h'],
+    lines: ['Salon Hakuro', '2-9 Kagerō-dōri, Higashiyama', 'Thu - Mon · 12h - 18h'],
     note: 'Eaux I and II only',
   },
 ];
@@ -153,7 +153,7 @@ export default function MaisonAmbrePage() {
           <a data-edit="masthead.maison" data-edit-max="28" href="#maison">La Maison</a>
           <a data-edit="masthead.eaux" data-edit-max="28" href="#eaux">Les Eaux</a>
           <a data-edit="masthead.nez" data-edit-max="28" href="#nez">Le Nez</a>
-          <a data-edit="masthead.atelier" data-edit-max="28" href="#atelier">L’Atelier</a>
+          <a data-edit="masthead.atelier" data-edit-max="28" href="#atelier">L'Atelier</a>
           <a data-edit="masthead.visites" data-edit-max="28" href="#visites">Visites</a>
         </nav>
       </header>
@@ -345,7 +345,7 @@ export default function MaisonAmbrePage() {
         </section>
 
         {/* --------------------------------------------------- archive band */}
-        <aside className={styles.archive} aria-label="L’archive">
+        <aside className={styles.archive} aria-label="L'archive">
           <div data-edit-pattern="archive.field" data-edit-roles="0,4,2,6" className={styles.archiveField} aria-hidden="true">
             <TabbiedPattern
               pattern={gloaming}
@@ -384,12 +384,12 @@ export default function MaisonAmbrePage() {
             <div className={styles.nezText}>
               <blockquote className={styles.nezQuote}>
                 <p data-edit="nez.body" data-edit-max="240" data-edit-multiline>
-                  “A perfume is finished when removing one material ruins it, and not one
-                  moment before. Most of my work is removal.”
+                  "A perfume is finished when removing one material ruins it, and not one
+                  moment before. Most of my work is removal."
                 </p>
               </blockquote>
               <p data-edit="nez.body2" data-edit-max="240" data-edit-multiline>
-                Hélène Verdier trained beside her grandmother’s copper still and spent a decade
+                Hélène Verdier trained beside her grandmother's copper still and spent a decade
                 matching lost scents for the great houses before Maison Ambre gave her the one
                 thing the great houses could not: time. She has composed every edition since
                 1994, declines all briefs, and keeps office hours only for the archive.
@@ -408,13 +408,13 @@ export default function MaisonAmbrePage() {
             <span className={styles.sectionNumeral} aria-hidden="true">
               IV
             </span>
-            <h2 data-edit="sectionHead.title4" data-edit-max="60" id="atelier-title">L’Atelier</h2>
+            <h2 data-edit="sectionHead.title4" data-edit-max="60" id="atelier-title">L'Atelier</h2>
             <p data-edit="sectionHead.sectionSub4" data-edit-max="240" data-edit-multiline className={styles.sectionSub}>Four movements, forty days</p>
           </header>
           <figure className={styles.atelierFigure}>
             <Figure editId="photo.ambre-atelier"
               slug="ambre-atelier"
-              alt="The perfumer’s organ: tiered shelves of labelled amber vials in low light"
+              alt="The perfumer's organ: tiered shelves of labelled amber vials in low light"
             />
             <figcaption data-edit="atelier.caption" data-edit-max="120" data-edit-multiline>The organ, photographed at closing. 412 materials, one chair.</figcaption>
           </figure>

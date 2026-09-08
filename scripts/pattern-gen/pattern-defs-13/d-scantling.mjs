@@ -1,4 +1,4 @@
-// D. Scantling — the two halves of a rebated joint.
+// D. Scantling - the two halves of a rebated joint.
 //
 // One block with a step ploughed out of its corner, and the block that step
 // was cut to receive. They are the same carpentry read from either side, and

@@ -1,5 +1,5 @@
 /* ============================================================
-   PIQUANT PROVISIONS — loud riso-print zine
+   PIQUANT PROVISIONS - loud riso-print zine
    ink #0F1A20 · yolk #F4D35E · marigold #EE964B · flame #F95738
    bone #EFE6DD · pool #4C8FBD
    ============================================================ */
@@ -900,7 +900,7 @@
     clamp(3.5rem, 8vw, 6.5rem);
 }
 
-/* the taco lives on the stage, not inside the card — the card's torn-paper
+/* the taco lives on the stage, not inside the card - the card's torn-paper
    clip-path would otherwise slice the cut-out and its sticker in half */
 .recipeStage {
   position: relative;

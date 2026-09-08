@@ -1,5 +1,5 @@
 // The figures the homepage quotes, derived from the data they describe rather
-// than written into the copy — the same reason /templates computes its own
+// than written into the copy - the same reason /templates computes its own
 // total. Adding a preset, a template site, or a palette can't leave a stale
 // number behind in the hero sentence or the stats rows.
 //

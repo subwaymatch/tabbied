@@ -4,7 +4,7 @@
   "galleryOrder": 71,
   "svgExportNote": "The glow is exported as SVG drop-shadow filters. Browsers render them correctly, but some design tools (like Figma or Illustrator) import SVG filters imperfectly.",
   "galleryWhite": true,
-  "description": "Paper lanterns drifting in the night, each casting its own halo — reseeding floats them to new heights and re-mixes the glow.",
+  "description": "Paper lanterns drifting in the night, each casting its own halo - reseeding floats them to new heights and re-mixes the glow.",
   "tags": [
     "dots",
     "grid",

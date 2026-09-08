@@ -4,9 +4,9 @@ import { Figure } from 'components/Figure';
 import styles from './hopscotch-museum.module.css';
 
 export const metadata = {
-  title: 'Hopscotch · The Children’s Discovery Museum',
+  title: 'Hopscotch · The Children\'s Discovery Museum',
   description:
-    'Three floors of climbing, splashing, launching and why-ing for ages 0–12. Open Tue–Sun at 88 Marble Run Way. Yes, there is coffee.',
+    'Three floors of climbing, splashing, launching and why-ing for ages 0-12. Open Tue-Sun at 88 Marble Run Way. Yes, there is coffee.',
 };
 
 const CREAM = '#FFF9EF';
@@ -21,7 +21,7 @@ const todayProgram = [
     time: '9:30',
     color: styles.chipGreen,
     name: 'Tiny Tinkerers',
-    ages: 'Ages 0–3',
+    ages: 'Ages 0-3',
     blurb: 'Soft blocks, big ramps, zero wrong answers. Socks required, giggling inevitable.',
   },
   {
@@ -42,7 +42,7 @@ const todayProgram = [
     time: '3:00',
     color: styles.chipYellow,
     name: 'Dino Dig Story',
-    ages: 'Ages 3–8',
+    ages: 'Ages 3-8',
     blurb: 'Twenty minutes with Pearl the apatosaurus and a very dramatic librarian.',
   },
 ];
@@ -63,7 +63,7 @@ const exhibits = [
   },
   {
     name: 'Bones & Stones',
-    ages: 'Ages 3–8',
+    ages: 'Ages 3-8',
     slug: 'hopscotch-dino-cutout',
     alt: 'Toy dinosaur skeleton mounted on little red wheels',
     blurb:
@@ -91,7 +91,7 @@ const exhibits = [
     slug: 'hopscotch-magnifier-cutout',
     alt: 'Magnifying glass with a ladybird sitting on the lens',
     blurb:
-      'Microscopes set to “whoa.” Butterfly wings, salt crystals, and whatever interesting leaf you brought in your pocket.',
+      'Microscopes set to "whoa." Butterfly wings, salt crystals, and whatever interesting leaf you brought in your pocket.',
     tile: 'flat' as const,
     bg: YELLOW,
     tall: false,
@@ -113,17 +113,17 @@ const exhibits = [
 
 const admission = [
   { who: 'Grown-ups', price: '$14' },
-  { who: 'Kids (1–12)', price: '$12' },
+  { who: 'Kids (1-12)', price: '$12' },
   { who: 'Babies under 1', price: '$0' },
   { who: 'Members', price: 'Free, forever' },
-  { who: 'First Fridays, 5–8 pm', price: 'Pay what you wish' },
+  { who: 'First Fridays, 5-8 pm', price: 'Pay what you wish' },
 ];
 
 const hours = [
   { day: 'Monday', open: 'Closed (we mop)' },
-  { day: 'Tue – Fri', open: '9 am – 5 pm' },
-  { day: 'Saturday', open: '9 am – 6 pm' },
-  { day: 'Sunday', open: '10 am – 5 pm' },
+  { day: 'Tue - Fri', open: '9 am - 5 pm' },
+  { day: 'Saturday', open: '9 am - 6 pm' },
+  { day: 'Sunday', open: '10 am - 5 pm' },
 ];
 
 const parties = [
@@ -180,7 +180,7 @@ const faqs = [
   },
   {
     q: 'Will my kid get wet at River Works?',
-    a: 'Statistically, yes. Ponchos hang at the door and the dryers by the exit are, per our visitors, “the best exhibit.”',
+    a: 'Statistically, yes. Ponchos hang at the door and the dryers by the exit are, per our visitors, "the best exhibit."',
   },
   {
     q: 'Can we leave and come back the same day?',
@@ -246,10 +246,10 @@ export default function HopscotchMuseumPage() {
           <div className={styles.heroInner}>
             <div className={styles.heroCopy}>
               <h1 id="hero-title" className={styles.heroTitle}>
-                Where <span data-edit="hero.underRed" data-edit-max="60" className={styles.underRed}>“don’t touch”</span> isn’t a thing.
+                Where <span data-edit="hero.underRed" data-edit-max="60" className={styles.underRed}>"don't touch"</span> isn't a thing.
               </h1>
               <p data-edit="hero.heroLede" data-edit-max="240" data-edit-multiline className={styles.heroLede}>
-                Three floors of climbing, splashing, launching and why-ing for ages 0–12, and
+                Three floors of climbing, splashing, launching and why-ing for ages 0-12, and
                 the lucky grown-ups they bring along.
               </p>
               <div className={styles.heroBtns}>
@@ -257,11 +257,11 @@ export default function HopscotchMuseumPage() {
                   Plan a visit
                 </a>
                 <a data-edit="hero.bigBtnGhost" data-edit-max="28" href="#today" className={styles.bigBtnGhost}>
-                  What’s on today
+                  What's on today
                 </a>
               </div>
               <p data-edit="hero.heroSmall" data-edit-max="240" data-edit-multiline className={styles.heroSmall}>
-                Open today 9 – 5 · 88 Marble Run Way, Pemberton Falls
+                Open today 9 - 5 · 88 Marble Run Way, Pemberton Falls
               </p>
             </div>
             <div className={styles.heroPhotoWrap}>
@@ -272,9 +272,9 @@ export default function HopscotchMuseumPage() {
                   priority
                 />
               </div>
-              <span data-edit="hero.sticker" data-edit-max="60" className={`${styles.sticker} ${styles.stickerYellow}`}>open today 9–5</span>
-              <span data-edit="hero.sticker2" data-edit-max="60" className={`${styles.sticker} ${styles.stickerGreen}`}>ages 0–12ish</span>
-              <span data-edit="hero.sticker3" data-edit-max="60" className={`${styles.sticker} ${styles.stickerRed}`}>yes, there’s coffee</span>
+              <span data-edit="hero.sticker" data-edit-max="60" className={`${styles.sticker} ${styles.stickerYellow}`}>open today 9-5</span>
+              <span data-edit="hero.sticker2" data-edit-max="60" className={`${styles.sticker} ${styles.stickerGreen}`}>ages 0-12ish</span>
+              <span data-edit="hero.sticker3" data-edit-max="60" className={`${styles.sticker} ${styles.stickerRed}`}>yes, there's coffee</span>
             </div>
           </div>
         </section>
@@ -513,7 +513,7 @@ export default function HopscotchMuseumPage() {
         <section id="fieldtrips" className={styles.fieldTrips} aria-labelledby="ft-title">
           <div className={styles.ftCopy}>
             <h2 data-edit="fieldtrips.h2" data-edit-max="60" id="ft-title" className={styles.h2}>
-              Field trips that don’t feel like worksheets
+              Field trips that don't feel like worksheets
             </h2>
             <p>
               Teachers: we run curriculum-linked visits for pre-K through grade 6, led by our
@@ -571,7 +571,7 @@ export default function HopscotchMuseumPage() {
               <p className={styles.footerLogo}>
                 hopscotch<span data-edit="footerContact.text" data-edit-max="60">!</span>
               </p>
-              <p data-edit="footerContact.footerTag" data-edit-max="240" data-edit-multiline className={styles.footerTag}>The children’s discovery museum</p>
+              <p data-edit="footerContact.footerTag" data-edit-max="240" data-edit-multiline className={styles.footerTag}>The children's discovery museum</p>
             </div>
             <div>
               <h3 data-edit="footerContact.title" data-edit-max="40">Find us</h3>
@@ -592,7 +592,7 @@ export default function HopscotchMuseumPage() {
             <div>
               <h3 data-edit="footerContact.title3" data-edit-max="40">Open</h3>
               <p>
-                Tue – Sun, from 9 am
+                Tue - Sun, from 9 am
                 <br />
                 Closed Mondays (we mop)
               </p>

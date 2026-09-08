@@ -22,7 +22,7 @@ export default function TermsOfServicePage() {
 
               <p style={{ marginTop: '1.5rem' }}>
                 By using Tabbied, you agree to these terms. Tabbied is provided
-                free of charge, on an &ldquo;as is&rdquo; basis, without
+                free of charge, on an "as is" basis, without
                 warranties of any kind.
               </p>
 

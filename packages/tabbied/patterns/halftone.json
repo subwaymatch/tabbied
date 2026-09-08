@@ -2,7 +2,7 @@
   "name": "Halftone",
   "slug": "halftone",
   "galleryOrder": 116,
-  "description": "A halftone ramp printed top to bottom — dots grow with each row, and the whole screen shivers as every dot re-jitters per seed.",
+  "description": "A halftone ramp printed top to bottom - dots grow with each row, and the whole screen shivers as every dot re-jitters per seed.",
   "tags": [
     "halftone",
     "dots",

@@ -11,7 +11,7 @@ export const batch1 = [
     order: 57,
     white: true,
     description:
-      'A full-bleed mosaic of half-square triangles in deep indigo and jewel tones — every reseed melts each facet into its next orientation.',
+      'A full-bleed mosaic of half-square triangles in deep indigo and jewel tones - every reseed melts each facet into its next orientation.',
     palette: ['#1A1B3A', '#3E8BFF', '#3EECFF', '#FF3D8B', '#D89FFF', '#3FFFB2'],
     colors: { min: 2, max: 6, default: 6 },
     gridDefault: '8x12',
@@ -39,7 +39,7 @@ export const batch1 = [
     slug: 'circuit',
     order: 60,
     description:
-      'Random walls of hairline traces with bright component nodes soldered in between — the board rewires itself on every redraw.',
+      'Random walls of hairline traces with bright component nodes soldered in between - the board rewires itself on every redraw.',
     palette: ['#F7F9F4', '#232529', '#FF3D8B', '#3E8BFF', '#3FFFB2', '#F5DD32'],
     colors: { min: 2, max: 6, default: 6 },
     gridDefault: '10x15',
@@ -53,7 +53,7 @@ export const batch1 = [
     slug: 'daybreak',
     order: 61,
     description:
-      'Rays of light fanning out of the top-left corner — every redraw sweeps the beams to new angles and lengths, like dawn through a window.',
+      'Rays of light fanning out of the top-left corner - every redraw sweeps the beams to new angles and lengths, like dawn through a window.',
     palette: ['#FCFBFF', '#60569E', '#9B8FD4', '#E6437D', '#3E8BFF', '#C9BFF2'],
     colors: { min: 2, max: 6, default: 6 },
     options: [
@@ -78,7 +78,7 @@ export const batch1 = [
     slug: 'quilt',
     order: 68,
     description:
-      'Half-square triangle patchwork in fabric tones — each block re-cuts its diagonal and trades patches on every redraw.',
+      'Half-square triangle patchwork in fabric tones - each block re-cuts its diagonal and trades patches on every redraw.',
     palette: ['#FBF3E4', '#D96C47', '#E3A92E', '#7FA886', '#2F4156', '#F4E3C8'],
     colors: { min: 2, max: 6, default: 6 },
     gridDefault: '8x12',
@@ -93,7 +93,7 @@ export const batch1 = [
     order: 71,
     white: true,
     description:
-      'Paper lanterns drifting in the night, each casting its own halo — reseeding floats them to new heights and re-mixes the glow.',
+      'Paper lanterns drifting in the night, each casting its own halo - reseeding floats them to new heights and re-mixes the glow.',
     palette: ['#181A2E', '#FFD27D', '#FF9E4D', '#FF5E62', '#E84393', '#B388EB'],
     colors: { min: 2, max: 6, default: 6 },
     gridDefault: '6x9',
@@ -107,7 +107,7 @@ export const batch1 = [
     slug: 'domino',
     order: 73,
     description:
-      'Two-tone tiles flipping between orientations like a table of dominoes mid-shuffle — halves trade colors as the tiles turn.',
+      'Two-tone tiles flipping between orientations like a table of dominoes mid-shuffle - halves trade colors as the tiles turn.',
     palette: ['#EFEFEA', '#2B4570', '#F6F1E7', '#D34E3A', '#E8B44F', '#4A7C59'],
     colors: { min: 2, max: 6, default: 6 },
     gridDefault: '8x12',
@@ -121,7 +121,7 @@ export const batch1 = [
     slug: 'ivy',
     order: 78,
     description:
-      'Quarter-round leaves tiling into winding vines — each leaf swells from a different corner after every redraw.',
+      'Quarter-round leaves tiling into winding vines - each leaf swells from a different corner after every redraw.',
     palette: ['#F2F7EE', '#2F6B3C', '#4F9D5D', '#8CC084', '#C8E6C0'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '8x12',
@@ -136,7 +136,7 @@ export const batch1 = [
     order: 80,
     white: true,
     description:
-      'Glowing tube segments rearranging themselves on a dark wall — each redraw re-aims the lights and re-mixes their halos.',
+      'Glowing tube segments rearranging themselves on a dark wall - each redraw re-aims the lights and re-mixes their halos.',
     palette: ['#14101F', '#FF2E97', '#2EE6FF', '#B14EFF', '#45FFA2'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '6x9',
@@ -151,7 +151,7 @@ export const batch1 = [
     order: 81,
     white: true,
     description:
-      'Out-of-focus city lights swimming in the dark — discs drift, swell and refocus softly with every redraw.',
+      'Out-of-focus city lights swimming in the dark - discs drift, swell and refocus softly with every redraw.',
     palette: ['#1A1626', '#FFC15E', '#FF8FA3', '#8AB6FF'],
     colors: { min: 2, max: 4, default: 2 },
     gridDefault: '6x9',
@@ -165,7 +165,7 @@ export const batch1 = [
     slug: 'shuffle',
     order: 88,
     description:
-      'Pairs of rounded blocks sliding between the four corners of their frame — every redraw deals a new arrangement, like tiles in a pocket puzzle.',
+      'Pairs of rounded blocks sliding between the four corners of their frame - every redraw deals a new arrangement, like tiles in a pocket puzzle.',
     palette: ['#FFF8E8', '#FF6B6B', '#4ECDC4', '#FFD93D', '#6C5CE7', '#95E1D3'],
     colors: { min: 2, max: 6, default: 6 },
     gridDefault: '8x12',
@@ -179,7 +179,7 @@ export const batch1 = [
     slug: 'aster',
     order: 91,
     description:
-      'Six-armed thread stars twirling lazily across the canvas — every redraw spins each one to a new resting angle.',
+      'Six-armed thread stars twirling lazily across the canvas - every redraw spins each one to a new resting angle.',
     palette: ['#FFF8F2', '#FF7E9D', '#FFB35C', '#9D89F2', '#54C6B8'],
     colors: { min: 2, max: 5, default: 5 },
     options: [

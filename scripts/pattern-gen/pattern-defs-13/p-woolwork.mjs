@@ -1,9 +1,9 @@
-// P. Woolwork — a periodic field crossed with a smooth ramp.
+// P. Woolwork - a periodic field crossed with a smooth ramp.
 //
 // `mask-composite: intersect` multiplies two mask layers: the field decides
 // where ink *can* go, the ramp decides how much of it survives. What comes out
-// is a halftone that lives in a band — rules that exist only across the middle
-// of the cell, dots given a lustre on the bias — and neither layer could draw
+// is a halftone that lives in a band - rules that exist only across the middle
+// of the cell, dots given a lustre on the bias - and neither layer could draw
 // it alone.
 //
 // The intersection exports as one <mask> nested inside the next, which is the

@@ -39,7 +39,7 @@ function buildSource(pattern, { width, height, optionOverrides = {} }) {
 
 // Mirror of validate-patterns.mjs: backgroundImage/height are intentionally
 // excluded so a design whose only per-seed change is a gradient (which can't
-// transition and would snap) fails the reseed check — every design must vary a
+// transition and would snap) fails the reseed check - every design must vary a
 // transition-able property so reseeds morph.
 const CELL_PROPS = ['backgroundColor', 'transform', 'clipPath', 'opacity', 'borderTopWidth', 'borderLeftWidth', 'borderRadius', 'width', 'left', 'top', 'margin'];
 const PSEUDO_PROPS = ['content', 'left', 'top', 'width', 'height', 'backgroundColor', 'opacity', 'transform', 'borderTopWidth', 'boxShadow', 'clipPath', 'borderRadius'];
@@ -176,7 +176,7 @@ await browser.close();
 
 if (failures.length) {
   console.log('FAILURES:');
-  for (const f of failures) console.log(' ', f.slug, '→', f.problems.join('; '));
+  for (const f of failures) console.log(' ', f.slug, '->', f.problems.join('; '));
   process.exit(1);
 }
-console.log(`all ${batch4.length} batch-4 patterns render, reseed and keep their cells ✓`);
+console.log(`all ${batch4.length} batch-4 patterns render, reseed and keep their cells`);

@@ -109,7 +109,7 @@ export default function FondsAubertPage() {
               <span data-edit="hero.text" data-edit-max="60">somebody kept.</span>
             </h1>
             <p data-edit="hero.lede" data-edit-max="240" data-edit-multiline className={s.lede}>
-              Business ledgers, family correspondence, a photographer&rsquo;s
+              Business ledgers, family correspondence, a photographer's
               negatives, and the minutes of a cooperative that argued for
               seventy years.
             </p>

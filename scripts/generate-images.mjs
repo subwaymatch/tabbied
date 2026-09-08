@@ -2,7 +2,7 @@
 /**
  * Generate images with OpenAI's GPT Image 2, from data/image-prompts.json.
  *
- * Size and quality are resolved per prompt (prompt → set → project → defaults), so one
+ * Size and quality are resolved per prompt (prompt -> set -> project -> defaults), so one
  * batch can mix a 1024x1536 medium-quality portrait with a 1536x1024 low-quality
  * illustration. The CLI flags are overrides, not defaults.
  *
@@ -47,7 +47,7 @@ const API_BASE = "https://api.openai.com/v1";
 // Two spellings of the same endpoint, and they are not interchangeable.
 // `IMAGES_ENDPOINT` goes inside the Batch API's JSONL and create call, which
 // wants an absolute API path. `IMAGES_PATH` is for direct calls through api(),
-// which prepends API_BASE — already ending in /v1, so passing the other one
+// which prepends API_BASE - already ending in /v1, so passing the other one
 // there asks for /v1/v1/... and 404s.
 const IMAGES_ENDPOINT = "/v1/images/generations";
 const IMAGES_PATH = "/images/generations";
@@ -95,7 +95,7 @@ function printHelp() {
 
 // ── Cost estimation ─────────────────────────────────────────────────────────
 // Image output tokens per request, measured against gpt-image-2 on 2026-07-28.
-// 1024x1536 is assumed equal to 1536x1024 (same pixel count) — verify before a
+// 1024x1536 is assumed equal to 1536x1024 (same pixel count) - verify before a
 // large portrait run.
 const COST_TOKENS = {
   "1024x1024/low": 196, "1024x1024/medium": 1372, "1024x1024/high": 5488,
@@ -124,7 +124,7 @@ function requestBody(e, opts, model) {
   // Cut-outs are generated with a real alpha channel: gpt-image-2 honors
   // background:"transparent" now (it used to 400 on it), which is what retired
   // the separate background-removal vendor. Transparency needs an alpha-capable
-  // output format — png (the default) or webp. See docs/image-pipeline.md.
+  // output format - png (the default) or webp. See docs/image-pipeline.md.
   if (e.cutout) body.background = "transparent";
   if (opts.outputFormat !== "png") body.output_format = opts.outputFormat;
   return body;
@@ -155,7 +155,7 @@ async function api(path, { method = "GET", key, json, form, retries = 0 } = {}) 
   for (let attempt = 0; ; attempt++) {
     let res, networkErr;
     try { res = await fetch(`${API_BASE}${path}`, { method, headers, body }); }
-    catch (err) { networkErr = err; } // DNS, TLS, socket reset — retryable like a 5xx
+    catch (err) { networkErr = err; } // DNS, TLS, socket reset - retryable like a 5xx
     if (res?.ok) return res;
 
     const transient = networkErr !== undefined || RETRY_STATUS.has(res?.status);
@@ -165,7 +165,7 @@ async function api(path, { method = "GET", key, json, form, retries = 0 } = {}) 
       throw new Error(`HTTP ${res.status} ${res.statusText}${detail ? ` - ${detail}` : ""}`);
     }
     const waitMs = Math.min(32_000, 2_000 * 2 ** attempt);
-    console.error(`  … ${method} ${path} failed; retry ${attempt + 1}/${retries} in ${waitMs / 1000}s`);
+    console.error(`  ... ${method} ${path} failed; retry ${attempt + 1}/${retries} in ${waitMs / 1000}s`);
     await sleep(waitMs);
   }
 }
@@ -217,7 +217,7 @@ async function submitChunk(entries, opts, model, key, label) {
     method: "POST", key,
     json: { input_file_id: file.id, endpoint: IMAGES_ENDPOINT, completion_window: "24h" },
   })).json();
-  console.log(`  ${label} → batch ${batch.id} (${entries.length} requests, ${batch.status})`);
+  console.log(`  ${label} -> batch ${batch.id} (${entries.length} requests, ${batch.status})`);
   return batch;
 }
 
@@ -231,7 +231,7 @@ function saveBatchState(opts, model, batches, total) {
 
 async function cmdSubmit(entries, opts, model, key) {
   const chunks = chunk(entries, opts.batchSize);
-  console.log(`Submitting ${entries.length} prompt(s) across ${chunks.length} batch job(s)…`);
+  console.log(`Submitting ${entries.length} prompt(s) across ${chunks.length} batch job(s)...`);
   const batches = [];
   for (const [i, c] of chunks.entries()) {
     batches.push(await submitChunk(c, opts, model, key, `[${i + 1}/${chunks.length}]`));
@@ -303,15 +303,15 @@ async function downloadBatch(b, opts, key) {
     const row = JSON.parse(line);
     if (row.error || row.response?.status_code !== 200) {
       failed++;
-      console.error(`  ✗ ${row.custom_id}: ${row.error?.message || row.response?.body?.error?.message || "unknown error"}`);
+      console.error(`  failed ${row.custom_id}: ${row.error?.message || row.response?.body?.error?.message || "unknown error"}`);
       continue;
     }
     const dest = join(opts.out, `${row.custom_id}.${ext}`);
-    if (!opts.force && existsSync(dest)) { console.log(`  • skip ${row.custom_id} (exists; use --force)`); continue; }
+    if (!opts.force && existsSync(dest)) { console.log(`  - skip ${row.custom_id} (exists; use --force)`); continue; }
     try {
       writeFileSync(dest, decodeImage(row.response.body));
-      ok++; console.log(`  ✓ ${row.custom_id}.${ext}`);
-    } catch (err) { failed++; console.error(`  ✗ ${row.custom_id}: ${err.message}`); }
+      ok++; console.log(`  ok ${row.custom_id}.${ext}`);
+    } catch (err) { failed++; console.error(`  failed ${row.custom_id}: ${err.message}`); }
   }
   return { ok, failed };
 }
@@ -330,7 +330,7 @@ async function cmdSync(entries, opts, model, key) {
   const ext = outputExt(opts);
   const todo = entries.filter((e) => {
     if (!opts.force && existsSync(join(opts.out, `${e.id}.${ext}`))) {
-      console.log(`  • skip ${e.id} (exists; use --force)`); return false;
+      console.log(`  - skip ${e.id} (exists; use --force)`); return false;
     }
     return true;
   });
@@ -343,8 +343,8 @@ async function cmdSync(entries, opts, model, key) {
       try {
         const res = await api(IMAGES_PATH, { method: "POST", key, json: requestBody(e, opts, model) });
         writeFileSync(join(opts.out, `${e.id}.${ext}`), decodeImage(await res.json()));
-        ok++; console.log(`  ✓ ${e.id}.${ext}`);
-      } catch (err) { failed++; console.error(`  ✗ ${e.id}: ${err.message}`); }
+        ok++; console.log(`  ok ${e.id}.${ext}`);
+      } catch (err) { failed++; console.error(`  failed ${e.id}: ${err.message}`); }
     }
   }
   await Promise.all(Array.from({ length: Math.min(opts.concurrency, todo.length) }, worker));

@@ -49,7 +49,7 @@ export function contrastRatio(a: string, b: string): number {
  * Blend two colours, returning `rgb(...)`.
  *
  * Deliberately not hex: these feed CSS custom properties, and keeping them as
- * rgb() makes a derived value obvious when reading the DOM in devtools — it is
+ * rgb() makes a derived value obvious when reading the DOM in devtools - it is
  * never mistaken for one of the brand hexes.
  */
 export function mix(a: string, b: string, t: number): string {

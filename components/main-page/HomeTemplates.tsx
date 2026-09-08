@@ -20,7 +20,7 @@ function Card({ site }: { site: Site }) {
       href={`/template/${site.slug}/`}
       prefetch={false}
       className={styles.card}
-      aria-label={`${site.name} — ${site.topic}`}
+      aria-label={`${site.name} - ${site.topic}`}
     >
       <span className={styles.chrome} aria-hidden="true">
         <span />
@@ -36,7 +36,7 @@ function Card({ site }: { site: Site }) {
           className={styles.thumbImage}
         />
       </span>
-      {/* The card stands in for a site rather than listing it — the name is on
+      {/* The card stands in for a site rather than listing it - the name is on
           the link itself, for anyone not reading the picture. */}
       <span className={styles.bars} aria-hidden="true">
         <span />

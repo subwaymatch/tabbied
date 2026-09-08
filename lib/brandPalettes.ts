@@ -34,7 +34,7 @@ export type BrandPaletteState = {
   palettes: BrandPalette[];
   /**
    * The palette previewed across the gallery. `null` is not "each pattern's own
-   * colors" anymore — the site always themes previews with a shared palette, so
+   * colors" anymore - the site always themes previews with a shared palette, so
    * a null id resolves to DEFAULT_PALETTE_ID (see resolveActivePalette).
    */
   activePaletteId: string | null;
@@ -64,8 +64,8 @@ const isValidPalette = (value: unknown): value is BrandPalette => {
   return (
     typeof palette.id === 'string' &&
     palette.id.length > 0 &&
-    // The name is optional — an empty string is valid (the palette then shows
-    // as just its colors) — but it must still be a string when present.
+    // The name is optional - an empty string is valid (the palette then shows
+    // as just its colors) - but it must still be a string when present.
     typeof palette.name === 'string' &&
     Array.isArray(palette.colors) &&
     palette.colors.length >= MIN_PALETTE_COLORS &&
@@ -152,7 +152,7 @@ export const subscribeBrandPalettes = (listener: () => void): (() => void) => {
   listeners.add(listener);
 
   // Cross-tab updates arrive as `storage` events; attach once per subscriber
-  // set. (Same-tab writes go through emit() directly — storage events don't
+  // set. (Same-tab writes go through emit() directly - storage events don't
   // fire in the tab that wrote.)
   if (listeners.size === 1 && typeof window !== 'undefined') {
     window.addEventListener('storage', handleStorage);
@@ -181,7 +181,7 @@ export function useBrandPalettes(): BrandPaletteState {
 }
 
 // ---------------------------------------------------------------------------
-// Live draft preview (transient — never persisted)
+// Live draft preview (transient - never persisted)
 // ---------------------------------------------------------------------------
 // While the palette editor dialog is open, the page's own patterns recolor to
 // the palette being edited. That live value is broadcast on its own channel
@@ -222,7 +222,7 @@ export const upsertPalette = (palette: BrandPalette) => {
   const normalized = normalizePalette(palette);
 
   if (!isValidPalette(normalized)) {
-    throw new Error('Invalid palette: 2–12 hex colors are required.');
+    throw new Error('Invalid palette: 2-12 hex colors are required.');
   }
 
   const existing = state.palettes.findIndex((p) => p.id === normalized.id);
@@ -319,7 +319,7 @@ export const exportPalettesJson = (): string => {
 };
 
 // Accepts the export document, a bare array of palettes, or a single palette
-// object — with or without ids (imported palettes always get fresh ids).
+// object - with or without ids (imported palettes always get fresh ids).
 // Exact duplicates (same name + colors as a saved palette) are skipped.
 export const importPalettesJson = (
   json: string
@@ -355,7 +355,7 @@ export const importPalettesJson = (
 
     if (!isValidPalette(withId)) {
       throw new Error(
-        'Each palette needs a "colors" array of 2–12 hex colors (background first); "name" is optional.'
+        'Each palette needs a "colors" array of 2-12 hex colors (background first); "name" is optional.'
       );
     }
 

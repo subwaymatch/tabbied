@@ -1,7 +1,7 @@
-// Batch 13 — shared vocabulary.
+// Batch 13 - shared vocabulary.
 //
 // Batch 13 inherits the constraint batches 11 and 12 established: every design
-// must export as native SVG with *no* caveat — no `svgExport: false`, no
+// must export as native SVG with *no* caveat - no `svgExport: false`, no
 // `svgExportNote`, no converter warning, and pixel parity with the live render
 // well inside the house budget. pattern-defs-11/shared.mjs is where the
 // vocabulary that satisfies it was worked out, pattern-defs-12/shared.mjs is
@@ -17,7 +17,7 @@
 //
 // Where batch 13 goes further is *placement*: batches 11 and 12 drew almost
 // everything from the middle of the cell out, and this batch anchors its
-// geometry to the cell's corners and edges instead — a shore held against one
+// geometry to the cell's corners and edges instead - a shore held against one
 // side, a frame hugging the perimeter, a light thrown in from an edge. The
 // helpers below exist for that: `farthest-side` radials so a stop at 100%
 // means "one cell side" wherever the centre sits, and hard linear bands that
@@ -66,7 +66,7 @@ export const TAKEN13 = new Set([...TAKEN12, ...batch12.map((d) => d.slug)]);
 
 // ── anchored radials ───────────────────────────────────────────────────────
 // `farthest-side` makes a percentage stop mean "that fraction of one cell
-// side" no matter where the centre sits — `closest-side` collapses to zero
+// side" no matter where the centre sits - `closest-side` collapses to zero
 // the moment the centre reaches a corner, and the default `farthest-corner`
 // quietly rescales as the centre moves. Every layer paints #000/transparent
 // only, so the ink stays a transitionable background-color underneath.
@@ -85,14 +85,14 @@ export const boreFS = (r, at = '50% 50%') =>
 
 // ── hard linear bands ──────────────────────────────────────────────────────
 // A bar as a mask layer rather than a pseudo-element: the strip between two
-// stops, at any angle. Composable — msk(a, b) adds bars into crosses and
+// stops, at any angle. Composable - msk(a, b) adds bars into crosses and
 // frames, mskI(a, b) intersects them.
 
 /** The strip between `from` and `to`, running across the `angle` direction. */
 export const bandLin = (angle, from, to) =>
   `linear-gradient(${angle}, transparent 0 ${from}, #000 ${from} ${to}, transparent ${to})`;
 
-/** Ink from the `angle`-start edge up to `to` — a slab against one edge. */
+/** Ink from the `angle`-start edge up to `to` - a slab against one edge. */
 export const slabLin = (angle, to) =>
   `linear-gradient(${angle}, #000 0 ${to}, transparent ${to})`;
 

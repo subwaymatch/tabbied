@@ -12,7 +12,7 @@ const LINKS = [
   ['/account/settings/', 'Settings'],
 ] as const;
 
-/** The account area's own navigation — one row under the masthead, current page marked. */
+/** The account area's own navigation - one row under the masthead, current page marked. */
 export default function AccountNav() {
   const pathname = usePathname();
 

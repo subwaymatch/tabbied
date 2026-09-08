@@ -10,7 +10,7 @@ import styles from './GalleryChipShelf.module.css';
 
 /**
  * Mobile (7a): the merged palette list as a horizontal, scrollable chip shelf.
- * Custom chips carry a ✕ (single-click delete); library chips a pencil
+ * Custom chips carry a delete mark (single-click delete); library chips a pencil
  * (edit-as-copy). A trailing "All ›" pill opens the embedded palette browser.
  */
 export default function GalleryChipShelf({

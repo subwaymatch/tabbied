@@ -338,7 +338,7 @@
 }
 
 /* Fit-mode comparison. Every mode draws the same pattern at the same seed into
-   the same two boxes — one landscape, one portrait — because what separates the
+   the same two boxes - one landscape, one portrait - because what separates the
    modes is only visible when the box stops matching the drawing. */
 /* Sized so all four modes sit on one row inside the docs column (~590px of
    preview): a mode that wraps onto a row of its own stops reading as part of

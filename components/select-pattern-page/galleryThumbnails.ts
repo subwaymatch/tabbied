@@ -63,7 +63,7 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   },
   ring: {
     // Muted maroon rings (color1/color2) over the dark offset crescent
-    // (color3) — matching the soft, tonal rings of the original.
+    // (color3) - matching the soft, tonal rings of the original.
     palette: ['#FF3D8B', '#C9447A', '#A33261', '#232529'],
     options: { grid: '3x3', frequency: 0.75 },
   },

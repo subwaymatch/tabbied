@@ -33,7 +33,7 @@ export type CoverRender = { width: number; height: number };
 // container, preserving the proportions of fixed-px strokes and shadows.
 export const DEFAULT_COVER_RENDER: CoverRender = { width: 800, height: 800 };
 
-// Canvas size for fit:"fixed" when no width/height is given — the editor's
+// Canvas size for fit:"fixed" when no width/height is given - the editor's
 // original 2:3 preview footprint.
 export const DEFAULT_FIXED_SIZE = { width: 360, height: 540 };
 
@@ -52,7 +52,7 @@ export const DEFAULT_FIT_MODE: FitMode = 'grid';
 // ---- box sizing -----------------------------------------------------------
 // A pattern has no intrinsic size: `fit` says how the drawing relates to its
 // box, and these say how big the box is. They're deliberately the CSS
-// properties they map to — the element a pattern renders into is a normal
+// properties they map to - the element a pattern renders into is a normal
 // block box, so anything expressible in CSS stays expressible here.
 
 /** How big the element a pattern renders into should be. */
@@ -115,7 +115,7 @@ export function resolveBoxStyle(size: PatternBoxSize = {}): PatternBoxStyle {
   if (height != null) {
     style.height = cssLength(height);
   } else if (fill && aspectRatio == null) {
-    // With an aspect ratio the height is derived from the width — pinning it
+    // With an aspect ratio the height is derived from the width - pinning it
     // to 100% would override the ratio rather than honour it.
     style.height = '100%';
   }
@@ -138,14 +138,14 @@ export function resolveBoxStyle(size: PatternBoxSize = {}): PatternBoxStyle {
 // "cols × rows" for an arbitrary box at a target cell size, keeping cells
 // near-square. Generalizes deriveGrid() from the five preset aspect ratios to
 // any measured container: respect the pattern's cell-size bounds (px-effect
-// designs need a floor) — though never a cell larger than the box's short
-// edge — then css-doodle's hard 64×64 cap.
+// designs need a floor) - though never a cell larger than the box's short
+// edge - then css-doodle's hard 64×64 cap.
 //
 // cols and rows are chosen *jointly*: the floor/ceil candidates on each axis
 // are scored by how square the resulting cells are (squareness dominating,
 // closeness to the target size breaking ties). Rounding each axis on its own
 // could pair a rounded-up axis with a rounded-down one, stretching cells up
-// to ~2× at small counts — a 1×1 grid across a 3:2 card turns a square motif
+// to ~2× at small counts - a 1×1 grid across a 3:2 card turns a square motif
 // into a visibly distorted one.
 export function deriveGridForBox(
   width: number,
@@ -201,14 +201,14 @@ export function deriveGridForBox(
  *
  * css-doodle lays its grid out as `repeat(n, 1fr)` (see `get_basic_styles` in
  * the component), so a box that isn't divisible by n puts every cell boundary
- * on a sub-pixel — and the browser draws a hairline seam at each one. Since a
+ * on a sub-pixel - and the browser draws a hairline seam at each one. Since a
  * fluid container is almost never divisible by its derived track count, the
  * default `fit: "grid"` in a page layout hits this nearly every time.
  *
  * The cell is snapped to a whole multiple of `cellMultiple`, not merely to a
  * whole pixel. A design that subdivides its cell puts a boundary at
  * `cell / n`, and an indivisible cell lands that boundary on a fraction of a
- * pixel — which seams however exact the outer grid is. Sichtbeton's hero was
+ * pixel - which seams however exact the outer grid is. Sichtbeton's hero was
  * a clean 8 × 180 across and 3 × 197 down, and 197 halves to 98.5.
  *
  * The default of 2 covers centred rules and strokes; the three designs that
@@ -252,8 +252,8 @@ export function parseGridValue(
 // the host's aspect ratio that fits inside the base coverRender box. Matching
 // the host's shape (instead of cropping a fixed-shape render into it) lets the
 // grid tile it edge-to-edge with whole cells, so nothing is cut off mid-cell;
-// staying inside the base box keeps the render resolution — and with it the
-// look of fixed-px strokes and shadows — in the authored range.
+// staying inside the base box keeps the render resolution - and with it the
+// look of fixed-px strokes and shadows - in the authored range.
 export function adaptCoverRenderToBox(
   hostWidth: number,
   hostHeight: number,
@@ -272,7 +272,7 @@ export function adaptCoverRenderToBox(
 }
 
 // Target cell size (in render px) that reproduces the authored/pinned grid's
-// cell area on the base render box — so a host shaped like the base box keeps
+// cell area on the base render box - so a host shaped like the base box keeps
 // exactly the grid it asked for, and other shapes tile at the same visual
 // density.
 export function coverCellPx(
@@ -304,10 +304,10 @@ export function fitRenderToBox(
   // Land every cell edge on a whole pixel *after* the transform. Snapping the
   // render box is not enough on its own: a scaled canvas maps exact layout
   // tracks onto fractional device pixels, and the browser seams there. An
-  // isolated test — same grid, same colour in every cell — measured 6 interior
+  // isolated test - same grid, same colour in every cell - measured 6 interior
   // seams both with fractional tracks and with integral ones under a 1.44
   // scale, and 0 once the scale was quantised so `cell * scale` was a whole
-  // number. The scale rounds up, which only ever crops further — and the box
+  // number. The scale rounds up, which only ever crops further - and the box
   // is filled either way, so the ratio is unaffected.
   if (cellPx && cellPx > 0 && Number.isFinite(scale)) {
     const quantised = Math.ceil(cellPx * scale);
@@ -317,7 +317,7 @@ export function fitRenderToBox(
     }
   }
 
-  // The offset has to be whole too — half a pixel of translation puts every
+  // The offset has to be whole too - half a pixel of translation puts every
   // boundary back on a fraction, which is the thing the quantised scale just
   // bought.
   return {

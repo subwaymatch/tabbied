@@ -1,10 +1,10 @@
 // Writes the site's agent-facing docs into public/ from the package's
 // catalog.json. The texts themselves are built by the package's own
 // scripts/generate-llms.mjs (which also writes the tarball's llms.txt during
-// the package build) — this wrapper just gives the site its three copies:
+// the package build) - this wrapper just gives the site its three copies:
 //
 //   /llms.txt       the short index (llmstxt.org convention)
-//   /llms-full.txt  the complete reference — API contract, recipes, catalog
+//   /llms-full.txt  the complete reference - API contract, recipes, catalog
 //   /catalog.json   the structured catalog, served verbatim
 //
 // Run via `npm run llms` (part of prebuild/predev, after the package build).

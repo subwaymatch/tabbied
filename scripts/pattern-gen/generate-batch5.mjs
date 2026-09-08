@@ -80,7 +80,7 @@ for (const def of defs) {
     }
   }
   // Lint: a custom property whose value contains @-functions is a textual
-  // macro — every plain var(--x) reference re-rolls it. Shared rolls must be
+  // macro - every plain var(--x) reference re-rolls it. Shared rolls must be
   // emitted per cell and referenced via @var(--x) instead.
   const propDefs = [...style.matchAll(/(--[\w-]+)\s*:\s*([^;]*);/g)];
   for (const [, propName, propValue] of propDefs) {
@@ -91,7 +91,7 @@ for (const def of defs) {
     ].length;
     if (plainRefs > 1) {
       throw new Error(
-        `${def.slug}: randomized ${propName} referenced ${plainRefs}x via plain var() — re-rolls per reference; use a cell-level prop + @var()`
+        `${def.slug}: randomized ${propName} referenced ${plainRefs}x via plain var() - re-rolls per reference; use a cell-level prop + @var()`
       );
     }
   }

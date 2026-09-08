@@ -1,7 +1,7 @@
 // Framework-free pattern controller: mounts a <css-doodle> for a pattern
 // definition into a host element, owns the sizing strategy (ResizeObserver +
 // grid adaptation / cover scaling), and pushes every later change through
-// css-doodle's update() so the element — and its CSS transitions — survive.
+// css-doodle's update() so the element - and its CSS transitions - survive.
 // Framework wrappers (tabbied/react) reduce to "create on mount, forward prop
 // changes, destroy on unmount".
 import './register.js';
@@ -67,19 +67,19 @@ export type PatternConfig = {
   /** Option values keyed by option id; unset options use authored defaults. */
   options?: Record<string, OptionValue>;
   /**
-   * Fit strategy — how the drawing relates to the host box. Defaults to
+   * Fit strategy - how the drawing relates to the host box. Defaults to
    * DEFAULT_FIT_MODE. How *big* the host box is stays a CSS question: size it
    * yourself, or apply resolveBoxStyle() to it.
    */
   fit?: FitMode;
-  /** fit:"grid" — target cell size in px (default 36). */
+  /** fit:"grid" - target cell size in px (default 36). */
   cellSize?: number;
-  /** fit:"grid" — authored density level 0..4, alternative to cellSize. */
+  /** fit:"grid" - authored density level 0..4, alternative to cellSize. */
   density?: number;
-  /** fit:"fixed" — canvas size in px. */
+  /** fit:"fixed" - canvas size in px. */
   width?: number;
   height?: number;
-  /** `cover` — render resolution override (default 800×800). */
+  /** `cover` - render resolution override (default 800×800). */
   coverRender?: CoverRender;
   /**
    * Re-randomize the seed every N ms, so designs with authored CSS
@@ -91,7 +91,7 @@ export type PatternConfig = {
    * designs' own cell transitions, so a resize-driven re-render cuts instead
    * of morphing); ticks are dropped while the tab is hidden or the host is
    * outside the viewport, so off-screen patterns cost nothing. Only
-   * meaningful when `seed` is uncontrolled — an update() that sets `seed`
+   * meaningful when `seed` is uncontrolled - an update() that sets `seed`
    * wins the next tick.
    */
   redrawInterval?: number;
@@ -115,7 +115,7 @@ export type PatternController = {
   update(config: Partial<PatternConfig>): void;
   /** Re-randomize (or set) the seed and regenerate, preserving transitions. */
   redraw(seed?: string): void;
-  /** Wraps css-doodle's element.export() — PNG export at a scale factor. */
+  /** Wraps css-doodle's element.export() - PNG export at a scale factor. */
   exportImage(options?: PatternExportOptions): Promise<unknown>;
   /**
    * Native SVG export: real vector primitives, no foreignObject. Waits for
@@ -151,7 +151,7 @@ async function settleAnimations(element: CssDoodleElement): Promise<void> {
 
 // Delay before a resize-driven grid change re-renders. Every grid step
 // re-randomizes the arrangement (same seed + different grid ⇒ different
-// layout — inherent to the medium), so wait for the resize to settle instead
+// layout - inherent to the medium), so wait for the resize to settle instead
 // of re-rolling the design on every frame of a drag. Between steps the canvas
 // stretches fluidly via CSS.
 const GRID_RESIZE_DEBOUNCE_MS = 180;
@@ -252,7 +252,7 @@ export function createPattern(
 
   let hostSize: { width: number; height: number } | null = null;
   // What the live element currently shows, for update()-vs-recreate diffing.
-  // renderBox is the canvas size a cover render was drawn at — the
+  // renderBox is the canvas size a cover render was drawn at - the
   // scaling transform must track what's in the DOM, not the latest measure.
   let rendered: {
     structure: string;
@@ -421,7 +421,7 @@ export function createPattern(
   // untouched) rounds each axis up to a whole multiple of its track count;
   // the host clips the sub-cell overflow.
   //
-  // Pure arithmetic, so it runs on every resize tick — between debounced grid
+  // Pure arithmetic, so it runs on every resize tick - between debounced grid
   // steps the canvas keeps covering the host at whole tracks, where plain
   // percentage sizing would drift back onto sub-pixels.
   const applyGridSnap = (resolved: ResolvedConfig) => {
@@ -542,7 +542,7 @@ export function createPattern(
   };
 
   // css-doodle's update() regenerates the shadow root when the grid changes,
-  // which takes the injected override with it — so under reduced motion the
+  // which takes the injected override with it - so under reduced motion the
   // override has to be re-asserted after every update, not just at mount.
   // Re-appending synchronously means it is in place for the same style
   // recalculation that would otherwise start the transitions.
@@ -670,7 +670,7 @@ export function createPattern(
     // A non-structural config change can still change the derived grid (a
     // cellSize/density update re-renders with new cols/rows), and the inline
     // canvas size must be re-snapped to the new track count or every boundary
-    // lands back on a sub-pixel — the seams the snap exists to prevent.
+    // lands back on a sub-pixel - the seams the snap exists to prevent.
     applyGridSnap(resolved);
     applyTransform(resolved);
   };
@@ -690,14 +690,14 @@ export function createPattern(
     }
 
     if (resolved.fit === 'cover') {
-      // Re-scaling the already-rendered canvas is cheap — apply on every
+      // Re-scaling the already-rendered canvas is cheap - apply on every
       // tick. The render's box + grid track the host's shape too, so they are
       // re-derived below as well (debounced).
       applyTransform(resolved);
     }
 
     if (resolved.fit === 'grid') {
-      // Re-snapping the already-rendered canvas is arithmetic — apply on
+      // Re-snapping the already-rendered canvas is arithmetic - apply on
       // every tick, so it keeps covering the host at whole tracks while the
       // re-render below waits out the debounce.
       applyGridSnap(resolved);
@@ -874,7 +874,7 @@ export function createPattern(
 
       const { download, name, ...svgOptions } = options ?? {};
 
-      // The converter is ~21 KB gzipped and only needed here — load it on
+      // The converter is ~21 KB gzipped and only needed here - load it on
       // demand so consumers who never export don't bundle it.
       const [{ doodleToSvg }] = await Promise.all([
         import('./svgExport.js'),

@@ -1,7 +1,7 @@
-// K. Cutground — ground stepped and notched, all clip-path.
+// K. Cutground - ground stepped and notched, all clip-path.
 //
 // A solid sheet with a profile taken out of it: one bench cut into a sheer
-// face, and the two notches a river wears — a wide V, and the near-vertical
+// face, and the two notches a river wears - a wide V, and the near-vertical
 // slot it deepens into. Each is a single polygon, and the cut runs right to
 // the edge of the cell so neighbouring cells read as continuous ground rather
 // than as a row of separate marks.

@@ -35,7 +35,7 @@ export function usePaletteReveal<T>(items: T[], pageSize: number) {
     }
   };
 
-  // Jump back to the first page — callers reset when the query changes so the
+  // Jump back to the first page - callers reset when the query changes so the
   // filtered list starts from the top.
   const reset = () => setCount(pageSize);
 

@@ -1,7 +1,7 @@
-// Batch 12 — shared vocabulary.
+// Batch 12 - shared vocabulary.
 //
 // Batch 12 inherits batch 11's constraint wholesale: every design must export
-// as native SVG with *no* caveat — no `svgExport: false`, no `svgExportNote`,
+// as native SVG with *no* caveat - no `svgExport: false`, no `svgExportNote`,
 // no converter warning, and pixel parity with the live render well inside the
 // house budget. docs/svg-export.md is the contract; pattern-defs-11/shared.mjs
 // is where the vocabulary that satisfies it was worked out, and this module
@@ -17,8 +17,8 @@
 //
 // Where batch 12 goes further is the other direction: *smooth* gradients.
 // Batch 11 had one section of them (M. Fade, nine designs) and used hard stops
-// everywhere else. Most of this batch is built on the smooth ramp — linear and
-// radial, always as masks — because that is the part of the supported subset
+// everywhere else. Most of this batch is built on the smooth ramp - linear and
+// radial, always as masks - because that is the part of the supported subset
 // the catalogue had barely touched, and because a <linearGradient> or
 // <radialGradient> with the same stops is about the most faithful thing the
 // converter emits. Nineteen of the thirty-two designs are those; the other
@@ -28,11 +28,11 @@
 //
 //   * a linear or radial gradient maps stop-for-stop onto its SVG equivalent,
 //     including the premultiplied-alpha subdivision the converter does for a
-//     colour→transparent run (CSS interpolates premultiplied, SVG does not);
+//     colour->transparent run (CSS interpolates premultiplied, SVG does not);
 //   * the ramp is a *mask* over a solid ink, never a two-colour background
 //     image. That keeps the ink an ordinary background-color, so a reseed
 //     morphs through the colour instead of snapping to it, and it makes the
-//     faded end a real hole — set the background slot to transparent and the
+//     faded end a real hole - set the background slot to transparent and the
 //     sheet shows through the soft edge exactly as it does through a hard one.
 //
 // The house rules inherited from batches 6-11 still apply and are enforced by
@@ -91,7 +91,7 @@ export const midFade = (angle, a, b, c, d) =>
 /**
  * Stepped translucency: a fade posterized into `steps` flat levels. Every stop
  * pair sits at the same position, so this is a hard-stop gradient that reads
- * as a ramp — the levels come from the alpha, not from interpolation.
+ * as a ramp - the levels come from the alpha, not from interpolation.
  */
 export const stepFade = (angle, steps, span = 100) => {
   const stops = [];

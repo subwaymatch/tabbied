@@ -1,4 +1,4 @@
-// T. Radius — what `border-radius` alone can draw.
+// T. Radius - what `border-radius` alone can draw.
 //
 // One property, four corners, and a percentage each: round one hard and the
 // square becomes a quadrant, round two opposite ones and it becomes a leaf,
@@ -6,7 +6,7 @@
 // resolved radii off the box and emits a <rect> with them, or a <path> where
 // the corners differ, so these sit at a flat zero against their live render.
 //
-// No design here puts a border on a rounded box — the converter throws on a
+// No design here puts a border on a rounded box - the converter throws on a
 // partially-rounded one, and mixed widths round a corner deviate by up to a
 // pixel. The shapes are filled, and where an outline is wanted it is a second
 // filled shape inside the first.
@@ -20,7 +20,7 @@ const round = (c, css, turns = R4) =>
 
 add(
   'Roundcut',
-  'One corner rounded hard and the other three left square — a quadrant.',
+  'One corner rounded hard and the other three left square - a quadrant.',
   (c) => ({ rule: round(c, 'inset: 6%; border-radius: 100% 0 0 0;') }),
   { pal: 45 }
 );

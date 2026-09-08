@@ -2,7 +2,7 @@
 //
 // The unit tests in packages/tabbied-templates cover every decision the engine
 // makes, with no DOM. What they cannot cover is the half that only exists in a
-// browser — that the annotations survived the export and the packager, that the
+// browser - that the annotations survived the export and the packager, that the
 // slot ids still find their elements, and that a re-colour reaches both the
 // stylesheet's custom properties and the pattern fields.
 //
@@ -26,7 +26,7 @@ const ENGINE_DIR = path.join(
 const ENGINE = path.join(ENGINE_DIR, 'index.js');
 
 // The engine is real ESM with relative imports between its modules, so it has
-// to be *served* rather than injected as a blob — a blob module has no base URL
+// to be *served* rather than injected as a blob - a blob module has no base URL
 // to resolve `./spec.js` against. Routing a fake origin at the built dist is
 // the same move e2e/templates.spec.ts makes for esm.sh, and it means the test
 // exercises the files about to ship.
@@ -57,7 +57,7 @@ const specPath = SPEC_CANDIDATES.find((candidate) => fs.existsSync(candidate));
 test.describe('editable templates', () => {
   test.skip(
     !specPath || !fs.existsSync(ENGINE) || !fs.existsSync(TEMPLATE_DIR),
-    'run `npm run build` first — needs the spec, the built engine, and the packaged template'
+    'run `npm run build` first - needs the spec, the built engine, and the packaged template'
   );
 
   const spec = JSON.parse(fs.readFileSync(specPath as string, 'utf8'));
@@ -83,7 +83,7 @@ test.describe('editable templates', () => {
   }) => {
     // The trailing slash matters: `serve` rewrites <dir>/index.html to an
     // extensionless <dir>, and every relative asset then resolves a level too
-    // high — the trap e2e/templates.spec.ts documents.
+    // high - the trap e2e/templates.spec.ts documents.
     await serveEngine(page);
     await page.goto(`/downloads/${SLUG}/`);
 
@@ -97,7 +97,7 @@ test.describe('editable templates', () => {
         ?.getAttribute('style'),
     }));
 
-    // The brand name is one slot on several elements — masthead and footer —
+    // The brand name is one slot on several elements - masthead and footer -
     // which is the case that makes "apply to every match" load-bearing.
     expect(before.brands).toBeGreaterThan(1);
 
@@ -126,7 +126,7 @@ test.describe('editable templates', () => {
 
     // The accent survives as a real <em>, keeping the class the packaged
     // stylesheet actually styles (de-hashed to `em` by the packager, where the
-    // export still has the hashed name — which is why it is read off the DOM).
+    // export still has the hashed name - which is why it is read off the DOM).
     const heading = page.locator('[data-edit="hero.title"]');
     await expect(heading).toHaveText('Rooms that hold the quiet.');
     const em = heading.locator('em');
@@ -147,7 +147,7 @@ test.describe('editable templates', () => {
     expect(ink.trim()).not.toBe('');
 
     // Pattern fields that follow the brand palette were re-coloured, and the
-    // literal `transparent` in colour0 of an overlay field was not touched —
+    // literal `transparent` in colour0 of an overlay field was not touched -
     // that is what keeps a field readable over a photograph.
     const palettes = await page
       .locator('[data-edit-pattern] [data-pattern]')
@@ -189,8 +189,8 @@ test.describe('editable templates', () => {
 });
 
 // The other palette derivation. The 52 bespoke pages each own their custom
-// property names (`--navy`, `--bone`, …) rather than the shared component's,
-// and their annotations were added by a codemod rather than by hand — so the
+// property names (`--navy`, `--bone`, ...) rather than the shared component's,
+// and their annotations were added by a codemod rather than by hand - so the
 // thing worth proving here is that a re-colour reaches a page whose stylesheet
 // never heard of `--brand-0`, and that the codemod's generated slot ids
 // actually find their elements.
@@ -261,7 +261,7 @@ test.describe('editable templates (bespoke page)', () => {
     );
 
     // Every field that follows the brand palette moved, and the literal
-    // `transparent` in colour 0 survived — these pages draw their patterns on
+    // `transparent` in colour 0 survived - these pages draw their patterns on
     // the page ground, so filling that slot would black out the section.
     const palettes = await page
       .locator('[data-edit-pattern] [data-pattern]')

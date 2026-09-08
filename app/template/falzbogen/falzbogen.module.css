@@ -1,5 +1,5 @@
 /* ==========================================================================
-   FALZBOGEN — trade bookbindery, Leipzig
+   FALZBOGEN - trade bookbindery, Leipzig
    The imposition diagram is the centrepiece: eight pages a side, half of them
    upside down, drawn at full width as flat blocks. Everything else is set
    large on cream with one crimson and no rules at all. Inter, tracked in.
@@ -794,7 +794,7 @@
     justify-self: start;
   }
 
-  /* Four across becomes two, which is still a forme — just folded once more
+  /* Four across becomes two, which is still a forme - just folded once more
      than the press would. */
   .sheetRow {
     grid-template-columns: repeat(2, minmax(0, 1fr));

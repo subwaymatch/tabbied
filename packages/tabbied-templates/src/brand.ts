@@ -2,7 +2,7 @@
 // mapping from them onto a particular template's slots.
 //
 // A template spec describes slots by *id*, and those ids are local to the page
-// that declares them — `brand.name` on the five shared TemplateSite pages,
+// that declares them - `brand.name` on the five shared TemplateSite pages,
 // `bar.mark` or `colophon.colophonMark` on the bespoke ones, because 52 of
 // them were annotated by codemod from whatever the component happened to be
 // called. So an id is not something a caller can address a template by.
@@ -61,7 +61,7 @@ export const declaredCopyRoles = (spec: TemplateSpec): CopyRole[] =>
   COPY_ROLES.filter((role) => (copySlots(spec)[role]?.length ?? 0) > 0);
 
 /**
- * True when a template can be rebranded at all — it names the business
+ * True when a template can be rebranded at all - it names the business
  * somewhere. A page with no `brandName` slot would render a generated
  * direction under the template's own name, which is the failure this exists to
  * let a caller avoid rather than discover in a screenshot.
@@ -69,7 +69,7 @@ export const declaredCopyRoles = (spec: TemplateSpec): CopyRole[] =>
 export const supportsBrandCopy = (spec: TemplateSpec): boolean =>
   (copySlots(spec).brandName?.length ?? 0) > 0;
 
-/** The strings a caller has. Every field optional — a partial edit is valid. */
+/** The strings a caller has. Every field optional - a partial edit is valid. */
 export type BrandCopy = Partial<Record<CopyRole, string>>;
 
 export type BrandDirection = {
@@ -90,7 +90,7 @@ const usablePalette = (palette: string[] | null | undefined): boolean =>
  * rather than reported, because the caller asking for a rebrand did not choose
  * the template's annotations and cannot act on the complaint. What it *can*
  * act on is `declaredCopyRoles`, ahead of time. A palette that would fail
- * `planEdits` is dropped for the same reason — the template keeps its own,
+ * `planEdits` is dropped for the same reason - the template keeps its own,
  * which is a working page rather than an error.
  */
 export function directionToEdits(

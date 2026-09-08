@@ -1,9 +1,9 @@
-// L. Ring — hard-stop radial bands.
+// L. Ring - hard-stop radial bands.
 //
 // A radial-gradient whose stops all land on the same position is a set of
 // concentric hard edges: transparent to the first radius, ink between two, and
 // transparent again past the second. Used as a mask that is a real ring with a
-// real hole in it — set the background slot to transparent and the sheet shows
+// real hole in it - set the background slot to transparent and the sheet shows
 // through the middle.
 //
 // The converter maps these to <radialGradient> stops one for one, which is why

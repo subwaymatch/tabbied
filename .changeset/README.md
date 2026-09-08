@@ -13,7 +13,7 @@ npm run changeset
 ```
 
 Pick the bump type (patch / minor / major) and write a short, user-facing
-summary. This creates a markdown file in this folder — **commit it alongside
+summary. This creates a markdown file in this folder - **commit it alongside
 your change**. The accumulated changesets are consumed automatically when the
 "Version Packages" PR is merged.
 

@@ -1,11 +1,11 @@
-// Batch 11 — 55 designs that export as native SVG with no caveat at all.
+// Batch 11 - 55 designs that export as native SVG with no caveat at all.
 //
 // The earlier batches were organised around a motif: batch 9 asked what
 // happens when the canvas is the unit rather than the cell, batch 10 built
 // drawings larger than the cell they start in. This one is organised around a
-// *format*. Native SVG export shipped with three tiers — four designs it
+// *format*. Native SVG export shipped with three tiers - four designs it
 // cannot represent, eighteen it exports with a caveat the user has to be shown
-// first, and the rest clean — and this batch is 55 more of the clean tier.
+// first, and the rest clean - and this batch is 55 more of the clean tier.
 // Every design here downloads as a true vector file with no warning dialog, no
 // filter effects for a design tool to mangle, and no sub-pixel deviation from
 // what is on screen.
@@ -14,17 +14,17 @@
 // modes (all export as SVG filters), smooth conic sweeps and
 // repeating-conic-gradient (no SVG primitive), nested @doodle() images and
 // @svg() payloads (documented sub-pixel deviations), and borders on
-// partially-rounded boxes (the converter throws). What is left — solid fills,
+// partially-rounded boxes (the converter throws). What is left - solid fills,
 // radii, clip paths, every linear and radial gradient, masks including
 // mask-composite: intersect, hard-stop conic sectors, transforms, opacity,
-// z-index — is the vocabulary of the whole batch. See
+// z-index - is the vocabulary of the whole batch. See
 // pattern-defs-11/shared.mjs for the reasoning and the helpers, and
 // docs/svg-export.md for the export contract itself.
 //
 // The twelve families, in the order they ship:
 //
 //   A. Split       one straight cut across the cell; two inks meet.        (6)
-//   B. Rule        stripe fields — pitch, duty, angle.                     (3)
+//   B. Rule        stripe fields - pitch, duty, angle.                     (3)
 //   C. Sector      hard-stop conic pies.                                   (2)
 //   D. Annulus     radial hard stops: rings and bands.                     (4)
 //   E. Chamfer     polygons that cut corners, notches and steps.          (14)
@@ -33,7 +33,7 @@
 //   I. Wedge       triangles.                                              (2)
 //   J. Speck       dot fields and halftones.                               (7)
 //   K. Overlap     two shapes crossing, read through opacity.              (1)
-//   L. Intersect   mask-composite: intersect — one shape cut by another.   (3)
+//   L. Intersect   mask-composite: intersect - one shape cut by another.   (3)
 //   M. Fade        smooth linear ramps, used as masks.                     (9)
 //
 // (The letters are the families the batch was drawn from; G, N, O and P were
@@ -88,7 +88,7 @@ for (const { title, all } of SECTIONS) {
     if (RESERVED.has(def.slug)) {
       throw new Error(`${def.slug}: slug is a JS reserved word`);
     }
-    // A name should never come to mean two different things — TAKEN carries
+    // A name should never come to mean two different things - TAKEN carries
     // every motif name used anywhere in the project, including designs cut
     // before they shipped.
     if (TAKEN.has(def.slug)) {

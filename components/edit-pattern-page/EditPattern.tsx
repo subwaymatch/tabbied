@@ -82,7 +82,7 @@ const RATIO_GLYPH_SIZE = 12;
 const PREVIEW_FIT_MARGIN = 0.9;
 
 // The paletteSource marker for "the pattern's own colors" / a freely-edited
-// palette — neither highlights any chip.
+// palette - neither highlights any chip.
 type PaletteSource = 'pattern' | 'custom' | string;
 
 // Largest width/height for `ratio` that fits inside a maxW × maxH box.
@@ -109,7 +109,7 @@ export default function EditPattern({ pattern }: { pattern: Pattern }) {
 
   const brandState = useBrandPalettes();
   const brandPalettes = brandState.palettes;
-  // The active palette shared with the gallery — a saved palette or a curated
+  // The active palette shared with the gallery - a saved palette or a curated
   // library palette (opening a pattern picks up whatever the gallery previews).
   const activeCustomPalette = resolveActivePalette(brandState);
 
@@ -326,7 +326,7 @@ export default function EditPattern({ pattern }: { pattern: Pattern }) {
 
   // Apply the gallery's selected palette on first load, once, and mark it as the
   // active chip. A shared link that carries its own palette wins (source stays
-  // "custom" — the link's colors, not a named palette).
+  // "custom" - the link's colors, not a named palette).
   useEffect(() => {
     if (initialCustomApplied.current) return;
 
@@ -387,7 +387,7 @@ export default function EditPattern({ pattern }: { pattern: Pattern }) {
 
   // Sync the URL search params FROM component state if necessary. A clean
   // `/patterns/<slug>/` visit keeps its bare URL while the state still matches
-  // what that URL implies — but only that long: once anything changes the URL
+  // what that URL implies - but only that long: once anything changes the URL
   // must follow, even when it started without params, or "Copy shareable
   // link" copies a link that doesn't reproduce the edits.
   useEffect(() => {
@@ -531,7 +531,7 @@ export default function EditPattern({ pattern }: { pattern: Pattern }) {
     },
   });
 
-  // Delete a custom palette on the first click of its ✕ (no confirm step).
+  // Delete a custom palette on the first click of its delete mark (no confirm step).
   const removePalette = (id: string) => {
     deletePalette(id);
     if (paletteSource === id) setPaletteSource('custom');
@@ -555,7 +555,7 @@ export default function EditPattern({ pattern }: { pattern: Pattern }) {
   };
 
   // Apply a library palette. Clicking the already-active one opens it as a copy
-  // (a new custom palette — editing never mutates the library).
+  // (a new custom palette - editing never mutates the library).
   const applyLibraryPalette = (library: LibraryPalette) => {
     applyBrandPalette({ id: library.id, name: library.name, colors: library.colors });
     setActivePalette(library.id);
@@ -682,7 +682,7 @@ export default function EditPattern({ pattern }: { pattern: Pattern }) {
       `import { TabbiedPattern } from 'tabbied/react';`,
       `import { ${pattern.slug} } from 'tabbied/patterns';`,
       ``,
-      `// Fills its parent by default — add height, maxWidth or aspectRatio to bound it.`,
+      `// Fills its parent by default - add height, maxWidth or aspectRatio to bound it.`,
       `<TabbiedPattern`,
       `  pattern={${pattern.slug}}`,
       `  seed="${seed}"`,
@@ -841,7 +841,7 @@ export default function EditPattern({ pattern }: { pattern: Pattern }) {
     return null;
   };
 
-  // Mobile (7d): the inline "Shuffle" panel — scope radios plus a run button
+  // Mobile (7d): the inline "Shuffle" panel - scope radios plus a run button
   // labelled with the current scope. Selecting a scope persists it; the run
   // button applies it (repeatedly, for a fresh arrangement each tap).
   const renderShufflePanel = () => {
@@ -899,13 +899,13 @@ export default function EditPattern({ pattern }: { pattern: Pattern }) {
           <RunIcon size={16} /> {current.label}
         </button>
         <p className={styles.runHint}>
-          Tap again for a new arrangement — the preview above updates live.
+          Tap again for a new arrangement - the preview above updates live.
         </p>
       </div>
     );
   };
 
-  // Mobile (7d): the inline "Export" panel — the same three actions as the
+  // Mobile (7d): the inline "Export" panel - the same three actions as the
   // desktop dropdown, each returning to the editor once fired (a toast reports
   // the result).
   const renderExportPanel = () => (

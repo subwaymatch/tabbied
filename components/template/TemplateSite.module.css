@@ -7,7 +7,7 @@
   --radius: 18px;
   /* The tone that marks one band off from the next, now that no hairlines do.
      It is mixed from --ink rather than from white so it steps the same distance
-     away from the page on a light palette as on a dark one — the site-supplied
+     away from the page on a light palette as on a dark one - the site-supplied
      --soft moves toward white either way, which is invisible on a near-white
      background and is why it stays reserved for surfaces, not for bands. */
   --band: color-mix(in srgb, var(--ink) 4.5%, var(--bg));
@@ -103,7 +103,7 @@
 }
 /* Scoped under .site on purpose: `.site a { color: inherit }` above is (0,1,1)
    and would otherwise outrank a bare `.navCta` (0,1,0), painting the label in
-   --ink on the --c1 pill — which on a dark-accent palette is text you cannot
+   --ink on the --c1 pill - which on a dark-accent palette is text you cannot
    read. Every coloured control below is scoped for the same reason. */
 .site .navCta {
   padding: 10px 20px;
@@ -136,7 +136,7 @@
 }
 /* The secondary action. It used to be an outlined ghost; with the outline gone
    it would be bare text sitting next to a filled button, so it is a tinted fill
-   instead — still obviously a control, still clearly the quieter of the two.
+   instead - still obviously a control, still clearly the quieter of the two.
    The mix lands on --bg rather than on transparent so the chip stays opaque
    where a CTA row sits over pattern. */
 .site .btnGhost {
@@ -280,7 +280,7 @@
 }
 
 /* Footer. The rule that used to cut it off from the page is replaced by a flat
-   tone change plus a deeper top pad — the same job, no line. */
+   tone change plus a deeper top pad - the same job, no line. */
 .footer {
   padding: clamp(56px, 7vw, 84px) 0 44px;
   font-size: 14px;
@@ -454,7 +454,7 @@
 }
 
 /* ── Layout: EDITORIAL ───────────────────────────────────────────────────── */
-/* This layout was built out of ink rules — masthead, title row, nav and cover
+/* This layout was built out of ink rules - masthead, title row, nav and cover
    were each closed off by one. The masthead now sits on its own tone and the
    rest is separated by space, which is what the rules were standing in for. */
 .edMast {
@@ -619,7 +619,7 @@
 }
 /* The boutique hero's only call to action. It was an outlined ghost sitting on
    top of full-bleed pattern, which is precisely the control that disappears
-   when you take its frame away — so it becomes a filled one. */
+   when you take its frame away - so it becomes a filled one. */
 .site .boutBtn {
   margin-top: 40px;
   display: inline-block;
@@ -701,7 +701,7 @@
   inset: 0;
   margin: 0;
   display: flex;
-  /* The tinted field is the whole frame — the inset 1px ring it used to carry
+  /* The tinted field is the whole frame - the inset 1px ring it used to carry
      was a border in all but name. */
   background:
     radial-gradient(130% 130% at 100% 0, color-mix(in srgb, var(--c1) 9%, transparent), transparent 62%),
@@ -1012,7 +1012,7 @@
   background: var(--band);
 }
 /* The manifesto carries a full-bleed pattern of its own, and on the boutique
-   layouts it follows a hero that does too — two fields meeting on a hard edge
+   layouts it follows a hero that does too - two fields meeting on a hard edge
    with nothing between them. A band of page colour separates them so each
    reads as its own gesture. */
 header + .manifesto {
@@ -1076,7 +1076,7 @@ header + .manifesto {
 .faqItem summary { cursor: pointer; font-family: var(--display); font-weight: 600; font-size: 19px; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
 .faqItem summary::-webkit-details-marker { display: none; }
 .faqItem summary::after { content: "+"; color: var(--c1); font-weight: 400; }
-.faqItem[open] summary::after { content: "–"; }
+.faqItem[open] summary::after { content: "-"; }
 .faqItem p { margin: 14px 0 0; opacity: 0.75; font-size: 16px; line-height: 1.6; max-width: 60ch; }
 
 /* Logo cloud */
@@ -1101,7 +1101,7 @@ header + .manifesto {
 .kitEditorial .aboutArt, .kitEditorial .altMedia, .kitEditorial .galleryCell { border-radius: 0; }
 .kitEditorial .quote { border-radius: 0; }
 
-/* brutal: hard offset shadows and square corners — the weight lives in the
+/* brutal: hard offset shadows and square corners - the weight lives in the
    shadow now that the frames are gone */
 .kitBrutal .card { border-radius: 0; box-shadow: 6px 6px 0 var(--ink); background: var(--bg); }
 .kitBrutal .card:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0 var(--ink); }
@@ -1116,7 +1116,7 @@ header + .manifesto {
 .kitBordered .aboutArt, .kitBordered .altMedia, .kitBordered .galleryCell, .kitBordered .quote { border-radius: 8px; }
 
 /* minimal: no chrome, whitespace does the work.
-   This kit used to override .btnSolid into an outlined accent button — the one
+   This kit used to override .btnSolid into an outlined accent button - the one
    thing a no-chrome kit cannot keep doing once the outline goes, since it would
    leave the primary CTA as bare text. The override is gone, so the filled
    treatment applies here too: "minimal" describes the page, not its only CTA. */
@@ -1129,7 +1129,7 @@ header + .manifesto {
 
 /* ── Section rhythm helper ───────────────────────────────────────────────────
    Alternating tone, so the page reads as a stack of distinct blocks instead of
-   one continuous field of background color. The tone change is the divider —
+   one continuous field of background color. The tone change is the divider -
    the hairlines that used to bracket it were doing the same job twice. */
 .panel {
   background: var(--band);
@@ -1251,7 +1251,7 @@ header + .manifesto {
   border-radius: 2px;
   background: var(--c1);
 }
-/* Outlined accent button → accent-tinted fill. The label stays --ink because
+/* Outlined accent button -> accent-tinted fill. The label stays --ink because
    that is what it already rendered as (`.site a` outranked the old
    `color: var(--c1)`), and because full accent on a 20% accent wash is thin on
    the darker palettes. */

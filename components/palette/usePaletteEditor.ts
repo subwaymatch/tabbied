@@ -25,7 +25,7 @@ export type PaletteDraft = {
   existing: boolean;
 };
 
-// The palette a "New palette" dialog starts from — Tabbied's own inks over a
+// The palette a "New palette" dialog starts from - Tabbied's own inks over a
 // near-white background, so the editor never opens empty.
 const STARTER_COLORS = ['#f8f9fa', '#232529', '#3e8bff', '#3fffb2', '#ff3d8b'];
 
@@ -49,8 +49,8 @@ const newDraft = (): PaletteDraft => ({
   existing: false,
 });
 
-// A unique "<Name> Custom" (then " 2", " 3", …) not already used by a saved
-// palette — the name a forked copy of a library palette gets.
+// A unique "<Name> Custom" (then " 2", " 3", ...) not already used by a saved
+// palette - the name a forked copy of a library palette gets.
 const uniqueCopyName = (baseName: string): string => {
   const saved = getBrandPaletteState().palettes;
   const root = `${baseName} Custom`.trim();
@@ -146,7 +146,7 @@ export function usePaletteEditor({
   };
 
   // Roll a fresh random color into every slot, background included. A transparent
-  // background keeps its transparent flag — only the color underneath rerolls.
+  // background keeps its transparent flag - only the color underneath rerolls.
   const randomizeDraft = () => {
     setDraft((prev) =>
       prev
@@ -158,7 +158,7 @@ export function usePaletteEditor({
   const saveDraft = () => {
     if (!draft) return;
 
-    // The name is optional — a nameless palette just shows its colors.
+    // The name is optional - a nameless palette just shows its colors.
     const invalid = draft.colors.find((color) => !isValidPaletteColor(color));
 
     if (invalid !== undefined) {

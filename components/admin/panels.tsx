@@ -1,7 +1,7 @@
 'use client';
 
 // The admin panels, one per page. Tables over the /api/admin reads, with the
-// two actions the tier has — role and ban — going through better-auth's own
+// two actions the tier has - role and ban - going through better-auth's own
 // admin endpoints via the client plugin.
 import { useMemo, useState, type ReactNode } from 'react';
 import Link from 'next/link';
@@ -12,7 +12,7 @@ import { money, useAdminData, when } from './useAdminData';
 import styles from './admin.module.css';
 
 const Load = ({ error }: { error: string | null }) => (
-  <p className={styles.quiet}>{error ?? 'Loading…'}</p>
+  <p className={styles.quiet}>{error ?? 'Loading...'}</p>
 );
 
 const day = (value: string | Date) =>
@@ -29,7 +29,7 @@ type Overview = {
   aiCallsToday: number;
   aiCostToday: number;
   imagesThisWeek: number;
-  /** Absent on rows from before the chart existed — read as no sign-ups. */
+  /** Absent on rows from before the chart existed - read as no sign-ups. */
   signupsByDay?: { day: string; n: number }[];
 };
 
@@ -80,7 +80,7 @@ function GrowthChart({ signups }: { signups?: { day: string; n: number }[] }) {
       </div>
       <div className={styles.barLabels} aria-hidden="true">
         {/* Separated by a space so the row reads as fourteen numbers, not one
-            long one — to a screen reader that ignores the hiding, and to a
+            long one - to a screen reader that ignores the hiding, and to a
             text query that would otherwise find "42" across "24 25". Flex
             drops the whitespace-only nodes, so nothing is drawn for them. */}
         {days.map((entry, index) => (
@@ -104,7 +104,7 @@ export function OverviewPanel() {
     { label: 'New users', value: data.newUsersThisWeek.toLocaleString(), note: 'In the last 7 days' },
     { label: 'Generations', value: data.generationsThisWeek.toLocaleString(), note: 'Direction sets this week' },
     { label: 'Sites made', value: data.sitesThisWeek.toLocaleString(), note: 'Full documents this week' },
-    { label: 'Fallback rate', value: `${Math.round(data.fallbackRate * 100)}%`, note: 'Of this week’s generations' },
+    { label: 'Fallback rate', value: `${Math.round(data.fallbackRate * 100)}%`, note: 'Of this week\'s generations' },
     { label: 'AI calls today', value: data.aiCallsToday.toLocaleString(), note: 'Since 00:00 UTC' },
     { label: 'Images', value: data.imagesThisWeek.toLocaleString(), note: 'Generated this week' },
     { label: 'AI cost today', value: money(data.aiCostToday), note: 'Estimated from the ledger', dark: true },
@@ -163,7 +163,7 @@ const matchesFilter = (row: UserRow, filter: Filter) =>
           ? row.role === 'admin'
           : !row.emailVerified;
 
-/** Active, banned, or not yet verified — in that order of what matters. */
+/** Active, banned, or not yet verified - in that order of what matters. */
 function Status({ row }: { row: UserRow }) {
   if (row.banned) return <span className={`${styles.status} ${styles.statusBanned}`}>Banned</span>;
   if (!row.emailVerified) return <span className={`${styles.status} ${styles.statusQuiet}`}>Unverified</span>;
@@ -213,7 +213,7 @@ export function UsersDirectory({ pageSize = 10, compact = false }: { pageSize?: 
       {compact ? null : (
         <div className={styles.sectionHead} style={{ marginTop: 0 }}>
           <p className={styles.quiet} style={{ margin: 0 }}>
-            {data ? (rows.length === 1 ? '1 user' : `${rows.length} users`) : '…'}
+            {data ? (rows.length === 1 ? '1 user' : `${rows.length} users`) : '...'}
           </p>
           <div className={styles.toolbar}>
             <button
@@ -284,7 +284,7 @@ export function UsersDirectory({ pageSize = 10, compact = false }: { pageSize?: 
         </div>
 
         {!data ? (
-          <p className={styles.empty}>{error ?? 'Loading…'}</p>
+          <p className={styles.empty}>{error ?? 'Loading...'}</p>
         ) : slice.length === 0 ? (
           <p className={styles.empty}>No users match this view.</p>
         ) : (
@@ -342,7 +342,7 @@ export function UsersDirectory({ pageSize = 10, compact = false }: { pageSize?: 
       {compact || !data ? null : (
         <div className={styles.pager}>
           <p className={styles.quiet} style={{ margin: 0, fontSize: 13 }}>
-            {rows.length ? `Showing ${start + 1}–${start + slice.length} of ${rows.length}` : 'Nothing to show'}
+            {rows.length ? `Showing ${start + 1}-${start + slice.length} of ${rows.length}` : 'Nothing to show'}
           </p>
           <div className={styles.pages}>
             <button type="button" className={styles.page} disabled={current === 0} onClick={() => setPage(current - 1)} aria-label="Previous page">
@@ -637,7 +637,7 @@ export function TemplatesPanel() {
                 <Link href={`/template/${t.slug}/`} prefetch={false}>{t.name}</Link>
               </td>
               <td>{t.sites}</td>
-              <td>{t.copyRoles.length ? t.copyRoles.join(', ') : '—'}</td>
+              <td>{t.copyRoles.length ? t.copyRoles.join(', ') : ' - '}</td>
               <td>{t.slots.text ?? 0}</td>
               <td>{t.slots.image ?? 0}</td>
               <td className={styles.wide}>{t.patterns.join(', ')}</td>
@@ -679,7 +679,7 @@ export function UploadsPanel() {
                 reload();
               }}
             >
-              {busy === u.id ? 'Removing…' : 'Remove'}
+              {busy === u.id ? 'Removing...' : 'Remove'}
             </button>
           </div>
         </li>

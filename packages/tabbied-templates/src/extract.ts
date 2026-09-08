@@ -2,7 +2,7 @@
 //
 // Everything the spec says a slot *currently is* comes from here, read off the
 // bytes the site actually shipped. Nothing is hand-written, so the spec cannot
-// drift from the page — the same reason the download packager derives its HTML
+// drift from the page - the same reason the download packager derives its HTML
 // from the export instead of keeping a second copy of every template.
 //
 // The annotations carry their own metadata rather than pointing at a sidecar
@@ -46,14 +46,14 @@ export const VARS_ATTRIBUTE = 'data-edit-vars';
 export type ExtractOptions = {
   /**
    * Option metadata for a design, from the catalog. Without it a pattern slot
-   * still extracts — it just carries no ranges, so an editor can offer a seed
+   * still extracts - it just carries no ranges, so an editor can offer a seed
    * and a palette but not typed controls.
    */
   designOptions?: (slug: string) => PatternOptionSpec[] | undefined;
 };
 
 // Values are joined with a separator and split back out, so the split has to
-// survive a CSS colour carrying its own commas — `rgb(0, 0, 0)`. Same rule as
+// survive a CSS colour carrying its own commas - `rgb(0, 0, 0)`. Same rule as
 // the pattern hydration contract this reads.
 function splitTopLevel(value: string, separator: string): string[] {
   const parts: string[] = [];
@@ -316,7 +316,7 @@ export type ExtractResult = {
   slots: Slot[];
   /** The page root's palette derivation, when it declares one. */
   root: ExtractedRoot | null;
-  /** Annotations that named nothing usable — the build gate reports these. */
+  /** Annotations that named nothing usable - the build gate reports these. */
   problems: string[];
 };
 
@@ -366,7 +366,7 @@ export function parseBrandColors(style: string): string[] {
  * An annotation that resolves to nothing (an image slot with no `<img>`, a
  * pattern slot with no placeholder) is reported rather than skipped: a slot
  * that silently vanishes is exactly the failure mode that let 278 dead gallery
- * thumbnail configs accumulate, and the cure was the same — a build gate that
+ * thumbnail configs accumulate, and the cure was the same - a build gate that
  * fails on one.
  */
 export function extractFromHtml(
@@ -460,7 +460,7 @@ function sameContent(a: Slot, b: Slot): boolean {
  *
  * A slot is a piece of content, and content repeats: the brand name is in the
  * masthead and again in the footer. Applying an edit reaches every element
- * carrying the id, so the spec needs one entry — but only if they currently
+ * carrying the id, so the spec needs one entry - but only if they currently
  * agree. Two elements sharing an id while saying different things is a real
  * authoring bug: whichever value the spec recorded, the first edit would make
  * the other one change to match, silently.

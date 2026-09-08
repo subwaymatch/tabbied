@@ -9,7 +9,7 @@ import styles from './SelectPattern.module.css';
 
 const DEFAULT_RENDER = { width: 800, height: 800 };
 
-// Each card redraws every 2.5–4s; the random spread keeps the cards out of
+// Each card redraws every 2.5-4s; the random spread keeps the cards out of
 // phase so the gallery shimmers card by card instead of strobing in unison.
 const REDRAW_INTERVAL_MS = 2500;
 const REDRAW_STAGGER_MS = 1500;
@@ -21,7 +21,7 @@ export default function GalleryDoodleInner({
   onReady,
 }: {
   item: GalleryItem;
-  /** Preview palette override (color0 first) — e.g. an active brand palette. */
+  /** Preview palette override (color0 first) - e.g. an active brand palette. */
   palette?: string[];
   /** Skip reseed ticks (set while the card is outside the viewport). */
   paused?: boolean;
@@ -53,8 +53,8 @@ export default function GalleryDoodleInner({
   const baseColors = config?.palette ?? item.palette;
   const defaultCount = item.colors?.default ?? baseColors.length;
 
-  // No seed prop: a fresh random seed per mount keeps the gallery dynamic —
-  // every visit draws a new variation of each design — and redrawInterval
+  // No seed prop: a fresh random seed per mount keeps the gallery dynamic -
+  // every visit draws a new variation of each design - and redrawInterval
   // rotates it from there (paused while the card is out of view, and skipped
   // for reduced motion / hidden tabs). The cover fit reproduces the
   // fixed-resolution + transform-scale technique, so fixed-px strokes and

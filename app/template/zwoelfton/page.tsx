@@ -19,7 +19,7 @@ const DEEP = '#22222a';
 
 /* The row itself, used as a design element in three places. */
 const ROW = ['0', '11', '3', '4', '8', '7', '9', '5', '6', '1', '2', '10'];
-const PITCHES = ['C', 'B', 'D♯', 'E', 'G♯', 'G', 'A', 'F', 'F♯', 'C♯', 'D', 'A♯'];
+const PITCHES = ['C', 'B', 'D\u266F', 'E', 'G\u266F', 'G', 'A', 'F', 'F\u266F', 'C\u266F', 'D', 'A\u266F'];
 
 const CONCERTS = [
   {
@@ -90,7 +90,7 @@ const PLAYERS = [
 const COMMISSIONS = [
   ['2027', 'Ana Lucía Ferrer', 'Untitled (in progress)', '12 players', 'Premiere 07.05'],
   ['2026', 'Kenji Ohara', 'Second Room', '8 players', 'Premiere 23.10'],
-  ['2026', 'Mirjam Beck', 'Zwölf Antworten I–XII', '12 × 1′', 'Premiere 29.01'],
+  ['2026', 'Mirjam Beck', 'Zwölf Antworten I-XII', '12 × 1′', 'Premiere 29.01'],
   ['2025', 'Idris Salah', 'Anemometer', '6 players + tape', '4 performances'],
   ['2025', 'Léa Fontaine', 'Sans mesure', '12 players', '7 performances'],
   ['2024', 'Petra Hoxha', 'Kante / Rand', 'Solo percussion', '11 performances'],
@@ -136,7 +136,7 @@ const RULES = [
 
 const VISIT = [
   ['Where', 'Most nights at the Konzerthaus. Some in a former coffin factory.'],
-  ['Tickets', '€ 9 – 34. Standing is € 9 and there is always standing.'],
+  ['Tickets', '€ 9 - 34. Standing is € 9 and there is always standing.'],
   ['Length', 'Between forty minutes and four hours. It says which on the ticket.'],
   ['Applause', 'Whenever you like. We have stopped minding.'],
 ];
@@ -172,7 +172,7 @@ export default function ZwoelftonPage() {
           <a data-edit="bar.commissions" data-edit-max="28" href="#commissions">Commissions</a>
           <a data-edit="bar.records" data-edit-max="28" href="#records">Records</a>
         </nav>
-        <span data-edit="bar.now" data-edit-max="60" className={s.now}>Wien / 26–27</span>
+        <span data-edit="bar.now" data-edit-max="60" className={s.now}>Wien / 26-27</span>
       </header>
 
       <main id="top">
@@ -236,7 +236,7 @@ export default function ZwoelftonPage() {
         </section>
 
         {/* ---------------------------------------------------------- SEASON
-            The date is the display type and the title is the small print —
+            The date is the display type and the title is the small print -
             an inversion, on purpose: a concert is a night before it is a name. */}
         <section id="season" className={s.season} aria-labelledby="season-h">
           <div className={s.secHead}>

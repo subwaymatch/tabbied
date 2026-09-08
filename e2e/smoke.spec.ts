@@ -12,7 +12,7 @@ test.describe('Tabbied site', () => {
     ).toBeVisible();
 
     // Every figure on the page is derived from the catalog at build time
-    // (lib/siteCounts), so this asserts the shape rather than the value — a
+    // (lib/siteCounts), so this asserts the shape rather than the value - a
     // literal typed into the copy is exactly what it is there to prevent.
     const patternsStat = page.getByRole('link', { name: /^\d+ Patterns$/ });
     await expect(patternsStat).toBeVisible();
@@ -83,7 +83,7 @@ test.describe('Tabbied site', () => {
   }) => {
     await page.goto('/patterns');
 
-    // Jump to page 2 — the URL gains ?page=2 and the grid shows a new design.
+    // Jump to page 2 - the URL gains ?page=2 and the grid shows a new design.
     const firstCard = page.locator('main a[href^="/patterns/"] h3').first();
     const beforeName = await firstCard.textContent();
     await page.getByRole('button', { name: '2', exact: true }).click();
@@ -107,7 +107,7 @@ test.describe('Tabbied site', () => {
     // (= minmax(auto, 1fr)), so `min-width: auto` floored each track at the
     // item's min-content width. Because the cards carry
     // `content-visibility: auto`, a card that had been scrolled past reported
-    // the size it last rendered at as that floor — narrowing the window could
+    // the size it last rendered at as that floor - narrowing the window could
     // then no longer shrink the tracks and the grid overflowed its column
     // until a reload. Tracks are minmax(0, 1fr) now; this asserts the grid
     // still fits after a resize, without one.
@@ -387,7 +387,7 @@ test.describe('Tabbied site', () => {
 
     // Radius opens at its default of 6 colors, which is also its maximum, so
     // only the remove button starts enabled. (Each color slot is a native
-    // <input type="color"> swatch — background plus inks — so count those.)
+    // <input type="color"> swatch - background plus inks - so count those.)
     await expect(page.locator('input[type="color"]')).toHaveCount(6, {
       timeout: 15000,
     });
@@ -431,7 +431,7 @@ test.describe('Tabbied site', () => {
     // not survive a refresh or be shareable.
     await page.locator('a[href*="/patterns/radius"]').first().click();
 
-    // The static export uses trailing slashes, so match /patterns/radius/?seed=…
+    // The static export uses trailing slashes, so match /patterns/radius/?seed=...
     await page.waitForURL(/\/patterns\/radius\/?\?/, { timeout: 15000 });
     await expect(page).toHaveURL(/seed=0000/);
 
@@ -519,7 +519,7 @@ test.describe('Tabbied site (mobile viewport)', () => {
     await page.goto('/');
 
     // The homepage has its own dark masthead rather than the shared header, and
-    // below 768px its inline nav is display:none — the panel is the only way to
+    // below 768px its inline nav is display:none - the panel is the only way to
     // reach the rest of the site from here.
     const trigger = page.getByRole('button', { name: 'Open menu' });
     await expect(trigger).toBeVisible();
@@ -577,7 +577,7 @@ test.describe('Studio', () => {
   }) => {
     await page.goto('/studio');
 
-    // Signed out, the library match is the path — it needs no account and no
+    // Signed out, the library match is the path - it needs no account and no
     // Worker, which is what this spec runs against (`serve out`).
     const match = page.getByRole('button', { name: 'Match from the library' });
     await expect(match).toBeDisabled();
@@ -585,7 +585,7 @@ test.describe('Studio', () => {
     await page.getByLabel('Your business').fill(BICYCLES);
     await expect(match).toBeEnabled();
 
-    // Generating is the other button, and it is a session away — signed out it
+    // Generating is the other button, and it is a session away - signed out it
     // sends you to sign in rather than spending anything.
     await expect(
       page.getByRole('button', { name: 'Generate websites' })
@@ -682,7 +682,7 @@ test.describe('Shared site header', () => {
     await page.goto('/patterns');
 
     // The page carries its own slim bar with the way home, and the rail beside
-    // it carries the palette chrome — but neither is the shared site nav.
+    // it carries the palette chrome - but neither is the shared site nav.
     await expect(
       page.getByRole('link', { name: 'Tabbied', exact: true })
     ).toBeVisible();

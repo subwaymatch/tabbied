@@ -1,11 +1,11 @@
 // Ink-coverage check for batch 11.
 //
-// validate-batch11.mjs asks whether a design *paints* — it reads computed
+// validate-batch11.mjs asks whether a design *paints* - it reads computed
 // styles, so a cell with a background counts even when a mask hides all of it.
 // This one asks whether the paint is *visible*, by rendering the design and
 // measuring how much of the sheet its single most common colour takes up.
 //
-// A design that is one flat colour is a blank sheet — a mask that never opens,
+// A design that is one flat colour is a blank sheet - a mask that never opens,
 // two shapes intersected to nothing, a sector aimed out of its own cell. All
 // three render without error and export without error, which is exactly why
 // neither of the other validators catches them.
@@ -152,9 +152,9 @@ if (failures.length) {
   console.log(`\nFAILURES (${failures.length}):`);
   for (const f of failures) {
     console.log(
-      `  ${f.slug} → ${(f.dominant * 100).toFixed(2)}% of the sheet is a single colour`
+      `  ${f.slug} -> ${(f.dominant * 100).toFixed(2)}% of the sheet is a single colour`
     );
   }
   process.exit(1);
 }
-console.log(`\nall ${slugs.length} patterns put readable ink on the sheet ✓`);
+console.log(`\nall ${slugs.length} patterns put readable ink on the sheet`);

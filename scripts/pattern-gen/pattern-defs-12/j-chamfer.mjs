@@ -1,11 +1,11 @@
-// J. Chamfer — what is taken off the square rather than what is put on it.
+// J. Chamfer - what is taken off the square rather than what is put on it.
 //
 // Every design starts from the full cell and takes a corner off it: shallow,
 // deep enough to leave a long triangle, or twice on opposite corners so the
 // square reads as a lozenge. clip-path: polygon() is the whole toolkit and it
 // exports as an SVG <clipPath> with the same points, so the profile lands
 // exactly where CSS put it. Nothing is filled back in, so what is cut away
-// stays a real hole on a transparent background — the shape simply stops.
+// stays a real hole on a transparent background - the shape simply stops.
 import { section, A, F, TR, cp, ink, poly, rot, R2, R4 } from './shared.mjs';
 
 const { add, all } = section('J. Chamfer');

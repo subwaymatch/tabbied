@@ -47,7 +47,7 @@ const SEASON = [
   ['18.04', 'Meeting de Lausanne', 'Athletics, track and field', 'Pierre-de-Coubertin'],
   ['09.05', 'Tour du Léman', 'Road cycling, 186 km', 'Léman circuit'],
   ['21.06', 'Championnats romands', 'Athletics, two days', 'Yverdon'],
-  ['12.09', 'Course de l’Escalade', 'Road running, 7,300 entries', 'Genève'],
+  ['12.09', 'Course de l\'Escalade', 'Road running, 7,300 entries', 'Genève'],
   ['04.10', 'Coupe des Alpes', 'Alpine ski, timing trials', 'Verbier'],
 ];
 

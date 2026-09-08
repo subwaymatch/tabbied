@@ -1,7 +1,7 @@
 // Where the stdio server gets its catalog, previews, and docs.
 //
 // The catalog is read from the installed `tabbied` package rather than fetched,
-// so the tools describe exactly the version the caller will `npm install` — an
+// so the tools describe exactly the version the caller will `npm install` - an
 // agent told about a design that only exists on the site would write an import
 // that doesn't resolve. The network is the fallback, not the default.
 import { createRequire } from 'node:module';
@@ -38,7 +38,7 @@ export async function loadCatalog(): Promise<Catalog> {
       ) as Catalog;
     } catch (error) {
       // A resolvable package with no catalog.json means a source checkout that
-      // hasn't been built. Say so — the network copy would silently disagree
+      // hasn't been built. Say so - the network copy would silently disagree
       // with the local patterns the user is about to edit.
       const reason = error instanceof Error ? error.message : String(error);
       process.stderr.write(
@@ -61,7 +61,7 @@ export async function loadCatalog(): Promise<Catalog> {
 /**
  * Preview bytes for one design. These are the committed @2x renders the site
  * serves, so what the agent sees is the same image a human browsing the gallery
- * sees — not a fresh render that might differ.
+ * sees - not a fresh render that might differ.
  */
 export async function fetchPreview(
   design: CatalogDesign
@@ -79,7 +79,7 @@ export async function fetchPreview(
 
 /**
  * The full reference. The package ships its own copy as llms.txt (the tarball
- * gets the *full* text under that name — in node_modules, depth beats brevity),
+ * gets the *full* text under that name - in node_modules, depth beats brevity),
  * so this works offline too.
  */
 export async function fetchDocs(): Promise<string> {

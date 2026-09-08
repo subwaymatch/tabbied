@@ -11,7 +11,7 @@ import styles from './GalleryRail.module.css';
 
 // How many rows to reveal per batch. The full merged list is hundreds of
 // palettes, so it renders incrementally (like the old browser) and grows as the
-// rail scrolls — cheap first paint, no wall of DOM.
+// rail scrolls - cheap first paint, no wall of DOM.
 const PAGE = 24;
 
 /**
@@ -19,7 +19,7 @@ const PAGE = 24;
  * list and the design grid, a labelled count, the full merged palette list
  * (custom first, then the read-only library) in a single scrolling column, and
  * a pinned "+ New Palette". The list is the whole point of the rail, so it's
- * shown from the start — no "Preview colors" step and no separate browser.
+ * shown from the start - no "Preview colors" step and no separate browser.
  *
  * The way home lives in GalleryTopBar above it, not here.
  */

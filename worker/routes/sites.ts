@@ -45,8 +45,8 @@ import { consume } from '../lib/ratelimit';
 import { requireUser } from '../lib/session';
 import { hashText, loadPackagedHtml, loadTemplateSpec } from '../lib/templateAssets';
 
-// A site is a direction someone chose to make: the full document — every text
-// slot on the template rewritten for the business — pinned to the template it
+// A site is a direction someone chose to make: the full document - every text
+// slot on the template rewritten for the business - pinned to the template it
 // was written against, with a revision history from the first draft on.
 //
 // The directions call picks three from a scored dozen and writes three
@@ -99,7 +99,7 @@ async function latestRevision(db: Db, siteId: string) {
 }
 
 /**
- * Append revision n+1 and touch the site, in that order — the site's
+ * Append revision n+1 and touch the site, in that order - the site's
  * updatedAt is what the listing sorts on, so a write that changed the
  * document has to move it.
  */
@@ -135,7 +135,7 @@ async function appendRevision(
 
 /**
  * Reference pictures, by upload id, owned by this person. Someone else's
- * upload id is treated as unknown rather than as forbidden — an id is not a
+ * upload id is treated as unknown rather than as forbidden - an id is not a
  * thing to confirm the existence of.
  */
 async function loadReferences(
@@ -172,7 +172,7 @@ const newId = () => crypto.randomUUID().replace(/-/g, '');
 /**
  * The output budget scales with the page. Reasoning is spent from the same
  * cap before any text is emitted, and a 300-slot bespoke page is a long
- * answer — a cap sized for three strings comes back `incomplete` with nothing.
+ * answer - a cap sized for three strings comes back `incomplete` with nothing.
  */
 const outputBudget = (slotCount: number) => Math.min(24_000, 3_000 + slotCount * 60);
 
@@ -303,8 +303,8 @@ sites.post('/', async (c) => {
           continue;
         }
 
-        // The engine's own planner is the second gate — pure, so it runs here
-        // with no DOM — and what it rejects is what the page would reject.
+        // The engine's own planner is the second gate - pure, so it runs here
+        // with no DOM - and what it rejects is what the page would reject.
         const candidate: EditsDocument = {
           specVersion: spec.specVersion,
           slug: spec.site.slug,
@@ -451,7 +451,7 @@ sites.get('/:id', async (c) => {
 
   const direction = (JSON.parse(row.result) as StoredResult).directions[row.site.directionIndex];
 
-  // A missing package is drift too — the template was retired.
+  // A missing package is drift too - the template was retired.
   const currentHash = await loadPackagedHtml(c.env, c.req.raw, row.site.slug)
     .then(hashText)
     .catch(() => null);
@@ -652,7 +652,7 @@ const revisionRequestSchema = z.object({
 
 /**
  * A manual revision: the editor's document, whole. Validated by the same
- * planner the page applies it with, so what is stored is what will render —
+ * planner the page applies it with, so what is stored is what will render -
  * a document the engine would reject is refused here with its reasons rather
  * than saved and discovered as a blank slot.
  */
@@ -728,7 +728,7 @@ sites.post('/:id/revisions', async (c) => {
   return c.json({ revision: written.n });
 });
 
-/** Every revision, newest first — the history the workspace shows. */
+/** Every revision, newest first - the history the workspace shows. */
 sites.get('/:id/revisions', async (c) => {
   const db = drizzle(c.env.DB, { schema });
   const row = await loadSite(db, c.req.param('id'));
@@ -753,7 +753,7 @@ sites.get('/:id/revisions', async (c) => {
   return c.json({ revisions: rows });
 });
 
-/** One revision's document — what "go back" reads. */
+/** One revision's document - what "go back" reads. */
 sites.get('/:id/revisions/:n', async (c) => {
   const db = drizzle(c.env.DB, { schema });
   const n = Number(c.req.param('n'));
@@ -790,7 +790,7 @@ const reviseRequestSchema = z.object({
 
 /**
  * "Make the headline warmer." A revision by request: the model sees the page
- * as it currently reads — the person's document, not the template's — and
+ * as it currently reads - the person's document, not the template's - and
  * answers with a diff, which is merged, planned and stored as the next
  * revision with the request beside it.
  *
@@ -809,7 +809,7 @@ sites.post('/:id/revise', async (c) => {
   const parsed = reviseRequestSchema.safeParse(await c.req.json().catch(() => null));
 
   if (!parsed.success) {
-    return c.json({ error: 'Say what to change, in 3–600 characters.' }, 400);
+    return c.json({ error: 'Say what to change, in 3-600 characters.' }, 400);
   }
 
   const db = drizzle(c.env.DB, { schema });

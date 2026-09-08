@@ -5,7 +5,7 @@ import { STUDIO_ENTRIES } from 'lib/studioDirections';
 // The Worker matches against the same 57 entries the browser does, and this is
 // how it gets them: `env.ASSETS.fetch('/studio-index.json')`. Reading it as an
 // asset rather than bundling it into the Worker is the property the MCP
-// endpoint already relies on — the tools describe exactly the bytes this
+// endpoint already relies on - the tools describe exactly the bytes this
 // deployment serves, so a template added in the same commit cannot be missing
 // from the index the API matches against.
 //

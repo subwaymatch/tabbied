@@ -20,7 +20,7 @@ export default function NotFound() {
               <h3 className="section-title">Page not found</h3>
 
               <p style={{ marginTop: '1.5rem' }}>
-                The page you are looking for doesn&apos;t exist — it may have
+                The page you are looking for doesn&apos;t exist - it may have
                 moved, or the link may be misspelled.
               </p>
 

@@ -9,11 +9,11 @@ import styles from './StudioForm.module.css';
 
 // Three ways out of this form, and the page leads with one.
 //
-// "Generate websites" is the one the title promises — three directions to
+// "Generate websites" is the one the title promises - three directions to
 // choose between, each a complete site. It costs money and therefore needs an
 // account. "Make my website" skips the choosing (the model picks and writes the
 // one it would lead with); "Match from the library" is the shipped, free,
-// offline path — a pure function of the text, available to everybody. The two
+// offline path - a pure function of the text, available to everybody. The two
 // are kept as quieter actions under the button rather than dropped: they are
 // real paths with real users, and the difference between them is honest on its
 // face.
@@ -39,7 +39,7 @@ type Photo = {
   note: string;
   /** Why the API would refuse it, decided here; a problem photo is never sent. */
   problem: string | null;
-  /** Already in the person's library — a retry after a later failure skips it. */
+  /** Already in the person's library - a retry after a later failure skips it. */
   uploaded: boolean;
 };
 
@@ -84,7 +84,7 @@ export default function StudioForm({ templateCount }: { templateCount: number })
     try {
       window.sessionStorage.setItem(DRAFT_KEY, text);
     } catch {
-      // Nothing to do — they retype it.
+      // Nothing to do - they retype it.
     }
     router.push(`/sign-in?next=${encodeURIComponent('/studio')}`);
   };
@@ -143,7 +143,7 @@ export default function StudioForm({ templateCount }: { templateCount: number })
 
   /**
    * The two paid paths. `directions` is three sites to choose between;
-   * `make` is one request, one site — the model picks the direction it
+   * `make` is one request, one site - the model picks the direction it
    * would lead with and writes every word of it.
    */
   async function generate(kind: 'directions' | 'make') {
@@ -172,8 +172,8 @@ export default function StudioForm({ templateCount }: { templateCount: number })
         router.push(`/studio/results/?g=${id}`);
       }
     } catch (cause) {
-      // The API writes its errors to be read — a quota notice, a rate-limit
-      // notice — so they are shown as-is rather than flattened to "failed".
+      // The API writes its errors to be read - a quota notice, a rate-limit
+      // notice - so they are shown as-is rather than flattened to "failed".
       setError(cause instanceof ApiError ? cause.message : 'Something went wrong. Try again.');
       setPending(null);
     }
@@ -181,9 +181,9 @@ export default function StudioForm({ templateCount }: { templateCount: number })
 
   const label =
     pending === 'directions'
-      ? 'Generating your directions…'
+      ? 'Generating your directions...'
       : pending === 'make'
-        ? 'Making your website…'
+        ? 'Making your website...'
         : 'Generate websites';
 
   return (
@@ -196,8 +196,8 @@ export default function StudioForm({ templateCount }: { templateCount: number })
     >
       <h1 className={styles.title}>Describe your business, get three websites</h1>
       <p className={styles.lede}>
-        Each one is a complete, ready-to-use site in its own brand direction
-        &mdash; built with tabbied&rsquo;s generative patterns in place of stock
+        Each one is a complete, ready-to-use site in its own brand direction,
+        built with tabbied's generative patterns in place of stock
         photography.
       </p>
 
@@ -356,8 +356,7 @@ export default function StudioForm({ templateCount }: { templateCount: number })
         instant and needs no account; the other two need one
         {sessionPending || user ? null : (
           <>
-            {' '}
-            &mdash; <Link href="/sign-up">create one</Link>
+            , so <Link href="/sign-up">create one</Link> first
           </>
         )}
         . Photos are optional and stay in your account.

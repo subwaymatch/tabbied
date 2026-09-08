@@ -10,7 +10,7 @@
  *
  * Incremental and idempotent: an entry whose content hash is unchanged is reused
  * without touching sharp, and the manifest file is only rewritten when it actually
- * changed — so this stays a true no-op (and produces no git diff) on a clean tree,
+ * changed - so this stays a true no-op (and produces no git diff) on a clean tree,
  * which is what makes it safe on `dev` / `build` / `postinstall`.
  *
  * Bump MANIFEST_VERSION to invalidate every cached hash.
@@ -33,7 +33,7 @@ const MANIFEST_VERSION = "1";
 
 /** Read the previous manifest so unchanged images can be skipped. It is an ES module
  *  this script wrote, so the JSON literal is pulled out by regex rather than
- *  import()-ed. Absent or unparseable → treat everything as new. */
+ *  import()-ed. Absent or unparseable -> treat everything as new. */
 function loadPrior() {
   if (!existsSync(MANIFEST_FILE)) return {};
   try {

@@ -587,7 +587,7 @@
   border: 0;
 }
 
-/* ---- Mobile (7d): compact editor — fixed preview band, scrolling controls ---- */
+/* ---- Mobile (7d): compact editor - fixed preview band, scrolling controls ---- */
 
 @media (max-width: 991.98px) {
   /* Keep the fixed-height card model (the page doesn't scroll); the editing
@@ -610,7 +610,7 @@
 
   /* The preview band is a fixed height here, so the caption has to fit inside
      it. The header above already names the pattern, which makes the name the
-     line to drop — the size is the part that is not shown anywhere else. */
+     line to drop - the size is the part that is not shown anywhere else. */
   .stage {
     gap: 12px;
   }

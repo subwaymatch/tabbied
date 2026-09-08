@@ -29,7 +29,7 @@ const describe = (slot: SiteSlot): string => {
   const parts = [slot.label ?? slot.id];
 
   if (slot.maxChars) parts.push(`up to ${slot.maxChars} characters`);
-  if (slot.format === 'emphasis') parts.push('may wrap one phrase in {em}…{/em}');
+  if (slot.format === 'emphasis') parts.push('may wrap one phrase in {em}...{/em}');
 
   return parts.join('; ');
 };
@@ -72,7 +72,7 @@ export type SitePayload = z.infer<ReturnType<typeof buildSiteValidator>>;
 export const slotLine = (slot: SiteSlot): string => {
   const current = slot.value.replace(/\s+/g, ' ').trim();
   const preview =
-    current.length > CURRENT_VALUE_PREVIEW ? `${current.slice(0, CURRENT_VALUE_PREVIEW)}…` : current;
+    current.length > CURRENT_VALUE_PREVIEW ? `${current.slice(0, CURRENT_VALUE_PREVIEW)}...` : current;
 
   return `- ${slot.id} · ${describe(slot)} · now: "${preview}"`;
 };

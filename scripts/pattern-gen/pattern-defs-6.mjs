@@ -1,11 +1,11 @@
-// Batch 6 — 19 *ordered*, background-independent motifs (gallery orders 620+).
+// Batch 6 - 19 *ordered*, background-independent motifs (gallery orders 620+).
 //
 // Two rules separate this batch from everything before it.
 //
 // 1. Nothing is placed at random. Where earlier batches lean on scatter
 //    (Confetti, Shard and Sprinkles roll a fresh position, size and angle for
 //    every cell), every shape here sits on the cell grid, and what varies from
-//    cell to cell varies by *rule* — `@match` on the cell's column/row/index,
+//    cell to cell varies by *rule* - `@match` on the cell's column/row/index,
 //    `@pn()` cycling a value in order, or `@calc()` ramping a size, angle or
 //    bore across the canvas. Redraws re-ink the pattern (colors are still
 //    sampled per cell) but never rearrange it, so a reseed reads as a new
@@ -16,17 +16,17 @@
 //    background is opaque: set the background slot to transparent (the editor
 //    writes `#rrggbb00`) and those "holes" stop erasing anything, because
 //    painting transparent over ink leaves the ink. So every gap here is real
-//    geometry — a clip-path hole, a mask, a border, or a gap between two
-//    shapes — and the style half never references `var(--color0)` at all
+//    geometry - a clip-path hole, a mask, a border, or a gap between two
+//    shapes - and the style half never references `var(--color0)` at all
 //    (generate-batch6.mjs enforces this). Each design renders identically over
 //    any background, including none.
 //
 // House rules (matching every earlier batch):
-//   * reseed variation rides on a transition-able, *sampled* property —
-//     background-color or border-color — so recolors morph;
+//   * reseed variation rides on a transition-able, *sampled* property -
+//     background-color or border-color - so recolors morph;
 //   * a randomized custom prop used more than once is read via @var(--x);
-//   * every rule paints through @random(${shapeFrequency}) — including the
-//     @match branches, so the frequency slider still thins the field — and
+//   * every rule paints through @random(${shapeFrequency}) - including the
+//     @match branches, so the frequency slider still thins the field - and
 //     ends in a transition.
 
 const isDark = (hex) => {
@@ -36,7 +36,7 @@ const isDark = (hex) => {
   return (0.2126 * ((n >> 16) & 255) + 0.7152 * ((n >> 8) & 255) + 0.0722 * (n & 255)) / 255 < 0.5;
 };
 
-// Ink picker over color1..color(c-1) (color0 is the background — never painted).
+// Ink picker over color1..color(c-1) (color0 is the background - never painted).
 const ink = (c, s = 1) => {
   const a = [];
   for (let i = s; i <= c - 1; i++) a.push(`var(--color${i})`);
@@ -169,7 +169,7 @@ const PAL = [
 const TAKEN = new Set(
   (
     // Every motif name used anywhere in the project so far: the shipped
-    // patterns, the gallery thumbnail table, and batches 1–5's definition
+    // patterns, the gallery thumbnail table, and batches 1-5's definition
     // files (including entries that were trimmed before shipping).
     'abacus acorn amphora aperture arcade argyle arrow arrowplay ascent aster ' +
     'asterisk aurora awning azulejo balloon barcode bargello barline basalt ' +
@@ -249,11 +249,11 @@ const add = (name, palIdx, description, build, cfg = {}) => {
   const { vars, rule } = build(c);
   const code = `${vars} ${rule}`;
   if (/@rand\s*\(|@r\s*\(/.test(code)) {
-    throw new Error(`${slug}: batch 6 is the ordered batch — @rand() is not allowed`);
+    throw new Error(`${slug}: batch 6 is the ordered batch - @rand() is not allowed`);
   }
   if (/var\(\s*--color0\s*\)/.test(code)) {
     throw new Error(
-      `${slug}: painting var(--color0) breaks on a transparent background — cut the shape instead`
+      `${slug}: painting var(--color0) breaks on a transparent background - cut the shape instead`
     );
   }
   all.push({
@@ -296,7 +296,7 @@ add('Kerf', 21, 'Saw slots cut clean through solid blocks, the kerf biting from 
 // B. Checkers, bonds & tilings
 // ════════════════════════════════════════════════════════════════════════════
 
-add('Damier', 19, 'A strict checkerboard — filled squares keyed to their neighbours, the open squares holding a single pip so the field still reads when the ground drops away.', (c) => ({
+add('Damier', 19, 'A strict checkerboard - filled squares keyed to their neighbours, the open squares holding a single pip so the field still reads when the ground drops away.', (c) => ({
   vars: '',
   rule: `${F} { background: ${ink(c)}; @even { background: transparent; ${A(`inset: 30%; background: ${ink(c)};`)} } }${TR}`,
 }), { grid: '8x12', tg: '6x6' });
@@ -334,7 +334,7 @@ add('Lunette', 45, 'Half-round lunette windows, each pair of panes parted by an 
 // D. Rounds & arcs
 // ════════════════════════════════════════════════════════════════════════════
 
-add('Annulus', 36, 'Rings that thicken row by row down the canvas — the same circle, walked through its whole range, bored right through.', (c) => ({
+add('Annulus', 36, 'Rings that thicken row by row down the canvas - the same circle, walked through its whole range, bored right through.', (c) => ({
   vars: '',
   rule: `${F} { width: 92%; height: 92%; margin: 4%; border-radius: 50%; background: ${ink(c)}; ${ringMask('@calc(66 - 46 * @y / @Y)%')} }${TR}`,
 }), { grid: '6x9', tg: '4x4' });
@@ -367,7 +367,7 @@ add('Rafter', 18, 'One diagonal member per cell, meeting end to end into unbroke
 // F. Cloth
 // ════════════════════════════════════════════════════════════════════════════
 
-add('Ogee', 19, 'An ogee lattice — every tile rounded on one pair of opposite corners, flipping with the checker to draw the onion curve.', (c) => ({
+add('Ogee', 19, 'An ogee lattice - every tile rounded on one pair of opposite corners, flipping with the checker to draw the onion curve.', (c) => ({
   vars: '',
   rule: `${F} { background: ${ink(c)}; border-radius: 100% 0 100% 0; @even { border-radius: 0 100% 0 100%; } }${TR}`,
 }), { grid: '6x9', tg: '5x5' });

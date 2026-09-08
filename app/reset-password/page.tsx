@@ -6,7 +6,7 @@ import { ResetPasswordForm } from 'components/account/PasswordForms';
 import styles from 'components/studio/studio.module.css';
 
 export const metadata: Metadata = {
-  title: 'Choose a new password — Tabbied',
+  title: 'Choose a new password - Tabbied',
   robots: { index: false, follow: false },
 };
 

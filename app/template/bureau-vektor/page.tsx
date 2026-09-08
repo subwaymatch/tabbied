@@ -7,7 +7,7 @@ import s from './bureau-vektor.module.css';
 export const metadata = {
   title: 'Bureau Vektor: Public statistics',
   description:
-    'Bureau Vektor publishes the canton’s official statistics: seventy series, released on a fixed calendar, whole and unrounded, free to reuse.',
+    'Bureau Vektor publishes the canton\'s official statistics: seventy series, released on a fixed calendar, whole and unrounded, free to reuse.',
 };
 
 /* White, ink, one ultramarine. Fields take `transparent` in the background
@@ -25,7 +25,7 @@ const HEADLINE = [
 ];
 
 /* One year of a single series, published as a chart made of nothing but
-   divs — the same numbers the table below carries. */
+   divs - the same numbers the table below carries. */
 const SERIES_2026 = [
   ['Jan', 62], ['Feb', 58], ['Mar', 67], ['Apr', 74],
   ['May', 81], ['Jun', 88], ['Jul', 71], ['Aug', 64],
@@ -54,20 +54,20 @@ const METHODS = [
 ];
 
 const CATALOGUE = [
-  ['VK-001', 'Resident population by commune', 'Monthly', '1962–', 'CSV, JSON, Parquet'],
-  ['VK-004', 'Births, deaths, migration', 'Monthly', '1876–', 'CSV, JSON'],
-  ['VK-011', 'Registered unemployment', 'Monthly', '1991–', 'CSV, JSON, Parquet'],
-  ['VK-014', 'Vacancies by sector', 'Quarterly', '2004–', 'CSV, JSON'],
-  ['VK-020', 'Consumer price index', 'Monthly', '1922–', 'CSV, JSON'],
-  ['VK-026', 'Rents, new lettings', 'Quarterly', '1998–', 'CSV'],
-  ['VK-031', 'Dwellings completed', 'Quarterly', '1945–', 'CSV, JSON'],
-  ['VK-038', 'Cross-border commuters', 'Quarterly', '1996–', 'CSV, JSON'],
-  ['VK-042', 'Public transport journeys', 'Monthly', '2008–', 'CSV, JSON, Parquet'],
-  ['VK-049', 'Overnight stays', 'Monthly', '1934–', 'CSV, JSON'],
-  ['VK-055', 'Electricity consumption', 'Monthly', '1971–', 'CSV, JSON'],
-  ['VK-061', 'School enrolment', 'Annual', '1880–', 'CSV'],
-  ['VK-068', 'Cantonal tax receipts', 'Annual', '1919–', 'CSV, JSON'],
-  ['VK-070', 'Voter turnout by commune', 'Per ballot', '1848–', 'CSV, JSON, Parquet'],
+  ['VK-001', 'Resident population by commune', 'Monthly', '1962-', 'CSV, JSON, Parquet'],
+  ['VK-004', 'Births, deaths, migration', 'Monthly', '1876-', 'CSV, JSON'],
+  ['VK-011', 'Registered unemployment', 'Monthly', '1991-', 'CSV, JSON, Parquet'],
+  ['VK-014', 'Vacancies by sector', 'Quarterly', '2004-', 'CSV, JSON'],
+  ['VK-020', 'Consumer price index', 'Monthly', '1922-', 'CSV, JSON'],
+  ['VK-026', 'Rents, new lettings', 'Quarterly', '1998-', 'CSV'],
+  ['VK-031', 'Dwellings completed', 'Quarterly', '1945-', 'CSV, JSON'],
+  ['VK-038', 'Cross-border commuters', 'Quarterly', '1996-', 'CSV, JSON'],
+  ['VK-042', 'Public transport journeys', 'Monthly', '2008-', 'CSV, JSON, Parquet'],
+  ['VK-049', 'Overnight stays', 'Monthly', '1934-', 'CSV, JSON'],
+  ['VK-055', 'Electricity consumption', 'Monthly', '1971-', 'CSV, JSON'],
+  ['VK-061', 'School enrolment', 'Annual', '1880-', 'CSV'],
+  ['VK-068', 'Cantonal tax receipts', 'Annual', '1919-', 'CSV, JSON'],
+  ['VK-070', 'Voter turnout by commune', 'Per ballot', '1848-', 'CSV, JSON, Parquet'],
 ];
 
 const CALENDAR = [
@@ -101,7 +101,7 @@ const REUSE = [
   ['Citation', 'Every series page carries a citation string with the exact revision.'],
 ];
 
-/* x and y are percentages of the locator box, not coordinates —
+/* x and y are percentages of the locator box, not coordinates -
    the schematic is a diagram of relative position, nothing more. */
 const OFFICES = [
   { city: 'Genève', role: 'Head office', addr: 'Rue du Recensement 4, 1204', fix: '+41 22 000 04 00', x: 27, y: 62, head: true },
@@ -215,7 +215,7 @@ export default function BureauVektorPage() {
           </p>
           <div className={s.statementMeta}>
             <p data-edit="statement.body" data-edit-max="240" data-edit-multiline>
-              Bureau Vektor is the canton&rsquo;s statistical office. It has been
+              Bureau Vektor is the canton's statistical office. It has been
               publishing since 1919 and has missed its own calendar four times,
               each of which is documented on the methods page.
             </p>

@@ -30,7 +30,7 @@ import { loadStudioIndex } from '../lib/studioIndex';
 // The shipped client-side matcher is not replaced by any of this: it is the
 // signed-out path, and here it becomes *candidate assembly*. The model picks
 // three from a scored dozen rather than hallucinating over 57, and the slug
-// enum in the response schema is built from exactly that dozen — so an invented
+// enum in the response schema is built from exactly that dozen - so an invented
 // template cannot survive validation, and every card still leads to a real page
 // and a real zip.
 
@@ -44,7 +44,7 @@ const requestSchema = z.object({
 
 /**
  * Burst gates: a short window on top of the daily ledger, so a script cannot
- * spend a whole day's budget in ten seconds. Both are exact — the counter is
+ * spend a whole day's budget in ten seconds. Both are exact - the counter is
  * one atomic statement (lib/ratelimit.ts).
  */
 const BURST = {
@@ -92,7 +92,7 @@ studio.post('/directions', async (c) => {
   const parsed = requestSchema.safeParse(await c.req.json().catch(() => null));
 
   if (!parsed.success) {
-    return c.json({ error: 'Describe your business in 10–600 characters.' }, 400);
+    return c.json({ error: 'Describe your business in 10-600 characters.' }, 400);
   }
 
   const { description } = parsed.data;
@@ -167,7 +167,7 @@ studio.post('/directions', async (c) => {
     // On the Responses API that retry is a genuine second *turn*: quoting the
     // rejected response as `previous_response_id` makes the input the
     // correction alone, against a context that still holds what the model just
-    // wrote — which is what it needs to see to fix it. An upstream that stored
+    // wrote - which is what it needs to see to fix it. An upstream that stored
     // nothing returns no id and the retry re-sends the whole thing instead, so
     // chaining is an improvement here and never a dependency.
     let previousResponseId: string | undefined;
@@ -221,7 +221,7 @@ studio.post('/directions', async (c) => {
       }
     }
 
-    // The attempt is recorded whether or not it produced a usable answer —
+    // The attempt is recorded whether or not it produced a usable answer -
     // a failed call still spent tokens, and a ledger that only counts
     // successes is a ledger a bad prompt can loop against for free.
     await recordUsage(db, {
@@ -295,7 +295,7 @@ studio.post('/directions', async (c) => {
  */
 /**
  * The signed-in person's own generations, newest first. Session-scoped and
- * never by id — the same split as sites: the no-listing rule is about
+ * never by id - the same split as sites: the no-listing rule is about
  * anonymous *enumeration*, not a person's own rows. Each row carries the
  * three directions' names and palettes, which is what a history list shows,
  * and not the copy, which is what makes 100 rows a small answer.
@@ -374,7 +374,7 @@ const imageRequestSchema = z.object({
  *
  * Never three up front: text directions are cheap and images are not, so this
  * is behind a deliberate click and capped separately. Idempotent per
- * (generation, index) — a second call returns the stored key rather than
+ * (generation, index) - a second call returns the stored key rather than
  * spending again, which is what makes a double-click or a retry safe.
  */
 studio.post('/direction-image', async (c) => {
@@ -441,7 +441,7 @@ studio.post('/direction-image', async (c) => {
   try {
     // Transparent: gpt-image-2 returns the subject on a real alpha channel, so
     // the still life sits on the card's own ground rather than in a box of
-    // its own — and later drops into a template's image slot the same way.
+    // its own - and later drops into a template's image slot the same way.
     image = await generateImage(c.env, {
       prompt: directionImagePrompt(direction, row.description),
       transparent: true,

@@ -3,7 +3,7 @@
 // The mapping is small; what it has to get right is the *absences*. A template
 // that declares no headline, a model that returned no tagline, and a palette
 // that would fail validation all reach this code, and none of them may produce
-// an edits document that `planEdits` then rejects — the caller's alternative to
+// an edits document that `planEdits` then rejects - the caller's alternative to
 // a partial rebrand is no rebrand at all, which is worse.
 import test from 'node:test';
 import assert from 'node:assert/strict';

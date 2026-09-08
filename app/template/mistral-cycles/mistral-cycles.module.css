@@ -1092,7 +1092,7 @@
 }
 
 .faqItem[open] summary::after {
-  content: '–';
+  content: '-';
 }
 
 .faqItem summary:hover {

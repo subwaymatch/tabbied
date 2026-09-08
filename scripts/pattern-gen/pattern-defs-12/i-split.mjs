@@ -1,11 +1,11 @@
-// I. Split — one cut across the cell, with an ink either side of it.
+// I. Split - one cut across the cell, with an ink either side of it.
 //
 // Where section A softens a boundary until it stops being one, this section
 // keeps it: a straight edge, and the two inks it separates. The variety is in
 // where the cut lands, how far it leans, and whether the two parts meet, miss,
 // or leave a third thing between them.
 //
-// Neither of these butts two clipped shapes edge to edge — one leaves a
+// Neither of these butts two clipped shapes edge to edge - one leaves a
 // channel of ground between the halves, the other stands a single shape on
 // clear ground. One anti-aliased edge instead of two abutting ones is both the
 // better drawing and the better export: abutting AA edges are exactly where a

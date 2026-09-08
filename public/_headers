@@ -4,7 +4,7 @@
 #
 # This is where the site's headers have to live. next.config.mjs runs in
 # `output: 'export'` mode, and an export has no server to attach headers to, so
-# `headers()` in next.config is inert — the same reason these lived in
+# `headers()` in next.config is inert - the same reason these lived in
 # vercel.json before the move to Cloudflare.
 #
 # Limits: 100 rules, 2,000 characters per line.

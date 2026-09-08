@@ -2,7 +2,7 @@
 //
 // A doodle is rendered on a fixed-width canvas whose height follows the
 // selected aspect ratio. The column×row grid adapts to the ratio so that each
-// cell stays (near-)square — this keeps every preset looking the way it was
+// cell stays (near-)square - this keeps every preset looking the way it was
 // authored regardless of orientation.
 
 export const ASPECT_RATIOS = {
@@ -20,7 +20,7 @@ export type AspectRatioId = keyof typeof ASPECT_RATIOS;
 
 export const DEFAULT_ASPECT_RATIO: AspectRatioId = '2:3';
 
-// Display order for the aspect-ratio selector (portrait → square → landscape).
+// Display order for the aspect-ratio selector (portrait -> square -> landscape).
 export const ASPECT_RATIO_IDS = Object.keys(ASPECT_RATIOS) as AspectRatioId[];
 
 // Density of the grid, measured as the number of cells along the canvas's

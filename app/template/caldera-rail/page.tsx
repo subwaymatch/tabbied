@@ -9,7 +9,7 @@ export const metadata = {
     'The Caldera Railway Company operates three slow, scenic routes across the caldera country: the Coast Cantata, the Alpine Ascent and the Vineyard Arc. Timetables, fares and the dining car await.',
 };
 
-// Site palette — parchment first, then inks.
+// Site palette - parchment first, then inks.
 const PARCHMENT = '#F0EAD6';
 const NAVY = '#264653';
 const TEAL = '#2A9D8F';
@@ -136,7 +136,7 @@ const timetable = [
   {
     service: '101',
     route: 'Coast Cantata',
-    dir: 'Terra Alta → Port Lumen',
+    dir: 'Terra Alta \u2192 Port Lumen',
     days: 'Daily',
     dep: '08:12',
     arr: '14:52',
@@ -145,7 +145,7 @@ const timetable = [
   {
     service: '102',
     route: 'Coast Cantata',
-    dir: 'Port Lumen → Terra Alta',
+    dir: 'Port Lumen \u2192 Terra Alta',
     days: 'Daily',
     dep: '15:40',
     arr: '22:18',
@@ -154,7 +154,7 @@ const timetable = [
   {
     service: '201',
     route: 'Alpine Ascent',
-    dir: 'Terra Alta → Vespergate',
+    dir: 'Terra Alta \u2192 Vespergate',
     days: 'Tue · Thu · Sat',
     dep: '07:35',
     arr: '14:40',
@@ -163,7 +163,7 @@ const timetable = [
   {
     service: '202',
     route: 'Alpine Ascent',
-    dir: 'Vespergate → Terra Alta',
+    dir: 'Vespergate \u2192 Terra Alta',
     days: 'Wed · Fri · Sun',
     dep: '09:10',
     arr: '16:15',
@@ -172,7 +172,7 @@ const timetable = [
   {
     service: '301',
     route: 'Vineyard Arc',
-    dir: 'Casteldoro → Miradora',
+    dir: 'Casteldoro \u2192 Miradora',
     days: 'Fri to Sun',
     dep: '13:05',
     arr: '17:30',
@@ -181,7 +181,7 @@ const timetable = [
   {
     service: '901',
     route: 'Night Vespers',
-    dir: 'Terra Alta → Vespergate',
+    dir: 'Terra Alta \u2192 Vespergate',
     days: 'Fri only',
     dep: '21:50',
     arr: '06:05',
@@ -226,7 +226,7 @@ export default function CalderaRailPage() {
           Vespergate
         </p>
         <p className={styles.mastheadMark} aria-hidden="true">
-          ✦
+          &#x2726;
         </p>
         <p data-edit="masthead.brand" data-edit-max="240" data-edit-multiline className={styles.brand}>Caldera</p>
         <p data-edit="masthead.tagline" data-edit-max="240" data-edit-multiline className={styles.tagline}>Scenic railway journeys, kept slow on purpose</p>
@@ -241,9 +241,9 @@ export default function CalderaRailPage() {
       </header>
 
       <main>
-        {/* ————— Hero ————— */}
+        {/* ----- Hero ----- */}
         <section className={styles.hero} aria-labelledby="hero-heading">
-          {/* Full-bleed arcade of arches behind the whole hero — the viaduct
+          {/* Full-bleed arcade of arches behind the whole hero - the viaduct
               motif the railway is built on, scrimmed back where type sits. */}
           <div data-edit-pattern="hero.field" data-edit-roles="0,3,4,5,6,7" className={styles.heroPattern} aria-hidden="true">
             <TabbiedPattern
@@ -285,7 +285,7 @@ export default function CalderaRailPage() {
                 </div>
                 <div>
                   <dt data-edit="hero.term3" data-edit-max="28">Punctuality</dt>
-                  <dd data-edit="hero.body3" data-edit-max="200" data-edit-multiline>98.4% (1927–)</dd>
+                  <dd data-edit="hero.body3" data-edit-max="200" data-edit-multiline>98.4% (1927-)</dd>
                 </div>
               </dl>
             </div>
@@ -321,7 +321,7 @@ export default function CalderaRailPage() {
           />
         </div>
 
-        {/* ————— Routes ————— */}
+        {/* ----- Routes ----- */}
         <section
           id="routes"
           className={styles.section}
@@ -371,7 +371,7 @@ export default function CalderaRailPage() {
           </div>
         </section>
 
-        {/* ————— Route timeline ————— */}
+        {/* ----- Route timeline ----- */}
         <section
           id="line"
           className={`${styles.sectionAlt} ${styles.lineSection}`}
@@ -413,7 +413,7 @@ export default function CalderaRailPage() {
           </ol>
         </section>
 
-        {/* ————— Aboard ————— */}
+        {/* ----- Aboard ----- */}
         <section
           id="aboard"
           className={styles.section}
@@ -423,7 +423,7 @@ export default function CalderaRailPage() {
             <p data-edit="sectionHead.sectionNo3" data-edit-max="240" data-edit-multiline className={styles.sectionNo}>Section III</p>
             <h2 data-edit="sectionHead.title3" data-edit-max="60" id="aboard-heading">Aboard</h2>
             <p data-edit="sectionHead.sectionLead3" data-edit-max="240" data-edit-multiline className={styles.sectionLead}>
-              The train is the destination’s first act. Everything on board is
+              The train is the destination's first act. Everything on board is
               original, restored, or made by the same hands that restore.
             </p>
           </header>
@@ -502,14 +502,14 @@ export default function CalderaRailPage() {
                 />
               </div>
               <figcaption data-edit="aboard.caption3" data-edit-max="120" data-edit-multiline>
-                Company time. Every guard’s watch is set against the great
+                Company time. Every guard's watch is set against the great
                 clock at Terra Alta.
               </figcaption>
             </figure>
           </div>
         </section>
 
-        {/* ————— Fleet ————— */}
+        {/* ----- Fleet ----- */}
         <section
           id="fleet"
           className={styles.fleet}
@@ -551,7 +551,7 @@ export default function CalderaRailPage() {
               <dl className={styles.fleetSpecs}>
                 <div>
                   <dt data-edit="fleet.term" data-edit-max="28">Arrangement</dt>
-                  <dd data-edit="fleet.body2" data-edit-max="200" data-edit-multiline>4-6-2 “Pacific”</dd>
+                  <dd data-edit="fleet.body2" data-edit-max="200" data-edit-multiline>4-6-2 "Pacific"</dd>
                 </div>
                 <div>
                   <dt data-edit="fleet.term2" data-edit-max="28">Line speed</dt>
@@ -570,7 +570,7 @@ export default function CalderaRailPage() {
           </div>
         </section>
 
-        {/* ————— Journal ————— */}
+        {/* ----- Journal ----- */}
         <section
           id="journal"
           className={styles.section}
@@ -596,7 +596,7 @@ export default function CalderaRailPage() {
           </div>
         </section>
 
-        {/* ————— Timetable & booking ————— */}
+        {/* ----- Timetable & booking ----- */}
         <section
           id="timetable"
           className={styles.sectionAlt}
@@ -665,7 +665,7 @@ export default function CalderaRailPage() {
               <h3 data-edit="timetable.title3" data-edit-max="40">Fair-weather promise</h3>
               <p data-edit="timetable.body3" data-edit-max="240" data-edit-multiline>
                 If cloud sits below the Col du Miroir for your whole Ascent,
-                your next mountain ticket is half price. The guard’s word is
+                your next mountain ticket is half price. The guard's word is
                 final and generously given.
               </p>
             </div>
@@ -673,7 +673,7 @@ export default function CalderaRailPage() {
         </section>
       </main>
 
-      {/* ————— Footer ————— */}
+      {/* ----- Footer ----- */}
       <footer className={styles.footer}>
         <div data-edit-pattern="footer.field" data-edit-roles="3,4,5,7" className={styles.footerBand} aria-hidden="true">
           <TabbiedPattern

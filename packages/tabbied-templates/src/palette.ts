@@ -1,12 +1,12 @@
 // Brand palette -> CSS custom properties.
 //
 // Colour enters a template page exactly once, as custom properties on its root
-// element, and the stylesheet only ever says `var(--…)`. That is what makes a
+// element, and the stylesheet only ever says `var(--...)`. That is what makes a
 // re-colour a property rewrite instead of a search-and-replace through a
 // stylesheet, and it is the shape the shared TemplateSite component already
 // used before any of this existed.
 //
-// Some of what the page needs is not *in* the palette but derived *from* it —
+// Some of what the page needs is not *in* the palette but derived *from* it -
 // the ink that stays legible on the page ground, the card and panel tints, the
 // text colour that sits on a filled accent. Those are functions of the
 // palette, so a re-colour has to recompute them; leaving them behind is how a
@@ -59,7 +59,7 @@ function templateSiteProperties(
 /**
  * Every custom property a palette implies, ready to write onto the root.
  *
- * `direct` and `templateSite` emit the raw `--brand-N` roles — what a person
+ * `direct` and `templateSite` emit the raw `--brand-N` roles - what a person
  * editing a downloaded template reads to find out which colour is which.
  * `vars` emits the page's own names instead, because that is what its
  * stylesheet reads. Either way a pattern field's `paletteRoles` indexes the
@@ -113,7 +113,7 @@ export function propertiesForPalette(
  *
  * A numeric role indexes the brand palette and wraps, mirroring how the
  * renderer already cycles a short palette across a design that asks for more
- * colours than it was given. A string role is a literal and never moves —
+ * colours than it was given. A string role is a literal and never moves -
  * `"transparent"` is the common one, and the reason it must be preserved is
  * that a transparent colour0 is what lets a pattern be drawn *over* a
  * photograph instead of over its own ground.

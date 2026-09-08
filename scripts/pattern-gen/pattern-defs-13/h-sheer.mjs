@@ -1,4 +1,4 @@
-// H. Sheer — the dotted grounds of net and lace.
+// H. Sheer - the dotted grounds of net and lace.
 //
 // Tiled radial fields: a hard dot, a feathered dot, and a ring. The converter
 // turns each tiled layer into an SVG <pattern> holding one tile, so a field of
@@ -7,7 +7,7 @@
 // The pitch is where this section had to be careful. A dot far below a pixel
 // at thumbnail scale is drawn by CSS and by a vector rasterizer with different
 // rounding, and the parity sweep catches it as a whole-field diff rather than
-// an edge one — the two finest designs here (Bobbinet, Tulle) ship coarser
+// an edge one - the two finest designs here (Bobbinet, Tulle) ship coarser
 // than first drawn, and on a 3x3 thumbnail grid, so their features stay whole
 // pixels where the gallery shows them.
 import {
@@ -29,7 +29,7 @@ const turned = (decls, turns = R4) =>
 
 add(
   'Bobbinet',
-  'A net of eyelets — the ground a bobbin lace is worked on.',
+  'A net of eyelets - the ground a bobbin lace is worked on.',
   (c) => ({ rule: turned(faded(c, eyeletL('16%', '28%', '25%'))) }),
   { pal: 51, tg: '3x3' }
 );

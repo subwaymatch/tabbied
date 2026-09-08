@@ -2,7 +2,7 @@
 //
 // This is the test that keeps `scripts/package-templates.mjs` honest. The
 // templates are derived from the static export, so a change to a template page
-// silently reshapes them — a smoke test that opens the generated template and
+// silently reshapes them - a smoke test that opens the generated template and
 // asserts its patterns came up is what catches a template that stopped working
 // because a page changed.
 //
@@ -23,7 +23,7 @@ const dirFor = (slug: string) =>
 // differently. werkraum has its own authored `<slug>.module.css`, which ships
 // verbatim. solstice is one of the five built on the shared TemplateSite
 // component: it has no per-page sheet, so the component's is shipped trimmed
-// to the rules the page can actually match — a transform with real room to be
+// to the rules the page can actually match - a transform with real room to be
 // silently wrong, which is why it is covered here too.
 // hopscotch-museum is the third path: its authored sheet uses `composes:`,
 // which CSS Modules resolves in the markup rather than the stylesheet. The
@@ -37,7 +37,7 @@ const FIXTURES = [
 
 // The template pins its bootstrap to the published package on esm.sh. Serving
 // this branch's built dist in its place keeps the test deterministic and
-// offline — and means it exercises the code about to ship rather than the
+// offline - and means it exercises the code about to ship rather than the
 // version that happens to be on the CDN.
 const distFileFor = (url: string): string | null => {
   const pathname = new URL(url).pathname;
@@ -74,7 +74,7 @@ for (const fixture of FIXTURES) {
       const url = route.request().url();
 
       // register.js imports 'css-doodle' as a bare specifier, which a browser
-      // can't resolve on its own — serve it from the same origin.
+      // can't resolve on its own - serve it from the same origin.
       if (url.endsWith('/css-doodle')) {
         return route.fulfill({
           status: 200,
@@ -91,7 +91,7 @@ for (const fixture of FIXTURES) {
         status: 200,
         body: fs
           .readFileSync(file, 'utf-8')
-          // Only the import specifier — the same string appears as a tag name
+          // Only the import specifier - the same string appears as a tag name
           // in document.createElement('css-doodle'), which must not be touched.
           .replace(
             /\b(import|from)\s+(['"])css-doodle\2/g,
@@ -105,8 +105,8 @@ for (const fixture of FIXTURES) {
     page.on('pageerror', (error) => errors.push(error.message));
 
     // The directory form, with the trailing slash, on purpose. `serve`
-    // rewrites `<dir>/index.html` to an extensionless `<dir>` — no trailing
-    // slash — and every relative asset in the template then resolves one
+    // rewrites `<dir>/index.html` to an extensionless `<dir>` - no trailing
+    // slash - and every relative asset in the template then resolves one
     // level too high and 404s. The template is fine (opened from disk, or
     // served by anything that doesn't do that rewrite); the URL is what has
     // to be right here, or this spec silently tests an unstyled page.
@@ -170,7 +170,7 @@ for (const fixture of FIXTURES) {
     expect(css).not.toContain(':global(');
     expect(css).not.toContain('composes:');
 
-    // Every class the markup uses must survive into the stylesheet —
+    // Every class the markup uses must survive into the stylesheet -
     // this is what the trim could get wrong on a shared sheet.
     const declared = new Set(
       [...css.matchAll(/\.(-?[A-Za-z_][A-Za-z0-9_-]*)/g)].map((m) => m[1])
@@ -191,7 +191,7 @@ for (const fixture of FIXTURES) {
     expect(orphans, `classes used by the page but absent from its stylesheet`)
       .toEqual([]);
 
-    // Braces balance — the trim walks the sheet by hand, and a comment
+    // Braces balance - the trim walks the sheet by hand, and a comment
     // containing a literal `{` once desynchronised it.
     const withoutComments = css.replace(/\/\*[\s\S]*?\*\//g, '');
     expect((withoutComments.match(/\{/g) ?? []).length).toBe(
@@ -232,7 +232,7 @@ for (const fixture of FIXTURES) {
   );
 
   // The React package ships the page's *source*, so it asks for its images by
-  // the URL it was written with — and unlike the HTML package there is no
+  // the URL it was written with - and unlike the HTML package there is no
   // markup rewrite to point those URLs somewhere else. Flattening the files
   // into one folder therefore breaks any page whose image path is hardcoded
   // rather than read from the manifest (ImageCard's `/images/template/<id>`),
@@ -310,7 +310,7 @@ test.describe('the /templates gallery offers both formats', () => {
     expect(count).toBeGreaterThan(50);
     await expect(react).toHaveCount(count);
 
-    // Every href must resolve to a file the packager actually wrote — a card
+    // Every href must resolve to a file the packager actually wrote - a card
     // for a site the packager skipped would otherwise be a dead button.
     for (const link of [...(await html.all()), ...(await react.all())]) {
       const href = await link.getAttribute('href');
@@ -337,7 +337,7 @@ test.describe('the /templates gallery offers both formats', () => {
       expect(bytes.byteLength).toBeGreaterThan(2000);
 
       // Actually parse it. A size check alone passes on a corrupt archive, and
-      // the packager writes these itself now (fflate, not the `zip` binary —
+      // the packager writes these itself now (fflate, not the `zip` binary -
       // Cloudflare's build image has no `zip`), so nothing else would notice a
       // malformed one: the deploy would happily serve 114 unopenable
       // downloads. unzipSync throws on a bad central directory, and CRCs are

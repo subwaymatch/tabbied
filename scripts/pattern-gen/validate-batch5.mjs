@@ -169,7 +169,7 @@ await browser.close();
 
 if (failures.length) {
   console.log('FAILURES:');
-  for (const f of failures) console.log(' ', f.slug, '→', f.problems.join('; '));
+  for (const f of failures) console.log(' ', f.slug, '->', f.problems.join('; '));
   process.exit(1);
 }
-console.log(`all ${batch5.length} batch-5 patterns render, reseed and keep their cells ✓`);
+console.log(`all ${batch5.length} batch-5 patterns render, reseed and keep their cells`);

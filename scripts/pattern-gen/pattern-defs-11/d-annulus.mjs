@@ -1,9 +1,9 @@
-// D. Annulus — rings, cut with hard-stop radial gradients.
+// D. Annulus - rings, cut with hard-stop radial gradients.
 //
 // A radial-gradient whose stops all land on the same position is a set of
 // concentric hard edges: transparent to the first radius, ink between two
 // radii, transparent again past the second. Used as a mask that is a real
-// ring, with a real hole in the middle — set the background slot to
+// ring, with a real hole in the middle - set the background slot to
 // transparent and you can see the sheet through it.
 //
 // The converter maps these to <radialGradient> stops one for one, which is why

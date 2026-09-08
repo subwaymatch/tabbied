@@ -3,7 +3,7 @@ import { test, expect, type Page } from '@playwright/test';
 // Coverage for the `tabbied` package itself (via the built dist the site
 // consumes), driven through app/package-test/page.tsx. The gallery and editor
 // already dogfood the cover and fixed fits; this spec covers the adaptive
-// grid fit — the package default — and the box props that size the element
+// grid fit - the package default - and the box props that size the element
 // the pattern renders into.
 
 const paintedCells = (page: Page, hostSelector: string) =>
@@ -99,7 +99,7 @@ test.describe('tabbied package (component test page)', () => {
       'hidden'
     );
 
-    // Every track is a whole pixel — the property the snap exists to hold.
+    // Every track is a whole pixel - the property the snap exists to hold.
     for (const px of [...cols_px, ...rows_px]) {
       expect(Math.abs(px - Math.round(px))).toBeLessThan(0.01);
     }
@@ -160,7 +160,7 @@ test.describe('tabbied package (component test page)', () => {
 
     // The invariant the quantisation exists for: a cell edge lands on a whole
     // pixel after the transform. Snapping the render box alone does not give
-    // this — an isolated test measured 6 interior seams with integral tracks
+    // this - an isolated test measured 6 interior seams with integral tracks
     // under a fractional scale, and 0 once the scale was quantised.
     const scaledCell = cell * scale;
     expect(Math.abs(scaledCell - Math.round(scaledCell))).toBeLessThan(0.02);
@@ -231,7 +231,7 @@ test.describe('tabbied package (component test page)', () => {
   });
 
   // The ambient-redraw timer lives in the core controller (createPattern), so
-  // these also cover the vanilla entry point — the React prop is a
+  // these also cover the vanilla entry point - the React prop is a
   // pass-through. The seed rides on the element's data-seed attribute, which
   // is what makes a redraw observable from outside.
   test('redrawInterval rotates the seed, and paused holds it', async ({
@@ -243,7 +243,7 @@ test.describe('tabbied package (component test page)', () => {
     const ticking = page.locator('#redraw-interval [data-pattern="radius"] css-doodle');
     await expect(ticking).toBeAttached({ timeout: 15000 });
     // Both sections sit below the fold, and an off-screen host drops its
-    // ticks by design — scroll to them or the timer legitimately never fires.
+    // ticks by design - scroll to them or the timer legitimately never fires.
     await ticking.scrollIntoViewIfNeeded();
 
     const first = await ticking.getAttribute('data-seed');
@@ -262,7 +262,7 @@ test.describe('tabbied package (component test page)', () => {
     expect(await held.getAttribute('data-seed')).toBe(pinned);
   });
 
-  // Declarative mounting — the path a packaged HTML template takes: plain
+  // Declarative mounting - the path a packaged HTML template takes: plain
   // markup carrying its config in data-* attributes, mounted by one
   // hydratePatterns() call with no component in the picture.
   test('hydratePatterns mounts patterns from data-* attributes alone', async ({
@@ -299,7 +299,7 @@ test.describe('tabbied package (component test page)', () => {
 
     // data-options is typed by the definition, so "4x6" stays the string the
     // ButtonSelectGroup declares and drives a 4×6 grid. (Read under
-    // fit:"fixed" — the adaptive grid fit re-derives cols×rows from the box
+    // fit:"fixed" - the adaptive grid fit re-derives cols×rows from the box
     // by design, which would mask whether the option arrived at all.)
     const options = page.locator('#hydrate-options');
     await options.scrollIntoViewIfNeeded();
@@ -364,7 +364,7 @@ test.describe('tabbied package (component test page)', () => {
       .poll(() => cellCount(page, selector), { timeout: 10000 })
       .not.toBe(before);
 
-    // The re-render happened and stayed muted — the override is not a
+    // The re-render happened and stayed muted - the override is not a
     // first-paint trick that a later render undoes.
     expect(await maxCellTransitionMs(page, selector)).toBe(0);
   });

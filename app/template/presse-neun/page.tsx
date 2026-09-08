@@ -28,7 +28,7 @@ function labelOn(hex: string) {
   return L > 0.32 ? INK : '#fff';
 }
 
-/* The house ink rack, printed as flat blocks — the loudest thing on the page
+/* The house ink rack, printed as flat blocks - the loudest thing on the page
    and the only place all nine colours appear at once. */
 const INKS = [
   ['Fluoro Pink', '#ff2d78'],
@@ -117,7 +117,7 @@ const PRICES = [
   ['B1', '700 × 1000 mm', '6 colours', '30 sheets', '€ 1 860'],
   ['B1', '700 × 1000 mm', '9 colours', '30 sheets', '€ 2 690'],
   ['Custom', 'Up to 700 × 1000 mm', 'Any', 'Any run', 'Ask'],
-  ['Overprint', 'Your own sheets', '1 – 3 colours', 'Any run', 'From € 190'],
+  ['Overprint', 'Your own sheets', '1 - 3 colours', 'Any run', 'From € 190'],
 ];
 
 const STOCK = [
@@ -132,7 +132,7 @@ const STOCK = [
   ['GF Smith Naturalis', '300 gsm', 'Uncoated, soft', 'Editions', 'To order'],
   ['Newsprint', '52 gsm', 'For proofing only', 'Never sold', 'Held'],
   ['Board, grey', '1.5 mm', 'For test pulls', 'Never sold', 'Held'],
-  ['Yours', 'Any', 'Bring it and we will test it', 'Overprints', '—'],
+  ['Yours', 'Any', 'Bring it and we will test it', 'Overprints', ' - '],
 ];
 
 const EDITIONS = [
@@ -200,7 +200,7 @@ export default function PresseNeunPage() {
 
       <main id="top">
         {/* ------------------------------------------------------------ HERO
-            Two fields stacked in multiply — which is exactly what happens
+            Two fields stacked in multiply - which is exactly what happens
             when a second colour goes down on a sheet that is still wet. */}
         <section className={s.hero}>
           <div className={s.heroStack} aria-hidden="true">
@@ -422,7 +422,7 @@ export default function PresseNeunPage() {
 
         {/* --------------------------------------------------------- CONTACT */}
         <section id="contact" className={s.contact} aria-labelledby="contact-h">
-          <p data-edit="contact.contactPre" data-edit-max="240" data-edit-multiline className={s.contactPre}>Bring us a file — or just watch</p>
+          <p data-edit="contact.contactPre" data-edit-max="240" data-edit-multiline className={s.contactPre}>Bring us a file - or just watch</p>
           <h2 data-edit="contact.signupTitle" data-edit-max="60" id="contact-h" className={s.signupTitle}>Editions, as they come off the bed</h2>
           <form className={s.signup}>
             <label data-edit="contact.srOnly" className={s.srOnly} htmlFor="signup-mail">
@@ -442,7 +442,7 @@ export default function PresseNeunPage() {
           <p data-edit="contact.contactFine" data-edit-max="240" data-edit-multiline className={s.contactFine}>
             Maashaven Oostzijde 9, 3072 Rotterdam. The workshop is open to
             visitors on Thursdays, and to clients whenever their job is on the
-            bed — write to bed@presseneun.example if you would rather not wait
+            bed - write to bed@presseneun.example if you would rather not wait
             for a letter.
           </p>
         </section>

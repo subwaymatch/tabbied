@@ -27,7 +27,7 @@ export default function TemplateIndexPage() {
         <p>
           Each of these fictional brand sites is designed around a different{' '}
           <a href="/patterns">Tabbied generative pattern</a>, used for hero
-          backdrops, section bands, and surfaces for cut-out imagery — and, in
+          backdrops, section bands, and surfaces for cut-out imagery - and, in
           the newest ten, as the only image on the page. Every tile below is
           the live pattern, drawn in the site's own palette.
         </p>

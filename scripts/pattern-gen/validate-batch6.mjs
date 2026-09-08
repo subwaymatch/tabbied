@@ -6,7 +6,7 @@
 //
 //   * it is the *ordered* batch, so with the frequency gate forced fully open
 //     a reseed must leave every geometric property (position, size, angle,
-//     clip, radius) exactly as it was and change only the inks — the
+//     clip, radius) exactly as it was and change only the inks - the
 //     machine-checkable form of "the pattern is predictable, only the
 //     colorway is redrawn";
 //   * it is *background-independent*, so re-rendering with the background
@@ -14,7 +14,7 @@
 //     design that knocked its holes out with var(--color0) would quietly
 //     fill them in here.
 //
-// Contact sheets land in /tmp/sheet-b6-*.png — the transparent pass is shot
+// Contact sheets land in /tmp/sheet-b6-*.png - the transparent pass is shot
 // over a checkerboard so real holes are visible as see-through.
 // Set CHROMIUM_PATH to use a browser other than Playwright's own download.
 import { chromium } from '@playwright/test';
@@ -169,7 +169,7 @@ for (const chunk of chunks) {
     return { page, errors };
   };
 
-  // Pass 1 — the pattern's own palette, before and after a reseed.
+  // Pass 1 - the pattern's own palette, before and after a reseed.
   const { page, errors } = await openPage(buildPage(sourceFor(false)));
 
   await page.evaluate(() => {
@@ -193,7 +193,7 @@ for (const chunk of chunks) {
   await page.screenshot({ path: `/tmp/sheet-b6-${shot}-seed2.png`, fullPage: true });
   await page.close();
 
-  // Pass 2 — same seed, background slot switched to transparent.
+  // Pass 2 - same seed, background slot switched to transparent.
   const { page: clearPage, errors: clearErrors } = await openPage(
     buildPage(sourceFor(true), { checkerboard: true })
   );
@@ -233,9 +233,9 @@ await browser.close();
 
 if (failures.length) {
   console.log('FAILURES:');
-  for (const f of failures) console.log(' ', f.slug, '→', f.problems.join('; '));
+  for (const f of failures) console.log(' ', f.slug, '->', f.problems.join('; '));
   process.exit(1);
 }
 console.log(
-  `all ${batch6.length} batch-6 patterns render, re-ink on reseed, hold their geometry and render identically on a transparent background ✓`
+  `all ${batch6.length} batch-6 patterns render, re-ink on reseed, hold their geometry and render identically on a transparent background`
 );

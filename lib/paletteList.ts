@@ -1,7 +1,7 @@
 // The one merged palette list, shared by every place that shows palettes: the
 // gallery rail, the mobile chip shelf, the editor chips, and the embedded
 // palette browser. Custom (user) palettes come first, then the read-only
-// library — each tagged with its `kind` so callers can branch on edit/delete
+// library - each tagged with its `kind` so callers can branch on edit/delete
 // affordances. Keeping the shape in one place avoids the four slightly-different
 // copies this used to have.
 import type { BrandPalette } from './brandPalettes';

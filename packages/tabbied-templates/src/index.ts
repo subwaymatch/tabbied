@@ -1,4 +1,4 @@
-// tabbied-templates — the editable-section contract for Tabbied template
+// tabbied-templates - the editable-section contract for Tabbied template
 // sites, and the engine that applies an edit.
 //
 // Framework-free and dependency-free by contract, because it runs in three

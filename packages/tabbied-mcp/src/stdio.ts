@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 // The `tabbied-mcp` bin: the same server the site exposes at /mcp, over stdio.
 //
-// `serveStdio` owns the whole transport — framing, the era decision on the
-// opening exchange, and pinning one instance for the connection — so this file
+// `serveStdio` owns the whole transport - framing, the era decision on the
+// opening exchange, and pinning one instance for the connection - so this file
 // is just "load the catalog, build the toolset, hand over the factory".
 //
 // The catalog is loaded once here rather than inside the factory: it is

@@ -3,7 +3,7 @@ import { defineConfig, devices } from '@playwright/test';
 /**
  * Playwright configuration used to verify the production build of the site.
  * The site is a static export, so the web server serves the `out/` directory
- * (`npm start` → `serve out`) — make sure `next build` has run first.
+ * (`npm start` -> `serve out`) - make sure `next build` has run first.
  */
 export default defineConfig({
   testDir: './e2e',

@@ -159,7 +159,7 @@ function Ornament() {
   return (
     <div className={styles.ornament} aria-hidden="true">
       <span className={styles.ornamentRule} />
-      <span className={styles.ornamentMark}>❦</span>
+      <span className={styles.ornamentMark}>&#x2766;</span>
       <span className={styles.ornamentRule} />
     </div>
   );
@@ -393,15 +393,15 @@ export default function MadrigalStringsPage() {
                 thumbprint and give it back.
               </p>
               <p data-edit="varnish.prose2" data-edit-max="240" data-edit-multiline className={styles.prose}>
-                Colour is the wood&rsquo;s decision. We only escort it: a
+                Colour is the wood's decision. We only escort it: a
                 golden ground, then reds laid over like late light on brick.
                 Asked to match a photograph, we decline politely and pour the
                 visitor more coffee.
               </p>
               <blockquote className={styles.pullQuote}>
                 <p data-edit="varnish.body" data-edit-max="240" data-edit-multiline>
-                  &ldquo;Varnish is the part of the violin that keeps arriving
-                  after the maker has stopped.&rdquo;
+                  "Varnish is the part of the violin that keeps arriving
+                  after the maker has stopped."
                 </p>
                 <cite data-edit="varnish.attribution" data-edit-max="48">Aurelio Madrigal, ledger margin, 1989</cite>
               </blockquote>
@@ -478,8 +478,8 @@ export default function MadrigalStringsPage() {
             <p data-edit="luthier.prose" data-edit-max="240" data-edit-multiline className={styles.prose}>
               Ottavio has kept the front bench since 1994 and the glue pot
               since 1979. He trained under his father and, by his own account,
-              under every instrument that came in for repair: &ldquo;the
-              broken ones are the honest teachers.&rdquo; His violins carry the
+              under every instrument that came in for repair: "the
+              broken ones are the honest teachers." His violins carry the
               house model forward with a slightly fuller lower bout and a
               varnish he will discuss only in the past tense.
             </p>
@@ -557,7 +557,7 @@ export default function MadrigalStringsPage() {
             <div className={styles.visitCell}>
               <h3 data-edit="visiting.visitLabel2" data-edit-max="40" className={styles.visitLabel}>Hours</h3>
               <p className={styles.visitValue}>
-                Tuesday – Friday, 10–18
+                Tuesday - Friday, 10-18
                 <br />
                 Saturday by appointment
               </p>
@@ -599,7 +599,7 @@ export default function MadrigalStringsPage() {
             MCMLXVIII
           </p>
           <p className={styles.colophonFine}>
-            This programme is set in Garamond&rsquo;s manner; the engravings
+            This programme is set in Garamond's manner; the engravings
             are cut fresh at every printing by{' '}
             <a data-edit="footer.link" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied

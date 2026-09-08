@@ -54,7 +54,7 @@ export function ForgotPasswordForm() {
       }}
     >
       <h1 className={styles.title}>Reset your password</h1>
-      <p className={styles.lede}>Enter your email and we&rsquo;ll send a link.</p>
+      <p className={styles.lede}>Enter your email and we'll send a link.</p>
       <label className={styles.field}>
         <span>Email</span>
         <input
@@ -71,7 +71,7 @@ export function ForgotPasswordForm() {
         </p>
       ) : null}
       <button type="submit" className={styles.submit} disabled={pending}>
-        {pending ? 'One moment…' : 'Send the link'}
+        {pending ? 'One moment...' : 'Send the link'}
       </button>
       <p className={styles.swap}>
         <Link href="/sign-in">Back to sign in</Link>
@@ -138,7 +138,7 @@ export function ResetPasswordForm() {
         </p>
       ) : null}
       <button type="submit" className={styles.submit} disabled={pending}>
-        {pending ? 'One moment…' : 'Set the password'}
+        {pending ? 'One moment...' : 'Set the password'}
       </button>
     </form>
   );
@@ -152,7 +152,7 @@ export function VerifyEmailNotice() {
   if (problem) {
     return (
       <div className={styles.form}>
-        <h1 className={styles.title}>That link didn&rsquo;t work</h1>
+        <h1 className={styles.title}>That link didn't work</h1>
         <p className={styles.lede}>
           It may have expired or already been used. Sign in to request another.
         </p>
@@ -168,7 +168,7 @@ export function VerifyEmailNotice() {
       <h1 className={styles.title}>Email confirmed</h1>
       <p className={styles.lede}>
         {isPending
-          ? 'Signing you in…'
+          ? 'Signing you in...'
           : user
             ? `You're signed in as ${user.email}.`
             : 'Your address is confirmed. Sign in to continue.'}

@@ -1,15 +1,15 @@
 // The controlled vocabulary for the catalog's design metadata.
 //
-// Agents filter reliably on enums and unreliably on prose — that is the whole
+// Agents filter reliably on enums and unreliably on prose - that is the whole
 // reason these fields exist. So the vocabulary is closed: codegen fails on a
 // value not listed here, and
 // test/catalog.test.mjs pins every published entry against these sets. Add a
 // term only when several designs genuinely need it, and never rename one
-// casually — published catalogs are queried by these exact strings.
+// casually - published catalogs are queried by these exact strings.
 //
 // Authoring guidance (used by the tagging pass, kept here so re-tagging stays
 // consistent):
-// - `tags` (2-6): what is literally visible in the preview — shapes and
+// - `tags` (2-6): what is literally visible in the preview - shapes and
 //   arrangements, not interpretations.
 // - `mood` (1-3): the feel of the design at a glance.
 // - `density`: how busy the surface is. sparse = mostly background with
@@ -18,7 +18,7 @@
 //   surfaces take text well (hero-background); bold allover repeats suit
 //   poster/og-image; fine dense textures suit card-texture/textile/wallpaper.
 
-/** Visual motifs — what the design is drawn from. */
+/** Visual motifs - what the design is drawn from. */
 export const TAGS = [
   'arcs',
   'blocks',

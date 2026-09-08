@@ -171,7 +171,7 @@ export default function OxbowWorkshopPage() {
         href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400..700;1,400..700&family=Mulish:wght@300..700&display=swap"
       />
 
-      {/* MASTHEAD — a label pasted on the catalogue's patterned endpaper */}
+      {/* MASTHEAD - a label pasted on the catalogue's patterned endpaper */}
       <header className={styles.masthead}>
         <div data-edit-pattern="masthead.field" data-edit-roles="0,5,4,2" className={styles.mastField} aria-hidden="true">
           <TabbiedPattern
@@ -474,7 +474,7 @@ export default function OxbowWorkshopPage() {
             </div>
           </header>
           <p data-edit="commissions.commissionsLede" data-edit-max="240" data-edit-multiline className={styles.commissionsLede}>
-            Half of each year’s bench time is kept for commissioned work:
+            Half of each year's bench time is kept for commissioned work:
             dining tables, benches, the occasional bed. The process has four
             movements and no surprises.
           </p>
@@ -551,7 +551,7 @@ export default function OxbowWorkshopPage() {
           <p className={styles.colophonNote}>
             Catalogue № 7, set in Cormorant and Mulish. Photography made in the
             workshop with no styling and one window. Two joints are drawn
-            through the book: “Mortise” on the endpapers and “Halving” on the
+            through the book: "Mortise" on the endpapers and "Halving" on the
             plates and bands, both with{' '}
             <a data-edit="colophon.tabbiedCredit" data-edit-max="28"
               href="https://tabbied.com"

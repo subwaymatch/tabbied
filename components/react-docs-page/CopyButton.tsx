@@ -21,7 +21,7 @@ export default function CopyButton({ code }: { code: string }) {
       clearTimeout(resetTimer.current);
       resetTimer.current = setTimeout(() => setCopied(false), 1600);
     } catch {
-      // Clipboard unavailable (permissions/insecure context) — quietly no-op.
+      // Clipboard unavailable (permissions/insecure context) - quietly no-op.
     }
   };
 

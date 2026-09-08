@@ -7,14 +7,14 @@
 //   npx tabbied list --tag dots --density dense
 //   npx tabbied info radius
 //
-// Rendering runs css-doodle in a real headless browser — that is the only
+// Rendering runs css-doodle in a real headless browser - that is the only
 // faithful renderer there is (see docs/svg-export.md for why nothing here
 // tries to reimplement it). The browser comes from whichever Playwright the
 // caller already has (`playwright`, `playwright-core`, or `@playwright/test`),
 // so this package doesn't drag a browser download into every install; pass
 // --browser <path> or set TABBIED_CHROMIUM to use a specific Chromium.
 //
-// The pattern definitions come from the compiled catalog in dist — the CLI
+// The pattern definitions come from the compiled catalog in dist - the CLI
 // works from the published tarball, not just the repo checkout.
 import { createServer } from 'node:http';
 import type { AddressInfo } from 'node:net';
@@ -45,7 +45,7 @@ type RenderArgs = {
   browser: string | null;
 };
 
-const HELP = `tabbied — render Tabbied's generative patterns from the command line
+const HELP = `tabbied - render Tabbied's generative patterns from the command line
 
 Usage:
   tabbied render <slug> --out <file|dir> [options]
@@ -117,7 +117,7 @@ function runList(flags: Map<string, string>): void {
     console.log(
       `${design.slug.padEnd(14)} ${design.density.padEnd(7)} [${design.tags.join(
         ', '
-      )}] — ${design.name}`
+      )}] - ${design.name}`
     );
   }
   console.log(`\n${matches.length}/${designs.length} designs`);
@@ -125,7 +125,7 @@ function runList(flags: Map<string, string>): void {
 
 function runInfo(slug: string): void {
   const design = readCatalog().designs.find((entry) => entry.slug === slug);
-  if (!design) fail(`unknown design "${slug}" — try \`tabbied list\``);
+  if (!design) fail(`unknown design "${slug}" - try \`tabbied list\``);
   console.log(JSON.stringify(design, null, 2));
 }
 
@@ -182,7 +182,7 @@ function parseOptions(
 function parseRenderArgs(argv: string[]): RenderArgs {
   const slug = argv[0];
   if (!slug || slug.startsWith('--')) fail('usage: tabbied render <slug> --out <path>');
-  if (!isPatternSlug(slug)) fail(`unknown design "${slug}" — try \`tabbied list\``);
+  if (!isPatternSlug(slug)) fail(`unknown design "${slug}" - try \`tabbied list\``);
   const definition = patterns[slug];
 
   const flags = parseFlags(argv.slice(1));
@@ -282,7 +282,7 @@ async function runRender(args: RenderArgs): Promise<void> {
 
   if (args.format === 'svg' && (definition as PatternDefinition).svgExport === false) {
     fail(
-      `"${args.slug}" paints effects SVG cannot represent (svgExport: false) — render it as PNG instead`
+      `"${args.slug}" paints effects SVG cannot represent (svgExport: false) - render it as PNG instead`
     );
   }
 
@@ -416,7 +416,7 @@ async function main(): Promise<void> {
     await runRender(parseRenderArgs(rest));
     return;
   }
-  fail(`unknown command "${command}" — try \`tabbied --help\``);
+  fail(`unknown command "${command}" - try \`tabbied --help\``);
 }
 
 main().catch((error) => {

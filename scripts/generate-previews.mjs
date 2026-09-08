@@ -2,7 +2,7 @@
 // Renders one stable preview image per design into public/previews/<slug>.webp.
 //
 // The previews are the catalog's visual index for tools that can't run
-// css-doodle — multimodal agents choosing a design, OG cards, anything that
+// css-doodle - multimodal agents choosing a design, OG cards, anything that
 // wants to *see* a pattern without mounting it. Every catalog entry points at
 // its preview URL (codegen adds it), so the contract is: a design ships with
 // a preview or the build fails (scripts/check-previews.mjs, on prebuild).
@@ -15,7 +15,7 @@
 //   npm run previews <slug>...  # just those designs
 //
 // Spec: authored palette, default options, fixed seed, default (grid) fit in
-// a square box — the same thing a consumer gets by default when they embed
+// a square box - the same thing a consumer gets by default when they embed
 // the design, not the hand-tuned gallery-thumbnail look.
 import { createServer } from 'node:http';
 import {
@@ -34,7 +34,7 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const PATTERNS_DIR = join(ROOT, 'packages/tabbied/patterns');
 const OUT_DIR = join(ROOT, 'public/previews');
 
-const SIZE = 480; // square CSS px; captured @2x — see SCALE
+const SIZE = 480; // square CSS px; captured @2x - see SCALE
 // @1x the finest stipple designs (dustfall, ninon: sub-pixel mask dots)
 // disappear entirely, and a preview that renders blank is worse than none.
 const SCALE = 2;

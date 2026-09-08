@@ -3,13 +3,13 @@
 // pages.
 //
 // The five shared-component sites were annotated by hand, because annotating
-// one component annotated all five. The other 52 are hand-written JSX — 29,000
-// lines of it — and hand-editing them is neither feasible nor reviewable. But
+// one component annotated all five. The other 52 are hand-written JSX - 29,000
+// lines of it - and hand-editing them is neither feasible nor reviewable. But
 // they are far more uniform than they look, in the ways that matter:
 //
 //   1. Every page declares its colour once, as custom properties on its root
-//      rule (`--paper`, `--ink`, …), and the stylesheet only reads `var(--…)`.
-//      So a re-colour is already a property rewrite — it just needs those
+//      rule (`--paper`, `--ink`, ...), and the stylesheet only reads `var(--...)`.
+//      So a re-colour is already a property rewrite - it just needs those
 //      properties set *inline*, where an edit can override them. There is no
 //      hex-to-var() codemod to write, which was the riskiest part of the job.
 //   2. No wrapper in the corpus holds two <TabbiedPattern>s, so a pattern slot
@@ -35,7 +35,7 @@ import { parse } from '@babel/parser';
 // @babel/parser rather than the TypeScript compiler API: typescript@7 is the
 // native port and its npm package no longer exposes createSourceFile to JS at
 // all. A build-time devDependency, never bundled and never shipped in a
-// template download — the parse has to be real, because a regex that mis-reads
+// template download - the parse has to be real, because a regex that mis-reads
 // one of these files rewrites it wrongly and silently.
 
 const repoRoot = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
@@ -57,7 +57,7 @@ const CONTENT_TAGS = new Set([
 const SECTION_TAGS = ['section', 'header', 'footer', 'main', 'article', 'aside'];
 
 // Roughly what the design was set for. A soft warning in an editor, never a
-// limit — it is the user's page.
+// limit - it is the user's page.
 const MAX_CHARS = {
   h1: 70, h2: 60, h3: 40, h4: 36, h5: 32, h6: 32,
   p: 240, blockquote: 240, dd: 200, li: 80, a: 28, button: 24,
@@ -162,8 +162,8 @@ const sourceOf = (code, node) => code.slice(node.start, node.end);
  * The page's palette: the custom properties its root rule declares, in
  * declaration order, with role 0 the page ground.
  *
- * Read from the stylesheet rather than from the page's own `const INK = …`
- * declarations, because the stylesheet is what actually paints the page — and
+ * Read from the stylesheet rather than from the page's own `const INK = ...`
+ * declarations, because the stylesheet is what actually paints the page - and
  * most pages declare a colour in CSS (the paper) that has no JS constant at
  * all, since nothing but CSS needed it until now.
  */
@@ -172,7 +172,7 @@ function readPalette(cssPath) {
 
   const css = readFileSync(cssPath, 'utf8');
   // The first rule declaring colour custom properties is the page root by
-  // construction: these stylesheets open with `.page { --…: #…; }`.
+  // construction: these stylesheets open with `.page { --...: #...; }`.
   const rule = /\{([^}]*--[a-z][\w-]*\s*:\s*#[0-9a-f]{3,8}[^}]*)\}/i.exec(css);
 
   if (!rule) return null;
@@ -195,7 +195,7 @@ function readPalette(cssPath) {
  * Aliases are resolved: `const TILE_A = STEEL` is as much a colour constant as
  * `const STEEL = '#9C9C98'`, and about twenty pages name their tile colours
  * that way. Missing that is what left 109 pattern fields with no role map on
- * the first pass — they had ordinary palettes, just written one indirection
+ * the first pass - they had ordinary palettes, just written one indirection
  * away.
  */
 function readColorConstants(program) {
@@ -239,7 +239,7 @@ function readColorConstants(program) {
 }
 
 /**
- * Module-scope arrays of colours, by identifier — `const FULL = [NAVY, ICE]`.
+ * Module-scope arrays of colours, by identifier - `const FULL = [NAVY, ICE]`.
  *
  * Several pages pass one of these straight to a pattern (`palette={FULL}`)
  * rather than writing the array inline, so resolving them is what lets those
@@ -283,7 +283,7 @@ function readColorArrays(program, constants) {
 
 /**
  * The identifier a page imports its stylesheet as. Not uniform across the
- * corpus — 38 pages use `s`, 14 use `styles` — so it is read per file rather
+ * corpus - 38 pages use `s`, 14 use `styles` - so it is read per file rather
  * than assumed, which is the difference between annotating 52 pages and 38.
  */
 function styleAliasOf(program) {
@@ -322,14 +322,14 @@ function classKeyOf(code, node, alias) {
  *
  * A slot inside a map is rendered N times, so its id has to carry the index or
  * every copy would claim the same one. Where the callback has no index
- * parameter, one is added — an edit to the *callback*, recorded here and
+ * parameter, one is added - an edit to the *callback*, recorded here and
  * applied with the rest.
  */
 function enclosingMaps(node, pendingParams) {
   // Collect the whole chain before naming anything. Naming as we walk looked
   // right and was wrong: an inner callback would take `i` while the outer one
   // already bound `i`, the inner binding would shadow it, and an id built from
-  // both would read `${i}.${i}` — the same value twice. That produced 224
+  // both would read `${i}.${i}` - the same value twice. That produced 224
   // colliding slots across 12 pages, all caught by the build gate.
   const chain = [];
   let current = node.parent;
@@ -407,7 +407,7 @@ function enclosingMaps(node, pendingParams) {
  * Components declared in this file and rendered more than once.
  *
  * Anything inside one of them is rendered N times from a single piece of
- * source, so there is no static id that could name each instance — the way a
+ * source, so there is no static id that could name each instance - the way a
  * `.map()` index does. Those subtrees are left un-annotated rather than
  * annotated wrongly.
  */
@@ -478,7 +478,7 @@ function enclosingFunctionName(node) {
 /**
  * What to call one text slot.
  *
- * The element's own class name where it has one — those are already
+ * The element's own class name where it has one - those are already
  * descriptive (`heroKicker`, `rowTitle`). Failing that, a nav link's own
  * anchor names it far better than its position does (`bar.making` rather than
  * `bar.link2`), and otherwise the tag's semantic word.
@@ -616,7 +616,7 @@ function annotate(slug) {
   };
 
   // Insert straight after the tag name, so the attribute lands beside the tag
-  // and the rest of the element — including its comments — is untouched.
+  // and the rest of the element - including its comments - is untouched.
   const addAttributes = (element, attributes) => {
     edits.push({
       position: openingOf(element).name.end,
@@ -650,7 +650,7 @@ function annotate(slug) {
   };
 
   // A colour becomes a role when it is one of the page's, and stays a literal
-  // when it is not — an off-palette accent is not part of the brand and must
+  // when it is not - an off-palette accent is not part of the brand and must
   // not move when the brand does. `transparent` is the important literal: it
   // is what leaves real negative space so a field reads over what is beneath.
   const roleOfColor = (value) => {
@@ -672,7 +672,7 @@ function annotate(slug) {
 
     const expression = attribute.value.expression;
 
-    // `palette={FULL}` — a module-scope array, resolved above.
+    // `palette={FULL}` - a module-scope array, resolved above.
     if (expression.type === 'Identifier') {
       const entries = colorArrays.get(expression.name);
 
@@ -759,7 +759,7 @@ function annotate(slug) {
 
       if (host && host.type === 'JSXFragment') {
         notes.push(
-          `${slug}: a pattern is wrapped in a fragment, so there is no element to annotate — needs a wrapper by hand`
+          `${slug}: a pattern is wrapped in a fragment, so there is no element to annotate - needs a wrapper by hand`
         );
       } else if (host && host.type === 'JSXElement') {
         const siblings = (host.children ?? []).filter(
@@ -769,15 +769,15 @@ function annotate(slug) {
         if (siblings.length > 1) {
           // Two fields under one wrapper would be ambiguous: applying an edit
           // takes the first [data-pattern] inside a slot. The corpus has none
-          // today — this exists so a new page cannot introduce one silently.
+          // today - this exists so a new page cannot introduce one silently.
           notes.push(
-            `${slug}: ${siblings.length} patterns share one wrapper — not annotated`
+            `${slug}: ${siblings.length} patterns share one wrapper - not annotated`
           );
         } else {
           const maps = enclosingMaps(node, pendingParams);
 
           if (!maps) {
-            notes.push(`${slug}: a pattern sits under two maps sharing an index name — not annotated`);
+            notes.push(`${slug}: a pattern sits under two maps sharing an index name - not annotated`);
             return;
           }
 
@@ -792,7 +792,7 @@ function annotate(slug) {
 
           if (!roles) {
             notes.push(
-              `${slug}: the pattern in ${base} has a palette that maps to no roles — it will not re-colour`
+              `${slug}: the pattern in ${base} has a palette that maps to no roles - it will not re-colour`
             );
           }
 
@@ -813,7 +813,7 @@ function annotate(slug) {
 
       if (literalSlug) {
         // Every image on a page has a distinct committed slug, so it is
-        // already the stable name for this slot — better than a positional id,
+        // already the stable name for this slot - better than a positional id,
         // which would move if a section were reordered.
         const id = `photo.${literalSlug}`;
 
@@ -926,14 +926,14 @@ for (const slug of slugs) {
   allNotes.push(...result.notes);
 
   console.log(
-    `annotate: ${slug} — ${result.texts} text, ${result.images} image, ${result.patterns} pattern`
+    `annotate: ${slug} - ${result.texts} text, ${result.images} image, ${result.patterns} pattern`
   );
 }
 
 for (const note of allNotes) console.warn(`annotate: ${note}`);
 
 console.log(
-  `annotate: ${annotated} page(s)${dryRun ? ' (dry run)' : ''} — ${totals.texts} text, ` +
+  `annotate: ${annotated} page(s)${dryRun ? ' (dry run)' : ''} - ${totals.texts} text, ` +
     `${totals.images} image, ${totals.patterns} pattern slots; ${skipped.length} skipped`
 );
 

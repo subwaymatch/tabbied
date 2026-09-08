@@ -18,7 +18,7 @@ export type NewTemplateSite = {
   patternSlug: string;
   pattern: PatternDefinition;
   paletteName: string;
-  /** Background color first — the same hexes the site itself uses. */
+  /** Background color first - the same hexes the site itself uses. */
   palette: string[];
   seed: string;
 };
@@ -74,7 +74,7 @@ export const NEW_TEMPLATE_SITES: NewTemplateSite[] = [
 
   // Swiss-bold set: the same grid discipline turned up. Display type at
   // poster size, the full width of the viewport used as the measure, no
-  // photography, and no rules — sections are divided by a change of ground
+  // photography, and no rules - sections are divided by a change of ground
   // or by a full-bleed pattern field. Longer pages than anything above.
   { slug: 'salzhaus', name: 'Salzhaus', topic: 'Contemporary dance company', patternSlug: 'pivot', pattern: pivot, paletteName: 'Basel scarlet', palette: ['#F3F1EC', '#101014', '#FF2D00', '#8B8B85', '#DEDCD4'], seed: 'bold-sz' },
   { slug: 'zwoelfton', name: 'Zwölfton', topic: 'New-music ensemble', patternSlug: 'raking', pattern: raking, paletteName: 'Acid yellow, night', palette: ['#0B0B0F', '#EFEEE7', '#E8FF00', '#6D6D66', '#22222A'], seed: 'bold-zt' },

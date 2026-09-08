@@ -13,7 +13,7 @@ import styles from './GalleryMobileHeader.module.css';
  * Mobile (7a) gallery chrome: a compact logo + GitHub header, the design search,
  * and a "Preview colors" row with "New Palette" (or the embedded browser when
  * "All ›" is tapped). The palette chip shelf itself is rendered by SelectPattern
- * just below this header — as a direct child of the scrolling page — so it can
+ * just below this header - as a direct child of the scrolling page - so it can
  * stay pinned with `position: sticky` across the whole grid scroll.
  */
 export default function GalleryMobileHeader({

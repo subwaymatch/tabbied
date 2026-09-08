@@ -2,7 +2,7 @@
 
 An [MCP](https://modelcontextprotocol.io) server for
 [Tabbied](https://tabbied.com): search 295 generative pattern designs, look at
-them, and render them to SVG or PNG — from Claude Code, Claude Desktop, Cursor,
+them, and render them to SVG or PNG - from Claude Code, Claude Desktop, Cursor,
 or any other MCP client.
 
 ## Use it without installing anything
@@ -35,7 +35,7 @@ claude mcp add tabbied -- npx -y tabbied-mcp
 }
 ```
 
-The local server adds `render_design`, which the remote one cannot offer —
+The local server adds `render_design`, which the remote one cannot offer -
 rendering a css-doodle pattern needs a real browser. Install a Playwright
 alongside it (`npm i -D playwright`) or point `TABBIED_CHROMIUM` at a Chromium
 binary.
@@ -50,7 +50,7 @@ binary.
 | `get_docs` | The complete API reference (`llms-full.txt`). |
 | `render_design` | SVG or PNG at any size, seed, palette, and option set. **Local only.** |
 
-Slugs are opaque — `cleat`, `karst`, `radius` — so the intended flow is
+Slugs are opaque - `cleat`, `karst`, `radius` - so the intended flow is
 `search_designs` to narrow, `preview_design` to look, then `get_design` for the
 options. Choosing off tags alone is the main way this goes wrong.
 

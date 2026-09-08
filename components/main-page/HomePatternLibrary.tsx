@@ -142,8 +142,7 @@ export default function HomePatternLibrary({
             <h2 className={styles.title}>Pick a design and start customizing</h2>
             <p className={styles.body}>
               Tweak colors, frequency, and density in real time. Every pattern
-              updates instantly as you edit &mdash; no page reloads, no
-              guesswork.
+              updates instantly as you edit: no page reloads, no guesswork.
             </p>
             <Link href="/patterns" prefetch={false} className={styles.cta}>
               <span className={styles.ctaDisc} aria-hidden="true">

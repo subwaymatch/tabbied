@@ -1,10 +1,10 @@
-// K. Overlap — two shapes crossing, and what the crossing does.
+// K. Overlap - two shapes crossing, and what the crossing does.
 //
 // A pair of shapes, and the interest is in the third region they make: the
 // part where both of them are, which reads as its own colour because the upper
 // one is let down rather than opaque.
 //
-// opacity is the property doing the work, and it exports exactly — it becomes
+// opacity is the property doing the work, and it exports exactly - it becomes
 // a group attribute. What is deliberately *not* here is mix-blend-mode: it
 // exports as an SVG blend style, the least portable thing the converter emits,
 // and it carries a caveat in the catalogue.

@@ -21,7 +21,7 @@ export default function DocsNav({ sections }: { sections: DocsSection[] }) {
     }
 
     // The active section is the last heading above the top quarter of the
-    // viewport — cheap to compute on the observer's intersection edges.
+    // viewport - cheap to compute on the observer's intersection edges.
     const observer = new IntersectionObserver(
       () => {
         const line = window.innerHeight * 0.25;

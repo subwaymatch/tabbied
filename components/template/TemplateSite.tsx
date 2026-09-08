@@ -34,7 +34,7 @@ const imageId = (
 //
 // The palette roles a pattern field follows. A field drawn on the page's own
 // ground takes the whole palette; one drawn *over* something keeps
-// `transparent` in colour0 — that literal is what leaves real negative space
+// `transparent` in colour0 - that literal is what leaves real negative space
 // for the photograph underneath, so it must never be re-coloured.
 const fullRoles = (site: Site) => site.colors.map((_, i) => i).join(',');
 const overlayRoles = (site: Site) =>
@@ -94,8 +94,8 @@ export default function TemplateSite({ site, patterns }: Props) {
 
   // Colour enters the page exactly once, here, as custom properties. The
   // derivation moved into `tabbied-templates` because applyEdits has to
-  // recompute these same variables when somebody re-colours a downloaded copy
-  // — `--ink` and the card tints are functions of the palette rather than
+  // recompute these same variables when somebody re-colours a downloaded copy:
+  // `--ink` and the card tints are functions of the palette rather than
   // members of it, and a second implementation of that maths is how a
   // re-coloured page ends up with body copy nobody can read.
   const vars: Record<string, string> = {
@@ -379,7 +379,7 @@ function Testimonials({ data }: { data: NonNullable<Ctx['content']>['testimonial
       <div className={s.quoteGrid}>
         {data.map((t, i) => (
           <figure className={s.quote} key={t.name}>
-            <blockquote data-edit={`testimonials.${i}.quote`} data-edit-multiline data-edit-max="220">“{t.quote}”</blockquote>
+            <blockquote data-edit={`testimonials.${i}.quote`} data-edit-multiline data-edit-max="220">"{t.quote}"</blockquote>
             <figcaption><span className={s.qName} data-edit={`testimonials.${i}.name`} data-edit-max="32">{t.name}</span><span className={s.qRole} data-edit={`testimonials.${i}.role`} data-edit-max="40">{t.role}</span></figcaption>
           </figure>
         ))}
@@ -451,7 +451,7 @@ function Specs({ data }: { data: NonNullable<NonNullable<Ctx['sec']>['specs']> }
  * their authored `look`.
  *
  * The `look` is not decoration. Prompting on role and scene alone returned the
- * same face for all twenty-four people — leaving appearance unsaid does not
+ * same face for all twenty-four people - leaving appearance unsaid does not
  * produce a varied cast, it just hands the casting to the model's default. It
  * is authored per person rather than inferred from a name, which would be
  * guessing someone's gender and ethnicity from its spelling.
@@ -495,7 +495,7 @@ function BigQuote({ site, patterns, data }: Ctx & { data: NonNullable<NonNullabl
       <div className={s.abs} style={{ opacity: 0.18 }} data-edit-pattern="bigQuote.field" data-edit-roles={fullRoles(site)}><Decor def={artAt(site, patterns, 3)} palette={site.colors} density={1} /></div>
       <div className={s.bigQuoteScrim} />
       <figure className={s.bigQuoteInner}>
-        <blockquote data-edit="bigQuote.quote" data-edit-multiline data-edit-max="260">“{data.quote}”</blockquote>
+        <blockquote data-edit="bigQuote.quote" data-edit-multiline data-edit-max="260">"{data.quote}"</blockquote>
         <figcaption><span data-edit="bigQuote.name" data-edit-max="32">{data.name}</span>, <span data-edit="bigQuote.role" data-edit-max="40">{data.role}</span></figcaption>
       </figure>
     </section>
@@ -593,8 +593,8 @@ function SplitHero({ site, patterns, heroImage, overlay }: HeroProps) {
 }
 
 /**
- * Whatever fills a hero's art panel: the site's pattern on its own, or — when
- * the site supplies a `heroImage` prompt — a generated photograph with an
+ * Whatever fills a hero's art panel: the site's pattern on its own, or - when
+ * the site supplies a `heroImage` prompt - a generated photograph with an
  * pattern drawn across it. Every layout renders this, so the photograph is a
  * per-site choice rather than something only one hero shape supports.
  *
@@ -644,7 +644,7 @@ function SpotlightHero({ site, patterns, heroImage, overlay }: HeroProps) {
           {/* The ticker is printed twice to make the marquee loop, so its words
               are not annotated: one id cannot describe two elements that are
               deliberately the same text in different positions. */}
-          <span>{[...site.ticker, ...site.ticker].map((t, i) => <span key={i}>{t} <i>✦</i> </span>)}</span>
+          <span>{[...site.ticker, ...site.ticker].map((t, i) => <span key={i}>{t} <i>&#x2726;</i> </span>)}</span>
         </div>
       )}
     </>

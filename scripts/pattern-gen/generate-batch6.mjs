@@ -120,7 +120,7 @@ for (const def of defs) {
     }
   }
   // Lint: a custom property whose value contains @-functions is a textual
-  // macro — every plain var(--x) reference re-rolls it. Shared rolls must be
+  // macro - every plain var(--x) reference re-rolls it. Shared rolls must be
   // emitted per cell and referenced via @var(--x) instead.
   const propDefs = [...style.matchAll(/(--[\w-]+)\s*:\s*([^;]*);/g)];
   for (const [, propName, propValue] of propDefs) {
@@ -131,7 +131,7 @@ for (const def of defs) {
     ].length;
     if (plainRefs > 1) {
       throw new Error(
-        `${def.slug}: randomized ${propName} referenced ${plainRefs}x via plain var() — re-rolls per reference; use a cell-level prop + @var()`
+        `${def.slug}: randomized ${propName} referenced ${plainRefs}x via plain var() - re-rolls per reference; use a cell-level prop + @var()`
       );
     }
   }
@@ -142,12 +142,12 @@ for (const def of defs) {
   }
   // Batch 6 also has to survive a transparent background. Painting
   // var(--color0) only *looks* like a knockout while the background is
-  // opaque — with the background slot set to #rrggbb00 the "hole" paints
+  // opaque - with the background slot set to #rrggbb00 the "hole" paints
   // nothing and the shape underneath stays solid. Cut the shape instead
   // (clip-path hole, mask, or a gap between elements).
   if (/var\(\s*--color0\s*\)/.test(style)) {
     throw new Error(
-      `${def.slug}: style paints var(--color0) — that knockout disappears on a transparent background`
+      `${def.slug}: style paints var(--color0) - that knockout disappears on a transparent background`
     );
   }
   // Every painted branch must sit inside the frequency gate, otherwise the

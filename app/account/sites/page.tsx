@@ -5,7 +5,7 @@ import YourSites from 'components/account/YourSites';
 import styles from 'components/studio/studio.module.css';
 
 export const metadata: Metadata = {
-  title: 'Your sites — Tabbied',
+  title: 'Your sites - Tabbied',
   robots: { index: false, follow: false },
 };
 

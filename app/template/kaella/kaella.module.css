@@ -1,5 +1,5 @@
 /* ==========================================================================
-   KÄLLA — municipal water utility, Uppsala
+   KÄLLA - municipal water utility, Uppsala
    A public-information page: the day's readings come first, before any prose,
    and the layout is wide and shallow the way a service reservoir is. Pattern
    fields are all ring and ripple designs on a `transparent` ground, so the
@@ -107,7 +107,7 @@
 }
 
 /* A wash of the page colour under the copy. The pattern still reads at the
-   margins, but the headline and lede sit on close-to-flat paper — the rings
+   margins, but the headline and lede sit on close-to-flat paper - the rings
    are busiest exactly where the second headline line falls. */
 .heroScrim {
   position: absolute;
@@ -145,7 +145,7 @@
 }
 
 .hero h1 span {
-  /* Plain --steel on the pale ground is about 2.9:1 — under AA even for
+  /* Plain --steel on the pale ground is about 2.9:1 - under AA even for
      display sizes, and this line falls across the busiest part of the rings. */
   color: color-mix(in srgb, var(--steel) 72%, var(--ink));
 }

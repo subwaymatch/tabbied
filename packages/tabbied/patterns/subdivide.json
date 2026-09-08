@@ -34,7 +34,7 @@
     "max": 6,
     "default": 6
   },
-  "svgExportNote": "The nested mask is exported as clean vector shapes — the faint seams visible on screen come from browser rasterization and won't appear in the SVG, so it can differ from the screen by a hair.",
+  "svgExportNote": "The nested mask is exported as clean vector shapes - the faint seams visible on screen come from browser rasterization and won't appear in the SVG, so it can differ from the screen by a hair.",
   "options": [
     {
       "id": "grid",

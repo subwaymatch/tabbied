@@ -20,6 +20,9 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      # Plain punctuation, everywhere: see "Plain punctuation" in CLAUDE.md.
+      - name: Check typography
+        run: npm run check:typography
       - name: Typecheck tabbied
         run: npm run typecheck --workspace tabbied
       # tabbied-mcp imports tabbied/catalog.json, so tabbied has to be built
@@ -67,6 +70,12 @@ jobs:
       # site into out/, which `npm start` (the Playwright webServer) serves.
       - name: Build site (static export)
         run: npm run build
+      # The Worker suite reads the packaged templates through the assets
+      # binding, so it needs out/ and runs after the build, never during one
+      # (next build empties out/ first). It was not run anywhere before this
+      # step existed, so a route could ship with a branch no test had run.
+      - name: Test worker
+        run: npm run test:worker
       - name: Run e2e tests
         run: npm run test:e2e
       - name: Upload Playwright traces

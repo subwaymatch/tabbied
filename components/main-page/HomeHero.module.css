@@ -12,7 +12,7 @@
 
 /* ── Margin columns ──────────────────────────────────────────────────────── */
 /* The strips either side of the 1280px column are filled with the same cells
-   the skyline uses, at low opacity — the page bleeding pattern into its own
+   the skyline uses, at low opacity - the page bleeding pattern into its own
    gutters. Purely decorative, and never in the way of a pointer. */
 
 .margin {

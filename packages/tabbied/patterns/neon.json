@@ -4,7 +4,7 @@
   "galleryOrder": 80,
   "svgExportNote": "The tube glow is exported as SVG drop-shadow filters. Browsers render them correctly, but some design tools (like Figma or Illustrator) import SVG filters imperfectly.",
   "galleryWhite": true,
-  "description": "Glowing tube segments rearranging themselves on a dark wall — each redraw re-aims the lights and re-mixes their halos.",
+  "description": "Glowing tube segments rearranging themselves on a dark wall - each redraw re-aims the lights and re-mixes their halos.",
   "tags": [
     "lines",
     "grid"

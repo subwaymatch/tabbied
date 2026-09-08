@@ -3,7 +3,7 @@
 // The static export is the source of truth: `next build` already renders every
 // template page to complete HTML, so a template is derived from that rather
 // than hand-ported. A hand-port is four artefacts per site to keep in step,
-// and within two edits the download and the live site disagree — which is why
+// and within two edits the download and the live site disagree - which is why
 // this whole file reads out/ instead of any source tree (see the
 // "Downloadable templates" section of CLAUDE.md).
 //
@@ -12,7 +12,7 @@
 //   werkraum/
 //     index.html          the export, minus the Next runtime, plain class names
 //     styles/base.css     the site's global reset, verbatim
-//     styles/werkraum.css the page's own stylesheet — the authored source file,
+//     styles/werkraum.css the page's own stylesheet - the authored source file,
 //                         comments and all, NOT the minified build output
 //     images/             only the images this page references
 //     README.md
@@ -20,8 +20,8 @@
 // The stylesheet is the point worth spelling out. The build emits minified CSS
 // with hashed class names (.werkraum-module__N8Ibmq__page), which is unreadable
 // in a template. Rather than un-minify and de-hash that, this copies the
-// *authored* module file — which is already the clean, commented stylesheet a
-// person should be editing — and rewrites the hashed names in the HTML back to
+// *authored* module file - which is already the clean, commented stylesheet a
+// person should be editing - and rewrites the hashed names in the HTML back to
 // the plain ones the authored file already uses.
 //
 // Usage:
@@ -43,7 +43,7 @@ const globalsCss = path.join(repoRoot, 'styles', 'globals.css');
 // Sites the packager knowingly can't handle. Listed (rather than left to
 // fail) so a *new* failure is a real signal: anything not in here that throws
 // exits non-zero, which is what makes this safe to wire into a build.
-// Currently empty — all 57 sites package.
+// Currently empty - all 57 sites package.
 const KNOWN_UNSUPPORTED = new Map();
 
 // ---- archiving -----------------------------------------------------------
@@ -52,7 +52,7 @@ const KNOWN_UNSUPPORTED = new Map();
 //
 // This used to shell out to the `zip` binary, which is on GitHub Actions'
 // runner and on most developer machines but is NOT in Cloudflare's Workers
-// Builds image — that image ships `unzip` and not `zip`. So CI stayed green
+// Builds image - that image ships `unzip` and not `zip`. So CI stayed green
 // while the deploy died with `spawn zip ENOENT` on all 57 sites, which is the
 // same shape of failure the two-pass build exists to prevent: the packaging
 // step is the one part of the build whose output nothing else validates.
@@ -64,7 +64,7 @@ const KNOWN_UNSUPPORTED = new Map();
 // tree and there is no host tool left to be missing.
 //
 // Archived from the *parent* so the zip expands into a named folder rather
-// than scattering files into the download directory — hence `dirName` being
+// than scattering files into the download directory - hence `dirName` being
 // relative to `parentDir` and forming the first path segment of every entry.
 async function zipDirectory(parentDir, dirName, zipName) {
   /** @type {Record<string, [Uint8Array, { mtime: Date }]>} */
@@ -75,7 +75,7 @@ async function zipDirectory(parentDir, dirName, zipName) {
 
   const walk = async (relativeDir) => {
     const absoluteDir = path.join(parentDir, relativeDir);
-    // A directory gets an entry of its own — zero bytes, name ending in `/` —
+    // A directory gets an entry of its own - zero bytes, name ending in `/` -
     // exactly as `zip -r` writes one. For a directory with children this is
     // redundant (every extractor creates parents on the way to a file), but
     // for an *empty* one it is the only record that it existed, and 10 of the
@@ -148,7 +148,7 @@ const stripReactArtifacts = (html) =>
 
 /**
  * Rewrite hashed CSS-module class names back to the plain names the authored
- * stylesheet uses: `werkraum-module__N8Ibmq__heroTitle` → `heroTitle`.
+ * stylesheet uses: `werkraum-module__N8Ibmq__heroTitle` -> `heroTitle`.
  *
  * Fails loudly on the two things that would silently corrupt a template: more
  * than one CSS module on the page (this ships exactly one stylesheet), and two
@@ -168,7 +168,7 @@ function dehashClassNames(html, slug) {
 
     if (seen && seen !== source) {
       throw new Error(
-        `${slug}: two CSS modules both define ".${localName}" — de-hashing ` +
+        `${slug}: two CSS modules both define ".${localName}" - de-hashing ` +
           `would merge them. Package this site by hand or rename one.`
       );
     }
@@ -187,7 +187,7 @@ function dehashClassNames(html, slug) {
   return {
     html: html.replace(hashedClass, (_m, _module, _hash, localName) => localName),
     // Which module the page's classes came from, and which of its classes the
-    // page actually uses — both needed to pick and trim the stylesheet.
+    // page actually uses - both needed to pick and trim the stylesheet.
     moduleName: [...modules][0]?.replace(/-module__[A-Za-z0-9_]+__$/, '') ?? null,
     usedClasses: new Set(collisions.keys()),
   };
@@ -196,7 +196,7 @@ function dehashClassNames(html, slug) {
 /**
  * The stylesheet to ship, and whether it is this page's own.
  *
- * Most sites have an authored `<slug>.module.css` next to their page — that
+ * Most sites have an authored `<slug>.module.css` next to their page - that
  * file ships verbatim, comments and all. The five sites built on the shared
  * TemplateSite component have no per-page sheet; they use the component's,
  * which is shipped trimmed to what the page can match (see trimUnusedRules).
@@ -260,7 +260,7 @@ const patternSlugs = (html) => [
 /**
  * The authored stylesheet, made valid outside the CSS-modules pipeline.
  *
- * `:global(img)` is a CSS-modules construct, not CSS — left in place a browser
+ * `:global(img)` is a CSS-modules construct, not CSS - left in place a browser
  * drops the whole rule. Once class names are plain, the wrapper has nothing
  * left to do, so unwrapping it to `img` is exactly equivalent.
  *
@@ -280,9 +280,9 @@ function prepareStylesheet(css, slug, usedClasses) {
  *
  * `composes` needs no flattening here, which is easy to get wrong: CSS Modules
  * resolves a local `composes` in the *markup*, not the stylesheet. A rule
- * `.h2Light { composes: h2 }` compiles to `class="…__h2Light …__h2"` on every
+ * `.h2Light { composes: h2 }` compiles to `class="...__h2Light ...__h2"` on every
  * element that used it, and both rules are already in the sheet. So the
- * declaration is inert — it is simply not valid CSS outside the pipeline, and
+ * declaration is inert - it is simply not valid CSS outside the pipeline, and
  * dropping it leaves rendering untouched.
  *
  * That is a premise about the build's output, so it is verified rather than
@@ -294,8 +294,8 @@ function prepareStylesheet(css, slug, usedClasses) {
 function dropComposes(css, slug, usedClasses) {
   const problems = [];
 
-  // Rules with a `composes` are simple single-class blocks by definition —
-  // CSS Modules rejects anything else — so a nesting-free block match is safe.
+  // Rules with a `composes` are simple single-class blocks by definition -
+  // CSS Modules rejects anything else - so a nesting-free block match is safe.
   const out = css.replace(
     /\.([A-Za-z0-9_-]+)([^{}]*)\{([^{}]*)\}/g,
     (rule, className, _rest, body) => {
@@ -308,7 +308,7 @@ function dropComposes(css, slug, usedClasses) {
           if (usedClasses.has(className) && !usedClasses.has(composed)) {
             problems.push(
               `.${className} composes .${composed}, but the markup carries ` +
-                `only .${className} — the build did not resolve it`
+                `only .${className} - the build did not resolve it`
             );
           }
         }
@@ -357,7 +357,7 @@ function trimUnusedRules(css, usedClasses) {
 
   // Scanning has to skip comments, not just count braces. This codebase
   // documents its CSS heavily and at least one comment contains a literal
-  // `{ color: inherit }` as an example — counted naively, that desynchronises
+  // `{ color: inherit }` as an example - counted naively, that desynchronises
   // the brace depth for the rest of the file and the output is silently wrong.
   const COMMENT = /\/\*[\s\S]*?\*\//g;
 
@@ -439,14 +439,14 @@ function trimUnusedRules(css, usedClasses) {
 /**
  * The React format, as a copy rather than a port.
  *
- * The HTML package is derived from the export because the markup has to be —
+ * The HTML package is derived from the export because the markup has to be -
  * there is no framework-free source to copy. React is the opposite case: a
  * template page is *already* a plain React component. The only Next.js API any
  * of the 57 uses is `export const metadata`, and there is no next/image,
  * next/link, 'use client' or generateStaticParams anywhere. So the page ships
  * as it was written, and what changes is only the frame around it.
  *
- * That also means the CSS needs no transform at all — Vite resolves
+ * That also means the CSS needs no transform at all - Vite resolves
  * `.module.css` natively, so the authored stylesheet ships byte-for-byte with
  * its `composes:` and `:global()` intact and working. Only the HTML package,
  * which has no bundler, needs those flattened.
@@ -489,7 +489,7 @@ const LOCAL_IMPORTS = new Map([
 function toStandaloneComponent(source, componentName) {
   let out = source
     .replace(/^import type \{ Metadata \}[^\n]*\n/m, '')
-    // `export const metadata = { ... };` — lifted into index.html instead.
+    // `export const metadata = { ... };` - lifted into index.html instead.
     .replace(/^export const metadata(?::\s*Metadata)?\s*=\s*\{[\s\S]*?\n\};\n/m, '')
     .replace(/^export const metadata(?::\s*Metadata)?\s*=\s*\{[\s\S]*?\n\};\n/m, '');
 
@@ -512,7 +512,7 @@ function toStandaloneComponent(source, componentName) {
  * (`components/template/TemplateSite`); that component then imports its
  * siblings relatively (`./templateContent`). Both are followed, and because
  * every copied module lands flat in `src/`, the relative ones already resolve
- * in the package — they only have to be *present*.
+ * in the package - they only have to be *present*.
  */
 function collectLocalImports(sources) {
   const needed = new Map();
@@ -552,7 +552,7 @@ function collectLocalImports(sources) {
   return needed;
 }
 
-const REACT_README = (slug, name, version) => `# ${name} — React template
+const REACT_README = (slug, name, version) => `# ${name} - React template
 
 The same page as the HTML download, as a Vite + React app.
 
@@ -562,7 +562,7 @@ npm run dev
 \`\`\`
 
 \`\`\`
-src/App.tsx              the page — edit this
+src/App.tsx              the page - edit this
 src/${slug}.module.css${' '.repeat(Math.max(0, 12 - slug.length))} its stylesheet, a CSS module
 src/main.tsx             mounts App
 public/images/           the photography this page uses
@@ -572,7 +572,7 @@ public/images/           the photography this page uses
 
 Blocks of pattern are \`<TabbiedPattern>\` elements from
 [tabbied](https://www.npmjs.com/package/tabbied) (v${version}), rendered live by
-[css-doodle](https://css-doodle.com/) — not images:
+[css-doodle](https://css-doodle.com/) - not images:
 
 \`\`\`tsx
 <TabbiedPattern pattern={ortho} palette={['transparent', '#C9C8C1']} fit="grid" />
@@ -612,7 +612,7 @@ async function packageReactSite(slug, outDir, version, name, images) {
   // While reading them, note which external packages the shipped source
   // actually imports. A package that is imported but missing from the
   // scaffold's package.json fails at `npm install` time in somebody else's
-  // folder, which is the worst place to find out — so this is derived from the
+  // folder, which is the worst place to find out - so this is derived from the
   // source rather than maintained by hand.
   const externals = new Set();
   const noteExternals = (source) => {
@@ -643,7 +643,7 @@ async function packageReactSite(slug, outDir, version, name, images) {
         .replace(/;\s*$/, '')
     );
     // Each entry keeps the `base` it has on the site (`/images/sites`), because
-    // the images are copied in under the paths they already have — see the
+    // the images are copied in under the paths they already have - see the
     // copy loop below for why the React package can't flatten them.
     const mine = Object.fromEntries(
       Object.entries(manifest).filter(([id]) =>
@@ -658,7 +658,7 @@ async function packageReactSite(slug, outDir, version, name, images) {
     );
   }
 
-  // The page's own stylesheet, byte-for-byte — Vite handles CSS modules, so
+  // The page's own stylesheet, byte-for-byte - Vite handles CSS modules, so
   // nothing here needs the flattening the HTML package does.
   const own = path.join(templateDir, slug, `${slug}.module.css`);
   if (fsSync.existsSync(own)) {
@@ -673,7 +673,7 @@ async function packageReactSite(slug, outDir, version, name, images) {
 
   await fs.copyFile(globalsCss, path.join(srcDir, 'base.css'));
 
-  // Images keep the sub-path they have on the site — `sites/…`, `template/…` —
+  // Images keep the sub-path they have on the site - `sites/...`, `template/...` -
   // where the HTML package flattens them into one folder. The two formats
   // differ because of what each one ships: the HTML package rewrites the
   // markup, so it can put the files anywhere and point the `src` at them,
@@ -783,12 +783,12 @@ async function packageReactSite(slug, outDir, version, name, images) {
 const README = (slug, name, version, slugs) => `# ${name}
 
 A Tabbied template, packaged as a plain HTML template. No build step, no
-framework — open \`index.html\` in a browser and it runs.
+framework - open \`index.html\` in a browser and it runs.
 
 \`\`\`
 index.html            the page
 styles/base.css       global reset
-styles/${slug}.css${' '.repeat(Math.max(0, 14 - slug.length))}this page's stylesheet — edit this one
+styles/${slug}.css${' '.repeat(Math.max(0, 14 - slug.length))}this page's stylesheet - edit this one
 images/               the photography this page uses
 \`\`\`
 
@@ -805,7 +805,7 @@ that describes itself in \`data-\` attributes:
 \`\`\`
 
 Change \`data-palette\` to recolour it, \`data-pattern\` to swap the design
-(254 to choose from — see https://tabbied.com), \`data-seed\` to pin a
+(254 to choose from - see https://tabbied.com), \`data-seed\` to pin a
 particular arrangement, or drop \`data-redraw-interval\` to hold it still.
 The script at the bottom of \`index.html\` is what brings them to life; remove
 it and the patterns disappear.
@@ -846,7 +846,7 @@ async function packageSite(slug, outDir, version) {
     html = await fs.readFile(source, 'utf-8');
   } catch {
     throw new Error(
-      `${slug}: no static export at ${path.relative(repoRoot, source)} — ` +
+      `${slug}: no static export at ${path.relative(repoRoot, source)} - ` +
         `run \`npm run build\` first.`
     );
   }
@@ -945,7 +945,7 @@ const requested = args.filter(
 
 // Templates pin the package version so a download keeps rendering the way it
 // looked. That comes from the workspace's package.json, which changesets has
-// already bumped by the time a release builds the site — so a template always
+// already bumped by the time a release builds the site - so a template always
 // points at a version that is either published or about to be. Override it
 // when generating templates against an unreleased build.
 const versionIndex = args.indexOf('--tabbied-version');
@@ -987,7 +987,7 @@ for (const slug of targets) {
   // error message rather than a stale note.
   if (knownReason && requested.length === 0) {
     skipped += 1;
-    console.log(`package-templates: skipping ${slug} — ${knownReason}`);
+    console.log(`package-templates: skipping ${slug} - ${knownReason}`);
     continue;
   }
 
@@ -995,7 +995,7 @@ for (const slug of targets) {
     const result = await packageSite(slug, outDir, version);
     written += 1;
     console.log(
-      `package-templates: ${result.slug} — ${result.patterns} pattern(s), ` +
+      `package-templates: ${result.slug} - ${result.patterns} pattern(s), ` +
         `${result.images} image(s), html ${(result.size / 1024).toFixed(0)} KB ` +
         `+ react ${(result.reactSize / 1024).toFixed(0)} KB` +
         (result.sharedCss !== null
@@ -1004,7 +1004,7 @@ for (const slug of targets) {
     );
   } catch (error) {
     failed += 1;
-    console.error(`package-templates: ${slug} — ${error.message}`);
+    console.error(`package-templates: ${slug} - ${error.message}`);
   }
 }
 
@@ -1016,7 +1016,7 @@ console.log(
 );
 
 
-// Only unexpected failures are fatal — the known-unsupported set is skipped
+// Only unexpected failures are fatal - the known-unsupported set is skipped
 // above, so this stays safe to run as part of a build.
 if (failed > 0) {
   process.exitCode = 1;

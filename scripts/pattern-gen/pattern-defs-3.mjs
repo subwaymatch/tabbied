@@ -13,7 +13,7 @@ export const batch3 = [
     slug: 'origami',
     order: 137,
     description:
-      'Square notes of colored paper, each with one corner folded over in light — every redraw refolds the sheets and scatters their tilt.',
+      'Square notes of colored paper, each with one corner folded over in light - every redraw refolds the sheets and scatters their tilt.',
     palette: ['#FAF6EE', '#F4756A', '#3AAFA9', '#F5B82E', '#41549B', '#F2A7C3'],
     colors: { min: 2, max: 6, default: 6 },
     gridDefault: '8x12',
@@ -27,7 +27,7 @@ export const batch3 = [
     slug: 'gable',
     order: 138,
     description:
-      'Rows of little houses raising their roofs — every redraw rebuilds the street with new heights, hues and roof pitches.',
+      'Rows of little houses raising their roofs - every redraw rebuilds the street with new heights, hues and roof pitches.',
     palette: ['#F6F1E6', '#E2705C', '#5B8FB9', '#E8B44F', '#7FA886', '#37415B'],
     colors: { min: 2, max: 6, default: 6 },
     gridDefault: '8x12',
@@ -41,7 +41,7 @@ export const batch3 = [
     slug: 'pleat',
     order: 139,
     description:
-      'Folded cloth in warm linen tones — each pleat re-creases at its own slant, shading one half of every fold.',
+      'Folded cloth in warm linen tones - each pleat re-creases at its own slant, shading one half of every fold.',
     palette: ['#F3EDE2', '#D9A66C', '#B45F4D', '#7E9680', '#54678F', '#E3C9A2'],
     colors: { min: 2, max: 6, default: 6 },
     gridDefault: '8x12',
@@ -55,7 +55,7 @@ export const batch3 = [
     slug: 'gingham',
     order: 140,
     description:
-      'Picnic-cloth checks woven from two translucent bands — where warp crosses weft the color doubles, and every redraw shifts the weave.',
+      'Picnic-cloth checks woven from two translucent bands - where warp crosses weft the color doubles, and every redraw shifts the weave.',
     palette: ['#FBF8F1', '#D34E4E', '#3E6FB0', '#E8B44F'],
     colors: { min: 2, max: 4, default: 2 },
     gridDefault: '8x12',
@@ -69,7 +69,7 @@ export const batch3 = [
     slug: 'herringbone',
     order: 141,
     description:
-      'Wooden planks laid in herringbone — columns lean left, then right, while every redraw re-stains and re-cuts the boards.',
+      'Wooden planks laid in herringbone - columns lean left, then right, while every redraw re-stains and re-cuts the boards.',
     palette: ['#F4EEE3', '#8B5E3C', '#B07F4F', '#D2A86A', '#5C4630'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '8x12',
@@ -83,7 +83,7 @@ export const batch3 = [
     slug: 'trellis',
     order: 142,
     description:
-      'A garden lattice of tilted square frames, vines threading the gaps — each redraw re-squares the trellis and regrows its buds.',
+      'A garden lattice of tilted square frames, vines threading the gaps - each redraw re-squares the trellis and regrows its buds.',
     palette: ['#F7F4EA', '#3E6B4F', '#7FA886', '#D34E5E', '#E8B44F'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '8x12',
@@ -97,7 +97,7 @@ export const batch3 = [
     slug: 'posy',
     order: 143,
     description:
-      'Six-petaled posies pressed flat across the page — every redraw spins each flower and trades its petals for a new ink.',
+      'Six-petaled posies pressed flat across the page - every redraw spins each flower and trades its petals for a new ink.',
     palette: ['#FBF7EE', '#E2708A', '#9D89F2', '#54A8C0', '#F5B82E', '#7FA886'],
     colors: { min: 2, max: 6, default: 6 },
     gridDefault: '6x9',
@@ -111,7 +111,7 @@ export const batch3 = [
     slug: 'meadow',
     order: 144,
     description:
-      'Tufts of grass leaning in the wind, a wildflower blinking open here and there — every redraw sends a new gust through the field.',
+      'Tufts of grass leaning in the wind, a wildflower blinking open here and there - every redraw sends a new gust through the field.',
     palette: ['#F6F3E4', '#4F7D4A', '#7FA858', '#2F5D3C', '#E2708A', '#F5B82E'],
     colors: { min: 2, max: 6, default: 6 },
     gridDefault: '8x12',
@@ -125,7 +125,7 @@ export const batch3 = [
     slug: 'cairn',
     order: 145,
     description:
-      'Balanced trail stones stacked two and three high — every redraw restacks the cairns without ever letting them topple.',
+      'Balanced trail stones stacked two and three high - every redraw restacks the cairns without ever letting them topple.',
     palette: ['#EFEAE0', '#8C8478', '#B5AB9C', '#6B655C', '#5E7D5A'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '6x9',
@@ -153,7 +153,7 @@ export const batch3 = [
     slug: 'ripple',
     order: 147,
     description:
-      'Raindrop rings widening on still water — every redraw lands new drops and sets the circles spreading from rest.',
+      'Raindrop rings widening on still water - every redraw lands new drops and sets the circles spreading from rest.',
     palette: ['#E8F2F1', '#2E86AB', '#5BB3CF', '#1B5E7B', '#9AD4DE'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '6x9',
@@ -168,7 +168,7 @@ export const batch3 = [
     order: 148,
     white: true,
     description:
-      'Curtains of polar light leaning across an arctic night — every redraw lets the veils drift, tilt and trade their glow.',
+      'Curtains of polar light leaning across an arctic night - every redraw lets the veils drift, tilt and trade their glow.',
     palette: ['#0C1226', '#3FFFB2', '#3EECFF', '#9D89F2', '#FF7EC2'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '6x9',
@@ -183,7 +183,7 @@ export const batch3 = [
     order: 149,
     white: true,
     description:
-      'Little moons gliding around pale rings — reseeding sends every satellite sweeping to a new point on its orbit.',
+      'Little moons gliding around pale rings - reseeding sends every satellite sweeping to a new point on its orbit.',
     palette: ['#171A2B', '#C9CFE8', '#F5C95C', '#3EECFF', '#FF7EC2'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '6x9',
@@ -198,7 +198,7 @@ export const batch3 = [
     order: 150,
     white: true,
     description:
-      'Stars strung together with hairline sight-lines — every redraw charts the sky anew, brightening some stars and re-aiming the lines.',
+      'Stars strung together with hairline sight-lines - every redraw charts the sky anew, brightening some stars and re-aiming the lines.',
     palette: ['#0E1322', '#F2F4FF', '#F5C95C', '#3EECFF'],
     colors: { min: 2, max: 4, default: 4 },
     gridDefault: '8x12',
@@ -212,7 +212,7 @@ export const batch3 = [
     slug: 'memphis',
     order: 151,
     description:
-      'Showroom doodles straight out of 1986 — outlined rings, solid half-rounds and tipped frames jostle on cream, reshuffling with every redraw.',
+      'Showroom doodles straight out of 1986 - outlined rings, solid half-rounds and tipped frames jostle on cream, reshuffling with every redraw.',
     palette: ['#F8F3E8', '#1D1D1F', '#3AAFA9', '#FF4D6D', '#F5B82E', '#9D89F2'],
     colors: { min: 2, max: 6, default: 6 },
     gridDefault: '8x12',
@@ -227,7 +227,7 @@ export const batch3 = [
     order: 152,
     white: true,
     description:
-      'A dark signal tearing into bright slices — blocks crop themselves while cyan and magenta scanlines slip out of frame on every redraw.',
+      'A dark signal tearing into bright slices - blocks crop themselves while cyan and magenta scanlines slip out of frame on every redraw.',
     palette: ['#101216', '#3EECFF', '#FF3D8B', '#F2F4FF', '#3FFFB2'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '8x12',
@@ -241,7 +241,7 @@ export const batch3 = [
     slug: 'barcode',
     order: 153,
     description:
-      'Inked scan bars in irregular widths, the odd one printed in red — every redraw re-spaces the code into a new cipher.',
+      'Inked scan bars in irregular widths, the odd one printed in red - every redraw re-spaces the code into a new cipher.',
     palette: ['#F7F5EE', '#1D1F24', '#D34E3A', '#3E6FB0'],
     colors: { min: 2, max: 4, default: 2 },
     gridDefault: '8x12',
@@ -255,7 +255,7 @@ export const batch3 = [
     slug: 'postage',
     order: 154,
     description:
-      'A sheet of stamps from nowhere in particular — tilted white squares, dashed frames and a single bold mark, re-franked on every redraw.',
+      'A sheet of stamps from nowhere in particular - tilted white squares, dashed frames and a single bold mark, re-franked on every redraw.',
     palette: ['#E3D5BD', '#FCFAF4', '#D34E3A', '#2E6FA8', '#3E8B6A', '#F0A63E'],
     colors: { min: 2, max: 6, default: 6 },
     gridDefault: '6x9',
@@ -269,7 +269,7 @@ export const batch3 = [
     slug: 'kilim',
     order: 155,
     description:
-      'Carpet diamonds stacked one inside the other in dyed wool — every redraw re-knots the motifs and lets each diamond settle at its own tilt.',
+      'Carpet diamonds stacked one inside the other in dyed wool - every redraw re-knots the motifs and lets each diamond settle at its own tilt.',
     palette: ['#B6452C', '#27324B', '#E8D5B0', '#D9913B', '#1F1B16'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '8x12',
@@ -283,7 +283,7 @@ export const batch3 = [
     slug: 'azulejo',
     order: 156,
     description:
-      'Hand-glazed tilework in cobalt on white — diamonds soften into discs, corner dots hold the corners, and the glaze resets with every redraw.',
+      'Hand-glazed tilework in cobalt on white - diamonds soften into discs, corner dots hold the corners, and the glaze resets with every redraw.',
     palette: ['#F6F8F7', '#1F4E9C', '#3A77C2', '#F0A63E'],
     colors: { min: 2, max: 4, default: 3 },
     gridDefault: '8x12',
@@ -312,7 +312,7 @@ export const batch3 = [
     order: 158,
     white: true,
     description:
-      'Bone-white marks hand-printed on near-black cloth — rows alternate dots, dashes and diamonds, each band re-inked by the next redraw.',
+      'Bone-white marks hand-printed on near-black cloth - rows alternate dots, dashes and diamonds, each band re-inked by the next redraw.',
     palette: ['#211D19', '#EFE6D2', '#C24E36'],
     colors: { min: 2, max: 3, default: 2 },
     gridDefault: '8x12',
@@ -326,7 +326,7 @@ export const batch3 = [
     slug: 'gumball',
     order: 159,
     description:
-      'Candy-machine gumballs caught mid-tumble — every sphere keeps its glossy highlight while the colors and sizes reshuffle per redraw.',
+      'Candy-machine gumballs caught mid-tumble - every sphere keeps its glossy highlight while the colors and sizes reshuffle per redraw.',
     palette: ['#FBF3E4', '#E2403E', '#2E86C9', '#F5B82E', '#3E9C5C', '#E2708A'],
     colors: { min: 2, max: 6, default: 6 },
     gridDefault: '6x9',
@@ -340,7 +340,7 @@ export const batch3 = [
     slug: 'jelly',
     order: 160,
     description:
-      'Trembling cubes of jelly mid-wobble — each one squashes and stretches to a new posture per redraw, gloss bar riding on top.',
+      'Trembling cubes of jelly mid-wobble - each one squashes and stretches to a new posture per redraw, gloss bar riding on top.',
     palette: ['#FDF6EC', '#FF6B7E', '#FFA94D', '#7FC96B', '#5BAFE8', '#C98BE8'],
     colors: { min: 2, max: 6, default: 6 },
     gridDefault: '6x9',
@@ -354,7 +354,7 @@ export const batch3 = [
     slug: 'balloon',
     order: 161,
     description:
-      'A sky of party balloons bobbing on their strings — each redraw floats them to new heights and lets the strings sway.',
+      'A sky of party balloons bobbing on their strings - each redraw floats them to new heights and lets the strings sway.',
     palette: ['#EAF4FB', '#E2403E', '#F5B82E', '#3E9C5C', '#2E86C9', '#C98BE8'],
     colors: { min: 2, max: 6, default: 6 },
     gridDefault: '6x9',
@@ -369,7 +369,7 @@ export const batch3 = [
     order: 162,
     white: true,
     description:
-      'Chunky arcade pieces built from four sliding blocks — every redraw rearranges each cluster into a new almost-tetromino.',
+      'Chunky arcade pieces built from four sliding blocks - every redraw rearranges each cluster into a new almost-tetromino.',
     palette: ['#1A1C2E', '#3EECFF', '#FF3D8B', '#F5DD32', '#3FFFB2', '#9D89F2'],
     colors: { min: 2, max: 6, default: 6 },
     gridDefault: '8x12',
@@ -383,7 +383,7 @@ export const batch3 = [
     slug: 'kite',
     order: 163,
     description:
-      'Paper kites climbing a pale sky, tails snapping below them — every redraw re-trims the sails and sets new lines.',
+      'Paper kites climbing a pale sky, tails snapping below them - every redraw re-trims the sails and sets new lines.',
     palette: ['#EDF4F8', '#E2543E', '#2E86C9', '#F5B82E', '#3E9C5C'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '6x9',
@@ -397,7 +397,7 @@ export const batch3 = [
     slug: 'notch',
     order: 164,
     description:
-      'Square tiles, each with one corner bitten away — bites deepen, shrink and swing around the square with every redraw.',
+      'Square tiles, each with one corner bitten away - bites deepen, shrink and swing around the square with every redraw.',
     palette: ['#F2EFE9', '#3B3F45', '#787F88', '#E2543E', '#B9C0C9'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '8x12',
@@ -411,7 +411,7 @@ export const batch3 = [
     slug: 'awning',
     order: 165,
     description:
-      'Striped seaside awnings hanging in rows, every scallop dipping to its own depth — redraws recolor the canvas stripe by stripe.',
+      'Striped seaside awnings hanging in rows, every scallop dipping to its own depth - redraws recolor the canvas stripe by stripe.',
     palette: ['#FBF6EC', '#E2543E', '#2E86C9', '#3E9C5C', '#F0A63E'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '8x12',
@@ -425,7 +425,7 @@ export const batch3 = [
     slug: 'strata',
     order: 166,
     description:
-      'Bands of sediment pressed into rock — pale near the surface, ochre through the middle, near-black at depth, resettling with each redraw.',
+      'Bands of sediment pressed into rock - pale near the surface, ochre through the middle, near-black at depth, resettling with each redraw.',
     palette: ['#E8DBC2', '#C29A6B', '#9A6B4F', '#5C4632', '#332A22'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '8x12',
@@ -439,7 +439,7 @@ export const batch3 = [
     slug: 'pendulum',
     order: 167,
     description:
-      'A wall of pendulums photographed mid-swing — every bob hangs from its own pivot and settles at a new angle per redraw.',
+      'A wall of pendulums photographed mid-swing - every bob hangs from its own pivot and settles at a new angle per redraw.',
     palette: ['#F4EFE4', '#37415B', '#C9A227', '#B45F4D', '#54A8C0'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '6x9',
@@ -453,7 +453,7 @@ export const batch3 = [
     slug: 'compass',
     order: 168,
     description:
-      'A drawer of old compasses, needles trembling toward different norths — every redraw lets them settle on a new bearing.',
+      'A drawer of old compasses, needles trembling toward different norths - every redraw lets them settle on a new bearing.',
     palette: ['#F3EDDC', '#37415B', '#C0392B', '#C9A227', '#6B7B8C'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '6x9',
@@ -468,7 +468,7 @@ export const batch3 = [
     order: 169,
     white: true,
     description:
-      'Phosphor range-rings on a night console, contacts blinking between sweeps — every redraw repositions the blips and re-tunes the rings.',
+      'Phosphor range-rings on a night console, contacts blinking between sweeps - every redraw repositions the blips and re-tunes the rings.',
     palette: ['#0B1410', '#3FBF7F', '#9FFFC9', '#F5DD32'],
     colors: { min: 2, max: 4, default: 3 },
     gridDefault: '8x12',
@@ -483,7 +483,7 @@ export const batch3 = [
     order: 170,
     white: true,
     description:
-      'Bolts of stylized lightning forking over a storm-dark field — every redraw bends each strike along a new jagged path.',
+      'Bolts of stylized lightning forking over a storm-dark field - every redraw bends each strike along a new jagged path.',
     palette: ['#15141E', '#F5DD32', '#3EECFF', '#F2F4FF'],
     colors: { min: 2, max: 4, default: 3 },
     gridDefault: '8x12',
@@ -498,7 +498,7 @@ export const batch3 = [
     order: 171,
     white: true,
     description:
-      'Koi circling a dark pond, each with its own patch of color — every redraw turns the school and re-spots their backs.',
+      'Koi circling a dark pond, each with its own patch of color - every redraw turns the school and re-spots their backs.',
     palette: ['#0E353B', '#F4F1E8', '#E2543E', '#F0A63E', '#1F1D1B'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '6x9',
@@ -513,7 +513,7 @@ export const batch3 = [
     order: 172,
     white: true,
     description:
-      'Winter brambles crossing in the dark, hung with bright berries — every redraw re-tangles the twigs and ripens new fruit.',
+      'Winter brambles crossing in the dark, hung with bright berries - every redraw re-tangles the twigs and ripens new fruit.',
     palette: ['#16241C', '#9BA88E', '#C0392B', '#E2708A', '#5E7D5A'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '8x12',
@@ -528,7 +528,7 @@ export const batch3 = [
     order: 173,
     white: true,
     description:
-      'Evening rain slanting past the streetlight, puddles flashing below — every redraw changes the downpour’s rhythm.',
+      'Evening rain slanting past the streetlight, puddles flashing below - every redraw changes the downpour\'s rhythm.',
     palette: ['#2B3440', '#A8CFE0', '#5BB3CF', '#E8E6E1'],
     colors: { min: 2, max: 4, default: 3 },
     gridDefault: '8x12',
@@ -542,7 +542,7 @@ export const batch3 = [
     slug: 'cumulus',
     order: 174,
     description:
-      'Fair-weather clouds drifting across a flat blue sky, the occasional sun breaking through — every redraw re-billows the puffs.',
+      'Fair-weather clouds drifting across a flat blue sky, the occasional sun breaking through - every redraw re-billows the puffs.',
     palette: ['#8FC7EE', '#FDFDFB', '#F5C95C', '#DCEBF7'],
     colors: { min: 2, max: 4, default: 3 },
     gridDefault: '6x9',
@@ -556,7 +556,7 @@ export const batch3 = [
     slug: 'rainbow',
     order: 175,
     description:
-      'Double rainbows arching over a paper sky — every redraw re-bends the bands and trades their colors, sometimes upside-down.',
+      'Double rainbows arching over a paper sky - every redraw re-bends the bands and trades their colors, sometimes upside-down.',
     palette: ['#FBF6EA', '#E2543E', '#F0A63E', '#3E9C5C', '#2E86C9', '#C98BE8'],
     colors: { min: 2, max: 6, default: 6 },
     gridDefault: '6x9',
@@ -570,7 +570,7 @@ export const batch3 = [
     slug: 'arcade',
     order: 176,
     description:
-      'A sunlit aqueduct of stone arches marching in rows — every redraw re-springs the vaults and deepens different doorways.',
+      'A sunlit aqueduct of stone arches marching in rows - every redraw re-springs the vaults and deepens different doorways.',
     palette: ['#E9E0CC', '#C9A877', '#A8744F', '#8C5B42', '#5C4632'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '8x12',
@@ -585,7 +585,7 @@ export const batch3 = [
     order: 177,
     white: true,
     description:
-      'An apartment block after dark — most windows asleep, a few burning amber or telly-blue, the mix rewired by every redraw.',
+      'An apartment block after dark - most windows asleep, a few burning amber or telly-blue, the mix rewired by every redraw.',
     palette: ['#141A2A', '#F0B45C', '#2B3650', '#7EC8E3', '#E2708A'],
     colors: { min: 2, max: 5, default: 4 },
     gridDefault: '8x12',
@@ -599,7 +599,7 @@ export const batch3 = [
     slug: 'dial',
     order: 178,
     description:
-      'A console of hi-fi knobs, every pointer left where someone last tuned it — each redraw dials in a new setting.',
+      'A console of hi-fi knobs, every pointer left where someone last tuned it - each redraw dials in a new setting.',
     palette: ['#F1EBDD', '#3B3F45', '#C0392B', '#C9A227', '#B9C0C9'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '8x12',
@@ -614,7 +614,7 @@ export const batch3 = [
     order: 179,
     white: true,
     description:
-      'A spectrum analyzer mid-song — neon columns leap to new peaks on every redraw, two channels to a cell.',
+      'A spectrum analyzer mid-song - neon columns leap to new peaks on every redraw, two channels to a cell.',
     palette: ['#101216', '#3FFFB2', '#3EECFF', '#FF3D8B', '#F5DD32'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '8x12',
@@ -628,7 +628,7 @@ export const batch3 = [
     slug: 'citrus',
     order: 180,
     description:
-      'Halved oranges, grapefruits and limes pressed cut-side down on the counter — every redraw rolls new fruit with the pith ring intact.',
+      'Halved oranges, grapefruits and limes pressed cut-side down on the counter - every redraw rolls new fruit with the pith ring intact.',
     palette: ['#FBF4E6', '#F0A63E', '#E2708A', '#A8C45C', '#F5C95C'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '6x9',
@@ -643,7 +643,7 @@ export const batch3 = [
     order: 181,
     white: true,
     description:
-      'Chalk tallies counting something long forgotten on a slate wall — strokes lean, fade and strike through differently per redraw.',
+      'Chalk tallies counting something long forgotten on a slate wall - strokes lean, fade and strike through differently per redraw.',
     palette: ['#2E4034', '#F2EFE4', '#E2708A'],
     colors: { min: 2, max: 3, default: 2 },
     gridDefault: '8x12',
@@ -657,7 +657,7 @@ export const batch3 = [
     slug: 'sash',
     order: 182,
     description:
-      'Jewel-toned ribbons crossing the cloth on the diagonal, a pinstripe running alongside — every redraw re-drapes the silks.',
+      'Jewel-toned ribbons crossing the cloth on the diagonal, a pinstripe running alongside - every redraw re-drapes the silks.',
     palette: ['#F4EFE6', '#7A1F3D', '#27567B', '#C9A227', '#3E6B4F'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '8x12',
@@ -671,7 +671,7 @@ export const batch3 = [
     slug: 'wash',
     order: 183,
     description:
-      'Watercolor swatches pooling into one another on cold-press paper — every redraw floats the pigment into new puddles.',
+      'Watercolor swatches pooling into one another on cold-press paper - every redraw floats the pigment into new puddles.',
     palette: ['#FBF9F4', '#E2708A', '#C9A227', '#7FA886', '#5B8FB9', '#C98BE8'],
     colors: { min: 2, max: 6, default: 6 },
     gridDefault: '6x9',
@@ -686,7 +686,7 @@ export const batch3 = [
     order: 184,
     white: true,
     description:
-      'Midnight ceramic mended with gold — two lacquer seams meet at every break, creeping along new fractures after each redraw.',
+      'Midnight ceramic mended with gold - two lacquer seams meet at every break, creeping along new fractures after each redraw.',
     palette: ['#1A2238', '#E5B45B', '#F2DFA7'],
     colors: { min: 2, max: 3, default: 2 },
     gridDefault: '8x12',
@@ -700,7 +700,7 @@ export const batch3 = [
     slug: 'enso',
     order: 185,
     description:
-      'Brush-drawn circles on washi, each left open where the stroke lifted — every redraw re-inks the ring and turns its opening.',
+      'Brush-drawn circles on washi, each left open where the stroke lifted - every redraw re-inks the ring and turns its opening.',
     palette: ['#F8F4EA', '#1F1D1B', '#C0392B'],
     colors: { min: 2, max: 3, default: 2 },
     gridDefault: '6x9',
@@ -714,7 +714,7 @@ export const batch3 = [
     slug: 'bunting',
     order: 186,
     description:
-      'Strings of party pennants swaying between the rows — every redraw recolors the flags and lets them flutter to a new hang.',
+      'Strings of party pennants swaying between the rows - every redraw recolors the flags and lets them flutter to a new hang.',
     palette: ['#FAF5EA', '#E2543E', '#2E86C9', '#F5B82E', '#3E9C5C', '#C98BE8'],
     colors: { min: 2, max: 6, default: 6 },
     gridDefault: '8x12',
@@ -728,7 +728,7 @@ export const batch3 = [
     slug: 'sprout',
     order: 187,
     description:
-      'Seedlings standing in nursery rows, every stem unfurling its first leaf — redraws regrow the bed a little differently each time.',
+      'Seedlings standing in nursery rows, every stem unfurling its first leaf - redraws regrow the bed a little differently each time.',
     palette: ['#F6F1E3', '#3E7D4E', '#7FA858', '#A8C47A', '#8C5B42'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '8x12',
@@ -743,7 +743,7 @@ export const batch3 = [
     order: 188,
     white: true,
     description:
-      'Pairs of jeweler’s rings interlocking across deep plum velvet — every redraw re-hangs the chain with new metals.',
+      'Pairs of jeweler\'s rings interlocking across deep plum velvet - every redraw re-hangs the chain with new metals.',
     palette: ['#241B2F', '#C9A227', '#B9C0C9', '#E2708A', '#54A8C0'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '8x12',
@@ -757,7 +757,7 @@ export const batch3 = [
     slug: 'regatta',
     order: 189,
     description:
-      'A weekend regatta scattered to the horizon — hulls, mainsails and a breeze that re-trims every boat per redraw.',
+      'A weekend regatta scattered to the horizon - hulls, mainsails and a breeze that re-trims every boat per redraw.',
     palette: ['#DDEEF7', '#FDFDFB', '#E2543E', '#27567B', '#F5B82E'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '6x9',
@@ -772,7 +772,7 @@ export const batch3 = [
     order: 190,
     white: true,
     description:
-      'A dusk range of overlapping peaks, snowcaps riding the summits — every redraw heaves up a new skyline.',
+      'A dusk range of overlapping peaks, snowcaps riding the summits - every redraw heaves up a new skyline.',
     palette: ['#2E3650', '#46557B', '#5C6FA0', '#7B8BB8', '#EDF2FA'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '8x12',
@@ -786,7 +786,7 @@ export const batch3 = [
     slug: 'abacus',
     order: 191,
     description:
-      'Counting-frame rods with lacquered beads mid-calculation — every redraw slides the beads into a new total.',
+      'Counting-frame rods with lacquered beads mid-calculation - every redraw slides the beads into a new total.',
     palette: ['#EBDDC3', '#8C5B42', '#C0392B', '#27324B', '#C9A227'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '8x12',
@@ -800,7 +800,7 @@ export const batch3 = [
     slug: 'hatch',
     order: 192,
     description:
-      'Pen-and-ink crosshatching warming up a blank page — stroke clusters tilt and cross at new angles on every redraw.',
+      'Pen-and-ink crosshatching warming up a blank page - stroke clusters tilt and cross at new angles on every redraw.',
     palette: ['#F8F6EF', '#27324B', '#8C2F39'],
     colors: { min: 2, max: 3, default: 2 },
     gridDefault: '8x12',
@@ -814,7 +814,7 @@ export const batch3 = [
     slug: 'crater',
     order: 193,
     description:
-      'The moon’s surface mapped crater by crater — rims catch the light on one side while every redraw re-cuts the basins.',
+      'The moon\'s surface mapped crater by crater - rims catch the light on one side while every redraw re-cuts the basins.',
     palette: ['#BDC2C9', '#8E939B', '#6B7078', '#D8DCE2'],
     colors: { min: 2, max: 4, default: 4 },
     gridDefault: '8x12',
@@ -828,7 +828,7 @@ export const batch3 = [
     slug: 'monolith',
     order: 194,
     description:
-      'Standing stones in a flat desert light, each dragging its long shadow — every redraw re-raises the stones at new heights.',
+      'Standing stones in a flat desert light, each dragging its long shadow - every redraw re-raises the stones at new heights.',
     palette: ['#E8D5B5', '#3B3F45', '#8C5B42', '#5C6FA0'],
     colors: { min: 2, max: 4, default: 4 },
     gridDefault: '8x12',
@@ -843,7 +843,7 @@ export const batch3 = [
     order: 195,
     white: true,
     description:
-      'Columnar basalt seen from above, moss creeping over the odd column — the rock face re-fractures with every redraw.',
+      'Columnar basalt seen from above, moss creeping over the odd column - the rock face re-fractures with every redraw.',
     palette: ['#23262B', '#3B3F45', '#54595F', '#6E747C', '#5E7D5A'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '8x12',
@@ -858,7 +858,7 @@ export const batch3 = [
     order: 196,
     white: true,
     description:
-      'A wall of meshing gears — dotted teeth ring every wheel, and each redraw clicks the whole works one notch onward.',
+      'A wall of meshing gears - dotted teeth ring every wheel, and each redraw clicks the whole works one notch onward.',
     palette: ['#39414D', '#C9A227', '#B9C0C9', '#8C5B42'],
     colors: { min: 2, max: 4, default: 3 },
     gridDefault: '8x12',
@@ -872,7 +872,7 @@ export const batch3 = [
     slug: 'inkblot',
     order: 197,
     description:
-      'Folded-paper ink tests, every blot mirrored down its crease — redraws press out new symmetrical readings.',
+      'Folded-paper ink tests, every blot mirrored down its crease - redraws press out new symmetrical readings.',
     palette: ['#FAF7F0', '#1F1D1B', '#7A1F3D'],
     colors: { min: 2, max: 3, default: 2 },
     gridDefault: '6x9',
@@ -886,7 +886,7 @@ export const batch3 = [
     slug: 'checkers',
     order: 198,
     description:
-      'A checkerboard mid-game — the board holds still while the pieces hop squares, king up and swap sides on every redraw.',
+      'A checkerboard mid-game - the board holds still while the pieces hop squares, king up and swap sides on every redraw.',
     palette: ['#EBDDC3', '#8C5B42', '#C0392B', '#1F1D1B', '#C9A227'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '8x12',
@@ -901,7 +901,7 @@ export const batch3 = [
     order: 199,
     white: true,
     description:
-      'Chalk courts drawn over fresh asphalt, a tossed marker resting in some squares — every redraw redraws the playground.',
+      'Chalk courts drawn over fresh asphalt, a tossed marker resting in some squares - every redraw redraws the playground.',
     palette: ['#3A3D42', '#F2EFE4', '#F7C8D8', '#F5DD8A', '#A8D4F0'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '8x12',
@@ -916,7 +916,7 @@ export const batch3 = [
     order: 200,
     white: true,
     description:
-      'Indigo cloth tie-dyed in rings — each binding blooms white where the dye couldn’t reach, re-pinched on every redraw.',
+      'Indigo cloth tie-dyed in rings - each binding blooms white where the dye couldn\'t reach, re-pinched on every redraw.',
     palette: ['#2B3F73', '#EAF1FF', '#9FB8E8'],
     colors: { min: 2, max: 3, default: 2 },
     gridDefault: '6x9',
@@ -930,7 +930,7 @@ export const batch3 = [
     slug: 'polaroid',
     order: 201,
     description:
-      'Instant photos strewn across a desk, each one a small color field in a white frame — every redraw reshuffles the shoebox.',
+      'Instant photos strewn across a desk, each one a small color field in a white frame - every redraw reshuffles the shoebox.',
     palette: ['#D9C49C', '#FBFAF6', '#E2708A', '#54A8C0', '#7FA886', '#F0A63E'],
     colors: { min: 2, max: 6, default: 6 },
     gridDefault: '6x9',
@@ -944,7 +944,7 @@ export const batch3 = [
     slug: 'button',
     order: 202,
     description:
-      'A tin of sewing buttons tipped onto linen — two or four thread holes, rims worn at different widths, re-sorted by every redraw.',
+      'A tin of sewing buttons tipped onto linen - two or four thread holes, rims worn at different widths, re-sorted by every redraw.',
     palette: ['#F4EEE2', '#E2708A', '#54A8C0', '#C9A227', '#7FA886', '#B45F4D'],
     colors: { min: 2, max: 6, default: 6 },
     gridDefault: '8x12',
@@ -958,7 +958,7 @@ export const batch3 = [
     slug: 'bowtie',
     order: 203,
     description:
-      'A drawer of dapper bowties cinched at the knot — every redraw re-ties the silk at a fresh angle and pinch.',
+      'A drawer of dapper bowties cinched at the knot - every redraw re-ties the silk at a fresh angle and pinch.',
     palette: ['#F3EDE0', '#7A1F3D', '#27324B', '#C9A227', '#3E6B4F'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '8x12',
@@ -973,7 +973,7 @@ export const batch3 = [
     order: 204,
     white: true,
     description:
-      'Jellyfish pulsing through the abyss, tentacles trailing — every redraw catches the bloom at a new depth and drift.',
+      'Jellyfish pulsing through the abyss, tentacles trailing - every redraw catches the bloom at a new depth and drift.',
     palette: ['#0D1B2E', '#FF8FB8', '#3EECFF', '#C9A4F2', '#3FFFB2'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '6x9',
@@ -988,7 +988,7 @@ export const batch3 = [
     order: 205,
     white: true,
     description:
-      'Branching coral reaching off the reef floor — every redraw regrows each colony’s fork toward a different light.',
+      'Branching coral reaching off the reef floor - every redraw regrows each colony\'s fork toward a different light.',
     palette: ['#123047', '#FF7E8A', '#F0A63E', '#3EECFF', '#E2708A'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '8x12',
@@ -1003,7 +1003,7 @@ export const batch3 = [
     order: 206,
     white: true,
     description:
-      'Five-pointed stars twinkling over midnight felt — each one flexes its points and leans into a new tilt per redraw.',
+      'Five-pointed stars twinkling over midnight felt - each one flexes its points and leans into a new tilt per redraw.',
     palette: ['#191B2F', '#F5C95C', '#F2F4FF', '#FF8FB8', '#3EECFF'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '8x12',
@@ -1017,7 +1017,7 @@ export const batch3 = [
     slug: 'ladybird',
     order: 207,
     description:
-      'Ladybirds wandering a sunny leaf — wing spots and headcaps shift with every redraw, a lucky yellow one in the mix.',
+      'Ladybirds wandering a sunny leaf - wing spots and headcaps shift with every redraw, a lucky yellow one in the mix.',
     palette: ['#8FBF6F', '#C0392B', '#1F1D1B', '#F0A63E'],
     colors: { min: 2, max: 4, default: 3 },
     gridDefault: '8x12',
@@ -1031,7 +1031,7 @@ export const batch3 = [
     slug: 'flutter',
     order: 208,
     description:
-      'Butterflies pinned mid-flight — both wings cut from the same shape, mirrored at the body, beating to a new spread per redraw.',
+      'Butterflies pinned mid-flight - both wings cut from the same shape, mirrored at the body, beating to a new spread per redraw.',
     palette: ['#F7F3E8', '#E2708A', '#F0A63E', '#9D89F2', '#54A8C0', '#3E9C5C'],
     colors: { min: 2, max: 6, default: 6 },
     gridDefault: '8x12',
@@ -1045,7 +1045,7 @@ export const batch3 = [
     slug: 'sonata',
     order: 209,
     description:
-      'Notation drifting off its staves — note heads lean on their stems between faint rules, recomposed by every redraw.',
+      'Notation drifting off its staves - note heads lean on their stems between faint rules, recomposed by every redraw.',
     palette: ['#FAF6EC', '#27324B', '#8C2F39', '#C9A227'],
     colors: { min: 2, max: 4, default: 3 },
     gridDefault: '8x12',
@@ -1060,7 +1060,7 @@ export const batch3 = [
     order: 210,
     white: true,
     description:
-      'Brass and silver wind chimes hanging into the dusk — tubes lengthen, clappers drift, and every redraw stills a new chord.',
+      'Brass and silver wind chimes hanging into the dusk - tubes lengthen, clappers drift, and every redraw stills a new chord.',
     palette: ['#1F4E4A', '#C9A227', '#B9C0C9', '#E2C089'],
     colors: { min: 2, max: 4, default: 4 },
     gridDefault: '8x12',
@@ -1074,7 +1074,7 @@ export const batch3 = [
     slug: 'cirrus',
     order: 211,
     description:
-      'Mare’s-tail clouds combed thin across a high sky — every redraw re-brushes the streaks at a softer or steeper sweep.',
+      'Mare\'s-tail clouds combed thin across a high sky - every redraw re-brushes the streaks at a softer or steeper sweep.',
     palette: ['#8FC2E8', '#FDFDFB', '#E8F2FA'],
     colors: { min: 2, max: 3, default: 2 },
     gridDefault: '8x12',
@@ -1089,7 +1089,7 @@ export const batch3 = [
     order: 212,
     white: true,
     description:
-      'Wireframe globes spinning in a dark atlas — each one shows a different meridian as it turns, tilting on its axis per redraw.',
+      'Wireframe globes spinning in a dark atlas - each one shows a different meridian as it turns, tilting on its axis per redraw.',
     palette: ['#1C2440', '#9FB8E8', '#3EECFF', '#F5C95C'],
     colors: { min: 2, max: 4, default: 3 },
     gridDefault: '8x12',
@@ -1104,7 +1104,7 @@ export const batch3 = [
     order: 213,
     white: true,
     description:
-      'Radio beacons ringing out into deep space — twin shockwaves widen around each bright core, re-emitted on every redraw.',
+      'Radio beacons ringing out into deep space - twin shockwaves widen around each bright core, re-emitted on every redraw.',
     palette: ['#0B0D12', '#3EECFF', '#F2F4FF', '#FF3D8B'],
     colors: { min: 2, max: 4, default: 3 },
     gridDefault: '8x12',
@@ -1119,7 +1119,7 @@ export const batch3 = [
     order: 214,
     white: true,
     description:
-      'Beacon housings stacked through the dark, one lamp burning in each — every redraw relights a different window of color.',
+      'Beacon housings stacked through the dark, one lamp burning in each - every redraw relights a different window of color.',
     palette: ['#26282E', '#3FFFB2', '#F5DD32', '#FF3D8B', '#3EECFF'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '8x12',
@@ -1133,7 +1133,7 @@ export const batch3 = [
     slug: 'laundry',
     order: 215,
     description:
-      'Wash day on the line — shirts and towels pinned under a breeze, swinging into a new hang with every redraw.',
+      'Wash day on the line - shirts and towels pinned under a breeze, swinging into a new hang with every redraw.',
     palette: ['#CFE8F4', '#7FC9A8', '#E2708A', '#F5DD8A', '#FDFDFB', '#5A5F66'],
     colors: { min: 2, max: 6, default: 6 },
     gridDefault: '8x12',
@@ -1147,7 +1147,7 @@ export const batch3 = [
     slug: 'amphora',
     order: 216,
     description:
-      'Museum shelves of clay vessels — bellies swell, necks stretch and glazes trade places with every redraw.',
+      'Museum shelves of clay vessels - bellies swell, necks stretch and glazes trade places with every redraw.',
     palette: ['#EFE3CE', '#B45F4D', '#1F1D1B', '#3E6B7B', '#C9A227'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '8x12',
@@ -1161,7 +1161,7 @@ export const batch3 = [
     slug: 'saguaro',
     order: 217,
     description:
-      'A nursery of cactuses on warm dust — every redraw regrows each arm and re-pots the row at golden hour.',
+      'A nursery of cactuses on warm dust - every redraw regrows each arm and re-pots the row at golden hour.',
     palette: ['#F2C9A0', '#3E7D5B', '#5E9C6F', '#2F5D4A'],
     colors: { min: 2, max: 4, default: 4 },
     gridDefault: '8x12',
@@ -1175,7 +1175,7 @@ export const batch3 = [
     slug: 'seigaiha',
     order: 218,
     description:
-      'The classic blue-ocean wave crests, fan inside fan — every redraw lets the tide swell and recolor scale by scale.',
+      'The classic blue-ocean wave crests, fan inside fan - every redraw lets the tide swell and recolor scale by scale.',
     palette: ['#F2F6F7', '#27567B', '#3A77A8', '#7FB3D5', '#1B3A52'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '8x12',
@@ -1189,7 +1189,7 @@ export const batch3 = [
     slug: 'impasto',
     order: 219,
     description:
-      'Thick dabs of oil paint left where the knife dropped them — each stroke casts a little ridge of shadow, re-daubed per redraw.',
+      'Thick dabs of oil paint left where the knife dropped them - each stroke casts a little ridge of shadow, re-daubed per redraw.',
     palette: ['#F5F1E8', '#C0392B', '#27567B', '#C9A227', '#3E6B4F', '#9D89F2'],
     colors: { min: 2, max: 6, default: 6 },
     gridDefault: '8x12',
@@ -1203,7 +1203,7 @@ export const batch3 = [
     slug: 'patina',
     order: 220,
     description:
-      'Weathered copper blooming green — verdigris spreads in soft pools over the metal, advancing differently with each redraw.',
+      'Weathered copper blooming green - verdigris spreads in soft pools over the metal, advancing differently with each redraw.',
     palette: ['#B8714C', '#4FA08B', '#7FC4A8', '#2F6B5C', '#5B3A2A'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '8x12',
@@ -1218,7 +1218,7 @@ export const batch3 = [
     order: 221,
     white: true,
     description:
-      'An oscilloscope holding a slow waveform — half-circle crests flip trough to crest down the rows, re-tuned in amplitude per redraw.',
+      'An oscilloscope holding a slow waveform - half-circle crests flip trough to crest down the rows, re-tuned in amplitude per redraw.',
     palette: ['#0A0F0C', '#3DFF8E', '#3EECFF', '#F5DD32'],
     colors: { min: 2, max: 4, default: 2 },
     gridDefault: '8x12',
@@ -1233,7 +1233,7 @@ export const batch3 = [
     order: 222,
     white: true,
     description:
-      'Cut stones on a jeweler’s velvet — every gem re-facets itself, its table flashing white where the light lands.',
+      'Cut stones on a jeweler\'s velvet - every gem re-facets itself, its table flashing white where the light lands.',
     palette: ['#221E2E', '#E2437D', '#3EECFF', '#C9A227', '#9D89F2', '#3FFFB2'],
     colors: { min: 2, max: 6, default: 6 },
     gridDefault: '8x12',
@@ -1247,7 +1247,7 @@ export const batch3 = [
     slug: 'macaron',
     order: 223,
     description:
-      'Patisserie shelves of macarons — two shells and a peeking band of filling, restacked in new flavors on every redraw.',
+      'Patisserie shelves of macarons - two shells and a peeking band of filling, restacked in new flavors on every redraw.',
     palette: ['#FBF3EA', '#F7A8C4', '#A8D8C8', '#C9A4F2', '#F5D78A', '#8C5B42'],
     colors: { min: 2, max: 6, default: 6 },
     gridDefault: '8x12',
@@ -1261,7 +1261,7 @@ export const batch3 = [
     slug: 'shelf',
     order: 224,
     description:
-      'A well-loved bookcase — spines of every height shoulder together, one always leaning, re-shelved by each redraw.',
+      'A well-loved bookcase - spines of every height shoulder together, one always leaning, re-shelved by each redraw.',
     palette: ['#F3EBDC', '#7A1F3D', '#27324B', '#C9A227', '#3E6B4F', '#B45F4D'],
     colors: { min: 2, max: 6, default: 6 },
     gridDefault: '8x12',
@@ -1275,7 +1275,7 @@ export const batch3 = [
     slug: 'rake',
     order: 225,
     description:
-      'A zen garden mid-morning — raked sand lines flowing around the stones, re-combed by every redraw.',
+      'A zen garden mid-morning - raked sand lines flowing around the stones, re-combed by every redraw.',
     palette: ['#EDE6D6', '#D8CDB4', '#5C5648', '#7E9680'],
     colors: { min: 2, max: 4, default: 3 },
     gridDefault: '8x12',
@@ -1289,7 +1289,7 @@ export const batch3 = [
     slug: 'matchstick',
     order: 226,
     description:
-      'Matches spilled from the box — vermilion heads on pale sticks, one in a while burnt to charcoal, re-scattered per redraw.',
+      'Matches spilled from the box - vermilion heads on pale sticks, one in a while burnt to charcoal, re-scattered per redraw.',
     palette: ['#F7F1E6', '#E2543E', '#E8C9A0', '#3B3F45'],
     colors: { min: 2, max: 4, default: 3 },
     gridDefault: '8x12',
@@ -1304,7 +1304,7 @@ export const batch3 = [
     order: 227,
     white: true,
     description:
-      'Incense sticks burning down in the half-dark, smoke pearls rising off each ember — every redraw lets the smoke drift anew.',
+      'Incense sticks burning down in the half-dark, smoke pearls rising off each ember - every redraw lets the smoke drift anew.',
     palette: ['#3A3530', '#E2C089', '#F2EFE4', '#C0392B'],
     colors: { min: 2, max: 4, default: 3 },
     gridDefault: '8x12',
@@ -1318,7 +1318,7 @@ export const batch3 = [
     slug: 'splat',
     order: 228,
     description:
-      'Ink flicked at the page from a loaded brush — every splat throws its droplets in a new direction per redraw.',
+      'Ink flicked at the page from a loaded brush - every splat throws its droplets in a new direction per redraw.',
     palette: ['#FAFAF7', '#1F1D1B', '#C0392B', '#27567B'],
     colors: { min: 2, max: 4, default: 2 },
     gridDefault: '6x9',
@@ -1332,7 +1332,7 @@ export const batch3 = [
     slug: 'popsicle',
     order: 229,
     description:
-      'Ice pops on their sticks, tilted in a summer cooler — flavors trade and lean with every redraw before they melt.',
+      'Ice pops on their sticks, tilted in a summer cooler - flavors trade and lean with every redraw before they melt.',
     palette: ['#DFF2E9', '#FF6B7E', '#FFA94D', '#7FC96B', '#5BAFE8', '#C98BE8'],
     colors: { min: 2, max: 6, default: 6 },
     gridDefault: '8x12',
@@ -1346,7 +1346,7 @@ export const batch3 = [
     slug: 'paisley',
     order: 230,
     description:
-      'Teardrop boteh curling across the cloth, each one nested with a paler heart — every redraw re-stamps the print.',
+      'Teardrop boteh curling across the cloth, each one nested with a paler heart - every redraw re-stamps the print.',
     palette: ['#F6EFE0', '#8C2F39', '#27567B', '#C9A227', '#3E6B4F'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '8x12',
@@ -1360,7 +1360,7 @@ export const batch3 = [
     slug: 'buoy',
     order: 231,
     description:
-      'Harbor buoys riding a gray-green swell — striped floats tip with the chop, re-anchored on every redraw.',
+      'Harbor buoys riding a gray-green swell - striped floats tip with the chop, re-anchored on every redraw.',
     palette: ['#DCE8EC', '#E2543E', '#27324B', '#FDFDFB', '#9FC4D4'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '8x12',
@@ -1374,7 +1374,7 @@ export const batch3 = [
     slug: 'sigil',
     order: 232,
     description:
-      'Wax seals pressed onto parchment — crimson blobs with an embossed ring, each one stamped a little differently per redraw.',
+      'Wax seals pressed onto parchment - crimson blobs with an embossed ring, each one stamped a little differently per redraw.',
     palette: ['#F1E6D0', '#8C2F39', '#B6452C', '#27324B', '#C9A227'],
     colors: { min: 2, max: 5, default: 3 },
     gridDefault: '8x12',
@@ -1389,7 +1389,7 @@ export const batch3 = [
     order: 233,
     white: true,
     description:
-      'Air rising through deep water — thin-walled bubbles in twos and threes, each with its gloss, re-released on every redraw.',
+      'Air rising through deep water - thin-walled bubbles in twos and threes, each with its gloss, re-released on every redraw.',
     palette: ['#0E4D5C', '#9ADCE8', '#3EECFF', '#E8F8FA'],
     colors: { min: 2, max: 4, default: 3 },
     gridDefault: '8x12',
@@ -1403,7 +1403,7 @@ export const batch3 = [
     slug: 'bee',
     order: 234,
     description:
-      'Honeybees working a cream-gold afternoon — banded bodies at every heading, wings blurred mid-beat, re-routed each redraw.',
+      'Honeybees working a cream-gold afternoon - banded bodies at every heading, wings blurred mid-beat, re-routed each redraw.',
     palette: ['#FBEFD4', '#F2B53A', '#1F1D1B', '#FDFDFB'],
     colors: { min: 2, max: 4, default: 4 },
     gridDefault: '8x12',
@@ -1418,7 +1418,7 @@ export const batch3 = [
     order: 235,
     white: true,
     description:
-      'Kaleidoscope shards meeting at their hinge — every facet and its reflection re-cut in gem colors per redraw.',
+      'Kaleidoscope shards meeting at their hinge - every facet and its reflection re-cut in gem colors per redraw.',
     palette: ['#102725', '#3FFFB2', '#3EECFF', '#E2437D', '#F5C95C'],
     colors: { min: 2, max: 5, default: 5 },
     gridDefault: '8x12',
@@ -1432,7 +1432,7 @@ export const batch3 = [
     slug: 'pompom',
     order: 236,
     description:
-      'A craft jar of yarn pompoms — fuzzy spheres in raspberry, teal and marigold, bouncing to new spots on every redraw.',
+      'A craft jar of yarn pompoms - fuzzy spheres in raspberry, teal and marigold, bouncing to new spots on every redraw.',
     palette: ['#F6F1E9', '#E2437D', '#3AAFA9', '#F0A63E', '#9D89F2', '#7FC96B'],
     colors: { min: 2, max: 6, default: 6 },
     gridDefault: '8x12',

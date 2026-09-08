@@ -3,7 +3,7 @@
 // The account's front page: what Studio has been asked for, and what today's
 // spending looks like against the caps.
 //
-// Three reads, in parallel — sites, generations, usage — and one list made
+// Three reads, in parallel - sites, generations, usage - and one list made
 // from the first two. A site and a generation are different things to the
 // API (one is a full document on a template, the other is three directions
 // to choose between) and the same thing to the person: a request they made
@@ -160,7 +160,7 @@ export default function AccountOverview() {
 
         <div className={`${styles.card} ${styles.dark}`}>
           <div className={styles.darkHead}>
-            <p className={styles.cardLabel}>Today&rsquo;s AI usage</p>
+            <p className={styles.cardLabel}>Today's AI usage</p>
             {ready?.usage ? (
               <span className={styles.resets}>
                 Resets{' '}
@@ -189,7 +189,7 @@ export default function AccountOverview() {
             </ul>
           ) : (
             <p className={styles.darkQuiet}>
-              {state.status === 'loading' ? 'Reading today’s usage…' : 'Usage is not available right now.'}
+              {state.status === 'loading' ? 'Reading today\'s usage...' : 'Usage is not available right now.'}
             </p>
           )}
         </div>

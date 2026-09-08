@@ -27,7 +27,7 @@ const DAYS = [
   { d: 'Sun', t: '11', lo: '7', w: 'Showers, easing', p: '997', c: 35 },
 ];
 
-/* Mean temperature by month, °C, 1991–2020 normal for the city station. The
+/* Mean temperature by month, °C, 1991-2020 normal for the city station. The
    strip below is drawn from these numbers and nothing else. */
 const NORMALS = [
   ['Jan', 1.9], ['Feb', 1.8], ['Mar', 3.7], ['Apr', 6.2],
@@ -57,28 +57,28 @@ const METHOD = [
 ];
 
 const WARNINGS = [
-  ['Yellow', 'Wind', 'Coast, Sogn to Stad', 'Fri 18:00 – Sat 09:00', '70 %'],
-  ['Orange', 'Rain', 'Inner Hordaland', 'Fri 22:00 – Sun 06:00', '55 %'],
-  ['Yellow', 'Rain', 'Bergen and environs', 'Sat 03:00 – Sat 21:00', '80 %'],
-  ['Yellow', 'Waves', 'Outer coast', 'Sat 00:00 – Sat 18:00', '65 %'],
-  ['Green', 'Snow', 'Above 900 m', 'Sun 12:00 – Mon 06:00', '30 %'],
+  ['Yellow', 'Wind', 'Coast, Sogn to Stad', 'Fri 18:00 - Sat 09:00', '70 %'],
+  ['Orange', 'Rain', 'Inner Hordaland', 'Fri 22:00 - Sun 06:00', '55 %'],
+  ['Yellow', 'Rain', 'Bergen and environs', 'Sat 03:00 - Sat 21:00', '80 %'],
+  ['Yellow', 'Waves', 'Outer coast', 'Sat 00:00 - Sat 18:00', '65 %'],
+  ['Green', 'Snow', 'Above 900 m', 'Sun 12:00 - Mon 06:00', '30 %'],
 ];
 
 const STATIONS = [
-  ['SN50540', 'Bergen – Florida', '12 m', '1904–', 'Manned 06:00'],
-  ['SN50500', 'Bergen – Sandsli', '48 m', '1979–', 'Automatic'],
-  ['SN51530', 'Voss – Bø', '125 m', '1891–', 'Manned 06:00'],
-  ['SN52535', 'Modalen', '114 m', '1955–', 'Automatic'],
-  ['SN53101', 'Vangsnes', '49 m', '1876–', 'Manned 06:00'],
-  ['SN54110', 'Fedje', '39 m', '1949–', 'Automatic'],
-  ['SN55290', 'Kvamskogen', '455 m', '1968–', 'Automatic'],
-  ['SN56420', 'Ullensvang', '12 m', '1867–', 'Manned 06:00'],
-  ['SN57420', 'Slåtterøy fyr', '32 m', '1922–', 'Automatic'],
-  ['SN58900', 'Sauda', '18 m', '1895–', 'Automatic'],
-  ['SN59800', 'Stad – Kråkenes', '40 m', '1997–', 'Automatic'],
-  ['SN60990', 'Takle', '38 m', '1969–', 'Automatic'],
-  ['SN61770', 'Sognefjell', '1 413 m', '1978–', 'Automatic'],
-  ['SN62480', 'Bulken', '324 m', '1895–', 'Manned 06:00'],
+  ['SN50540', 'Bergen - Florida', '12 m', '1904-', 'Manned 06:00'],
+  ['SN50500', 'Bergen - Sandsli', '48 m', '1979-', 'Automatic'],
+  ['SN51530', 'Voss - Bø', '125 m', '1891-', 'Manned 06:00'],
+  ['SN52535', 'Modalen', '114 m', '1955-', 'Automatic'],
+  ['SN53101', 'Vangsnes', '49 m', '1876-', 'Manned 06:00'],
+  ['SN54110', 'Fedje', '39 m', '1949-', 'Automatic'],
+  ['SN55290', 'Kvamskogen', '455 m', '1968-', 'Automatic'],
+  ['SN56420', 'Ullensvang', '12 m', '1867-', 'Manned 06:00'],
+  ['SN57420', 'Slåtterøy fyr', '32 m', '1922-', 'Automatic'],
+  ['SN58900', 'Sauda', '18 m', '1895-', 'Automatic'],
+  ['SN59800', 'Stad - Kråkenes', '40 m', '1997-', 'Automatic'],
+  ['SN60990', 'Takle', '38 m', '1969-', 'Automatic'],
+  ['SN61770', 'Sognefjell', '1 413 m', '1978-', 'Automatic'],
+  ['SN62480', 'Bulken', '324 m', '1895-', 'Manned 06:00'],
 ];
 
 const RECORDS = [
@@ -95,7 +95,7 @@ const SERVICE = [
   ['Archive', 'Daily observations back to 1867, digitised from the ledgers by hand.'],
 ];
 
-/* x and y are percentages of the locator box, not coordinates —
+/* x and y are percentages of the locator box, not coordinates -
    the schematic is a diagram of relative position, nothing more. */
 const OFFICES = [
   { city: 'Bergen', role: 'Forecast desk, staffed always', addr: 'Allégaten 70, 5007', fix: '60.39 N  5.32 E', x: 22, y: 68, head: true },
@@ -104,7 +104,7 @@ const OFFICES = [
   { city: 'Bjørnøya', role: 'Automatic, visited twice a year', addr: 'Herwighamna', fix: '74.50 N  19.00 E', x: 52, y: 8 },
 ];
 
-/* When, what, and where — the footer dateline. */
+/* When, what, and where - the footer dateline. */
 const NEXT_UP: [string, string, string][] = [
   ['04:00', 'Coastal waters, twelve hours ahead', 'Daily'],
   ['11:00', 'Offshore and open sea, thirty-six hours', 'Daily'],
@@ -285,7 +285,7 @@ export default function IsobarPage() {
             axis, which is all a normal needs. */}
         <section id="climate" className={s.climate} aria-labelledby="climate-h">
           <div className={s.secHead}>
-            <h2 data-edit="climate.title" data-edit-max="60" id="climate-h">The 1991–2020 normal</h2>
+            <h2 data-edit="climate.title" data-edit-max="60" id="climate-h">The 1991-2020 normal</h2>
             <p data-edit="climate.body" data-edit-max="240" data-edit-multiline>Mean temperature by month at the city station, in degrees. The tint is the number.</p>
           </div>
           <div className={s.strip}>

@@ -5,7 +5,7 @@
  * editorial shell with two inset light sections. Rather than leak those colors
  * into globals.css (where every other route would inherit them), they are
  * declared once on the page wrapper and inherit down to the section modules,
- * which reference them as `var(--h-…)`.
+ * which reference them as `var(--h-...)`.
  *
  * Everything else on the site still renders in the shared light theme via
  * MainHeader/Footer; nothing here is global.
@@ -32,7 +32,7 @@
   --h-paper-well: oklch(0.98 0.002 260);
   --h-teal: oklch(0.4 0.13 175);
 
-  /* Measure. `--h-edge` is the full-bleed margin beside the 1280px column —
+  /* Measure. `--h-edge` is the full-bleed margin beside the 1280px column -
      the strip the hero fills with pattern cells. It is only ever used on
      full-width children, so its 50% always resolves against the viewport. */
   --h-max: 1280px;
@@ -41,7 +41,7 @@
 
   /* proxima-nova comes from the typekit link in the root layout. The mono is
      self-hosted by next/font and reaches this element as a class, which is why
-     it is a variable rather than a family name — the class only exists on the
+     it is a variable rather than a family name - the class only exists on the
      homepage, so no other route pays for the download. */
   --h-sans: 'proxima-nova', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --h-mono: var(--font-plex-mono), ui-monospace, SFMono-Regular, Menlo, monospace;

@@ -30,7 +30,7 @@ const PER_PAGE = 20;
 /**
  * Tile spans for the mosaic grid, as [columns, rows] against four columns and
  * 104px rows. The six bands each tile the four columns exactly and together
- * come to PER_PAGE, so a full page never ends on a ragged row — and because the
+ * come to PER_PAGE, so a full page never ends on a ragged row - and because the
  * list repeats per page, the rhythm is the same wherever you are in the
  * catalog. A short last page (or a search) just falls back to dense packing.
  */
@@ -158,11 +158,11 @@ export default function SelectPattern({ gallery }: { gallery: GalleryItem[] }) {
 
   const editor = usePaletteEditor({
     // Saving/creating applies the palette; the rail shows the full list, so a
-    // freshly saved custom palette is already at the top — no page to jump to.
+    // freshly saved custom palette is already at the top - no page to jump to.
     onSaved: (palette) => applyPalette(palette.id, true),
   });
 
-  // Delete a custom palette on the first click of its ✕ (no confirm step).
+  // Delete a custom palette on the first click of its delete mark (no confirm step).
   // Deleting the active palette reverts previews to the shared default.
   const removePalette = (id: string) => {
     deletePalette(id);
@@ -194,7 +194,7 @@ export default function SelectPattern({ gallery }: { gallery: GalleryItem[] }) {
 
   const onSearchChange = (value: string) => {
     setSearch(value);
-    // A new search resets to page 1 — clear the page param (not a page nav).
+    // A new search resets to page 1 - clear the page param (not a page nav).
     setPage(1);
     writePageToUrl(1, true);
   };
@@ -243,8 +243,8 @@ export default function SelectPattern({ gallery }: { gallery: GalleryItem[] }) {
       />
       )}
 
-      {/* Mobile only: the palette chip shelf lives here — a direct child of the
-          document-scrolled gallery — so `position: sticky` keeps it pinned to
+      {/* Mobile only: the palette chip shelf lives here - a direct child of the
+          document-scrolled gallery - so `position: sticky` keeps it pinned to
           the top of the viewport across the whole grid scroll (nested inside the
           header wrapper it could only stick within that short box). */}
       {isMobile && !browserOpen && (
@@ -270,8 +270,8 @@ export default function SelectPattern({ gallery }: { gallery: GalleryItem[] }) {
               {filtered.length === 1 ? 'pattern' : 'patterns'}
             </strong>
             , each drawn live in your browser. Pick a color palette to recolor
-            the library &mdash; edit its colors if you want your own &mdash;
-            then choose a pattern to customize.
+            the library (edit its colors if you want your own), then choose
+            a pattern to customize.
           </p>
         </div>
 
@@ -310,7 +310,7 @@ export default function SelectPattern({ gallery }: { gallery: GalleryItem[] }) {
                       className={styles.pageGap}
                       aria-hidden="true"
                     >
-                      …
+                      ...
                     </span>
                   ) : (
                     <button

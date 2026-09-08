@@ -1,4 +1,4 @@
-// C. Sector — hard-stop conic pies.
+// C. Sector - hard-stop conic pies.
 //
 // conic-gradient is the only thing in CSS that sweeps a value round an angle,
 // and it is also the one gradient SVG has no primitive for. The distinction
@@ -27,7 +27,7 @@ add(
 
 add(
   'Protractor',
-  'A half circle with the middle bored out — a sector taken all the way to 180 degrees.',
+  'A half circle with the middle bored out - a sector taken all the way to 180 degrees.',
   (c) => ({
     rule: `--rot: ${R4}; ${F} { background: ${ink(c)}; ${arcSector('180deg', '36%')} ${rot('@var(--rot)')} }${TR}`,
   }),

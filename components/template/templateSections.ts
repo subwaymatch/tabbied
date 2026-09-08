@@ -53,8 +53,8 @@ export type SectionContent = {
   /**
    * People, each with a generated portrait (see Team in TemplateSite.tsx).
    *
-   * `portraitScene` is the half of the prompt the whole team shares — where
-   * they are and how it is lit — and each person's `role` completes it. One
+   * `portraitScene` is the half of the prompt the whole team shares - where
+   * they are and how it is lit - and each person's `role` completes it. One
    * line per team instead of one prompt per person, and it keeps a site's
    * people looking like colleagues rather than a stock-photo grab bag.
    */
@@ -85,7 +85,7 @@ export type SectionContent = {
 };
 
 const IMG =
-  'Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.';
+  'Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped - no disembodied hands, no limbs cut off by the edge, and no bodies without heads.';
 
 export const TEMPLATE_SECTIONS: Record<string, SectionContent> = {
   solstice: {
@@ -227,7 +227,7 @@ export const TEMPLATE_SECTIONS: Record<string, SectionContent> = {
       { eyebrow: 'The stone', title: 'Traceable to the source', body: 'We buy from cutters we know and can trace every stone to its origin. Beauty should not cost the earth or anyone on it.', image: `A single brilliant gemstone held in tweezers under jeweller's light, jewel tones. ${IMG}` },
       { eyebrow: 'The setting', title: 'Drawn around your stone', body: 'Every setting is designed for its stone, never pulled from a tray, then set by hand in gold or platinum.', image: `A gold ring with a freshly set gemstone resting on a jeweller's workbench beside fine setting tools, elegant macro. No people, no hands and no body parts appear in the frame. ${IMG}` },
     ],
-    bigQuote: { quote: 'They turned my grandmother’s stone into something I will never take off.', name: 'Eleanor V.', role: 'Bespoke client' },
+    bigQuote: { quote: 'They turned my grandmother\'s stone into something I will never take off.', name: 'Eleanor V.', role: 'Bespoke client' },
     iconFeatures: [
       { icon: 'Gem', title: 'Traceable stones', body: 'Ethically sourced, with a name and an origin.' },
       { icon: 'PenTool', title: 'Bespoke design', body: 'A setting drawn around your stone, together.' },
@@ -280,13 +280,13 @@ export const TEMPLATE_SECTIONS: Record<string, SectionContent> = {
         eyebrow: 'Matched to you',
         title: 'The right plant for your light',
         body: 'Tell us which way your windows face and how much sun you get, and we point you to plants that will actually be happy there.',
-        image: 'A sunlit windowsill lined with healthy green houseplants, bright and airy. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+        image: 'A sunlit windowsill lined with healthy green houseplants, bright and airy. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped - no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
       },
       {
         eyebrow: 'Delivered thriving',
         title: 'Potted, watered, ready',
         body: 'Every plant arrives in peat-free soil, watered and boxed to stand up straight, with a care card in the leaves.',
-        image: 'A potted plant standing in an open cardboard delivery box on a pale floor, packing paper folded back around it, fresh green. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+        image: 'A potted plant standing in an open cardboard delivery box on a pale floor, packing paper folded back around it, fresh green. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped - no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
       },
     ],
     iconFeatures: [
@@ -296,10 +296,10 @@ export const TEMPLATE_SECTIONS: Record<string, SectionContent> = {
       { icon: 'Recycle', title: 'Peat-free', body: 'Kinder soil, sturdier roots.' },
     ],
     gallery: [
-      'A ZZ plant with glossy leaves in a matte pot, bright airy interior. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
-      'A tall fiddle-leaf fig in a woven basket by a window. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
-      'A cluster of small potted succulents on a shelf. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
-      'A large monstera deliciosa in a simple ceramic pot against a pale wall, broad glossy split leaves. This is a houseplant, not an animal, and no birds or creatures appear. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'A ZZ plant with glossy leaves in a matte pot, bright airy interior. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped - no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'A tall fiddle-leaf fig in a woven basket by a window. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped - no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'A cluster of small potted succulents on a shelf. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped - no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'A large monstera deliciosa in a simple ceramic pot against a pale wall, broad glossy split leaves. This is a houseplant, not an animal, and no birds or creatures appear. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped - no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     ],
     faq: [
       { q: 'What if my plant struggles?', a: 'Our 30-day thrive promise replaces it, no receipt needed.' },
@@ -382,20 +382,20 @@ zest: {
         eyebrow: 'Tested',
         title: 'Cooked until a beginner can nail it',
         body: 'Every recipe gets made again and again until the steps are foolproof and the timing is honest.',
-        image: 'A bright overhead shot of a colorful fresh weeknight dinner in a bowl. The food itself is warm and natural — reds, oranges, yellows, greens and browns only. No blue or teal anywhere on the food; the teal in the palette belongs to props and linens in the background, never to anything edible. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+        image: 'A bright overhead shot of a colorful fresh weeknight dinner in a bowl. The food itself is warm and natural - reds, oranges, yellows, greens and browns only. No blue or teal anywhere on the food; the teal in the palette belongs to props and linens in the background, never to anything edible. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped - no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
       },
       {
         eyebrow: 'Fast',
         title: 'Built for a real weeknight',
         body: 'Short ingredient lists, short cook times, and a timer baked into every step so nothing burns.',
-        image: 'A skillet of vibrant vegetables sizzling on a stovetop, bright and fresh. The food itself is warm and natural — reds, oranges, yellows, greens and browns only. No blue or teal anywhere on the food; the teal in the palette belongs to props and linens in the background, never to anything edible. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+        image: 'A skillet of vibrant vegetables sizzling on a stovetop, bright and fresh. The food itself is warm and natural - reds, oranges, yellows, greens and browns only. No blue or teal anywhere on the food; the teal in the palette belongs to props and linens in the background, never to anything edible. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped - no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
       },
     ],
     gallery: [
-      'A vibrant chili-lime corn bowl, appetizing overhead food photo. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
-      'A skillet of blistered tomato orzo with basil. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
-      'A bowl of glossy sesame crunch noodles with scallions. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
-      'Charred broccoli tacos on a bright plate. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'A vibrant chili-lime corn bowl, appetizing overhead food photo. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped - no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'A skillet of blistered tomato orzo with basil. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped - no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'A bowl of glossy sesame crunch noodles with scallions. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped - no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'Charred broccoli tacos on a bright plate. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped - no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     ],
     faq: [
       { q: 'How does the box work?', a: 'A recipe lands in your inbox every weekday afternoon.' },
@@ -454,13 +454,13 @@ zest: {
         eyebrow: 'The composition',
         title: 'Built around one accord',
         body: 'Each scent begins with a single idea and a few materials, layered so it opens, turns, and settles like a piece of music.',
-        image: 'A dark still life of a faceted perfume bottle among night flowers, deep violet. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+        image: 'A dark still life of a faceted perfume bottle among night flowers, deep violet. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped - no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
       },
       {
         eyebrow: 'The maturation',
         title: 'Rested before it is bottled',
         body: 'Every batch sits for weeks so the materials marry, then it is decanted into refillable glass by hand.',
-        image: "A perfumer's dim atelier with amber bottles and a single lamp, moody violet. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.",
+        image: "A perfumer's dim atelier with amber bottles and a single lamp, moody violet. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped - no disembodied hands, no limbs cut off by the edge, and no bodies without heads.",
       },
     ],
     bigQuote: { quote: 'It smells like a memory I have not made yet.', name: 'Iris N.', role: 'Client' },
@@ -470,10 +470,10 @@ zest: {
       { icon: 'Recycle', title: 'Refillable glass', body: 'Bring the bottle back, we fill it again.' },
     ],
     gallery: [
-      'A faceted perfume bottle glowing amethyst on black velvet, luxurious. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
-      'A dark arrangement of night-blooming flowers, deep purple. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
-      'A minimalist flacon backlit in soft violet haze. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
-      'A close-up of perfume being sprayed, a fine violet mist. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'A faceted perfume bottle glowing amethyst on black velvet, luxurious. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped - no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'A dark arrangement of night-blooming flowers, deep purple. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped - no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'A minimalist flacon backlit in soft violet haze. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped - no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'A close-up of perfume being sprayed, a fine violet mist. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped - no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     ],
     faq: [
       { q: 'How long does it last?', a: 'Our extraits sit close to the skin for eight hours or more.' },

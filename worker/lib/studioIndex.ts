@@ -9,7 +9,7 @@ import type { StudioEntry } from '../../lib/studioMatch';
 // from one of them. It is the property the MCP endpoint already relies on for
 // the design catalog, and the memoization is the same shape too: cached as the
 // promise, so concurrent first requests share one fetch, and a failure is not
-// cached — a transient miss would otherwise poison the isolate for its lifetime.
+// cached - a transient miss would otherwise poison the isolate for its lifetime.
 
 type Index = { specVersion: number; count: number; entries: StudioEntry[] };
 

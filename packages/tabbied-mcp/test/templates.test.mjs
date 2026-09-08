@@ -1,7 +1,7 @@
 // The template tools.
 //
 // Unlike the design tools, these read *site* artefacts rather than the
-// installed package, so a fixture is the honest choice here — the generated
+// installed package, so a fixture is the honest choice here - the generated
 // specs are not in this package's dependency tree, and a test that fetched
 // tabbied.com would be testing the deploy.
 //
@@ -109,7 +109,7 @@ test('the template tools are advertised when their data is resolvable', () => {
 });
 
 test('a host that cannot resolve templates does not advertise them', () => {
-  // A listed tool that always fails is worse than a missing one — the same
+  // A listed tool that always fails is worse than a missing one - the same
   // rule the preview and docs tools already follow.
   const bare = createToolset(catalogTools({ catalog }));
 

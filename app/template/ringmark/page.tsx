@@ -12,8 +12,8 @@ export const metadata = {
 };
 
 /* Pale sand ground, ink, one lichen green. Every decorative field takes
-   `transparent` in the background slot, so the ground of the page — and, in
-   the plates, the plate itself — is what shows through the drawing. */
+   `transparent` in the background slot, so the ground of the page - and, in
+   the plates, the plate itself - is what shows through the drawing. */
 const INK = '#16180f';
 const ACCENT = '#6b7f1e';
 const GREY = '#8c8b7c';
@@ -33,7 +33,7 @@ const SPECIES: [string, string][] = [
 
 const ROUNDS = [
   { n: '01', t: 'First round', d: 'The trap is walked at first light, before the birds have settled and before the gulls find them', at: '05:00' },
-  { n: '02', t: 'Hourly rounds', d: 'Every hour to dusk. A bird is out of the trap and in a bag within four minutes, which is the whole discipline', at: '06:00 – 21:00' },
+  { n: '02', t: 'Hourly rounds', d: 'Every hour to dusk. A bird is out of the trap and in a bag within four minutes, which is the whole discipline', at: '06:00 - 21:00' },
   { n: '03', t: 'On the bench', d: 'Ring, species, age, sex, wing, weight, fat and muscle. Ninety seconds a bird, and the bird decides if it is less', at: 'Continuous' },
   { n: '04', t: 'Release', d: 'From the hand, at the door, facing the dunes. Nothing is held over, nothing is kept', at: 'Continuous' },
   { n: '05', t: 'Enter and check', d: 'Written on paper first, typed the same evening, and read back by a second person before it counts', at: '22:00' },
@@ -400,7 +400,7 @@ export default function RingmarkPage() {
           <p data-edit="contact.contactFine" data-edit-max="240" data-edit-multiline className={s.contactFine}>
             Am Fallberg, 27498 Helgoland. If you have found one of our rings,
             send the number and the place and we will tell you where the bird
-            has been — that is a letter, not a newsletter, and it is always
+            has been - that is a letter, not a newsletter, and it is always
             answered.
           </p>
         </section>

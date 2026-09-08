@@ -1,6 +1,6 @@
 import type { Env } from '../env';
 
-// The pool types `env` from `cloudflare:test` as `Cloudflare.Env` — the global
+// The pool types `env` from `cloudflare:test` as `Cloudflare.Env` - the global
 // interface `wrangler types` would generate from wrangler.jsonc. This repo
 // keeps worker/env.ts as the source of truth instead, because it records which
 // secrets are *optional* and what each one degrades to when absent, which a

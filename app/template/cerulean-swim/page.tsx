@@ -28,7 +28,7 @@ const LOOKS = [
     kind: 'photo' as const,
     slug: 'cerulean-print-shorebreak',
     alt: 'Swim jersey printed with the Shorebreak repeat, folded so the arcs bend across the cloth',
-    caption: 'Print · “Shorebreak”, four inks',
+    caption: 'Print · "Shorebreak", four inks',
     wide: false,
   },
   {
@@ -49,7 +49,7 @@ const LOOKS = [
     kind: 'photo' as const,
     slug: 'cerulean-print-undertow',
     alt: 'The darker Undertow colourway of the same repeat, with occasional arcs in coral',
-    caption: 'Print · “Undertow”, coral thread',
+    caption: 'Print · "Undertow", coral thread',
     wide: false,
   },
 ];
@@ -57,20 +57,20 @@ const LOOKS = [
 // Water temperatures are the club letter's whole premise, so the swims get a
 // table of their own rather than prose.
 const SWIMS = [
-  { place: 'Baia dei Saraceni', where: 'Finale Ligure', temp: '19–24°C', season: 'May to October', note: 'Flat by seven, busy by ten. Enter off the left-hand rocks.' },
-  { place: 'Punta Chiappa', where: 'Camogli', temp: '17–23°C', season: 'June to September', note: 'Deep straight off the shelf. The current runs west after noon.' },
-  { place: 'Lido di Sestri', where: 'Sestri Levante', temp: '18–25°C', season: 'May to October', note: 'Our own bay. Two buoys, four hundred metres apart.' },
-  { place: 'Cala Cipolla', where: 'Sardinia', temp: '20–26°C', season: 'June to October', note: 'Warmest water we publish. Shallow for a long way out.' },
-  { place: 'Bagni Blu', where: 'Genova Nervi', temp: '16–22°C', season: 'All year, if you insist', note: 'The winter swim. Somebody is always already in.' },
+  { place: 'Baia dei Saraceni', where: 'Finale Ligure', temp: '19-24°C', season: 'May to October', note: 'Flat by seven, busy by ten. Enter off the left-hand rocks.' },
+  { place: 'Punta Chiappa', where: 'Camogli', temp: '17-23°C', season: 'June to September', note: 'Deep straight off the shelf. The current runs west after noon.' },
+  { place: 'Lido di Sestri', where: 'Sestri Levante', temp: '18-25°C', season: 'May to October', note: 'Our own bay. Two buoys, four hundred metres apart.' },
+  { place: 'Cala Cipolla', where: 'Sardinia', temp: '20-26°C', season: 'June to October', note: 'Warmest water we publish. Shallow for a long way out.' },
+  { place: 'Bagni Blu', where: 'Genova Nervi', temp: '16-22°C', season: 'All year, if you insist', note: 'The winter swim. Somebody is always already in.' },
 ];
 
 const SIZES = [
-  { size: 'XS', bust: '78–82', waist: '60–64', hip: '86–90', torso: '58' },
-  { size: 'S', bust: '82–86', waist: '64–68', hip: '90–94', torso: '60' },
-  { size: 'M', bust: '86–92', waist: '68–74', hip: '94–100', torso: '62' },
-  { size: 'L', bust: '92–98', waist: '74–80', hip: '100–106', torso: '64' },
-  { size: 'XL', bust: '98–106', waist: '80–88', hip: '106–114', torso: '66' },
-  { size: 'XXL', bust: '106–114', waist: '88–96', hip: '114–122', torso: '68' },
+  { size: 'XS', bust: '78-82', waist: '60-64', hip: '86-90', torso: '58' },
+  { size: 'S', bust: '82-86', waist: '64-68', hip: '90-94', torso: '60' },
+  { size: 'M', bust: '86-92', waist: '68-74', hip: '94-100', torso: '62' },
+  { size: 'L', bust: '92-98', waist: '74-80', hip: '100-106', torso: '64' },
+  { size: 'XL', bust: '98-106', waist: '80-88', hip: '106-114', torso: '66' },
+  { size: 'XXL', bust: '106-114', waist: '88-96', hip: '114-122', torso: '68' },
 ];
 
 const QUESTIONS = [
@@ -376,7 +376,7 @@ export default function CeruleanSwimPage() {
           </div>
         </section>
 
-        {/* CARE GUIDE — white card floating on a full-width tide field */}
+        {/* CARE GUIDE - white card floating on a full-width tide field */}
         <div className={styles.careBand}>
           <div data-edit-pattern="main.field2" data-edit-roles="2,0,1" className={styles.careField} aria-hidden="true">
             <TabbiedPattern
@@ -416,7 +416,7 @@ export default function CeruleanSwimPage() {
           </section>
         </div>
 
-        {/* WHERE WE SWIM — the club letter's premise, given a table */}
+        {/* WHERE WE SWIM - the club letter's premise, given a table */}
         <section
           id="swims"
           className={styles.section}
@@ -678,7 +678,7 @@ export default function CeruleanSwimPage() {
           <div className={styles.footerBase}>
             <p data-edit="footer.body" data-edit-max="240" data-edit-multiline>© 2026 Cerulean Swim S.r.l. · sewn by six people and the sea.</p>
             <p className={styles.tabbiedCredit}>
-              “Wavelet” and “Tidering” patterns by{' '}
+              "Wavelet" and "Tidering" patterns by{' '}
               <a data-edit="footer.link" data-edit-max="28"
                 href="https://tabbied.com"
                 target="_blank"

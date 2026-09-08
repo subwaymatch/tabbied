@@ -1,8 +1,8 @@
 // The editable-section contract for a Tabbied template site.
 //
 // A template site is a finished, hand-designed page. This spec describes the
-// part of it that is *brand* rather than *layout* — the headline, the
-// photographs, the colours, the pattern fields — so that a person in the
+// part of it that is *brand* rather than *layout* - the headline, the
+// photographs, the colours, the pattern fields - so that a person in the
 // editor, a coding agent holding the downloaded zip, and the branding service
 // can all change those things without understanding the page, and without
 // being able to break it.
@@ -16,7 +16,7 @@
 //                  that gets saved, sent to an agent, or produced by an LLM.
 //
 // The spec's slot ids are the stable names in that exchange, and they exist in
-// the page itself as `data-edit*` attributes — which is what lets the same ids
+// the page itself as `data-edit*` attributes - which is what lets the same ids
 // survive a static export, the HTML download package, and the React download
 // package (where they are anchors in the source a person or an agent greps
 // for). That is the same trick `patternConfigToAttributes` already plays for
@@ -60,7 +60,7 @@ export type SlotKind = 'text' | 'image' | 'pattern';
 /**
  * How a text slot's value maps onto markup.
  *
- * `plain` is text content. `emphasis` carries the `{em}…{/em}` convention the
+ * `plain` is text content. `emphasis` carries the `{em}...{/em}` convention the
  * template sites already use for an accented span in a headline: the *value*
  * keeps the markers, so editing a headline can keep (or move, or drop) the
  * accent instead of flattening it the first time anybody touches it.
@@ -87,7 +87,7 @@ export type TextSlot = {
   /**
    * Soft length budget. The design was set for roughly this much text; an
    * editor warns past it, and an LLM is told to stay inside it. Not enforced
-   * as an error — a user is allowed to overrun their own page.
+   * as an error - a user is allowed to overrun their own page.
    */
   maxChars?: number;
   /** Renders as a textarea rather than an input. */
@@ -124,12 +124,12 @@ export type ImageSlot = {
  *
  * A number is an index into the brand palette, so re-colouring the site
  * re-colours the pattern field with it. A string is a literal that never
- * moves — overwhelmingly `"transparent"`, which is how a pattern is drawn over
+ * moves - overwhelmingly `"transparent"`, which is how a pattern is drawn over
  * a photograph or a section background rather than over its own ground.
  */
 export type PaletteRole = number | string;
 
-/** Serialized pattern configuration — the `data-*` vocabulary, as values. */
+/** Serialized pattern configuration - the `data-*` vocabulary, as values. */
 export type PatternSlotConfig = {
   slug: string;
   palette?: string[];
@@ -180,16 +180,16 @@ export type Slot = TextSlot | ImageSlot | PatternSlot;
 /**
  * How brand colours become CSS custom properties on the page root.
  *
- * `direct` writes `--brand-0…n` and nothing else: the stylesheet consumes the
+ * `direct` writes `--brand-0...n` and nothing else: the stylesheet consumes the
  * roles as authored. `templateSite` additionally recomputes the derived
  * variables the shared TemplateSite component works in (`--ink`, `--card`,
- * `--soft`, …), which are functions of the palette rather than members of it —
+ * `--soft`, ...), which are functions of the palette rather than members of it -
  * so a re-colour has to recompute them or the page keeps its old contrast.
  */
 export type PaletteDerivation = 'direct' | 'templateSite' | 'vars';
 
 export type PaletteSpec = {
-  /** Colours, background (role 0) first — the shape used everywhere else. */
+  /** Colours, background (role 0) first - the shape used everywhere else. */
   colors: string[];
   derivation: PaletteDerivation;
   /** Optional authored names, for an editor's swatch labels. */
@@ -200,12 +200,12 @@ export type PaletteSpec = {
    */
   flatSections?: boolean;
   /**
-   * `vars` only: the page's own custom-property names, in role order — so role
+   * `vars` only: the page's own custom-property names, in role order - so role
    * 0 writes `--<varNames[0]>`.
    *
    * The 52 bespoke template pages already had their colour in one place before
-   * any of this existed: each declares `--paper`, `--ink`, `--ochre`… on its
-   * root rule and the stylesheet only ever reads `var(--…)`. Renaming those to
+   * any of this existed: each declares `--paper`, `--ink`, `--ochre`... on its
+   * root rule and the stylesheet only ever reads `var(--...)`. Renaming those to
    * `--brand-N` would have meant a codemod over 52 stylesheets to gain nothing,
    * so instead the page declares which name each role owns and a re-colour
    * writes those. An inline property beats the class rule that holds the
@@ -301,7 +301,7 @@ export function selectorForSlot(slot: Pick<Slot, 'id' | 'kind'>): string {
   return `[${attributeForKind(slot.kind)}="${slot.id}"]`;
 }
 
-/** An empty edits document for a spec — the starting state of an editor. */
+/** An empty edits document for a spec - the starting state of an editor. */
 export function emptyEdits(spec: TemplateSpec): EditsDocument {
   return { specVersion: spec.specVersion, slug: spec.site.slug, edits: {} };
 }

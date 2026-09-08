@@ -8,7 +8,7 @@
   // here: every page, image, preview, and template zip in out/ is served
   // straight from Cloudflare's network without invoking the Worker at all.
   //
-  // `npm run build` must have run first — out/ is not in git. It is two
+  // `npm run build` must have run first - out/ is not in git. It is two
   // `next build` passes with the template packager between them; see the
   // "Downloadable templates" section of CLAUDE.md for why that shape is forced.
   "assets": {
@@ -20,7 +20,7 @@
     "not_found_handling": "404-page",
 
     // Only the Worker's own routes jump the queue. /mcp is not a file, so it
-    // would reach the Worker anyway — but only after the asset router had a
+    // would reach the Worker anyway - but only after the asset router had a
     // look at it, and with `trailingSlash: true` in next.config.mjs the
     // default html_handling would answer a POST to /mcp with a 308 to /mcp/.
     // Redirecting an MCP client's POST breaks it, so the Worker takes the path
@@ -48,10 +48,10 @@
   // provision. See the "platform tier" section of CLAUDE.md.
   //
   // **None of these declares an id, deliberately.** Wrangler provisions a
-  // binding whose id is absent — creating the resource on first deploy and
-  // wiring it up — and looks one up whose id is present. A placeholder id is
+  // binding whose id is absent - creating the resource on first deploy and
+  // wiring it up - and looks one up whose id is present. A placeholder id is
   // therefore strictly worse than none: it converts "create this for me" into
-  // "find 0000…000f", which fails the deploy with a 10041 rather than
+  // "find 0000...000f", which fails the deploy with a 10041 rather than
   // provisioning. (That is exactly what happened on the first deploy: R2 has
   // no id field, so MEDIA provisioned cleanly while KV's fake id killed it.)
   //
@@ -61,7 +61,7 @@
   //   npm run db:migrate:remote     # wrangler d1 migrations apply tabbied --remote
   //
   // and set the secrets the tier needs (`wrangler secret put BETTER_AUTH_SECRET`
-  // at minimum — see .dev.vars.example). Until that secret exists, /api/auth/*
+  // at minimum - see .dev.vars.example). Until that secret exists, /api/auth/*
   // answers 503 and the site is otherwise unaffected, which is the intended
   // degradation rather than an outage.
   "d1_databases": [
@@ -85,7 +85,7 @@
     // The public origin the auth cookies and OAuth callbacks are issued for.
     // Overridden per environment; the workers.dev host until the zone moves.
     "PUBLIC_ORIGIN": "https://tabbied.com",
-    // An OpenAI-compatible base. Text goes to `${AI_BASE_URL}/responses` —
+    // An OpenAI-compatible base. Text goes to `${AI_BASE_URL}/responses` -
     // the Responses API, which is what carries a turn forward for the repair
     // retry and for revisions. Cloudflare AI Gateway in front of it is a
     // change to this value and nothing else.
@@ -99,9 +99,9 @@
     // Reasoning tokens are billed and capped as *output* tokens, so effort and
     // max_output_tokens trade against each other: at high effort the budget can
     // be spent thinking before any document is emitted. The 5.6 ladder is
-    // none | low | medium | high | xhigh | max — "minimal" was the GPT-5
+    // none | low | medium | high | xhigh | max - "minimal" was the GPT-5
     // spelling of the bottom rung and this family rejects it. Omit this var
-    // entirely for a non-reasoning model — some upstreams reject the field.
+    // entirely for a non-reasoning model - some upstreams reject the field.
     "AI_REASONING_EFFORT": "low",
     // gpt-image-2 emits real alpha (background: "transparent"), which is why
     // there is no second vendor here; see docs/image-pipeline.md.
@@ -115,9 +115,9 @@
 
   // Custom domain, deliberately not declared here yet. Until tabbied.com is a
   // zone in this Cloudflare account, a `routes` entry makes `wrangler deploy`
-  // fail outright rather than fall back — so the first deploys land on
+  // fail outright rather than fall back - so the first deploys land on
   // tabbied.<subdomain>.workers.dev and the domain is attached afterwards
-  // (Workers → tabbied → Settings → Domains & Routes → Add custom domain,
+  // (Workers -> tabbied -> Settings -> Domains & Routes -> Add custom domain,
   // which creates the DNS record for you). Once the zone is here, this becomes
   // the reproducible form and can be uncommented:
   //

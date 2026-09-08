@@ -4,7 +4,7 @@ import imageManifest from 'lib/generated/images';
 const DEFAULT_BASE = '/images/sites';
 
 interface FigureProps {
-  /** Committed filename without its extension — include `-cutout` for cut-outs. */
+  /** Committed filename without its extension - include `-cutout` for cut-outs. */
   slug: string;
   alt: string;
   /** Cut-outs get a CSS shadow to seat them on the pattern; scenes don't. */

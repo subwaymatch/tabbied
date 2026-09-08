@@ -12,8 +12,8 @@ export const metadata = {
 };
 
 /* White ground, ink, one salt rose. Every decorative field takes
-   `transparent` in the background slot, so the paper of the page — and, in
-   the plates, the plate itself — is what shows through the drawing. */
+   `transparent` in the background slot, so the paper of the page - and, in
+   the plates, the plate itself - is what shows through the drawing. */
 const INK = '#171519';
 const ACCENT = '#c2456b';
 const GREY = '#8c8a90';
@@ -30,7 +30,7 @@ const PANS = [
 const WORK = [
   { n: '01', t: 'Open the vasière', d: 'The first basin takes sea water on a spring tide and holds it while the sun does the first two thirds of the work', when: 'March' },
   { n: '02', t: 'Run the adernes', d: 'Brine walks the marsh by gravity through a chain of shallowing basins, taking about a fortnight to cross it', when: 'April' },
-  { n: '03', t: 'Rake the œillet', d: 'The crystallising pan. Coarse salt is drawn to the ledge with a lousse, once a day, for as long as the weather holds', when: 'June – September' },
+  { n: '03', t: 'Rake the œillet', d: 'The crystallising pan. Coarse salt is drawn to the ledge with a lousse, once a day, for as long as the weather holds', when: 'June - September' },
   { n: '04', t: 'Lift the fleur', d: 'The film that forms on still water on a dry evening is skimmed off by hand before it can sink', when: 'Evenings' },
   { n: '05', t: 'Dry and store', d: 'Mounded on the path for a week, then carried in. Nothing is washed, nothing is ground, nothing is added', when: 'September' },
 ];
@@ -74,23 +74,23 @@ const GRADES = [
 ];
 
 const YEAR = [
-  ['January', 'Clay repair', 'Bunds rebuilt by hand', '—'],
-  ['February', 'Clay repair', 'Channels cleared', '—'],
-  ['March', 'Filling', 'First water on a spring tide', '—'],
-  ['April', 'Concentration', 'Brine walks the marsh', '—'],
-  ['May', 'Concentration', 'Pans brought up to strength', '—'],
+  ['January', 'Clay repair', 'Bunds rebuilt by hand', ' - '],
+  ['February', 'Clay repair', 'Channels cleared', ' - '],
+  ['March', 'Filling', 'First water on a spring tide', ' - '],
+  ['April', 'Concentration', 'Brine walks the marsh', ' - '],
+  ['May', 'Concentration', 'Pans brought up to strength', ' - '],
   ['June', 'Harvest', 'First raking if the weather holds', '3.1 t'],
   ['July', 'Harvest', 'The heaviest month, most years', '9.4 t'],
   ['August', 'Harvest', 'Fleur de sel every dry evening', '8.8 t'],
   ['September', 'Harvest', 'Last raking, then drying', '4.6 t'],
-  ['October', 'Storing', 'Carried in and weighed', '—'],
-  ['November', 'Flooding', 'The marsh is put under water', '—'],
-  ['December', 'Rest', 'Nothing at all happens', '—'],
+  ['October', 'Storing', 'Carried in and weighed', ' - '],
+  ['November', 'Flooding', 'The marsh is put under water', ' - '],
+  ['December', 'Rest', 'Nothing at all happens', ' - '],
 ];
 
 const VISIT = [
   ['Where', 'Route des Marais, 44350 Guérande. Park on the road, walk the path.'],
-  ['Walking', 'The bunds are public and slippery. They are also somebody’s working floor.'],
+  ['Walking', 'The bunds are public and slippery. They are also somebody\'s working floor.'],
   ['Buying', 'At the hut, June to October, and by post all year.'],
   ['Weather', 'A wet August is a bad year and there is nothing to be done about it.'],
 ];
@@ -279,7 +279,7 @@ export default function MaraisBlancPage() {
                 slug="marais-blanc-mound"
                 alt="A conical mound of freshly harvested white sea salt on a clay path"
               />
-              <figcaption data-edit="making.caption2" data-edit-max="120" data-edit-multiline>A day&rsquo;s raking, drying on the path for a week before it is carried in.</figcaption>
+              <figcaption data-edit="making.caption2" data-edit-max="120" data-edit-multiline>A day's raking, drying on the path for a week before it is carried in.</figcaption>
             </figure>
           </div>
         </section>
@@ -355,7 +355,7 @@ export default function MaraisBlancPage() {
         <section id="calendar" className={s.listing} aria-labelledby="cal-h">
           <div className={s.secHead}>
             <h2 data-edit="calendar.title" data-edit-max="60" id="cal-h">One year</h2>
-            <p data-edit="calendar.body" data-edit-max="240" data-edit-multiline>Last year&rsquo;s, which was an average one: twenty-five point nine tonnes.</p>
+            <p data-edit="calendar.body" data-edit-max="240" data-edit-multiline>Last year's, which was an average one: twenty-five point nine tonnes.</p>
           </div>
           <ol className={s.table}>
             {YEAR.map((r, i) => (
@@ -412,7 +412,7 @@ export default function MaraisBlancPage() {
             Route des Marais, 44350 Guérande. Two hours, flat, no shade, and
             it is called off without ceremony if it rains. From June to
             September nobody reads mail before dark, and in August nobody
-            reads it at all — so book a date rather than write.
+            reads it at all - so book a date rather than write.
           </p>
         </section>
       </main>

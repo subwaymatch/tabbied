@@ -3,24 +3,24 @@
 // without them: `npm run build` (and therefore prepublishOnly) writes
 // packages/tabbied/llms.txt, and the site's scripts/generate-llms.mjs imports
 // the same builder to write public/llms.txt, public/llms-full.txt and
-// public/catalog.json — one template, two consumers, no drift.
+// public/catalog.json - one template, two consumers, no drift.
 //
 // Two texts, in increasing depth, so a tool can stop as soon as it has enough:
 //
 //   llms      the llms.txt convention (llmstxt.org): a short index that
 //             links to everything else. Served at tabbied.com/llms.txt.
 //   llmsFull  the whole API contract, the recipes, and a one-line entry for
-//             every design — enough to pick a design and wire it up from a
+//             every design - enough to pick a design and wire it up from a
 //             single fetch. Served at tabbied.com/llms-full.txt and shipped
 //             in the npm tarball as llms.txt (in node_modules, depth beats
-//             brevity — it's the only file an agent will find).
+//             brevity - it's the only file an agent will find).
 //
 // The point of all this is design discovery. The API is small enough to
 // memorize, but the ~300 slugs are opaque ("cleat", "gnomonwedge", "karst"),
 // so an assistant with no catalog either guesses a slug that doesn't exist or
 // imports the whole record and loses tree-shaking. The authored descriptions,
 // the closed-vocabulary tags, and the preview images are what make the set
-// searchable — see scripts/catalog-vocabulary.mjs.
+// searchable - see scripts/catalog-vocabulary.mjs.
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -36,16 +36,16 @@ export function buildLlmsTexts(catalog) {
 
   const llms = `# Tabbied
 
-> Generative patterns as data: ${count} preset designs powered by css-doodle, shipped as the \`tabbied\` npm package (v${version}) — a framework-agnostic core plus an optional React component. Render any design at any size, reseed it, and export to PNG or true vector SVG.
+> Generative patterns as data: ${count} preset designs powered by css-doodle, shipped as the \`tabbied\` npm package (v${version}) - a framework-agnostic core plus an optional React component. Render any design at any size, reseed it, and export to PNG or true vector SVG.
 
 Install with \`npm install tabbied\`. React is an optional peer dependency, needed only for the \`tabbied/react\` entry point.
 
-Designs are referred to by slug and imported individually — \`import { radius } from 'tabbied/patterns'\` — so a bundler ships only what you use. Slugs are lowercase alphanumeric and are not guessable from a description: read the catalog below to choose one. Every design has a stable preview image at ${SITE}/previews/<slug>.webp — look before you pick.
+Designs are referred to by slug and imported individually - \`import { radius } from 'tabbied/patterns'\` - so a bundler ships only what you use. Slugs are lowercase alphanumeric and are not guessable from a description: read the catalog below to choose one. Every design has a stable preview image at ${SITE}/previews/<slug>.webp - look before you pick.
 
 ## Docs
 
-- [MCP server](${SITE}/mcp): if you speak the Model Context Protocol, connect to this endpoint instead of reading files — it is the only route that lets you *look* at a design before choosing it. Tools: \`search_designs\`, \`preview_design\`, \`get_design\`, \`get_docs\`. Run \`npx -y tabbied-mcp\` locally to also get \`render_design\`.
-- [llms-full.txt](${SITE}/llms-full.txt): the complete API contract, integration recipes, and a one-line entry for every design. Start here — it is designed to be enough on its own.
+- [MCP server](${SITE}/mcp): if you speak the Model Context Protocol, connect to this endpoint instead of reading files - it is the only route that lets you *look* at a design before choosing it. Tools: \`search_designs\`, \`preview_design\`, \`get_design\`, \`get_docs\`. Run \`npx -y tabbied-mcp\` locally to also get \`render_design\`.
+- [llms-full.txt](${SITE}/llms-full.txt): the complete API contract, integration recipes, and a one-line entry for every design. Start here - it is designed to be enough on its own.
 - [catalog.json](${SITE}/catalog.json): every design with its description, tags, palette, options, preview URL, and SVG-export support. Use it to look up one design in detail. Also shipped in the package at \`tabbied/catalog.json\`.
 - [React component reference](${SITE}/docs/react/): props, sizing, and live examples.
 - [Package README](${REPO}/blob/main/packages/tabbied/README.md): entry points, the core API, and SVG export.
@@ -59,9 +59,9 @@ Designs are referred to by slug and imported individually — \`import { radius 
 
   // ---- llms-full.txt -------------------------------------------------------
 
-  // Anything that makes generated code compile but render wrong belongs here —
+  // Anything that makes generated code compile but render wrong belongs here -
   // that's what a model can't infer from the type signatures.
-  const apiReference = `# Tabbied — full reference for LLMs
+  const apiReference = `# Tabbied - full reference for LLMs
 
 > Generated from tabbied v${version}. ${count} designs. Canonical index: ${SITE}/llms.txt
 
@@ -86,18 +86,18 @@ React is an **optional** peer dependency (>=18 <20), needed only for
 
 ## Choosing a design
 
-Each design carries closed-vocabulary metadata, so the catalog is queryable —
+Each design carries closed-vocabulary metadata, so the catalog is queryable -
 filter \`catalog.designs\` on these instead of parsing prose:
 
 - \`tags\` (2-6): visible motifs. One of: ${TAGS.join(', ')}.
 - \`mood\` (1-3): the feel. One of: ${MOODS.join(', ')}.
-- \`density\`: ${DENSITIES.join(' | ')} — how busy the surface is. Sparse and
+- \`density\`: ${DENSITIES.join(' | ')} - how busy the surface is. Sparse and
   calm surfaces take overlaid text well; dense fine textures suit fills.
 - \`goodFor\` (1-4): uses that work with no customization. One of:
   ${GOOD_FOR.join(', ')}.
 - \`preview\`: a stable ${SITE}/previews/<slug>.webp render of the design at
   its authored palette and defaults. If you can read images, LOOK at your
-  shortlist before choosing — the preview is ground truth, the description is
+  shortlist before choosing - the preview is ground truth, the description is
   not.
 
 \`\`\`js
@@ -120,7 +120,7 @@ claude mcp add tabbied -- npx -y tabbied-mcp           # local, adds rendering
 
 Tools: \`search_designs\` (the filters above, as a query), \`preview_design\`
 (returns the rendered image for up to six slugs), \`get_design\`, \`get_docs\`,
-and — locally only, since it needs a browser — \`render_design\` for SVG/PNG
+and - locally only, since it needs a browser - \`render_design\` for SVG/PNG
 files. Endpoint: ${SITE}/mcp. Package: \`tabbied-mcp\`.
 
 ## React
@@ -150,11 +150,11 @@ export function Example() {
 
 | Prop | Description |
 | --- | --- |
-| \`pattern\` | A \`PatternDefinition\` — a preset from \`tabbied/patterns\`, or your own. Required. |
+| \`pattern\` | A \`PatternDefinition\` - a preset from \`tabbied/patterns\`, or your own. Required. |
 | \`seed\` | Randomization seed. Omit for a random seed per mount; reseed via the handle. |
 | \`palette\` | Active colors, background (\`color0\`) first. Defaults to the preset palette. |
 | \`options\` | Option values keyed by option id. Unset options use their authored default. |
-| \`fit\` | \`grid\`, \`cover\`, or \`fixed\`. Optional — the same three for every design; omit it for \`grid\`. |
+| \`fit\` | \`grid\`, \`cover\`, or \`fixed\`. Optional - the same three for every design; omit it for \`grid\`. |
 | \`fill\` | \`width: 100%; height: 100%\`. Defaults to \`true\`. |
 | \`width\` / \`height\` | Box size. Numbers are px. Overrides \`fill\` on that axis. |
 | \`maxWidth\` / \`maxHeight\` | Upper bounds on the box. |
@@ -165,12 +165,12 @@ export function Example() {
 | \`onReady\` | Fires once the pattern has been measured and first painted. |
 
 The handle (\`TabbiedPatternHandle\`) exposes \`redraw(seed?)\`,
-\`exportImage(options?)\`, \`exportSvg(options?)\`, and \`element\` — the raw
+\`exportImage(options?)\`, \`exportSvg(options?)\`, and \`element\` - the raw
 \`<css-doodle>\` node.
 
 ## Sizing
 
-A pattern has no intrinsic size — it takes the size of the box you give it.
+A pattern has no intrinsic size - it takes the size of the box you give it.
 By default that box fills its containing block.
 
 \`\`\`tsx
@@ -188,7 +188,7 @@ By default that box fills its containing block.
 
 - \`height: 100%\` (which \`fill\` sets) only resolves against a parent with a
   **definite height**. In a parent that sizes to its content the pattern
-  collapses — pass \`height\` or \`aspectRatio\` instead.
+  collapses - pass \`height\` or \`aspectRatio\` instead.
 - The React component is a **client component** (it registers a browser custom
   element on import). In the Next.js App Router, render it from a client
   boundary or rely on its built-in placeholder until it mounts.
@@ -200,21 +200,21 @@ By default that box fills its containing block.
 
 ### Fit modes
 
-No fit distorts the pattern — nothing is ever scaled by a different factor
+No fit distorts the pattern - nothing is ever scaled by a different factor
 horizontally than vertically.
 
-- \`grid\` (the default) — re-derives the cell grid from the measured box, so
+- \`grid\` (the default) - re-derives the cell grid from the measured box, so
   cells stay near-square at any box shape.
-- \`cover\` — draws at a fixed resolution and scales it uniformly to fill the
+- \`cover\` - draws at a fixed resolution and scales it uniformly to fill the
   box, preserving the proportions of fixed-px strokes and shadows.
-- \`fixed\` — renders at an explicit canvas size (default 360x540).
+- \`fixed\` - renders at an explicit canvas size (default 360x540).
 
 There is no per-design fit metadata: every design is cell-tiled and supports
 all three.
 
 ## Recipes
 
-**Hero background** — the pattern sits behind content, so it must not own the
+**Hero background** - the pattern sits behind content, so it must not own the
 layout. Absolutely position it and keep the copy above it:
 
 \`\`\`tsx
@@ -229,25 +229,25 @@ layout. Absolutely position it and keep the copy above it:
 Pick a \`density: "sparse"\` design (or lower its \`frequency\` option) and a
 palette whose background contrasts with the text.
 
-**Section divider** — a short full-width band between sections:
+**Section divider** - a short full-width band between sections:
 
 \`\`\`tsx
 <TabbiedPattern pattern={radius} height={120} aria-hidden />
 \`\`\`
 
-**Card texture** — a dense, fine design at low height variance; give the card
+**Card texture** - a dense, fine design at low height variance; give the card
 \`overflow: hidden\` and the pattern \`position: absolute; inset: 0\` behind the
 card body, or use it as a header strip with \`height={80}\`.
 
-**Transparent background** — pass a palette whose first color is
+**Transparent background** - pass a palette whose first color is
 \`'transparent'\` (or an 8-digit hex ending \`00\`); the inks then composite
 over whatever is behind the element.
 
-**Static HTML, no build step** — see "Declarative mounting" below; the
+**Static HTML, no build step** - see "Declarative mounting" below; the
 data-* attributes plus one \`hydratePatterns()\` call are the whole
 integration.
 
-**Deterministic video frames** — render a PNG sequence and hand it to
+**Deterministic video frames** - render a PNG sequence and hand it to
 ffmpeg/Remotion; the CLI cuts between seeds (no mid-transition blur):
 
 \`\`\`bash
@@ -262,7 +262,7 @@ In Remotion, drive the same idea from \`useCurrentFrame()\`:
 ## Share links (the Tabbied editor)
 
 Every design has an editor page whose URL round-trips its full
-configuration — hand one to a user to let them tweak your pick by hand:
+configuration - hand one to a user to let them tweak your pick by hand:
 
 \`\`\`
 ${SITE}/patterns/<slug>/?seed=<seed>&palette=<color0>&palette=<color1>&...&aspectRatio=2:3&<optionId>=<value>
@@ -279,7 +279,7 @@ Under \`prefers-reduced-motion: reduce\` the controller suppresses both sources
 of movement with no configuration: the \`redrawInterval\` timer never starts,
 and the designs' own ~400ms cell transitions are muted, so any re-render cuts
 to the new arrangement instead of morphing. That second half covers passive
-motion — a resize re-derives the grid, so turning a phone would otherwise
+motion - a resize re-derives the grid, so turning a phone would otherwise
 animate every cell. The preference is observed, not read once, so toggling it
 mid-session takes effect immediately. Nothing needs to be passed for this.
 
@@ -321,7 +321,7 @@ const controller = createPattern(document.querySelector('#stage'), {
 \`\`\`
 
 The controller takes the same config the component takes as props (minus the
-box props — the host element is yours to size, or run them through
+box props - the host element is yours to size, or run them through
 \`resolveBoxStyle()\`). That includes \`redrawInterval\` and \`paused\`: the timer
 and its reduced-motion, tab-visibility and viewport gates live in the
 controller, so the vanilla API animates without reimplementing them.
@@ -359,13 +359,13 @@ typed by the pattern's own metadata, so a numeric-looking
 
 Options: \`root\` (scope the search), \`selector\`, \`defaults\`, \`onError\`.
 Returns \`{ element, controller }\` per mounted pattern, and is idempotent.
-\`patternConfigToAttributes()\` is the inverse — \`TabbiedPattern\` uses it, so a
+\`patternConfigToAttributes()\` is the inverse - \`TabbiedPattern\` uses it, so a
 server-rendered page already carries what \`hydratePatterns\` reads. Don't use
 both on the same element.
 
 ## CLI
 
-The package ships a \`tabbied\` bin — rendering without writing an app:
+The package ships a \`tabbied\` bin - rendering without writing an app:
 
 \`\`\`bash
 npx tabbied render radius --seed k9Pz --size 1600x900 --out hero.svg
@@ -425,7 +425,7 @@ documented limitation. The bracketed suffix is \`[density; tags]\`.
       ? ` [${design.density}; ${design.tags.join(', ')}]`
       : '';
 
-    return `- \`${design.slug}\` — ${design.name}. ${description}${metadata}${suffix}`;
+    return `- \`${design.slug}\` - ${design.name}. ${description}${metadata}${suffix}`;
   };
 
   const llmsFull = `${apiReference}
@@ -436,7 +436,7 @@ ${designs.map(designLine).join('\n')}
 }
 
 // Run as a script (part of the package build): write the package's own
-// llms.txt — the full text, since in node_modules it's the only file an
+// llms.txt - the full text, since in node_modules it's the only file an
 // agent will find, and a fetch of the site may never happen.
 const isMain =
   process.argv[1] &&

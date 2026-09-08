@@ -1,4 +1,4 @@
-// Guards the CLI's catalog commands (list/info/help) — the parts that run
+// Guards the CLI's catalog commands (list/info/help) - the parts that run
 // without a browser. Rendering is exercised by hand and by consumers; these
 // tests pin the query surface agents script against.
 //

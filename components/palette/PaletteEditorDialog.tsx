@@ -15,7 +15,7 @@ const DIALOG_MIN_COLORS = 3;
 const DIALOG_MAX_COLORS = 7;
 
 // A hex text field with a fixed, non-editable "#" fused to its left edge. The
-// stored value keeps its leading "#", but the editable text is just the digits —
+// stored value keeps its leading "#", but the editable text is just the digits -
 // any "#" the user types or pastes is stripped back out.
 function HexField({
   value,

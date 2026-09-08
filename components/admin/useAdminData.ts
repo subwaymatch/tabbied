@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { apiFetch, ApiError } from 'lib/apiFetch';
 
-/** One fetch, three states, a reload — what every admin panel needs and nothing else. */
+/** One fetch, three states, a reload - what every admin panel needs and nothing else. */
 export function useAdminData<T>(path: string) {
   const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState<string | null>(null);

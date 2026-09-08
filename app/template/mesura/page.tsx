@@ -77,7 +77,7 @@ export default function MesuraPage() {
       <header className={s.bar}>
         <a className={s.mark} href="#top">
           Mesura
-          <i>Enginyeria d&rsquo;Estructures</i>
+          <i>Enginyeria d'Estructures</i>
         </a>
         <nav aria-label="Sections">
           <a data-edit="bar.what" data-edit-max="28" href="#what">Capabilities</a>

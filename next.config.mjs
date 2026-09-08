@@ -4,7 +4,7 @@
 // patterns/ folder; interactivity is client-side), so it ships as a pure
 // static export. On Cloudflare Workers that means out/ is uploaded as static
 // assets and served straight off the network as files, without invoking the
-// Worker at all — see wrangler.jsonc, and worker/index.ts for the two paths
+// Worker at all - see wrangler.jsonc, and worker/index.ts for the two paths
 // that do reach code.
 //
 // Consequences handled elsewhere:

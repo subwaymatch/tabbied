@@ -2,7 +2,7 @@
 // stateless HTTP handler, in both protocol eras.
 //
 // The protocol itself is `@modelcontextprotocol/server`'s job now, so this does
-// not re-test the SDK. What it pins is the seam — that our tools are registered
+// not re-test the SDK. What it pins is the seam - that our tools are registered
 // with schemas the SDK accepts, that a `tools/call` reaches the right handler,
 // that argument validation actually engages, and that both eras see the same
 // toolset. Those are the things a change on our side can break.
@@ -36,7 +36,7 @@ const handler = createMcpHandler(() => buildServer(tools), {
 const MODERN = '2026-07-28';
 
 // The modern era carries version, identity, and capabilities on every request
-// instead of negotiating them once — all three are required, and the SDK
+// instead of negotiating them once - all three are required, and the SDK
 // rejects an incomplete envelope.
 const modernMeta = {
   'io.modelcontextprotocol/protocolVersion': MODERN,
@@ -164,7 +164,7 @@ test('tools/call reaches the handler and returns its content', async () => {
 });
 
 test('the SDK validates arguments against our schema before we see them', async () => {
-  // Nothing in tools.ts checks this — registering the JSON Schema is what buys
+  // Nothing in tools.ts checks this - registering the JSON Schema is what buys
   // it, and an out-of-vocabulary tag is exactly the mistake an agent makes.
   const { body } = await legacy(1, 'tools/call', {
     name: 'search_designs',
@@ -206,7 +206,7 @@ test('an unknown tool is a protocol error', async () => {
 
 // ---- transport posture -----------------------------------------------------
 
-test('GET is refused — v2 has no standalone stream to open', async () => {
+test('GET is refused - v2 has no standalone stream to open', async () => {
   const response = await handler.fetch(
     new Request('https://tabbied.com/mcp', { method: 'GET' })
   );

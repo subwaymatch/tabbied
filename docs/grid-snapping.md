@@ -1,4 +1,4 @@
-# Grid snapping — why `fit: "grid"` oversizes its canvas
+# Grid snapping - why `fit: "grid"` oversizes its canvas
 
 Short version: css-doodle lays its grid out as `repeat(n, 1fr)`. A container
 that isn't divisible by `n` puts every cell boundary on a sub-pixel, and the
@@ -16,7 +16,7 @@ fills a section:
 ```
 
 `deriveGridForBox` measures the host and picks `cols`/`rows`. The canvas was
-then sized `100% × 100%`, so the tracks came out `hostWidth / cols` — which a
+then sized `100% × 100%`, so the tracks came out `hostWidth / cols` - which a
 fluid container almost never makes an integer. A 1440px band at 11 columns
 gives **130.906px** tracks, and every one of the 10 interior boundaries lands
 mid-pixel.
@@ -25,15 +25,15 @@ The result is a faint grid of hairlines over the pattern, in the pattern's own
 colours or the page background, depending on which way the boundary rounds.
 It reads as a rendering bug, not a design.
 
-This was not rare. A sweep of the 36 template pages — reading
+This was not rare. A sweep of the 36 template pages - reading
 `getComputedStyle(cssd-grid).gridTemplateColumns` out of each doodle's shadow
-root — found **164 fractional grids** before the fix, nearly all of them
+root - found **164 fractional grids** before the fix, nearly all of them
 full-section background fields.
 
 ## The fix
 
 `applyGridSnap` in `core/createPattern.ts` sets the canvas inline to
-`snapSpanToTracks(hostSpan, tracks, cellMultiple)` on each axis — the smallest
+`snapSpanToTracks(hostSpan, tracks, cellMultiple)` on each axis - the smallest
 span that both covers the box and divides into cells of a whole, divisible
 size:
 
@@ -54,15 +54,15 @@ Three properties matter, and `test/sizing.test.mjs` pins all three:
 ### Why a whole pixel is not enough
 
 A design that subdivides its cell puts a boundary at `cell / n`, and an
-indivisible cell lands *that* boundary on a fraction of a pixel — which the
+indivisible cell lands *that* boundary on a fraction of a pixel - which the
 browser seams however exact the outer grid is.
 
 Sichtbeton's hero was the case that proved it: 8 × 180px across and 3 × 197px
 down, every outer track exact, and still visibly gapped. `subdivide` masks
 each cell with a nested `@doodle(@grid: 2)`, and 197 halves to **98.5**.
 
-`PatternSizing.cellMultiple` carries the divisor. It defaults to 2 — which
-also keeps centred rules and strokes off half-pixels — and only three designs
+`PatternSizing.cellMultiple` carries the divisor. It defaults to 2 - which
+also keeps centred rules and strokes off half-pixels - and only three designs
 in the catalogue need more, the three that mask with a nested `@doodle`:
 
 | Design | Nested grid | `cellMultiple` |
@@ -84,14 +84,14 @@ and a quarter turn of an oblong swaps its axes: a 120 × 124 cell paints
 124 × 120 once rotated, leaving 2px uncovered top and bottom. That reads as a
 seam between blocks even though every track is exact and every cell divides.
 
-Cobalt Works' coda band was the case that proved it — 12 × 120px across,
+Cobalt Works' coda band was the case that proved it - 12 × 120px across,
 2 × 124px down, both exact, and visibly lined. `applyGridSnap` takes the
 larger of the two snapped cells and uses it on both axes; both are already
 multiples of `cellMultiple`, so the max is too, and the canvas still covers
 the host because the cell only ever grows.
 
 Rounding *down* would satisfy the first property too, but would leave up to a
-full cell of the container uncovered — far more visible on a background field
+full cell of the container uncovered - far more visible on a background field
 than a sub-cell crop.
 
 ## Things that are easy to get wrong
@@ -107,8 +107,8 @@ inline on the wrapper, so `.myField { width: 2640px }` silently loses. Callers
 that need a specific box must pass `style`, not a class name.
 
 **64 is a hard cap.** css-doodle's `parse_grid` caps grids at 64×64
-(`MAX_GRID_EDGE`). Asking for a box that implies more columns than that — say
-2640px at `cellSize={40}`, which wants 66 — clamps to 64 and silently rescales
+(`MAX_GRID_EDGE`). Asking for a box that implies more columns than that - say
+2640px at `cellSize={40}`, which wants 66 - clamps to 64 and silently rescales
 the cell to 41.25px, putting the seams straight back. Pin to a multiple that
 lands at or under the cap.
 
@@ -131,10 +131,10 @@ column that is not that colour is a seam and nothing else:
 | No transform, fractional tracks | **0** | 0 |
 | `scale(1.44)`, fractional tracks | 6 | 87 |
 | `scale(1.44)`, integral tracks | 6 | 87 |
-| `scale(1.4444…)`, `cell × scale = 143` | **0** | 0 |
+| `scale(1.4444...)`, `cell × scale = 143` | **0** | 0 |
 
 Two things fall out of that. Without a transform the browser abuts identical
-neighbours cleanly even on fractional boundaries — so the grid fix works
+neighbours cleanly even on fractional boundaries - so the grid fix works
 because there is no transform, not because layout rounding is inherently
 fatal. And snapping the render box *on its own does nothing*: six seams
 either way, same severity. Only quantising the scale removes them.
@@ -142,13 +142,13 @@ either way, same severity. Only quantising the scale removes them.
 So both halves are needed, and `applyGridSnap`'s work is the enabler rather
 than the fix:
 
-1. The adaptive cover render box is snapped to whole, divisible, square cells
-   — which is what gives step 2 a whole `cell` to quantise against.
+1. The adaptive cover render box is snapped to whole, divisible, square cells,
+   which is what gives step 2 a whole `cell` to quantise against.
 2. `fitRenderToBox` quantises the scale so `cell × scale` is a whole number,
    rounding **up** (cover crops anyway). The ratio is untouched, so the
-   drawing is never distorted — only cropped slightly further.
+   drawing is never distorted - only cropped slightly further.
 
-The translate is rounded too — half a pixel of offset puts every boundary
+The translate is rounded too - half a pixel of offset puts every boundary
 back on a fraction and undoes the quantised scale.
 
 The cost is a slightly larger crop. On the package test page the canvas

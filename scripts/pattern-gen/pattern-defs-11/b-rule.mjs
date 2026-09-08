@@ -1,4 +1,4 @@
-// B. Rule — stripe fields. Pitch, duty, angle, phase.
+// B. Rule - stripe fields. Pitch, duty, angle, phase.
 //
 // A repeating-linear-gradient used as a mask is the cheapest real drawing in
 // CSS and one of the most exact things the SVG converter does: the whole run
@@ -18,7 +18,7 @@ const ruled = (c, angle, on, period) =>
 
 add(
   'Corduroy',
-  'Wide ribs with a narrow channel between them — nearly solid, but not quite.',
+  'Wide ribs with a narrow channel between them - nearly solid, but not quite.',
   (c) => ({ rule: `--ang: ${R2}; ${F} { ${ruled(c, '@var(--ang)', '22%', '28%')} }${TR}` }),
   { pal: 19 }
 );

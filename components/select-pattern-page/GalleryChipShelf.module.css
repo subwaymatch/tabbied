@@ -74,7 +74,7 @@
   color: #ff3d8b;
 }
 
-/* Trailing ✕ (custom) / pencil (library) — a small tap target inset into the
+/* Trailing delete mark (custom) / pencil (library) - a small tap target inset into the
    chip's right padding so it doesn't widen the pill. */
 .trailing {
   display: inline-flex;
