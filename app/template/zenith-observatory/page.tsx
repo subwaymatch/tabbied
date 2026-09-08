@@ -142,8 +142,8 @@ export default function ZenithObservatoryPage() {
         <div className={styles.heroVeil} aria-hidden="true" />
 
         <div className={styles.topRow}>
-          <p className={styles.brand}>
-            <span aria-hidden="true">&#x2726;</span> ZENITH
+          <p data-edit="hero.body" data-edit-format="emphasis" data-edit-max="240" data-edit-multiline className={styles.brand}>
+            <span data-edit="hero.text" data-edit-max="60" aria-hidden="true">&#x2726;</span> ZENITH
           </p>
           <nav className={styles.nav} aria-label="Sections">
             <a data-edit="hero.tonight" data-edit-max="28" href="#tonight">Tonight</a>
@@ -157,7 +157,7 @@ export default function ZenithObservatoryPage() {
 
         <div className={styles.heroCenter}>
           <p data-edit="hero.heroEyebrow" data-edit-max="240" data-edit-multiline className={styles.heroEyebrow}>PUBLIC OBSERVATORY &amp; PLANETARIUM · CINDER RIDGE · EST. 1974</p>
-          <h1 className={styles.heroTitle}>
+          <h1 data-edit="hero.title" data-edit-max="70" className={styles.heroTitle}>
             Look up.
             <br />
             We'll handle the rest.
@@ -171,19 +171,19 @@ export default function ZenithObservatoryPage() {
           <div className={styles.countdown} role="group" aria-label="Time until the next public viewing night">
             <p data-edit="hero.countLabel" data-edit-max="240" data-edit-multiline className={styles.countLabel}>NEXT PUBLIC VIEWING NIGHT · SAT 09 AUG · GATES 21:00</p>
             <p className={styles.countDigits}>
-              <span>
+              <span data-edit="hero.text2" data-edit-format="emphasis" data-edit-max="60">
                 08<em>DAYS</em>
               </span>
-              <span className={styles.countSep} aria-hidden="true">
+              <span data-edit="hero.text3" data-edit-max="60" className={styles.countSep} aria-hidden="true">
                 :
               </span>
-              <span>
+              <span data-edit="hero.text4" data-edit-format="emphasis" data-edit-max="60">
                 05<em>HRS</em>
               </span>
-              <span className={styles.countSep} aria-hidden="true">
+              <span data-edit="hero.text5" data-edit-max="60" className={styles.countSep} aria-hidden="true">
                 :
               </span>
-              <span>
+              <span data-edit="hero.text6" data-edit-format="emphasis" data-edit-max="60">
                 42<em>MIN</em>
               </span>
             </p>
@@ -492,13 +492,13 @@ export default function ZenithObservatoryPage() {
           />
         </div>
         <div className={styles.footerInner}>
-          <p className={styles.footerBrand}>
-            <span aria-hidden="true">&#x2726;</span> ZENITH OBSERVATORY &amp; PLANETARIUM
+          <p data-edit="footer.body" data-edit-format="emphasis" data-edit-max="240" data-edit-multiline className={styles.footerBrand}>
+            <span data-edit="footer.text" data-edit-max="60" aria-hidden="true">&#x2726;</span> ZENITH OBSERVATORY &amp; PLANETARIUM
           </p>
           <div className={styles.footerCols}>
             <div>
               <h3 data-edit="footer.title" data-edit-max="40">VISIT</h3>
-              <p>
+              <p data-edit="footer.body2" data-edit-max="240" data-edit-multiline>
                 9 Cinder Ridge Road
                 <br />
                 Wed-Sun · 13:00-23:30
@@ -514,14 +514,14 @@ export default function ZenithObservatoryPage() {
             </div>
             <div>
               <h3 data-edit="footer.title3" data-edit-max="40">SKY CALL</h3>
-              <p>
+              <p data-edit="footer.body3" data-edit-max="240" data-edit-multiline>
                 Posted daily 17:00
                 <br />
                 Clear-sky line: ext. 2
               </p>
             </div>
           </div>
-          <p className={styles.footerFine}>
+          <p data-edit="footer.body4" data-edit-format="emphasis" data-edit-max="240" data-edit-multiline className={styles.footerFine}>
             © 2026 Zenith Ridge Astronomical Society · a fictional observatory
             under a real sky.
             <span className={styles.credit}>

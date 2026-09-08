@@ -304,10 +304,10 @@ export default function QuantaRoboticsPage() {
       />
 
       <header className={styles.statusBar}>
-        <a href="#sys-top" className={styles.wordmark}>
-          QUANTA<span data-edit="statusBar.wordmarkDim" data-edit-max="60" className={styles.wordmarkDim}>.LAB</span>
+        <a data-edit="statusBar.wordmarkDim" data-edit-format="emphasis" data-edit-max="28" href="#sys-top" className={styles.wordmark}>
+          QUANTA<span className={styles.wordmarkDim}>.LAB</span>
         </a>
-        <p className={styles.sysOk}>
+        <p data-edit="statusBar.body" data-edit-format="emphasis" data-edit-max="240" data-edit-multiline className={styles.sysOk}>
           <span className={styles.okDot} aria-hidden="true" />
           SYS.OK
         </p>
@@ -336,10 +336,10 @@ export default function QuantaRoboticsPage() {
           </div>
           <div className={styles.heroGrid}>
             <div className={styles.heroCopy}>
-              <p className={styles.heroBoot} aria-hidden="true">
+              <p data-edit="hero.body4" data-edit-max="240" data-edit-multiline className={styles.heroBoot} aria-hidden="true">
                 &gt; boot sequence complete · 06:12:04
               </p>
-              <h1 id="hero-h" className={styles.heroTitle}>
+              <h1 data-edit="hero.title" data-edit-format="emphasis" data-edit-max="70" id="hero-h" className={styles.heroTitle}>
                 Machines that learn the world by touching it
                 <span className={styles.cursor} aria-hidden="true" />
               </h1>
@@ -484,8 +484,8 @@ export default function QuantaRoboticsPage() {
             <div className={styles.telemetryScrim} aria-hidden="true" />
           </div>
           <div className={styles.telemetryInner}>
-            <h2 id="telemetry-h" className={styles.telemetryTitle}>
-              LAB TELEMETRY <span data-edit="telemetry.telemetryStamp" data-edit-max="60" className={styles.telemetryStamp}>SNAPSHOT 2026-07-31 06:12 UTC</span>
+            <h2 data-edit="telemetry.telemetryStamp" data-edit-format="emphasis" data-edit-max="60" id="telemetry-h" className={styles.telemetryTitle}>
+              LAB TELEMETRY <span className={styles.telemetryStamp}>SNAPSHOT 2026-07-31 06:12 UTC</span>
             </h2>
             <dl className={styles.telemetryGrid}>
               {TELEMETRY.map((t, i) => (
@@ -550,7 +550,7 @@ export default function QuantaRoboticsPage() {
                     {pub.authors} · <cite data-edit={`pubs.attribution.${i}`} data-edit-max="48">{pub.venue}</cite>
                   </p>
                 </div>
-                <span className={styles.pubLinks} aria-hidden="true">
+                <span data-edit="pubs.text" data-edit-max="60" className={styles.pubLinks} aria-hidden="true">
                   [PDF] [BIB]
                 </span>
               </li>
@@ -632,7 +632,7 @@ export default function QuantaRoboticsPage() {
         <div className={styles.footerGrid}>
           <div>
             <p data-edit="footer.footerWordmark" data-edit-max="240" data-edit-multiline className={styles.footerWordmark}>QUANTA.LAB</p>
-            <p className={styles.footerAddr}>
+            <p data-edit="footer.body2" data-edit-max="240" data-edit-multiline className={styles.footerAddr}>
               Building 4, 220 Foundry Walk
               <br />
               New Arden, NA2 4QX

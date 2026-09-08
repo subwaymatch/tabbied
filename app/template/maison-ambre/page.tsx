@@ -181,19 +181,19 @@ export default function MaisonAmbrePage() {
           <div className={styles.heroVeil} aria-hidden="true" />
           <div className={styles.heroContent}>
             <p data-edit="hero.heroOverline" data-edit-max="240" data-edit-multiline className={styles.heroOverline}>Parfums composés à Grasse · depuis MCMLXXXVII</p>
-            <h1 id="hero-title" className={styles.heroTitle}>
+            <h1 data-edit="hero.title" data-edit-format="emphasis" data-edit-max="70" id="hero-title" className={styles.heroTitle}>
               Light, held
               <br />
               <em>in shadow</em>
             </h1>
-            <p className={styles.heroLine}>
+            <p data-edit="hero.body" data-edit-max="240" data-edit-multiline className={styles.heroLine}>
               Three eaux. One nose. Small numbered editions,
               <br />
               composed above the old lavender exchange.
             </p>
-            <a href="#eaux" className={styles.heroCue}>
+            <a data-edit="hero.link" data-edit-format="emphasis" data-edit-max="28" href="#eaux" className={styles.heroCue}>
               Descendre
-              <span aria-hidden="true"> ↓</span>
+              <span data-edit="hero.text" data-edit-max="60" aria-hidden="true"> ↓</span>
             </a>
           </div>
         </section>
@@ -201,15 +201,15 @@ export default function MaisonAmbrePage() {
         {/* ------------------------------------------------------- la maison */}
         <section id="maison" className={styles.maison} aria-labelledby="maison-title">
           <header className={styles.sectionHead}>
-            <span className={styles.sectionNumeral} aria-hidden="true">
+            <span data-edit="sectionHead.text" data-edit-max="60" className={styles.sectionNumeral} aria-hidden="true">
               I
             </span>
             <h2 data-edit="sectionHead.title" data-edit-max="60" id="maison-title">La Maison</h2>
             <p data-edit="sectionHead.sectionSub" data-edit-max="240" data-edit-multiline className={styles.sectionSub}>Founded 1987 · Independent since</p>
           </header>
           <div className={styles.maisonColumns}>
-            <p className={styles.maisonLead}>
-              <span className={styles.dropCap} aria-hidden="true">
+            <p data-edit="maison.body6" data-edit-format="emphasis" data-edit-max="240" data-edit-multiline className={styles.maisonLead}>
+              <span data-edit="maison.text" data-edit-max="60" className={styles.dropCap} aria-hidden="true">
                 M
               </span>
               aison Ambre began in a single rented room above the old lavender exchange in
@@ -223,7 +223,7 @@ export default function MaisonAmbrePage() {
                 house when it is finished, which has happened eleven times in thirty-nine years,
                 and been reversed eight.
               </p>
-              <p>
+              <p data-edit="maison.body7" data-edit-format="emphasis" data-edit-max="240" data-edit-multiline>
                 What remains of each attempt is kept in the archive, four hundred amber vials
                 we call <i>la mémoire</i>. Visitors may smell them. Nothing in the archive is
                 for sale, which is precisely why it matters.
@@ -264,14 +264,14 @@ export default function MaisonAmbrePage() {
             <div className={styles.eauxFieldScrim} />
           </div>
           <header className={styles.sectionHead}>
-            <span className={styles.sectionNumeral} aria-hidden="true">
+            <span data-edit="sectionHead.text2" data-edit-max="60" className={styles.sectionNumeral} aria-hidden="true">
               II
             </span>
             <h2 data-edit="sectionHead.title2" data-edit-max="60" id="eaux-title">Les Trois Eaux</h2>
             <p data-edit="sectionHead.sectionSub2" data-edit-max="240" data-edit-multiline className={styles.sectionSub}>The collection entire; nothing else is made</p>
           </header>
-          <p className={styles.eauxHint} aria-hidden="true">
-            Faites glisser <span data-edit="eaux.text" data-edit-max="60">⟶</span>
+          <p data-edit="eaux.text" data-edit-format="emphasis" data-edit-max="240" data-edit-multiline className={styles.eauxHint} aria-hidden="true">
+            Faites glisser <span>⟶</span>
           </p>
           <div className={styles.eauxRow} role="list">
             {EAUX.map((eau, i) => (
@@ -356,8 +356,8 @@ export default function MaisonAmbrePage() {
             />
             <div className={styles.archiveScrim} />
           </div>
-          <p className={styles.archiveLine}>
-            <span data-edit="archive.archiveLabel" data-edit-max="60" className={styles.archiveLabel}>La mémoire</span>
+          <p data-edit="archive.archiveLabel" data-edit-format="emphasis" data-edit-max="240" data-edit-multiline className={styles.archiveLine}>
+            <span className={styles.archiveLabel}>La mémoire</span>
             Four hundred amber vials, kept and never sold
           </p>
         </aside>
@@ -365,7 +365,7 @@ export default function MaisonAmbrePage() {
         {/* -------------------------------------------------------- le nez */}
         <section id="nez" className={styles.nez} aria-labelledby="nez-title">
           <header className={styles.sectionHead}>
-            <span className={styles.sectionNumeral} aria-hidden="true">
+            <span data-edit="sectionHead.text3" data-edit-max="60" className={styles.sectionNumeral} aria-hidden="true">
               III
             </span>
             <h2 data-edit="sectionHead.title3" data-edit-max="60" id="nez-title">Le Nez</h2>
@@ -394,7 +394,7 @@ export default function MaisonAmbrePage() {
                 thing the great houses could not: time. She has composed every edition since
                 1994, declines all briefs, and keeps office hours only for the archive.
               </p>
-              <p>
+              <p data-edit="nez.body3" data-edit-format="emphasis" data-edit-max="240" data-edit-multiline>
                 Her rule for the house is unchanged in three decades: <i>one nose, no
                 committees, no focus groups. A perfume is an opinion, not a poll.</i>
               </p>
@@ -405,7 +405,7 @@ export default function MaisonAmbrePage() {
         {/* ------------------------------------------------------ l'atelier */}
         <section id="atelier" className={styles.atelier} aria-labelledby="atelier-title">
           <header className={styles.sectionHead}>
-            <span className={styles.sectionNumeral} aria-hidden="true">
+            <span data-edit="sectionHead.text4" data-edit-max="60" className={styles.sectionNumeral} aria-hidden="true">
               IV
             </span>
             <h2 data-edit="sectionHead.title4" data-edit-max="60" id="atelier-title">L'Atelier</h2>
@@ -434,7 +434,7 @@ export default function MaisonAmbrePage() {
         {/* -------------------------------------------------------- visites */}
         <section id="visites" className={styles.visites} aria-labelledby="visites-title">
           <header className={styles.sectionHead}>
-            <span className={styles.sectionNumeral} aria-hidden="true">
+            <span data-edit="sectionHead.text5" data-edit-max="60" className={styles.sectionNumeral} aria-hidden="true">
               V
             </span>
             <h2 data-edit="sectionHead.title5" data-edit-max="60" id="visites-title">Stockists &amp; Visites</h2>

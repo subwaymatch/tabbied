@@ -173,7 +173,7 @@ export default function WerkraumPage() {
           </div>
           <div className={s.heroGrid}>
             <p data-edit="hero.heroTag" data-edit-max="240" data-edit-multiline className={s.heroTag}>Architektur / Basel / seit 2009</p>
-            <h1 className={s.heroTitle}>
+            <h1 data-edit="hero.title" data-edit-format="emphasis" data-edit-max="70" className={s.heroTitle}>
               We draw buildings that
               <br />
               are easy to build and
@@ -497,7 +497,7 @@ export default function WerkraumPage() {
               <dl className={s.contact}>
                 <div>
                   <dt data-edit="office.term" data-edit-max="28">Post</dt>
-                  <dd>
+                  <dd data-edit="office.body3" data-edit-max="200" data-edit-multiline>
                     Klybeckstrasse 191
                     <br />
                     4057 Basel
@@ -579,7 +579,7 @@ export default function WerkraumPage() {
           </div>
           <div className={s.footCol}>
             <h2 data-edit="footer.footHead3" data-edit-max="60" className={s.footHead}>Contact</h2>
-            <p className={s.footAddr}>
+            <p data-edit="footer.body2" data-edit-max="240" data-edit-multiline className={s.footAddr}>
               Klybeckstrasse 191
               <br />
               4057 Basel

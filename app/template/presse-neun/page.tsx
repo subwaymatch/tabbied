@@ -469,7 +469,7 @@ export default function PresseNeunPage() {
         <div className={s.footGrid}>
           <div>
             <h2 data-edit="footer.title" data-edit-max="60">On the floor</h2>
-            <p>
+            <p data-edit="footer.body2" data-edit-max="240" data-edit-multiline>
               A 1974 Heidelberg KORD, still on its original bed
               <br />
               Two flatbed proofing presses
@@ -487,7 +487,7 @@ export default function PresseNeunPage() {
           </div>
           <div>
             <h2 data-edit="footer.title3" data-edit-max="60">Here</h2>
-            <p>
+            <p data-edit="footer.body3" data-edit-max="240" data-edit-multiline>
               Maashaven Oostzijde 9
               <br />
               3072 Rotterdam

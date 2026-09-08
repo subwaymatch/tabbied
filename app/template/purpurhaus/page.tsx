@@ -467,7 +467,7 @@ export default function PurpurhausPage() {
           </div>
           <div>
             <h2 data-edit="footer.title3" data-edit-max="60">Here</h2>
-            <p>
+            <p data-edit="footer.body2" data-edit-max="240" data-edit-multiline>
               Rua de Miragaia 88
               <br />
               4050 Porto

@@ -195,7 +195,7 @@ export default function ChronometrieBexPage() {
 
         <header className={styles.masthead}>
           <div className={`${styles.container} ${styles.grid}`}>
-            <p className={styles.wordmark}>
+            <p data-edit="masthead.body" data-edit-max="240" data-edit-multiline className={styles.wordmark}>
               Chronométrie
               <br />
               Bex
@@ -207,7 +207,7 @@ export default function ChronometrieBexPage() {
               <a data-edit="masthead.specifications" data-edit-max="28" href="#specifications">Specifications</a>
               <a data-edit="masthead.ordering" data-edit-max="28" href="#ordering">Ordering</a>
             </nav>
-            <p className={styles.mastMeta}>
+            <p data-edit="masthead.body2" data-edit-max="240" data-edit-multiline className={styles.mastMeta}>
               Rue du Jura 12
               <br />
               1880 Bex, Vaud
@@ -559,7 +559,7 @@ export default function ChronometrieBexPage() {
                   className={styles.img}
                 />
               </div>
-              <figcaption>
+              <figcaption data-edit="watchmaker.caption" data-edit-max="120" data-edit-multiline>
                 Claire Reymond, head watchmaker.
                 <br />
                 At the bench since 2003.
@@ -625,7 +625,7 @@ export default function ChronometrieBexPage() {
                   Request an appointment
                 </a>
               </p>
-              <p className={styles.note}>
+              <p data-edit="ordering.body" data-edit-max="240" data-edit-multiline className={styles.note}>
                 atelier@chronometrie-bex.example
                 <br />
                 +41 24 000 00 00, weekdays 09:00 to 12:00
@@ -655,7 +655,7 @@ export default function ChronometrieBexPage() {
             <dl className={styles.visitPairs}>
               <div>
                 <dt data-edit="visiting.term" data-edit-max="28">Address</dt>
-                <dd>
+                <dd data-edit="visiting.body" data-edit-max="200" data-edit-multiline>
                   Rue du Jura 12
                   <br />
                   1880 Bex, Vaud
@@ -663,7 +663,7 @@ export default function ChronometrieBexPage() {
               </div>
               <div>
                 <dt data-edit="visiting.term2" data-edit-max="28">Open</dt>
-                <dd>
+                <dd data-edit="visiting.body2" data-edit-max="200" data-edit-multiline>
                   Tuesday and Thursday, 14:00 to 18:00
                   <br />
                   By appointment only
@@ -671,7 +671,7 @@ export default function ChronometrieBexPage() {
               </div>
               <div>
                 <dt data-edit="visiting.term3" data-edit-max="28">By train</dt>
-                <dd>
+                <dd data-edit="visiting.body3" data-edit-max="200" data-edit-multiline>
                   Bex station, 48 minutes from Lausanne
                   <br />
                   Nine minutes on foot from the platform
@@ -679,7 +679,7 @@ export default function ChronometrieBexPage() {
               </div>
               <div>
                 <dt data-edit="visiting.term4" data-edit-max="28">By car</dt>
-                <dd>
+                <dd data-edit="visiting.body4" data-edit-max="200" data-edit-multiline>
                   A9, exit Bex
                   <br />
                   Public parking at Place du Marché, 300 m

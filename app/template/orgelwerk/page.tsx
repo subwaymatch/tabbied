@@ -436,7 +436,7 @@ export default function OrgelwerkPage() {
           </div>
           <div>
             <h2 data-edit="footer.title3" data-edit-max="60">Here</h2>
-            <p>
+            <p data-edit="footer.body2" data-edit-max="240" data-edit-multiline>
               Nieuwevaart 118
               <br />
               9000 Gent

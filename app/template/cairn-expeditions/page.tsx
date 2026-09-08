@@ -196,8 +196,8 @@ export default function CairnExpeditionsPage() {
       />
 
       <header className={styles.topbar}>
-        <a className={styles.brand} href="#top">
-          <span className={styles.brandMark} aria-hidden="true">
+        <a data-edit="topbar.link" data-edit-format="emphasis" data-edit-max="28" className={styles.brand} href="#top">
+          <span data-edit="topbar.text" data-edit-max="60" className={styles.brandMark} aria-hidden="true">
             ▲▲
           </span>
           Cairn
@@ -227,7 +227,7 @@ export default function CairnExpeditionsPage() {
           <div className={styles.heroScrim} aria-hidden="true" />
           <div className={styles.heroInner}>
             <p data-edit="hero.kicker" data-edit-max="240" data-edit-multiline className={styles.kicker}>IFMGA alpine guiding · Valsorde, Hautes-Cimes</p>
-            <h1 id="hero-title" className={styles.heroTitle}>
+            <h1 data-edit="hero.title" data-edit-format="emphasis" data-edit-max="70" id="hero-title" className={styles.heroTitle}>
               The mountain sets
               <br />
               the schedule.
@@ -533,7 +533,7 @@ export default function CairnExpeditionsPage() {
             </div>
             <div className={styles.enquirePanel}>
               <div>
-                <p className={styles.enquireLead}>
+                <p data-edit="enquire.body4" data-edit-max="240" data-edit-multiline className={styles.enquireLead}>
                   Write with your dates and ambitions,<br /> we answer within two working days.
                 </p>
                 <a data-edit="enquire.btnPrimary" data-edit-max="28" className={styles.btnPrimary} href="mailto:bureau@cairn-expeditions.example">
@@ -571,7 +571,7 @@ export default function CairnExpeditionsPage() {
         </div>
         <div className={styles.footerInner}>
           <div className={styles.footerBrand}>
-            <span className={styles.brandMark} aria-hidden="true">
+            <span data-edit="footer.text2" data-edit-max="60" className={styles.brandMark} aria-hidden="true">
               ▲▲
             </span>
             <span data-edit="footer.text" data-edit-max="60">Cairn Expeditions</span>

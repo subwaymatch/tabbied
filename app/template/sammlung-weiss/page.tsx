@@ -101,7 +101,7 @@ export default function SammlungWeissPage() {
           </div>
           <div className={s.heroInner}>
             <p data-edit="hero.eyebrow" data-edit-max="240" data-edit-multiline className={s.eyebrow}>Winterthur / 411 works / open eleven days a year</p>
-            <h1>
+            <h1 data-edit="hero.title" data-edit-max="70">
               A collection is
               <br />
               a long argument
@@ -266,7 +266,7 @@ export default function SammlungWeissPage() {
               <dl>
                 <div>
                   <dt data-edit="research.term" data-edit-max="28">Foundation</dt>
-                  <dd>
+                  <dd data-edit="research.body3" data-edit-max="200" data-edit-multiline>
                     Rychenbergstrasse 210
                     <br />
                     8400 Winterthur
@@ -503,7 +503,7 @@ export default function SammlungWeissPage() {
           </div>
           <div className={s.footCol}>
             <h2 data-edit="footer.footHead3" data-edit-max="60" className={s.footHead}>Contact</h2>
-            <p className={s.footAddr}>
+            <p data-edit="footer.body2" data-edit-max="240" data-edit-multiline className={s.footAddr}>
               Rychenbergstrasse 210
               <br />
               8400 Winterthur

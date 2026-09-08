@@ -100,12 +100,12 @@ export default function LichtfeldPage() {
           </div>
           <div className={s.heroInner}>
             <p data-edit="hero.eyebrow" data-edit-max="240" data-edit-multiline className={s.eyebrow}>Lichtplanung / seit 2006</p>
-            <h1>
+            <h1 data-edit="hero.text" data-edit-format="emphasis" data-edit-max="70">
               The question is
               <br />
               never how bright.
               <br />
-              <span data-edit="hero.text" data-edit-max="60">It is what stays dark.</span>
+              <span>It is what stays dark.</span>
             </h1>
             <p data-edit="hero.lede" data-edit-max="240" data-edit-multiline className={s.lede}>
               Light for buildings, streets and one footbridge. We mock up on
@@ -267,7 +267,7 @@ export default function LichtfeldPage() {
             <dl className={s.contact}>
               <div>
                 <dt data-edit="studio.term" data-edit-max="28">Office</dt>
-                <dd>
+                <dd data-edit="studio.body3" data-edit-max="200" data-edit-multiline>
                   Baaderstrasse 18, Rgb.
                   <br />
                   80469 München
@@ -494,7 +494,7 @@ export default function LichtfeldPage() {
           </div>
           <div className={s.footCol}>
             <h2 data-edit="footer.footHead3" data-edit-max="60" className={s.footHead}>Contact</h2>
-            <p className={s.footAddr}>
+            <p data-edit="footer.body2" data-edit-max="240" data-edit-multiline className={s.footAddr}>
               Baaderstrasse 18, Rgb.
               <br />
               80469 München

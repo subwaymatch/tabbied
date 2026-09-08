@@ -102,12 +102,12 @@ export default function NachtzugPage() {
           </div>
           <div className={s.heroInner}>
             <p data-edit="hero.eyebrow" data-edit-max="240" data-edit-multiline className={s.eyebrow}>Six lines / eleven countries / one timetable</p>
-            <h1>
+            <h1 data-edit="hero.text" data-edit-format="emphasis" data-edit-max="70">
               Go to sleep in
               <br />
               one country and
               <br />
-              <span data-edit="hero.text" data-edit-max="60">wake in another.</span>
+              <span>wake in another.</span>
             </h1>
             <p data-edit="hero.lede" data-edit-max="240" data-edit-multiline className={s.lede}>
               Six sleeper services across Europe, every one of them slower than
@@ -477,7 +477,7 @@ export default function NachtzugPage() {
           </div>
           <div className={s.footCol}>
             <h2 data-edit="footer.footHead3" data-edit-max="60" className={s.footHead}>Contact</h2>
-            <p className={s.footAddr}>
+            <p data-edit="footer.body2" data-edit-max="240" data-edit-multiline className={s.footAddr}>
               Reservations, 07.00 to 21.00
               <br />
               schlafwagen@nachtzug.example

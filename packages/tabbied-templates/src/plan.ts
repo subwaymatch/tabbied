@@ -235,14 +235,19 @@ export function planEdits(
       );
     }
 
-    operations.push({
+    const operation: EditOperation = {
       type: 'text',
       id,
       value,
       format: slot.format,
       emphasisClass: slot.emphasisClass,
-      emphasisTag: slot.emphasisTag,
-    });
+    };
+
+    // Only when the page declares one: an absent tag means `em`, and an own
+    // property set to undefined is not the same shape to a deep comparison.
+    if (slot.emphasisTag) operation.emphasisTag = slot.emphasisTag;
+
+    operations.push(operation);
   }
 
   // ---- images -------------------------------------------------------------

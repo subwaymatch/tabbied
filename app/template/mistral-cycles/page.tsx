@@ -167,8 +167,8 @@ export default function MistralCyclesPage() {
       />
 
       <header className={styles.topbar}>
-        <p className={styles.brand}>
-          MISTRAL<span data-edit="topbar.brandTick" data-edit-max="60" className={styles.brandTick}>▲</span>CYCLES
+        <p data-edit="topbar.brandTick" data-edit-format="emphasis" data-edit-max="240" data-edit-multiline className={styles.brand}>
+          MISTRAL<span className={styles.brandTick}>▲</span>CYCLES
         </p>
         <nav className={styles.nav} aria-label="Sections">
           <a data-edit="topbar.builds" data-edit-max="28" href="#builds">Builds</a>
@@ -197,7 +197,7 @@ export default function MistralCyclesPage() {
           <div className={styles.heroInner}>
             <div className={styles.heroCopy}>
               <p data-edit="hero.eyebrow" data-edit-max="240" data-edit-multiline className={styles.eyebrow}>HANDBUILT FRAMES · PROVIDENCE, RI · EST. 2011</p>
-              <h1 id="hero-title" className={styles.title}>
+              <h1 data-edit="hero.title" data-edit-format="emphasis" data-edit-max="70" id="hero-title" className={styles.title}>
                 The frame is a drawing <em>you can ride.</em>
               </h1>
               <p data-edit="hero.lede" data-edit-max="240" data-edit-multiline className={styles.lede}>
@@ -215,14 +215,14 @@ export default function MistralCyclesPage() {
                 </a>
               </div>
               <ul className={styles.chipRow} aria-label="Shop numbers">
-                <li>
-                  <strong data-edit="hero.emphasis">612</strong> frames since 2011
+                <li data-edit="hero.emphasis" data-edit-format="emphasis" data-edit-max="80">
+                  <strong>612</strong> frames since 2011
                 </li>
-                <li>
-                  <strong data-edit="hero.emphasis2">0.5 mm</strong> mitre tolerance
+                <li data-edit="hero.emphasis2" data-edit-format="emphasis" data-edit-max="80">
+                  <strong>0.5 mm</strong> mitre tolerance
                 </li>
-                <li>
-                  <strong data-edit="hero.emphasis3">≈7 mo</strong> door to door
+                <li data-edit="hero.emphasis3" data-edit-format="emphasis" data-edit-max="80">
+                  <strong>≈7 mo</strong> door to door
                 </li>
               </ul>
             </div>
@@ -238,14 +238,14 @@ export default function MistralCyclesPage() {
                   className={styles.heroFrame}
                 />
               </div>
-              <p className={`${styles.callout} ${styles.calloutA}`}>
-                <span data-edit="hero.text" data-edit-max="60">72.5°</span> HEAD ANGLE
+              <p data-edit="hero.text" data-edit-format="emphasis" data-edit-max="240" data-edit-multiline className={`${styles.callout} ${styles.calloutA}`}>
+                <span>72.5°</span> HEAD ANGLE
               </p>
-              <p className={`${styles.callout} ${styles.calloutB}`}>
-                <span data-edit="hero.text2" data-edit-max="60">385</span> REACH, MM
+              <p data-edit="hero.text2" data-edit-format="emphasis" data-edit-max="240" data-edit-multiline className={`${styles.callout} ${styles.calloutB}`}>
+                <span>385</span> REACH, MM
               </p>
-              <p className={`${styles.callout} ${styles.calloutC}`}>
-                <span data-edit="hero.text3" data-edit-max="60">9/6/9</span> BUTTED CRMO
+              <p data-edit="hero.text3" data-edit-format="emphasis" data-edit-max="240" data-edit-multiline className={`${styles.callout} ${styles.calloutC}`}>
+                <span>9/6/9</span> BUTTED CRMO
               </p>
               <p data-edit="hero.panelStamp" data-edit-max="240" data-edit-multiline className={styles.panelStamp}>FIG. 1 / FRAMESET, SIZE 55</p>
             </div>
@@ -626,7 +626,7 @@ export default function MistralCyclesPage() {
         <div className={styles.footerGrid}>
           <div>
             <p data-edit="footer.footerBrand" data-edit-max="240" data-edit-multiline className={styles.footerBrand}>MISTRAL▲CYCLES</p>
-            <p className={styles.footerFine}>
+            <p data-edit="footer.body2" data-edit-max="240" data-edit-multiline className={styles.footerFine}>
               Handbuilt steel frames.
               <br />
               Drawn, mitred, brazed, filed, painted.
@@ -634,7 +634,7 @@ export default function MistralCyclesPage() {
           </div>
           <address className={styles.footerCol}>
             <p data-edit="footer.footerLabel" data-edit-max="240" data-edit-multiline className={styles.footerLabel}>WORKSHOP</p>
-            <p>
+            <p data-edit="footer.body3" data-edit-max="240" data-edit-multiline>
               Unit 4, 118 Anvil Street
               <br />
               Providence, RI 02906
@@ -642,7 +642,7 @@ export default function MistralCyclesPage() {
           </address>
           <div className={styles.footerCol}>
             <p data-edit="footer.footerLabel2" data-edit-max="240" data-edit-multiline className={styles.footerLabel}>HOURS</p>
-            <p>
+            <p data-edit="footer.body4" data-edit-max="240" data-edit-multiline>
               Tue-Fri 09:00-17:00
               <br />
               Visitors: Fridays only

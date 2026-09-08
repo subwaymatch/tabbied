@@ -477,7 +477,7 @@ export default function KupferwalzPage() {
           </div>
           <div>
             <h2 data-edit="footer.title3" data-edit-max="60">Here</h2>
-            <p>
+            <p data-edit="footer.body2" data-edit-max="240" data-edit-multiline>
               Quai des Ardennes 60
               <br />
               4020 Liège

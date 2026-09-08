@@ -149,7 +149,12 @@ export function htmlToTextValue(html: string, emphasisTag = 'em'): string {
     (_whole, inner: string) => `{em}${inner}{/em}`
   );
 
-  return decodeEntities(withMarkers.replace(/<[^>]*>/g, ''))
+  return decodeEntities(
+    // A <br> is a word boundary, so it becomes a space rather than nothing.
+    // Dropping it outright ran "before" and "it" together in Cobalt Works'
+    // headline, because JSX leaves no whitespace either side of the break.
+    withMarkers.replace(/<br\b[^>]*>/gi, ' ').replace(/<[^>]*>/g, '')
+  )
     .replace(/\s+/g, ' ')
     .trim();
 }

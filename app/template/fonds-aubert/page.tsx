@@ -74,7 +74,7 @@ export default function FondsAubertPage() {
       />
 
       <header className={s.bar}>
-        <a className={s.mark} href="#top">
+        <a data-edit="bar.link" data-edit-format="emphasis" data-edit-max="40" className={s.mark} href="#top">
           Fonds Aubert
           <i>Archives privées, Lausanne</i>
         </a>
@@ -101,12 +101,12 @@ export default function FondsAubertPage() {
           </div>
           <div className={s.heroInner}>
             <p data-edit="hero.eyebrow" data-edit-max="240" data-edit-multiline className={s.eyebrow}>Fondation privée / depuis 1974</p>
-            <h1>
+            <h1 data-edit="hero.text" data-edit-format="emphasis" data-edit-max="70">
               Four point two
               <br />
               kilometres of paper
               <br />
-              <span data-edit="hero.text" data-edit-max="60">somebody kept.</span>
+              <span>somebody kept.</span>
             </h1>
             <p data-edit="hero.lede" data-edit-max="240" data-edit-multiline className={s.lede}>
               Business ledgers, family correspondence, a photographer's
@@ -280,7 +280,7 @@ export default function FondsAubertPage() {
             <dl className={s.contact}>
               <div>
                 <dt data-edit="deposit.term" data-edit-max="28">Foundation</dt>
-                <dd>
+                <dd data-edit="deposit.body3" data-edit-max="200" data-edit-multiline>
                   Chemin des Croix-Rouges 14
                   <br />
                   1007 Lausanne
@@ -507,7 +507,7 @@ export default function FondsAubertPage() {
           </div>
           <div className={s.footCol}>
             <h2 data-edit="footer.footHead3" data-edit-max="60" className={s.footHead}>Contact</h2>
-            <p className={s.footAddr}>
+            <p data-edit="footer.body2" data-edit-max="240" data-edit-multiline className={s.footAddr}>
               Chemin des Croix-Rouges 14
               <br />
               1007 Lausanne

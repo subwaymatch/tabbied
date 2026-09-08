@@ -159,7 +159,7 @@ function Ornament() {
   return (
     <div className={styles.ornament} aria-hidden="true">
       <span className={styles.ornamentRule} />
-      <span className={styles.ornamentMark}>&#x2766;</span>
+      <span data-edit="page.text" data-edit-max="60" className={styles.ornamentMark}>&#x2766;</span>
       <span className={styles.ornamentRule} />
     </div>
   );
@@ -241,8 +241,8 @@ export default function MadrigalStringsPage() {
               players who intend to keep them for life, and then leave them to
               someone who will.
             </p>
-            <p className={styles.heroNote}>
-              <span data-edit="hero.smallCaps" data-edit-max="60" className={styles.smallCaps}>Commissions open</span> ·
+            <p data-edit="hero.smallCaps" data-edit-format="emphasis" data-edit-max="240" data-edit-multiline className={styles.heroNote}>
+              <span className={styles.smallCaps}>Commissions open</span> ·
               autumn waitlist, from September the 1st
             </p>
           </div>
@@ -471,8 +471,8 @@ export default function MadrigalStringsPage() {
             <h2 data-edit="luthier.sectionTitle" data-edit-max="60" className={styles.sectionTitle} id="luthier-h">
               The Luthier
             </h2>
-            <p className={styles.luthierName}>
-              <span data-edit="luthier.smallCaps" data-edit-max="60" className={styles.smallCaps}>Ottavio Madrigal</span> ·
+            <p data-edit="luthier.smallCaps" data-edit-format="emphasis" data-edit-max="240" data-edit-multiline className={styles.luthierName}>
+              <span className={styles.smallCaps}>Ottavio Madrigal</span> ·
               second of the name
             </p>
             <p data-edit="luthier.prose" data-edit-max="240" data-edit-multiline className={styles.prose}>
@@ -549,14 +549,14 @@ export default function MadrigalStringsPage() {
           <div className={styles.visitGrid}>
             <div className={styles.visitCell}>
               <h3 data-edit="visiting.visitLabel" data-edit-max="40" className={styles.visitLabel}>Address</h3>
-              <p className={styles.visitValue}>
+              <p data-edit="visiting.body" data-edit-max="240" data-edit-multiline className={styles.visitValue}>
                 Vicolo dei Liutai 7<br />
                 Casteldoro, 53077
               </p>
             </div>
             <div className={styles.visitCell}>
               <h3 data-edit="visiting.visitLabel2" data-edit-max="40" className={styles.visitLabel}>Hours</h3>
-              <p className={styles.visitValue}>
+              <p data-edit="visiting.body2" data-edit-max="240" data-edit-multiline className={styles.visitValue}>
                 Tuesday - Friday, 10-18
                 <br />
                 Saturday by appointment

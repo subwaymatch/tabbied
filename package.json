@@ -24,6 +24,7 @@
     "llms": "node scripts/generate-llms.mjs",
     "editable": "node scripts/generate-editable.mjs",
     "annotate:templates": "node scripts/annotate-templates.mjs",
+    "annotate:orphans": "node scripts/annotate-orphan-text.mjs",
     "templates": "node scripts/package-templates.mjs",
     "preview:runtime": "node scripts/build-preview-runtime.mjs",
     "build:images": "node scripts/build-image-manifest.mjs",

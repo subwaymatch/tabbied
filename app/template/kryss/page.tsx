@@ -73,7 +73,7 @@ export default function KryssPage() {
       />
 
       <header className={s.bar}>
-        <a className={s.mark} href="#top">
+        <a data-edit="bar.link" data-edit-format="emphasis" data-edit-max="28" className={s.mark} href="#top">
           <span className={s.arrow} aria-hidden="true" />
           Kryss
         </a>
@@ -101,12 +101,12 @@ export default function KryssPage() {
           </div>
           <div className={s.heroInner}>
             <p data-edit="hero.eyebrow" data-edit-max="240" data-edit-multiline className={s.eyebrow}>Wayfinding / Oslo / siden 2011</p>
-            <h1>
+            <h1 data-edit="hero.text" data-edit-format="emphasis" data-edit-max="70">
               A sign is only
               <br />
               useful where
               <br />
-              <span data-edit="hero.text" data-edit-max="60">somebody chooses.</span>
+              <span>somebody chooses.</span>
             </h1>
             <p data-edit="hero.lede" data-edit-max="240" data-edit-multiline className={s.lede}>
               We map every fork in a building, name things the way people
@@ -271,7 +271,7 @@ export default function KryssPage() {
             <dl className={s.contact}>
               <div>
                 <dt data-edit="studio.term" data-edit-max="28">Office</dt>
-                <dd>
+                <dd data-edit="studio.body3" data-edit-max="200" data-edit-multiline>
                   Youngstorget 3
                   <br />
                   0181 Oslo
@@ -498,7 +498,7 @@ export default function KryssPage() {
           </div>
           <div className={s.footCol}>
             <h2 data-edit="footer.footHead3" data-edit-max="60" className={s.footHead}>Contact</h2>
-            <p className={s.footAddr}>
+            <p data-edit="footer.body2" data-edit-max="240" data-edit-multiline className={s.footAddr}>
               Youngstorget 3
               <br />
               0181 Oslo

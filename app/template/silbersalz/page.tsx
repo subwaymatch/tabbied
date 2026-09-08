@@ -75,7 +75,7 @@ export default function SilbersalzPage() {
       />
 
       <header className={s.bar}>
-        <a className={s.mark} href="#top">
+        <a data-edit="bar.link" data-edit-format="emphasis" data-edit-max="30" className={s.mark} href="#top">
           Silbersalz
           <i>Fotolabor, Leipzig</i>
         </a>
@@ -102,12 +102,12 @@ export default function SilbersalzPage() {
           </div>
           <div className={s.heroInner}>
             <p data-edit="hero.eyebrow" data-edit-max="240" data-edit-multiline className={s.eyebrow}>Hand processing / seit 1998</p>
-            <h1>
+            <h1 data-edit="hero.text" data-edit-format="emphasis" data-edit-max="70">
               One film at a
               <br />
               time, in a tank,
               <br />
-              <span data-edit="hero.text" data-edit-max="60">by somebody.</span>
+              <span>by somebody.</span>
             </h1>
             <p data-edit="hero.lede" data-edit-max="240" data-edit-multiline className={s.lede}>
               Black and white, colour negative and transparency. Silver gelatin
@@ -270,7 +270,7 @@ export default function SilbersalzPage() {
             <dl className={s.contact}>
               <div>
                 <dt data-edit="counter.term" data-edit-max="28">Lab</dt>
-                <dd>
+                <dd data-edit="counter.body3" data-edit-max="200" data-edit-multiline>
                   Karl-Liebknecht-Str. 62
                   <br />
                   04275 Leipzig
@@ -497,7 +497,7 @@ export default function SilbersalzPage() {
           </div>
           <div className={s.footCol}>
             <h2 data-edit="footer.footHead3" data-edit-max="60" className={s.footHead}>Contact</h2>
-            <p className={s.footAddr}>
+            <p data-edit="footer.body2" data-edit-max="240" data-edit-multiline className={s.footAddr}>
               Karl-Liebknecht-Str. 62
               <br />
               04275 Leipzig

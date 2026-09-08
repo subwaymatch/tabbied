@@ -352,6 +352,42 @@ never overwritten. It refuses to annotate a component rendered more than once,
 two nested maps sharing an index name, or a pattern wrapped in a fragment, and
 says so; those need a wrapper or an id by hand.
 
+**A slot has to cover the container, not just the tidy child inside it.** That
+first codemod only made a slot of an element whose whole content is one text
+run, so a heading with mixed inline content was passed over and only its
+annotatable *descendants* got ids - leaving the container's own words with
+nothing addressing them. Cobalt Works' headline was the shape: `hero.text` sat
+on the accent `<span>`, so a generated site rewrote "material" and left the
+rest, reading "Colour is a Find your place. before it is an effect." The
+masthead was worse - neither its text nor its `<i>` was annotated at all, so
+the brand name could not be reached by anything.
+
+`scripts/annotate-orphan-text.mjs` (`npm run annotate:orphans`) is the second
+codemod that fixes it, and the tool for finding what is still uncovered
+(`--dry-run` lists it). Two shapes are handled, matching what the five shared
+`TemplateSite` pages already do by hand: a container of text and `<br>` becomes
+a plain slot, and a container holding one accent element becomes
+`data-edit-format="emphasis"`. Where the accent already had an id **the
+container takes it over** rather than minting one, which is what keeps stored
+revisions resolving - a document keyed by `hero.text` still applies, and now
+reaches the whole sentence. Its budget is the tag's, but never less than what
+the design already fits, or the template's own words warn against themselves.
+
+87 runs are deliberately left: text beside a link, or beside an expression in a
+`.map()` (`{h.d} on the year`). Wrapping those in a span is not safe in
+general - a page that styles `.hero h1 span` would colour the wrapper too - and
+most of them are units and connectives rather than copy, so they want a person.
+
+**The accent tag is read off the page, never assumed.** `writeText` used to
+rebuild an accented run as an `<em>`, which is right for the five shared pages
+and wrong for the 52 bespoke ones: each accents with whatever its stylesheet
+targets, and Cobalt Works styles `.hero h1 span`. `accentTagOf` reads it at
+generate time and the slot carries it as `emphasisTag`, so the round trip keeps
+the tag it found. It defaults to `em`, so a page that declares none is
+unchanged. A `<br>` reads back as a space, not as nothing - JSX leaves no
+whitespace either side of a break, so dropping it ran "before" and "it"
+together.
+
 When resolving a pattern's palette into a role map it chases **aliased
 constants** (`const TILE_A = STEEL`) and **array constants** (`palette={FULL}`);
 not doing so left 109 of 434 fields unable to re-colour. The 31 that remain

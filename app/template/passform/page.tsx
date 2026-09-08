@@ -101,12 +101,12 @@ export default function PassformPage() {
           </div>
           <div className={s.heroInner}>
             <p data-edit="hero.eyebrow" data-edit-max="240" data-edit-multiline className={s.eyebrow}>Hamburg / Neuer Wall 44, Hinterhof</p>
-            <h1>
+            <h1 data-edit="hero.text" data-edit-format="emphasis" data-edit-max="70">
               A pattern drawn
               <br />
               once and kept
               <br />
-              <span data-edit="hero.text" data-edit-max="60">for the rest of it.</span>
+              <span>for the rest of it.</span>
             </h1>
             <p data-edit="hero.lede" data-edit-max="240" data-edit-multiline className={s.lede}>
               Bespoke, cut by hand, four fittings. Sixty-two hours the first
@@ -276,7 +276,7 @@ export default function PassformPage() {
             <dl className={s.contact}>
               <div>
                 <dt data-edit="bench.term" data-edit-max="28">Workroom</dt>
-                <dd>
+                <dd data-edit="bench.body3" data-edit-max="200" data-edit-multiline>
                   Neuer Wall 44, Hinterhof
                   <br />
                   20354 Hamburg
@@ -503,7 +503,7 @@ export default function PassformPage() {
           </div>
           <div className={s.footCol}>
             <h2 data-edit="footer.footHead3" data-edit-max="60" className={s.footHead}>Contact</h2>
-            <p className={s.footAddr}>
+            <p data-edit="footer.body2" data-edit-max="240" data-edit-multiline className={s.footAddr}>
               Neuer Wall 44, Hinterhof
               <br />
               20354 Hamburg

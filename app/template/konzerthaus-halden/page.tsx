@@ -296,7 +296,7 @@ export default function KonzerthausHaldenPage() {
         <div className={s.wrap}>
           <div className={s.grid}>
             <p data-edit="masthead.wordmark" data-edit-max="240" data-edit-multiline className={s.wordmark}>Konzerthaus Halden</p>
-            <p className={s.mastheadMeta}>
+            <p data-edit="masthead.body" data-edit-max="240" data-edit-multiline className={s.mastheadMeta}>
               Haldenplatz 4, 8032 Halden
               <br />
               Box office +41 44 512 60 00
@@ -745,7 +745,7 @@ export default function KonzerthausHaldenPage() {
           <div className={s.grid}>
             <div className={s.footBrand}>
               <p data-edit="footer.footWordmark" data-edit-max="240" data-edit-multiline className={s.footWordmark}>Konzerthaus Halden</p>
-              <p>
+              <p data-edit="footer.body2" data-edit-max="240" data-edit-multiline>
                 Haldenplatz 4
                 <br />
                 8032 Halden

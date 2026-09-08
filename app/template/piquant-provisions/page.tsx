@@ -207,8 +207,8 @@ export default function PiquantProvisionsPage() {
       />
 
       <header className={styles.topbar}>
-        <a href="#top" className={styles.brand}>
-          Piquant<span data-edit="topbar.brandDot" data-edit-max="60" className={styles.brandDot}>*</span>
+        <a data-edit="topbar.brandDot" data-edit-format="emphasis" data-edit-max="28" href="#top" className={styles.brand}>
+          Piquant<span className={styles.brandDot}>*</span>
         </a>
         <nav aria-label="Page sections" className={styles.nav}>
           <a data-edit="topbar.lineup" data-edit-max="28" href="#lineup">The Lineup</a>
@@ -266,10 +266,10 @@ export default function PiquantProvisionsPage() {
                 priority
                 className={styles.heroBottleImg}
               />
-              <p className={`${styles.sticker} ${styles.stickerBatch}`} aria-hidden="true">
-                Small batch <strong data-edit="hero.emphasis">№ 7</strong>
+              <p data-edit="hero.emphasis" data-edit-format="emphasis" data-edit-max="240" data-edit-multiline className={`${styles.sticker} ${styles.stickerBatch}`} aria-hidden="true">
+                Small batch <strong>№ 7</strong>
               </p>
-              <p className={`${styles.sticker} ${styles.stickerFerment}`} aria-hidden="true">
+              <p data-edit="hero.body" data-edit-max="240" data-edit-multiline className={`${styles.sticker} ${styles.stickerFerment}`} aria-hidden="true">
                 21-day ferment
               </p>
             </div>
@@ -370,7 +370,7 @@ export default function PiquantProvisionsPage() {
                   alt="A single bright red chilli with a curled green stem"
                   className={styles.heatChiliImg}
                 />
-                <p className={styles.heatChiliStamp} aria-hidden="true">
+                <p data-edit="heat.body" data-edit-max="240" data-edit-multiline className={styles.heatChiliStamp} aria-hidden="true">
                   Tasted by three
                 </p>
               </div>
@@ -493,7 +493,7 @@ export default function PiquantProvisionsPage() {
                 alt="An overstuffed taco with steak, onion, cilantro and stripes of hot sauce"
                 className={styles.recipeTacoImg}
               />
-              <p className={`${styles.sticker} ${styles.stickerTaco}`} aria-hidden="true">
+              <p data-edit="recipe.body" data-edit-max="240" data-edit-multiline className={`${styles.sticker} ${styles.stickerTaco}`} aria-hidden="true">
                 Counter-tested
               </p>
             </div>
@@ -562,8 +562,8 @@ export default function PiquantProvisionsPage() {
       {/* ------------------------------------------------------------ FOOTER */}
       <footer className={styles.footer}>
         <div className={styles.footerInner}>
-          <p className={styles.footerBrand}>
-            Piquant<span data-edit="footer.brandDot" data-edit-max="60" className={styles.brandDot}>*</span> Provisions
+          <p data-edit="footer.brandDot" data-edit-format="emphasis" data-edit-max="240" data-edit-multiline className={styles.footerBrand}>
+            Piquant<span className={styles.brandDot}>*</span> Provisions
           </p>
           <p data-edit="footer.footerBlurb" data-edit-max="240" data-edit-multiline className={styles.footerBlurb}>
             Made in small batches at 14 Beckoner Street, Port Alsey. Open

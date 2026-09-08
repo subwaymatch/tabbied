@@ -97,9 +97,9 @@ export default function NordlichtPage() {
       />
 
       <header className={s.top}>
-        <a className={s.brand} href="#top">
+        <a data-edit="top.text" data-edit-format="emphasis" data-edit-max="40" className={s.brand} href="#top">
           Nordlicht
-          <span data-edit="top.text" data-edit-max="60">Kartografi &amp; Oppmåling</span>
+          <span>Kartografi &amp; Oppmåling</span>
         </a>
         <nav aria-label="Sections">
           {NAV.map((n, i) => (
@@ -128,7 +128,7 @@ export default function NordlichtPage() {
             />
           </div>
           <p data-edit="hero.coords" data-edit-max="240" data-edit-multiline className={s.coords}>69°38′55″ N &nbsp; 18°57′10″ E &nbsp; / &nbsp; est. 1998</p>
-          <h1>
+          <h1 data-edit="hero.title" data-edit-max="70">
             We measure the coast
             <br />
             and draw what is
@@ -140,16 +140,16 @@ export default function NordlichtPage() {
             one plotter that has never once jammed on a Friday.
           </p>
           <ul className={s.ticker}>
-            <li>
+            <li data-edit="hero.item" data-edit-format="emphasis" data-edit-max="80">
               <b>114</b> sheets published
             </li>
-            <li>
+            <li data-edit="hero.item2" data-edit-format="emphasis" data-edit-max="80">
               <b>28</b> years above the Arctic Circle
             </li>
-            <li>
+            <li data-edit="hero.item3" data-edit-format="emphasis" data-edit-max="80">
               <b>6</b> cartographers and surveyors
             </li>
-            <li>
+            <li data-edit="hero.item4" data-edit-format="emphasis" data-edit-max="80">
               <b>2</b> survey vessels
             </li>
           </ul>
@@ -333,7 +333,7 @@ export default function NordlichtPage() {
             <dl className={s.contact}>
               <div>
                 <dt data-edit="office.term" data-edit-max="28">Office</dt>
-                <dd>
+                <dd data-edit="office.body" data-edit-max="200" data-edit-multiline>
                   Storgata 62, 9008 Tromsø
                   <br />
                   Mon to Fri, 08.00 to 16.00
@@ -349,7 +349,7 @@ export default function NordlichtPage() {
               </div>
               <div>
                 <dt data-edit="office.term3" data-edit-max="28">Sheets</dt>
-                <dd>
+                <dd data-edit="office.body2" data-edit-max="200" data-edit-multiline>
                   Over the counter, or by post anywhere in Norway.
                   <br />
                   NOK 180 flat, folded or rolled.
@@ -357,7 +357,7 @@ export default function NordlichtPage() {
               </div>
               <div>
                 <dt data-edit="office.term4" data-edit-max="28">Field season</dt>
-                <dd>
+                <dd data-edit="office.body3" data-edit-max="200" data-edit-multiline>
                   Airborne work March to October.
                   <br />
                   Hydrographic work all year, weather allowing.
@@ -570,7 +570,7 @@ export default function NordlichtPage() {
           </div>
           <div className={s.footCol}>
             <h2 data-edit="footer.footHead3" data-edit-max="60" className={s.footHead}>Contact</h2>
-            <p className={s.footAddr}>
+            <p data-edit="footer.body2" data-edit-max="240" data-edit-multiline className={s.footAddr}>
               Storgata 62
               <br />
               9008 Tromsø

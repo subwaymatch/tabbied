@@ -75,7 +75,7 @@ export default function MesuraPage() {
       />
 
       <header className={s.bar}>
-        <a className={s.mark} href="#top">
+        <a data-edit="bar.link" data-edit-format="emphasis" data-edit-max="40" className={s.mark} href="#top">
           Mesura
           <i>Enginyeria d'Estructures</i>
         </a>
@@ -102,12 +102,12 @@ export default function MesuraPage() {
           </div>
           <div className={s.heroInner}>
             <p data-edit="hero.eyebrow" data-edit-max="240" data-edit-multiline className={s.eyebrow}>Barcelona / est. 2004</p>
-            <h1>
+            <h1 data-edit="hero.text" data-edit-format="emphasis" data-edit-max="70">
               Every structure is
               <br />
               an argument about
               <br />
-              <span data-edit="hero.text" data-edit-max="60">where the load goes.</span>
+              <span>where the load goes.</span>
             </h1>
             <p data-edit="hero.lede" data-edit-max="240" data-edit-multiline className={s.lede}>
               We make that argument in writing, with numbers anyone in the room
@@ -295,7 +295,7 @@ export default function MesuraPage() {
             <dl className={s.contact}>
               <div>
                 <dt data-edit="office.term" data-edit-max="28">Office</dt>
-                <dd>
+                <dd data-edit="office.body3" data-edit-max="200" data-edit-multiline>
                   Carrer de Pujades 118, 3r
                   <br />
                   08005 Barcelona
@@ -522,7 +522,7 @@ export default function MesuraPage() {
           </div>
           <div className={s.footCol}>
             <h2 data-edit="footer.footHead3" data-edit-max="60" className={s.footHead}>Contact</h2>
-            <p className={s.footAddr}>
+            <p data-edit="footer.body2" data-edit-max="240" data-edit-multiline className={s.footAddr}>
               Carrer de Pujades 118, 3r
               <br />
               08005 Barcelona
