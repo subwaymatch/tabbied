@@ -627,8 +627,17 @@ things that shape follows from:
   `#fff` and `#ffffff` are one colour, and comparing them as strings let an
   invisible ink get "repaired" into a colour nobody chose.
 - **Imagery is lazy, idempotent and separately capped**: one image per
-  direction, on request, never three up front. `gpt-image-2` emits real alpha,
-  which is why this reaches one vendor and not two (`docs/image-pipeline.md`).
+  direction, on request, never three up front. `gpt-image-2.5-flare` emits real
+  alpha, which is why this reaches one vendor and not two
+  (`docs/image-pipeline.md`).
+- **Two image models, and the split is the Batch API.** The Worker generates at
+  `quality: "low"` on `gpt-image-2.5-flare` (`AI_IMAGE_MODEL`), which OpenAI's
+  pricing page lists at exactly the `gpt-image-2` rates, so the switch bought
+  up to 50% lower latency for the same money. The offline collection pipeline
+  (`scripts/generate-images.mjs`, `scripts/generate-mockups.mjs`) stays on
+  `gpt-image-2` because **flare has no Batch API**, and batch is where that
+  pipeline gets its half-price rate: 159 images for ~$0.42. A version bump is
+  not a global find-and-replace here.
 - The artboard's **photo upload** waits on `/api/uploads`; the **spinner** it
   drew for a synchronous match is now real, because generating is a real call.
 

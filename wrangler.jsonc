@@ -103,9 +103,17 @@
     // spelling of the bottom rung and this family rejects it. Omit this var
     // entirely for a non-reasoning model - some upstreams reject the field.
     "AI_REASONING_EFFORT": "low",
-    // gpt-image-2 emits real alpha (background: "transparent"), which is why
-    // there is no second vendor here; see docs/image-pipeline.md.
-    "AI_IMAGE_MODEL": "gpt-image-2"
+    // gpt-image-2.5-flare: OpenAI's pricing page lists it at exactly the
+    // gpt-image-2 rates ($8/M image input, $2 cached, $30/M image output, $5/M
+    // text input), and quality low still bills ~$0.006 for a 1024x1024, so
+    // this is up to 50% lower latency for the same money. It emits real alpha
+    // (background: "transparent"), which is why there is no second vendor
+    // here.
+    //
+    // The offline collection pipeline deliberately stays on gpt-image-2: flare
+    // does not support the Batch API, and scripts/generate-images.mjs is built
+    // on it at half the synchronous rate. See docs/image-pipeline.md.
+    "AI_IMAGE_MODEL": "gpt-image-2.5-flare"
   }
 
   // Secrets (never in this file): AI_API_KEY, BETTER_AUTH_SECRET, RESEND_API_KEY,

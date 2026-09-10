@@ -4,9 +4,16 @@ How the imagery on the `/template/...` sites is produced, reviewed, and
 committed. This documents the pipeline as implemented in this repo; the
 scripts live at the repo root under `scripts/`. (The older `scripts/images/`
 pipeline is retired - see its README - and **image generation uses the GPT
-Image 2 API exclusively**, including transparency: `gpt-image-2` now honors
+Image API exclusively**, including transparency: `gpt-image-2` now honors
 `background: "transparent"`, which removed the separate Kie.ai
 background-removal vendor this pipeline used to need.)
+
+**This pipeline is `gpt-image-2`, and Studio's runtime is not.** The Worker
+generates on `gpt-image-2.5-flare` (`AI_IMAGE_MODEL` in `wrangler.jsonc`),
+which OpenAI prices at the same per-token rates and is up to 50% faster. It
+cannot be used here: **flare does not support the Batch API**, and everything
+below is built on batch at half the synchronous rate. Bumping this pipeline's
+model means giving that up, so the two are pinned separately on purpose.
 
 ```
   data/image-prompts.json        <- 1. author the PROJECT (palette + style), then its prompts
@@ -138,7 +145,7 @@ generation and isolation are one call to one API. (Historically the
 parameter was a 400 on this model, and cut-outs took a second pass through
 Kie.ai's hosted `recraft/remove-background`; that whole leg - its API key,
 its upload hop, its rate limiter, and `scripts/remove-background.mjs` - is
-retired. **Future image generation uses the GPT Image 2 API only.**)
+retired. **Future image generation uses the GPT Image API only.**)
 
 What holds the contract together now:
 
