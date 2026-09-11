@@ -685,7 +685,10 @@ test.describe('Studio', () => {
 
 test.describe('Template preview and customize', () => {
   test('a template is framed with the two things to do with it', async ({ page }) => {
-    await page.goto('/templates/verdant/');
+    // The frame loads the live template page, whose typekit and Google Fonts
+    // stylesheets can hang in a sandbox with no outbound network, and `load`
+    // would wait for them through the iframe. The bar is what is asserted.
+    await page.goto('/templates/verdant/', { waitUntil: 'domcontentloaded' });
 
     await expect(page.getByRole('link', { name: 'Customize' })).toHaveAttribute(
       'href',

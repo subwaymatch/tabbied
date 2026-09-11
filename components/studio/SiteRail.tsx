@@ -185,8 +185,8 @@ export default function SiteRail({
           {patternSlots.length === 0 ? (
             <p className={styles.hint}>This template has no pattern fields.</p>
           ) : (
-            {/* An explicit role: `list-style: none` strips the implicit one in
-                some engines, and the shuffle test counts the rows by it. */}
+            // An explicit role: `list-style: none` strips the implicit one in
+            // some engines, and the shuffle test counts the rows by it.
             <ul role="list" className={`${styles.fields} ${shuffling ? styles.fieldsBusy : ''}`}>
               {patternSlots.map((slot) => {
                 const slug = designOn(slot);
