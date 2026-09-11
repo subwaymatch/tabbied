@@ -219,11 +219,17 @@
   color: color-mix(in srgb, var(--ink) 84%, transparent);
 }
 
+/* The facts sit on the loud side of the field, so they get a sand plate of
+   their own: without it the small-caps labels land on a mustard or olive
+   ribbon and disappear. Same radius and offset as the headline panel. */
 .facts {
   margin: 0;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.2rem clamp(1.2rem, 3vw, 2.4rem);
+  padding: clamp(1.4rem, 3vw, 2rem);
+  background: var(--paper);
+  border-radius: var(--radius);
 }
 
 .facts div {
@@ -243,7 +249,7 @@
   margin: 0.4rem 0 0;
   font-variant-caps: all-small-caps;
   letter-spacing: 0.12em;
-  color: var(--grey);
+  color: color-mix(in srgb, var(--ink) 72%, transparent);
 }
 
 /* --------------------------------------------------------------- sections */
@@ -799,6 +805,7 @@
 
   .facts {
     gap: 1rem;
+    padding: 1.2rem;
   }
 
   .heroPanel {
