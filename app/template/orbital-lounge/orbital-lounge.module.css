@@ -1,0 +1,930 @@
+/* ==========================================================================
+   ORBITAL - listening bar, Lisbon
+   Space age, 1960s. Everything is round: capsule buttons, circular badges,
+   panels with corners the size of a saucer, and thin orbit rings drawn as
+   circular borders. Righteous for display, Outfit for everything else. Warm
+   cream paper, deep indigo ink, one orange and one teal. The panels float
+   inside the page with a gutter around them rather than running edge to
+   edge, so the cream reads as the sky they sit in.
+   ========================================================================== */
+
+.page {
+  --paper: #fff4e3;
+  --ink: #1d1b2b;
+  --orange: #ff6b2c;
+  --teal: #0fa3b1;
+  --grey: #8b8478;
+  --tint: color-mix(in srgb, var(--ink) 5%, var(--paper));
+  --line: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+  --gut: clamp(1rem, 3.5vw, 3rem);
+  --max: 76rem;
+  --round: clamp(1.6rem, 4vw, 3rem);
+  --display: 'Righteous', 'Arial Rounded MT Bold', 'Helvetica Neue', sans-serif;
+
+  font-family: 'Outfit', 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 400;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.5;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page :where(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page :focus-visible {
+  outline: 3px solid var(--teal);
+  outline-offset: 3px;
+  border-radius: 999px;
+}
+
+.page h1,
+.page h2,
+.page h3 {
+  font-family: var(--display);
+  font-weight: 400;
+  letter-spacing: 0.005em;
+  line-height: 1.02;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* The small label: tracked capitals in the body face. */
+.nav a,
+.heroKicker,
+.badges dd,
+.eyebrow,
+.ringSeats,
+.sysPart,
+.nightFrom,
+.viewCaption,
+.itemPrice,
+.tierUnit,
+.hoursList dt,
+.findList dt,
+.footHead {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* Capsules. The solid one is orange on ink, the ghost is a ring. */
+.pill,
+.pillGhost,
+.barCta {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 1.4rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  border: 2px solid var(--ink);
+  transition: transform 140ms ease, background 140ms ease, color 140ms ease;
+}
+
+.pill,
+.barCta {
+  background: var(--orange);
+  color: var(--ink);
+}
+
+.pillGhost {
+  background: transparent;
+  color: var(--ink);
+}
+
+.pill:hover,
+.pillGhost:hover,
+.barCta:hover {
+  background: var(--ink);
+  color: var(--paper);
+  transform: translateY(-1px);
+}
+
+/* ------------------------------------------------------------------ bar
+   A floating capsule, inset from the top of the page. */
+
+.bar {
+  position: sticky;
+  top: 0.75rem;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--gut);
+  max-width: var(--max);
+  margin: 0.75rem auto 0;
+  padding: 0.55rem 0.6rem 0.55rem 1.4rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--paper) 86%, transparent);
+  border: 2px solid var(--ink);
+  backdrop-filter: blur(8px);
+}
+
+.mark {
+  font-family: var(--display);
+  font-size: 1.35rem;
+  letter-spacing: 0.02em;
+}
+
+.nav {
+  display: flex;
+  gap: clamp(0.6rem, 1.8vw, 1.4rem);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.nav a {
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+}
+
+.nav a:hover {
+  background: var(--teal);
+  color: var(--paper);
+}
+
+.barCta {
+  padding: 0.55rem 1.1rem;
+  font-size: 0.82rem;
+}
+
+/* ----------------------------------------------------------------- hero */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(4rem, 12vw, 9rem) var(--gut) clamp(3rem, 7vw, 5rem);
+}
+
+/* The wash: the disc pattern behind the copy, with a cream glow centred on
+   the headline so it stays readable, and the field clear at the edges. */
+.heroField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.5;
+  overflow: hidden;
+}
+
+.heroField::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 52% 60% at 34% 46%,
+    var(--paper) 0%,
+    color-mix(in srgb, var(--paper) 70%, transparent) 55%,
+    transparent 100%
+  );
+}
+
+.heroInner {
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.heroKicker {
+  margin: 0 0 clamp(1.4rem, 3vw, 2.2rem);
+  color: var(--teal);
+}
+
+.heroTitle {
+  font-size: clamp(3.6rem, 11vw, 9.6rem);
+  line-height: 0.92;
+}
+
+.heroTitle em {
+  font-style: normal;
+  color: var(--orange);
+}
+
+.heroLede {
+  margin: clamp(1.4rem, 3.5vw, 2.4rem) 0 0;
+  max-width: 32rem;
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.heroCta {
+  margin: clamp(1.4rem, 3vw, 2rem) 0 0;
+  display: flex;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+}
+
+/* Four round badges: a figure inside a ring, evenly spaced. */
+.badges {
+  max-width: var(--max);
+  margin: clamp(2.5rem, 7vw, 5rem) auto 0;
+  display: flex;
+  gap: clamp(0.8rem, 2.5vw, 1.8rem);
+  flex-wrap: wrap;
+}
+
+.badges div {
+  width: clamp(6.4rem, 12vw, 8.4rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 3px solid var(--ink);
+  background: var(--paper);
+  display: grid;
+  place-content: center;
+  text-align: center;
+  gap: 0.15rem;
+  margin: 0;
+}
+
+.badges div:nth-child(2) {
+  border-color: var(--orange);
+}
+
+.badges div:nth-child(3) {
+  border-color: var(--teal);
+}
+
+.badges dt {
+  font-family: var(--display);
+  font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+  line-height: 1;
+}
+
+.badges dd {
+  margin: 0;
+  font-size: 0.6rem;
+  color: var(--grey);
+}
+
+/* ---------------------------------------------------------------- panel
+   The unit of the page: a rounded plate inset from the edges. The light one
+   is a tint of the ink into the paper; the dark one is the ink itself. An
+   orbit ring sits in the top right corner of both, clipped by the radius. */
+
+.panel,
+.panelDark {
+  position: relative;
+  overflow: hidden;
+  max-width: var(--max);
+  margin: clamp(1rem, 2.5vw, 1.8rem) auto 0;
+  padding: clamp(2rem, 5vw, 4rem) clamp(1.4rem, 4vw, 3.5rem);
+  border-radius: var(--round);
+  background: var(--tint);
+}
+
+.panel::before,
+.panelDark::before {
+  content: '';
+  position: absolute;
+  top: -9rem;
+  right: -9rem;
+  width: 22rem;
+  height: 22rem;
+  border-radius: 50%;
+  border: 2px solid color-mix(in srgb, var(--teal) 45%, transparent);
+  pointer-events: none;
+}
+
+.panel::after,
+.panelDark::after {
+  content: '';
+  position: absolute;
+  top: -5rem;
+  right: -5rem;
+  width: 14rem;
+  height: 14rem;
+  border-radius: 50%;
+  border: 2px solid color-mix(in srgb, var(--orange) 55%, transparent);
+  pointer-events: none;
+}
+
+.panelDark {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.panelHead {
+  position: relative;
+  max-width: 40rem;
+  margin-bottom: clamp(1.6rem, 4vw, 2.6rem);
+}
+
+.eyebrow {
+  margin: 0 0 0.8rem;
+  color: var(--teal);
+}
+
+.panelDark .eyebrow {
+  color: var(--orange);
+}
+
+.h2 {
+  font-size: clamp(2rem, 4.8vw, 3.6rem);
+}
+
+.panelNote {
+  margin: 1rem 0 0;
+  font-size: 1rem;
+  font-weight: 300;
+  color: color-mix(in srgb, currentColor 80%, transparent);
+}
+
+/* ----------------------------------------------------------------- room
+   Three rings of chairs, each with its own little orbit diagram. */
+
+.rings {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2.5vw, 1.6rem);
+}
+
+.rings li {
+  position: relative;
+  padding: 1.4rem 1.4rem 1.6rem;
+  border-radius: calc(var(--round) * 0.7);
+  background: var(--paper);
+  border: var(--line);
+}
+
+.ringOrbit {
+  display: block;
+  width: 3.4rem;
+  height: 3.4rem;
+  margin-bottom: 1rem;
+  border-radius: 50%;
+  border: 2px solid var(--ink);
+  position: relative;
+}
+
+.ringOrbit::before {
+  content: '';
+  position: absolute;
+  inset: 0.55rem;
+  border-radius: 50%;
+  border: 2px solid var(--teal);
+}
+
+.ringOrbit::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.7rem;
+  height: 0.7rem;
+  margin: -0.35rem 0 0 -0.35rem;
+  border-radius: 50%;
+  background: var(--orange);
+}
+
+.rings h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.3rem;
+}
+
+.ringSeats {
+  margin: 0;
+  color: var(--orange);
+}
+
+.ringWhere {
+  margin: 0.2rem 0 0.7rem;
+  font-size: 0.9rem;
+  color: var(--grey);
+}
+
+.ringBody {
+  margin: 0;
+  font-size: 0.92rem;
+  color: color-mix(in srgb, var(--ink) 80%, transparent);
+}
+
+/* ---------------------------------------------------------------- sound
+   The component list on the dark panel: part, model, note, one row each. */
+
+.system {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.system li {
+  display: grid;
+  grid-template-columns: 9rem minmax(0, 1.2fr) minmax(0, 1.6fr);
+  gap: clamp(0.8rem, 2vw, 1.6rem);
+  align-items: baseline;
+  padding: 0.9rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--paper) 16%, transparent);
+}
+
+.sysPart {
+  color: var(--teal);
+}
+
+.sysModel {
+  font-family: var(--display);
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+}
+
+.sysNote {
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: color-mix(in srgb, var(--paper) 74%, transparent);
+}
+
+/* ------------------------------------------------------------ programme */
+
+.week {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2.5vw, 1.6rem);
+}
+
+.week li {
+  display: grid;
+  grid-template-columns: 3.6rem minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+  padding: 1.3rem 1.3rem 1.5rem;
+  border-radius: calc(var(--round) * 0.7);
+  background: var(--paper);
+  border: var(--line);
+}
+
+.dayBadge {
+  width: 3.6rem;
+  height: 3.6rem;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--paper);
+  display: grid;
+  place-content: center;
+  font-family: var(--display);
+  font-size: 0.95rem;
+  text-transform: uppercase;
+}
+
+.week li:nth-child(odd) .dayBadge {
+  background: var(--teal);
+}
+
+.week li:nth-child(5) .dayBadge {
+  background: var(--orange);
+  color: var(--ink);
+}
+
+.nightBody h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.25rem;
+}
+
+.nightSelector {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.nightFrom {
+  margin: 0.15rem 0 0.6rem;
+  color: var(--grey);
+}
+
+.nightText {
+  margin: 0;
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--ink) 78%, transparent);
+}
+
+/* ---------------------------------------------------------------- views
+   Three round plates. The pattern is pinned to a square box in the middle
+   and the circle clips it, so the motif is never stretched. */
+
+.views {
+  max-width: var(--max);
+  margin: clamp(2rem, 5vw, 3.5rem) auto 0;
+  padding: 0 var(--gut);
+}
+
+.viewGrid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.2rem, 3vw, 2.4rem);
+  text-align: center;
+}
+
+.viewPlate {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--ink);
+  background: var(--tint);
+  margin: 0 auto 1rem;
+  max-width: 22rem;
+}
+
+.viewGrid h3 {
+  font-size: 1.25rem;
+}
+
+.viewCaption {
+  margin: 0.3rem 0 0;
+  color: var(--grey);
+}
+
+/* ----------------------------------------------------------------- menu */
+
+.menuGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.2rem, 3vw, 2.4rem);
+  position: relative;
+}
+
+.menuCol {
+  padding: 1.4rem 1.5rem 1.6rem;
+  border-radius: calc(var(--round) * 0.7);
+  background: var(--paper);
+  border: var(--line);
+}
+
+.menuHead {
+  font-size: 1.4rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 2px solid var(--ink);
+  margin-bottom: 0.4rem;
+}
+
+.menuList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menuList li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: 1rem;
+  align-items: baseline;
+  padding: 0.7rem 0;
+  border-top: var(--line);
+}
+
+.menuList li:first-child {
+  border-top: 0;
+}
+
+.itemName {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.itemPrice {
+  font-family: var(--display);
+  font-size: 1rem;
+  letter-spacing: 0;
+  color: var(--orange);
+}
+
+.itemNote {
+  grid-column: 1 / -1;
+  font-size: 0.86rem;
+  font-weight: 300;
+  color: var(--grey);
+}
+
+/* ----------------------------------------------------------- membership */
+
+.tiers {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.2rem, 3vw, 2.4rem);
+  position: relative;
+}
+
+.tiers li {
+  padding: 1.6rem 1.6rem 1.8rem;
+  border-radius: calc(var(--round) * 0.7);
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  display: grid;
+  grid-template-rows: auto auto auto auto 1fr auto;
+}
+
+.tiers li:nth-child(2) {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+.tiers h3 {
+  font-size: 1.6rem;
+}
+
+.tierPrice {
+  margin: 0.8rem 0 0;
+  font-family: var(--display);
+  font-size: clamp(2.6rem, 5vw, 3.8rem);
+  line-height: 1;
+  color: var(--orange);
+}
+
+.tierUnit {
+  margin: 0.4rem 0 1rem;
+  color: var(--grey);
+}
+
+.tierBody {
+  margin: 0 0 1rem;
+  font-size: 0.95rem;
+  font-weight: 300;
+}
+
+.perks {
+  list-style: none;
+  margin: 0 0 1.4rem;
+  padding: 0;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.perks li {
+  position: relative;
+  padding-left: 1.4rem;
+  font-size: 0.92rem;
+}
+
+.perks li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.45em;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  border: 2px solid var(--teal);
+}
+
+.tierCta {
+  margin: 0;
+  align-self: end;
+}
+
+.tiers li:nth-child(2) .pill {
+  border-color: var(--paper);
+}
+
+/* ---------------------------------------------------------------- hours */
+
+.hoursGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.4rem, 4vw, 3rem);
+  position: relative;
+}
+
+.hoursList,
+.findList {
+  margin: 0;
+  display: grid;
+  align-content: start;
+}
+
+.hoursList div,
+.findList div {
+  padding: 0.8rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--paper) 16%, transparent);
+}
+
+.hoursList dt,
+.findList dt {
+  color: var(--teal);
+}
+
+.hoursList dd,
+.findList dd {
+  margin: 0.3rem 0 0;
+  font-size: 0.98rem;
+}
+
+/* ----------------------------------------------------------------- band
+   The coda: pure pattern across the whole width. Pinned to a whole multiple
+   of the cell (24 x 120px) and clipped by the section, so every grid track
+   is a whole pixel at any viewport width; a fluid box gives fractional
+   tracks and a hairline seam at each cell edge. */
+
+.band {
+  position: relative;
+  height: 240px;
+  overflow: hidden;
+  margin-top: clamp(2.5rem, 6vw, 4.5rem);
+  border-top: 3px solid var(--ink);
+  border-bottom: 3px solid var(--ink);
+}
+
+.bandField {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2880px;
+  height: 240px;
+  opacity: 0.92;
+  overflow: hidden;
+}
+
+/* --------------------------------------------------------------- footer */
+
+.footer {
+  background: var(--ink);
+  color: var(--paper);
+  padding: clamp(2.5rem, 6vw, 4rem) var(--gut) clamp(1.6rem, 3vw, 2.4rem);
+}
+
+.footGrid {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+  gap: clamp(1.6rem, 4vw, 3rem);
+  align-items: start;
+}
+
+.footName {
+  margin: 0 0 0.6rem;
+  font-family: var(--display);
+  font-size: 1.6rem;
+}
+
+.footTag {
+  margin: 0;
+  max-width: 24rem;
+  font-size: 0.92rem;
+  font-weight: 300;
+  color: color-mix(in srgb, var(--paper) 74%, transparent);
+}
+
+.footHead {
+  margin: 0 0 0.9rem;
+  color: var(--orange);
+}
+
+.footLinks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.footLinks a,
+.footAddr {
+  font-size: 0.92rem;
+  color: color-mix(in srgb, var(--paper) 88%, transparent);
+}
+
+.footLinks a:hover,
+.footFine a:hover {
+  color: var(--teal);
+}
+
+.footAddr {
+  margin: 0;
+  line-height: 1.65;
+}
+
+.footFine {
+  max-width: var(--max);
+  margin: clamp(2.5rem, 6vw, 4rem) auto 0;
+  padding-top: 1.1rem;
+  border-top: 1px solid color-mix(in srgb, var(--paper) 20%, transparent);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+.footFine p {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 300;
+  color: color-mix(in srgb, var(--paper) 58%, transparent);
+}
+
+.footFine a {
+  color: color-mix(in srgb, var(--paper) 82%, transparent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ----------------------------------------------------------- responsive */
+
+@media (max-width: 960px) {
+  .rings,
+  .week,
+  .viewGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .system li {
+    grid-template-columns: 7rem minmax(0, 1fr);
+    row-gap: 0.2rem;
+  }
+
+  .sysNote {
+    grid-column: 2;
+  }
+
+  .footGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footBrand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 700px) {
+  .bar {
+    grid-template-columns: 1fr auto;
+    margin: 0.5rem var(--gut) 0;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .rings,
+  .week,
+  .viewGrid,
+  .menuGrid,
+  .tiers,
+  .hoursGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .system li {
+    grid-template-columns: 1fr;
+  }
+
+  .sysNote {
+    grid-column: 1;
+  }
+
+  .band,
+  .bandField {
+    height: 120px;
+  }
+}
+
+@media (max-width: 520px) {
+  /* "Sit down." at 15vw fits the 358px a 390px viewport leaves. */
+  .heroTitle {
+    font-size: clamp(2.6rem, 15vw, 4.6rem);
+  }
+
+  .badges {
+    justify-content: space-between;
+  }
+
+  .badges div {
+    width: 5.6rem;
+  }
+
+  .panel,
+  .panelDark {
+    margin-left: 0.6rem;
+    margin-right: 0.6rem;
+  }
+
+  .footGrid,
+  .footFine {
+    grid-template-columns: 1fr;
+  }
+}

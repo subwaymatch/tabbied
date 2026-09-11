@@ -239,6 +239,69 @@
   border-color: #232529;
 }
 
+/* A picture behind the pattern. Same footprint as the transparent toggle
+   until one is chosen, then wide enough to show it. */
+.bgImageButton {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  flex: none;
+  overflow: hidden;
+  border: 2px solid #e3e6ea;
+  border-radius: 3px;
+  background-color: #ffffff;
+  color: #6b7280;
+  cursor: pointer;
+  transition: border-color 120ms ease, width 120ms ease;
+}
+
+.bgImageButton:hover {
+  border-color: #98a0af;
+  color: #232529;
+}
+
+.bgImageButtonActive {
+  width: 60px;
+  border-color: #232529;
+}
+
+.bgImageInput {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: none;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.bgCaptionRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.bgRemove {
+  padding: 0;
+  border: none;
+  background: none;
+  font-size: 12px;
+  line-height: 1;
+  color: #98a0af;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+.bgRemove:hover {
+  color: #232529;
+}
+
 .groupCaption {
   font-size: 13px;
   color: #98a0af;

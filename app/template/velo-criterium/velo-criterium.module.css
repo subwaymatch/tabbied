@@ -1,0 +1,988 @@
+/* ==========================================================================
+   VELO CRITERIUM - city-centre cycling race, Ghent
+   A kinetic sports poster on a night ground. Archivo in heavy italic for
+   anything that has to be read from across a square, Archivo Narrow for
+   the rest. Big numbers, panels cut on the diagonal, labels skewed like
+   they are already moving, speed lines in the role colours. The patterns
+   draw on transparent so the navy runs straight through them.
+   ========================================================================== */
+
+.page {
+  --paper: #0b1220;
+  --ink: #f2f5ff;
+  --lime: #c6ff3d;
+  --blue: #2f6bff;
+  --grey: #6c7590;
+  --gut: clamp(1.25rem, 4vw, 3.5rem);
+  --max: 76rem;
+  --display: 'Archivo', 'Arial Black', 'Helvetica Neue', Arial, sans-serif;
+  --text: 'Archivo Narrow', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif;
+  --line: color-mix(in srgb, var(--ink) 12%, transparent);
+  --cut: polygon(0 0, 100% 0, 100% calc(100% - 2.5rem), 0 100%);
+  --cutUp: polygon(0 2.5rem, 100% 0, 100% 100%, 0 100%);
+
+  font-family: var(--text);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.5;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page :where(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page :focus-visible {
+  outline: 3px solid var(--lime);
+  outline-offset: 3px;
+}
+
+.page h1,
+.page h2,
+.page h3 {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  margin: 0;
+  text-wrap: balance;
+}
+
+/* A skewed label: lime plate, ink type, leaning forward. Used as the
+   kicker of every section. */
+.skewTag {
+  display: inline-block;
+  margin: 0 0 1.2rem;
+  padding: 0.3rem 0.8rem;
+  background: var(--lime);
+  color: var(--paper);
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 800;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transform: skewX(-12deg);
+}
+
+/* ------------------------------------------------------------ buttons */
+
+.btn,
+.btnLine {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9rem 1.6rem;
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transform: skewX(-12deg);
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.btn {
+  background: var(--lime);
+  color: var(--paper);
+}
+
+.btn:hover {
+  background: var(--ink);
+}
+
+.btnLine {
+  border: 2px solid var(--ink);
+  color: var(--ink);
+}
+
+.btnLine:hover {
+  background: var(--blue);
+  border-color: var(--blue);
+}
+
+/* ------------------------------------------------------------ top bar */
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--gut);
+  padding: 0.75rem var(--gut);
+  background: color-mix(in srgb, var(--paper) 86%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+
+.mark {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 900;
+  font-size: 1.1rem;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--lime);
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  gap: clamp(0.7rem, 1.8vw, 1.5rem);
+  flex-wrap: wrap;
+}
+
+.nav a {
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--ink) 80%, transparent);
+  padding: 0.3rem 0;
+  border-bottom: 2px solid transparent;
+}
+
+.nav a:hover {
+  color: var(--lime);
+  border-bottom-color: var(--lime);
+}
+
+.barDate {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  color: var(--blue);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --------------------------------------------------------------- hero */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3.5rem, 10vw, 8rem) var(--gut) clamp(3rem, 7vw, 5rem);
+  overflow: hidden;
+}
+
+/* The loudest field on the page: the pinwheels at nearly full strength,
+   faded only where the copy sits and at the foot. */
+.heroField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  opacity: 0.75;
+  mask-image: linear-gradient(180deg, var(--ink) 0%, var(--ink) 60%, transparent 100%);
+}
+
+.heroField::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    var(--paper) 0%,
+    color-mix(in srgb, var(--paper) 70%, transparent) 40%,
+    transparent 75%
+  );
+}
+
+/* Speed lines: thin lime rules at an angle, fading out to the right. */
+.speedLines {
+  position: absolute;
+  z-index: -1;
+  left: -10%;
+  right: -10%;
+  top: 18%;
+  height: 34%;
+  background: repeating-linear-gradient(
+    180deg,
+    var(--lime) 0 2px,
+    transparent 2px 22px
+  );
+  opacity: 0.35;
+  transform: skewY(-6deg);
+  mask-image: linear-gradient(90deg, transparent 0%, var(--ink) 30%, transparent 100%);
+}
+
+.heroInner {
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.heroTitle {
+  font-size: clamp(2.6rem, 8vw, 6.4rem);
+  line-height: 0.92;
+  max-width: 14em;
+}
+
+.heroTitle em {
+  font-style: italic;
+  color: var(--lime);
+}
+
+.heroLede {
+  margin: 1.6rem 0 0;
+  max-width: 32rem;
+  font-size: clamp(1.02rem, 1.5vw, 1.2rem);
+  color: color-mix(in srgb, var(--ink) 78%, transparent);
+}
+
+.heroActions {
+  margin-top: 2rem;
+  display: flex;
+  gap: 0.9rem 1.2rem;
+  flex-wrap: wrap;
+  padding-left: 0.4rem;
+}
+
+/* The four big numbers. */
+.big {
+  max-width: var(--max);
+  margin: clamp(2.5rem, 7vw, 5rem) auto 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.big div {
+  margin: 0;
+  padding: 1rem 1.2rem 1.1rem;
+  border-left: 4px solid var(--blue);
+  background: color-mix(in srgb, var(--paper) 60%, transparent);
+}
+
+.big dt {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 900;
+  font-size: clamp(2.4rem, 6vw, 4.4rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
+.big dd {
+  margin: 0.3rem 0 0;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+/* ----------------------------------------------------------- sections */
+
+.schedule,
+.categories,
+.results,
+.partners,
+.spectators {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(3rem, 8vw, 6rem) var(--gut);
+}
+
+.secHead {
+  max-width: 40rem;
+  margin: 0 0 clamp(1.8rem, 5vw, 3rem);
+}
+
+.secHead h2,
+.contactInner h2 {
+  font-size: clamp(1.9rem, 4.6vw, 3.4rem);
+  line-height: 0.98;
+}
+
+.secLede {
+  margin: 1rem 0 0;
+  font-size: 1rem;
+  color: color-mix(in srgb, var(--ink) 74%, transparent);
+}
+
+/* ----------------------------------------------------------- schedule
+   The race-day timeline: a vertical rule with a marker per slot, the
+   races in lime and the rest in grey. */
+
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 48rem;
+  border-left: 2px solid var(--line);
+}
+
+.slot {
+  position: relative;
+  display: grid;
+  grid-template-columns: 5rem minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: 1rem;
+  align-items: baseline;
+  padding: 0.85rem 0 0.85rem 1.6rem;
+}
+
+.slot::before {
+  content: '';
+  position: absolute;
+  left: -7px;
+  top: 1.15rem;
+  width: 12px;
+  height: 12px;
+  background: var(--grey);
+  transform: skewX(-12deg);
+}
+
+.slotRace::before {
+  background: var(--lime);
+}
+
+.slotTime {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 800;
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
+.slotWhat {
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: color-mix(in srgb, var(--ink) 74%, transparent);
+}
+
+.slotRace .slotWhat {
+  color: var(--lime);
+}
+
+.slotDetail {
+  font-size: 0.92rem;
+  color: color-mix(in srgb, var(--ink) 66%, transparent);
+}
+
+/* --------------------------------------------------------------- band
+   A pure pattern band, cut on the diagonal top and bottom. The field is
+   pinned to a whole multiple of the cell (30 x 96px wide, 3 high) so
+   every grid track is a whole pixel at every viewport width. */
+
+.band {
+  position: relative;
+  height: 288px;
+  overflow: hidden;
+  background: var(--blue);
+  /* Cut on the diagonal at the top only: the blue course panel below is
+     flush against it, so the two read as one panel with the pattern at
+     its head. */
+  clip-path: polygon(0 0, 100% 2.5rem, 100% 100%, 0 100%);
+}
+
+.bandField {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2880px;
+  height: 288px;
+  opacity: 0.9;
+  overflow: hidden;
+}
+
+/* ------------------------------------------------------------- course
+   A blue panel cut on the diagonal, with the eight corners as a grid of
+   big numbers. */
+
+.course {
+  background: var(--blue);
+  color: var(--ink);
+  clip-path: var(--cut);
+  padding: clamp(3rem, 8vw, 6rem) var(--gut) clamp(5rem, 11vw, 8rem);
+}
+
+.courseInner {
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.course .secLede {
+  color: color-mix(in srgb, var(--ink) 84%, transparent);
+}
+
+.course .skewTag {
+  background: var(--paper);
+  color: var(--lime);
+}
+
+.corners {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.corners li {
+  position: relative;
+  padding: 1.1rem 1.1rem 1.2rem;
+  background: color-mix(in srgb, var(--paper) 30%, transparent);
+  border-top: 3px solid var(--lime);
+}
+
+.cornerNo {
+  display: block;
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 900;
+  font-size: clamp(2.6rem, 5vw, 4rem);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  color: var(--lime);
+}
+
+.corners h3 {
+  margin-top: 0.6rem;
+  font-size: 1.1rem;
+  line-height: 1.1;
+}
+
+.cornerTurn {
+  margin: 0.25rem 0 0;
+  font-size: 0.76rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+}
+
+.cornerNote {
+  margin: 0.7rem 0 0;
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--ink) 84%, transparent);
+}
+
+/* --------------------------------------------------------- categories */
+
+.tableWrap {
+  overflow-x: auto;
+  border-top: 2px solid var(--lime);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 40rem;
+}
+
+.table th {
+  text-align: left;
+  padding: 0.8rem 0.8rem 0.6rem 0;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--grey);
+  border-bottom: 1px solid var(--line);
+}
+
+.table td {
+  padding: 0.85rem 0.8rem 0.85rem 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.94rem;
+  vertical-align: baseline;
+}
+
+.tdName {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.tdNum {
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
+.tdNote {
+  color: color-mix(in srgb, var(--ink) 64%, transparent);
+  font-size: 0.88rem;
+}
+
+.tableNote {
+  margin: 1.6rem 0 0;
+  max-width: 40rem;
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--ink) 64%, transparent);
+}
+
+/* ------------------------------------------------------------ results
+   Winners by year: the year as a big number, two names beside it. */
+
+.resultList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+
+.resultList li {
+  display: grid;
+  grid-template-columns: 7rem 4rem minmax(0, 1.2fr) minmax(0, 1fr) 4.5rem minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 0.8rem;
+  align-items: baseline;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.resultYear {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 900;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--lime);
+  font-variant-numeric: tabular-nums;
+}
+
+.resultLabel {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.resultName {
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.resultTeam {
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--ink) 64%, transparent);
+}
+
+/* ----------------------------------------------------------- partners */
+
+.partnerList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 3rem;
+}
+
+.partnerList li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: 1rem;
+  align-items: baseline;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.partnerName {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 800;
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.partnerRole {
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--ink) 66%, transparent);
+}
+
+/* --------------------------------------------------------- spectators */
+
+.spotGrid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.2rem;
+}
+
+.spot {
+  padding: 1rem;
+  background: color-mix(in srgb, var(--ink) 5%, transparent);
+  border-top: 3px solid var(--blue);
+}
+
+/* The photograph slot: a tile of pattern on a plate cut at the corner. */
+.spotTile {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--paper) 70%, var(--grey));
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 1.2rem), calc(100% - 1.2rem) 100%, 0 100%);
+  margin-bottom: 1rem;
+}
+
+.spotWhere {
+  margin: 0 0 0.3rem;
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--lime);
+}
+
+.spot h3 {
+  font-size: 1.25rem;
+}
+
+.spotBody {
+  margin: 0.6rem 0 0;
+  font-size: 0.92rem;
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+}
+
+.infoGrid {
+  margin-top: clamp(2rem, 5vw, 3.5rem);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem 3rem;
+}
+
+.infoCol h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.9rem;
+  color: var(--lime);
+}
+
+.infoList {
+  margin: 0;
+  border-top: 1px solid var(--line);
+}
+
+.infoList div {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.infoList dt {
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.infoList dd {
+  margin: 0;
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--ink) 68%, transparent);
+}
+
+/* ------------------------------------------------------------ contact
+   The last panel: lime, cut on the diagonal at the top, ink type. */
+
+.contact {
+  background: var(--lime);
+  color: var(--paper);
+  clip-path: var(--cutUp);
+  padding: clamp(5rem, 11vw, 8rem) var(--gut) clamp(3rem, 8vw, 6rem);
+}
+
+.contactInner {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: start;
+}
+
+.contact .skewTag {
+  background: var(--paper);
+  color: var(--lime);
+}
+
+.contactLede {
+  margin: 1.2rem 0 0;
+  max-width: 28rem;
+  font-size: 1rem;
+  color: color-mix(in srgb, var(--paper) 80%, transparent);
+}
+
+.contactList {
+  margin: 0;
+  border-top: 2px solid var(--paper);
+}
+
+.contactList div {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr);
+  gap: 1rem;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--paper) 22%, transparent);
+}
+
+.contactList dt {
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.contactList dd {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+/* ------------------------------------------------------------- footer */
+
+.footer {
+  position: relative;
+  padding: clamp(2.5rem, 6vw, 4rem) var(--gut) clamp(1.6rem, 3vw, 2.4rem);
+  border-top: 1px solid var(--line);
+}
+
+/* Speed lines again, quiet, along the top of the footer. */
+.speedLinesFoot {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 6px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--lime) 0 40px,
+    transparent 40px 52px,
+    var(--blue) 52px 92px,
+    transparent 92px 104px
+  );
+  opacity: 0.8;
+}
+
+.footGrid {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+  gap: clamp(1.6rem, 4vw, 3rem);
+}
+
+.footName {
+  margin: 0 0 0.6rem;
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 900;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  color: var(--lime);
+}
+
+.footTag {
+  margin: 0;
+  max-width: 24rem;
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+}
+
+.footHead {
+  margin: 0 0 0.9rem;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: var(--grey);
+}
+
+.footLinks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.footLinks a {
+  font-size: 0.92rem;
+  color: color-mix(in srgb, var(--ink) 86%, transparent);
+}
+
+.footLinks a:hover {
+  color: var(--lime);
+}
+
+.footAddr {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.62;
+  color: color-mix(in srgb, var(--ink) 86%, transparent);
+}
+
+.footFine {
+  max-width: var(--max);
+  margin: clamp(2.5rem, 6vw, 4rem) auto 0;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+.footFine p {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--grey);
+}
+
+.footFine a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footFine a:hover {
+  color: var(--lime);
+}
+
+/* --------------------------------------------------------- responsive */
+
+@media (max-width: 1000px) {
+  .corners {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .resultList li {
+    grid-template-columns: 6rem 4rem minmax(0, 1fr) minmax(0, 1fr);
+    row-gap: 0.3rem;
+  }
+
+  .resultList li > :nth-child(5) {
+    grid-column: 2;
+  }
+
+  .resultList li > :nth-child(6) {
+    grid-column: 3;
+  }
+
+  .resultList li > :nth-child(7) {
+    grid-column: 4;
+  }
+
+  .footGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footBrand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 820px) {
+  .bar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .speedLines {
+    top: 10%;
+    height: 24%;
+  }
+
+  .heroField::after {
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--paper) 55%, transparent) 0%,
+      color-mix(in srgb, var(--paper) 70%, transparent) 100%
+    );
+  }
+
+  .spotGrid,
+  .infoGrid,
+  .partnerList,
+  .contactInner {
+    grid-template-columns: 1fr;
+  }
+
+  .band {
+    height: 192px;
+  }
+
+  .bandField {
+    height: 192px;
+  }
+}
+
+@media (max-width: 600px) {
+  .big {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .corners,
+  .footGrid,
+  .footFine {
+    grid-template-columns: 1fr;
+  }
+
+  .heroActions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .slot {
+    grid-template-columns: 4rem minmax(0, 1fr);
+    row-gap: 0.15rem;
+  }
+
+  .slotDetail {
+    grid-column: 2;
+  }
+
+  .resultList li {
+    grid-template-columns: 4rem minmax(0, 1fr);
+  }
+
+  .resultList li > :nth-child(3),
+  .resultList li > :nth-child(6) {
+    grid-column: 2;
+  }
+
+  .resultList li > :nth-child(4),
+  .resultList li > :nth-child(7) {
+    grid-column: 2;
+  }
+
+  .resultList li > :nth-child(5) {
+    grid-column: 1;
+  }
+
+  .infoList div,
+  .contactList div,
+  .partnerList li {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .btnLine {
+    transition: none;
+  }
+}

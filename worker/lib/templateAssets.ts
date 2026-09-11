@@ -12,6 +12,7 @@ import type { Env } from '../env';
 
 type CatalogEntry = { slug: string; copyRoles?: string[] };
 type EditableCatalog = { templates: CatalogEntry[] };
+type DesignCatalog = { designs: { slug: string }[] };
 
 /** How many redirects a read will follow before giving up. */
 const MAX_HOPS = 3;
@@ -60,6 +61,37 @@ async function readAsset(env: Env, request: Request, path: string): Promise<Resp
 /** `/editable-catalog.json`: which templates can take which brand copy. */
 export async function loadEditableCatalog(env: Env, request: Request): Promise<EditableCatalog> {
   return (await readAsset(env, request, '/editable-catalog.json')).json() as Promise<EditableCatalog>;
+}
+
+// The design catalog is the one asset here that is memoised, the way the
+// studio index is: it is read on every save that swaps a pattern, and it
+// changes only with a deploy, which is a new isolate. Cached as the promise
+// so concurrent first reads share one fetch, and dropped on failure so a
+// transient miss does not poison the isolate for its lifetime.
+let designsPromise: Promise<ReadonlySet<string>> | null = null;
+
+/**
+ * `/catalog.json`: every design's slug, as the set a pattern slot may be
+ * swapped to. A slug outside it hydrates to a blank field with a console
+ * warning, so the planner is handed this and refuses it up front.
+ */
+export function loadDesignSlugs(env: Env, request: Request): Promise<ReadonlySet<string>> {
+  designsPromise ??= readAsset(env, request, '/catalog.json')
+    .then(async (response) => {
+      const body = (await response.json()) as DesignCatalog;
+
+      if (!Array.isArray(body.designs) || body.designs.length === 0) {
+        throw new Error('/catalog.json contained no designs');
+      }
+
+      return new Set(body.designs.map((design) => design.slug));
+    })
+    .catch((error) => {
+      designsPromise = null;
+      throw error;
+    });
+
+  return designsPromise;
 }
 
 /** `/editable/<slug>.json`: the spec the site is authored against. */

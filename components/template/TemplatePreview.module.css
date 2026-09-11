@@ -1,0 +1,357 @@
+/* The template preview: Studio's light tokens, a bar, and the page framed.
+   The iframe shows the live /template/<slug>/ route, which is the page the
+   packager derives the download from; nothing in this file reaches it. */
+
+.page {
+  --s-paper: #fbfaf8;
+  --s-ink: #0e0e13;
+  --s-muted: oklch(0.4 0.01 260);
+  --s-dim: oklch(0.5 0.01 260);
+  --s-rule: oklch(0 0 0 / 0.08);
+  --s-line: oklch(0 0 0 / 0.12);
+  --s-sans: 'proxima-nova', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --s-mono: var(--font-plex-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  min-height: 100vh;
+  font-family: var(--s-sans);
+  color: var(--s-ink);
+  background-color: var(--s-paper);
+}
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 40px;
+  background-color: #fff;
+  border-bottom: 1px solid var(--s-rule);
+}
+
+.back {
+  display: flex;
+  flex: none;
+  gap: 13px;
+  align-items: center;
+  color: var(--s-muted);
+}
+
+.back:hover {
+  color: var(--s-ink);
+}
+
+.backCircle {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px oklch(0 0 0 / 0.14);
+}
+
+.backCircle svg {
+  display: block;
+  margin-left: -1px;
+}
+
+.backLabel {
+  font: 400 12px var(--s-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.meta {
+  display: flex;
+  flex: 1;
+  gap: 12px;
+  align-items: baseline;
+  min-width: 0;
+}
+
+.name {
+  overflow: hidden;
+  font: 700 16px var(--s-sans);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.topic {
+  overflow: hidden;
+  font: 400 13px var(--s-sans);
+  color: var(--s-dim);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.actions {
+  display: flex;
+  flex: none;
+  gap: 10px;
+  align-items: center;
+}
+
+.customize {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  height: 32px;
+  padding: 0 8px;
+  font: 400 13px var(--s-sans);
+  color: oklch(0.28 0.01 260);
+  white-space: nowrap;
+}
+
+.customize:hover {
+  color: var(--s-ink);
+}
+
+.download {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  padding: 8px 18px;
+  font: 400 13px var(--s-sans);
+  color: var(--s-ink);
+  white-space: nowrap;
+  background: linear-gradient(135deg, #3ff0b2, #2ee6f0);
+  border: none;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1px var(--s-ink);
+  cursor: pointer;
+}
+
+.download:hover {
+  filter: brightness(1.05);
+}
+
+.chevron {
+  font-size: 9px;
+  opacity: 0.55;
+}
+
+.positioner {
+  z-index: 70;
+}
+
+.menu {
+  min-width: 210px;
+  max-width: 290px;
+  padding: 7px;
+  font-family: var(--s-sans);
+  background-color: #fff;
+  border-radius: 14px;
+  outline: none;
+  box-shadow: 0 16px 40px oklch(0 0 0 / 0.18);
+  transform-origin: var(--transform-origin);
+  transition: opacity 120ms ease, transform 120ms ease;
+}
+
+.menu[data-starting-style],
+.menu[data-ending-style] {
+  opacity: 0;
+  transform: scale(0.97);
+}
+
+.menuHead {
+  padding: 9px 12px 7px;
+  font: 400 10.5px var(--s-mono);
+  color: oklch(0.55 0.01 260);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.menuEmail {
+  padding: 10px 12px;
+  overflow: hidden;
+  font-size: 13px;
+  color: oklch(0.45 0.01 260);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.menuRule {
+  height: 1px;
+  margin: 4px 0;
+  background-color: oklch(0 0 0 / 0.08);
+}
+
+.option,
+.menuItem {
+  display: block;
+  width: 100%;
+  color: var(--s-ink);
+  text-align: left;
+  text-decoration: none;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.option {
+  padding: 11px 12px;
+  border-radius: 10px;
+}
+
+.menuItem {
+  padding: 9px 12px;
+  font: 400 13px var(--s-sans);
+  border-radius: 8px;
+}
+
+.option[data-highlighted],
+.option:hover,
+.menuItem[data-highlighted],
+.menuItem:hover {
+  color: var(--s-ink);
+  background-color: oklch(0 0 0 / 0.05);
+}
+
+.optionTitle {
+  display: block;
+  margin-bottom: 3px;
+  font: 600 14px var(--s-sans);
+}
+
+.optionNote {
+  display: block;
+  font: 400 13px var(--s-sans);
+  color: oklch(0.5 0.01 260);
+}
+
+.avatar {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  margin-left: 6px;
+  padding: 0;
+  font: 600 11.5px var(--s-mono);
+  color: #fff;
+  background-color: var(--s-ink);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.avatar:hover,
+.avatar[data-popup-open] {
+  background-color: #25252e;
+}
+
+.avatarGhost {
+  display: block;
+  width: 34px;
+  height: 34px;
+  margin-left: 6px;
+  background-color: oklch(0 0 0 / 0.06);
+  border-radius: 50%;
+}
+
+/* ---- The framed page ------------------------------------------------------ */
+
+.stage {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 32px 40px 0;
+}
+
+.frame {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  height: calc(100vh - 102px);
+  overflow: hidden;
+  background-color: #fff;
+  border: 1px solid var(--s-line);
+  border-radius: 16px 16px 0 0;
+  box-shadow: 0 18px 50px oklch(0 0 0 / 0.07);
+}
+
+.chrome {
+  display: flex;
+  flex: none;
+  gap: 8px;
+  align-items: center;
+  padding: 12px 16px;
+  background-color: oklch(0.97 0 0);
+  border-bottom: 1px solid var(--s-rule);
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  background-color: oklch(0.82 0 0);
+  border-radius: 50%;
+}
+
+.pill {
+  margin-left: 12px;
+  padding: 5px 14px;
+  overflow: hidden;
+  font: 400 11.5px var(--s-mono);
+  color: var(--s-dim);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background-color: #fff;
+  border: 1px solid oklch(0 0 0 / 0.09);
+  border-radius: 999px;
+}
+
+.open {
+  margin-left: auto;
+  font: 400 12px var(--s-sans);
+  color: var(--s-dim);
+  white-space: nowrap;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.open:hover {
+  color: var(--s-ink);
+}
+
+.iframe {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  background-color: #fff;
+  border: 0;
+}
+
+@media (max-width: 768px) {
+  .bar {
+    flex-wrap: wrap;
+    padding: 14px 20px;
+  }
+
+  .meta {
+    order: 3;
+    flex-basis: 100%;
+  }
+
+  .backLabel {
+    display: none;
+  }
+
+  .stage {
+    padding: 20px 20px 0;
+  }
+
+  .frame {
+    height: calc(100vh - 150px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu {
+    transition: none;
+  }
+}

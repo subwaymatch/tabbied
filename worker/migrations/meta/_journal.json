@@ -36,6 +36,13 @@
       "when": 1788327301583,
       "tag": "0004_admin_roles",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1789114899484,
+      "tag": "0005_sites_from_templates",
+      "breakpoints": true
     }
   ]
 }

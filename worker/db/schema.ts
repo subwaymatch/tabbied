@@ -149,9 +149,12 @@ export const generation = sqliteTable(
 );
 
 /**
- * A site: one direction a person chose to make, and the thing "Your sites"
- * lists. Distinct from a generation because a generation holds three
- * directions and a person may make more than one of them.
+ * A site: a template a person is customizing, and the thing "Your sites"
+ * lists. It starts one of two ways - as a direction Studio generated (the
+ * generation and index are recorded) or straight from the template gallery
+ * with nothing written yet (both null). Distinct from a generation because a
+ * generation holds three directions and a person may make more than one of
+ * them.
  *
  * The template is *pinned* here, not looked up. `specVersion` and
  * `templateHash` record the editable spec and the packaged HTML the site was
@@ -166,11 +169,12 @@ export const site = sqliteTable(
     userId: text('user_id')
       .notNull()
       .references(() => user.id, { onDelete: 'cascade' }),
-    generationId: text('generation_id')
-      .notNull()
-      .references(() => generation.id, { onDelete: 'cascade' }),
-    /** Which of the generation's three directions this is. */
-    directionIndex: integer('direction_index').notNull(),
+    /** Null for a site made from the gallery rather than from a direction. */
+    generationId: text('generation_id').references(() => generation.id, {
+      onDelete: 'cascade',
+    }),
+    /** Which of the generation's three directions this is; null with it. */
+    directionIndex: integer('direction_index'),
     /** The template slug, denormalised so a listing needs no join. */
     slug: text('slug').notNull(),
     /** The brand name at creation - the listing's title. */

@@ -1,0 +1,723 @@
+/* ==========================================================================
+   KILN AOI - ceramics studio on a hill, Kanazawa
+   Warm grey paper, a soft ink, a clay and a moss. Small type, thin rules,
+   and columns that do not line up on purpose: a tile on the left for one
+   group and on the right for the next, a glaze pushed down half a step
+   from its neighbour, a note set off to one side. The rhythm is vertical
+   and slow. Mincho for the few words at display size; the gothic for
+   everything that has to be read.
+   ========================================================================== */
+
+.page {
+  --paper: #efeae2;
+  --ink: #2b2926;
+  --clay: #9c6b4e;
+  --moss: #6f7a5c;
+  --grey: #a19c93;
+  --gut: clamp(1.25rem, 5vw, 4rem);
+  --max: 68rem;
+  --air: clamp(4.5rem, 12vw, 10rem);
+  --display: 'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+  --body: 'Zen Kaku Gothic New', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+
+  font-family: var(--body);
+  font-weight: 400;
+  font-size: 0.95rem;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.75;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page :where(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page :focus-visible {
+  outline: 1px solid var(--clay);
+  outline-offset: 4px;
+}
+
+.page h1,
+.page h2,
+.page h3 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1.35;
+  text-wrap: balance;
+}
+
+/* ---------------------------------------------------------------- top bar */
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--gut);
+  padding: 1rem var(--gut);
+  background: color-mix(in srgb, var(--paper) 90%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+.mark {
+  font-family: var(--display);
+  font-size: 1.05rem;
+  letter-spacing: 0.12em;
+}
+
+.nav {
+  display: flex;
+  justify-content: flex-end;
+  gap: clamp(0.9rem, 2.4vw, 2.2rem);
+  flex-wrap: wrap;
+}
+
+.nav a {
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+  transition: color 200ms ease;
+}
+
+.nav a:hover { color: var(--clay); }
+
+.barMeta {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+/* -------------------------------------------------------------------- hero */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  min-height: 78vh;
+  display: grid;
+  align-items: end;
+  padding: clamp(6rem, 16vw, 12rem) var(--gut) clamp(3rem, 8vw, 5rem);
+}
+
+/* The scorch: at nearly full strength, but masked so it burns in from the
+   top right and leaves the lower left corner, where the words are, as
+   plain paper. */
+.heroField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  opacity: 0.85;
+  mask-image: linear-gradient(200deg, var(--ink) 0%, var(--ink) 40%, transparent 82%);
+}
+
+/* The one vertical label on the page: written top to bottom down the right
+   edge, the way a name hangs on a scroll. */
+.vertical {
+  position: absolute;
+  top: clamp(5rem, 12vw, 8rem);
+  right: var(--gut);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-family: var(--display);
+  font-size: 0.82rem;
+  letter-spacing: 0.32em;
+  color: var(--clay);
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--clay);
+}
+
+.heroInner {
+  max-width: var(--max);
+  width: 100%;
+  margin: 0 auto;
+}
+
+.heroKicker {
+  margin: 0 0 1.6rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.heroTitle {
+  max-width: 20ch;
+  font-size: clamp(1.7rem, 4.2vw, 3rem);
+  line-height: 1.3;
+}
+
+.heroTitle em {
+  font-style: normal;
+  color: var(--clay);
+}
+
+.heroLede {
+  margin: 1.8rem 0 0;
+  max-width: 30rem;
+  font-size: 0.98rem;
+  font-weight: 300;
+  color: color-mix(in srgb, var(--ink) 82%, transparent);
+}
+
+/* ------------------------------------------------------------ section frame
+   A heading and a note set off to the left third of the page, with a thin
+   rule above. The content below starts wherever it needs to. */
+
+.vessels,
+.glazes,
+.classes,
+.notes {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: var(--air) var(--gut) 0;
+}
+
+.secHead {
+  max-width: 30rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 30%, transparent);
+  margin-bottom: clamp(2.4rem, 6vw, 4.5rem);
+}
+
+.secHead h2 { font-size: clamp(1.35rem, 2.6vw, 1.9rem); }
+
+.secNote {
+  margin: 0.7rem 0 0;
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: color-mix(in srgb, var(--ink) 68%, transparent);
+}
+
+/* ----------------------------------------------------------------- vessels
+   A tile and a list, and the tile changes sides. The tile is a mosaic worn
+   up from its lower edge, standing in for a shelf of pots. */
+
+.group {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(1.5rem, 5vw, 4rem);
+  align-items: start;
+  padding-bottom: clamp(3rem, 8vw, 6rem);
+}
+
+.group:nth-child(odd) {
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+}
+
+.group:nth-child(odd) .tile {
+  order: 2;
+  margin-top: clamp(1rem, 4vw, 3rem);
+}
+
+.tile {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--grey) 22%, var(--paper));
+}
+
+.groupText { padding-top: 0.4rem; }
+
+.groupNo {
+  display: block;
+  font-family: var(--display);
+  font-size: 0.8rem;
+  letter-spacing: 0.3em;
+  color: var(--moss);
+  margin-bottom: 0.6rem;
+}
+
+.group h3 { font-size: clamp(1.2rem, 2.2vw, 1.6rem); }
+
+.groupBody {
+  margin: 0.8rem 0 0;
+  max-width: 28rem;
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: color-mix(in srgb, var(--ink) 76%, transparent);
+}
+
+.items {
+  list-style: none;
+  margin: 1.8rem 0 0;
+  padding: 0;
+  max-width: 30rem;
+}
+
+.items li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 6rem 6.5rem;
+  gap: 0.8rem;
+  align-items: baseline;
+  padding: 0.6rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+  font-size: 0.9rem;
+}
+
+.itemName { color: var(--ink); }
+
+.itemSize {
+  color: color-mix(in srgb, var(--ink) 62%, transparent);
+  font-variant-numeric: tabular-nums;
+}
+
+.itemPrice {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--clay);
+}
+
+/* ------------------------------------------------------------------ glazes
+   Two columns, and the second is dropped by half a card so the four never
+   sit in a square. Each glaze is a name in Mincho and a thin moss rule. */
+
+.glazeGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(2rem, 5vw, 4rem) clamp(2rem, 6vw, 6rem);
+  max-width: 56rem;
+}
+
+.glaze:nth-child(even) { margin-top: clamp(2rem, 6vw, 5rem); }
+
+.glaze h3 {
+  font-size: 1.35rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--moss);
+  max-width: 12rem;
+}
+
+.glazeMade {
+  margin: 0.8rem 0 0;
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--moss);
+}
+
+.glazeBody {
+  margin: 0.8rem 0 0;
+  max-width: 26rem;
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: color-mix(in srgb, var(--ink) 78%, transparent);
+}
+
+/* ----------------------------------------------------------------- firings
+   The wash: a diagonal fall in four flat stages, far back, with the paper
+   concentrated where the list sits. */
+
+.firings {
+  position: relative;
+  isolation: isolate;
+  padding: var(--air) 0 0;
+}
+
+.firingsField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  opacity: 0.32;
+}
+
+.firingsField::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    var(--paper) 0%,
+    color-mix(in srgb, var(--paper) 70%, transparent) 45%,
+    transparent 100%
+  );
+}
+
+.firingsInner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gut);
+}
+
+.firingList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 54rem;
+}
+
+.firingHead,
+.firing {
+  display: grid;
+  grid-template-columns: 9rem 6rem minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0.4rem 1.2rem;
+  align-items: baseline;
+}
+
+.firingHead {
+  padding-bottom: 0.6rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.firing {
+  padding: 0.9rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+  font-size: 0.9rem;
+}
+
+.firing time {
+  font-family: var(--display);
+  font-variant-numeric: tabular-nums;
+}
+
+.firingKiln { color: var(--moss); }
+
+.firingSale { color: var(--clay); font-variant-numeric: tabular-nums; }
+
+/* ----------------------------------------------------------------- classes */
+
+.classList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(2rem, 5vw, 3.5rem) clamp(2rem, 6vw, 5rem);
+  max-width: 56rem;
+}
+
+.classList li:nth-child(even) { margin-top: clamp(1.5rem, 4vw, 3rem); }
+
+.classList h3 { font-size: 1.15rem; }
+
+.classFacts {
+  margin: 0.9rem 0 0;
+  display: grid;
+  gap: 0.3rem;
+}
+
+.classFacts div {
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 1fr);
+  gap: 0.8rem;
+  font-size: 0.9rem;
+}
+
+.classFacts dt {
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--grey);
+  padding-top: 0.2rem;
+}
+
+.classFacts dd { margin: 0; color: color-mix(in srgb, var(--ink) 80%, transparent); }
+
+.classList p {
+  margin: 0.9rem 0 0;
+  max-width: 24rem;
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: color-mix(in srgb, var(--ink) 76%, transparent);
+}
+
+/* ------------------------------------------------------------------- visit
+   A moss page, the only surface on the site that is not paper. Text on the
+   left two thirds, hours on the right third, and a lot of air above. */
+
+.visit {
+  margin-top: var(--air);
+  background: var(--moss);
+  color: var(--paper);
+  padding: var(--air) var(--gut);
+}
+
+.visitText,
+.hours {
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.visitText { max-width: 34rem; margin-left: max(0px, calc((100% - var(--max)) / 2)); }
+
+.visit h2 { font-size: clamp(1.4rem, 2.8vw, 2rem); }
+
+.visitLead {
+  margin: 1.2rem 0 0;
+  font-size: 0.98rem;
+  font-weight: 300;
+}
+
+.visitNote {
+  margin: 1rem 0 0;
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: color-mix(in srgb, var(--paper) 78%, transparent);
+}
+
+.hours {
+  margin-top: clamp(2.5rem, 6vw, 4rem);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.2rem clamp(1.2rem, 3vw, 2.5rem);
+}
+
+.hours div {
+  padding-top: 0.7rem;
+  border-top: 1px solid color-mix(in srgb, var(--paper) 45%, transparent);
+}
+
+.hours dt {
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--paper) 72%, transparent);
+}
+
+.hours dd { margin: 0.3rem 0 0; font-size: 0.9rem; }
+
+/* ------------------------------------------------------------------- notes
+   Three entries in a narrow column pushed to the right, dated in Mincho. */
+
+.noteList {
+  list-style: none;
+  margin: 0 0 0 auto;
+  padding: 0;
+  max-width: 34rem;
+  display: grid;
+  gap: clamp(2rem, 5vw, 3.5rem);
+}
+
+.noteList li {
+  padding-top: 1rem;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+}
+
+.noteDate {
+  display: block;
+  font-family: var(--display);
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  color: var(--clay);
+  font-variant-numeric: tabular-nums;
+}
+
+.noteList h3 { margin-top: 0.4rem; font-size: 1.1rem; }
+
+.noteList p {
+  margin: 0.7rem 0 0;
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: color-mix(in srgb, var(--ink) 78%, transparent);
+}
+
+/* ----------------------------------------------------------------- contact */
+
+.contact {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: var(--air) var(--gut);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: clamp(1.5rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.contact h2 {
+  font-size: clamp(1.35rem, 2.6vw, 1.9rem);
+  padding-top: 1.2rem;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 30%, transparent);
+}
+
+.contactList {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.6rem clamp(1.5rem, 4vw, 3rem);
+}
+
+.contactList dt {
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.contactList dd {
+  margin: 0.4rem 0 0;
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.contactList a {
+  border-bottom: 1px solid color-mix(in srgb, var(--clay) 50%, transparent);
+  transition: border-color 200ms ease;
+}
+
+.contactList a:hover { border-color: var(--clay); color: var(--clay); }
+
+/* ------------------------------------------------------------------ footer */
+
+.footer {
+  border-top: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+  padding: clamp(2.5rem, 6vw, 4rem) var(--gut) clamp(1.6rem, 3vw, 2.4rem);
+}
+
+.footGrid {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+  gap: clamp(1.6rem, 4vw, 3rem);
+  align-items: start;
+}
+
+.footName {
+  margin: 0 0 0.6rem;
+  font-family: var(--display);
+  font-size: 1.05rem;
+  letter-spacing: 0.12em;
+}
+
+.footTag {
+  margin: 0;
+  max-width: 22rem;
+  font-size: 0.86rem;
+  font-weight: 300;
+  color: color-mix(in srgb, var(--ink) 66%, transparent);
+}
+
+.footHead {
+  margin: 0 0 0.9rem;
+  font-family: var(--body);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.footLinks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.footLinks a {
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--ink) 80%, transparent);
+}
+
+.footLinks a:hover { color: var(--clay); }
+
+.footAddr {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: color-mix(in srgb, var(--ink) 80%, transparent);
+}
+
+.footFine {
+  max-width: var(--max);
+  margin: clamp(2.5rem, 6vw, 4rem) auto 0;
+  padding-top: 1.1rem;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+.footFine p {
+  margin: 0;
+  font-size: 0.76rem;
+  color: color-mix(in srgb, var(--ink) 60%, transparent);
+}
+
+.footFine a {
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footFine a:hover { color: var(--clay); }
+
+/* -------------------------------------------------------------- responsive */
+
+@media (max-width: 900px) {
+  .group,
+  .group:nth-child(odd) {
+    grid-template-columns: 1fr;
+  }
+
+  .group:nth-child(odd) .tile {
+    order: 0;
+    margin-top: 0;
+  }
+
+  .tile { max-width: 24rem; }
+
+  .hours { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  .contact { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 700px) {
+  .bar { grid-template-columns: 1fr auto; }
+
+  .nav { display: none; }
+
+  .vertical { top: 4.5rem; font-size: 0.72rem; }
+
+  .hero { min-height: 0; }
+
+  .glazeGrid,
+  .classList {
+    grid-template-columns: 1fr;
+  }
+
+  .glaze:nth-child(even),
+  .classList li:nth-child(even) {
+    margin-top: 0;
+  }
+
+  .firingHead { display: none; }
+
+  .firing {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .firing > :nth-child(3),
+  .firingSale {
+    grid-column: 1 / -1;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .items li {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .itemSize { grid-column: 1; }
+
+  .itemPrice { grid-column: 2; grid-row: 1; }
+
+  .hours,
+  .contactList,
+  .footGrid,
+  .footFine {
+    grid-template-columns: 1fr;
+  }
+}

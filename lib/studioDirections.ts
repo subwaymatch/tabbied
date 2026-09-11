@@ -2,7 +2,7 @@
 //
 // Server-only, like lib/siteCounts.ts: the catalog is 384 KB and the template
 // data pulls in every pattern definition, none of which should reach the
-// browser. What crosses to the client is this reduced list - 57 entries of
+// browser. What crosses to the client is this reduced list - 77 entries of
 // names, palettes and vocabulary, a few kilobytes - which the matcher in
 // lib/studioMatch.ts then works over without another round trip.
 import catalog from 'tabbied/catalog.json';

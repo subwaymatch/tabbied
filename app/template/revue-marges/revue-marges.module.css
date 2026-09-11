@@ -1,0 +1,778 @@
+/* ==========================================================================
+   REVUE MARGES - literary quarterly, Lyon
+   An editorial page set like the review itself. Fraunces at its largest
+   optical size for display, Source Serif for running text with a generous
+   measure, and IBM Plex Mono for the folios and the small-capital labels.
+   Cream paper, near-black ink, one oxblood. Rules are hairlines, never
+   heavier; the sections carry a page number in the margin, as the pieces do
+   in print. Patterns are printed tints: the paper shows through them.
+   ========================================================================== */
+
+.page {
+  --paper: #f6f1e7;
+  --ink: #1e1a17;
+  --oxblood: #7a1f2b;
+  --grey: #8a8177;
+  --pale: #ded4c3;
+  --hair: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+  --gut: clamp(1.25rem, 4vw, 3.5rem);
+  --margin: 8rem;
+  --measure: 62rem;
+  --display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+  --mono: 'IBM Plex Mono', 'Courier New', monospace;
+
+  font-family: 'Source Serif 4', 'Iowan Old Style', Georgia, serif;
+  font-optical-sizing: auto;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.55;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page :where(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page :focus-visible {
+  outline: 2px solid var(--oxblood);
+  outline-offset: 3px;
+}
+
+.page h1,
+.page h2,
+.page h3 {
+  font-family: var(--display);
+  font-variation-settings: 'opsz' 144;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin: 0;
+  text-wrap: balance;
+}
+
+/* The small-capital label in mono: folios, kinds, terms, headers. */
+.nav a,
+.barFolio,
+.heroKicker,
+.figures dd,
+.folioNo,
+.folioLabel,
+.smallCaps,
+.tocKind,
+.tocPage,
+.columnPages,
+.tierUnit,
+.terms dt,
+.masthead dt,
+.shopCity,
+.footHead {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* ------------------------------------------------------------------ bar */
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  gap: var(--gut);
+  padding: 0.8rem var(--gut);
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(6px);
+  border-bottom: var(--hair);
+}
+
+.mark {
+  font-family: var(--display);
+  font-variation-settings: 'opsz' 72;
+  font-size: 1.3rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.nav {
+  display: flex;
+  gap: clamp(0.8rem, 2vw, 1.6rem);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.nav a {
+  color: color-mix(in srgb, var(--ink) 78%, transparent);
+}
+
+.nav a:hover,
+.footLinks a:hover,
+.footFine a:hover {
+  color: var(--oxblood);
+}
+
+.barFolio {
+  color: var(--grey);
+}
+
+/* ----------------------------------------------------------------- hero */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(4rem, 12vw, 10rem) var(--gut) clamp(3rem, 8vw, 6rem);
+  border-bottom: var(--hair);
+}
+
+/* The tint. Masked to the top so the figures at the foot of the hero sit on
+   plain paper, and held at a printer's opacity rather than a screen's. */
+.heroField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.6;
+  overflow: hidden;
+  mask-image: linear-gradient(180deg, var(--ink) 0%, var(--ink) 50%, transparent 96%);
+}
+
+.heroInner {
+  max-width: var(--measure);
+  margin: 0 auto;
+}
+
+.heroKicker {
+  margin: 0 0 clamp(1.6rem, 4vw, 3rem);
+  color: var(--oxblood);
+}
+
+.heroTitle {
+  font-size: clamp(2.6rem, 9.5vw, 8.2rem);
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  max-width: 12ch;
+}
+
+.heroTitle em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--oxblood);
+}
+
+.heroLede {
+  margin: clamp(1.6rem, 4vw, 2.6rem) 0 0;
+  max-width: 34rem;
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--ink) 82%, transparent);
+}
+
+.figures {
+  margin: clamp(2.5rem, 6vw, 4.5rem) 0 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--gut);
+  border-top: var(--hair);
+  padding-top: 1.2rem;
+}
+
+.figures div {
+  margin: 0;
+}
+
+.figures dt {
+  font-family: var(--display);
+  font-variation-settings: 'opsz' 144;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: lining-nums;
+}
+
+.figures dd {
+  margin: 0.5rem 0 0;
+  color: var(--grey);
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------------- section
+   The page grid: a folio margin on the left, the text column beside it,
+   and a hairline over the whole. */
+
+.section,
+.columnsInner {
+  display: grid;
+  grid-template-columns: var(--margin) minmax(0, 1fr);
+  gap: var(--gut);
+  max-width: calc(var(--measure) + var(--margin) + var(--gut));
+  margin: 0 auto;
+  padding: clamp(3rem, 8vw, 6rem) var(--gut);
+}
+
+.section {
+  border-bottom: var(--hair);
+}
+
+.folio {
+  display: grid;
+  gap: 0.5rem;
+  align-content: start;
+  padding-top: 0.35rem;
+}
+
+.folioNo {
+  color: var(--oxblood);
+  font-variant-numeric: tabular-nums;
+}
+
+.folioLabel {
+  color: var(--grey);
+  padding-top: 0.5rem;
+  border-top: var(--hair);
+}
+
+.body {
+  min-width: 0;
+}
+
+.smallCaps {
+  margin: 0 0 0.9rem;
+  color: var(--grey);
+}
+
+.h2 {
+  font-size: clamp(2rem, 4.6vw, 3.6rem);
+  margin-bottom: clamp(1.4rem, 3.5vw, 2.4rem);
+}
+
+/* Two columns of running text, and a drop cap on the lead paragraph: three
+   lines deep, in the display face, oxblood. */
+.twoCol {
+  columns: 2;
+  column-gap: clamp(1.8rem, 4vw, 3.2rem);
+  column-rule: var(--hair);
+  max-width: 58rem;
+}
+
+.twoCol p {
+  margin: 0 0 1.1rem;
+  break-inside: avoid;
+  font-size: 1rem;
+  hyphens: auto;
+  color: color-mix(in srgb, var(--ink) 84%, transparent);
+}
+
+.lead {
+  color: var(--ink) !important;
+  font-size: 1.06rem !important;
+}
+
+.lead::first-letter {
+  font-family: var(--display);
+  font-variation-settings: 'opsz' 144;
+  font-weight: 500;
+  font-size: 4.2em;
+  line-height: 0.78;
+  float: left;
+  padding: 0.08em 0.12em 0 0;
+  color: var(--oxblood);
+}
+
+/* -------------------------------------------------------------- contents
+   The sommaire: kind in the margin, title and author in the text, page
+   number at the right on a leader of dots. */
+
+.toc {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 58rem;
+}
+
+.toc li {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr) 3.5rem;
+  gap: var(--gut);
+  align-items: baseline;
+  padding: 1rem 0;
+  border-top: var(--hair);
+}
+
+.tocKind {
+  color: var(--oxblood);
+}
+
+.tocMain {
+  display: grid;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.tocTitle {
+  font-family: var(--display);
+  font-variation-settings: 'opsz' 72;
+  font-size: 1.45rem;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+
+.tocAuthor {
+  font-style: italic;
+  font-size: 0.98rem;
+  color: color-mix(in srgb, var(--ink) 78%, transparent);
+}
+
+.tocNote {
+  font-size: 0.9rem;
+  color: var(--grey);
+}
+
+.tocPage {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
+/* --------------------------------------------------------------- columns
+   The quiet field: batiste well back and washed with the paper colour
+   across the middle, where the copy sits. */
+
+.columns {
+  position: relative;
+  isolation: isolate;
+  border-bottom: var(--hair);
+}
+
+.columnsField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.32;
+  overflow: hidden;
+}
+
+.columnsField::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 64% 78% at 50% 50%,
+    var(--paper) 0%,
+    color-mix(in srgb, var(--paper) 60%, transparent) 60%,
+    transparent 100%
+  );
+}
+
+.columnList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.4rem, 4vw, 2.6rem) var(--gut);
+  max-width: 58rem;
+}
+
+.columnList li {
+  border-top: var(--hair);
+  padding-top: 1rem;
+}
+
+.columnList h3 {
+  font-size: 1.7rem;
+  font-style: italic;
+  font-weight: 300;
+  margin-bottom: 0.4rem;
+}
+
+.columnBy {
+  margin: 0;
+  font-size: 0.95rem;
+  color: color-mix(in srgb, var(--ink) 78%, transparent);
+}
+
+.columnPages {
+  margin: 0.2rem 0 0.7rem;
+  color: var(--grey);
+}
+
+.columnBody {
+  margin: 0;
+  font-size: 0.95rem;
+  color: color-mix(in srgb, var(--ink) 80%, transparent);
+}
+
+/* ----------------------------------------------------------------- band
+   Pure pattern, full width. Pinned to a whole multiple of the cell (24 x
+   120px) and clipped by the section, so every grid track is a whole pixel
+   at any viewport width; a fluid box gives fractional tracks and a hairline
+   seam at each cell edge. */
+
+.band {
+  position: relative;
+  height: 240px;
+  overflow: hidden;
+  border-bottom: var(--hair);
+}
+
+.bandField {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2880px;
+  height: 240px;
+  opacity: 0.85;
+  overflow: hidden;
+}
+
+/* ------------------------------------------------------------- subscribe */
+
+.tiers {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0 var(--gut);
+  max-width: 58rem;
+}
+
+.tiers li {
+  border-top: var(--hair);
+  padding: 1rem 0 0.5rem;
+  display: grid;
+  grid-template-rows: auto auto auto 1fr;
+}
+
+.tiers h3 {
+  font-size: 1.15rem;
+  font-weight: 500;
+  margin-bottom: 0.9rem;
+}
+
+.tierPrice {
+  margin: 0;
+  font-family: var(--display);
+  font-variation-settings: 'opsz' 144;
+  font-size: clamp(3rem, 6vw, 4.6rem);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: var(--oxblood);
+}
+
+.tierUnit {
+  margin: 0.6rem 0 0.9rem;
+  color: var(--grey);
+}
+
+.tierBody {
+  margin: 0;
+  font-size: 0.92rem;
+  color: color-mix(in srgb, var(--ink) 78%, transparent);
+}
+
+.terms {
+  margin: clamp(1.6rem, 4vw, 2.6rem) 0 0;
+  max-width: 58rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 var(--gut);
+}
+
+.terms div,
+.masthead div,
+.people div {
+  border-top: var(--hair);
+  padding: 0.8rem 0;
+}
+
+.terms dt,
+.masthead dt {
+  color: var(--grey);
+}
+
+.terms dd,
+.masthead dd {
+  margin: 0.3rem 0 0;
+  font-size: 0.95rem;
+}
+
+.subscribeNote,
+.stockNote {
+  margin: clamp(1.4rem, 3vw, 2rem) 0 0;
+  max-width: 34rem;
+  font-size: 0.92rem;
+  font-style: italic;
+  color: color-mix(in srgb, var(--ink) 72%, transparent);
+}
+
+.stockNote {
+  margin: 0 0 clamp(1.4rem, 3vw, 2rem);
+}
+
+/* ---------------------------------------------------------- contributors */
+
+.people {
+  margin: 0;
+  max-width: 58rem;
+  columns: 2;
+  column-gap: var(--gut);
+}
+
+.people div {
+  break-inside: avoid;
+}
+
+.people dt {
+  font-family: var(--display);
+  font-variation-settings: 'opsz' 72;
+  font-size: 1.2rem;
+  letter-spacing: -0.01em;
+}
+
+.people dd {
+  margin: 0.3rem 0 0;
+  font-size: 0.92rem;
+  color: color-mix(in srgb, var(--ink) 78%, transparent);
+}
+
+/* -------------------------------------------------------------- masthead */
+
+.masthead {
+  margin: 0;
+  max-width: 58rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0 var(--gut);
+}
+
+/* ------------------------------------------------------------- stockists */
+
+.shops {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 58rem;
+  columns: 2;
+  column-gap: var(--gut);
+}
+
+.shops li {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  column-gap: 1rem;
+  align-items: baseline;
+  padding: 0.6rem 0;
+  border-top: var(--hair);
+  break-inside: avoid;
+}
+
+.shopCity {
+  color: var(--oxblood);
+}
+
+.shopName {
+  font-size: 1rem;
+}
+
+.shopStreet {
+  grid-column: 2;
+  font-size: 0.86rem;
+  color: var(--grey);
+}
+
+/* ----------------------------------------------------------------- coda */
+
+.coda {
+  position: relative;
+  height: clamp(120px, 18vw, 220px);
+  overflow: hidden;
+  background: var(--paper);
+}
+
+.codaField {
+  position: absolute;
+  inset: 0;
+  opacity: 0.55;
+  overflow: hidden;
+}
+
+/* --------------------------------------------------------------- footer
+   The colophon page: ink ground, paper type, the same hairlines. */
+
+.footer {
+  background: var(--ink);
+  color: var(--paper);
+  padding: clamp(2.5rem, 6vw, 4rem) var(--gut) clamp(1.6rem, 3vw, 2.4rem);
+}
+
+.footGrid {
+  max-width: calc(var(--measure) + var(--margin) + var(--gut));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+  gap: clamp(1.6rem, 4vw, 3rem);
+  align-items: start;
+}
+
+.footName {
+  margin: 0 0 0.6rem;
+  font-family: var(--display);
+  font-variation-settings: 'opsz' 72;
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.footTag {
+  margin: 0;
+  max-width: 24rem;
+  font-size: 0.92rem;
+  color: color-mix(in srgb, var(--paper) 72%, transparent);
+}
+
+.footHead {
+  margin: 0 0 0.9rem;
+  color: color-mix(in srgb, var(--paper) 55%, transparent);
+}
+
+.footLinks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.footLinks a,
+.footAddr {
+  font-size: 0.92rem;
+  color: color-mix(in srgb, var(--paper) 88%, transparent);
+}
+
+.footAddr {
+  margin: 0;
+  line-height: 1.65;
+}
+
+.footFine {
+  max-width: calc(var(--measure) + var(--margin) + var(--gut));
+  margin: clamp(2.5rem, 6vw, 4rem) auto 0;
+  padding-top: 1.1rem;
+  border-top: 1px solid color-mix(in srgb, var(--paper) 22%, transparent);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+.footFine p {
+  margin: 0;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: color-mix(in srgb, var(--paper) 58%, transparent);
+}
+
+.footFine a {
+  color: color-mix(in srgb, var(--paper) 82%, transparent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ----------------------------------------------------------- responsive */
+
+@media (max-width: 960px) {
+  .page {
+    --margin: 5rem;
+  }
+
+  .tiers,
+  .masthead {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footBrand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 760px) {
+  .section,
+  .columnsInner {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .folio {
+    grid-template-columns: auto auto;
+    gap: 1rem;
+    align-items: baseline;
+  }
+
+  .folioLabel {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .twoCol {
+    columns: 1;
+  }
+
+  .toc li {
+    grid-template-columns: minmax(0, 1fr) 3rem;
+    row-gap: 0.3rem;
+  }
+
+  .tocKind {
+    grid-column: 1 / -1;
+  }
+
+  .columnList,
+  .terms {
+    grid-template-columns: 1fr;
+  }
+
+  .people,
+  .shops {
+    columns: 1;
+  }
+
+  .band,
+  .bandField {
+    height: 144px;
+  }
+}
+
+@media (max-width: 620px) {
+  .bar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .figures {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 1.4rem;
+  }
+
+  .tiers,
+  .masthead,
+  .footGrid,
+  .footFine {
+    grid-template-columns: 1fr;
+  }
+
+  .coda {
+    height: 96px;
+  }
+}

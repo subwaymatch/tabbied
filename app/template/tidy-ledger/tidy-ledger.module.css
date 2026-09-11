@@ -1,0 +1,1082 @@
+/* ==========================================================================
+   TIDY LEDGER - bookkeeping app for small shops
+   A soft product page: lilac-white paper, rounded cards with a low shadow,
+   pill buttons, a violet for actions and a mint for the things that went
+   right. The patterns sit on a transparent ground, so the paper runs through
+   them and the page reads as one surface with texture rather than as panels.
+   ========================================================================== */
+
+.page {
+  --paper: #fbfaff;
+  --ink: #1b1a2e;
+  --violet: #6d5df5;
+  --mint: #2ed3a5;
+  --grey: #7d7a94;
+  --pale: #eceafb;
+  --radius: 18px;
+  --gut: clamp(1.25rem, 4vw, 3rem);
+  --max: 72rem;
+  --shadow: 0 1px 2px color-mix(in srgb, var(--ink) 4%, transparent),
+    0 12px 32px color-mix(in srgb, var(--ink) 7%, transparent);
+  --line: color-mix(in srgb, var(--ink) 9%, transparent);
+
+  font-family: 'Plus Jakarta Sans', 'Segoe UI', Helvetica, Arial, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.55;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page :where(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page :focus-visible {
+  outline: 3px solid var(--violet);
+  outline-offset: 3px;
+}
+
+.page h1,
+.page h2,
+.page h3 {
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+  margin: 0;
+}
+
+/* ------------------------------------------------------------ buttons */
+
+.pill,
+.pillLarge,
+.pillOutline,
+.ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  transition: transform 140ms ease, box-shadow 140ms ease, background 140ms ease;
+}
+
+.pill {
+  padding: 0.6rem 1.15rem;
+  font-size: 0.88rem;
+  background: var(--violet);
+  color: var(--paper);
+  box-shadow: 0 6px 16px color-mix(in srgb, var(--violet) 32%, transparent);
+}
+
+.pillLarge {
+  padding: 0.95rem 1.6rem;
+  font-size: 1rem;
+  background: var(--violet);
+  color: var(--paper);
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--violet) 32%, transparent);
+}
+
+.pill:hover,
+.pillLarge:hover {
+  transform: translateY(-1px);
+  background: color-mix(in srgb, var(--violet) 88%, var(--ink));
+}
+
+.pillOutline {
+  padding: 0.6rem 1.15rem;
+  font-size: 0.88rem;
+  border: 1.5px solid color-mix(in srgb, var(--ink) 18%, transparent);
+  color: var(--ink);
+  background: var(--paper);
+}
+
+.pillOutline:hover {
+  border-color: var(--violet);
+  color: var(--violet);
+}
+
+.ghost {
+  padding: 0.95rem 1.2rem;
+  font-size: 1rem;
+  color: var(--ink);
+}
+
+.ghost:hover {
+  color: var(--violet);
+}
+
+/* ------------------------------------------------------------ top bar */
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--gut);
+  padding: 0.8rem var(--gut);
+  background: color-mix(in srgb, var(--paper) 84%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+
+.mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 1.02rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+/* The brand mark: a rounded violet square with a mint notch, all CSS. */
+.markDot {
+  position: relative;
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: 6px;
+  background: var(--violet);
+  flex: none;
+}
+
+.markDot::after {
+  content: '';
+  position: absolute;
+  right: -3px;
+  bottom: -3px;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 999px;
+  background: var(--mint);
+  border: 2px solid var(--paper);
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  gap: clamp(0.8rem, 2vw, 1.6rem);
+  flex-wrap: wrap;
+}
+
+.nav a {
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: color-mix(in srgb, var(--ink) 78%, transparent);
+  padding: 0.3rem 0.1rem;
+}
+
+.nav a:hover {
+  color: var(--violet);
+}
+
+.barActions {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.barLink {
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------- hero */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(4rem, 12vw, 8.5rem) var(--gut) clamp(3rem, 7vw, 5rem);
+  text-align: center;
+}
+
+/* The loudest field on the page, and still behind a fade: the lower half
+   dissolves into paper so the stat row sits on a clean ground. */
+.heroField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  opacity: 0.7;
+  mask-image: linear-gradient(180deg, var(--ink) 0%, var(--ink) 40%, transparent 92%);
+}
+
+.heroField::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 56% 60% at 50% 48%,
+    var(--paper) 0%,
+    color-mix(in srgb, var(--paper) 72%, transparent) 55%,
+    transparent 100%
+  );
+}
+
+.heroInner {
+  max-width: 46rem;
+  margin: 0 auto;
+}
+
+.eyebrow,
+.kicker {
+  margin: 0 0 1.1rem;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--violet);
+}
+
+.heroTitle {
+  font-size: clamp(2.3rem, 6.4vw, 4.4rem);
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+  font-weight: 800;
+}
+
+.heroTitle em {
+  font-style: normal;
+  color: var(--violet);
+}
+
+.heroLede {
+  margin: 1.6rem auto 0;
+  max-width: 34rem;
+  font-size: clamp(1.02rem, 1.5vw, 1.18rem);
+  color: color-mix(in srgb, var(--ink) 74%, transparent);
+}
+
+.heroActions {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem 1rem;
+  flex-wrap: wrap;
+}
+
+.heroNote {
+  margin: 1.1rem 0 0;
+  font-size: 0.8rem;
+  color: var(--grey);
+}
+
+.stats {
+  margin: clamp(3rem, 7vw, 5rem) auto 0;
+  max-width: 54rem;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  padding: 1.4rem 1rem;
+  background: color-mix(in srgb, var(--paper) 90%, transparent);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(6px);
+}
+
+.stats div {
+  margin: 0;
+}
+
+.stats dt {
+  font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.stats dd {
+  margin: 0.25rem 0 0;
+  font-size: 0.8rem;
+  color: var(--grey);
+}
+
+/* ----------------------------------------------------------- sections */
+
+.features,
+.how,
+.pricing,
+.integrations,
+.stories,
+.faq {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(3rem, 8vw, 6rem) var(--gut);
+}
+
+.secHead {
+  max-width: 40rem;
+  margin: 0 0 clamp(2rem, 5vw, 3.2rem);
+}
+
+.secHead h2 {
+  font-size: clamp(1.6rem, 3.4vw, 2.4rem);
+  line-height: 1.12;
+}
+
+.secLede {
+  margin: 1rem 0 0;
+  font-size: 1rem;
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+}
+
+/* ----------------------------------------------------------- features */
+
+.featureGrid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.1rem;
+}
+
+.card {
+  padding: 1.6rem 1.5rem 1.7rem;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.card h3 {
+  margin: 1.2rem 0 0.5rem;
+  font-size: 1.08rem;
+}
+
+.card p {
+  margin: 0;
+  font-size: 0.92rem;
+  color: color-mix(in srgb, var(--ink) 72%, transparent);
+}
+
+/* The six icons are CSS shapes on a pale plate: a till, a bank, a VAT
+   stamp, a camera, a coin stack and a key. No font, no SVG. */
+.ico {
+  position: relative;
+  display: block;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 12px;
+  background: var(--pale);
+}
+
+.ico::before,
+.ico::after {
+  content: '';
+  position: absolute;
+}
+
+.icoTill::before {
+  left: 0.7rem;
+  right: 0.7rem;
+  top: 0.75rem;
+  height: 0.55rem;
+  border-radius: 3px;
+  background: var(--violet);
+}
+
+.icoTill::after {
+  left: 0.7rem;
+  right: 0.7rem;
+  bottom: 0.7rem;
+  height: 0.62rem;
+  border-radius: 3px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--mint) 0 0.28rem,
+    transparent 0.28rem 0.42rem
+  );
+}
+
+.icoBank::before {
+  left: 0.7rem;
+  right: 0.7rem;
+  top: 0.85rem;
+  height: 0.28rem;
+  border-radius: 2px;
+  background: var(--violet);
+}
+
+.icoBank::after {
+  left: 0.85rem;
+  right: 0.85rem;
+  top: 1.35rem;
+  height: 0.75rem;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--violet) 0 0.22rem,
+    transparent 0.22rem 0.5rem
+  );
+  border-bottom: 0.22rem solid var(--mint);
+}
+
+.icoVat::before {
+  inset: 0.6rem;
+  border: 3px solid var(--violet);
+  border-radius: 999px;
+}
+
+.icoVat::after {
+  left: 50%;
+  top: 50%;
+  width: 0.7rem;
+  height: 0.7rem;
+  transform: translate(-50%, -50%) rotate(45deg);
+  background: var(--mint);
+  border-radius: 2px;
+}
+
+.icoPhoto::before {
+  left: 0.6rem;
+  right: 0.6rem;
+  top: 0.95rem;
+  bottom: 0.7rem;
+  border-radius: 6px;
+  background: var(--violet);
+}
+
+.icoPhoto::after {
+  left: 50%;
+  top: 55%;
+  width: 0.75rem;
+  height: 0.75rem;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  background: var(--pale);
+  box-shadow: inset 0 0 0 0.16rem var(--mint);
+}
+
+.icoCash::before {
+  left: 0.7rem;
+  right: 0.7rem;
+  top: 0.7rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--mint);
+  box-shadow: 0 0.62rem 0 var(--violet), 0 1.24rem 0 var(--violet);
+}
+
+.icoCash::after {
+  display: none;
+}
+
+.icoKey::before {
+  left: 0.65rem;
+  top: 0.65rem;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 999px;
+  border: 3px solid var(--violet);
+}
+
+.icoKey::after {
+  left: 1.5rem;
+  top: 1.45rem;
+  width: 0.85rem;
+  height: 0.26rem;
+  background: var(--mint);
+  transform: rotate(45deg);
+  transform-origin: left center;
+  border-radius: 2px;
+  box-shadow: 0.45rem 0.22rem 0 -0.02rem var(--mint);
+}
+
+/* ---------------------------------------------------------------- how */
+
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.1rem;
+  counter-reset: step;
+}
+
+.steps li {
+  position: relative;
+  padding: 1.6rem 1.5rem 1.7rem 1.5rem;
+  border-radius: var(--radius);
+  background: var(--pale);
+}
+
+.stepNo {
+  display: inline-grid;
+  place-items: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+.steps h3 {
+  margin: 1.1rem 0 0.5rem;
+  font-size: 1.08rem;
+}
+
+.steps p {
+  margin: 0;
+  font-size: 0.92rem;
+  color: color-mix(in srgb, var(--ink) 74%, transparent);
+}
+
+/* ------------------------------------------------------------ pricing */
+
+.tiers {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.1rem;
+  align-items: stretch;
+}
+
+.tier {
+  display: flex;
+  flex-direction: column;
+  padding: 1.8rem 1.6rem;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+}
+
+/* The middle tier: ink plate, mint accents, lifted a little on wide
+   screens so it reads as the recommendation without a badge. */
+.tierFeatured {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+  transform: translateY(-0.6rem);
+  box-shadow: 0 24px 48px color-mix(in srgb, var(--ink) 22%, transparent);
+}
+
+.tierName {
+  margin: 0 0 1rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--violet);
+}
+
+.tierFeatured .tierName {
+  color: var(--mint);
+}
+
+.tierPrice {
+  margin: 0;
+  font-size: 2.4rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.tierPer {
+  margin: 0.4rem 0 0;
+  font-size: 0.8rem;
+  color: var(--grey);
+}
+
+.tierFeatured .tierPer {
+  color: color-mix(in srgb, var(--paper) 62%, transparent);
+}
+
+.tierBlurb {
+  margin: 1.1rem 0 0;
+  font-size: 0.92rem;
+  color: color-mix(in srgb, var(--ink) 74%, transparent);
+  min-height: 3.2em;
+}
+
+.tierFeatured .tierBlurb {
+  color: color-mix(in srgb, var(--paper) 78%, transparent);
+}
+
+.tierList {
+  list-style: none;
+  margin: 1.3rem 0 1.6rem;
+  padding: 1.3rem 0 0;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 0.55rem;
+  flex: 1;
+}
+
+.tierFeatured .tierList {
+  border-top-color: color-mix(in srgb, var(--paper) 16%, transparent);
+}
+
+.tierList li {
+  position: relative;
+  padding-left: 1.4rem;
+  font-size: 0.88rem;
+}
+
+.tierList li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 999px;
+  background: var(--mint);
+}
+
+.tierFeatured .pill {
+  background: var(--mint);
+  color: var(--ink);
+  box-shadow: 0 6px 16px color-mix(in srgb, var(--mint) 30%, transparent);
+}
+
+.tierFeatured .pill:hover {
+  background: color-mix(in srgb, var(--mint) 85%, var(--paper));
+}
+
+.pricingNote {
+  margin: 2rem auto 0;
+  max-width: 40rem;
+  font-size: 0.84rem;
+  color: var(--grey);
+  text-align: center;
+}
+
+/* --------------------------------------------------------------- band
+   A pure pattern band, the loudest thing between two text sections. The
+   field is pinned to a whole multiple of the cell (30 x 96px wide, 3 high)
+   and clipped by the section, so every grid track is a whole pixel. */
+
+.band {
+  position: relative;
+  height: 288px;
+  overflow: hidden;
+}
+
+.bandField {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2880px;
+  height: 288px;
+  opacity: 0.85;
+  overflow: hidden;
+}
+
+/* ------------------------------------------------------- integrations */
+
+.intGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 2rem;
+}
+
+.intCol h3 {
+  margin: 0 0 1rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.chips {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.chips li {
+  padding: 0.5rem 0.95rem;
+  border-radius: 999px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  font-size: 0.88rem;
+  font-weight: 500;
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--ink) 4%, transparent);
+}
+
+.intNote {
+  margin: 1.4rem 0 0;
+  font-size: 0.86rem;
+  color: var(--grey);
+  max-width: 26rem;
+}
+
+/* ------------------------------------------------------------ stories */
+
+.storyGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.1rem;
+}
+
+.story {
+  display: flex;
+  flex-direction: column;
+  padding: 1.4rem 1.5rem 1.6rem;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* The portrait slot: a small square tile of pattern, quiet, on a pale
+   plate. Square so the derived grid is square and nothing is stretched. */
+.storyTile {
+  position: relative;
+  width: 4.5rem;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 14px;
+  background: var(--pale);
+  margin-bottom: 1.2rem;
+}
+
+.story blockquote {
+  margin: 0 0 1.2rem;
+  flex: 1;
+}
+
+.story blockquote p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+}
+
+.storyName {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.storyShop {
+  margin: 0;
+  font-size: 0.86rem;
+  color: color-mix(in srgb, var(--ink) 72%, transparent);
+}
+
+.storyMeta {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--grey);
+}
+
+.storySince {
+  margin: 0.6rem 0 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mint);
+}
+
+/* ---------------------------------------------------------------- faq */
+
+.faqList {
+  display: grid;
+  gap: 0.7rem;
+  max-width: 48rem;
+}
+
+.faqItem {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--paper);
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--ink) 4%, transparent);
+}
+
+.faqItem summary {
+  position: relative;
+  list-style: none;
+  cursor: pointer;
+  padding: 1rem 3rem 1rem 1.25rem;
+  font-size: 0.98rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.faqItem summary::-webkit-details-marker {
+  display: none;
+}
+
+/* A plus that turns into a minus: two bars, one rotated away when open. */
+.faqItem summary::before,
+.faqItem summary::after {
+  content: '';
+  position: absolute;
+  right: 1.25rem;
+  top: 50%;
+  width: 0.9rem;
+  height: 2px;
+  background: var(--violet);
+  transform: translateY(-50%);
+  transition: transform 160ms ease;
+}
+
+.faqItem summary::after {
+  transform: translateY(-50%) rotate(90deg);
+}
+
+.faqItem[open] summary::after {
+  transform: translateY(-50%) rotate(0deg);
+}
+
+.faqItem p {
+  margin: 0;
+  padding: 0 1.25rem 1.2rem;
+  font-size: 0.92rem;
+  color: color-mix(in srgb, var(--ink) 74%, transparent);
+  max-width: 42rem;
+}
+
+/* -------------------------------------------------------------- start */
+
+.start {
+  padding: clamp(2rem, 6vw, 4rem) var(--gut) clamp(3rem, 8vw, 6rem);
+}
+
+.startCard {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 3.5rem);
+  border-radius: 24px;
+  background: var(--pale);
+  text-align: center;
+}
+
+.startCard h2 {
+  font-size: clamp(1.6rem, 3.4vw, 2.4rem);
+}
+
+.startCard > p {
+  margin: 1rem auto 0;
+  max-width: 34rem;
+  font-size: 1rem;
+  color: color-mix(in srgb, var(--ink) 74%, transparent);
+}
+
+.startNote {
+  margin: 1.4rem auto 0;
+  font-size: 0.8rem;
+  color: var(--grey);
+  max-width: 34rem;
+}
+
+/* --------------------------------------------------------------- coda */
+
+.coda {
+  position: relative;
+  height: clamp(120px, 18vw, 220px);
+  overflow: hidden;
+}
+
+.codaField {
+  position: absolute;
+  inset: 0;
+  opacity: 0.45;
+  overflow: hidden;
+  mask-image: linear-gradient(180deg, transparent 0%, var(--ink) 40%, var(--ink) 100%);
+}
+
+/* ------------------------------------------------------------- footer */
+
+.footer {
+  background: color-mix(in srgb, var(--pale) 45%, var(--paper));
+  border-top: 1px solid var(--line);
+  padding: clamp(2.5rem, 6vw, 4rem) var(--gut) clamp(1.6rem, 3vw, 2.4rem);
+}
+
+.footGrid {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+  gap: clamp(1.6rem, 4vw, 3rem);
+}
+
+.footName {
+  margin: 0 0 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.footTag {
+  margin: 0 0 1.2rem;
+  max-width: 22rem;
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+}
+
+.footAddr {
+  margin: 0;
+  font-size: 0.84rem;
+  line-height: 1.6;
+  color: var(--grey);
+}
+
+.footHead {
+  margin: 0 0 0.9rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.footLinks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.footLinks a {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.footLinks a:hover {
+  color: var(--violet);
+}
+
+.footFine {
+  max-width: var(--max);
+  margin: clamp(2.5rem, 6vw, 4rem) auto 0;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+.footFine p {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--grey);
+}
+
+.footFine a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footFine a:hover {
+  color: var(--violet);
+}
+
+/* --------------------------------------------------------- responsive */
+
+@media (max-width: 960px) {
+  .featureGrid,
+  .storyGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .tiers {
+    grid-template-columns: 1fr;
+    max-width: 30rem;
+    margin: 0 auto;
+  }
+
+  .tierFeatured {
+    transform: none;
+  }
+
+  .intGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .footGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footBrand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 760px) {
+  .bar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .barLink {
+    display: none;
+  }
+
+  .steps {
+    grid-template-columns: 1fr;
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 1.2rem;
+  }
+
+  .band {
+    height: 192px;
+  }
+
+  .bandField {
+    height: 192px;
+  }
+}
+
+@media (max-width: 560px) {
+  .featureGrid,
+  .storyGrid,
+  .footGrid,
+  .footFine {
+    grid-template-columns: 1fr;
+  }
+
+  /* The authored line breaks fight the natural wrap at phone width. */
+  .heroTitle br {
+    display: none;
+  }
+
+  .heroActions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ghost {
+    padding-inline: 0.5rem;
+  }
+
+  .stats {
+    padding: 1.2rem 0.9rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pill,
+  .pillLarge,
+  .pillOutline,
+  .ghost,
+  .faqItem summary::before,
+  .faqItem summary::after {
+    transition: none;
+  }
+}

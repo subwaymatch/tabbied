@@ -1,0 +1,819 @@
+/* ==========================================================================
+   SABLE AND PINE - interiors atelier, Melbourne
+   Mid-century. Warm sand, dark brown type, and mustard, olive and terracotta
+   used the way a fifties sideboard uses them: one block at a time, offset
+   from the thing it sits behind. Lora italic for anything that is said,
+   Jost for anything that is read, small caps for labels. The rules are slim
+   slabs, the tiles are rounded squares, and the page moves in long
+   horizontal rows.
+   ========================================================================== */
+
+.page {
+  --paper: #f3ebdd;
+  --ink: #2a241e;
+  --mustard: #d9a428;
+  --olive: #5f6b3a;
+  --terracotta: #c6633b;
+  --grey: #8f8577;
+  --gut: clamp(1.1rem, 4vw, 3.5rem);
+  --max: 76rem;
+  --radius: 22px;
+  --slab: 3px solid var(--ink);
+  --hair: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+  --display: 'Lora', 'Iowan Old Style', Georgia, serif;
+
+  font-family: 'Jost', 'Futura', 'Century Gothic', 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.6;
+  background: var(--paper);
+  color: var(--ink);
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page :where(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page :focus-visible {
+  outline: 2px solid var(--terracotta);
+  outline-offset: 3px;
+}
+
+.page h1,
+.page h2,
+.page h3,
+.mark,
+.footName {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+/* A small-caps label with a slab of terracotta in front of it. */
+.label,
+.labelLight {
+  margin: 0 0 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-variant-caps: all-small-caps;
+  font-weight: 500;
+  font-size: 1rem;
+  letter-spacing: 0.16em;
+  color: var(--olive);
+}
+
+.label::before,
+.labelLight::before {
+  content: '';
+  display: inline-block;
+  width: 2.2rem;
+  height: 4px;
+  background: var(--terracotta);
+  flex: none;
+}
+
+.labelLight {
+  color: var(--paper);
+}
+
+.labelLight::before {
+  background: var(--mustard);
+}
+
+/* A heading with a mustard block set down and to the right of it: the type
+   sits on the block's shoulder rather than inside it. */
+.blockHead {
+  position: relative;
+  isolation: isolate;
+  display: inline-block;
+  margin: 0;
+  padding-right: 0.3em;
+}
+
+.blockHead::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: 0.32em;
+  left: 0.45em;
+  right: -0.35em;
+  bottom: -0.22em;
+  background: var(--mustard);
+  border-radius: 10px;
+}
+
+/* ---------------------------------------------------------------- top bar */
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--gut);
+  padding: 0.8rem var(--gut);
+  background: color-mix(in srgb, var(--paper) 90%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: var(--slab);
+}
+
+.mark {
+  font-size: 1.35rem;
+}
+
+.nav {
+  display: flex;
+  gap: clamp(0.9rem, 2.4vw, 2.2rem);
+  justify-content: center;
+  flex-wrap: wrap;
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.14em;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.nav a {
+  padding: 0.15rem 0;
+  border-bottom: 3px solid transparent;
+}
+
+.nav a:hover {
+  border-bottom-color: var(--terracotta);
+}
+
+.barMeta {
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.14em;
+  color: var(--grey);
+}
+
+/* -------------------------------------------------------------------- hero */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3.5rem, 9vw, 7.5rem) var(--gut) clamp(3.5rem, 8vw, 6rem);
+}
+
+/* grosgrain at three-fifths, washed with the sand on the left third where
+   the panel sits, so the ribbons run loud on the right and quiet behind
+   the words. The mask only cares about alpha. */
+.heroField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.6;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent 0%, var(--ink) 38%, var(--ink) 100%);
+}
+
+.heroInner {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: end;
+}
+
+/* The offset panel: sand in front, olive behind, shifted down and right. */
+.heroPanel {
+  position: relative;
+  isolation: isolate;
+  max-width: 38rem;
+  padding: clamp(1.8rem, 4vw, 3rem);
+  background: var(--paper);
+  border-radius: var(--radius);
+}
+
+.heroPanel::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 1.4rem -1.4rem -1.4rem 1.4rem;
+  background: var(--olive);
+  border-radius: var(--radius);
+}
+
+.heroTitle {
+  margin: 0;
+  font-size: clamp(1.85rem, 5.6vw, 4rem);
+}
+
+.heroTitle em {
+  color: var(--terracotta);
+}
+
+.heroLede {
+  margin: 1.4rem 0 0;
+  font-size: 1.05rem;
+  max-width: 30rem;
+  color: color-mix(in srgb, var(--ink) 84%, transparent);
+}
+
+/* The facts sit on the loud side of the field, so they get a sand plate of
+   their own: without it the small-caps labels land on a mustard or olive
+   ribbon and disappear. Same radius and offset as the headline panel. */
+.facts {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.2rem clamp(1.2rem, 3vw, 2.4rem);
+  padding: clamp(1.4rem, 3vw, 2rem);
+  background: var(--paper);
+  border-radius: var(--radius);
+}
+
+.facts div {
+  border-top: var(--slab);
+  padding-top: 0.8rem;
+}
+
+.facts dt {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+  line-height: 1;
+  color: var(--terracotta);
+}
+
+.facts dd {
+  margin: 0.4rem 0 0;
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.12em;
+  color: color-mix(in srgb, var(--ink) 72%, transparent);
+}
+
+/* --------------------------------------------------------------- sections */
+
+.section {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(3rem, 7vw, 5.5rem) var(--gut);
+}
+
+.sectionHead {
+  margin: 0 0 clamp(1.8rem, 4vw, 2.8rem);
+}
+
+.sectionHead h2,
+.studioPanel h2 {
+  font-size: clamp(1.9rem, 4vw, 2.9rem);
+}
+
+.sectionNote {
+  margin: clamp(1.4rem, 3vw, 2rem) 0 0;
+  max-width: 36rem;
+  font-size: 0.92rem;
+  color: var(--grey);
+}
+
+/* ---------------------------------------------------------------- services
+   Four long rows on slab rules: number, name, body, fee. */
+
+.services,
+.projects,
+.process,
+.libraryList,
+.hours,
+.contact {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.services li {
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 1.1fr) minmax(0, 2fr) minmax(0, 1fr);
+  gap: 0.4rem clamp(1rem, 3vw, 2.5rem);
+  align-items: baseline;
+  padding: 1.4rem 0 1.6rem;
+  border-top: var(--slab);
+}
+
+.serviceNo {
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.14em;
+  font-weight: 500;
+  color: var(--mustard);
+}
+
+.services h3 {
+  margin: 0;
+  font-size: 1.6rem;
+}
+
+.serviceBody {
+  margin: 0;
+  font-size: 0.96rem;
+  color: color-mix(in srgb, var(--ink) 82%, transparent);
+}
+
+.serviceFee {
+  margin: 0;
+  grid-column: 4;
+  grid-row: 1;
+  font-weight: 500;
+  text-align: right;
+}
+
+.serviceBasis {
+  margin: 0;
+  grid-column: 4;
+  grid-row: 2;
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.1em;
+  text-align: right;
+  color: var(--grey);
+}
+
+/* ---------------------------------------------------------------- projects */
+
+.projects li {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1.4fr) 4rem;
+  gap: 0.3rem clamp(1rem, 3vw, 2.5rem);
+  align-items: baseline;
+  padding: 0.9rem 0;
+  border-top: var(--hair);
+  font-size: 0.96rem;
+}
+
+.projectsHead {
+  border-top: 0;
+  padding-bottom: 0.5rem;
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.14em;
+  font-weight: 500;
+  color: var(--olive);
+}
+
+.projectName {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 1.15rem;
+}
+
+.projectSuburb {
+  color: color-mix(in srgb, var(--ink) 80%, transparent);
+}
+
+.projectKind {
+  color: var(--grey);
+}
+
+.projectYear {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--grey);
+}
+
+/* -------------------------------------------------------------------- band
+   Pinned to a whole multiple of the cell (28 x 96px) and clipped, so every
+   grid track is a whole pixel at every viewport width. */
+
+.band {
+  position: relative;
+  height: 288px;
+  overflow: hidden;
+  border-top: var(--slab);
+  border-bottom: var(--slab);
+}
+
+.bandField {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2688px;
+  height: 288px;
+  overflow: hidden;
+  opacity: 0.92;
+}
+
+/* --------------------------------------------------------------- materials
+   Three rounded-square tiles, alcove inside on a tint of mustard, each a
+   sample shelf. A square box keeps the derived grid square. */
+
+.libraryGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.4rem, 3vw, 2.6rem);
+}
+
+.tile {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--mustard) 24%, var(--paper));
+  margin-bottom: 1.2rem;
+}
+
+.library h3 {
+  margin: 0 0 0.4rem;
+  font-size: 1.6rem;
+}
+
+.libraryNote {
+  margin: 0 0 1rem;
+  font-size: 0.92rem;
+  color: var(--grey);
+}
+
+.libraryList li {
+  padding: 0.45rem 0;
+  border-top: var(--hair);
+  font-size: 0.95rem;
+  display: flex;
+  gap: 0.7rem;
+  align-items: baseline;
+}
+
+.libraryList li::before {
+  content: '';
+  flex: none;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 2px;
+  background: var(--terracotta);
+}
+
+/* ----------------------------------------------------------------- process
+   Five columns across, each on its own slab, read left to right. */
+
+.process {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(1rem, 2.5vw, 2rem);
+}
+
+.process li {
+  border-top: var(--slab);
+  padding-top: 1rem;
+}
+
+.stepN {
+  display: block;
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 2.2rem;
+  line-height: 1;
+  color: var(--mustard);
+  margin-bottom: 0.6rem;
+}
+
+.process h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.4rem;
+}
+
+.process p {
+  margin: 0;
+  font-size: 0.92rem;
+  color: color-mix(in srgb, var(--ink) 82%, transparent);
+}
+
+/* ------------------------------------------------------------------ studio
+   Two panels side by side, the olive one offset from a mustard block. */
+
+.studio {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(3rem, 7vw, 5.5rem) var(--gut) clamp(4rem, 8vw, 6.5rem);
+}
+
+.studioGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: clamp(2.5rem, 6vw, 5rem);
+  align-items: start;
+}
+
+.studioPanel {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(1.8rem, 4vw, 3rem);
+  background: var(--olive);
+  color: var(--paper);
+  border-radius: var(--radius);
+}
+
+.studioPanel::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: -1.2rem 1.2rem 1.2rem -1.2rem;
+  background: var(--mustard);
+  border-radius: var(--radius);
+}
+
+.studioPanel h2 {
+  margin: 0;
+}
+
+.studioLede {
+  margin: 1.2rem 0 1.8rem;
+  font-size: 1rem;
+  max-width: 30rem;
+  color: color-mix(in srgb, var(--paper) 88%, transparent);
+}
+
+.hours div,
+.contact div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
+  padding: 0.6rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--paper) 30%, transparent);
+  font-size: 0.95rem;
+}
+
+.hours dt {
+  font-weight: 500;
+}
+
+.hours dd,
+.contact dd {
+  margin: 0;
+}
+
+.hours dd {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.enquire {
+  padding-top: 0.5rem;
+}
+
+.enquire h3 {
+  margin: 0 0 0.9rem;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+}
+
+.enquireBody {
+  margin: 0 0 1.4rem;
+  font-size: 1rem;
+  color: color-mix(in srgb, var(--ink) 84%, transparent);
+}
+
+.contact div {
+  grid-template-columns: 5rem minmax(0, 1fr);
+  border-top: var(--hair);
+}
+
+.contact dt {
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.12em;
+  font-weight: 500;
+  color: var(--olive);
+}
+
+.contact a {
+  border-bottom: 2px solid var(--mustard);
+}
+
+.button {
+  display: inline-block;
+  margin-top: 1.6rem;
+  padding: 0.75rem 1.6rem;
+  border-radius: 999px;
+  background: var(--terracotta);
+  color: var(--paper);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.button:hover {
+  background: var(--ink);
+}
+
+/* -------------------------------------------------------------------- coda
+   Pinned to 32 x 80px and clipped. Two quiet tones, nothing to read. */
+
+.coda {
+  position: relative;
+  height: 240px;
+  overflow: hidden;
+  border-top: var(--slab);
+}
+
+.codaField {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2560px;
+  height: 240px;
+  overflow: hidden;
+  opacity: 0.7;
+}
+
+/* ------------------------------------------------------------------ footer */
+
+.footer {
+  background: var(--ink);
+  color: var(--paper);
+  padding: clamp(2.5rem, 6vw, 4rem) var(--gut) clamp(1.6rem, 3vw, 2.4rem);
+}
+
+.footGrid {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+  gap: clamp(1.6rem, 4vw, 3rem);
+  align-items: start;
+}
+
+.footName {
+  margin: 0 0 0.6rem;
+  font-size: 1.5rem;
+  color: var(--mustard);
+}
+
+.footTag {
+  margin: 0;
+  max-width: 24rem;
+  font-size: 0.92rem;
+  color: color-mix(in srgb, var(--paper) 76%, transparent);
+}
+
+.footHead {
+  margin: 0 0 0.9rem;
+  font-family: inherit;
+  font-style: normal;
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.16em;
+  font-weight: 500;
+  font-size: 1rem;
+  color: var(--mustard);
+}
+
+.footLinks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.footLinks a,
+.footAddr {
+  font-size: 0.92rem;
+  color: color-mix(in srgb, var(--paper) 88%, transparent);
+}
+
+.footLinks a:hover,
+.footFine a:hover {
+  color: var(--mustard);
+}
+
+.footAddr {
+  margin: 0;
+  line-height: 1.7;
+}
+
+.footFine {
+  max-width: var(--max);
+  margin: clamp(2.5rem, 6vw, 4rem) auto 0;
+  padding-top: 1.1rem;
+  border-top: 1px solid color-mix(in srgb, var(--paper) 22%, transparent);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+.footFine p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: color-mix(in srgb, var(--paper) 60%, transparent);
+}
+
+.footFine a {
+  color: var(--paper);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ------------------------------------------------------------ responsive */
+
+@media (max-width: 1040px) {
+  .process {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .services li {
+    grid-template-columns: 3.5rem minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .serviceBody {
+    grid-column: 2 / 4;
+  }
+
+  .serviceFee,
+  .serviceBasis {
+    grid-column: 3;
+    text-align: right;
+  }
+}
+
+@media (max-width: 860px) {
+  .bar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .heroInner,
+  .studioGrid,
+  .libraryGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .heroField {
+    mask-image: linear-gradient(180deg, var(--ink) 0%, var(--ink) 50%, transparent 100%);
+  }
+
+  .heroPanel {
+    max-width: none;
+    margin-right: 1.4rem;
+  }
+
+  .studioPanel {
+    margin-left: 1.2rem;
+    margin-top: 1.2rem;
+  }
+
+  .projectsHead {
+    display: none;
+  }
+
+  .projects li {
+    grid-template-columns: minmax(0, 1fr) 4rem;
+  }
+
+  .projectSuburb,
+  .projectKind {
+    grid-column: 1 / -1;
+    font-size: 0.9rem;
+  }
+
+  .footGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footBrand {
+    grid-column: 1 / -1;
+  }
+
+  .band,
+  .bandField {
+    height: 192px;
+  }
+}
+
+@media (max-width: 600px) {
+  .process,
+  .footGrid,
+  .footFine {
+    grid-template-columns: 1fr;
+  }
+
+  .services li {
+    grid-template-columns: 3.5rem minmax(0, 1fr);
+  }
+
+  .serviceBody,
+  .serviceFee,
+  .serviceBasis {
+    grid-column: 2;
+    grid-row: auto;
+    text-align: left;
+  }
+
+  .facts {
+    gap: 1rem;
+    padding: 1.2rem;
+  }
+
+  .heroPanel {
+    padding: 1.4rem;
+  }
+
+  .coda,
+  .codaField {
+    height: 160px;
+  }
+}

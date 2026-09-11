@@ -190,7 +190,7 @@ const counts = (spec, kind) =>
   spec.slots.filter((slot) => slot.kind === kind).length;
 
 // The aggregate index: what /create lists, and what the MCP `list_templates`
-// tool serves. Small enough to return whole - 57 entries needs no query
+// tool serves. Small enough to return whole - 77 entries needs no query
 // language.
 const catalog = {
   specVersion: SPEC_VERSION,

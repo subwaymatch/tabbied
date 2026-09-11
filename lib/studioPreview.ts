@@ -58,7 +58,7 @@ export type PreviewDocument = {
  *
  * It carries no pattern names: the runtime bundles every design any packaged
  * template mounts and `hydrate()` closes over the map, so this is the same one
- * line for all 57 sites and cannot drift from the page it revives.
+ * line for all 77 sites and cannot drift from the page it revives.
  */
 const bootstrap =
   `import { hydrate, rehydrate } from '${PREVIEW_RUNTIME}';\n` +

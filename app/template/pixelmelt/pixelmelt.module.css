@@ -1,0 +1,793 @@
+/* ==========================================================================
+   PIXELMELT - independent game studio, Tallinn
+   Y2K vaporwave on a dark ground. Bungee for display, Space Grotesk for
+   everything else. Violet-black paper, pale lilac ink, hot pink and cyan.
+   The headline is a gradient clipped to its own letterforms, the borders
+   glow (box-shadow in the accent colours, never a solid line), and the
+   sections are separated by chrome dividers built from linear gradients of
+   the role colours and nothing else. Every colour is one of the five roles.
+   ========================================================================== */
+
+.page {
+  --paper: #12081f;
+  --ink: #f4eeff;
+  --pink: #ff5fd2;
+  --cyan: #38e0ff;
+  --grey: #7c6f94;
+  --gut: clamp(1rem, 4vw, 3rem);
+  --max: 78rem;
+  --line: 1px solid color-mix(in srgb, var(--grey) 40%, transparent);
+  --chrome: linear-gradient(
+    90deg,
+    var(--pink) 0%,
+    var(--ink) 22%,
+    var(--cyan) 50%,
+    var(--ink) 78%,
+    var(--pink) 100%
+  );
+  --glow-pink: 0 0 0 2px var(--pink), 0 0 28px color-mix(in srgb, var(--pink) 55%, transparent);
+  --glow-cyan: 0 0 0 2px var(--cyan), 0 0 28px color-mix(in srgb, var(--cyan) 45%, transparent);
+  --display: 'Bungee', Impact, 'Arial Black', sans-serif;
+
+  font-family: 'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.5;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page :where(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page :focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}
+
+.page h1,
+.page h2,
+.page h3 {
+  font-family: var(--display);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  margin: 0;
+  text-wrap: balance;
+}
+
+/* The gradient fill: pink to cyan across the letterforms. */
+.accent {
+  background: linear-gradient(90deg, var(--pink) 0%, var(--cyan) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* The small label: tracked capitals in the body face. */
+.nav a,
+.heroKicker,
+.facts dd,
+.eyebrow,
+.gameStatus,
+.gamePlatforms,
+.statLabel,
+.teamSince,
+.postTag,
+.press dt,
+.studio dt,
+.footHead {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* Two buttons. The glow is solid pink with a pink halo; the ghost is a cyan
+   ring with a cyan halo. Both are capsules. */
+.glow,
+.ghost,
+.barCta {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.8rem 1.5rem;
+  border-radius: 999px;
+  font-family: var(--display);
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  transition: box-shadow 160ms ease, transform 160ms ease;
+}
+
+.glow,
+.barCta {
+  background: var(--pink);
+  color: var(--paper);
+  box-shadow: var(--glow-pink);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--cyan);
+  box-shadow: var(--glow-cyan);
+}
+
+.glow:hover,
+.ghost:hover,
+.barCta:hover {
+  transform: translateY(-2px);
+}
+
+.glow:hover,
+.barCta:hover {
+  box-shadow: 0 0 0 2px var(--ink), 0 0 40px color-mix(in srgb, var(--pink) 80%, transparent);
+}
+
+.ghost:hover {
+  box-shadow: 0 0 0 2px var(--ink), 0 0 40px color-mix(in srgb, var(--cyan) 70%, transparent);
+}
+
+/* The chrome divider: a 4px bar of the gradient with a soft halo, between
+   every section. */
+.chrome {
+  height: 4px;
+  max-width: var(--max);
+  margin: 0 auto;
+  background: var(--chrome);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--cyan) 35%, transparent);
+}
+
+/* ------------------------------------------------------------------ bar */
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--gut);
+  padding: 0.7rem var(--gut);
+  background: color-mix(in srgb, var(--paper) 84%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid color-mix(in srgb, var(--pink) 45%, transparent);
+  box-shadow: 0 1px 24px color-mix(in srgb, var(--pink) 25%, transparent);
+}
+
+.mark {
+  font-family: var(--display);
+  font-size: 1.2rem;
+  letter-spacing: 0.04em;
+}
+
+.nav {
+  display: flex;
+  gap: clamp(0.7rem, 2vw, 1.5rem);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.nav a {
+  color: color-mix(in srgb, var(--ink) 78%, transparent);
+  padding: 0.25rem 0;
+  border-bottom: 1px solid transparent;
+}
+
+.nav a:hover {
+  color: var(--cyan);
+  border-bottom-color: var(--cyan);
+}
+
+.barCta {
+  padding: 0.5rem 1.1rem;
+  font-size: 0.7rem;
+}
+
+/* ----------------------------------------------------------------- hero */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(4rem, 12vw, 9rem) var(--gut) clamp(3rem, 7vw, 5rem);
+}
+
+/* The wash. spectrum glows out of the dark at the edges, and a pool of the
+   paper colour sits under the headline so the gradient text reads. */
+.heroField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.55;
+  overflow: hidden;
+}
+
+.heroField::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 56% 64% at 36% 50%,
+    var(--paper) 0%,
+    color-mix(in srgb, var(--paper) 72%, transparent) 55%,
+    transparent 100%
+  );
+}
+
+.heroInner {
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.heroKicker {
+  margin: 0 0 clamp(1.4rem, 3vw, 2.2rem);
+  color: var(--cyan);
+}
+
+.heroTitle {
+  font-size: clamp(3.4rem, 11vw, 9.4rem);
+  line-height: 0.94;
+  letter-spacing: 0;
+  text-shadow: 0 0 32px color-mix(in srgb, var(--pink) 30%, transparent);
+}
+
+.heroLede {
+  margin: clamp(1.4rem, 3.5vw, 2.4rem) 0 0;
+  max-width: 34rem;
+  font-size: clamp(1.02rem, 1.6vw, 1.2rem);
+  color: color-mix(in srgb, var(--ink) 84%, transparent);
+}
+
+.heroCta {
+  margin: clamp(1.4rem, 3vw, 2rem) 0 0;
+  display: flex;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+}
+
+.facts {
+  margin: clamp(2.5rem, 7vw, 4.5rem) 0 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  max-width: 44rem;
+}
+
+.facts div {
+  margin: 0;
+  padding: 0.9rem 1rem;
+  border-radius: 0.8rem;
+  border: var(--line);
+  background: color-mix(in srgb, var(--ink) 4%, var(--paper));
+}
+
+.facts dt {
+  font-family: var(--display);
+  font-size: clamp(1.6rem, 3.4vw, 2.4rem);
+  line-height: 1;
+  color: var(--cyan);
+}
+
+.facts dd {
+  margin: 0.4rem 0 0;
+  color: var(--grey);
+}
+
+/* -------------------------------------------------------------- section */
+
+.section {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(3rem, 7vw, 5.5rem) var(--gut);
+}
+
+.secHead {
+  max-width: 40rem;
+  margin-bottom: clamp(1.6rem, 4vw, 2.6rem);
+}
+
+.eyebrow {
+  margin: 0 0 0.8rem;
+  color: var(--pink);
+}
+
+.h2 {
+  font-size: clamp(1.9rem, 4.6vw, 3.4rem);
+}
+
+.secNote {
+  margin: 1rem 0 0;
+  font-size: 1rem;
+  color: color-mix(in srgb, var(--ink) 76%, transparent);
+}
+
+/* ---------------------------------------------------------------- games
+   Three plates with a glowing edge. The pattern is pinned to a square box
+   in the middle and the plate clips it to a 4:5 portrait. */
+
+.gameGrid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.2rem, 3vw, 2.4rem);
+}
+
+.gamePlate {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 1rem;
+  background: color-mix(in srgb, var(--ink) 4%, var(--paper));
+  box-shadow: var(--glow-cyan);
+  margin-bottom: 1.2rem;
+}
+
+.gameGrid li:nth-child(2) .gamePlate {
+  box-shadow: var(--glow-pink);
+}
+
+.gameStatus {
+  margin: 0 0 0.4rem;
+  color: var(--cyan);
+}
+
+.gameGrid li:first-child .gameStatus {
+  color: var(--pink);
+}
+
+.gameGrid h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.gamePitch {
+  margin: 0 0 0.7rem;
+  font-size: 0.98rem;
+  color: color-mix(in srgb, var(--ink) 84%, transparent);
+}
+
+.gamePlatforms {
+  margin: 0;
+  color: var(--grey);
+}
+
+.gameWhen {
+  margin: 0.2rem 0 0;
+  font-size: 0.86rem;
+  color: var(--grey);
+}
+
+/* --------------------------------------------------------------- engine */
+
+.stats {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.8rem, 2vw, 1.4rem);
+}
+
+.stats div {
+  padding: 1.1rem 1.2rem 1.2rem;
+  border-radius: 0.8rem;
+  border: 1px solid color-mix(in srgb, var(--cyan) 50%, transparent);
+  box-shadow: inset 0 0 24px color-mix(in srgb, var(--cyan) 12%, transparent);
+  background: color-mix(in srgb, var(--ink) 3%, var(--paper));
+}
+
+.stats div:nth-child(even) {
+  border-color: color-mix(in srgb, var(--pink) 50%, transparent);
+  box-shadow: inset 0 0 24px color-mix(in srgb, var(--pink) 12%, transparent);
+}
+
+.stats dt {
+  font-family: var(--display);
+  font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+  line-height: 1;
+}
+
+.stats div:nth-child(even) dt {
+  color: var(--pink);
+}
+
+.stats div:nth-child(odd) dt {
+  color: var(--cyan);
+}
+
+.statLabel {
+  margin: 0.5rem 0 0;
+  color: var(--ink);
+}
+
+.statNote {
+  margin: 0.3rem 0 0;
+  font-size: 0.86rem;
+  color: var(--grey);
+}
+
+.engineText {
+  margin-top: clamp(1.6rem, 4vw, 2.6rem);
+  columns: 2;
+  column-gap: clamp(1.6rem, 4vw, 3rem);
+  max-width: 60rem;
+}
+
+.engineText p {
+  margin: 0 0 1rem;
+  break-inside: avoid;
+  font-size: 0.98rem;
+  color: color-mix(in srgb, var(--ink) 80%, transparent);
+}
+
+/* ----------------------------------------------------------------- team */
+
+.team {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 52rem;
+  counter-reset: member;
+}
+
+.team li {
+  counter-increment: member;
+  display: grid;
+  grid-template-columns: 2.6rem minmax(0, 1.1fr) minmax(0, 1fr) 4rem;
+  gap: 1rem;
+  align-items: baseline;
+  padding: 0.8rem 0;
+  border-top: var(--line);
+}
+
+.team li::before {
+  content: counter(member, decimal-leading-zero);
+  font-family: var(--display);
+  font-size: 0.8rem;
+  color: var(--pink);
+}
+
+.teamName {
+  font-weight: 600;
+  font-size: 1.02rem;
+}
+
+.teamRole {
+  font-size: 0.94rem;
+  color: color-mix(in srgb, var(--ink) 74%, transparent);
+}
+
+.teamSince {
+  text-align: right;
+  color: var(--grey);
+}
+
+/* --------------------------------------------------------------- devlog */
+
+.posts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+  max-width: 60rem;
+}
+
+.posts li {
+  display: grid;
+  grid-template-columns: 8rem minmax(0, 1fr);
+  grid-template-areas:
+    'date tag'
+    'date title'
+    'date body';
+  column-gap: var(--gut);
+  row-gap: 0.35rem;
+  padding: 1.2rem 1.4rem 1.4rem;
+  border-radius: 0.9rem;
+  border: var(--line);
+  background: color-mix(in srgb, var(--ink) 3%, var(--paper));
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.posts li:hover {
+  border-color: color-mix(in srgb, var(--cyan) 60%, transparent);
+  box-shadow: 0 0 22px color-mix(in srgb, var(--cyan) 20%, transparent);
+}
+
+.postDate {
+  grid-area: date;
+  font-family: var(--display);
+  font-size: 0.78rem;
+  color: var(--cyan);
+  line-height: 1.5;
+}
+
+.postTag {
+  grid-area: tag;
+  color: var(--pink);
+}
+
+.posts h3 {
+  grid-area: title;
+  font-size: 1.25rem;
+}
+
+.postBody {
+  grid-area: body;
+  margin: 0.3rem 0 0;
+  font-size: 0.95rem;
+  color: color-mix(in srgb, var(--ink) 78%, transparent);
+}
+
+/* ---------------------------------------------------------------- press */
+
+.press,
+.studio {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0 var(--gut);
+  max-width: var(--max);
+}
+
+.press div,
+.studio div {
+  border-top: var(--line);
+  padding: 0.8rem 0 1rem;
+}
+
+.press dt,
+.studio dt {
+  color: var(--cyan);
+}
+
+.press dd,
+.studio dd {
+  margin: 0.35rem 0 0;
+  font-size: 0.95rem;
+}
+
+.pressCta {
+  margin: clamp(1.4rem, 3vw, 2.2rem) 0 0;
+}
+
+/* ------------------------------------------------------------- wishlist
+   The panel with a gradient border: the paper painted inside the padding
+   box, the gradient painted on the border box behind it. */
+
+.wishlist {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1.4rem, 4vw, 3.5rem);
+  border-radius: 1.4rem;
+  border: 2px solid transparent;
+  background:
+    linear-gradient(var(--paper), var(--paper)) padding-box,
+    linear-gradient(120deg, var(--pink), var(--cyan)) border-box;
+  box-shadow: 0 0 60px color-mix(in srgb, var(--pink) 28%, transparent);
+  text-align: center;
+  position: relative;
+}
+
+.wishlist .eyebrow {
+  color: var(--cyan);
+}
+
+.wishTitle {
+  font-size: clamp(2.6rem, 8vw, 6.4rem);
+  line-height: 0.96;
+}
+
+.wishBody {
+  margin: 1.4rem auto 0;
+  max-width: 34rem;
+  font-size: 1.02rem;
+  color: color-mix(in srgb, var(--ink) 80%, transparent);
+}
+
+.wishCta {
+  margin: 1.8rem 0 0;
+}
+
+/* ----------------------------------------------------------------- band
+   The coda: pure pattern across the whole width. Pinned to a whole multiple
+   of the cell (24 x 120px) and clipped by the section, so every grid track
+   is a whole pixel at any viewport width; a fluid box gives fractional
+   tracks and a hairline seam at each cell edge. */
+
+.band {
+  position: relative;
+  height: 240px;
+  overflow: hidden;
+  margin-top: clamp(2rem, 5vw, 3.5rem);
+  border-top: 2px solid var(--cyan);
+  border-bottom: 2px solid var(--pink);
+  box-shadow: 0 0 40px color-mix(in srgb, var(--cyan) 30%, transparent);
+}
+
+.bandField {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2880px;
+  height: 240px;
+  opacity: 0.95;
+  overflow: hidden;
+}
+
+/* --------------------------------------------------------------- footer */
+
+.footer {
+  background: color-mix(in srgb, var(--ink) 4%, var(--paper));
+  color: var(--ink);
+  padding: clamp(2.5rem, 6vw, 4rem) var(--gut) clamp(1.6rem, 3vw, 2.4rem);
+}
+
+.footGrid {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+  gap: clamp(1.6rem, 4vw, 3rem);
+  align-items: start;
+}
+
+.footName {
+  margin: 0 0 0.6rem;
+  font-family: var(--display);
+  font-size: 1.5rem;
+}
+
+.footTag {
+  margin: 0;
+  max-width: 24rem;
+  font-size: 0.92rem;
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+}
+
+.footHead {
+  margin: 0 0 0.9rem;
+  color: var(--pink);
+}
+
+.footLinks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.footLinks a,
+.footAddr {
+  font-size: 0.92rem;
+  color: color-mix(in srgb, var(--ink) 86%, transparent);
+}
+
+.footLinks a:hover,
+.footFine a:hover {
+  color: var(--cyan);
+}
+
+.footAddr {
+  margin: 0;
+  line-height: 1.65;
+}
+
+.footFine {
+  max-width: var(--max);
+  margin: clamp(2.5rem, 6vw, 4rem) auto 0;
+  padding-top: 1.1rem;
+  border-top: var(--line);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+.footFine p {
+  margin: 0;
+  font-size: 0.78rem;
+  color: color-mix(in srgb, var(--ink) 56%, transparent);
+}
+
+.footFine a {
+  color: color-mix(in srgb, var(--ink) 82%, transparent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ----------------------------------------------------------- responsive */
+
+@media (max-width: 960px) {
+  .gameGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .press,
+  .studio {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footBrand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 700px) {
+  .bar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .gameGrid,
+  .stats,
+  .press,
+  .studio {
+    grid-template-columns: 1fr;
+  }
+
+  .engineText {
+    columns: 1;
+  }
+
+  .team li {
+    grid-template-columns: 2.2rem minmax(0, 1fr) 3.4rem;
+  }
+
+  .teamRole {
+    grid-column: 2 / 4;
+    font-size: 0.88rem;
+  }
+
+  .posts li {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'date'
+      'tag'
+      'title'
+      'body';
+  }
+
+  .band,
+  .bandField {
+    height: 120px;
+  }
+}
+
+@media (max-width: 520px) {
+  .heroTitle {
+    font-size: clamp(2.8rem, 16vw, 4.4rem);
+  }
+
+  .facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .wishlist {
+    margin-left: var(--gut);
+    margin-right: var(--gut);
+  }
+
+  /* Bungee is wide: "Saltmarsh." at the 2.6rem floor would overrun the
+     panel's inner width at 390px. */
+  .wishTitle {
+    font-size: clamp(2rem, 9vw, 3rem);
+  }
+
+  .footGrid,
+  .footFine {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,174 @@
+/* The customizer's shell: the rail beside the canvas, the canvas in a browser
+   chrome. Everything inside the iframe is the packaged template's stylesheet
+   and is untouched by any of this. */
+
+.shell {
+  display: grid;
+  grid-template-columns: 340px minmax(0, 1fr);
+  align-items: start;
+}
+
+.shellWide {
+  display: block;
+}
+
+.rail {
+  position: sticky;
+  top: 63px;
+  box-sizing: border-box;
+  height: calc(100vh - 63px);
+  overflow-y: auto;
+  border-right: 1px solid oklch(0 0 0 / 0.1);
+}
+
+.stage {
+  box-sizing: border-box;
+  padding: 32px 40px 60px;
+}
+
+.frame {
+  overflow: hidden;
+  background-color: #fff;
+  border: 1px solid var(--s-line);
+  border-radius: 16px;
+  box-shadow: 0 18px 50px oklch(0 0 0 / 0.07);
+}
+
+.chrome {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 11px 15px;
+  background-color: oklch(0.97 0 0);
+  border-bottom: 1px solid var(--s-rule);
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  background-color: oklch(0.82 0 0);
+  border-radius: 50%;
+}
+
+.pill {
+  margin-left: 12px;
+  padding: 5px 14px;
+  overflow: hidden;
+  font: 400 11.5px var(--s-mono);
+  color: var(--s-dim);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background-color: #fff;
+  border: 1px solid oklch(0 0 0 / 0.09);
+  border-radius: 999px;
+}
+
+.expand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  margin-left: auto;
+  padding: 0;
+  color: oklch(0.45 0.01 260);
+  background: none;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.expand:hover {
+  color: var(--s-ink);
+  background-color: oklch(0 0 0 / 0.06);
+}
+
+.canvas {
+  position: relative;
+}
+
+.iframe {
+  display: block;
+  width: 100%;
+  /* Tall enough to read as a page rather than a thumbnail, and capped so it
+     does not push its own chrome off a short screen. */
+  height: min(78vh, 900px);
+  background-color: #fff;
+  border: 0;
+}
+
+.shellWide .iframe {
+  height: calc(100vh - 200px);
+}
+
+/* Over the canvas while a new set of patterns is drawn: the rail's list
+   pulses, the page dims for the same beat. */
+.veil {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  font: 400 13px var(--s-sans);
+  color: var(--s-ink);
+  background-color: oklch(1 0 0 / 0.62);
+  backdrop-filter: blur(1.5px);
+  pointer-events: none;
+}
+
+.skeleton {
+  height: min(78vh, 900px);
+  background: linear-gradient(100deg, #f6f6f6 30%, #efefef 50%, #f6f6f6 70%);
+  background-size: 220% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+
+@keyframes shimmer {
+  to {
+    background-position: -120% 0;
+  }
+}
+
+.loading {
+  padding: 14px;
+  font-size: 13px;
+  color: var(--s-dim);
+  text-align: center;
+}
+
+.notice {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 12px 24px;
+  font-size: 13px;
+  color: var(--s-dim);
+}
+
+.back {
+  color: inherit;
+}
+
+@media (max-width: 1024px) {
+  .shell {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .rail {
+    position: static;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid oklch(0 0 0 / 0.1);
+  }
+
+  .stage {
+    padding: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
+}
