@@ -7,6 +7,9 @@ import {
   pivot, raking, gutter, swapcut, annulus, sail, reeding, miura, lintel,
   dipole,
   cupola, battlement, clipcorner, birdsmouth, rolloff, prismfold,
+  bracket, moleskin, disque, spectrum, ninon, bauhaus, capstan, raku,
+  combed, shatter, grosgrain, wale, spit, gesso, bowsprit, mirrorblack,
+  sound, cornerbite, fractal, pinwheel,
 } from 'tabbied/patterns';
 import type { PatternDefinition } from 'tabbied';
 
@@ -24,7 +27,7 @@ export type NewTemplateSite = {
 };
 
 /**
- * The second template collection: thirty-six single-page brand
+ * The second template collection: fifty-six single-page brand
  * sites under /template/<slug>/, each designed around one Tabbied pattern and
  * AI-generated imagery (see docs/image-pipeline.md). Listed on /template and
  * /templates; palettes here mirror each page's own constants.
@@ -98,4 +101,31 @@ export const NEW_TEMPLATE_SITES: NewTemplateSite[] = [
   { slug: 'ringmark', name: 'Ringmark', topic: 'Bird observatory', patternSlug: 'birdsmouth', pattern: birdsmouth, paletteName: 'Dune lichen', palette: ['#EFEDE3', '#16180F', '#6B7F1E', '#8C8B7C', '#DEDCCE'], seed: 'img-rm' },
   { slug: 'kupferwalz', name: 'Kupferwalz', topic: 'Copper rolling mill', patternSlug: 'rolloff', pattern: rolloff, paletteName: 'Copper, mill night', palette: ['#15100E', '#EFE7DE', '#B4552D', '#7A736D', '#231A16'], seed: 'img-kw' },
   { slug: 'purpurhaus', name: 'Purpurhaus', topic: 'Natural dye works', patternSlug: 'prismfold', pattern: prismfold, paletteName: 'Cochineal plum', palette: ['#F4F0E6', '#191317', '#5E2750', '#8B8279', '#E2DBCB'], seed: 'img-ph' },
+
+  // The idioms set: twenty sites in twenty visual languages, none of them
+  // Swiss. Brutalist, editorial, space age, Y2K, Scandinavian, Bauhaus, Art
+  // Deco, wabi-sabi, terminal, Memphis, mid-century, broadsheet, botanical,
+  // industrial, nautical, photocopy punk, SaaS, lookbook, southwestern and a
+  // sports poster. Each is a whole page without a single photograph: the
+  // patterns are the imagery, and each draws designs no earlier site used.
+  { slug: 'betonpark', name: 'Betonpark', topic: 'Indoor skatepark', patternSlug: 'bracket', pattern: bracket, paletteName: 'Concrete and safety green', palette: ['#EDEDEA', '#0B0B0B', '#2BD32B', '#7A7A76', '#D2D2CC'], seed: 'set-bp' },
+  { slug: 'revue-marges', name: 'Revue Marges', topic: 'Literary quarterly', patternSlug: 'moleskin', pattern: moleskin, paletteName: 'Cream and oxblood', palette: ['#F6F1E7', '#1E1A17', '#7A1F2B', '#8A8177', '#DED4C3'], seed: 'set-rm' },
+  { slug: 'orbital-lounge', name: 'Orbital', topic: 'Listening bar', patternSlug: 'disque', pattern: disque, paletteName: 'Space-age orange', palette: ['#FFF4E3', '#1D1B2B', '#FF6B2C', '#0FA3B1', '#8B8478'], seed: 'set-ol' },
+  { slug: 'pixelmelt', name: 'Pixelmelt', topic: 'Independent game studio', patternSlug: 'spectrum', pattern: spectrum, paletteName: 'Vapour pink and cyan', palette: ['#12081F', '#F4EEFF', '#FF5FD2', '#38E0FF', '#7C6F94'], seed: 'set-pm' },
+  { slug: 'birk-mobler', name: 'Birk Mobler', topic: 'Furniture maker', patternSlug: 'ninon', pattern: ninon, paletteName: 'Oak on white', palette: ['#FAFAF8', '#1F1F1D', '#B8895A', '#9A9994', '#E6E4DF'], seed: 'set-bm' },
+  { slug: 'werkstatt-neun', name: 'Werkstatt Neun', topic: 'Design school workshop', patternSlug: 'bauhaus', pattern: bauhaus, paletteName: 'Three primaries', palette: ['#F2EFE6', '#141414', '#D7263D', '#1F5FBF', '#F2C230'], seed: 'set-wn' },
+  { slug: 'hotel-meridien', name: 'Hotel Meridien', topic: 'Grand hotel', patternSlug: 'capstan', pattern: capstan, paletteName: 'Deco gold on green', palette: ['#0E1F1B', '#F3EBD9', '#C9A24B', '#7E8A82', '#1B2F2A'], seed: 'set-hm' },
+  { slug: 'kiln-aoi', name: 'Kiln Aoi', topic: 'Ceramics studio', patternSlug: 'raku', pattern: raku, paletteName: 'Clay and moss', palette: ['#EFEAE2', '#2B2926', '#9C6B4E', '#6F7A5C', '#A19C93'], seed: 'set-ka' },
+  { slug: 'nullsec', name: 'Nullsec', topic: 'Security research collective', patternSlug: 'combed', pattern: combed, paletteName: 'Terminal green', palette: ['#050807', '#D9F5E3', '#2CFF7A', '#5C7365', '#0E1713'], seed: 'set-ns' },
+  { slug: 'bonbon-club', name: 'Bonbon Club', topic: 'After-school club', patternSlug: 'shatter', pattern: shatter, paletteName: 'Memphis sweets', palette: ['#FFF8E7', '#1B1B1F', '#FF4F7B', '#2FC4B2', '#FFC53D', '#6C5CE7'], seed: 'set-bc' },
+  { slug: 'sable-and-pine', name: 'Sable and Pine', topic: 'Interiors atelier', patternSlug: 'grosgrain', pattern: grosgrain, paletteName: 'Mustard, olive, terracotta', palette: ['#F3EBDD', '#2A241E', '#D9A428', '#5F6B3A', '#C6633B', '#8F8577'], seed: 'set-sp' },
+  { slug: 'harbour-ledger', name: 'The Harbour Ledger', topic: 'Local newspaper', patternSlug: 'wale', pattern: wale, paletteName: 'Newsprint', palette: ['#F7F5EE', '#111111', '#B3261E', '#6B6B66', '#DCD9CF'], seed: 'set-hl' },
+  { slug: 'fennel-and-thyme', name: 'Fennel and Thyme', topic: 'Herbal apothecary', patternSlug: 'spit', pattern: spit, paletteName: 'Sage and honey', palette: ['#F4F1E8', '#22302A', '#5F8063', '#C9A16F', '#8E9689', '#DDE3D8'], seed: 'set-ft' },
+  { slug: 'norrbolt', name: 'Norrbolt', topic: 'Fastener wholesaler', patternSlug: 'gesso', pattern: gesso, paletteName: 'Safety yellow, steel', palette: ['#F1F1EE', '#15171A', '#FFC300', '#6F7378', '#A9AEB4'], seed: 'set-nb' },
+  { slug: 'lantern-rock', name: 'Lantern Rock', topic: 'Lighthouse inn', patternSlug: 'bowsprit', pattern: bowsprit, paletteName: 'Navy and signal red', palette: ['#F5F3EC', '#0F2440', '#C8102E', '#7B8794', '#D9DFE5'], seed: 'set-lr' },
+  { slug: 'xerox-riot', name: 'Xerox Riot', topic: 'Zine fair', patternSlug: 'mirrorblack', pattern: mirrorblack, paletteName: 'Photocopy red', palette: ['#F4F4F0', '#0A0A0A', '#FF1E1E', '#6B6B6B', '#CFCFC8'], seed: 'set-xr' },
+  { slug: 'tidy-ledger', name: 'Tidy Ledger', topic: 'Bookkeeping app', patternSlug: 'sound', pattern: sound, paletteName: 'Violet and mint', palette: ['#FBFAFF', '#1B1A2E', '#6D5DF5', '#2ED3A5', '#7D7A94', '#ECEAFB'], seed: 'set-tl' },
+  { slug: 'atelier-vane', name: 'Atelier Vane', topic: 'Fashion label', patternSlug: 'cornerbite', pattern: cornerbite, paletteName: 'Black on white', palette: ['#FFFFFF', '#000000', '#8C8C8C', '#E4E4E4'], seed: 'set-av' },
+  { slug: 'mesa-outfitters', name: 'Mesa Outfitters', topic: 'Desert trail guides', patternSlug: 'fractal', pattern: fractal, paletteName: 'Terracotta and sky', palette: ['#F7EEDF', '#2B1F16', '#C75B2A', '#3B8EA5', '#8C7E6E', '#E4D5BE'], seed: 'set-mo' },
+  { slug: 'velo-criterium', name: 'Velo Criterium', topic: 'City-centre cycling race', patternSlug: 'pinwheel', pattern: pinwheel, paletteName: 'Lime and electric blue', palette: ['#0B1220', '#F2F5FF', '#C6FF3D', '#2F6BFF', '#6C7590'], seed: 'set-vc' },
 ];

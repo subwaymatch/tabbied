@@ -1,6 +1,6 @@
 # Editable templates
 
-The 57 template sites are finished, hand-designed pages. This is the machinery
+The 77 template sites are finished, hand-designed pages. This is the machinery
 that lets somebody change the *brand* in one - the words, the photographs, the
 colours, the pattern fields - without understanding the page, and without
 being able to break its layout.
@@ -64,7 +64,7 @@ currently say the same thing, or it fails the build.
 ## Brand copy: roles, because ids are local
 
 A slot id is chosen by whoever annotated the page. The five shared
-`TemplateSite` pages say `brand.name` and `hero.title`; the 52 bespoke ones say
+`TemplateSite` pages say `brand.name` and `hero.title`; the 72 bespoke ones say
 `bar.mark`, `colophon.colophonMark`, `index.text12` - whatever the component
 happened to be called when `annotate-templates.mjs` walked it. That is fine for
 an editor, which shows a human the whole list and lets them pick. It is useless
@@ -99,7 +99,7 @@ masthead is the failure worth refusing up front.
 
 Roles are additive and optional. A page with none still edits exactly as it did
 before; it just can't be handed a brand direction. Today the five `TemplateSite`
-pages carry them (one component, so one edit covered all five) and the 52
+pages carry them (one component, so one edit covered all five) and the 72
 bespoke pages do not - the same batching the annotations themselves went
 through.
 
@@ -119,7 +119,7 @@ behind is how a re-coloured page ends up with unreadable body copy. The
 - **`templateSite`** - those, plus the variables the shared component works in
   (`--bg`, `--c1`, `--ink`, `--onC1`, `--card`, `--soft`, `--band`).
 - **`vars`** - the page's own property names, listed in role order by
-  `data-edit-vars`. This is what the 52 bespoke pages use; see below.
+  `data-edit-vars`. This is what the 72 bespoke pages use; see below.
 
 `derivePaletteProperties()` is the single implementation, shared by
 `TemplateSite.tsx` (first render) and `applyEdits` (re-colour). They must agree
@@ -185,7 +185,7 @@ that no longer existed.
 
 **A site with no annotations is not a failure**, so a new template can land
 before it is annotated - the generator reports the count rather than failing.
-All 57 are annotated today: 9,797 text, 374 image, and 434 pattern slots.
+All 77 are annotated today: 13,886 text, 374 image, and 528 pattern slots.
 
 ## The engine
 
@@ -238,10 +238,10 @@ download with the matching rule missing.
 
 ## The two palette derivations
 
-The 52 bespoke pages already kept their colour in one place before any of this
+The 72 bespoke pages already kept their colour in one place before any of this
 existed: each declares `--paper`, `--ink`, `--ochre`... on its root rule and its
 stylesheet only reads `var(--...)`. Renaming those to `--brand-N` would have
-meant a codemod over 52 stylesheets to gain nothing, so instead the page
+meant a codemod over 72 stylesheets to gain nothing, so instead the page
 declares which name each role owns:
 
 ```html

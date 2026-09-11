@@ -1,0 +1,750 @@
+/* ==========================================================================
+   BIRK MOBLER - furniture maker, Aarhus
+   One narrow column of light type, a great deal of paper around it, and
+   hairlines in the pale tone to mark where one thing stops and the next
+   begins. Nothing is bold. The only warm colour is the oak, and it is used
+   the way a maker uses a pencil line: to point, never to fill.
+   ========================================================================== */
+
+.page {
+  --paper: #fafaf8;
+  --ink: #1f1f1d;
+  --oak: #b8895a;
+  --grey: #9a9994;
+  --pale: #e6e4df;
+  --gut: clamp(1.25rem, 5vw, 4rem);
+  --max: 66rem;
+  --measure: 40rem;
+  --air: clamp(5rem, 13vw, 11rem);
+
+  font-family: 'Manrope', 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  letter-spacing: 0.005em;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page :where(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page :focus-visible {
+  outline: 1px solid var(--oak);
+  outline-offset: 4px;
+}
+
+.page h1,
+.page h2,
+.page h3 {
+  font-weight: 300;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+  margin: 0;
+}
+
+/* ---------------------------------------------------------------- top bar
+   Calm: a small-caps mark, six words, the city. No rule under it; the
+   translucent paper is the only thing that says it is a bar. */
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--gut);
+  padding: 1.1rem var(--gut);
+  background: color-mix(in srgb, var(--paper) 90%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+.mark {
+  font-variant-caps: all-small-caps;
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  gap: clamp(1rem, 2.6vw, 2.4rem);
+  flex-wrap: wrap;
+}
+
+.nav a {
+  font-size: 0.82rem;
+  font-weight: 400;
+  color: color-mix(in srgb, var(--ink) 72%, transparent);
+  transition: color 160ms ease;
+}
+
+.nav a:hover {
+  color: var(--oak);
+}
+
+.barMeta {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+/* -------------------------------------------------------------------- hero */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(6rem, 16vw, 14rem) var(--gut) clamp(5rem, 12vw, 10rem);
+}
+
+/* Sparse dots at full opacity: the design is already mostly paper, so the
+   field can be loud and still leave the sentence alone. A mask fades it
+   out before the facts so the numbers sit on clean ground. */
+.heroField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  opacity: 0.85;
+  mask-image: linear-gradient(180deg, var(--ink) 0%, var(--ink) 55%, transparent 96%);
+}
+
+.heroInner {
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.heroKicker {
+  margin: 0 0 clamp(2rem, 5vw, 3.5rem);
+  font-size: 0.74rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.heroTitle {
+  max-width: 22ch;
+  font-size: clamp(2rem, 5.2vw, 3.9rem);
+  line-height: 1.12;
+  font-weight: 300;
+}
+
+.heroTitle em {
+  font-style: normal;
+  color: var(--oak);
+}
+
+.heroLede {
+  margin: clamp(2rem, 5vw, 3.2rem) 0 0;
+  max-width: var(--measure);
+  font-size: clamp(1rem, 1.5vw, 1.12rem);
+  font-weight: 400;
+  color: color-mix(in srgb, var(--ink) 78%, transparent);
+}
+
+.facts {
+  margin: clamp(3.5rem, 9vw, 6.5rem) 0 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--gut);
+  max-width: 44rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--pale);
+}
+
+.facts div {
+  margin: 0;
+}
+
+.facts dt {
+  font-size: clamp(1.6rem, 3.4vw, 2.4rem);
+  font-weight: 200;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.facts dd {
+  margin: 0.55rem 0 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+/* ----------------------------------------------------------- section frame
+   Every section is the same: a number, a light heading, a note, and then
+   whatever the section holds, all inside one column with a hairline above.
+   The air between sections is the design. */
+
+.sec {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: var(--air) var(--gut) 0;
+}
+
+.secHead {
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 1fr);
+  gap: 0.5rem clamp(1rem, 3vw, 2.5rem);
+  align-items: baseline;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--pale);
+  margin-bottom: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+.secNo {
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: var(--oak);
+  font-variant-numeric: tabular-nums;
+}
+
+.secHead h2 {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  line-height: 1.2;
+}
+
+.secNote {
+  grid-column: 2;
+  margin: 0.6rem 0 0;
+  max-width: 34rem;
+  font-size: 0.92rem;
+  color: color-mix(in srgb, var(--ink) 64%, transparent);
+}
+
+/* ------------------------------------------------------------------ pieces
+   A table that does not look like one: each piece is a row with a hairline
+   above it, the note under the numbers rather than beside them. */
+
+.pieces {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 calc(4rem + clamp(1rem, 3vw, 2.5rem));
+}
+
+.pieceHead,
+.pieceRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr) 7rem;
+  gap: 0.4rem clamp(0.8rem, 2vw, 1.8rem);
+  align-items: baseline;
+}
+
+.pieceHead {
+  padding-bottom: 0.7rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.pieceHead span:last-child {
+  text-align: right;
+}
+
+.pieceRow {
+  padding: 1.4rem 0 1.6rem;
+  border-top: 1px solid var(--pale);
+}
+
+.pieceName h3 {
+  font-size: 1.15rem;
+  font-weight: 400;
+}
+
+.pieceName span {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.8rem;
+  color: color-mix(in srgb, var(--ink) 60%, transparent);
+}
+
+.pieceDims,
+.pieceWoods {
+  font-size: 0.92rem;
+  font-variant-numeric: tabular-nums;
+  color: color-mix(in srgb, var(--ink) 74%, transparent);
+}
+
+.piecePrice {
+  font-size: 0.95rem;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  color: var(--ink);
+}
+
+.pieceNote {
+  grid-column: 1 / -1;
+  margin: 0.5rem 0 0;
+  max-width: 38rem;
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--ink) 64%, transparent);
+}
+
+/* ------------------------------------------------------------------- woods */
+
+.woods {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(2rem, 5vw, 4rem);
+  padding-left: calc(4rem + clamp(1rem, 3vw, 2.5rem));
+}
+
+.wood h3 {
+  font-size: 1.3rem;
+  font-weight: 300;
+}
+
+/* The one place the oak is a surface rather than a line, and it is a line
+   too: 3px tall, as wide as the column, a swatch of the wood in question.
+   The three are the same colour on purpose; the words tell them apart. */
+.woodRule {
+  display: block;
+  width: 2.5rem;
+  height: 3px;
+  margin-bottom: 1.2rem;
+  background: var(--oak);
+}
+
+.woodLatin {
+  margin: 0.2rem 0 0;
+  font-size: 0.82rem;
+  font-style: italic;
+  color: color-mix(in srgb, var(--ink) 60%, transparent);
+}
+
+.woodFrom {
+  margin: 0.8rem 0 0;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  color: color-mix(in srgb, var(--ink) 66%, transparent);
+}
+
+.woodNote {
+  margin: 1rem 0 0;
+  font-size: 0.92rem;
+  color: color-mix(in srgb, var(--ink) 78%, transparent);
+}
+
+/* -------------------------------------------------------------------- band */
+
+.band {
+  position: relative;
+  height: 192px;
+  margin-top: var(--air);
+  overflow: hidden;
+}
+
+/* Pinned to an exact multiple of the cell (28 x 96px) and clipped by the
+   band, so every grid track is a whole pixel at every viewport. Sizing the
+   field to the viewport instead gives fractional tracks and a hairline seam
+   at each cell edge, which on a page this quiet is the first thing you see. */
+.bandField {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2688px;
+  height: 192px;
+  overflow: hidden;
+  opacity: 0.8;
+}
+
+/* ------------------------------------------------------------------ making */
+
+.making {
+  position: relative;
+  isolation: isolate;
+  padding: var(--air) 0 0;
+}
+
+/* The wash: an even veil of dots at very low opacity, with the paper
+   concentrated behind the steps so the copy is never read through a dot. */
+.makingField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  opacity: 0.35;
+}
+
+.makingField::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 64% 70% at 50% 58%,
+    var(--paper) 0%,
+    color-mix(in srgb, var(--paper) 60%, transparent) 60%,
+    transparent 100%
+  );
+}
+
+.makingInner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gut);
+}
+
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 calc(4rem + clamp(1rem, 3vw, 2.5rem));
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.5rem, 4vw, 3rem);
+}
+
+.steps li {
+  display: grid;
+  grid-template-rows: auto auto auto 1fr;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--pale);
+}
+
+.stepNo {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 200;
+  line-height: 1;
+  color: var(--oak);
+  margin-bottom: 1.2rem;
+}
+
+.steps h3 {
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+
+.stepTime {
+  margin: 0.3rem 0 0.8rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.steps p {
+  margin: 0;
+  font-size: 0.92rem;
+  color: color-mix(in srgb, var(--ink) 76%, transparent);
+}
+
+/* ---------------------------------------------------------------- showroom */
+
+.visit {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(2rem, 6vw, 5rem);
+  padding-left: calc(4rem + clamp(1rem, 3vw, 2.5rem));
+}
+
+.visitHead {
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--grey);
+  margin-bottom: 1rem;
+}
+
+.visitList {
+  margin: 0;
+}
+
+.visitList div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
+  padding: 0.7rem 0;
+  border-top: 1px solid var(--pale);
+  font-size: 0.95rem;
+}
+
+.visitList dt {
+  color: color-mix(in srgb, var(--ink) 80%, transparent);
+}
+
+.visitList dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.visitNote {
+  margin: 1.4rem 0 0;
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--ink) 64%, transparent);
+}
+
+/* -------------------------------------------------------------------- care */
+
+.care {
+  margin: 0;
+  padding-left: calc(4rem + clamp(1rem, 3vw, 2.5rem));
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.5rem, 4vw, 3rem) clamp(2rem, 6vw, 5rem);
+}
+
+.care div {
+  padding-top: 1rem;
+  border-top: 1px solid var(--pale);
+}
+
+.care dt {
+  font-size: 1.05rem;
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+}
+
+.care dd {
+  margin: 0;
+  font-size: 0.92rem;
+  color: color-mix(in srgb, var(--ink) 76%, transparent);
+}
+
+/* ----------------------------------------------------------------- contact */
+
+.contact {
+  margin: 0;
+  padding-left: calc(4rem + clamp(1rem, 3vw, 2.5rem));
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.5rem, 4vw, 2.5rem) clamp(2rem, 6vw, 5rem);
+  max-width: 50rem;
+}
+
+.contact div {
+  display: grid;
+  grid-template-columns: 5rem minmax(0, 1fr);
+  gap: 1rem;
+  align-items: baseline;
+}
+
+.contact dt {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.contact dd {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.contact a {
+  border-bottom: 1px solid var(--pale);
+  transition: border-color 160ms ease, color 160ms ease;
+}
+
+.contact a:hover {
+  color: var(--oak);
+  border-color: var(--oak);
+}
+
+/* -------------------------------------------------------------------- coda */
+
+.coda {
+  position: relative;
+  height: clamp(120px, 18vw, 216px);
+  margin-top: var(--air);
+  overflow: hidden;
+}
+
+.codaField {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0.7;
+  mask-image: linear-gradient(180deg, transparent 0%, var(--ink) 30%, var(--ink) 100%);
+}
+
+/* ------------------------------------------------------------------ footer
+   Same paper, one hairline, four columns. The page ends as it began. */
+
+.footer {
+  border-top: 1px solid var(--pale);
+  padding: clamp(2.5rem, 6vw, 4rem) var(--gut) clamp(1.6rem, 3vw, 2.4rem);
+}
+
+.footGrid {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+  gap: clamp(1.6rem, 4vw, 3rem);
+  align-items: start;
+}
+
+.footName {
+  margin: 0 0 0.6rem;
+  font-variant-caps: all-small-caps;
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+}
+
+.footTag {
+  margin: 0;
+  max-width: 22rem;
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--ink) 64%, transparent);
+}
+
+.footHead {
+  margin: 0 0 0.9rem;
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.footLinks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.footLinks a {
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--ink) 80%, transparent);
+}
+
+.footLinks a:hover {
+  color: var(--oak);
+}
+
+.footAddr {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: color-mix(in srgb, var(--ink) 80%, transparent);
+}
+
+.footFine {
+  max-width: var(--max);
+  margin: clamp(2.5rem, 6vw, 4rem) auto 0;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--pale);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+.footFine p {
+  margin: 0;
+  font-size: 0.78rem;
+  color: color-mix(in srgb, var(--ink) 60%, transparent);
+}
+
+.footFine a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+}
+
+.footFine a:hover {
+  color: var(--oak);
+}
+
+/* -------------------------------------------------------------- responsive */
+
+@media (max-width: 960px) {
+  .woods,
+  .steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pieces,
+  .woods,
+  .steps,
+  .visit,
+  .care,
+  .contact {
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 720px) {
+  .bar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 1.6rem;
+  }
+
+  .secHead {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+
+  .secNote {
+    grid-column: 1;
+  }
+
+  .pieceHead {
+    display: none;
+  }
+
+  .pieceRow {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .pieceDims,
+  .pieceWoods {
+    grid-column: 1;
+    font-size: 0.86rem;
+  }
+
+  .piecePrice {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .visit,
+  .care {
+    grid-template-columns: 1fr;
+  }
+
+  .band {
+    height: 96px;
+  }
+
+  .bandField {
+    height: 96px;
+  }
+}
+
+@media (max-width: 560px) {
+  .woods,
+  .steps,
+  .contact,
+  .footGrid,
+  .footFine {
+    grid-template-columns: 1fr;
+  }
+
+  .contact div {
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
+  }
+}

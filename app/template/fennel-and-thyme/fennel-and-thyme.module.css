@@ -1,0 +1,949 @@
+/* ==========================================================================
+   FENNEL AND THYME - herbal apothecary, Bath
+   Cream paper, deep green ink, sage and honey. Cormorant Garamond carries the
+   display with an italic accent; Karla sets everything you have to read at
+   speed. Rounded corners, hairline rules, small-caps labels with wide
+   tracking, and air between everything. The patterns sit in the paper colour
+   on a transparent ground, so they read as pressed specimens rather than as
+   pictures.
+   ========================================================================== */
+
+.page {
+  --paper: #f4f1e8;
+  --ink: #22302a;
+  --sage: #5f8063;
+  --honey: #c9a16f;
+  --grey: #8e9689;
+  --pale: #dde3d8;
+  --display: 'Cormorant Garamond', 'Cormorant', Georgia, 'Times New Roman', serif;
+  --body: 'Karla', 'Helvetica Neue', Arial, sans-serif;
+  --rule: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+  --soft: color-mix(in srgb, var(--ink) 80%, transparent);
+  --radius: 1.25rem;
+  --gut: clamp(1.25rem, 5vw, 4rem);
+  --max: 74rem;
+
+  font-family: var(--body);
+  font-size: 1rem;
+  line-height: 1.6;
+  background: var(--paper);
+  color: var(--ink);
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page :where(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page :focus-visible {
+  outline: 2px solid var(--sage);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.page h1,
+.page h2,
+.page h3 {
+  font-family: var(--display);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  margin: 0;
+}
+
+.page h2 {
+  font-size: clamp(2rem, 4.2vw, 3.2rem);
+  line-height: 1.05;
+}
+
+.page h3 {
+  font-size: 1.5rem;
+  line-height: 1.15;
+}
+
+.page p {
+  margin: 0;
+}
+
+/* The small-caps label that opens every section, and its relatives: the hero
+   kicker, the visit terms, the footer heads and the contact card's lead. Real
+   small capitals from Cormorant, and the wide tracking is what makes them read
+   as a label rather than a word. */
+.label,
+.kicker,
+.find dt,
+.footHead,
+.contactLead {
+  font-family: var(--display);
+  font-variant-caps: all-small-caps;
+  font-size: 1.05rem;
+  letter-spacing: 0.24em;
+  color: var(--sage);
+  margin: 0 0 0.9rem;
+}
+
+/* The uppercase micro-label, for sizes, weights and lengths. */
+.size,
+.teaWeight,
+.consultLength {
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+/* Prices, in the display face and honey, with the pound sign drawn by CSS so
+   the markup holds the number alone. */
+.price,
+.teaPrice,
+.consultPrice {
+  font-family: var(--display);
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--honey);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.price::before,
+.teaPrice::before,
+.consultPrice::before {
+  content: '\A3';
+  font-size: 0.8em;
+  margin-right: 0.06em;
+}
+
+/* The italic aside: a Latin name, a tasting note, a grower's region. */
+.latin,
+.teaNote,
+.seasonMonths,
+.growerPlace,
+.barMeta {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--grey);
+}
+
+/* ---------------------------------------------------------------- top bar */
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--gut);
+  padding: 0.9rem var(--gut);
+  background: color-mix(in srgb, var(--paper) 90%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: var(--rule);
+}
+
+.mark {
+  font-family: var(--display);
+  font-size: 1.45rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: clamp(0.9rem, 2.4vw, 2rem);
+}
+
+.nav a {
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--ink) 78%, transparent);
+  padding: 0.2rem 0;
+  border-bottom: 1px solid transparent;
+  transition: color 140ms ease, border-color 140ms ease;
+}
+
+.nav a:hover {
+  color: var(--sage);
+  border-bottom-color: var(--sage);
+}
+
+/* -------------------------------------------------------------------- hero */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(4rem, 12vw, 9.5rem) var(--gut) clamp(3.5rem, 9vw, 7rem);
+}
+
+/* Full-bleed and loud at the top, thinning to nothing by the lede. The mask
+   uses an opaque page colour only for its alpha; any opaque stop would do. */
+.heroField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  opacity: 0.72;
+  mask-image: linear-gradient(180deg, var(--ink) 0%, var(--ink) 40%, transparent 96%);
+}
+
+.heroInner {
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.kicker {
+  font-size: 1.1rem;
+  letter-spacing: 0.26em;
+  margin-bottom: clamp(1.5rem, 4vw, 2.6rem);
+}
+
+.heroTitle {
+  font-size: clamp(3rem, 9vw, 7.2rem);
+  line-height: 0.96;
+  max-width: 12ch;
+}
+
+.heroTitle em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--sage);
+}
+
+.heroLede {
+  margin-top: clamp(1.6rem, 4vw, 2.6rem);
+  max-width: 34rem;
+  font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--ink) 84%, transparent);
+}
+
+.ornament {
+  display: block;
+  margin: clamp(1.8rem, 4vw, 2.8rem) 0 0;
+  font-family: var(--display);
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--honey);
+}
+
+.glance {
+  margin: clamp(1.4rem, 3vw, 2rem) 0 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem var(--gut);
+  max-width: 50rem;
+  padding-top: 1.4rem;
+  border-top: var(--rule);
+}
+
+.glance div {
+  margin: 0;
+}
+
+.glance dt {
+  font-family: var(--display);
+  font-size: clamp(2rem, 4vw, 2.9rem);
+  font-weight: 500;
+  line-height: 1;
+  font-variant-numeric: lining-nums;
+}
+
+.glance dd {
+  margin: 0.35rem 0 0;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  color: var(--grey);
+}
+
+/* ------------------------------------------------------------ section heads */
+
+.secHead {
+  max-width: 40rem;
+  margin-bottom: clamp(2rem, 5vw, 3.5rem);
+}
+
+.secLede {
+  margin-top: 1.1rem;
+  font-size: 1.02rem;
+  color: var(--soft);
+}
+
+/* --------------------------------------------------------------- tinctures
+   Six rounded cards on the paper, each with a hairline border and a price row
+   along the bottom. The rounded card with a hairline is the page's one
+   container, reused for the growers below. */
+
+.tinctures,
+.consult,
+.seasons,
+.visit {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(3rem, 8vw, 6rem) var(--gut);
+}
+
+.tinctureGrid,
+.growerList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2.4vw, 1.6rem);
+}
+
+.tincture,
+.growerList li {
+  padding: clamp(1.4rem, 2.6vw, 1.9rem);
+  border: var(--rule);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--paper) 70%, transparent);
+  transition: border-color 160ms ease, background 160ms ease;
+}
+
+.tincture:hover,
+.growerList li:hover {
+  border-color: color-mix(in srgb, var(--sage) 55%, transparent);
+  background: color-mix(in srgb, var(--pale) 40%, var(--paper));
+}
+
+.tincture {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.tincture h3 {
+  font-size: 1.55rem;
+}
+
+.purpose {
+  font-size: 0.95rem;
+  color: var(--soft);
+  flex: 1;
+}
+
+.priceRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 0.6rem;
+  padding-top: 0.8rem;
+  border-top: var(--rule);
+}
+
+.footnote {
+  margin-top: clamp(1.4rem, 3vw, 2rem);
+  max-width: 40rem;
+  font-size: 0.88rem;
+  color: var(--grey);
+}
+
+/* -------------------------------------------------------------------- teas
+   The pale tint runs edge to edge; inside it the blends are a ledger with a
+   hairline between each row and the weight and price flush right. */
+
+.teas {
+  background: color-mix(in srgb, var(--pale) 55%, var(--paper));
+  padding: clamp(3rem, 8vw, 6rem) var(--gut);
+}
+
+.teasInner {
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.teaList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 56rem;
+}
+
+.teaList li {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.6fr) 4rem 4.5rem;
+  grid-template-areas:
+    'name leaves weight price'
+    'name note weight price';
+  gap: 0.25rem clamp(1rem, 3vw, 2.4rem);
+  align-items: baseline;
+  padding: 1.25rem 0;
+  border-top: var(--rule);
+}
+
+.teaList li:last-child,
+.consultList li:last-child,
+.hours div {
+  border-bottom: var(--rule);
+}
+
+.teaName {
+  grid-area: name;
+  font-size: 1.6rem;
+}
+
+.teaLeaves {
+  grid-area: leaves;
+  font-size: 0.95rem;
+}
+
+.teaNote {
+  grid-area: note;
+  font-size: 1.08rem;
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+}
+
+.teaWeight {
+  grid-area: weight;
+  text-align: right;
+}
+
+.teaPrice {
+  grid-area: price;
+  font-size: 1.45rem;
+  text-align: right;
+}
+
+/* -------------------------------------------------------------------- band
+   Bight at full width, the second loud field. Pinned to a whole multiple of
+   its 96px cell (28 across, 3 down) and clipped by the section, so every grid
+   track is a whole pixel at any viewport width. Sizing it to the viewport
+   gives fractional tracks and a hairline seam at every cell edge. */
+
+.band {
+  position: relative;
+  height: 288px;
+  overflow: hidden;
+}
+
+.bandField {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2688px;
+  height: 288px;
+  overflow: hidden;
+  opacity: 0.85;
+}
+
+/* ----------------------------------------------------------- consultations */
+
+.consult {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: start;
+}
+
+.consultIntro {
+  position: sticky;
+  top: 5.5rem;
+}
+
+.consultNote {
+  margin-top: 1.4rem;
+  padding: 1.1rem 1.3rem;
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--honey) 18%, var(--paper));
+  font-size: 0.92rem;
+  color: color-mix(in srgb, var(--ink) 84%, transparent);
+}
+
+.consultList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.consultList li {
+  padding: 1.5rem 0;
+  border-top: var(--rule);
+}
+
+.consultList p {
+  margin-top: 0.6rem;
+  max-width: 34rem;
+  font-size: 0.95rem;
+  color: var(--soft);
+}
+
+.consultHead {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 1.2rem;
+  align-items: baseline;
+}
+
+.consultHead h3 {
+  font-size: 1.6rem;
+}
+
+.consultPrice {
+  min-width: 3.6rem;
+  text-align: right;
+}
+
+/* ----------------------------------------------------------------- seasons
+   Four columns divided by hairlines, one per quarter, each a short list of
+   what gets made. The italic month range sits above the season's name. */
+
+.seasons {
+  padding-top: clamp(2rem, 6vw, 4rem);
+}
+
+.seasonGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: var(--rule);
+}
+
+.season {
+  padding: 1.6rem clamp(1rem, 2.4vw, 1.8rem) 1.6rem 0;
+  border-right: var(--rule);
+}
+
+.season + .season {
+  padding-left: clamp(1rem, 2.4vw, 1.8rem);
+}
+
+.season:last-child {
+  border-right: 0;
+}
+
+.season h3 {
+  margin-top: 0.3rem;
+  font-size: 1.9rem;
+}
+
+.season ul {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.season li {
+  position: relative;
+  padding-left: 1.1rem;
+  font-size: 0.93rem;
+  color: var(--soft);
+}
+
+.season li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--sage);
+}
+
+/* ---------------------------------------------------------------- sourcing
+   A text-bearing field, so it is pushed far back: low opacity and a wash of
+   paper concentrated where the growers' list sits. */
+
+.sourcing {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3.5rem, 9vw, 7rem) 0;
+}
+
+.sourcingField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  opacity: 0.32;
+}
+
+.sourcingField::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 64% 78% at 50% 50%,
+    var(--paper) 0%,
+    color-mix(in srgb, var(--paper) 60%, transparent) 60%,
+    transparent 100%
+  );
+}
+
+.sourcingInner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gut);
+}
+
+.growerList {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.growerList li {
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  display: grid;
+  gap: 0.3rem;
+}
+
+.growerFarm {
+  font-size: 1.55rem;
+}
+
+.growerPlace {
+  color: var(--sage);
+}
+
+.growerGrows {
+  margin-top: 0.4rem;
+  font-size: 0.95rem;
+}
+
+.growerNote {
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--ink) 68%, transparent);
+}
+
+/* ------------------------------------------------------------------- visit */
+
+.visitGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: start;
+}
+
+.visitIntro .secHead {
+  margin-bottom: 0;
+}
+
+.hours {
+  margin: clamp(1.6rem, 3vw, 2.2rem) 0 0;
+  max-width: 26rem;
+  border-top: var(--rule);
+}
+
+.hours div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
+  padding: 0.7rem 0;
+}
+
+.hours dt,
+.hours dd {
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.hours dd {
+  color: var(--grey);
+  font-variant-numeric: tabular-nums;
+}
+
+.find {
+  margin: 0;
+  display: grid;
+  gap: 1.3rem;
+  padding-top: 0.4rem;
+}
+
+.find div {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.find dt {
+  letter-spacing: 0.2em;
+  margin: 0;
+}
+
+.find dd {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--soft);
+}
+
+/* The contact card: ink-green, rounded, the one solid block on the page. */
+.contactCard {
+  margin-top: clamp(2.5rem, 6vw, 4rem);
+  padding: clamp(2rem, 5vw, 3.5rem) var(--gut);
+  border-radius: calc(var(--radius) * 1.4);
+  background: var(--ink);
+  color: var(--paper);
+  text-align: center;
+  display: grid;
+  justify-items: center;
+  gap: 0.5rem;
+}
+
+.contactCard .ornament {
+  margin: 0 0 0.4rem;
+}
+
+.contactLead {
+  font-size: 1.1rem;
+  color: color-mix(in srgb, var(--paper) 70%, transparent);
+  margin: 0;
+}
+
+.contactMail {
+  font-family: var(--display);
+  font-size: clamp(1.6rem, 3.6vw, 2.6rem);
+  line-height: 1.1;
+  color: var(--paper);
+  overflow-wrap: anywhere;
+}
+
+.contactMail:hover,
+.contactTel:hover {
+  color: var(--honey);
+}
+
+.contactTel {
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, var(--paper) 84%, transparent);
+  font-variant-numeric: tabular-nums;
+}
+
+.contactNote {
+  margin-top: 0.6rem;
+  max-width: 28rem;
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--paper) 62%, transparent);
+}
+
+/* -------------------------------------------------------------------- coda */
+
+.coda {
+  position: relative;
+  height: clamp(132px, 20vw, 264px);
+  overflow: hidden;
+  background: var(--paper);
+}
+
+.codaField {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0.6;
+  mask-image: linear-gradient(180deg, transparent 0%, var(--ink) 30%, var(--ink) 100%);
+}
+
+/* ------------------------------------------------------------------ footer */
+
+.footer {
+  background: color-mix(in srgb, var(--pale) 55%, var(--paper));
+  border-top: var(--rule);
+  padding: clamp(2.5rem, 6vw, 4rem) var(--gut) clamp(1.6rem, 3vw, 2.4rem);
+}
+
+.footGrid {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 1fr));
+  gap: clamp(1.6rem, 4vw, 3rem);
+  align-items: start;
+}
+
+/* Grid children with long unbroken content (an e-mail address) need this to
+   shrink rather than push the column wide. */
+.footBrand,
+.footCol {
+  min-width: 0;
+}
+
+.footName {
+  font-family: var(--display);
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.footTag {
+  max-width: 22rem;
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--ink) 72%, transparent);
+}
+
+.footHead {
+  margin-bottom: 0.8rem;
+}
+
+.footLinks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.footLinks a,
+.footAddr {
+  font-size: 0.92rem;
+  color: color-mix(in srgb, var(--ink) 84%, transparent);
+}
+
+.footLinks a:hover {
+  color: var(--sage);
+}
+
+.footAddr {
+  line-height: 1.7;
+}
+
+.footFine {
+  max-width: var(--max);
+  margin: clamp(2.5rem, 6vw, 4rem) auto 0;
+  padding-top: 1.1rem;
+  border-top: var(--rule);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+.footFine p {
+  font-size: 0.8rem;
+  color: var(--grey);
+}
+
+.footFine a {
+  color: color-mix(in srgb, var(--ink) 76%, transparent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footFine a:hover {
+  color: var(--sage);
+}
+
+/* ------------------------------------------------------------ responsive */
+
+@media (max-width: 1000px) {
+  .tinctureGrid,
+  .seasonGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .season,
+  .season + .season {
+    padding-left: 0;
+    border-right: 0;
+    border-bottom: var(--rule);
+  }
+
+  .season:nth-child(odd) {
+    border-right: var(--rule);
+    padding-right: clamp(1rem, 3vw, 1.8rem);
+  }
+
+  .season:nth-child(even) {
+    padding-left: clamp(1rem, 3vw, 1.8rem);
+  }
+
+  .consult,
+  .visitGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .consultIntro {
+    position: static;
+  }
+
+  .footGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footBrand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 720px) {
+  .bar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .heroTitle {
+    max-width: none;
+  }
+
+  .glance {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 1.4rem;
+  }
+
+  .band,
+  .bandField {
+    height: 192px;
+  }
+
+  .teaList li {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'name price'
+      'leaves leaves'
+      'note note'
+      'weight weight';
+  }
+
+  .teaWeight {
+    text-align: left;
+    margin-top: 0.3rem;
+  }
+
+  .growerList {
+    grid-template-columns: 1fr;
+  }
+
+  .consultHead {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .consultLength {
+    grid-column: 1 / -1;
+    order: 3;
+  }
+}
+
+@media (max-width: 520px) {
+  .tinctureGrid,
+  .seasonGrid,
+  .footGrid,
+  .footFine {
+    grid-template-columns: 1fr;
+  }
+
+  .season:nth-child(odd),
+  .season:nth-child(even) {
+    border-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .coda {
+    height: 108px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav a,
+  .tincture,
+  .growerList li {
+    transition: none;
+  }
+}

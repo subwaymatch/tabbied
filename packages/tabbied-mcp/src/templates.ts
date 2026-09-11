@@ -1,5 +1,5 @@
 // The template-site tools: what an agent needs to start somebody's site from
-// one of the 57 finished designs rather than from an empty page.
+// one of the 77 finished designs rather than from an empty page.
 //
 // The design tools answer "which pattern?". These answer "which *site*, and
 // what am I allowed to change about it?" - which is a different question with a

@@ -215,7 +215,7 @@ and *not* `zip` - so CI stayed green while the first Workers deploy died with
 fflate (zero dependencies), so the only thing the packaging step needs is the
 Node that is already running it. Don't reintroduce a PATH lookup here. Two
 details it depends on: every directory gets its own zero-length `<name>/`
-entry, because 10 of the 57 sites reference no images and their empty `images/`
+entry, because 30 of the 77 sites reference no images and their empty `images/`
 (and the React package's `public/`) would otherwise vanish from the download;
 and entries carry the source file's real mtime, which `zip -r` did and fflate
 does not do on its own.
@@ -240,7 +240,7 @@ The two formats are built in opposite directions, and that is the point:
   source to copy - hand-porting is the trap the derive-don't-port strategy
   above exists to avoid.
 - **React is a copy of the page**, because a template page already *is* a plain
-  React component. The only Next.js API any of the 57 uses is `export const
+  React component. The only Next.js API any of the 77 uses is `export const
   metadata`; there is no next/image, next/link, `'use client'` or
   `generateStaticParams` anywhere. So `page.tsx` ships as authored and only the
   frame changes: metadata lifted into `index.html`, workspace imports pointed
@@ -272,7 +272,7 @@ code: the placeholders already carry their config as `data-*` attributes
 `hydratePatterns()` call revives the whole page.
 
 A site fails loudly rather than shipping broken: more than one CSS module on a
-page, or two hashed names collapsing onto one plain name. All 57 sites
+page, or two hashed names collapsing onto one plain name. All 77 sites
 package, so `KNOWN_UNSUPPORTED` is empty - anything that throws is a new
 problem and exits non-zero.
 
@@ -344,7 +344,7 @@ Four things worth not re-litigating:
   footer) and an edit reaches all of them; the generator fails the build if
   they don't currently agree.
 
-All 57 sites are annotated. The 52 bespoke pages were done by
+All 77 sites are annotated. The 72 bespoke pages were done by
 `scripts/annotate-templates.mjs`, a one-time codemod (`npm run
 annotate:templates`) - run it after adding a new bespoke template, and note it
 skips any page already carrying `data-edit-root`, so a hand-annotated page is
@@ -380,7 +380,7 @@ most of them are units and connectives rather than copy, so they want a person.
 
 **The accent tag is read off the page, never assumed.** `writeText` used to
 rebuild an accented run as an `<em>`, which is right for the five shared pages
-and wrong for the 52 bespoke ones: each accents with whatever its stylesheet
+and wrong for the 72 bespoke ones: each accents with whatever its stylesheet
 targets, and Cobalt Works styles `.hero h1 span`. `accentTagOf` reads it at
 generate time and the slot carries it as `emphasisTag`, so the round trip keeps
 the tag it found. It defaults to `em`, so a page that declares none is
@@ -395,7 +395,7 @@ take a per-item palette from a data array or a conditional, so no static map
 can describe them - they re-colour only through an explicit `palette` in the
 edits document.
 
-**Two palette derivations, and the bespoke one is not `--brand-N`.** Those 52
+**Two palette derivations, and the bespoke one is not `--brand-N`.** Those 72
 pages each declare their own property names on their root rule (`--paper`,
 `--ink`, ...) with the stylesheet reading `var(--...)`, so they use
 `data-edit-root="vars"` plus `data-edit-vars` naming the role order. The
@@ -554,14 +554,14 @@ Things worth not re-litigating:
 ## Studio - matching, then generating
 
 `/studio` takes a description of a business and `/studio/results` answers with
-three template sites. Studio answers with what the repo actually has: 57
+three template sites. Studio answers with what the repo actually has: 77
 finished template sites, each on one of the 295 patterns and one of the 437
 palettes, each with a real page and a real zip. (The AI tier this was designed
 against - `agent-outputs/20260827-studio-ai-plan.md` - has since landed; see
 below. The matcher was not replaced by it.)
 
 - **`lib/studioMatch.ts` is pure and isomorphic; `lib/studioDirections.ts` is
-  server-only.** The index - 57 entries of names, palettes and vocabulary - is
+  server-only.** The index - 77 entries of names, palettes and vocabulary - is
   built at build time and passed to the client as plain data. Importing the
   catalog (384 KB) or the template data into the browser to match against it is
   the thing this split exists to prevent.
@@ -706,7 +706,7 @@ the template and shows the result.
   `planEdits`, which is pure and so runs in the Worker with no DOM; one repair
   retry; a second failure writes the three-string `directionToEdits` floor as
   revision 1 with `source: 'fallback'`, and the workspace says so. Because the
-  document is keyed by slot id, **this reaches all 57 templates today** -
+  document is keyed by slot id, **this reaches all 77 templates today** -
   `data-edit-copy` roles matter only for the cheap card-stage preview.
 - **Sites are pinned and versioned.** `site` records `specVersion` and a
   SHA-256 of the packaged `index.html` it was authored against; `GET

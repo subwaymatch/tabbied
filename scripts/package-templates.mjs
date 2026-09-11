@@ -43,7 +43,7 @@ const globalsCss = path.join(repoRoot, 'styles', 'globals.css');
 // Sites the packager knowingly can't handle. Listed (rather than left to
 // fail) so a *new* failure is a real signal: anything not in here that throws
 // exits non-zero, which is what makes this safe to wire into a build.
-// Currently empty - all 57 sites package.
+// Currently empty - all 77 sites package.
 const KNOWN_UNSUPPORTED = new Map();
 
 // ---- archiving -----------------------------------------------------------
@@ -78,8 +78,8 @@ async function zipDirectory(parentDir, dirName, zipName) {
     // A directory gets an entry of its own - zero bytes, name ending in `/` -
     // exactly as `zip -r` writes one. For a directory with children this is
     // redundant (every extractor creates parents on the way to a file), but
-    // for an *empty* one it is the only record that it existed, and 10 of the
-    // 57 sites reference no images: without this their `images/` (and the
+    // for an *empty* one it is the only record that it existed, and 30 of the
+    // 77 sites reference no images: without this their `images/` (and the
     // React package's `public/`) silently vanish from the download while the
     // README still lists them.
     entries[`${entryName(relativeDir)}/`] = [
@@ -442,7 +442,7 @@ function trimUnusedRules(css, usedClasses) {
  * The HTML package is derived from the export because the markup has to be -
  * there is no framework-free source to copy. React is the opposite case: a
  * template page is *already* a plain React component. The only Next.js API any
- * of the 57 uses is `export const metadata`, and there is no next/image,
+ * of the 77 uses is `export const metadata`, and there is no next/image,
  * next/link, 'use client' or generateStaticParams anywhere. So the page ships
  * as it was written, and what changes is only the frame around it.
  *

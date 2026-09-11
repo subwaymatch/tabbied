@@ -1,0 +1,892 @@
+/* ==========================================================================
+   ATELIER VANE - fashion label, Antwerp
+   A monochrome look-book. White paper, black ink, two greys, and nothing
+   else. Bodoni Moda at very large sizes and a light hand for the display,
+   Inter Tight small for everything that has to be read. Extreme negative
+   space, hairline rules, blocks that sit flush right as often as left. The
+   three patterns are the only imagery and draw in ink and grey on nothing.
+   ========================================================================== */
+
+.page {
+  --paper: #ffffff;
+  --ink: #000000;
+  --grey: #8c8c8c;
+  --pale: #e4e4e4;
+  --gut: clamp(1.25rem, 5vw, 5rem);
+  --max: 88rem;
+  --rule: 1px solid var(--pale);
+  --display: 'Bodoni Moda', 'Didot', 'Bodoni 72', 'Times New Roman', serif;
+  --text: 'Inter Tight', 'Helvetica Neue', Arial, sans-serif;
+
+  font-family: var(--text);
+  font-weight: 400;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.5;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page :where(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page :focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: 4px;
+}
+
+.page h1,
+.page h2,
+.page h3 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-optical-sizing: auto;
+  letter-spacing: -0.01em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* The uppercase micro-label used everywhere a section or a column needs
+   naming. Wide tracking, small, grey. */
+.micro {
+  margin: 0 0 1rem;
+  font-size: 0.66rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+/* ------------------------------------------------------------ top bar */
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  gap: var(--gut);
+  padding: 1.1rem var(--gut);
+  background: color-mix(in srgb, var(--paper) 90%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: var(--rule);
+}
+
+.mark {
+  font-family: var(--display);
+  font-size: 1.25rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+.nav {
+  display: flex;
+  justify-content: flex-end;
+  gap: clamp(1rem, 2.4vw, 2.4rem);
+  flex-wrap: wrap;
+}
+
+.nav a {
+  font-size: 0.68rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink);
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+}
+
+.nav a:hover {
+  border-bottom-color: var(--ink);
+}
+
+.barMeta {
+  font-size: 0.66rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+/* --------------------------------------------------------------- hero */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  min-height: min(92vh, 60rem);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: end;
+  gap: var(--gut);
+  padding: clamp(4rem, 12vw, 9rem) var(--gut) clamp(3rem, 8vw, 6rem);
+}
+
+/* The loudest field: nearly full strength, faded only at the foot so the
+   lede has a clean line to sit on. */
+.heroField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  opacity: 0.9;
+  mask-image: linear-gradient(180deg, var(--ink) 0%, var(--ink) 55%, transparent 100%);
+}
+
+.heroField::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    transparent 40%,
+    color-mix(in srgb, var(--paper) 70%, transparent) 70%,
+    var(--paper) 100%
+  );
+}
+
+/* The season, written up the left edge of the page. */
+.vertical {
+  margin: 0;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 0.66rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--ink);
+  align-self: stretch;
+  padding-bottom: 0.4em;
+}
+
+.heroText {
+  text-align: right;
+  justify-self: end;
+  max-width: 62rem;
+}
+
+.heroTitle {
+  font-size: clamp(3.2rem, 11vw, 10.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  font-weight: 400;
+}
+
+.heroTitle em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--ink);
+}
+
+.heroLede {
+  margin: clamp(1.6rem, 4vw, 3rem) 0 0 auto;
+  max-width: 26rem;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--ink) 72%, transparent);
+}
+
+/* -------------------------------------------------------------- index */
+
+.index {
+  border-top: var(--rule);
+  border-bottom: var(--rule);
+}
+
+.indexList {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gut);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.indexList div {
+  margin: 0;
+  padding: 1.6rem 0;
+  border-left: var(--rule);
+  padding-left: 1.4rem;
+}
+
+.indexList div:first-child {
+  border-left: 0;
+  padding-left: 0;
+}
+
+.indexList dt {
+  font-family: var(--display);
+  font-size: clamp(1.8rem, 3.4vw, 2.8rem);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.indexList dd {
+  margin: 0.5rem 0 0;
+  font-size: 0.66rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+/* ----------------------------------------------------------- sections */
+
+.collection,
+.materials,
+.shows,
+.press {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(4rem, 10vw, 8rem) var(--gut);
+}
+
+.secHead,
+.secHeadRight {
+  max-width: 34rem;
+  margin: 0 0 clamp(2.5rem, 6vw, 4.5rem);
+}
+
+.secHeadRight {
+  margin-left: auto;
+  text-align: right;
+}
+
+.secHeadRight .micro {
+  text-align: right;
+}
+
+.secHead h2,
+.secHeadRight h2,
+.atelierText h2 {
+  font-size: clamp(2.4rem, 6vw, 5.2rem);
+  line-height: 1;
+}
+
+.secNote {
+  margin: 1.4rem 0 0;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+}
+
+.secHeadRight .secNote {
+  margin-left: auto;
+}
+
+/* --------------------------------------------------------- collection
+   Twelve rows, each a hairline apart and generously tall. The number and
+   the fabric are set small and wide; the name is the only large thing. */
+
+.looks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: var(--rule);
+}
+
+.looks li {
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1.6fr);
+  gap: clamp(1rem, 3vw, 3rem);
+  align-items: baseline;
+  padding: clamp(1.4rem, 3vw, 2.2rem) 0;
+  border-bottom: var(--rule);
+}
+
+.lookNo {
+  font-size: 0.66rem;
+  letter-spacing: 0.3em;
+  color: var(--grey);
+  font-variant-numeric: tabular-nums;
+}
+
+.lookName {
+  font-size: clamp(1.6rem, 3vw, 2.6rem);
+  line-height: 1;
+}
+
+.lookFabric {
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.lookNote {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--ink) 68%, transparent);
+}
+
+/* ---------------------------------------------------------- materials */
+
+.mills {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  border-top: var(--rule);
+  border-left: var(--rule);
+}
+
+.mills div {
+  margin: 0;
+  padding: 1.6rem 1.4rem 1.8rem;
+  border-right: var(--rule);
+  border-bottom: var(--rule);
+}
+
+.mills dt {
+  font-family: var(--display);
+  font-size: 1.5rem;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+
+.mills dd {
+  margin: 0;
+}
+
+.millName {
+  font-size: 0.92rem;
+}
+
+.millPlace {
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--ink) 66%, transparent);
+}
+
+.millUsed {
+  margin-top: 0.9rem !important;
+  font-size: 0.66rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+/* ---------------------------------------------------------- stockists
+   The one wash on the page: the pattern behind the list at low strength
+   and under a wash of paper concentrated where the type is. */
+
+.stockists {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(4rem, 10vw, 8rem) 0;
+  border-top: var(--rule);
+  border-bottom: var(--rule);
+}
+
+.stockField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  opacity: 0.32;
+}
+
+.stockField::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 64% 80% at 50% 50%,
+    var(--paper) 0%,
+    color-mix(in srgb, var(--paper) 60%, transparent) 60%,
+    transparent 100%
+  );
+}
+
+.stockInner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gut);
+}
+
+.stockList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(2rem, 6vw, 6rem);
+}
+
+.stockList li {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: 1rem;
+  align-items: baseline;
+  padding: 1rem 0;
+  border-bottom: var(--rule);
+}
+
+.stockCity {
+  font-size: 0.66rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.stockShop {
+  font-family: var(--display);
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.stockStreet {
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--ink) 66%, transparent);
+  text-align: right;
+}
+
+/* -------------------------------------------------------------- shows */
+
+.showList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: var(--rule);
+}
+
+.showList li {
+  display: grid;
+  grid-template-columns: 8rem 7rem minmax(0, 1.4fr) minmax(0, 1.2fr) 8rem;
+  gap: clamp(1rem, 2.5vw, 2.5rem);
+  align-items: baseline;
+  padding: 1.5rem 0;
+  border-bottom: var(--rule);
+}
+
+.showDate {
+  font-variant-numeric: tabular-nums;
+  font-size: 0.9rem;
+}
+
+.showCity {
+  font-size: 0.66rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.showWhat {
+  font-family: var(--display);
+  font-size: 1.35rem;
+  line-height: 1.1;
+}
+
+.showWhere {
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--ink) 66%, transparent);
+}
+
+.showTime {
+  font-size: 0.9rem;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.showNote {
+  margin: 2.5rem 0 0 auto;
+  max-width: 28rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--ink) 66%, transparent);
+  text-align: right;
+}
+
+/* ------------------------------------------------------------ atelier */
+
+.atelier {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(4rem, 10vw, 8rem) var(--gut);
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: clamp(2rem, 8vw, 8rem);
+  align-items: start;
+  border-top: var(--rule);
+}
+
+.atelierLede {
+  margin: clamp(1.6rem, 3vw, 2.4rem) 0 0;
+  max-width: 30rem;
+  font-size: 1.02rem;
+  line-height: 1.6;
+}
+
+.atelierBody {
+  margin: 1.2rem 0 0;
+  max-width: 30rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--ink) 66%, transparent);
+}
+
+.people {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: var(--rule);
+  align-self: end;
+}
+
+.people li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr) 3.5rem;
+  gap: 1rem;
+  align-items: baseline;
+  padding: 1.1rem 0;
+  border-bottom: var(--rule);
+}
+
+.personName {
+  font-family: var(--display);
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.personRole {
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--ink) 66%, transparent);
+}
+
+.personSince {
+  font-size: 0.72rem;
+  color: var(--grey);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* -------------------------------------------------------------- press */
+
+.press {
+  border-top: var(--rule);
+}
+
+.pressList {
+  margin: 0 0 0 auto;
+  max-width: 44rem;
+  display: grid;
+  gap: 0;
+  border-top: var(--rule);
+}
+
+.pressList div {
+  display: grid;
+  grid-template-columns: 8rem minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: baseline;
+  padding: 1.1rem 0;
+  border-bottom: var(--rule);
+}
+
+.pressList dt {
+  font-size: 0.66rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.pressList dd {
+  margin: 0;
+  font-size: 0.92rem;
+  text-align: right;
+}
+
+.pressAddr {
+  margin: 2rem 0 0 auto;
+  max-width: 44rem;
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--ink) 66%, transparent);
+  text-align: right;
+}
+
+/* --------------------------------------------------------------- coda
+   The coil at working size, in ink, between the last section and the
+   footer. Purely decorative. */
+
+.coda {
+  position: relative;
+  height: clamp(180px, 28vw, 360px);
+  overflow: hidden;
+  border-top: var(--rule);
+}
+
+.codaField {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0.9;
+}
+
+/* ------------------------------------------------------------- footer */
+
+.footer {
+  border-top: 1px solid var(--ink);
+  padding: clamp(2.5rem, 6vw, 4rem) var(--gut) clamp(1.6rem, 3vw, 2.4rem);
+}
+
+.footGrid {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: clamp(1.6rem, 4vw, 3rem);
+  align-items: start;
+}
+
+.footName {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1;
+}
+
+.footLinks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+  text-align: center;
+}
+
+.footLinks a {
+  font-size: 0.68rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.footLinks a:hover {
+  color: var(--grey);
+}
+
+.footAddr {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  text-align: right;
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+}
+
+.footFine {
+  max-width: var(--max);
+  margin: clamp(2.5rem, 6vw, 4rem) auto 0;
+  padding-top: 1.1rem;
+  border-top: var(--rule);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+.footFine p {
+  margin: 0;
+  font-size: 0.74rem;
+  color: var(--grey);
+}
+
+.footFine p:last-child {
+  text-align: right;
+}
+
+.footFine a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footFine a:hover {
+  color: var(--grey);
+}
+
+/* --------------------------------------------------------- responsive */
+
+@media (max-width: 1100px) {
+  .looks li {
+    grid-template-columns: 3rem minmax(0, 1fr) minmax(0, 1.6fr);
+    row-gap: 0.4rem;
+  }
+
+  .lookFabric {
+    grid-column: 2;
+  }
+
+  .lookNote {
+    grid-column: 3;
+    grid-row: 1 / 3;
+  }
+
+  .showList li {
+    grid-template-columns: 8rem minmax(0, 1fr) 7rem;
+    row-gap: 0.3rem;
+  }
+
+  .showCity {
+    grid-column: 1;
+  }
+
+  .showWhat {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .showWhere {
+    grid-column: 2;
+  }
+
+  .showTime {
+    grid-column: 3;
+    grid-row: 1;
+  }
+}
+
+@media (max-width: 900px) {
+  .mills {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stockList {
+    grid-template-columns: 1fr;
+  }
+
+  .atelier {
+    grid-template-columns: 1fr;
+  }
+
+  .footGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .footLinks,
+  .footAddr {
+    text-align: left;
+  }
+}
+
+@media (max-width: 700px) {
+  .bar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .vertical {
+    writing-mode: horizontal-tb;
+    transform: none;
+    padding: 0;
+    margin-bottom: 2rem;
+  }
+
+  .heroText {
+    text-align: left;
+    justify-self: start;
+  }
+
+  .heroLede {
+    margin-left: 0;
+  }
+
+  .heroField::after {
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      color-mix(in srgb, var(--paper) 70%, transparent) 70%,
+      var(--paper) 100%
+    );
+  }
+
+  .indexList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .indexList div:nth-child(3) {
+    border-left: 0;
+    padding-left: 0;
+  }
+
+  .looks li {
+    grid-template-columns: 3rem minmax(0, 1fr);
+  }
+
+  .lookNote {
+    grid-column: 2;
+    grid-row: auto;
+  }
+
+  .mills {
+    grid-template-columns: 1fr;
+  }
+
+  .stockList li {
+    grid-template-columns: 6rem minmax(0, 1fr);
+  }
+
+  .stockStreet {
+    grid-column: 2;
+    text-align: left;
+  }
+
+  .showList li {
+    grid-template-columns: minmax(0, 1fr) 6rem;
+  }
+
+  .showDate {
+    grid-column: 1;
+  }
+
+  .showCity,
+  .showWhat,
+  .showWhere {
+    grid-column: 1;
+  }
+
+  .showTime {
+    grid-column: 2;
+  }
+
+  .secHeadRight,
+  .secHeadRight .micro,
+  .showNote,
+  .pressAddr,
+  .pressList dd {
+    text-align: left;
+    margin-left: 0;
+  }
+
+  .pressList div {
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
+  }
+
+  .people li {
+    grid-template-columns: minmax(0, 1fr) 3.5rem;
+  }
+
+  .personRole {
+    grid-column: 1;
+  }
+
+  .footFine {
+    grid-template-columns: 1fr;
+  }
+
+  .footFine p:last-child {
+    text-align: left;
+  }
+}

@@ -1,7 +1,7 @@
 // Studio's matcher: prose in, three template sites out.
 //
 // This is deliberately not a model call. Everything Studio needs to answer with
-// already exists in the repo - 57 finished template sites, each built on one of
+// already exists in the repo - 77 finished template sites, each built on one of
 // the 295 patterns and one of the 437 palettes, each with a real preview page
 // and a real downloadable zip. So a description is matched against that library
 // rather than used to generate anything, and every result is a site a person can
@@ -9,7 +9,7 @@
 //
 // It runs in the browser, which is why it takes a prebuilt index (see
 // lib/studioDirections.ts) instead of importing the catalog: the vocabulary for
-// 57 sites is a few kilobytes, the catalog is 384 KB.
+// 77 sites is a few kilobytes, the catalog is 384 KB.
 //
 // When the AI gateway in agent-outputs/20260827-studio-ai-plan.md lands, it
 // replaces `matchDirections` and nothing above it has to change.

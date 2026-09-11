@@ -1,0 +1,1015 @@
+/* ==========================================================================
+   LANTERN ROCK - lighthouse keepers' inn, Pembrokeshire
+   Off-white paper, navy ink, one red, a grey and a pale blue. Libre
+   Baskerville for anything that is a heading, a year or a rate; Source Sans
+   for everything read at length. Double rules stand in for rope, navy panels
+   carry cream type, labels are set in small capitals, and the compass is
+   drawn in CSS. Patterns sit on a transparent ground so the paper, or the
+   navy, runs straight through them like the hatching on a chart.
+   ========================================================================== */
+
+.page {
+  --paper: #f5f3ec;
+  --ink: #0f2440;
+  --red: #c8102e;
+  --grey: #7b8794;
+  --pale: #d9dfe5;
+  --display: 'Libre Baskerville', Baskerville, 'Times New Roman', serif;
+  --body: 'Source Sans 3', 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+  --rope: 5px double var(--ink);
+  --ropeSoft: 4px double color-mix(in srgb, var(--ink) 40%, transparent);
+  --hair: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+  --soft: color-mix(in srgb, var(--ink) 80%, transparent);
+  --gut: clamp(1.25rem, 5vw, 4rem);
+  --max: 74rem;
+
+  font-family: var(--body);
+  font-size: 1.02rem;
+  line-height: 1.55;
+  background: var(--paper);
+  color: var(--ink);
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page :where(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page :focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+}
+
+.page h1,
+.page h2,
+.page h3 {
+  font-family: var(--display);
+  font-weight: 400;
+  line-height: 1.12;
+  text-wrap: balance;
+  margin: 0;
+}
+
+.page h2 {
+  font-size: clamp(1.8rem, 3.6vw, 2.7rem);
+}
+
+.page h3 {
+  font-size: 1.35rem;
+}
+
+.page p {
+  margin: 0;
+}
+
+/* Small capitals, tracked wide: the section labels, the hero kicker, the
+   strip's terms, the room facts, the footer heads and every dt on the page
+   that names a thing rather than says it. */
+.label,
+.kicker,
+.stripList dt,
+.roomFacts dt,
+.tideHead span,
+.hereList dt,
+.terms dt,
+.footHead,
+.barMeta {
+  font-family: var(--display);
+  font-variant-caps: small-caps;
+  font-size: 0.86rem;
+  letter-spacing: 0.18em;
+  color: var(--grey);
+  margin: 0 0 0.9rem;
+}
+
+/* The rate, the year, the tide: numbers in the display face. */
+.rate,
+.year,
+.tideTime,
+.tideRange,
+.walkMiles {
+  font-family: var(--display);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.rate::before {
+  content: '\A3';
+  font-size: 0.72em;
+  margin-right: 0.04em;
+}
+
+/* ---------------------------------------------------------------- top bar */
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--gut);
+  padding: 0.8rem var(--gut);
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: var(--ropeSoft);
+}
+
+.mark {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: 0.02em;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: clamp(0.8rem, 2vw, 1.6rem);
+}
+
+.nav a {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--soft);
+  padding: 0.2rem 0;
+  border-bottom: 2px solid transparent;
+}
+
+.nav a:hover {
+  color: var(--red);
+  border-bottom-color: var(--red);
+}
+
+.barMeta {
+  margin: 0;
+}
+
+/* -------------------------------------------------------------------- hero */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3.5rem, 10vw, 8rem) var(--gut) clamp(3rem, 8vw, 6rem);
+}
+
+.heroField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  opacity: 0.6;
+  mask-image: linear-gradient(180deg, var(--ink) 0%, var(--ink) 45%, transparent 100%);
+}
+
+.heroInner {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: center;
+}
+
+.kicker {
+  color: var(--red);
+  margin-bottom: clamp(1.2rem, 3vw, 2rem);
+}
+
+.heroTitle {
+  font-size: clamp(2.6rem, 7vw, 5.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+}
+
+.heroTitle em {
+  font-style: italic;
+  color: var(--red);
+}
+
+.heroLede {
+  margin-top: clamp(1.4rem, 3.5vw, 2.2rem);
+  max-width: 34rem;
+  font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+  color: var(--soft);
+}
+
+.cta,
+.bookMail {
+  display: inline-block;
+  margin-top: clamp(1.6rem, 4vw, 2.4rem);
+  font-family: var(--display);
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
+  padding: 0.85em 1.5em;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  color: var(--ink);
+}
+
+.cta:hover,
+.bookMail:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* The compass badge: two rings, the cardinal letters drawn by pseudo
+   elements, and a needle that is red to the north. Purely decorative. */
+.compass {
+  position: relative;
+  width: clamp(9rem, 18vw, 13rem);
+  aspect-ratio: 1;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--paper) 82%, transparent);
+  box-shadow: inset 0 0 0 0.8rem var(--paper), inset 0 0 0 calc(0.8rem + 1px) color-mix(in srgb, var(--ink) 35%, transparent);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+}
+
+.compass::before,
+.compass::after,
+.compassEW::before,
+.compassEW::after {
+  position: absolute;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.compass::before {
+  content: 'N';
+  top: 1.15rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--red);
+}
+
+.compass::after {
+  content: 'S';
+  bottom: 1.15rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.compassEW {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: repeating-conic-gradient(
+    from -1deg,
+    color-mix(in srgb, var(--ink) 30%, transparent) 0deg 2deg,
+    transparent 2deg 30deg
+  );
+  mask-image: radial-gradient(circle, transparent 0 62%, var(--ink) 62% 70%, transparent 70%);
+}
+
+.compassEW::before {
+  content: 'W';
+  left: 1.15rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.compassEW::after {
+  content: 'E';
+  right: 1.15rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.needle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0.55rem;
+  height: 52%;
+  transform: translate(-50%, -50%) rotate(28deg);
+  background: linear-gradient(180deg, var(--red) 0 50%, var(--ink) 50% 100%);
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}
+
+.needle::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0.7rem;
+  height: 0.7rem;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+}
+
+/* ------------------------------------------------------ weather and tide */
+
+.strip {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 1.1rem var(--gut);
+  border-top: 5px double var(--paper);
+}
+
+.stripList {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.8rem 1.4rem;
+}
+
+.stripList div {
+  margin: 0;
+}
+
+.stripList dt {
+  color: color-mix(in srgb, var(--paper) 62%, transparent);
+  margin-bottom: 0.15rem;
+}
+
+.stripList dd {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------------------------------------------------- section heads */
+
+.secHead {
+  max-width: 42rem;
+  margin-bottom: clamp(1.8rem, 5vw, 3rem);
+}
+
+.secLede {
+  margin-top: 1rem;
+  color: var(--soft);
+}
+
+/* ------------------------------------------------------------------- rooms
+   Four cards on the pale tint, each opened by a rope rule, with the rate at
+   the head and the keeper's name in italic beneath. */
+
+.rooms {
+  background: color-mix(in srgb, var(--pale) 55%, var(--paper));
+  padding: clamp(3rem, 8vw, 6rem) var(--gut);
+}
+
+.rooms .secHead,
+.roomGrid {
+  max-width: var(--max);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.roomGrid {
+  list-style: none;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.2rem, 3vw, 2.2rem);
+}
+
+.room {
+  padding: 1.2rem 0 0;
+  border-top: var(--rope);
+  display: grid;
+  gap: 0.6rem;
+}
+
+.roomHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.roomHead h3 {
+  font-size: 1.7rem;
+}
+
+.rate {
+  font-size: 1.5rem;
+  color: var(--red);
+}
+
+.keeper {
+  font-style: italic;
+  color: var(--grey);
+}
+
+.roomFacts {
+  margin: 0.4rem 0 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  padding: 0.8rem 0;
+  border-top: var(--hair);
+  border-bottom: var(--hair);
+}
+
+.roomFacts dt {
+  margin-bottom: 0.15rem;
+}
+
+.roomFacts dd {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.roomNote {
+  font-size: 0.95rem;
+  color: var(--soft);
+}
+
+/* --------------------------------------------------------------- the light
+   A timeline: the year in the display face, red, on a hairline rail. */
+
+.light,
+.breakfast,
+.tides,
+.here {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(3rem, 8vw, 6rem) var(--gut);
+}
+
+.lightGrid,
+.tidesGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: start;
+}
+
+.lightIntro {
+  position: sticky;
+  top: 5rem;
+}
+
+.lightAside {
+  margin-top: 1.4rem;
+  padding: 1rem 1.2rem;
+  border-left: 4px double var(--red);
+  font-size: 0.95rem;
+  color: var(--soft);
+}
+
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: var(--rope);
+}
+
+.timeline li {
+  display: grid;
+  grid-template-columns: 5rem minmax(0, 1fr);
+  gap: 1.2rem;
+  padding: 1rem 0;
+  border-bottom: var(--hair);
+  align-items: baseline;
+}
+
+.year {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--red);
+}
+
+.timeline p {
+  font-size: 0.97rem;
+  color: var(--soft);
+}
+
+/* -------------------------------------------------------------------- band
+   Bowsprit again, on navy, in pale and red. Pinned to a whole multiple of
+   its 96px cell (28 across, 3 down) and clipped by the section, so every
+   grid track is a whole pixel at any viewport; sized to the viewport it
+   would seam at every cell edge. */
+
+.band {
+  position: relative;
+  height: 288px;
+  overflow: hidden;
+  background: var(--ink);
+  border-top: var(--rope);
+  border-bottom: var(--rope);
+}
+
+.bandField {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2688px;
+  height: 288px;
+  overflow: hidden;
+  opacity: 0.9;
+}
+
+/* --------------------------------------------------------------- breakfast */
+
+.menu {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 clamp(2rem, 5vw, 4rem);
+  border-top: var(--rope);
+}
+
+.menu div {
+  padding: 1.1rem 0;
+  border-bottom: var(--hair);
+}
+
+.menu dt {
+  font-family: var(--display);
+  font-size: 1.2rem;
+  margin-bottom: 0.3rem;
+}
+
+.menu dd {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--soft);
+}
+
+/* ------------------------------------------------------------------- walks
+   A text-bearing field: bobbinet far back, washed with paper where the list
+   sits, so the eyelets read as the grid on a chart. */
+
+.walks {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3.5rem, 9vw, 7rem) 0;
+}
+
+.walksField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  opacity: 0.34;
+}
+
+.walksField::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 66% 80% at 50% 50%,
+    var(--paper) 0%,
+    color-mix(in srgb, var(--paper) 55%, transparent) 62%,
+    transparent 100%
+  );
+}
+
+.walksInner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gut);
+}
+
+.walkList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: var(--rope);
+}
+
+.walkList li {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) 4.5rem 5.5rem 6rem;
+  grid-template-areas:
+    'name miles time grade'
+    'body body body body';
+  gap: 0.4rem 1.2rem;
+  align-items: baseline;
+  padding: 1.1rem 0;
+  border-bottom: var(--hair);
+}
+
+.walkName {
+  grid-area: name;
+  font-size: 1.35rem;
+}
+
+.walkMiles {
+  grid-area: miles;
+  font-size: 1.2rem;
+}
+
+.walkMiles::after {
+  content: ' mi';
+  font-family: var(--body);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--grey);
+}
+
+.walkTime {
+  grid-area: time;
+  font-size: 0.95rem;
+  color: var(--soft);
+  font-variant-numeric: tabular-nums;
+}
+
+.walkGrade {
+  grid-area: grade;
+  justify-self: end;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: var(--ink);
+  padding: 0.25em 0.6em;
+  border-radius: 999px;
+}
+
+.walkBody {
+  grid-area: body;
+  max-width: 44rem;
+  font-size: 0.95rem;
+  color: var(--soft);
+}
+
+/* ------------------------------------------------------------------- tides */
+
+.notes {
+  list-style: none;
+  margin: 1.4rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.notes li {
+  padding-left: 1.2rem;
+  position: relative;
+  font-size: 0.95rem;
+  color: var(--soft);
+}
+
+.notes li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 0.5rem;
+  height: 0.5rem;
+  border: 2px solid var(--red);
+  border-radius: 50%;
+}
+
+.tideTable {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: var(--rope);
+}
+
+.tideTable li {
+  display: grid;
+  grid-template-columns: 3.5rem repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: baseline;
+  padding: 0.7rem 0;
+  border-bottom: var(--hair);
+}
+
+.tideHead span {
+  margin: 0;
+}
+
+.tideDay {
+  font-weight: 600;
+}
+
+.tideTime {
+  font-size: 1.15rem;
+}
+
+.tideRange {
+  color: var(--grey);
+}
+
+/* -------------------------------------------------------------------- book
+   The navy panel: cream type, the terms in two columns, the telephone
+   number at display size because it is how a room actually gets booked. */
+
+.book {
+  background: var(--ink);
+  color: var(--paper);
+  padding: clamp(3rem, 8vw, 6rem) var(--gut);
+  border-top: var(--rope);
+}
+
+.bookInner {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: start;
+}
+
+.book .label,
+.book .terms dt {
+  color: color-mix(in srgb, var(--paper) 62%, transparent);
+}
+
+.book .secLede,
+.terms dd {
+  color: color-mix(in srgb, var(--paper) 80%, transparent);
+}
+
+.bookTel {
+  display: block;
+  margin-top: clamp(1.4rem, 3vw, 2rem);
+  font-family: var(--display);
+  font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+  line-height: 1.1;
+  color: var(--paper);
+  font-variant-numeric: tabular-nums;
+}
+
+.bookTel:hover {
+  color: var(--pale);
+}
+
+.bookMail {
+  margin-top: 1rem;
+  border-color: var(--paper);
+  color: var(--paper);
+}
+
+.bookMail:hover {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.terms {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 clamp(1.5rem, 4vw, 3rem);
+  border-top: 5px double color-mix(in srgb, var(--paper) 50%, transparent);
+}
+
+.terms div {
+  padding: 0.9rem 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--paper) 20%, transparent);
+}
+
+.terms dt {
+  margin-bottom: 0.2rem;
+}
+
+.terms dd {
+  margin: 0;
+  font-size: 0.93rem;
+}
+
+/* ------------------------------------------------------------ getting here */
+
+.hereList {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.4rem, 3vw, 2.2rem) clamp(2rem, 5vw, 4rem);
+}
+
+.hereList div {
+  padding-top: 1rem;
+  border-top: var(--rope);
+}
+
+.hereList dt {
+  margin-bottom: 0.4rem;
+  color: var(--red);
+}
+
+.hereList dd {
+  margin: 0;
+  font-size: 0.97rem;
+  color: var(--soft);
+}
+
+/* -------------------------------------------------------------------- coda */
+
+.coda {
+  position: relative;
+  height: clamp(132px, 20vw, 248px);
+  overflow: hidden;
+  border-top: var(--ropeSoft);
+}
+
+.codaField {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0.7;
+}
+
+/* ------------------------------------------------------------------ footer */
+
+.footer {
+  border-top: var(--rope);
+  background: color-mix(in srgb, var(--pale) 40%, var(--paper));
+  padding: clamp(2.5rem, 6vw, 4rem) var(--gut) clamp(1.6rem, 3vw, 2.4rem);
+}
+
+.footGrid {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 1fr));
+  gap: clamp(1.6rem, 4vw, 3rem);
+  align-items: start;
+}
+
+/* Grid children with long unbroken content (an e-mail address) need this to
+   shrink rather than push the column wide. */
+.heroCopy,
+.bookIntro,
+.footBrand,
+.footCol {
+  min-width: 0;
+}
+
+.footName {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.footTag {
+  max-width: 22rem;
+  font-size: 0.92rem;
+  color: var(--soft);
+}
+
+.footHead {
+  margin-bottom: 0.7rem;
+}
+
+.footLinks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.footLinks a,
+.footAddr {
+  font-size: 0.95rem;
+  color: var(--soft);
+}
+
+.footLinks a:hover {
+  color: var(--red);
+}
+
+.footAddr {
+  line-height: 1.7;
+}
+
+.footFine {
+  max-width: var(--max);
+  margin: clamp(2.5rem, 6vw, 4rem) auto 0;
+  padding-top: 1.1rem;
+  border-top: var(--hair);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+.footFine p {
+  font-size: 0.82rem;
+  color: var(--grey);
+}
+
+.footFine a {
+  color: var(--soft);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footFine a:hover {
+  color: var(--red);
+}
+
+/* ------------------------------------------------------------ responsive */
+
+@media (max-width: 1000px) {
+  .stripList {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .lightGrid,
+  .tidesGrid,
+  .bookInner {
+    grid-template-columns: 1fr;
+  }
+
+  .lightIntro {
+    position: static;
+  }
+
+  .footGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footBrand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 760px) {
+  .bar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .heroInner {
+    grid-template-columns: 1fr;
+  }
+
+  .compass {
+    justify-self: start;
+  }
+
+  .band,
+  .bandField {
+    height: 192px;
+  }
+
+  .roomGrid,
+  .menu,
+  .terms,
+  .hereList {
+    grid-template-columns: 1fr;
+  }
+
+  .walkList li {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'name grade'
+      'miles time'
+      'body body';
+  }
+
+  .walkTime {
+    justify-self: start;
+  }
+}
+
+@media (max-width: 520px) {
+  .stripList,
+  .footGrid,
+  .footFine {
+    grid-template-columns: 1fr;
+  }
+
+  .stripList div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .stripList dt {
+    margin: 0;
+  }
+
+  .roomFacts {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+
+  .timeline li {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+
+  .tideTable li {
+    grid-template-columns: 2.6rem repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+
+  .coda {
+    height: 108px;
+  }
+}

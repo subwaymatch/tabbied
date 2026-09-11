@@ -1,0 +1,732 @@
+/* ==========================================================================
+   WERKSTATT NEUN - summer school in a 1929 hall, Dessau
+   A twelve-column grid held strictly, capitals for anything that has to be
+   read from across a room, and the three primaries used flat: as bars, as
+   blocks, as a circle, a square and a triangle cut from plain CSS. Every
+   section is numbered, and so is everything in it.
+   ========================================================================== */
+
+.page {
+  --paper: #f2efe6;
+  --ink: #141414;
+  --red: #d7263d;
+  --blue: #1f5fbf;
+  --yellow: #f2c230;
+  --gut: clamp(1.25rem, 4vw, 3.5rem);
+  --max: 80rem;
+  --unit: 0.75rem;
+  --bar: 0.75rem;
+
+  font-family: 'Jost', 'Futura', 'Century Gothic', sans-serif;
+  font-weight: 400;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.45;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page :where(a) { color: inherit; text-decoration: none; }
+.page :focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+
+.page h1,
+.page h2,
+.page h3 {
+  margin: 0;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  line-height: 1.05;
+}
+
+/* ---------------------------------------------------------------- top bar
+   A black rule the thickness of a pencil under the bar; a red square as
+   the mark's full stop, placed before it. */
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--gut);
+  padding: 0.9rem var(--gut);
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 3px solid var(--ink);
+}
+
+.brand { display: inline-flex; align-items: center; gap: 0.7rem; }
+
+.markSquare {
+  display: block;
+  width: 0.9rem;
+  height: 0.9rem;
+  background: var(--red);
+}
+
+.mark {
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  gap: clamp(0.9rem, 2.4vw, 2.2rem);
+  flex-wrap: wrap;
+}
+
+.nav a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45em;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.nav a span {
+  font-size: 0.7rem;
+  color: var(--red);
+  font-variant-numeric: tabular-nums;
+}
+
+.nav a:hover { color: var(--blue); }
+.barMeta { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; }
+
+/* -------------------------------------------------------------------- hero */
+
+.hero { position: relative; isolation: isolate; overflow: hidden; }
+
+/* The field takes the right half and fades in from the middle, so the
+   forms in the pattern and the forms in CSS share the same ground and the
+   headline never has to compete with either. */
+.heroField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  opacity: 0.9;
+  mask-image: linear-gradient(90deg, transparent 0%, transparent 42%, var(--ink) 68%, var(--ink) 100%);
+}
+
+.heroInner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(3.5rem, 9vw, 7rem) var(--gut) clamp(3rem, 8vw, 6rem);
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--gut);
+  align-items: center;
+}
+
+.heroText { grid-column: 1 / 8; }
+
+.heroKicker {
+  margin: 0 0 1.6rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.heroTitle {
+  font-size: clamp(2.6rem, 7.6vw, 6.4rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 0.95;
+}
+
+.heroTitle em { font-style: normal; color: var(--red); }
+
+/* Three bars of three lengths, thick as the ones on a Bauhaus poster. */
+.heroBars {
+  margin: 2rem 0;
+  display: grid;
+  gap: 0.5rem;
+  max-width: 28rem;
+}
+
+.heroBars span { display: block; height: var(--bar); }
+.barRed { width: 100%; background: var(--red); }
+.barBlue { width: 66%; background: var(--blue); }
+.barYellow { width: 33%; background: var(--yellow); }
+
+.heroLede {
+  margin: 0;
+  max-width: 32rem;
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  font-weight: 400;
+}
+
+.cta {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 0.9rem 1.6rem;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: background 140ms ease;
+}
+
+.cta:hover { background: var(--blue); }
+
+/* The four forms: circle, square, triangle, half round. All of them are one
+   element and no image, sized from the same unit so they line up on the
+   grid the type sits on. */
+.heroShapes,
+.buildingShapes {
+  position: relative;
+  aspect-ratio: 1;
+  width: 100%;
+  justify-self: end;
+}
+
+.heroShapes { grid-column: 8 / 13; max-width: 26rem; }
+
+.heroShapes span,
+.buildingShapes span { position: absolute; display: block; }
+
+.shapeCircle {
+  top: 0;
+  left: 0;
+  width: 52%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--red);
+}
+
+.shapeSquare {
+  right: 0;
+  top: 18%;
+  width: 40%;
+  aspect-ratio: 1;
+  background: var(--blue);
+}
+
+.shapeTriangle {
+  left: 8%;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-left: 5.5rem solid transparent;
+  border-right: 5.5rem solid transparent;
+  border-bottom: 8.5rem solid var(--yellow);
+}
+
+.shapeHalf {
+  right: 6%;
+  bottom: 4%;
+  width: 34%;
+  aspect-ratio: 2 / 1;
+  border-radius: 999px 999px 0 0;
+  background: var(--ink);
+}
+
+/* ---------------------------------------------------------- section head
+   One number in a coloured square, the heading in capitals beside it, and
+   a note in the third column of a strict three-part grid. The small label
+   below is shared by every term and role on the page: one size, one
+   tracking, so the lists read as one system. */
+
+.wsFacts dt,
+.tutorRole,
+.applyDate,
+.buildingFacts dt,
+.stayList dt,
+.contactList dt {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.workshops,
+.timetable,
+.tutors,
+.apply,
+.stay {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(3.5rem, 9vw, 7rem) var(--gut) 0;
+}
+
+.secHead {
+  display: grid;
+  grid-template-columns: 3.2rem minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 1rem var(--gut);
+  align-items: start;
+  padding-top: 1rem;
+  border-top: var(--bar) solid var(--ink);
+  margin-bottom: clamp(2rem, 5vw, 3.5rem);
+}
+
+.secNo {
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  background: var(--red);
+  color: var(--paper);
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.timetable .secNo { background: var(--blue); }
+.tutors .secNo { background: var(--yellow); color: var(--ink); }
+.stay .secNo { background: var(--blue); }
+.secHead h2 { font-size: clamp(1.6rem, 3.6vw, 2.8rem); padding-top: 0.2rem; }
+.secNote { margin: 0.3rem 0 0; font-size: 0.95rem; max-width: 28rem; }
+
+/* --------------------------------------------------------------- workshops
+   Four cards on a two-by-two grid. Each takes its own primary on a thick
+   top bar, in the order red, blue, yellow, ink, and the tile is the picture:
+   a mosaic of quarter circles and triangles in the same three colours. */
+
+.wsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gut);
+}
+
+.ws {
+  --tone: var(--red);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-rows: auto auto auto 1fr;
+  gap: 0.6rem var(--gut);
+  padding-top: 1.2rem;
+  border-top: var(--bar) solid var(--tone);
+}
+
+.ws:nth-child(2) { --tone: var(--blue); }
+.ws:nth-child(3) { --tone: var(--yellow); }
+.ws:nth-child(4) { --tone: var(--ink); }
+
+.tile {
+  grid-column: 1;
+  grid-row: 1 / 5;
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--ink) 6%, var(--paper));
+}
+
+.wsNo {
+  grid-column: 2;
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  color: var(--tone);
+  font-variant-numeric: tabular-nums;
+}
+
+.ws:nth-child(3) .wsNo { color: var(--ink); }
+.ws h3 { grid-column: 2; font-size: clamp(1.4rem, 2.6vw, 2rem); }
+
+.wsFacts {
+  grid-column: 2;
+  margin: 0.6rem 0 0;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.wsFacts div {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr);
+  gap: 0.6rem;
+  font-size: 0.9rem;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 22%, transparent);
+  padding-top: 0.35rem;
+}
+
+.wsFacts dt { padding-top: 0.15rem; }
+.wsFacts dd { margin: 0; }
+
+.wsBody {
+  grid-column: 2;
+  align-self: end;
+  margin: 0.8rem 0 0;
+  font-size: 0.92rem;
+}
+
+/* -------------------------------------------------------------------- band
+   The loudest field. T-blocks in the primaries, edge to edge, between two
+   thick rules so it reads as a printed stripe. */
+
+.band {
+  position: relative;
+  height: 240px;
+  margin-top: clamp(3.5rem, 9vw, 7rem);
+  overflow: hidden;
+  border-top: var(--bar) solid var(--ink);
+  border-bottom: var(--bar) solid var(--ink);
+}
+
+/* Pinned to an exact multiple of the cell (24 x 120px) and clipped by the
+   band, so every grid track is a whole pixel at every viewport; a fluid box
+   gives fractional tracks and a hairline seam at every cell edge. */
+.bandField {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2880px;
+  height: 240px;
+  overflow: hidden;
+}
+
+/* --------------------------------------------------------------- timetable */
+
+.tableWrap { overflow-x: auto; border-top: 3px solid var(--ink); }
+
+.table {
+  width: 100%;
+  min-width: 42rem;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.table th,
+.table td {
+  text-align: left;
+  padding: 0.7rem 0.8rem 0.7rem 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 28%, transparent);
+  vertical-align: top;
+}
+
+.table thead th {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding-top: 0.9rem;
+  border-bottom: 3px solid var(--ink);
+}
+
+.table tbody th {
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  width: 4rem;
+}
+
+.slotLabel {
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.78rem;
+  width: 7rem;
+  color: var(--blue);
+}
+
+.free { color: color-mix(in srgb, var(--ink) 58%, transparent); }
+
+.tableNote,
+.applyFoot { margin: 1.6rem 0 0; max-width: 34rem; font-size: 0.9rem; }
+
+/* ------------------------------------------------------------------ tutors */
+
+.tutorList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gut);
+}
+
+.tutorList li {
+  display: grid;
+  grid-template-columns: 2.2rem minmax(0, 1fr);
+  gap: 0.2rem 0.8rem;
+  padding-top: 0.9rem;
+  border-top: 3px solid var(--ink);
+}
+
+.tutorNo {
+  grid-row: 1 / 4;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 50%;
+  background: var(--yellow);
+  display: grid;
+  place-items: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.tutorList h3 { font-size: 1.05rem; letter-spacing: 0.08em; }
+.tutorRole { color: var(--red); }
+.tutorList p { margin: 0.4rem 0 0; font-size: 0.9rem; }
+
+/* ------------------------------------------------------------------- apply */
+
+.applySteps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--gut);
+}
+
+.applySteps li {
+  display: grid;
+  grid-template-rows: auto auto auto 1fr;
+  gap: 0.4rem;
+  padding-top: 1rem;
+  border-top: var(--bar) solid var(--yellow);
+}
+
+.applyNo { font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 600; line-height: 1; }
+.applyDate { color: var(--blue); font-variant-numeric: tabular-nums; }
+.applySteps h3 { font-size: 1.05rem; }
+.applySteps p { margin: 0.3rem 0 0; font-size: 0.9rem; }
+
+/* ---------------------------------------------------------------- building
+   A blue page. Ink type on the primary, and a second composition of forms
+   in the other two primaries and the paper. */
+
+.building {
+  margin-top: clamp(3.5rem, 9vw, 7rem);
+  background: var(--blue);
+  color: var(--paper);
+}
+
+.buildingInner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(3.5rem, 9vw, 7rem) var(--gut);
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: var(--gut);
+  align-items: center;
+}
+
+.building .secHead,
+.contact .secHead { grid-template-columns: 3.2rem minmax(0, 1fr); }
+.building .secHead { border-top-color: var(--paper); }
+.building .secNo { background: var(--paper); color: var(--blue); }
+
+.buildingLead {
+  margin: 0;
+  max-width: 34rem;
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+}
+
+.buildingFacts {
+  margin: 2rem 0 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem var(--gut);
+}
+
+.buildingFacts div {
+  padding-top: 0.5rem;
+  border-top: 1px solid color-mix(in srgb, var(--paper) 50%, transparent);
+}
+
+.buildingFacts dd { margin: 0.2rem 0 0; font-size: 0.9rem; }
+.buildingShapes { max-width: 22rem; }
+
+.bsQuarter {
+  top: 0;
+  left: 0;
+  width: 58%;
+  aspect-ratio: 1;
+  border-radius: 100% 0 0 0;
+  background: var(--yellow);
+}
+
+.bsBar {
+  top: 46%;
+  left: -6%;
+  width: 112%;
+  height: var(--bar);
+  background: var(--paper);
+  transform: rotate(-45deg);
+  transform-origin: center;
+}
+
+.bsDisc {
+  right: 0;
+  top: 8%;
+  width: 34%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 0.9rem solid var(--red);
+  box-sizing: border-box;
+}
+
+.bsBlock {
+  right: 10%;
+  bottom: 0;
+  width: 44%;
+  height: 26%;
+  background: var(--ink);
+}
+
+/* -------------------------------------------------------------------- stay */
+
+.stayList {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gut);
+}
+
+.stayList div { padding-top: 0.8rem; border-top: 3px solid var(--ink); }
+.stayList dt { color: var(--blue); }
+.stayList dd { margin: 0.3rem 0 0; font-size: 1rem; }
+
+/* ----------------------------------------------------------------- contact */
+
+.contact { margin-top: clamp(3.5rem, 9vw, 7rem); background: var(--yellow); }
+
+.contactInner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(3rem, 8vw, 6rem) var(--gut);
+}
+
+.contact .secNo { background: var(--ink); color: var(--yellow); }
+
+.contactList {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--gut);
+}
+
+.contactList dt { padding-bottom: 0.5rem; border-bottom: 3px solid var(--ink); }
+.contactList dd { margin: 0.6rem 0 0; font-size: 0.95rem; line-height: 1.6; }
+.contactList a { border-bottom: 2px solid var(--ink); }
+.contactList a:hover { color: var(--red); border-color: var(--red); }
+
+/* ------------------------------------------------------------------ footer */
+
+.footer {
+  background: var(--ink);
+  color: var(--paper);
+  padding: clamp(2.5rem, 6vw, 4rem) var(--gut) clamp(1.6rem, 3vw, 2.4rem);
+}
+
+.footName {
+  max-width: var(--max);
+  margin: 0 auto 2.5rem;
+  padding-left: 1.6rem;
+  border-left: var(--bar) solid var(--red);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.footGrid {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gut);
+}
+
+.footHead {
+  margin: 0 0 0.9rem;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: var(--yellow);
+}
+
+.footLinks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.footLinks a {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.footLinks a:hover { color: var(--yellow); }
+.footAddr { margin: 0; font-size: 0.9rem; line-height: 1.7; }
+
+.footFine {
+  max-width: var(--max);
+  margin: clamp(2.5rem, 6vw, 4rem) auto 0;
+  padding-top: 1rem;
+  border-top: 3px solid var(--paper);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+.footFine p {
+  margin: 0;
+  font-size: 0.78rem;
+  color: color-mix(in srgb, var(--paper) 70%, transparent);
+}
+
+.footFine a {
+  color: var(--paper);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footFine a:hover { color: var(--yellow); }
+
+/* -------------------------------------------------------------- responsive */
+
+@media (max-width: 1000px) {
+  .heroText { grid-column: 1 / 13; }
+
+  .heroShapes {
+    grid-column: 1 / 13;
+    justify-self: start;
+    max-width: 18rem;
+    margin-top: 1rem;
+  }
+
+  .heroField { mask-image: linear-gradient(180deg, transparent 0%, transparent 40%, var(--ink) 70%, var(--ink) 100%); }
+
+  .wsGrid,
+  .tutorList,
+  .stayList { grid-template-columns: 1fr; }
+
+  .applySteps,
+  .contactList { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .buildingInner { grid-template-columns: 1fr; }
+  .buildingShapes { justify-self: start; max-width: 18rem; }
+}
+
+@media (max-width: 720px) {
+  .bar { grid-template-columns: 1fr auto; }
+  .nav { display: none; }
+  .secHead { grid-template-columns: 3.2rem minmax(0, 1fr); }
+  .secNote { grid-column: 2; }
+  .ws { grid-template-columns: 1fr; grid-template-rows: auto; }
+  .tile { grid-row: auto; max-width: 22rem; }
+
+  .wsNo,
+  .ws h3,
+  .wsFacts,
+  .wsBody { grid-column: 1; }
+  .band { height: 120px; }
+  .bandField { height: 120px; }
+}
+
+@media (max-width: 560px) {
+  .applySteps,
+  .contactList,
+  .buildingFacts,
+  .footGrid,
+  .footFine { grid-template-columns: 1fr; }
+}

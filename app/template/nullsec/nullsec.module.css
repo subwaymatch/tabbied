@@ -1,0 +1,806 @@
+/* ==========================================================================
+   NULLSEC - security research collective, Berlin
+   A terminal. One monospace face at every size, a near-black ground, pale
+   green type, and a hard green for the few things that must be seen first.
+   Nothing is rounded and nothing is shaded: the only edge treatment on the
+   page is a 1px rule in the pale tone. Grids draw their rules as 1px gaps
+   over that tone, so a grid that collapses keeps its rules without a word
+   of extra CSS. The prompt characters are drawn by the stylesheet, so the
+   copy underneath stays plain words.
+   ========================================================================== */
+
+.page {
+  --paper: #050807;
+  --ink: #d9f5e3;
+  --green: #2cff7a;
+  --grey: #5c7365;
+  --pale: #0e1713;
+  --gut: clamp(1rem, 4vw, 3rem);
+  --max: 76rem;
+  --rule: 1px solid var(--pale);
+  --line: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+
+  font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 0.94rem;
+  line-height: 1.6;
+  background: var(--paper);
+  color: var(--ink);
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  font-variant-numeric: tabular-nums slashed-zero;
+}
+
+.page :where(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page :focus-visible {
+  outline: 1px solid var(--green);
+  outline-offset: 3px;
+}
+
+.page h1,
+.page h2,
+.page h3 {
+  font-family: inherit;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+/* The prompt glyphs. Three kinds: `$` before a heading or the mark, `>`
+   before a link or a command, `#` before a comment. All from the stylesheet,
+   none in the copy. */
+.mark::before,
+.footName::before,
+.sectionHead h2::before,
+.button::before {
+  content: '$ ';
+  font-weight: 400;
+  color: var(--grey);
+}
+
+.nav a::before,
+.footLinks a::before,
+.sectionCmd::before {
+  content: '> ';
+  color: var(--grey);
+}
+
+.heroLede::before,
+.sectionFoot::before {
+  content: '# ';
+  color: var(--grey);
+}
+
+.nav a:hover,
+.nav a:hover::before,
+.footLinks a:hover,
+.footFine a:hover {
+  color: var(--green);
+}
+
+/* A ruled grid: cells painted in the page colour over the pale tone, with a
+   1px gap that reads as the rule between them. */
+.ruled {
+  display: grid;
+  gap: 1px;
+  background: var(--pale);
+  border: var(--rule);
+}
+
+.ruled > * {
+  background: var(--paper);
+}
+
+/* ---------------------------------------------------------------- top bar
+   A status line. Prompt on the left, the section list in the middle, the
+   clock on the right, all on one 1px rule. */
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--gut);
+  padding: 0.7rem var(--gut);
+  border-bottom: var(--rule);
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(6px);
+  font-size: 0.82rem;
+}
+
+.mark {
+  font-weight: 700;
+  color: var(--green);
+}
+
+.nav {
+  display: flex;
+  gap: clamp(0.8rem, 2vw, 1.8rem);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.nav a {
+  color: var(--ink);
+  padding: 0.1rem 0;
+}
+
+.barMeta {
+  color: var(--grey);
+}
+
+/* -------------------------------------------------------------------- hero */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3.5rem, 10vw, 8rem) var(--gut) clamp(3rem, 7vw, 5rem);
+  border-bottom: var(--rule);
+}
+
+/* combed at full strength would swallow the headline, so the field is held
+   to half and fades out where the facts sit. Colour 0 is transparent: the
+   near-black shows through every gap. The mask only cares about alpha, so
+   any opaque colour will do for its solid stop. */
+.heroField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.5;
+  overflow: hidden;
+  mask-image: linear-gradient(180deg, var(--ink) 0%, var(--ink) 45%, transparent 100%);
+}
+
+.heroInner {
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.heroPrompt {
+  margin: 0 0 clamp(1.4rem, 4vw, 2.6rem);
+  font-size: 0.82rem;
+  color: var(--grey);
+}
+
+.heroTitle {
+  margin: 0;
+  font-size: clamp(2rem, 6.2vw, 4.6rem);
+  line-height: 1.04;
+  max-width: 18ch;
+}
+
+.heroTitle em {
+  font-style: normal;
+  color: var(--green);
+}
+
+.heroLede {
+  margin: clamp(1.6rem, 4vw, 2.4rem) 0 0;
+  max-width: 60ch;
+  font-size: 1rem;
+  color: color-mix(in srgb, var(--ink) 82%, transparent);
+}
+
+.facts {
+  margin: clamp(2.5rem, 6vw, 4rem) 0 0;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  max-width: 56rem;
+}
+
+.facts div {
+  margin: 0;
+  padding: 1rem 1.1rem;
+}
+
+.facts dt {
+  font-size: clamp(1.6rem, 3.6vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--green);
+}
+
+.facts dd {
+  margin: 0.5rem 0 0;
+  font-size: 0.78rem;
+  color: var(--grey);
+}
+
+/* --------------------------------------------------------------- sections
+   Every section is the same shell: a heading with a `$` prompt, the command
+   that would have printed what follows, the output, and a footnote in the
+   dim tone. */
+
+.section,
+.contact {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(3rem, 7vw, 5.5rem) var(--gut);
+  border-bottom: var(--rule);
+}
+
+.sectionHead {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.4rem 2rem;
+  align-items: baseline;
+  margin: 0 0 clamp(1.6rem, 4vw, 2.4rem);
+}
+
+.sectionHead h2 {
+  margin: 0;
+  font-size: clamp(1.3rem, 2.6vw, 1.8rem);
+}
+
+.sectionHead h2::before {
+  color: var(--green);
+}
+
+.sectionCmd {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--grey);
+}
+
+.sectionFoot {
+  margin: clamp(1.4rem, 3vw, 2rem) 0 0;
+  max-width: 68ch;
+  font-size: 0.86rem;
+  color: var(--grey);
+}
+
+/* ------------------------------------------------------------------ table
+   Fixed columns in ch units, so every row lines up like terminal output. */
+
+/* On a narrow screen the table keeps its columns and scrolls inside this
+   wrapper, the way terminal output does; the page itself never overflows. */
+.tableWrap {
+  overflow-x: auto;
+  border: var(--rule);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.86rem;
+}
+
+.table th,
+.table td {
+  text-align: left;
+  padding: 0.6rem 0.9rem;
+  border-bottom: var(--line);
+  vertical-align: top;
+}
+
+.table th {
+  font-weight: 500;
+  color: var(--grey);
+  background: var(--pale);
+  border-bottom: var(--rule);
+}
+
+.table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.cellId,
+.cellCve,
+.cellDate,
+.sevCritical,
+.sevHigh,
+.sevLow {
+  white-space: nowrap;
+}
+
+.cellId {
+  width: 12ch;
+  color: var(--green);
+}
+
+.cellCve {
+  width: 16ch;
+}
+
+.cellStatus {
+  width: 18ch;
+}
+
+.cellCve,
+.cellStatus {
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+}
+
+.cellDate {
+  width: 12ch;
+  color: var(--grey);
+}
+
+.sevCritical,
+.sevHigh,
+.sevLow {
+  width: 9ch;
+}
+
+.sevCritical {
+  color: var(--paper);
+  background: var(--green);
+  font-weight: 700;
+}
+
+.sevHigh {
+  color: var(--green);
+}
+
+.sevLow {
+  color: var(--grey);
+}
+
+/* -------------------------------------------------------------------- band
+   Pure pattern, no copy, the one loud field on the page. Pinned to a whole
+   multiple of the cell (28 x 96px) and clipped by the section, so every
+   grid track is a whole pixel at every viewport width. */
+
+.band {
+  position: relative;
+  height: 288px;
+  overflow: hidden;
+  border-bottom: var(--rule);
+}
+
+.bandField {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2688px;
+  height: 288px;
+  overflow: hidden;
+  opacity: 0.85;
+}
+
+/* ------------------------------------------------------------------- tools */
+
+.toolGrid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.toolGrid li {
+  padding: 1.4rem 1.5rem 1.5rem;
+}
+
+.toolGrid h3 {
+  margin: 0 0 0.7rem;
+  font-size: 1.1rem;
+  color: var(--green);
+}
+
+.toolGrid h3::before {
+  content: './';
+  color: var(--grey);
+  font-weight: 400;
+}
+
+.toolBlurb {
+  margin: 0 0 1.1rem;
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--ink) 82%, transparent);
+  max-width: 52ch;
+}
+
+.toolMeta {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--grey);
+}
+
+/* -------------------------------------------------------------- disclosure
+   A text-bearing field: low opacity, and the page colour pooled under the
+   steps so the pattern shows at the margins and gets out of the way where
+   the reading happens. */
+
+.disclosure {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3rem, 7vw, 5.5rem) 0;
+  border-bottom: var(--rule);
+}
+
+.washField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.28;
+  overflow: hidden;
+}
+
+.washField::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 64% 76% at 50% 50%,
+    var(--paper) 0%,
+    color-mix(in srgb, var(--paper) 60%, transparent) 60%,
+    transparent 100%
+  );
+}
+
+.disclosureInner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gut);
+}
+
+.policy {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: step;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.policy li {
+  counter-increment: step;
+  padding: 1.3rem 1.4rem 1.5rem;
+  background: color-mix(in srgb, var(--paper) 90%, transparent);
+}
+
+.policyDay {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--grey);
+  margin-bottom: 0.6rem;
+}
+
+.policyDay::before {
+  content: '[' counter(step, decimal-leading-zero) '] ';
+  color: var(--green);
+}
+
+.policy h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+}
+
+.policy p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--ink) 80%, transparent);
+}
+
+/* ------------------------------------------------------------------- talks */
+
+.talks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: var(--rule);
+}
+
+.talks li {
+  display: grid;
+  grid-template-columns: 5ch minmax(0, 2.4fr) minmax(0, 1fr) minmax(0, 0.8fr) 12ch;
+  gap: 0.4rem 1.4rem;
+  align-items: baseline;
+  padding: 0.8rem 0;
+  border-bottom: var(--rule);
+  font-size: 0.88rem;
+}
+
+.talkYear {
+  color: var(--green);
+}
+
+.talkEvent {
+  color: color-mix(in srgb, var(--ink) 72%, transparent);
+}
+
+.talkCity,
+.talkWho {
+  color: var(--grey);
+}
+
+.talkWho {
+  text-align: right;
+}
+
+.talkWho::before {
+  content: '@';
+}
+
+/* ----------------------------------------------------------------- members */
+
+.members {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.members li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 5ch;
+  gap: 0.2rem 1rem;
+  padding: 1rem 1.2rem;
+  font-size: 0.88rem;
+}
+
+.memberHandle {
+  color: var(--green);
+  font-weight: 700;
+}
+
+.memberHandle::before {
+  content: '~';
+  color: var(--grey);
+  font-weight: 400;
+}
+
+.memberSince {
+  color: var(--grey);
+  text-align: right;
+  font-size: 0.8rem;
+}
+
+.memberFocus {
+  grid-column: 1 / -1;
+  color: color-mix(in srgb, var(--ink) 76%, transparent);
+}
+
+/* ----------------------------------------------------------------- contact */
+
+.contactGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.contactList {
+  margin: 0;
+  grid-template-columns: 1fr;
+}
+
+.contactList div {
+  display: grid;
+  grid-template-columns: 12ch minmax(0, 1fr);
+  gap: 1rem;
+  padding: 0.8rem 1.1rem;
+  font-size: 0.88rem;
+}
+
+.contactList dt {
+  color: var(--grey);
+}
+
+.contactList dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+/* The fingerprint: the one value on the page that is meant to be compared
+   character by character, so it gets the green and a little air. */
+.contactList div:nth-child(2) dd {
+  color: var(--green);
+  letter-spacing: 0.04em;
+}
+
+.contactNote p {
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--ink) 80%, transparent);
+}
+
+.button {
+  display: inline-block;
+  margin-top: 0.4rem;
+  padding: 0.7rem 1.2rem;
+  border: 1px solid var(--green);
+  color: var(--green);
+  font-size: 0.86rem;
+}
+
+.button:hover {
+  background: var(--green);
+  color: var(--paper);
+}
+
+/* -------------------------------------------------------------------- coda
+   The raw stream. combed at a small cell, pinned to 36 x 72px and clipped. */
+
+.coda {
+  position: relative;
+  height: 216px;
+  overflow: hidden;
+  border-bottom: var(--rule);
+}
+
+.codaField {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2592px;
+  height: 216px;
+  overflow: hidden;
+  opacity: 0.6;
+}
+
+/* ------------------------------------------------------------------ footer */
+
+.footer {
+  padding: clamp(2.5rem, 6vw, 4rem) var(--gut) clamp(1.6rem, 3vw, 2.4rem);
+  background: var(--pale);
+}
+
+.footGrid {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+  gap: clamp(1.6rem, 4vw, 3rem);
+  align-items: start;
+}
+
+.footName {
+  margin: 0 0 0.6rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--green);
+}
+
+.footTag {
+  margin: 0;
+  max-width: 34ch;
+  font-size: 0.84rem;
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+}
+
+.footHead {
+  margin: 0 0 0.8rem;
+  font-size: 0.76rem;
+  font-weight: 500;
+  color: var(--grey);
+}
+
+.footHead::before {
+  content: '## ';
+}
+
+.footLinks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.footLinks a {
+  font-size: 0.86rem;
+}
+
+.footAddr {
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.7;
+}
+
+.footFine {
+  max-width: var(--max);
+  margin: clamp(2.5rem, 6vw, 4rem) auto 0;
+  padding-top: 1.1rem;
+  border-top: var(--line);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+.footFine p {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--grey);
+}
+
+.footFine a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ------------------------------------------------------------ responsive */
+
+@media (max-width: 1000px) {
+  .policy,
+  .members {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .talks li {
+    grid-template-columns: 5ch minmax(0, 1fr) 12ch;
+  }
+
+  .talkEvent,
+  .talkCity {
+    grid-column: 2;
+  }
+}
+
+@media (max-width: 860px) {
+  .bar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .sectionHead {
+    grid-template-columns: 1fr;
+  }
+
+  .facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .toolGrid,
+  .contactGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .footGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footBrand {
+    grid-column: 1 / -1;
+  }
+
+  .cellProduct,
+  .cellStatus {
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 600px) {
+  .policy,
+  .members {
+    grid-template-columns: 1fr;
+  }
+
+  .talks li {
+    grid-template-columns: 5ch minmax(0, 1fr);
+  }
+
+  .talkWho {
+    grid-column: 2;
+    text-align: left;
+  }
+
+  .contactList div {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+
+  .footGrid,
+  .footFine {
+    grid-template-columns: 1fr;
+  }
+
+  .band,
+  .bandField {
+    height: 192px;
+  }
+
+  .coda,
+  .codaField {
+    height: 144px;
+  }
+}

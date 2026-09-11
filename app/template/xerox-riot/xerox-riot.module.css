@@ -1,0 +1,904 @@
+/* ==========================================================================
+   XEROX RIOT - zine fair, Glasgow
+   A photocopied flyer, blown up. Off-white paper, black ink, one red, two
+   greys. Anton for anything shouted, Courier Prime for everything typed.
+   Headline blocks are tilted, section heads are black bars with reversed
+   type, borders are dashed like a cut line, stamps are uppercase and boxed,
+   and the margins are deliberately uneven, as if each section were pasted
+   down by a different hand. The patterns draw in the paper colour on a
+   transparent ground, so they read as toner and halftone, not as pictures.
+   ========================================================================== */
+
+.page {
+  --paper: #f4f4f0;
+  --ink: #0a0a0a;
+  --red: #ff1e1e;
+  --grey: #6b6b6b;
+  --pale: #cfcfc8;
+  --display: 'Anton', Impact, 'Arial Narrow Bold', sans-serif;
+  --body: 'Courier Prime', 'Courier New', Courier, monospace;
+  --cut: 2px dashed var(--ink);
+  --hair: 1px solid color-mix(in srgb, var(--ink) 22%, transparent);
+  --soft: color-mix(in srgb, var(--ink) 82%, transparent);
+  --gut: clamp(1.1rem, 4.5vw, 3.5rem);
+  --max: 76rem;
+
+  font-family: var(--body);
+  font-size: 0.97rem;
+  line-height: 1.55;
+  background: var(--paper);
+  color: var(--ink);
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page :where(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page :focus-visible {
+  outline: 3px dashed var(--red);
+  outline-offset: 3px;
+}
+
+.page h1,
+.page h2,
+.page h3 {
+  font-family: var(--display);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  margin: 0;
+}
+
+.page h3 {
+  font-size: 1.7rem;
+}
+
+.page p {
+  margin: 0;
+}
+
+/* The black bar: a section head reversed out of a strip of ink, sitting a
+   little off square. The red one is for the rules. */
+.barHead,
+.barHeadRed {
+  display: inline-block;
+  font-size: clamp(1.8rem, 4.4vw, 3.4rem);
+  padding: 0.12em 0.35em 0.08em;
+  background: var(--ink);
+  color: var(--paper);
+  transform: rotate(-1.2deg);
+  margin: 0 0 1.4rem;
+}
+
+.barHeadRed {
+  background: var(--red);
+  color: var(--ink);
+  transform: rotate(1deg);
+}
+
+/* The tilted strip: a line of typed copy on an ink block, rotated. */
+.tilt,
+.tiltSmall {
+  display: inline-block;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.5em 0.9em 0.4em;
+  background: var(--ink);
+  color: var(--paper);
+  transform: rotate(-2deg);
+}
+
+/* The stamp: uppercase, boxed in red, struck at an angle. */
+.stamps li,
+.exCity,
+.priceSize,
+.slotTime {
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* Numbers in Courier, tabular, so the columns line up like a typewriter. */
+.exNo,
+.priceAmt,
+.ruleNo,
+.edYear,
+.edTables,
+.slotTime {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------------------------------------------------------- top bar */
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--gut);
+  padding: 0.5rem var(--gut);
+  background: var(--ink);
+  color: var(--paper);
+  border-bottom: 3px dashed var(--paper);
+}
+
+.mark {
+  font-family: var(--display);
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  color: var(--paper);
+}
+
+.mark:hover {
+  color: var(--red);
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: clamp(0.8rem, 2.2vw, 1.8rem);
+}
+
+.nav a {
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--paper) 82%, transparent);
+  padding: 0.25rem 0;
+  border-bottom: 2px dashed transparent;
+}
+
+.nav a:hover {
+  color: var(--red);
+  border-bottom-color: var(--red);
+}
+
+.barDate {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+
+/* -------------------------------------------------------------------- hero */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3rem, 9vw, 7rem) var(--gut) clamp(3rem, 8vw, 6rem);
+}
+
+.heroField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  opacity: 0.75;
+  mask-image: linear-gradient(180deg, var(--ink) 0%, var(--ink) 50%, transparent 100%);
+}
+
+.heroInner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding-left: clamp(0rem, 6vw, 5rem);
+}
+
+/* The ransom note: three words, three papers. Each span is its own cutting
+   with its own face, size, ground and tilt, so the line reads as pasted up
+   rather than set. */
+.ransom {
+  margin: clamp(1.2rem, 3vw, 2rem) 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.1em 0.25em;
+}
+
+.ransom span {
+  display: inline-block;
+}
+
+.r1 {
+  font-size: clamp(4.2rem, 15vw, 12rem);
+  line-height: 0.9;
+  color: var(--ink);
+}
+
+.r2 {
+  font-size: clamp(3rem, 11vw, 8.5rem);
+  line-height: 0.9;
+  padding: 0.05em 0.14em 0;
+  background: var(--red);
+  color: var(--paper);
+  transform: rotate(2.5deg);
+  margin-left: 0.1em;
+}
+
+.r3 {
+  font-family: var(--body);
+  font-weight: 700;
+  font-size: clamp(1.6rem, 5vw, 3.6rem);
+  line-height: 1;
+  padding: 0.25em 0.45em;
+  border: 3px dashed var(--ink);
+  transform: rotate(-4deg);
+  margin-left: 0.4em;
+}
+
+.heroLede {
+  margin: clamp(1.6rem, 4vw, 2.6rem) 0 0 clamp(0rem, 4vw, 3rem);
+  max-width: 34rem;
+  font-size: 1rem;
+  color: var(--soft);
+  border-left: var(--cut);
+  padding-left: 1.1rem;
+}
+
+.stamps {
+  list-style: none;
+  margin: clamp(1.6rem, 4vw, 2.6rem) 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem 1rem;
+}
+
+.stamps li {
+  padding: 0.45em 0.7em 0.35em;
+  border: 3px solid var(--red);
+  color: var(--red);
+  transform: rotate(-3deg);
+}
+
+.stamps li:nth-child(even) {
+  transform: rotate(2deg);
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+/* ---------------------------------------------------------- section heads */
+
+.secHead {
+  max-width: 42rem;
+  margin-bottom: clamp(1.6rem, 4vw, 2.6rem);
+}
+
+.secLede {
+  font-size: 0.97rem;
+  color: var(--soft);
+  max-width: 38rem;
+}
+
+/* -------------------------------------------------------------- exhibitors
+   Twenty names in three typed columns with a cut line between rows, the
+   whole list shoved right of the heading. */
+
+.exhibitors,
+.programme,
+.tables,
+.venue,
+.past {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(2.5rem, 7vw, 5rem) var(--gut);
+}
+
+.exhibitors {
+  padding-right: clamp(1.1rem, 9vw, 8rem);
+}
+
+.exList {
+  list-style: none;
+  margin: 0 0 0 clamp(0rem, 5vw, 4rem);
+  padding: 0;
+  columns: 3;
+  column-gap: clamp(1.2rem, 3vw, 2.4rem);
+  border-top: var(--cut);
+}
+
+.exList li {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr) auto;
+  gap: 0.6rem;
+  align-items: baseline;
+  padding: 0.55rem 0;
+  border-bottom: var(--hair);
+  break-inside: avoid;
+}
+
+.exNo {
+  font-size: 0.8rem;
+  color: var(--grey);
+}
+
+.exName {
+  font-weight: 700;
+}
+
+.exCity {
+  color: var(--grey);
+}
+
+/* --------------------------------------------------------------- programme
+   Three strands in a row, each pasted down at a slightly different angle,
+   with a larmier tile above where a photograph would go. */
+
+.programme {
+  padding-left: clamp(1.1rem, 8vw, 7rem);
+}
+
+.strands {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.4rem, 3.5vw, 2.8rem);
+  align-items: start;
+}
+
+.strand {
+  padding: 1.1rem;
+  border: var(--cut);
+  background: var(--paper);
+  transform: rotate(-1deg);
+}
+
+.strand:nth-child(2) {
+  transform: rotate(1.2deg) translateY(1.2rem);
+}
+
+.strand:nth-child(3) {
+  transform: rotate(-0.6deg) translateY(-0.4rem);
+}
+
+.tile {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--pale) 40%, var(--paper));
+  border: 2px solid var(--ink);
+  margin-bottom: 1rem;
+}
+
+.strandNo {
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  color: var(--red);
+}
+
+.strand h3 {
+  font-size: 2.2rem;
+  margin-top: 0.2rem;
+}
+
+.strandWhere {
+  font-size: 0.82rem;
+  color: var(--grey);
+  margin-top: 0.3rem;
+}
+
+.strandBody {
+  margin-top: 0.8rem;
+  font-size: 0.92rem;
+  color: var(--soft);
+}
+
+.slots {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  border-top: var(--cut);
+}
+
+.slots li {
+  display: grid;
+  grid-template-columns: 4.6rem minmax(0, 1fr);
+  gap: 0.15rem 0.7rem;
+  padding: 0.6rem 0;
+  border-bottom: var(--hair);
+}
+
+.slotTime {
+  color: var(--ink);
+  grid-row: 1 / 3;
+  padding-top: 0.2rem;
+}
+
+.slotTitle {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.slotWho {
+  font-size: 0.82rem;
+  color: var(--grey);
+}
+
+/* -------------------------------------------------------------------- band
+   Fustian at full width, more ink than ground. Pinned to a whole multiple of
+   its 96px cell (28 across, 3 down) and clipped by the section, so every
+   grid track is a whole pixel at any viewport; sized to the viewport it
+   would seam at every cell edge. */
+
+.band {
+  position: relative;
+  height: 288px;
+  overflow: hidden;
+  border-top: 3px solid var(--ink);
+  border-bottom: 3px solid var(--ink);
+}
+
+.bandField {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2688px;
+  height: 288px;
+  overflow: hidden;
+}
+
+/* ------------------------------------------------------------------ tables */
+
+.tablesGrid,
+.venueGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: start;
+}
+
+.tableTerms,
+.venueList {
+  margin: 1.6rem 0 0;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.tableTerms div,
+.venueList div {
+  display: grid;
+  gap: 0.15rem;
+  padding-left: 0.9rem;
+  border-left: var(--cut);
+}
+
+.tableTerms dt,
+.venueList dt {
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.tableTerms dd,
+.venueList dd {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--soft);
+}
+
+.priceList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.9rem;
+  transform: rotate(0.8deg);
+}
+
+.priceList li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    'kind amt'
+    'size amt'
+    'note note';
+  gap: 0.2rem 1rem;
+  padding: 0.9rem 1.1rem;
+  border: var(--cut);
+  align-items: baseline;
+}
+
+.priceList li:nth-child(even) {
+  background: color-mix(in srgb, var(--pale) 35%, var(--paper));
+  margin-left: 1.2rem;
+}
+
+.priceKind {
+  grid-area: kind;
+  font-size: 1.8rem;
+}
+
+.priceSize {
+  grid-area: size;
+  color: var(--grey);
+}
+
+.priceAmt {
+  grid-area: amt;
+  font-family: var(--display);
+  font-size: 2.6rem;
+  line-height: 1;
+  color: var(--red);
+  align-self: center;
+}
+
+.priceAmt::before {
+  content: '\A3';
+  font-size: 0.6em;
+  vertical-align: 0.3em;
+  margin-right: 0.05em;
+}
+
+.priceNote {
+  grid-area: note;
+  margin-top: 0.4rem;
+  font-size: 0.9rem;
+  color: var(--soft);
+}
+
+/* ------------------------------------------------------------------- rules
+   The one full-width ink section: paper type on black, the rules numbered
+   in Anton, the whole list pushed to the right. */
+
+.rules {
+  background: var(--ink);
+  color: var(--paper);
+  padding: clamp(2.5rem, 7vw, 5rem) var(--gut);
+}
+
+.rulesInner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding-left: clamp(0rem, 10vw, 9rem);
+}
+
+.ruleList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.4rem clamp(1.6rem, 4vw, 3.5rem);
+}
+
+.ruleList li {
+  display: grid;
+  grid-template-columns: 3.2rem minmax(0, 1fr);
+  gap: 0.8rem;
+  align-items: start;
+  padding-top: 0.9rem;
+  border-top: 2px dashed color-mix(in srgb, var(--paper) 45%, transparent);
+}
+
+.ruleNo {
+  font-family: var(--display);
+  font-size: 2.6rem;
+  line-height: 0.9;
+  color: var(--red);
+}
+
+.ruleList p {
+  font-size: 0.95rem;
+  color: color-mix(in srgb, var(--paper) 84%, transparent);
+}
+
+/* ------------------------------------------------------------------- venue */
+
+.venue {
+  padding-right: clamp(1.1rem, 7vw, 6rem);
+}
+
+.venueAddr {
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  margin-bottom: 1rem;
+}
+
+.venueIntro .tiltSmall {
+  margin-top: 1.6rem;
+  font-size: 0.78rem;
+  transform: rotate(2deg);
+}
+
+/* -------------------------------------------------------------------- past
+   Seven editions as a typed ledger, the year in Anton, the table count
+   flush right, the note underneath in grey. */
+
+.past {
+  padding-left: clamp(1.1rem, 9vw, 8rem);
+}
+
+.editions {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: var(--cut);
+  max-width: 58rem;
+}
+
+.editions li {
+  display: grid;
+  grid-template-columns: 6rem minmax(0, 1fr) 5rem;
+  grid-template-areas:
+    'year where tables'
+    'year note tables';
+  gap: 0.2rem 1.2rem;
+  align-items: baseline;
+  padding: 0.9rem 0;
+  border-bottom: var(--hair);
+}
+
+.edYear {
+  grid-area: year;
+  font-family: var(--display);
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.edWhere {
+  grid-area: where;
+  font-weight: 700;
+}
+
+.edTables {
+  grid-area: tables;
+  font-family: var(--display);
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--red);
+  text-align: right;
+}
+
+.edTables::after {
+  content: ' tbl';
+  font-family: var(--body);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--grey);
+}
+
+.edNote {
+  grid-area: note;
+  font-size: 0.9rem;
+  color: var(--soft);
+}
+
+/* -------------------------------------------------------------------- coda */
+
+.coda {
+  position: relative;
+  height: clamp(132px, 20vw, 248px);
+  overflow: hidden;
+  border-top: var(--cut);
+}
+
+.codaField {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0.8;
+}
+
+/* ------------------------------------------------------------------ footer */
+
+.footer {
+  background: var(--ink);
+  color: var(--paper);
+  border-top: 3px dashed var(--paper);
+  padding: clamp(2.5rem, 6vw, 4rem) var(--gut) clamp(1.6rem, 3vw, 2.4rem);
+}
+
+.footGrid {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 1fr));
+  gap: clamp(1.6rem, 4vw, 3rem);
+  align-items: start;
+}
+
+/* Grid children with long unbroken content (an e-mail address) need this to
+   shrink rather than push the column wide. */
+.footBrand,
+.footCol {
+  min-width: 0;
+}
+
+.footName {
+  font-family: var(--display);
+  font-size: 2.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  margin-bottom: 0.6rem;
+}
+
+.footTag {
+  max-width: 22rem;
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--paper) 72%, transparent);
+}
+
+.footHead {
+  font-family: var(--body);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 0.8rem;
+}
+
+.footLinks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.footLinks a,
+.footAddr {
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--paper) 86%, transparent);
+}
+
+.footLinks a:hover {
+  color: var(--red);
+}
+
+.footAddr {
+  line-height: 1.65;
+}
+
+.footFine {
+  max-width: var(--max);
+  margin: clamp(2.5rem, 6vw, 4rem) auto 0;
+  padding-top: 1.1rem;
+  border-top: 2px dashed color-mix(in srgb, var(--paper) 30%, transparent);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+.footFine p {
+  font-size: 0.78rem;
+  color: color-mix(in srgb, var(--paper) 58%, transparent);
+}
+
+.footFine a {
+  color: color-mix(in srgb, var(--paper) 84%, transparent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footFine a:hover {
+  color: var(--red);
+}
+
+/* ------------------------------------------------------------ responsive */
+
+@media (max-width: 1000px) {
+  .exList {
+    columns: 2;
+  }
+
+  .strands {
+    grid-template-columns: 1fr;
+    max-width: 30rem;
+  }
+
+  .strand,
+  .strand:nth-child(2),
+  .strand:nth-child(3) {
+    transform: rotate(-0.8deg);
+  }
+
+  .strand:nth-child(2) {
+    transform: rotate(0.9deg);
+    margin-left: clamp(0rem, 6vw, 4rem);
+  }
+
+  .tablesGrid,
+  .venueGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .footGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footBrand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 760px) {
+  .bar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .heroInner {
+    padding-left: 0;
+  }
+
+  .heroLede {
+    margin-left: 0;
+  }
+
+  .exList {
+    columns: 1;
+    margin-left: 0;
+  }
+
+  .band,
+  .bandField {
+    height: 192px;
+  }
+
+  .ruleList {
+    grid-template-columns: 1fr;
+  }
+
+  .rulesInner,
+  .programme,
+  .past {
+    padding-left: var(--gut);
+  }
+
+  .editions li {
+    grid-template-columns: 4.5rem minmax(0, 1fr);
+    grid-template-areas:
+      'year where'
+      'year tables'
+      'note note';
+  }
+
+  .edTables {
+    text-align: left;
+  }
+}
+
+@media (max-width: 520px) {
+  .footGrid,
+  .footFine {
+    grid-template-columns: 1fr;
+  }
+
+  .priceList li:nth-child(even) {
+    margin-left: 0;
+  }
+
+  .slots li {
+    grid-template-columns: 1fr;
+  }
+
+  .slotTime {
+    grid-row: auto;
+  }
+
+  .coda {
+    height: 108px;
+  }
+}

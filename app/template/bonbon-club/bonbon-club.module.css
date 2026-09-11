@@ -1,0 +1,884 @@
+/* ==========================================================================
+   BONBON CLUB - after-school club, Brighton
+   Memphis pop. Flat blocks of pink, mint, yellow and violet on cream, every
+   one of them outlined in 3px of ink and standing on a hard offset shadow.
+   Fredoka for anything that shouts, Nunito for anything that has to be
+   read. Stickers are tilted; nothing else is. The patterns are the confetti
+   and they run at nearly full strength, because a hall full of children is
+   not a quiet place.
+   ========================================================================== */
+
+.page {
+  --paper: #fff8e7;
+  --ink: #1b1b1f;
+  --pink: #ff4f7b;
+  --mint: #2fc4b2;
+  --yellow: #ffc53d;
+  --violet: #6c5ce7;
+  --gut: clamp(1.1rem, 4vw, 3rem);
+  --max: 74rem;
+  --outline: 3px solid var(--ink);
+  --shadow: 6px 6px 0 var(--ink);
+  --display: 'Fredoka', 'Arial Rounded MT Bold', 'Helvetica Neue', Arial, sans-serif;
+
+  font-family: 'Nunito', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.55;
+  background: var(--paper);
+  color: var(--ink);
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page :where(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page :focus-visible {
+  outline: 3px solid var(--violet);
+  outline-offset: 3px;
+}
+
+.page h1,
+.page h2,
+.page h3 {
+  font-family: var(--display);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+/* The four tones. Ink on three of them, cream on the violet, which is the
+   only one dark enough to need it. */
+.tonePink {
+  background: var(--pink);
+  color: var(--ink);
+}
+
+.toneMint {
+  background: var(--mint);
+  color: var(--ink);
+}
+
+.toneYellow {
+  background: var(--yellow);
+  color: var(--ink);
+}
+
+.toneViolet {
+  background: var(--violet);
+  color: var(--paper);
+}
+
+/* A card: outline, shadow, cream inside. Everything boxed on the page is
+   one of these. */
+.card,
+.tile,
+.snackCard,
+.venueCard,
+.heroCard {
+  border: var(--outline);
+  box-shadow: var(--shadow);
+  background: var(--paper);
+}
+
+/* A sticker: a tilted pill in a tone, outlined and shadowed like the cards
+   but rounded, because a sticker is. */
+.stickerHero,
+.stickerSnack,
+.stickerPrice {
+  display: inline-block;
+  font-family: var(--display);
+  font-weight: 700;
+  border: var(--outline);
+  border-radius: 999px;
+  box-shadow: 4px 4px 0 var(--ink);
+  padding: 0.4rem 1rem;
+  white-space: nowrap;
+}
+
+/* Buttons: two shapes, same outline. */
+.buttonPink,
+.buttonPlain,
+.barCta {
+  display: inline-block;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.6rem 1.3rem;
+  border: var(--outline);
+  box-shadow: 4px 4px 0 var(--ink);
+  background: var(--paper);
+  transition: transform 100ms ease, box-shadow 100ms ease;
+}
+
+.buttonPink,
+.barCta {
+  background: var(--pink);
+}
+
+.buttonPink:hover,
+.buttonPlain:hover,
+.barCta:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+/* ---------------------------------------------------------------- top bar */
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--gut);
+  padding: 0.7rem var(--gut);
+  background: var(--paper);
+  border-bottom: var(--outline);
+}
+
+.mark {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.3rem;
+  padding: 0.05rem 0.7rem;
+  background: var(--yellow);
+  border: var(--outline);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.nav {
+  display: flex;
+  gap: clamp(0.8rem, 2vw, 1.6rem);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.nav a {
+  font-weight: 800;
+  font-size: 0.9rem;
+  padding: 0.2rem 0;
+  border-bottom: 3px solid transparent;
+}
+
+.nav a:hover {
+  border-bottom-color: var(--pink);
+}
+
+.barCta {
+  padding: 0.4rem 1rem;
+  font-size: 0.95rem;
+}
+
+/* -------------------------------------------------------------------- hero */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3.5rem, 9vw, 7rem) var(--gut) clamp(4rem, 10vw, 8rem);
+  border-bottom: var(--outline);
+}
+
+/* shatter at nearly full strength: the card in front carries its own
+   outline and shadow, so the pattern can be as loud as it likes. */
+.heroField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.85;
+  overflow: hidden;
+}
+
+.heroCard {
+  position: relative;
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: clamp(1.6rem, 4vw, 2.8rem) clamp(1.4rem, 4vw, 2.6rem);
+  box-shadow: 10px 10px 0 var(--ink);
+  transform: rotate(-1deg);
+}
+
+.kicker {
+  margin: 0 0 1rem;
+  font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--violet);
+}
+
+.heroTitle {
+  margin: 0;
+  font-size: clamp(2.1rem, 7vw, 4.4rem);
+}
+
+.heroTitle em {
+  font-style: normal;
+  color: var(--pink);
+}
+
+.heroLede {
+  margin: 1.4rem 0 0;
+  font-size: 1.05rem;
+  max-width: 32rem;
+}
+
+.heroActions {
+  margin-top: 1.6rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.stickerHero {
+  position: absolute;
+  top: -1.4rem;
+  right: -1rem;
+  background: var(--yellow);
+  transform: rotate(7deg);
+  font-size: 1rem;
+}
+
+/* --------------------------------------------------------------- sections */
+
+.section {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(3rem, 7vw, 5.5rem) var(--gut);
+}
+
+.sectionHead {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: 1rem clamp(1.5rem, 5vw, 4rem);
+  align-items: end;
+  margin: 0 0 clamp(1.8rem, 4vw, 2.8rem);
+}
+
+.sectionHead h2,
+.snackHead h2,
+.venueCard h2 {
+  margin: 0;
+  font-size: clamp(1.9rem, 4.2vw, 3rem);
+  text-decoration: underline;
+  text-decoration-thickness: 6px;
+  text-decoration-color: var(--pink);
+  text-underline-offset: 7px;
+}
+
+.sectionLede,
+.snackLede,
+.venueLede {
+  margin: 0;
+  font-size: 1rem;
+  max-width: 34rem;
+}
+
+.sectionNote {
+  margin: 1.4rem 0 0;
+  font-size: 0.92rem;
+  max-width: 34rem;
+  color: color-mix(in srgb, var(--ink) 72%, transparent);
+}
+
+/* ------------------------------------------------------------------- clubs */
+
+.clubGrid,
+.priceGrid,
+.tiles,
+.staffGrid,
+.steps,
+.smallPrint,
+.menu,
+.contact {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.clubGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.4rem, 3vw, 2.2rem);
+}
+
+.card > div:first-child {
+  padding: 1rem 1.2rem;
+  border-bottom: var(--outline);
+}
+
+.card h3 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.cardBody {
+  padding: 1rem 1.2rem 1.3rem;
+}
+
+.cardMeta {
+  display: inline-block;
+  margin: 0 0.6rem 0.6rem 0;
+  font-weight: 800;
+  font-size: 0.76rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.cardText {
+  margin: 0.2rem 0 0;
+  font-size: 0.95rem;
+}
+
+.cardLeader {
+  margin: 0.8rem 0 0;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--violet);
+}
+
+/* -------------------------------------------------------------------- week
+   A timetable with every cell a block in the tone of its club. On a narrow
+   screen it scrolls inside its wrapper; the page itself never does. */
+
+.weekWrap {
+  overflow-x: auto;
+  padding: 0 8px 8px 0;
+}
+
+.week {
+  width: 100%;
+  min-width: 42rem;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: var(--outline);
+  box-shadow: var(--shadow);
+  background: var(--paper);
+  font-size: 0.92rem;
+}
+
+.week th,
+.week td {
+  padding: 0.9rem 1rem;
+  text-align: left;
+  border-right: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  font-weight: 700;
+}
+
+.week th {
+  font-family: var(--display);
+  font-size: 1.05rem;
+}
+
+.week thead th {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.week th:last-child,
+.week td:last-child {
+  border-right: 0;
+}
+
+.week tbody tr:last-child th,
+.week tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+/* -------------------------------------------------------------------- band
+   Pinned to a whole multiple of the cell (28 x 96px) and clipped, so every
+   grid track is a whole pixel at every viewport width. */
+
+.band {
+  position: relative;
+  height: 288px;
+  overflow: hidden;
+  border-top: var(--outline);
+  border-bottom: var(--outline);
+}
+
+.bandField {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2688px;
+  height: 288px;
+  overflow: hidden;
+}
+
+/* ------------------------------------------------------------------- tiles
+   Three square frames with ziggy inside, standing in for photographs. A
+   square box keeps the derived grid square, so the chevrons never stretch. */
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.4rem, 3vw, 2.4rem);
+}
+
+.tile {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  margin-bottom: 1.2rem;
+}
+
+.tileTime {
+  margin: 0 0 0.3rem;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--pink);
+}
+
+.tiles h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.4rem;
+}
+
+.tileBody {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* ------------------------------------------------------------------ snacks */
+
+.snackCard {
+  position: relative;
+  background: var(--mint);
+  padding: clamp(1.6rem, 4vw, 2.6rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+  gap: clamp(1.5rem, 5vw, 4rem);
+}
+
+.snackHead h2 {
+  text-decoration-color: var(--paper);
+}
+
+.snackLede {
+  margin-top: 1rem;
+}
+
+.menu {
+  display: grid;
+  gap: 0;
+  border: var(--outline);
+  background: var(--paper);
+}
+
+.menu div {
+  display: grid;
+  grid-template-columns: 8rem minmax(0, 1fr);
+  gap: 1rem;
+  padding: 0.7rem 1rem;
+  border-bottom: 2px solid var(--ink);
+}
+
+.menu div:last-child {
+  border-bottom: 0;
+}
+
+.menu dt {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.menu dd {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.stickerSnack {
+  position: absolute;
+  top: -1.2rem;
+  right: 1.5rem;
+  background: var(--yellow);
+  transform: rotate(-6deg);
+}
+
+/* ------------------------------------------------------------------- staff */
+
+.staffGrid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(1rem, 2.5vw, 1.8rem);
+}
+
+.person {
+  display: grid;
+  gap: 0.3rem;
+  justify-items: start;
+}
+
+.initials {
+  display: inline-grid;
+  place-items: center;
+  width: 4.2rem;
+  height: 4.2rem;
+  border-radius: 50%;
+  border: var(--outline);
+  box-shadow: 4px 4px 0 var(--ink);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.3rem;
+  margin-bottom: 0.6rem;
+}
+
+.personName {
+  font-weight: 800;
+  font-size: 1rem;
+}
+
+.personRole {
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--ink) 72%, transparent);
+}
+
+/* ------------------------------------------------------------------ prices */
+
+.priceGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.4rem, 3vw, 2.4rem);
+}
+
+.priceTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.stickerPrice {
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 1.5rem;
+  padding: 0.3rem 0.9rem;
+  transform: rotate(5deg);
+}
+
+.smallPrint {
+  margin-top: clamp(2rem, 5vw, 3rem);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.2rem, 3vw, 2.4rem);
+}
+
+.smallPrint div {
+  border-top: var(--outline);
+  padding-top: 0.8rem;
+}
+
+.smallPrint dt {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
+}
+
+.smallPrint dd {
+  margin: 0;
+  font-size: 0.92rem;
+}
+
+/* ------------------------------------------------------------------ signup */
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.2rem, 3vw, 2.4rem);
+}
+
+.stepN {
+  display: inline-grid;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 50%;
+  border: var(--outline);
+  background: var(--violet);
+  color: var(--paper);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+}
+
+.steps h3 {
+  margin: 0 0 0.4rem;
+  font-size: 1.3rem;
+}
+
+.steps p {
+  margin: 0;
+  font-size: 0.94rem;
+}
+
+.signupActions {
+  margin-top: clamp(2rem, 5vw, 3rem);
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.signupNote {
+  margin: 0;
+  font-size: 0.92rem;
+  max-width: 28rem;
+}
+
+/* ------------------------------------------------------------------- venue */
+
+.venueGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.venueCard {
+  background: var(--yellow);
+  padding: clamp(1.6rem, 4vw, 2.6rem);
+}
+
+.venueCard h2 {
+  text-decoration-color: var(--paper);
+}
+
+.venueLede {
+  margin-top: 1rem;
+}
+
+.contact {
+  display: grid;
+  gap: 1rem;
+  padding-top: 0.4rem;
+}
+
+.contact div {
+  display: grid;
+  grid-template-columns: 6rem minmax(0, 1fr);
+  gap: 1rem;
+  align-items: baseline;
+}
+
+.contact dt {
+  font-family: var(--display);
+  font-weight: 600;
+}
+
+.contact dd {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.contact a {
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-decoration-color: var(--pink);
+  text-underline-offset: 3px;
+}
+
+/* -------------------------------------------------------------------- coda
+   Pinned to 28 x 96px, like the band. */
+
+.coda {
+  position: relative;
+  height: 192px;
+  overflow: hidden;
+  border-top: var(--outline);
+}
+
+.codaField {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2688px;
+  height: 192px;
+  overflow: hidden;
+  opacity: 0.9;
+}
+
+/* ------------------------------------------------------------------ footer */
+
+.footer {
+  background: var(--ink);
+  color: var(--paper);
+  padding: clamp(2.5rem, 6vw, 4rem) var(--gut) clamp(1.6rem, 3vw, 2.4rem);
+}
+
+.footGrid {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+  gap: clamp(1.6rem, 4vw, 3rem);
+  align-items: start;
+}
+
+.footName {
+  margin: 0 0 0.6rem;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--yellow);
+}
+
+.footTag {
+  margin: 0;
+  max-width: 24rem;
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--paper) 78%, transparent);
+}
+
+.footHead {
+  margin: 0 0 0.9rem;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--mint);
+}
+
+.footLinks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.footLinks a,
+.footAddr {
+  font-size: 0.92rem;
+  color: color-mix(in srgb, var(--paper) 88%, transparent);
+}
+
+.footLinks a:hover {
+  color: var(--pink);
+}
+
+.footAddr {
+  margin: 0;
+  line-height: 1.7;
+}
+
+.footFine {
+  max-width: var(--max);
+  margin: clamp(2.5rem, 6vw, 4rem) auto 0;
+  padding-top: 1.1rem;
+  border-top: 2px solid color-mix(in srgb, var(--paper) 24%, transparent);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+.footFine p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: color-mix(in srgb, var(--paper) 62%, transparent);
+}
+
+.footFine a {
+  color: var(--paper);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footFine a:hover {
+  color: var(--pink);
+}
+
+/* ------------------------------------------------------------ responsive */
+
+@media (max-width: 1040px) {
+  .clubGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .staffGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 820px) {
+  .bar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .sectionHead,
+  .snackCard,
+  .venueGrid,
+  .priceGrid,
+  .smallPrint,
+  .tiles {
+    grid-template-columns: 1fr;
+  }
+
+  .heroCard {
+    transform: none;
+    box-shadow: var(--shadow);
+  }
+
+  .stickerHero {
+    position: static;
+    margin-top: 1.4rem;
+    transform: rotate(-3deg);
+  }
+
+  .footGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footBrand {
+    grid-column: 1 / -1;
+  }
+
+  .band,
+  .bandField {
+    height: 192px;
+  }
+}
+
+@media (max-width: 560px) {
+  .clubGrid,
+  .staffGrid,
+  .steps,
+  .footGrid,
+  .footFine {
+    grid-template-columns: 1fr;
+  }
+
+  .menu div,
+  .contact div {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+
+  .priceTop {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .coda,
+  .codaField {
+    height: 144px;
+  }
+}
