@@ -695,7 +695,8 @@ test.describe('Template preview and customize', () => {
       '/studio/customize/?slug=verdant'
     );
     await expect(page.locator('iframe')).toHaveAttribute('src', '/template/verdant/');
-    await expect(page.getByRole('link', { name: 'All templates' })).toHaveAttribute('href', '/templates');
+    // next/link writes the export's trailing slash.
+    await expect(page.getByRole('link', { name: 'All templates' })).toHaveAttribute('href', '/templates/');
 
     await page.getByRole('button', { name: 'Download' }).click();
     await expect(page.getByRole('menuitem', { name: /Static HTML and CSS/ })).toHaveAttribute(
