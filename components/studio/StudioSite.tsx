@@ -75,6 +75,12 @@ export default function StudioSite({ designs }: { designs: readonly DesignChoice
   const [downloading, setDownloading] = useState(false);
   const [shuffling, setShuffling] = useState(false);
   const [expanded, setExpanded] = useState(false);
+  // Bumped to remount the iframe. React diffs `srcDoc` against the prop it
+  // last rendered, not against the live document: a rebuilt page that is
+  // byte-for-byte the one first loaded (the template's own patterns, put back
+  // after a shuffle) would otherwise be no change at all, and the frame would
+  // keep the attributes the live edits wrote into it.
+  const [canvasKey, setCanvasKey] = useState(0);
   const frameRef = useRef<HTMLIFrameElement | null>(null);
 
   useEffect(() => {
@@ -225,9 +231,11 @@ export default function StudioSite({ designs }: { designs: readonly DesignChoice
 
     touch(next);
     // A swap removed the field's authored options and seed, which a partial
-    // plan cannot put back; the canvas is rebuilt from the package instead.
+    // plan cannot put back; the canvas is rebuilt from the package instead,
+    // and remounted, since the rebuilt page may equal the one already loaded.
     const rebuilt = buildPreviewDocument({ html: packaged, spec, edits: next, slug: site.slug });
     setState({ ...ready, html: rebuilt.html, problems: rebuilt.problems });
+    setCanvasKey((key) => key + 1);
     toaster.add({ title: `Back to ${site.templateName}'s own patterns` });
   };
 
@@ -402,6 +410,7 @@ export default function StudioSite({ designs }: { designs: readonly DesignChoice
 
             <div className={styles.canvas}>
               <iframe
+                key={canvasKey}
                 ref={frameRef}
                 className={styles.iframe}
                 title={`${site.title} - built on the ${site.templateName} template`}
