@@ -77,8 +77,8 @@ export default function FrequenzPage() {
       />
 
       <header className={s.bar}>
-        <a className={s.mark} href="#top">
-          Frequenz <span data-edit="bar.text" data-edit-max="60">94,6</span>
+        <a data-edit="bar.text" data-edit-format="emphasis" data-edit-max="28" className={s.mark} href="#top">
+          Frequenz <span>94,6</span>
         </a>
         <nav aria-label="Sections">
           <a data-edit="bar.schedule" data-edit-max="28" href="#schedule">Programm</a>
@@ -86,7 +86,7 @@ export default function FrequenzPage() {
           <a data-edit="bar.support" data-edit-max="28" href="#support">Support</a>
           <a data-edit="bar.studio" data-edit-max="28" href="#studio">Studio</a>
         </nav>
-        <p className={s.onair}>
+        <p data-edit="bar.body" data-edit-format="emphasis" data-edit-max="240" data-edit-multiline className={s.onair}>
           <span aria-hidden="true" />
           On air
         </p>
@@ -107,12 +107,12 @@ export default function FrequenzPage() {
           </div>
           <div className={s.heroInner}>
             <p data-edit="hero.eyebrow" data-edit-max="240" data-edit-multiline className={s.eyebrow}>Freies Radio Graz / seit 1979</p>
-            <h1>
+            <h1 data-edit="hero.text" data-edit-format="emphasis" data-edit-max="70">
               Twenty-four hours
               <br />
               a day, and nobody
               <br />
-              <span data-edit="hero.text" data-edit-max="60">here is paid.</span>
+              <span>here is paid.</span>
             </h1>
             <div className={s.nowBox}>
               <p data-edit="hero.nowLabel" data-edit-max="240" data-edit-multiline className={s.nowLabel}>On air now</p>
@@ -270,7 +270,7 @@ export default function FrequenzPage() {
             <dl className={s.contact}>
               <div>
                 <dt data-edit="studio.term" data-edit-max="28">Studio</dt>
-                <dd>
+                <dd data-edit="studio.body3" data-edit-max="200" data-edit-multiline>
                   Lendkai 94, Hof
                   <br />
                   8020 Graz
@@ -497,7 +497,7 @@ export default function FrequenzPage() {
           </div>
           <div className={s.footCol}>
             <h2 data-edit="footer.footHead3" data-edit-max="60" className={s.footHead}>Contact</h2>
-            <p className={s.footAddr}>
+            <p data-edit="footer.body2" data-edit-max="240" data-edit-multiline className={s.footAddr}>
               Lendkai 94, Hof
               <br />
               8020 Graz

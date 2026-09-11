@@ -109,12 +109,12 @@ export default function SecondePage() {
           </div>
           <div className={s.heroInner}>
             <p data-edit="hero.eyebrow" data-edit-max="240" data-edit-multiline className={s.eyebrow}>Lausanne / depuis 1991</p>
-            <h1>
+            <h1 data-edit="hero.text" data-edit-format="emphasis" data-edit-max="70">
               The result exists
               <br />
               before the crowd
               <br />
-              <span data-edit="hero.text" data-edit-max="60">finishes shouting.</span>
+              <span>finishes shouting.</span>
             </h1>
             <p data-edit="hero.lede" data-edit-max="240" data-edit-multiline className={s.lede}>
               We time races to one ten-thousandth of a second and publish inside
@@ -280,7 +280,7 @@ export default function SecondePage() {
                 </div>
                 <div>
                   <dt data-edit="book.term2" data-edit-max="28">Office</dt>
-                  <dd>
+                  <dd data-edit="book.body3" data-edit-max="200" data-edit-multiline>
                     Avenue de Rhodanie 12
                     <br />
                     1007 Lausanne
@@ -502,7 +502,7 @@ export default function SecondePage() {
           </div>
           <div className={s.footCol}>
             <h2 data-edit="footer.footHead3" data-edit-max="60" className={s.footHead}>Contact</h2>
-            <p className={s.footAddr}>
+            <p data-edit="footer.body2" data-edit-max="240" data-edit-multiline className={s.footAddr}>
               Avenue de Rhodanie 12
               <br />
               1007 Lausanne

@@ -263,9 +263,9 @@ export type ImageResult = { bytes: ArrayBuffer; contentType: string; model: stri
 
 /**
  * One image, as WebP. Transparency is a *parameter* - never a request in the
- * prose, which paints a fake checkerboard into the pixels - and gpt-image-2
- * honours it natively, which is why this reaches one vendor and not two (see
- * docs/image-pipeline.md).
+ * prose, which paints a fake checkerboard into the pixels - and the GPT Image
+ * models honour it natively, which is why this reaches one vendor and not two
+ * (see docs/image-pipeline.md).
  *
  * This stays on the images endpoint rather than moving to the Responses API's
  * `image_generation` tool. That tool puts a reasoning model in front of every

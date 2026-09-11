@@ -162,12 +162,12 @@ export default function BureauVektorPage() {
             />
           </div>
           <p data-edit="hero.heroKicker" data-edit-max="240" data-edit-multiline className={s.heroKicker}>Official statistics / the canton / since 1919</p>
-          <h1 className={s.heroType}>
+          <h1 data-edit="hero.blue" data-edit-format="emphasis" data-edit-max="70" className={s.heroType}>
             Numbers,
             <br />
             published
             <br />
-            <span data-edit="hero.blue" data-edit-max="60" className={s.blue}>whole.</span>
+            <span className={s.blue}>whole.</span>
           </h1>
           <div className={s.heroFoot}>
             <p data-edit="hero.body" data-edit-max="240" data-edit-multiline>
@@ -459,7 +459,7 @@ export default function BureauVektorPage() {
       </div>
 
       <footer className={s.footer}>
-        <p className={s.footStatement}>
+        <p data-edit="footer.body2" data-edit-format="emphasis" data-edit-max="240" data-edit-multiline className={s.footStatement}>
           Every table on this site can be downloaded, reused and <em>argued with</em>.
         </p>
         <div className={s.footGrid}>
@@ -481,7 +481,7 @@ export default function BureauVektorPage() {
           </div>
           <div>
             <h2 data-edit="footer.title3" data-edit-max="60">Here</h2>
-            <p>
+            <p data-edit="footer.body3" data-edit-max="240" data-edit-multiline>
               Rue du Recensement 4
               <br />
               1204 Genève

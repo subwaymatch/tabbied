@@ -190,11 +190,11 @@ export default function OxbowWorkshopPage() {
           <p data-edit="masthead.mastSub" data-edit-max="240" data-edit-multiline className={styles.mastSub}>Furniture Workshop · Hudson Valley</p>
           <nav className={styles.mastNav} aria-label="Catalogue contents">
             <a data-edit="masthead.collection" data-edit-max="28" href="#collection">The Collection</a>
-            <span aria-hidden="true">·</span>
+            <span data-edit="masthead.text" data-edit-max="60" aria-hidden="true">·</span>
             <a data-edit="masthead.joinery" data-edit-max="28" href="#joinery">On Joinery</a>
-            <span aria-hidden="true">·</span>
+            <span data-edit="masthead.text2" data-edit-max="60" aria-hidden="true">·</span>
             <a data-edit="masthead.workshop" data-edit-max="28" href="#workshop">The Workshop</a>
-            <span aria-hidden="true">·</span>
+            <span data-edit="masthead.text3" data-edit-max="60" aria-hidden="true">·</span>
             <a data-edit="masthead.commissions" data-edit-max="28" href="#commissions">Commissions</a>
           </nav>
         </div>

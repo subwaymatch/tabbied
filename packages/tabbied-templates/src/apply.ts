@@ -83,7 +83,8 @@ function writeText(
   element: Element,
   value: string,
   format: string,
-  emphasisClass: string | undefined
+  emphasisClass: string | undefined,
+  emphasisTag: string | undefined
 ): void {
   if (format !== 'emphasis') {
     element.textContent = value;
@@ -91,7 +92,11 @@ function writeText(
   }
 
   const segments = parseEmphasis(value);
-  const existing = element.querySelector('em');
+  // The page's own accent tag, not `em` by assumption: a bespoke page styles
+  // whatever its stylesheet targets, and rebuilding the run as an `<em>` there
+  // drops the accent's styling without erroring.
+  const tag = emphasisTag ?? 'em';
+  const existing = element.querySelector(tag);
   const className = existing?.getAttribute('class') ?? emphasisClass ?? null;
   const document = element.ownerDocument;
 
@@ -108,11 +113,11 @@ function writeText(
       continue;
     }
 
-    const em = document.createElement('em');
+    const accent = document.createElement(tag);
 
-    if (className) em.setAttribute('class', className);
-    em.textContent = segment.text;
-    fragment.appendChild(em);
+    if (className) accent.setAttribute('class', className);
+    accent.textContent = segment.text;
+    fragment.appendChild(accent);
   }
 
   element.textContent = '';
@@ -162,7 +167,8 @@ function runOperation(root: Root, operation: EditOperation): Problem | null {
           element,
           operation.value,
           operation.format,
-          operation.emphasisClass
+          operation.emphasisClass,
+          operation.emphasisTag
         );
       }
 

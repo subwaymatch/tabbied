@@ -76,7 +76,7 @@ export default function CobaltWorksPage() {
       />
 
       <header className={s.bar}>
-        <a className={s.mark} href="#top">
+        <a data-edit="bar.link" data-edit-format="emphasis" data-edit-max="40" className={s.mark} href="#top">
           Cobalt Works
           <i>Dry pigment, Sheffield</i>
         </a>
@@ -103,10 +103,10 @@ export default function CobaltWorksPage() {
           </div>
           <div className={s.heroInner}>
             <p data-edit="hero.eyebrow" data-edit-max="240" data-edit-multiline className={s.eyebrow}>Est. 1911 / Attercliffe</p>
-            <h1>
+            <h1 data-edit="hero.text" data-edit-format="emphasis" data-edit-max="70">
               Colour is a
               <br />
-              <span data-edit="hero.text" data-edit-max="60">material</span> before
+              <span>material</span> before
               <br />
               it is an effect.
             </h1>
@@ -273,7 +273,7 @@ export default function CobaltWorksPage() {
             <dl className={s.contact}>
               <div>
                 <dt data-edit="order.term" data-edit-max="28">Works</dt>
-                <dd>
+                <dd data-edit="order.body3" data-edit-max="200" data-edit-multiline>
                   Effingham Lane, Attercliffe
                   <br />
                   Sheffield S9 2QP
@@ -500,7 +500,7 @@ export default function CobaltWorksPage() {
           </div>
           <div className={s.footCol}>
             <h2 data-edit="footer.footHead3" data-edit-max="60" className={s.footHead}>Contact</h2>
-            <p className={s.footAddr}>
+            <p data-edit="footer.body2" data-edit-max="240" data-edit-multiline className={s.footAddr}>
               Effingham Lane, Attercliffe
               <br />
               Sheffield S9 2QP

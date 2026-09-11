@@ -225,7 +225,7 @@ export default function CalderaRailPage() {
           Est. 1927 · The Caldera Railway Company · Terra Alta · Port Lumen ·
           Vespergate
         </p>
-        <p className={styles.mastheadMark} aria-hidden="true">
+        <p data-edit="masthead.body" data-edit-max="240" data-edit-multiline className={styles.mastheadMark} aria-hidden="true">
           &#x2726;
         </p>
         <p data-edit="masthead.brand" data-edit-max="240" data-edit-multiline className={styles.brand}>Caldera</p>
@@ -539,7 +539,7 @@ export default function CalderaRailPage() {
               />
             </div>
             <div className={styles.fleetCard}>
-              <h3>
+              <h3 data-edit="fleet.title" data-edit-format="emphasis" data-edit-max="40">
                 No. 7 · <em>Vesper</em>
               </h3>
               <p data-edit="fleet.body" data-edit-max="240" data-edit-multiline>

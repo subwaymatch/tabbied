@@ -204,7 +204,7 @@ export default function BogenPapierPage() {
                 ))}
               </ul>
             </nav>
-            <p className={styles.mastPhone}>
+            <p data-edit="masthead.body" data-edit-max="240" data-edit-multiline className={styles.mastPhone}>
               Lagerstrasse 41
               <br />
               8400 Winterthur
@@ -837,7 +837,7 @@ export default function BogenPapierPage() {
             <div className={styles.grid}>
               <div className={styles.footMark}>
                 <p data-edit="footer.footWord" data-edit-max="240" data-edit-multiline className={styles.footWord}>Bogen Papier</p>
-                <p className={styles.footSub}>
+                <p data-edit="footer.body" data-edit-max="240" data-edit-multiline className={styles.footSub}>
                   Papiergrosshandel
                   <br />
                   Established 1954

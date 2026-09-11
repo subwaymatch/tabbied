@@ -449,7 +449,7 @@ export default function FalzbogenPage() {
         <div className={s.footGrid}>
           <div>
             <h2 data-edit="footer.title" data-edit-max="60">On the bench</h2>
-            <p>
+            <p data-edit="footer.body2" data-edit-max="240" data-edit-multiline>
               Six benches, three of them older than the firm
               <br />
               Two thread-sewing machines, one hand frame
@@ -467,7 +467,7 @@ export default function FalzbogenPage() {
           </div>
           <div>
             <h2 data-edit="footer.title3" data-edit-max="60">Here</h2>
-            <p>
+            <p data-edit="footer.body3" data-edit-max="240" data-edit-multiline>
               Nonnenstrasse 17
               <br />
               04229 Leipzig

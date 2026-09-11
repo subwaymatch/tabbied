@@ -320,7 +320,7 @@ export default function InstitutVollmerPage() {
         <div className={s.wrap}>
           <div className={s.grid}>
             <p data-edit="masthead.wordmark" data-edit-max="240" data-edit-multiline className={s.wordmark}>Institut Vollmer</p>
-            <p className={s.mastheadMeta}>
+            <p data-edit="masthead.body" data-edit-max="240" data-edit-multiline className={s.mastheadMeta}>
               Materials research since 1951
               <br />
               Nordstrasse 44, 4058 Basel
@@ -716,7 +716,7 @@ export default function InstitutVollmerPage() {
           <div className={s.grid}>
             <div className={s.footBrand}>
               <p data-edit="footer.footWordmark" data-edit-max="240" data-edit-multiline className={s.footWordmark}>Institut Vollmer</p>
-              <p>
+              <p data-edit="footer.body2" data-edit-max="240" data-edit-multiline>
                 Nordstrasse 44
                 <br />
                 4058 Basel

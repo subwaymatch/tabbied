@@ -80,7 +80,7 @@ export default function KaellaPage() {
       />
 
       <header className={s.bar}>
-        <a className={s.mark} href="#top">
+        <a data-edit="bar.link" data-edit-format="emphasis" data-edit-max="40" className={s.mark} href="#top">
           Källa
           <i>Kommunalt vatten, Uppsala</i>
         </a>
@@ -108,12 +108,12 @@ export default function KaellaPage() {
           <div className={s.heroScrim} aria-hidden="true" />
           <div className={s.heroInner}>
             <p data-edit="hero.eyebrow" data-edit-max="240" data-edit-multiline className={s.eyebrow}>Uppsala vatten / sedan 1876</p>
-            <h1>
+            <h1 data-edit="hero.text" data-edit-format="emphasis" data-edit-max="70">
               It comes out of
               <br />
               a hill, and we try
               <br />
-              <span data-edit="hero.text" data-edit-max="60">not to spoil it.</span>
+              <span>not to spoil it.</span>
             </h1>
             <p data-edit="hero.lede" data-edit-max="240" data-edit-multiline className={s.lede}>
               Fourteen wells in the esker, three works, nine hundred and forty
@@ -271,7 +271,7 @@ export default function KaellaPage() {
               </div>
               <div>
                 <dt data-edit="contact.term3" data-edit-max="28">Office</dt>
-                <dd>
+                <dd data-edit="contact.body3" data-edit-max="200" data-edit-multiline>
                   Kungsängsvägen 27
                   <br />
                   753 23 Uppsala
@@ -488,7 +488,7 @@ export default function KaellaPage() {
           </div>
           <div className={s.footCol}>
             <h2 data-edit="footer.footHead3" data-edit-max="60" className={s.footHead}>Contact</h2>
-            <p className={s.footAddr}>
+            <p data-edit="footer.body2" data-edit-max="240" data-edit-multiline className={s.footAddr}>
               Kungsängsvägen 27
               <br />
               753 23 Uppsala

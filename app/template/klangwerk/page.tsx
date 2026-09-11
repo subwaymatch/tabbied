@@ -130,12 +130,12 @@ export default function KlangwerkPage() {
             />
           </div>
           <p data-edit="hero.eyebrow" data-edit-max="240" data-edit-multiline className={s.eyebrow}>Studio für elektroakustische Musik / Leipzig / seit 1998</p>
-          <h1>
+          <h1 data-edit="hero.text" data-edit-format="emphasis" data-edit-max="70">
             A room is an
             <br />
             instrument you
             <br />
-            <span data-edit="hero.text" data-edit-max="60">cannot pack away.</span>
+            <span>cannot pack away.</span>
           </h1>
           <p data-edit="hero.lede" data-edit-max="240" data-edit-multiline className={s.lede}>
             Three listening spaces, four residencies a year, and a concert
@@ -302,7 +302,7 @@ export default function KlangwerkPage() {
                 </div>
                 <div>
                   <dt data-edit="apply.term2" data-edit-max="28">Studio</dt>
-                  <dd>
+                  <dd data-edit="apply.body3" data-edit-max="200" data-edit-multiline>
                     Karl-Heine-Str. 41, Halle 4
                     <br />
                     04229 Leipzig
@@ -524,7 +524,7 @@ export default function KlangwerkPage() {
           </div>
           <div className={s.footCol}>
             <h2 data-edit="footer.footHead3" data-edit-max="60" className={s.footHead}>Contact</h2>
-            <p className={s.footAddr}>
+            <p data-edit="footer.body2" data-edit-max="240" data-edit-multiline className={s.footAddr}>
               Karl-Heine-Str. 41, Halle 4
               <br />
               04229 Leipzig

@@ -437,7 +437,7 @@ export default function KubusPage() {
         <div className={s.footGrid}>
           <div>
             <h2 data-edit="footer.title" data-edit-max="60">The building</h2>
-            <p>
+            <p data-edit="footer.body2" data-edit-max="240" data-edit-multiline>
               A goods depot of 1908, four rooms, no wall moved
               <br />
               Nine metres to the trusses in the long room
@@ -455,7 +455,7 @@ export default function KubusPage() {
           </div>
           <div>
             <h2 data-edit="footer.title3" data-edit-max="60">Here</h2>
-            <p>
+            <p data-edit="footer.body3" data-edit-max="240" data-edit-multiline>
               Depotstrasse 4
               <br />
               Wednesday to Sunday

@@ -84,7 +84,7 @@ export default function HafenSechsPage() {
       <header className={s.bar}>
         <div className={s.brand}>
           <span data-edit="bar.brandNo" data-edit-max="60" className={s.brandNo}>06</span>
-          <span>
+          <span data-edit="bar.text" data-edit-format="emphasis" data-edit-max="60">
             Hafen Sechs
             <i>Containerterminal Bremerhaven</i>
           </span>
@@ -95,7 +95,7 @@ export default function HafenSechsPage() {
           <a data-edit="bar.gate" data-edit-max="28" href="#gate">Gate</a>
           <a data-edit="bar.contact" data-edit-max="28" href="#contact">Contact</a>
         </nav>
-        <p className={s.live}>
+        <p data-edit="bar.body" data-edit-format="emphasis" data-edit-max="240" data-edit-multiline className={s.live}>
           <span aria-hidden="true" />
           Operating normally
         </p>
@@ -115,12 +115,12 @@ export default function HafenSechsPage() {
             />
           </div>
           <p data-edit="hero.eyebrow" data-edit-max="240" data-edit-multiline className={s.eyebrow}>53°32′ N &nbsp;8°34′ E &nbsp;/&nbsp; Terminal 6</p>
-          <h1>
+          <h1 data-edit="hero.text" data-edit-format="emphasis" data-edit-max="70">
             Six berths.
             <br />
             Nineteen hundred
             <br />
-            <span data-edit="hero.text" data-edit-max="60">and eighty metres.</span>
+            <span>and eighty metres.</span>
           </h1>
           <p data-edit="hero.lede" data-edit-max="240" data-edit-multiline className={s.lede}>
             The deepwater terminal at the mouth of the Weser. Two point one
@@ -307,7 +307,7 @@ export default function HafenSechsPage() {
               </div>
               <div>
                 <dt data-edit="contact.term3" data-edit-max="28">Address</dt>
-                <dd>
+                <dd data-edit="contact.body3" data-edit-max="200" data-edit-multiline>
                   Senator-Borttscheller-Str. 6
                   <br />
                   27568 Bremerhaven
@@ -524,7 +524,7 @@ export default function HafenSechsPage() {
           </div>
           <div className={s.footCol}>
             <h2 data-edit="footer.footHead3" data-edit-max="60" className={s.footHead}>Contact</h2>
-            <p className={s.footAddr}>
+            <p data-edit="footer.body2" data-edit-max="240" data-edit-multiline className={s.footAddr}>
               Senator-Borttscheller-Str. 6
               <br />
               27568 Bremerhaven

@@ -74,7 +74,7 @@ export default function NullpunktPage() {
       />
 
       <header className={s.bar}>
-        <a className={s.mark} href="#top">
+        <a data-edit="bar.link" data-edit-format="emphasis" data-edit-max="28" className={s.mark} href="#top">
           <span className={s.dot} aria-hidden="true" />
           Nullpunkt
         </a>
@@ -102,10 +102,10 @@ export default function NullpunktPage() {
           </div>
           <div className={s.heroInner}>
             <p data-edit="hero.eyebrow" data-edit-max="240" data-edit-multiline className={s.eyebrow}>Institut für Messtechnik / Braunschweig</p>
-            <h1>
+            <h1 data-edit="hero.text" data-edit-format="emphasis" data-edit-max="70">
               Zero is a
               <br />
-              <span data-edit="hero.text" data-edit-max="60">decision</span>, and
+              <span>decision</span>, and
               <br />
               somebody has to
               <br />
@@ -259,7 +259,7 @@ export default function NullpunktPage() {
               <dl>
                 <div>
                   <dt data-edit="lab.term" data-edit-max="28">Laboratory</dt>
-                  <dd>
+                  <dd data-edit="lab.body3" data-edit-max="200" data-edit-multiline>
                     Bundesallee 100
                     <br />
                     38116 Braunschweig
@@ -496,7 +496,7 @@ export default function NullpunktPage() {
           </div>
           <div className={s.footCol}>
             <h2 data-edit="footer.footHead3" data-edit-max="60" className={s.footHead}>Contact</h2>
-            <p className={s.footAddr}>
+            <p data-edit="footer.body2" data-edit-max="240" data-edit-multiline className={s.footAddr}>
               Bundesallee 100
               <br />
               38116 Braunschweig

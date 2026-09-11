@@ -245,8 +245,8 @@ export default function HopscotchMuseumPage() {
           </div>
           <div className={styles.heroInner}>
             <div className={styles.heroCopy}>
-              <h1 id="hero-title" className={styles.heroTitle}>
-                Where <span data-edit="hero.underRed" data-edit-max="60" className={styles.underRed}>"don't touch"</span> isn't a thing.
+              <h1 data-edit="hero.underRed" data-edit-format="emphasis" data-edit-max="70" id="hero-title" className={styles.heroTitle}>
+                Where <span className={styles.underRed}>"don't touch"</span> isn't a thing.
               </h1>
               <p data-edit="hero.heroLede" data-edit-max="240" data-edit-multiline className={styles.heroLede}>
                 Three floors of climbing, splashing, launching and why-ing for ages 0-12, and
@@ -408,7 +408,7 @@ export default function HopscotchMuseumPage() {
               </div>
               <div className={styles.visitCard}>
                 <h3 data-edit="visit.title3" data-edit-max="40">Getting here</h3>
-                <p className={styles.visitAddress}>
+                <p data-edit="visit.body" data-edit-max="240" data-edit-multiline className={styles.visitAddress}>
                   88 Marble Run Way
                   <br />
                   Pemberton Falls
@@ -477,7 +477,7 @@ export default function HopscotchMuseumPage() {
               className={styles.memberPattern}
             />
             <div className={styles.memberInner}>
-              <h2 id="membership-title" className={styles.h2Light}>
+              <h2 data-edit="membership.title" data-edit-max="60" id="membership-title" className={styles.h2Light}>
                 Come back every
                 <br />
                 single week
@@ -515,7 +515,7 @@ export default function HopscotchMuseumPage() {
             <h2 data-edit="fieldtrips.h2" data-edit-max="60" id="ft-title" className={styles.h2}>
               Field trips that don't feel like worksheets
             </h2>
-            <p>
+            <p data-edit="fieldtrips.body" data-edit-format="emphasis" data-edit-max="240" data-edit-multiline>
               Teachers: we run curriculum-linked visits for pre-K through grade 6, led by our
               educators, timed to your bus. Every trip ends with a build challenge and begins
               with the rule we are famous for: <em>go ahead, touch it.</em>
@@ -568,14 +568,14 @@ export default function HopscotchMuseumPage() {
         <div className={styles.footerBand}>
           <div className={styles.footerGrid}>
             <div>
-              <p className={styles.footerLogo}>
-                hopscotch<span data-edit="footerContact.text" data-edit-max="60">!</span>
+              <p data-edit="footerContact.text" data-edit-format="emphasis" data-edit-max="240" data-edit-multiline className={styles.footerLogo}>
+                hopscotch<span>!</span>
               </p>
               <p data-edit="footerContact.footerTag" data-edit-max="240" data-edit-multiline className={styles.footerTag}>The children's discovery museum</p>
             </div>
             <div>
               <h3 data-edit="footerContact.title" data-edit-max="40">Find us</h3>
-              <p>
+              <p data-edit="footerContact.body" data-edit-max="240" data-edit-multiline>
                 88 Marble Run Way
                 <br />
                 Pemberton Falls
@@ -583,7 +583,7 @@ export default function HopscotchMuseumPage() {
             </div>
             <div>
               <h3 data-edit="footerContact.title2" data-edit-max="40">Say hi</h3>
-              <p>
+              <p data-edit="footerContact.body2" data-edit-max="240" data-edit-multiline>
                 hello@hopscotchmuseum.example
                 <br />
                 (555) 014-8890
@@ -591,7 +591,7 @@ export default function HopscotchMuseumPage() {
             </div>
             <div>
               <h3 data-edit="footerContact.title3" data-edit-max="40">Open</h3>
-              <p>
+              <p data-edit="footerContact.body3" data-edit-max="240" data-edit-multiline>
                 Tue - Sun, from 9 am
                 <br />
                 Closed Mondays (we mop)

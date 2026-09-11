@@ -223,7 +223,7 @@ export default function CeruleanSwimPage() {
           <div className={styles.heroScrim} aria-hidden="true" />
           <div className={styles.heroInner}>
             <p data-edit="hero.eyebrow" data-edit-max="240" data-edit-multiline className={styles.eyebrow}>Collection № 04 · Meltemi</p>
-            <h1 id="hero-title" className={styles.heroTitle}>
+            <h1 data-edit="hero.title" data-edit-format="emphasis" data-edit-max="70" id="hero-title" className={styles.heroTitle}>
               Cut for salt.
               <br />
               <em>Sewn for sun.</em>
@@ -256,7 +256,7 @@ export default function CeruleanSwimPage() {
           aria-labelledby="lookbook-title"
         >
           <header className={styles.secHead}>
-            <h2 id="lookbook-title" className={styles.secTitle}>
+            <h2 data-edit="secHead.title" data-edit-format="emphasis" data-edit-max="60" id="lookbook-title" className={styles.secTitle}>
               The <em>Meltemi</em> lookbook
             </h2>
             <p data-edit="secHead.secLede" data-edit-max="240" data-edit-multiline className={styles.secLede}>
@@ -290,7 +290,7 @@ export default function CeruleanSwimPage() {
           aria-labelledby="shop-title"
         >
           <header className={styles.secHead}>
-            <h2 id="shop-title" className={styles.secTitle}>
+            <h2 data-edit="secHead.title2" data-edit-format="emphasis" data-edit-max="60" id="shop-title" className={styles.secTitle}>
               In the <em>water</em> now
             </h2>
             <p data-edit="secHead.secLede2" data-edit-max="240" data-edit-multiline className={styles.secLede}>
@@ -344,7 +344,7 @@ export default function CeruleanSwimPage() {
         >
           <div className={styles.fabricCols}>
             <div>
-              <h2 id="fabric-title" className={styles.secTitle}>
+              <h2 data-edit="fabric.title" data-edit-format="emphasis" data-edit-max="60" id="fabric-title" className={styles.secTitle}>
                 Fabric &amp; <em>fit</em>
               </h2>
               <p data-edit="fabric.fabricBody" data-edit-max="240" data-edit-multiline className={styles.fabricBody}>
@@ -391,7 +391,7 @@ export default function CeruleanSwimPage() {
           <section className={styles.sectionAlt} aria-labelledby="care-title">
             <div className={styles.careInner}>
               <header className={styles.secHead}>
-                <h2 id="care-title" className={styles.secTitle}>
+                <h2 data-edit="secHead.title3" data-edit-format="emphasis" data-edit-max="60" id="care-title" className={styles.secTitle}>
                   Care, in <em>five</em> slow steps
                 </h2>
                 <p data-edit="secHead.secLede3" data-edit-max="240" data-edit-multiline className={styles.secLede}>
@@ -423,7 +423,7 @@ export default function CeruleanSwimPage() {
           aria-labelledby="swims-title"
         >
           <header className={styles.secHead}>
-            <h2 id="swims-title" className={styles.secTitle}>
+            <h2 data-edit="secHead.title4" data-edit-format="emphasis" data-edit-max="60" id="swims-title" className={styles.secTitle}>
               Where we <em>swim</em>
             </h2>
             <p data-edit="secHead.secLede4" data-edit-max="240" data-edit-multiline className={styles.secLede}>
@@ -474,7 +474,7 @@ export default function CeruleanSwimPage() {
               />
             </figure>
             <div>
-              <h2 id="atelier-title" className={styles.secTitle}>
+              <h2 data-edit="atelier.title" data-edit-format="emphasis" data-edit-max="60" id="atelier-title" className={styles.secTitle}>
                 Made in <em>Sestri</em>
               </h2>
               <p data-edit="atelier.fabricBody" data-edit-max="240" data-edit-multiline className={styles.fabricBody}>
@@ -504,7 +504,7 @@ export default function CeruleanSwimPage() {
           aria-labelledby="sizing-title"
         >
           <header className={styles.secHead}>
-            <h2 id="sizing-title" className={styles.secTitle}>
+            <h2 data-edit="secHead.title5" data-edit-format="emphasis" data-edit-max="60" id="sizing-title" className={styles.secTitle}>
               Size &amp; <em>fit</em>
             </h2>
             <p data-edit="secHead.secLede5" data-edit-max="240" data-edit-multiline className={styles.secLede}>
@@ -542,7 +542,7 @@ export default function CeruleanSwimPage() {
           aria-labelledby="questions-title"
         >
           <header className={styles.secHead}>
-            <h2 id="questions-title" className={styles.secTitle}>
+            <h2 data-edit="secHead.title6" data-edit-format="emphasis" data-edit-max="60" id="questions-title" className={styles.secTitle}>
               Before you <em>order</em>
             </h2>
           </header>
@@ -570,7 +570,7 @@ export default function CeruleanSwimPage() {
             />
           </div>
           <div className={styles.clubCard}>
-            <h2 id="club-title" className={styles.clubTitle}>
+            <h2 data-edit="club.title" data-edit-format="emphasis" data-edit-max="60" id="club-title" className={styles.clubTitle}>
               The <em>Water Club</em>
             </h2>
             <p data-edit="club.clubLede" data-edit-max="240" data-edit-multiline className={styles.clubLede}>
@@ -606,7 +606,7 @@ export default function CeruleanSwimPage() {
         {/* STOCKISTS */}
         <section className={styles.section} aria-labelledby="stockists-title">
           <header className={styles.secHead}>
-            <h2 id="stockists-title" className={styles.secTitle}>
+            <h2 data-edit="secHead.title7" data-edit-format="emphasis" data-edit-max="60" id="stockists-title" className={styles.secTitle}>
               Where we <em>wash up</em>
             </h2>
             <p data-edit="secHead.secLede6" data-edit-max="240" data-edit-multiline className={styles.secLede}>

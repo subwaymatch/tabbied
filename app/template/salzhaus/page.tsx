@@ -336,7 +336,7 @@ export default function SalzhausPage() {
               style={{ position: 'absolute', inset: 0 }}
             />
           </div>
-          <span className={s.sideLabel} aria-hidden="true">
+          <span data-edit="work.text" data-edit-max="60" className={s.sideLabel} aria-hidden="true">
             Wie wir arbeiten
           </span>
           <div className={s.workInner}>
@@ -562,7 +562,7 @@ export default function SalzhausPage() {
           </div>
           <div>
             <h2 data-edit="footer.title3" data-edit-max="60">Here</h2>
-            <p>
+            <p data-edit="footer.body2" data-edit-max="240" data-edit-multiline>
               Uferstrasse 90
               <br />
               4057 Basel

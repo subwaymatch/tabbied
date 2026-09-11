@@ -305,7 +305,7 @@ export default function LinieNordPage() {
             <a data-edit="masthead.fares" data-edit-max="28" href="#fares">Fares</a>
             <a data-edit="masthead.updates" data-edit-max="28" href="#updates">Updates</a>
           </nav>
-          <p className={styles.mastMeta}>
+          <p data-edit="masthead.body" data-edit-max="240" data-edit-multiline className={styles.mastMeta}>
             Verkehrsbetrieb Steinhafen
             <br />
             Timetable valid to 14 Sep 2026
@@ -978,7 +978,7 @@ export default function LinieNordPage() {
           </div>
           <div className={styles.footCol}>
             <h2 data-edit="footer.footHead2" data-edit-max="60" className={styles.footHead}>Opening times</h2>
-            <p className={styles.footList}>
+            <p data-edit="footer.body2" data-edit-max="240" data-edit-multiline className={styles.footList}>
               Ticket hall 05:00 to 23:30
               <br />
               Windows, weekdays 06:30 to 19:00

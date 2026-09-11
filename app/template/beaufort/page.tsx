@@ -456,7 +456,7 @@ export default function BeaufortPage() {
           </div>
           <div>
             <h2 data-edit="footer.title3" data-edit-max="60">Here</h2>
-            <p>
+            <p data-edit="footer.body2" data-edit-max="240" data-edit-multiline>
               Quai des Indes 9
               <br />
               56100 Lorient

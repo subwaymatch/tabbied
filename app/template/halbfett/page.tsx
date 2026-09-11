@@ -106,12 +106,12 @@ export default function HalbfettPage() {
             />
           </div>
           <p data-edit="hero.kicker" data-edit-max="240" data-edit-multiline className={s.kicker}>Schriftgiesserei / Zürich / gegr. 2016</p>
-          <h1 className={s.hero1}>
+          <h1 data-edit="hero.text" data-edit-format="emphasis" data-edit-max="70" className={s.hero1}>
             Type drawn at the
             <br />
             speed it wants
             <br />
-            <span data-edit="hero.text" data-edit-max="60">to be drawn.</span>
+            <span>to be drawn.</span>
           </h1>
           <p data-edit="hero.heroLede" data-edit-max="240" data-edit-multiline className={s.heroLede}>
             Eleven families, sixty-five styles, three people. We release a
@@ -264,7 +264,7 @@ export default function HalbfettPage() {
               <dl>
                 <div>
                   <dt data-edit="studio.term" data-edit-max="28">Studio</dt>
-                  <dd>
+                  <dd data-edit="studio.body2" data-edit-max="200" data-edit-multiline>
                     Rämistrasse 40, 8001 Zürich
                     <br />
                     By appointment
@@ -488,7 +488,7 @@ export default function HalbfettPage() {
           </div>
           <div className={s.footCol}>
             <h2 data-edit="footer.footHead3" data-edit-max="60" className={s.footHead}>Contact</h2>
-            <p className={s.footAddr}>
+            <p data-edit="footer.body2" data-edit-max="240" data-edit-multiline className={s.footAddr}>
               Rämistrasse 40
               <br />
               8001 Zürich

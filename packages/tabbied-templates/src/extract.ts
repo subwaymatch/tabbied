@@ -11,7 +11,7 @@
 // labels is one fewer thing to keep in sync.
 
 import { scanElements, parseAttributes, stripCacheBuster } from './html.js';
-import { hasEmphasis, htmlToTextValue } from './text.js';
+import { accentTagOf, hasEmphasis, htmlToTextValue } from './text.js';
 import { parseCopyRole } from './brand.js';
 import {
   EDIT_IMAGE_ATTRIBUTE,
@@ -183,7 +183,10 @@ function textSlotFrom(
 ): TextSlot {
   const format: TextFormat =
     attributes[FORMAT_ATTRIBUTE] === 'emphasis' ? 'emphasis' : 'plain';
-  const value = htmlToTextValue(innerHtml);
+  // Which tag this page accents with. Only consulted for an emphasis slot: a
+  // plain slot drops every tag to its text either way.
+  const emphasisTag = format === 'emphasis' ? accentTagOf(innerHtml) : null;
+  const value = htmlToTextValue(innerHtml, emphasisTag ?? 'em');
   const slot: TextSlot = {
     id,
     kind: 'text',
@@ -204,11 +207,12 @@ function textSlotFrom(
 
   // The accent's class name is hashed in the export and rewritten again in the
   // download package, so it can only be learned from the markup in hand.
-  if (format === 'emphasis' && hasEmphasis(value)) {
-    const em = /<em\b([^>]*)>/i.exec(innerHtml);
-    const className = em ? parseAttributes(em[1])['class'] : undefined;
+  if (format === 'emphasis' && hasEmphasis(value) && emphasisTag) {
+    const opening = new RegExp(`<${emphasisTag}\\b([^>]*)>`, 'i').exec(innerHtml);
+    const className = opening ? parseAttributes(opening[1])['class'] : undefined;
 
     if (className) slot.emphasisClass = className;
+    if (emphasisTag !== 'em') slot.emphasisTag = emphasisTag;
   }
 
   return slot;

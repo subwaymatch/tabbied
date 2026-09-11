@@ -244,7 +244,7 @@ export default function GrafitPage() {
                 <span className={s.rowN} data-edit={`lines.${i}.n`} data-edit-max="4">{l.n}</span>
                 <h3 className={s.rowTitle} data-edit={`lines.${i}.title`} data-edit-max="28">{l.t}</h3>
                 <span className={s.rowSub} data-edit={`lines.${i}.body`} data-edit-max="120">{l.d}</span>
-                <span className={s.rowYear}>Since <span data-edit={`lines.${i}.year`} data-edit-max="8">{l.made}</span></span>
+                <span data-edit={`lines.${i}.year`} data-edit-format="emphasis" data-edit-max="60" className={s.rowYear}>Since <span>{l.made}</span></span>
                 <span className={s.rowPrice} data-edit={`lines.${i}.price`} data-edit-max="12">{l.price}</span>
               </li>
             ))}
@@ -427,7 +427,7 @@ export default function GrafitPage() {
           <p data-edit="footer.disclaimer" data-edit-multiline data-edit-max="140">A fictional pencil factory. Grades, prices and dates are invented.</p>
           <p>
             Patterns by{' '}
-            <a href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.link" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground and redrawn on a timer.

@@ -74,7 +74,7 @@ export default function MeterwarePage() {
       />
 
       <header className={s.bar}>
-        <a className={s.mark} href="#top">
+        <a data-edit="bar.link" data-edit-format="emphasis" data-edit-max="30" className={s.mark} href="#top">
           Meterware
           <i>Weberei, Vorarlberg</i>
         </a>
@@ -101,12 +101,12 @@ export default function MeterwarePage() {
           </div>
           <div className={s.heroInner}>
             <p data-edit="hero.eyebrow" data-edit-max="240" data-edit-multiline className={s.eyebrow}>Weberei seit 1908 / Bregenzerwald</p>
-            <h1>
+            <h1 data-edit="hero.text" data-edit-format="emphasis" data-edit-max="70">
               Cloth by the metre,
               <br />
               and one metre
               <br />
-              <span data-edit="hero.text" data-edit-max="60">is a real order.</span>
+              <span>is a real order.</span>
             </h1>
             <p data-edit="hero.lede" data-edit-max="240" data-edit-multiline className={s.lede}>
               Forty-one qualities, yarn-dyed in the house, woven on looms a
@@ -270,7 +270,7 @@ export default function MeterwarePage() {
             <dl className={s.contact}>
               <div>
                 <dt data-edit="order.term" data-edit-max="28">Mill</dt>
-                <dd>
+                <dd data-edit="order.body3" data-edit-max="200" data-edit-multiline>
                   Achstrasse 8
                   <br />
                   6870 Bezau, Vorarlberg
@@ -497,7 +497,7 @@ export default function MeterwarePage() {
           </div>
           <div className={s.footCol}>
             <h2 data-edit="footer.footHead3" data-edit-max="60" className={s.footHead}>Contact</h2>
-            <p className={s.footAddr}>
+            <p data-edit="footer.body2" data-edit-max="240" data-edit-multiline className={s.footAddr}>
               Achstrasse 8
               <br />
               6870 Bezau, Vorarlberg

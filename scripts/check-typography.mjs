@@ -10,7 +10,7 @@
 // than across the one that read the rule.
 //
 // A glyph that is genuinely part of a design (a CSS `content`, an icon, a
-// timetable arrow) is written as an escape (`\2714`, `→`) so the source
+// timetable arrow) is written as an escape (`\2714`, `\u2192`) so the source
 // stays ASCII and the choice is visible in review. Prose never gets that
 // exemption: a dash in a sentence is a comma, a colon, a period, or a pair of
 // parentheses waiting to be chosen.
@@ -22,21 +22,21 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
 const BANNED = [
-  ['—', 'em dash; use a comma, colon, period or parentheses'],
-  ['–', 'en dash; use a hyphen'],
-  ['‘', 'curly quote; use a straight quote'],
-  ['’', 'curly quote or apostrophe; use a straight one'],
-  ['“', 'curly double quote; use a straight quote'],
-  ['”', 'curly double quote; use a straight quote'],
-  ['…', 'ellipsis character; use three periods'],
-  ['→', 'arrow; write "to" or "->"'],
-  ['←', 'arrow; write "from" or "<-"'],
-  ['•', 'bullet; use a hyphen or a list'],
-  ['✓', 'check mark; say "ok"'],
-  ['✔', 'check mark; say "ok"'],
-  [' ', 'no-break space; use a plain space or &nbsp;'],
-  ['​', 'zero-width space'],
-  ['﻿', 'byte-order mark'],
+  ['\u2014', 'em dash; use a comma, colon, period or parentheses'],
+  ['\u2013', 'en dash; use a hyphen'],
+  ['\u2018', 'curly quote; use a straight quote'],
+  ['\u2019', 'curly quote or apostrophe; use a straight one'],
+  ['\u201C', 'curly double quote; use a straight quote'],
+  ['\u201D', 'curly double quote; use a straight quote'],
+  ['\u2026', 'ellipsis character; use three periods'],
+  ['\u2192', 'arrow; write "to" or "->"'],
+  ['\u2190', 'arrow; write "from" or "<-"'],
+  ['\u2022', 'bullet; use a hyphen or a list'],
+  ['\u2713', 'check mark; say "ok"'],
+  ['\u2714', 'check mark; say "ok"'],
+  ['\u00A0', 'no-break space; use a plain space or &nbsp;'],
+  ['\u200B', 'zero-width space'],
+  ['\uFEFF', 'byte-order mark'],
 ];
 
 /** Symbols and emoji blocks, flagged as one class. */

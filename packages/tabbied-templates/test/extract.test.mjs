@@ -253,3 +253,59 @@ test('a gap in the brand roles stops the palette rather than compacting it', () 
   // document would land on a different colour than the page it was made from.
   assert.deepEqual(parseBrandColors('--brand-0:#fff;--brand-2:#000'), ['#fff']);
 });
+
+// ---- accents that are not <em> --------------------------------------------
+//
+// The 52 bespoke pages predate the {em} convention and each accents with
+// whichever tag its stylesheet targets. Cobalt Works styles `.hero h1 span`,
+// so reading its headline as though the accent were an <em> loses the accent
+// and rebuilding it as one loses the colour. Both halves take the tag now.
+
+test('htmlToTextValue marks up the page\'s own accent tag', () => {
+  const html = 'Colour is a<br/><span class="x">material</span> before<br/>it is an effect.';
+
+  assert.equal(
+    htmlToTextValue(html, 'span'),
+    'Colour is a {em}material{/em} before it is an effect.'
+  );
+});
+
+test('htmlToTextValue still defaults to em', () => {
+  assert.equal(
+    htmlToTextValue('Evenings that <em>wind down</em>.'),
+    'Evenings that {em}wind down{/em}.'
+  );
+});
+
+test('a <br> becomes a space, not nothing', () => {
+  // JSX leaves no whitespace either side of a break, so dropping the tag
+  // outright ran "before" and "it" together into "beforeit".
+  assert.equal(htmlToTextValue('before<br/>it'), 'before it');
+});
+
+test('accentTagOf reads the tag off the markup, and skips <br>', async () => {
+  const { accentTagOf } = await import('../dist/index.js');
+
+  assert.equal(accentTagOf('a<br/><span>b</span> c'), 'span');
+  assert.equal(accentTagOf('a <em>b</em>'), 'em');
+  assert.equal(accentTagOf('plain text'), null);
+  // A link mid-sentence is not an accent: rebuilding it as one would drop its
+  // href, so such an element is left for a person rather than guessed at.
+  assert.equal(accentTagOf('by <a href="#">Tabbied</a>'), null);
+});
+
+test('an emphasis slot carries the tag it was read with', () => {
+  const html =
+    '<html><body><div data-edit-root="vars" data-edit-vars="ink">' +
+    '<h1 data-edit="hero.text" data-edit-format="emphasis">' +
+    'Colour is a<br/><span class="hashed">material</span> before</h1>' +
+    '</div></body></html>';
+
+  const { slots } = extractFromHtml(html, { designOptions: () => [] });
+  const slot = slots.find((entry) => entry.id === 'hero.text');
+
+  assert.equal(slot.format, 'emphasis');
+  assert.equal(slot.emphasisTag, 'span');
+  assert.equal(slot.emphasisClass, 'hashed');
+  assert.equal(slot.value, 'Colour is a {em}material{/em} before');
+});

@@ -97,6 +97,8 @@ export {
   hasEmphasis,
   decodeEntities,
   htmlToTextValue,
+  accentTagOf,
+  ACCENT_TAGS,
 } from './text.js';
 
 export type { TextSegment } from './text.js';

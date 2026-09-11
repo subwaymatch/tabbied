@@ -413,7 +413,7 @@ export default function TiefseePage() {
       </div>
 
       <footer className={s.footer}>
-        <p className={s.footStatement}>
+        <p data-edit="footer.body2" data-edit-format="emphasis" data-edit-max="240" data-edit-multiline className={s.footStatement}>
           Data goes public twelve months after the cruise, <em>whether or not</em> we have written about it.
         </p>
         <div className={s.footGrid}>
@@ -435,7 +435,7 @@ export default function TiefseePage() {
           </div>
           <div>
             <h2 data-edit="footer.title3" data-edit-max="60">Ashore</h2>
-            <p>
+            <p data-edit="footer.body3" data-edit-max="240" data-edit-multiline>
               Kaianlage 3
               <br />
               At sea 200 days a year

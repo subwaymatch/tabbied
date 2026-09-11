@@ -31,6 +31,7 @@ export type EditOperation =
       value: string;
       format: TextFormat;
       emphasisClass?: string;
+      emphasisTag?: string;
     }
   | { type: 'image'; id: string; src: string; alt?: string }
   | {
@@ -234,13 +235,19 @@ export function planEdits(
       );
     }
 
-    operations.push({
+    const operation: EditOperation = {
       type: 'text',
       id,
       value,
       format: slot.format,
       emphasisClass: slot.emphasisClass,
-    });
+    };
+
+    // Only when the page declares one: an absent tag means `em`, and an own
+    // property set to undefined is not the same shape to a deep comparison.
+    if (slot.emphasisTag) operation.emphasisTag = slot.emphasisTag;
+
+    operations.push(operation);
   }
 
   // ---- images -------------------------------------------------------------

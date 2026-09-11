@@ -375,7 +375,7 @@ export default function ZwoelftonPage() {
 
         {/* -------------------------------------------------------- WORKSHOP */}
         <section id="workshop" className={s.workshop} aria-labelledby="workshop-h">
-          <span className={s.sideLabel} aria-hidden="true">Probe / Werkstatt</span>
+          <span data-edit="workshop.text" data-edit-max="60" className={s.sideLabel} aria-hidden="true">Probe / Werkstatt</span>
           <h2 data-edit="workshop.title" data-edit-max="60" id="workshop-h">What a rehearsal week looks like</h2>
           <div className={s.wCols}>
             <p data-edit="workshop.lead" data-edit-max="240" data-edit-multiline className={s.lead}>
@@ -469,7 +469,7 @@ export default function ZwoelftonPage() {
           </div>
           <div>
             <h2 data-edit="footer.title3" data-edit-max="60">Here</h2>
-            <p>
+            <p data-edit="footer.body2" data-edit-max="240" data-edit-multiline>
               Ungargasse 14/2
               <br />
               1030 Wien
