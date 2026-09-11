@@ -85,7 +85,12 @@ export type SiteSummary = {
   slug: string;
   templateName: string;
   title: string;
+  /** The direction's stance, or '' for a site made from the gallery. */
   stance: string;
+  /**
+   * The colours the site currently wears: the latest revision's palette when
+   * one was saved, the direction's or the template's own otherwise.
+   */
   palette: string[];
   revisions: number;
   createdAt: string | Date;
@@ -96,9 +101,10 @@ export type SiteSummary = {
 export type SiteDocument = SiteSummary & {
   /** The viewer is the person who made it - the editor shows only then. */
   mine: boolean;
-  generationId: string;
-  directionIndex: number;
-  description: string;
+  /** Null for a site made from the template gallery rather than a direction. */
+  generationId: string | null;
+  directionIndex: number | null;
+  description: string | null;
   specVersion: number;
   /**
    * True when the packaged template no longer matches the one this site was

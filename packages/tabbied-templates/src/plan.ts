@@ -47,6 +47,27 @@ export type EditPlan = {
   problems: Problem[];
 };
 
+export type PlanOptions = {
+  /**
+   * The designs a pattern slot may be swapped to - the catalog's slugs. When
+   * given, a swap to a slug outside it is an error rather than an attribute
+   * that hydrates to nothing: the runtime warns on an unknown design and
+   * draws a blank, which is the silent failure this scheme exists to make
+   * loud. Left out, a swap is only checked for shape (the packager and the
+   * build gate have no catalog to hand).
+   */
+  designs?: ReadonlySet<string> | readonly string[];
+};
+
+const designSet = (
+  designs: PlanOptions['designs']
+): ReadonlySet<string> | null =>
+  designs == null
+    ? null
+    : designs instanceof Set
+      ? designs
+      : new Set(designs as readonly string[]);
+
 /** Minimum usable palette: a ground plus one ink. */
 export const MIN_PALETTE_COLORS = 2;
 
@@ -158,10 +179,12 @@ function checkPalette(path: string, colors: unknown): Problem[] {
  */
 export function planEdits(
   spec: TemplateSpec,
-  document: EditsDocument
+  document: EditsDocument,
+  options: PlanOptions = {}
 ): EditPlan {
   const problems: Problem[] = [];
   const operations: EditOperation[] = [];
+  const designs = designSet(options.designs);
 
   if (document.specVersion !== spec.specVersion) {
     problems.push(
@@ -313,6 +336,13 @@ export function planEdits(
         continue;
       }
 
+      if (swapped && designs && !designs.has(edit.slug)) {
+        problems.push(
+          error(`${path}.slug`, `no design "${edit.slug}" in the catalog`)
+        );
+        continue;
+      }
+
       if (swapped) attributes['data-pattern'] = edit.slug;
     }
 
@@ -394,9 +424,10 @@ export function planEdits(
 /** Just the problems - for a caller that wants to check before applying. */
 export function validateEdits(
   spec: TemplateSpec,
-  document: EditsDocument
+  document: EditsDocument,
+  options: PlanOptions = {}
 ): Problem[] {
-  return planEdits(spec, document).problems;
+  return planEdits(spec, document, options).problems;
 }
 
 /**

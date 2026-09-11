@@ -4,6 +4,7 @@ import { drizzle } from 'drizzle-orm/d1';
 import { z } from 'zod';
 import {
   directionToEdits,
+  emptyEdits,
   hasErrors,
   isImageSlot,
   planEdits,
@@ -12,6 +13,7 @@ import {
 import type {
   SiteDocument,
   SiteSummary,
+  StoredDirection,
   StoredResult,
   StoredRevision,
 } from '../../lib/studioDocument';
@@ -43,17 +45,30 @@ import { ensurePalette } from '../lib/palette';
 import { checkQuota, recordUsage } from '../lib/quota';
 import { consume } from '../lib/ratelimit';
 import { requireUser } from '../lib/session';
-import { hashText, loadPackagedHtml, loadTemplateSpec } from '../lib/templateAssets';
+import { loadStudioIndex } from '../lib/studioIndex';
+import {
+  hashText,
+  loadDesignSlugs,
+  loadPackagedHtml,
+  loadTemplateSpec,
+} from '../lib/templateAssets';
 
-// A site is a direction someone chose to make: the full document - every text
-// slot on the template rewritten for the business - pinned to the template it
-// was written against, with a revision history from the first draft on.
+// A site is a template a person is customizing, pinned to the template it was
+// started on, with a revision history from the first document on. It starts
+// one of two ways:
 //
-// The directions call picks three from a scored dozen and writes three
-// strings each; this is the second, dearer stage, and it is behind a click for
-// that reason. Nothing here reaches the 52 unannotated pages any differently
-// from the five annotated ones: the document is keyed by slot id, and every
-// template has those.
+// - From a direction Studio generated: the full document - every text slot on
+//   the template rewritten for the business. The directions call picks three
+//   from a scored dozen and writes three strings each; this is the second,
+//   dearer stage, and it is behind a click for that reason.
+// - Straight from the template gallery, with nothing written: revision 1 is
+//   an empty document, and the customizer's colours and patterns are the
+//   whole of what changes. No model is called, so no daily cap applies; the
+//   burst limiter still does.
+//
+// Nothing here reaches the 52 unannotated pages any differently from the five
+// annotated ones: the document is keyed by slot id, and every template has
+// those.
 
 const BURST = {
   make: { max: 3, windowSeconds: 60 },
@@ -67,23 +82,78 @@ const MAX_REFERENCES = 4;
 /** Over-estimate for an upstream that omitted `usage`, as in studio.ts. */
 const ESTIMATED_TOKENS = { prompt: 8_000, completion: 4_000 };
 
-const requestSchema = z.object({
-  generationId: z.string().min(8).max(64),
-  index: z.number().int().min(0).max(2),
-});
+// A direction to make, or a template to start from bare.
+const requestSchema = z.union([
+  z.object({
+    generationId: z.string().min(8).max(64),
+    index: z.number().int().min(0).max(2),
+  }),
+  z.object({
+    slug: z
+      .string()
+      .regex(/^[a-z0-9-]+$/)
+      .max(80),
+  }),
+]);
+
+const titleSchema = z.object({ title: z.string().trim().min(1).max(80) });
 
 type Db = ReturnType<typeof drizzle<typeof schema>>;
 
-/** The site row, its generation's description and result, or null. */
+/**
+ * The site row and, when it was made from a direction, its generation's
+ * description and result - null for a site started from the gallery.
+ */
 async function loadSite(db: Db, id: string) {
   const [row] = await db
     .select({ site, description: generation.description, result: generation.result })
     .from(site)
-    .innerJoin(generation, eq(generation.id, site.generationId))
+    .leftJoin(generation, eq(generation.id, site.generationId))
     .where(eq(site.id, id))
     .limit(1);
 
   return row ?? null;
+}
+
+/** The direction a site was made from, or undefined for a gallery site. */
+function directionOf(row: {
+  site: { directionIndex: number | null };
+  result: string | null;
+}): StoredDirection | undefined {
+  if (row.result == null || row.site.directionIndex == null) return undefined;
+
+  return (JSON.parse(row.result) as StoredResult).directions[row.site.directionIndex];
+}
+
+/**
+ * The template's own name and palette, from the studio index. What a gallery
+ * site is described by, and the fallback for a direction whose generation
+ * has since gone.
+ */
+async function templateEntry(env: Env, request: Request, slug: string) {
+  return (await loadStudioIndex(env, request)).find((entry) => entry.slug === slug);
+}
+
+/**
+ * The latest revision's document for each of several sites, in one query.
+ * The subquery qualifies its columns by hand: drizzle renders a column of the
+ * outer table bare when the outer query has no join, and inside the subquery
+ * a bare `site_id` is the alias's own.
+ */
+async function latestEditsFor(db: Db, siteIds: string[]): Promise<Map<string, EditsDocument>> {
+  if (siteIds.length === 0) return new Map();
+
+  const rows = await db
+    .select({ siteId: revision.siteId, edits: revision.edits })
+    .from(revision)
+    .where(
+      and(
+        inArray(revision.siteId, siteIds),
+        sql`${revision}.n = (select max(r2.n) from ${revision} r2 where r2.site_id = ${revision}.site_id)`
+      )
+    );
+
+  return new Map(rows.map((row) => [row.siteId, JSON.parse(row.edits) as EditsDocument]));
 }
 
 /** The newest revision, which every write builds on. */
@@ -186,11 +256,70 @@ sites.post('/', async (c) => {
   const parsed = requestSchema.safeParse(await c.req.json().catch(() => null));
 
   if (!parsed.success) {
-    return c.json({ error: 'Choose a direction to make.' }, 400);
+    return c.json({ error: 'Choose a direction to make, or a template to start from.' }, 400);
   }
 
-  const { generationId, index } = parsed.data;
   const db = drizzle(c.env.DB, { schema });
+
+  // ---- from the gallery ---------------------------------------------------
+  // Nothing is written for the business; the person starts from the template
+  // as it is and changes its colours and patterns. Not idempotent: each
+  // Customize is a new copy, which is what the account's "Create new site"
+  // means.
+  if ('slug' in parsed.data) {
+    const { slug } = parsed.data;
+    const entry = await templateEntry(c.env, c.req.raw, slug);
+
+    if (!entry) {
+      return c.json({ error: 'No such template.' }, 404);
+    }
+
+    const burst = await consume(db, { key: `site:${userId}`, ...BURST.make });
+
+    if (!burst.ok) {
+      return c.json({ error: 'Too fast. Try again in a minute.' }, 429, {
+        'retry-after': String(burst.retryAfter),
+      });
+    }
+
+    const [spec, html] = await Promise.all([
+      loadTemplateSpec(c.env, c.req.raw, slug),
+      loadPackagedHtml(c.env, c.req.raw, slug),
+    ]);
+    const templateHash = await hashText(html);
+    const id = newId();
+    const now = new Date();
+
+    await db.insert(site).values({
+      id,
+      userId,
+      generationId: null,
+      directionIndex: null,
+      slug,
+      title: entry.name,
+      specVersion: spec.specVersion,
+      templateHash,
+      createdAt: now,
+      updatedAt: now,
+    });
+
+    await db.insert(revision).values({
+      id: newId(),
+      siteId: id,
+      n: 1,
+      edits: JSON.stringify(emptyEdits(spec)),
+      instruction: null,
+      source: 'manual',
+      model: 'none',
+      responseId: null,
+      createdAt: now,
+    });
+
+    return c.json({ id, source: 'template' });
+  }
+
+  // ---- from a direction ---------------------------------------------------
+  const { generationId, index } = parsed.data;
 
   const [row] = await db
     .select()
@@ -400,21 +529,34 @@ sites.get('/', async (c) => {
       revisions: sql<number>`(select count(*) from ${revision} where ${revision.siteId} = ${site.id})`,
     })
     .from(site)
-    .innerJoin(generation, eq(generation.id, site.generationId))
+    .leftJoin(generation, eq(generation.id, site.generationId))
     .where(eq(site.userId, userId))
     .orderBy(desc(site.updatedAt))
     .limit(100);
 
+  // The swatches a row shows are the colours the site wears now, so the
+  // latest document is read for each - a site whose palette was changed and
+  // saved should not list under the template's own.
+  const [index, latest] = await Promise.all([
+    loadStudioIndex(c.env, c.req.raw),
+    latestEditsFor(
+      db,
+      rows.map((row) => row.id)
+    ),
+  ]);
+  const entries = new Map(index.map((entry) => [entry.slug, entry]));
+
   const summaries: SiteSummary[] = rows.map((row) => {
-    const direction = (JSON.parse(row.result) as StoredResult).directions[row.directionIndex];
+    const direction = directionOf({ site: { directionIndex: row.directionIndex }, result: row.result });
+    const entry = entries.get(row.slug);
 
     return {
       id: row.id,
       slug: row.slug,
-      templateName: direction?.name ?? row.slug,
+      templateName: direction?.name ?? entry?.name ?? row.slug,
       title: row.title,
       stance: direction?.stance ?? '',
-      palette: direction?.palette ?? [],
+      palette: latest.get(row.id)?.edits.palette ?? direction?.palette ?? entry?.palette ?? [],
       revisions: Number(row.revisions),
       createdAt: row.createdAt,
       updatedAt: row.updatedAt,
@@ -449,7 +591,8 @@ sites.get('/:id', async (c) => {
     .from(revision)
     .where(eq(revision.siteId, row.site.id));
 
-  const direction = (JSON.parse(row.result) as StoredResult).directions[row.site.directionIndex];
+  const direction = directionOf(row);
+  const entry = await templateEntry(c.env, c.req.raw, row.site.slug);
 
   // A missing package is drift too - the template was retired.
   const currentHash = await loadPackagedHtml(c.env, c.req.raw, row.site.slug)
@@ -473,10 +616,10 @@ sites.get('/:id', async (c) => {
     mine: viewer !== null && viewer === row.site.userId,
     id: row.site.id,
     slug: row.site.slug,
-    templateName: direction?.name ?? row.site.slug,
+    templateName: direction?.name ?? entry?.name ?? row.site.slug,
     title: row.site.title,
     stance: direction?.stance ?? '',
-    palette: direction?.palette ?? [],
+    palette: stored.edits.edits.palette ?? direction?.palette ?? entry?.palette ?? [],
     revisions: Number(count),
     createdAt: row.site.createdAt,
     updatedAt: row.site.updatedAt,
@@ -489,6 +632,42 @@ sites.get('/:id', async (c) => {
   };
 
   return c.json(body);
+});
+
+/**
+ * Rename a site. The title is what the listing and the customizer's rail
+ * call it; nothing on the page reads it, so no revision is written.
+ */
+sites.patch('/:id', async (c) => {
+  const userId = await requireUser(c.env, c.req.raw.headers);
+
+  if (!userId) {
+    return c.json({ error: 'Sign in to rename a site.' }, 401);
+  }
+
+  const parsed = titleSchema.safeParse(await c.req.json().catch(() => null));
+
+  if (!parsed.success) {
+    return c.json({ error: 'Give the site a name of 1 to 80 characters.' }, 400);
+  }
+
+  const db = drizzle(c.env.DB, { schema });
+  const row = await loadSite(db, c.req.param('id'));
+
+  if (!row) {
+    return c.json({ error: 'Not found' }, 404);
+  }
+
+  if (row.site.userId !== userId) {
+    return c.json({ error: 'Not yours to change.' }, 403);
+  }
+
+  await db
+    .update(site)
+    .set({ title: parsed.data.title, updatedAt: new Date() })
+    .where(eq(site.id, row.site.id));
+
+  return c.json({ title: parsed.data.title });
 });
 
 const imageRequestSchema = z.object({
@@ -563,7 +742,7 @@ sites.post('/:id/images', async (c) => {
     return c.json({ error: quota.message }, 429);
   }
 
-  const direction = (JSON.parse(row.result) as StoredResult).directions[row.site.directionIndex];
+  const direction = directionOf(row);
   const current = JSON.parse(latest.edits) as EditsDocument;
   const palette = current.edits.palette ?? direction?.palette ?? spec.palette.colors;
 
@@ -572,7 +751,7 @@ sites.post('/:id/images', async (c) => {
   try {
     image = await generateImage(c.env, {
       prompt: siteImagePrompt({
-        description: row.description,
+        description: row.description ?? '',
         stance: direction?.stance ?? '',
         why: direction?.why ?? '',
         palette,
@@ -703,7 +882,10 @@ sites.post('/:id/revisions', async (c) => {
     return c.json({ error: 'Images must come from this site or its template.' }, 400);
   }
 
-  const plan = planEdits(spec, edits);
+  // A pattern swap is held to the catalog being served: a slug outside it
+  // hydrates to a blank field with a console warning, which is the silent
+  // failure the planner exists to refuse.
+  const plan = planEdits(spec, edits, { designs: await loadDesignSlugs(c.env, c.req.raw) });
 
   if (hasErrors(plan.problems)) {
     return c.json(
@@ -849,7 +1031,7 @@ sites.post('/:id/revise', async (c) => {
 
   const spec = await loadTemplateSpec(c.env, c.req.raw, row.site.slug);
   const current = JSON.parse(latest.edits) as EditsDocument;
-  const direction = (JSON.parse(row.result) as StoredResult).directions[row.site.directionIndex];
+  const direction = directionOf(row);
 
   // The page as it reads now: the document's value where there is one, the
   // template's where there is not.
@@ -859,7 +1041,7 @@ sites.post('/:id/revise', async (c) => {
   }));
   const validator = buildReviseValidator(slots);
   const instructions = reviseSystemPrompt(direction ?? ({ stance: '', why: '' } as never), spec.site.name);
-  const user = reviseUserPrompt(row.description, slots, parsed.data.instruction);
+  const user = reviseUserPrompt(row.description ?? '', slots, parsed.data.instruction);
   const chainFrom = latest.source === 'ai' ? (latest.responseId ?? undefined) : undefined;
 
   let usage = { promptTokens: 0, completionTokens: 0 };

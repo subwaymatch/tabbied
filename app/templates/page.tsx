@@ -75,8 +75,14 @@ function Card({ c }: { c: CardData }) {
       </a>
       {/* Both formats are built by `npm run templates` into out/downloads/,
           so these are plain static files served next to the site. `download`
-          saves the zip rather than navigating to it. */}
+          saves the zip rather than navigating to it. Customize goes through
+          /studio/customize/, the one door into the customizer, which makes a
+          copy of the template under the person's account (signing in first
+          when it has to). */}
       <div className={s.dl}>
+        <a className={`${s.dlBtn} ${s.customize}`} href={`/studio/customize/?slug=${c.slug}`}>
+          Customize
+        </a>
         <span className={s.dlLabel}>Download</span>
         <a
           className={s.dlBtn}
@@ -142,7 +148,7 @@ export default function TemplatesGallery() {
   const allCards: CardData[] = [
     ...TEMPLATE_SITES.map((x, i) => ({
       slug: x.slug,
-      href: `/template/${x.slug}/`,
+      href: `/templates/${x.slug}/`,
       name: x.brand,
       topic: x.topic,
       pattern: x.pattern,
@@ -152,7 +158,7 @@ export default function TemplatesGallery() {
     })),
     ...NEW_TEMPLATE_SITES.map((x) => ({
       slug: x.slug,
-      href: `/template/${x.slug}/`,
+      href: `/templates/${x.slug}/`,
       name: x.name,
       topic: x.topic,
       pattern: x.patternSlug,

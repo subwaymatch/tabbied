@@ -11,6 +11,7 @@ import {
   Expand,
   FileCode,
   ImageDown,
+  ImagePlus,
   Link as LinkIcon,
   Minus,
   Plus,
@@ -95,6 +96,83 @@ const fitToBox = (ratio: AspectRatioId, maxW: number, maxH: number) => {
 
 const arraysEqual = (a: string[], b: string[]) =>
   a.length === b.length && a.every((value, index) => value === b[index]);
+
+const loadImage = (url: string) =>
+  new Promise<HTMLImageElement>((resolve, reject) => {
+    const image = new window.Image();
+    image.onload = () => resolve(image);
+    image.onerror = () => reject(new Error(`could not load ${url}`));
+    image.src = url;
+  });
+
+/** The pattern's PNG over the picture, cover-fitted, at the export's size. */
+const compositeOverImage = async (
+  patternPng: Blob,
+  width: number,
+  height: number,
+  imageUrl: string
+): Promise<Blob> => {
+  const patternUrl = URL.createObjectURL(patternPng);
+
+  try {
+    const [photo, patternImage] = await Promise.all([loadImage(imageUrl), loadImage(patternUrl)]);
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    const context = canvas.getContext('2d');
+
+    if (!context) throw new Error('no 2d context');
+
+    const cover = Math.max(width / photo.naturalWidth, height / photo.naturalHeight);
+    const photoWidth = photo.naturalWidth * cover;
+    const photoHeight = photo.naturalHeight * cover;
+
+    context.drawImage(photo, (width - photoWidth) / 2, (height - photoHeight) / 2, photoWidth, photoHeight);
+    context.drawImage(patternImage, 0, 0, width, height);
+
+    return await new Promise<Blob>((resolve, reject) =>
+      canvas.toBlob((blob) => (blob ? resolve(blob) : reject(new Error('toBlob failed'))), 'image/png')
+    );
+  } finally {
+    URL.revokeObjectURL(patternUrl);
+  }
+};
+
+const toDataUrl = async (url: string): Promise<string> => {
+  const blob = await (await fetch(url)).blob();
+
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result));
+    reader.onerror = () => reject(reader.error ?? new Error('could not read the image'));
+    reader.readAsDataURL(blob);
+  });
+};
+
+/**
+ * The picture as the root's first child, cover-fitted to the viewBox, so the
+ * exported SVG shows what the stage showed. Everything the converter drew
+ * follows it and paints over it exactly as the pattern paints over the stage.
+ */
+const embedImageInSvg = (svg: string, dataUrl: string): string => {
+  const match = /<svg\b[^>]*viewBox="0 0 ([\d.]+) ([\d.]+)"[^>]*>/.exec(svg);
+
+  if (!match) throw new Error('the SVG has no viewBox');
+
+  const image = `<image href="${dataUrl}" x="0" y="0" width="${match[1]}" height="${match[2]}" preserveAspectRatio="xMidYMid slice"/>`;
+
+  return svg.replace(match[0], `${match[0]}${image}`);
+};
+
+const saveBlob = (blob: Blob, name: string) => {
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement('a');
+  anchor.download = name;
+  anchor.href = url;
+  anchor.click();
+  // Revoking synchronously can abort the just-started download.
+  setTimeout(() => URL.revokeObjectURL(url), 10_000);
+};
 
 export default function EditPattern({ pattern }: { pattern: Pattern }) {
   const defaultAspectRatio = pattern.defaultAspectRatio ?? DEFAULT_ASPECT_RATIO;
@@ -261,6 +339,14 @@ export default function EditPattern({ pattern }: { pattern: Pattern }) {
   const doodleRef = useRef<TabbiedPatternHandle>(null);
   const previewRef = useRef<HTMLDivElement>(null);
 
+  // A picture behind the pattern instead of a colour. It is a local object
+  // URL and nothing else: it goes in no query string, no saved palette and no
+  // shared link, which the share action says out loud. Choosing one makes the
+  // ground transparent so the picture shows through wherever the design
+  // paints nothing, and clearing it puts the colour back if there was one.
+  const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
+  const bgWasOpaque = useRef(false);
+
   const selfWrites = useRef<Set<string>>(new Set());
   const isScreenXS = useMediaQuery('(max-width: 747.99px)');
   const isTwoColumn = useMediaQuery('(min-width: 992px)');
@@ -356,6 +442,14 @@ export default function EditPattern({ pattern }: { pattern: Pattern }) {
 
     return () => window.removeEventListener('resize', updateViewport);
   }, []);
+
+  // The object URL holds the file's bytes until it is revoked.
+  useEffect(
+    () => () => {
+      if (backgroundImage) URL.revokeObjectURL(backgroundImage);
+    },
+    [backgroundImage]
+  );
 
   useEffect(() => {
     const element = previewRef.current;
@@ -500,7 +594,9 @@ export default function EditPattern({ pattern }: { pattern: Pattern }) {
     setPaletteSource('custom');
   };
 
-  // Apply a saved / library palette to the editor's swatches.
+  // Apply a saved / library palette to the editor's swatches. With a picture
+  // behind the pattern the ground stays transparent, or the palette's own
+  // ground would cover the picture the moment a chip was clicked.
   const applyBrandPalette = (brand: BrandPalette) => {
     const colors = customPaletteColors(brand);
 
@@ -510,6 +606,10 @@ export default function EditPattern({ pattern }: { pattern: Pattern }) {
 
       for (let i = 0; i < limit; i += 1) {
         next[i] = colors[i];
+      }
+
+      if (backgroundImage && next[0] && !isTransparentHex(next[0])) {
+        next[0] = `${toOpaqueHex(next[0])}00`;
       }
 
       return next;
@@ -598,6 +698,28 @@ export default function EditPattern({ pattern }: { pattern: Pattern }) {
     setPaletteSource('custom');
   };
 
+  const chooseBackgroundImage = (file: File) => {
+    if (!file.type.startsWith('image/')) {
+      toaster.add({ title: 'Choose an image file' });
+      return;
+    }
+
+    // Remember whether there was a colour to come back to, once, when the
+    // first picture goes in; swapping one picture for another keeps it.
+    if (!backgroundImage) {
+      bgWasOpaque.current = !isTransparentHex(palette[0] ?? '');
+      if (bgWasOpaque.current) setTransparentBackground(true);
+    }
+
+    setBackgroundImage(URL.createObjectURL(file));
+  };
+
+  const clearBackgroundImage = () => {
+    setBackgroundImage(null);
+    if (bgWasOpaque.current) setTransparentBackground(false);
+    bgWasOpaque.current = false;
+  };
+
   const changeAspectRatio = (nextRatio: AspectRatioId) => {
     setOptionValues((prev) =>
       prev.map((value, index) =>
@@ -610,12 +732,27 @@ export default function EditPattern({ pattern }: { pattern: Pattern }) {
   };
 
   const exportPattern = async () => {
+    const scale = Math.ceil(3000 / Math.max(width, height));
+
     try {
-      await doodleRef.current?.exportImage({
-        scale: Math.ceil(3000 / Math.max(width, height)),
-        download: true,
-      });
-      toaster.add({ title: 'PNG downloaded' });
+      if (!backgroundImage) {
+        await doodleRef.current?.exportImage({ scale, download: true });
+        toaster.add({ title: 'PNG downloaded' });
+        return;
+      }
+
+      // css-doodle's export draws the pattern alone, with the transparent
+      // ground it was given; the picture is put under it here, cover-fitted
+      // the way the stage shows it.
+      const result = (await doodleRef.current?.exportImage({ scale, detail: true })) as
+        | { width: number; height: number; blob: Blob }
+        | undefined;
+
+      if (!result) throw new Error('nothing to export');
+
+      const png = await compositeOverImage(result.blob, result.width, result.height, backgroundImage);
+      saveBlob(png, `${pattern.slug}.png`);
+      toaster.add({ title: 'PNG downloaded, with the background image' });
     } catch {
       toaster.add({ title: 'Could not export the PNG' });
     }
@@ -639,8 +776,22 @@ export default function EditPattern({ pattern }: { pattern: Pattern }) {
 
   const downloadSvg = async () => {
     try {
-      await doodleRef.current?.exportSvg({ download: true });
-      toaster.add({ title: 'SVG downloaded' });
+      if (!backgroundImage) {
+        await doodleRef.current?.exportSvg({ download: true });
+        toaster.add({ title: 'SVG downloaded' });
+        return;
+      }
+
+      // The picture goes in as the first child of the root, embedded rather
+      // than linked: a file that points at an object URL is broken the moment
+      // the tab closes.
+      const result = await doodleRef.current?.exportSvg({});
+
+      if (!result) throw new Error('nothing to export');
+
+      const svg = embedImageInSvg(result.svg, await toDataUrl(backgroundImage));
+      saveBlob(new Blob([svg], { type: 'image/svg+xml' }), `${pattern.slug}.svg`);
+      toaster.add({ title: 'SVG downloaded, with the background image' });
     } catch {
       toaster.add({ title: 'Could not export the SVG' });
     }
@@ -660,7 +811,15 @@ export default function EditPattern({ pattern }: { pattern: Pattern }) {
   const copyShareLink = async () => {
     try {
       await navigator.clipboard.writeText(window.location.href);
-      toaster.add({ title: 'Link copied to clipboard' });
+      toaster.add(
+        backgroundImage
+          ? {
+              title: 'Link copied to clipboard',
+              description:
+                'The background image stays on this device; the link opens with a transparent background.',
+            }
+          : { title: 'Link copied to clipboard' }
+      );
     } catch {
       toaster.add({ title: 'Could not copy the link' });
     }
@@ -727,7 +886,19 @@ export default function EditPattern({ pattern }: { pattern: Pattern }) {
     displayPalette.length > 0 ? displayPalette[0] : 'transparent';
 
   const previewIsTransparent =
-    previewBackground === 'transparent' || isTransparentHex(previewBackground);
+    !backgroundImage &&
+    (previewBackground === 'transparent' || isTransparentHex(previewBackground));
+
+  // The picture, cover-fitted to the pattern's box. On the frame rather than
+  // the pattern host: the ground is painted inside the doodle, so only a
+  // transparent ground lets this show, which choosing a picture guarantees.
+  const imageStyle = backgroundImage
+    ? {
+        backgroundImage: `url("${backgroundImage}")`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }
+    : undefined;
 
   const bgIsTransparent = isTransparentHex(palette[0] ?? '');
 
@@ -1068,7 +1239,7 @@ export default function EditPattern({ pattern }: { pattern: Pattern }) {
             </Dialog.Trigger>
 
             <figure className={styles.stage}>
-              <div className={styles.doodleFrame}>
+              <div className={styles.doodleFrame} style={imageStyle}>
                 <TabbiedPattern
                   ref={doodleRef}
                   {...patternProps}
@@ -1108,7 +1279,7 @@ export default function EditPattern({ pattern }: { pattern: Pattern }) {
                     ? `${styles.dialogDoodle} ${styles.previewTransparent}`
                     : styles.dialogDoodle
                 }
-                style={{ backgroundColor: previewBackground }}
+                style={imageStyle ?? { backgroundColor: previewBackground }}
               >
                 {isExpanded && (
                   <TabbiedPattern
@@ -1155,6 +1326,7 @@ export default function EditPattern({ pattern }: { pattern: Pattern }) {
                     role="group"
                     aria-label="Background"
                   >
+                    {!backgroundImage && (
                     <span
                       className={styles.bgSwatch}
                       title="Background color"
@@ -1186,6 +1358,8 @@ export default function EditPattern({ pattern }: { pattern: Pattern }) {
                       />
                       <span className={styles.bgStrip} aria-hidden="true" />
                     </span>
+                    )}
+                    {!backgroundImage && (
                     <button
                       type="button"
                       role="switch"
@@ -1200,8 +1374,46 @@ export default function EditPattern({ pattern }: { pattern: Pattern }) {
                     >
                       {bgIsTransparent && <Check size={15} />}
                     </button>
+                    )}
+                    {/* A picture instead of a colour. While one is set it
+                        stands in for both the swatch and the transparent
+                        toggle, showing the picture; choosing again replaces
+                        it, and the link under the caption clears it. */}
+                    <label
+                      className={
+                        backgroundImage
+                          ? `${styles.bgImageButton} ${styles.bgImageButtonActive}`
+                          : styles.bgImageButton
+                      }
+                      style={imageStyle}
+                      title={backgroundImage ? 'Replace the background image' : 'Upload a background image'}
+                    >
+                      {!backgroundImage && <ImagePlus size={15} aria-hidden="true" />}
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className={styles.bgImageInput}
+                        aria-label="Background image"
+                        onChange={(event) => {
+                          const file = event.target.files?.[0];
+                          if (file) chooseBackgroundImage(file);
+                          event.target.value = '';
+                        }}
+                      />
+                    </label>
                   </div>
-                  <span className={styles.groupCaption}>background</span>
+                  <span className={styles.bgCaptionRow}>
+                    <span className={styles.groupCaption}>background</span>
+                    {backgroundImage && (
+                      <button
+                        type="button"
+                        className={styles.bgRemove}
+                        onClick={clearBackgroundImage}
+                      >
+                        remove image
+                      </button>
+                    )}
+                  </span>
                 </div>
 
                 <div className={styles.inksGroup}>

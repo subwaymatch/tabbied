@@ -205,6 +205,21 @@ a partially-wrong LLM response) recoverable rather than a wall. Errors are
 errors - an out-of-range slider is never quietly clamped, because clamping
 hides the mistake from a pipeline that could otherwise correct itself.
 
+**A pattern field can be swapped to another design**, and the swap is the
+one edit that names something outside the page. `patterns[id].slug` is
+written as `data-pattern`; the old design's `data-options` are removed with
+it (option ids belong to the design that declared them) and the seed and
+palette are kept, so a re-colour still reaches the new design through the
+slot's roles. Two things hold it together. `planEdits` takes `{ designs }`,
+the catalog's slugs, and refuses a slug outside it - the runtime would warn
+and draw a blank otherwise, which is the silent failure this scheme exists to
+make loud; the Worker passes `/catalog.json` on every save, the customizer
+passes the list its page was built with. And the preview runtime bundles the
+whole catalog rather than the designs the packaged templates happen to mount,
+so a swapped field can always be drawn. The download rebuilt in the browser
+(`lib/studioDownload.ts`) rewrites the packaged bootstrap's import list to the
+designs the page mounts *now* for the same reason.
+
 **The engine never touches classes.** It sets text, attributes, and inline
 custom properties, nothing else. The HTML download ships a stylesheet trimmed
 to the classes its markup actually uses (`trimUnusedRules` in

@@ -254,6 +254,47 @@ test('swapping the design clears the old options and warns about new ones', () =
   );
 });
 
+test('a swap is held to the catalog when one is given', () => {
+  const known = planEdits(
+    spec,
+    document({ patterns: { 'hero.field': { slug: 'frond' } } }),
+    { designs: ['lobe', 'frond'] }
+  );
+
+  assert.equal(known.problems.length, 0);
+  assert.equal(
+    operationFor(known, 'pattern', 'hero.field').attributes['data-pattern'],
+    'frond'
+  );
+
+  // An unknown slug hydrates to nothing - a blank field with a console
+  // warning - so it is refused outright, and nothing else in the slot's edit
+  // is written either.
+  const unknown = planEdits(
+    spec,
+    document({ patterns: { 'hero.field': { slug: 'nonesuch', seed: 'x' } } }),
+    { designs: new Set(['lobe', 'frond']) }
+  );
+
+  assert.equal(unknown.problems.length, 1);
+  assert.equal(unknown.problems[0].level, 'error');
+  assert.equal(unknown.problems[0].path, 'patterns.hero.field.slug');
+  assert.match(unknown.problems[0].message, /no design "nonesuch"/);
+  assert.equal(operationFor(unknown, 'pattern', 'hero.field'), undefined);
+
+  // The slot's own design is never a swap, so it needs no entry in the set.
+  const same = planEdits(
+    spec,
+    document({ patterns: { 'hero.field': { slug: 'lobe', seed: 'sol-2' } } }),
+    { designs: ['frond'] }
+  );
+
+  assert.equal(same.problems.length, 0);
+  assert.deepEqual(operationFor(same, 'pattern', 'hero.field').attributes, {
+    'data-seed': 'sol-2',
+  });
+});
+
 test('a seed edit is planned on its own', () => {
   const plan = planEdits(
     spec,

@@ -12,14 +12,17 @@
 //
 // So the shell rewrites that one script tag to import this file instead. It has
 // to be a *bundle* rather than a copy of dist/: `tabbied/dist/core/register.js`
-// does a bare `import 'css-doodle'`, which no browser resolves, and serving the
-// raw dist would additionally hand the browser all 295 patterns to fetch one.
+// does a bare `import 'css-doodle'`, which no browser resolves.
 //
-// Deriving the pattern list from the packaged HTML rather than from the
-// template data is the same doctrine as the packager and the editable
-// generator: the runtime then contains exactly the designs the shells it
-// serves will ask for, and a template added in the same commit cannot be
-// missing from it.
+// The bundle carries the whole catalog, not just the designs the packaged
+// templates mount. It used to be derived from the packaged HTML (231 of the
+// 295), which was exactly right while a preview could only re-colour a field;
+// the customizer's "Shuffle patterns" swaps a field to any design in the
+// library, and a design missing from this bundle hydrates to a blank with a
+// console warning - the silent failure the whole editable scheme exists to
+// avoid. The packaged HTML is still read, as the check that the packager wrote
+// something this runtime can draw, and the catalog it is checked against is
+// the one the customizer offers.
 import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -65,23 +68,46 @@ function usedPatterns() {
   return [...slugs].sort();
 }
 
-const patterns = usedPatterns();
+/** The whole catalog, by slug - what a field may be swapped to. */
+function catalogPatterns() {
+  const catalogPath = path.join(repoRoot, 'packages', 'tabbied', 'catalog.json');
 
-if (patterns.length === 0) {
+  if (!existsSync(catalogPath)) {
+    console.error(
+      'build-preview-runtime: packages/tabbied/catalog.json is missing - run `npm run build:packages`.'
+    );
+    process.exit(1);
+  }
+
+  return JSON.parse(readFileSync(catalogPath, 'utf-8'))
+    .designs.map((design) => design.slug)
+    .sort();
+}
+
+const used = usedPatterns();
+
+if (used.length === 0) {
   console.error(
     'build-preview-runtime: no [data-pattern] in public/downloads - the packager wrote nothing usable.'
   );
   process.exit(1);
 }
 
-// A named import list rather than `export * from 'tabbied/patterns'`: the
-// generated patterns module holds all 295, and naming the ones in use is what
-// lets esbuild drop the rest.
+const patterns = catalogPatterns();
+const missing = used.filter((slug) => !patterns.includes(slug));
+
+if (missing.length > 0) {
+  console.error(
+    `build-preview-runtime: the packaged templates mount ${missing.join(', ')}, which the catalog does not have.`
+  );
+  process.exit(1);
+}
+
+// The whole record rather than a named list: every design is wanted, and the
+// generated module's `patterns` export is the one place they are all named.
 const entry = [
   "import { hydratePatterns } from 'tabbied';",
-  `import { ${patterns.join(', ')} } from 'tabbied/patterns';`,
-  '',
-  `const patterns = { ${patterns.join(', ')} };`,
+  "import { patterns } from 'tabbied/patterns';",
   '',
   'export { hydratePatterns, patterns };',
   '',
@@ -98,6 +124,10 @@ const entry = [
   '  for (const { controller } of mounted) controller.destroy();',
   '  return hydrate();',
   '};',
+  '',
+  '// Which designs this runtime can draw, for a shell that wants to check',
+  '// before it writes a slug into the page.',
+  'export const designs = Object.keys(patterns);',
   '',
 ].join('\n');
 
@@ -118,6 +148,6 @@ const result = await build({
 const bytes = statSync(outFile).size;
 
 console.log(
-  `preview-runtime: ${patterns.length} pattern(s), ${(bytes / 1024).toFixed(0)} KB` +
+  `preview-runtime: ${patterns.length} pattern(s) (${used.length} mounted by a template), ${(bytes / 1024).toFixed(0)} KB` +
     (result.warnings.length ? ` - ${result.warnings.length} warning(s)` : '')
 );

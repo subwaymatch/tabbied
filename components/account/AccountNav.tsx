@@ -6,7 +6,7 @@ import styles from './account.module.css';
 
 const LINKS = [
   ['/account/', 'Overview'],
-  ['/account/sites/', 'Your sites'],
+  ['/account/sites/', 'Custom sites'],
   ['/account/uploads/', 'Pictures'],
   ['/account/usage/', 'Usage'],
   ['/account/settings/', 'Settings'],

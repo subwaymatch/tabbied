@@ -263,8 +263,14 @@
   border-top: 1px solid var(--line);
   background: #ffffff05;
 }
-.dlLabel {
+/* Customize sits first and takes the space the label used to; the label now
+   only names the two formats after it. */
+.customize {
   margin-right: auto;
+  color: #eef0f6;
+  border-color: var(--accent);
+}
+.dlLabel {
   font-size: 10.5px;
   letter-spacing: 0.13em;
   text-transform: uppercase;

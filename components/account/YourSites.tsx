@@ -50,8 +50,9 @@ export default function YourSites() {
         <p className={shell.empty}>Could not load your sites right now.</p>
       ) : state.sites.length === 0 ? (
         <p className={shell.empty}>
-          No sites yet. Generate three directions in <Link href="/studio">Studio</Link> and
-          make one.
+          No sites yet. Pick a <Link href="/templates">template</Link> and customize its
+          colours and patterns, or describe your business in{' '}
+          <Link href="/studio">Studio</Link>.
         </p>
       ) : (
         state.sites.map((site) => (

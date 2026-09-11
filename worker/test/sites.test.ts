@@ -126,6 +126,163 @@ describe('one prompt, one site', () => {
   });
 });
 
+describe('a site straight from the gallery', () => {
+  let cookie: string;
+
+  beforeAll(async () => {
+    cookie = await signIn('gallery@example.com');
+  });
+
+  it('refuses a template that is not in the index, and a slug that is not a slug', async () => {
+    const missing = await SELF.fetch(`${ORIGIN}/api/studio/sites`, {
+      method: 'POST',
+      headers: { ...json, cookie },
+      body: JSON.stringify({ slug: 'not-a-template' }),
+    });
+    expect(missing.status).toBe(404);
+
+    const malformed = await SELF.fetch(`${ORIGIN}/api/studio/sites`, {
+      method: 'POST',
+      headers: { ...json, cookie },
+      body: JSON.stringify({ slug: '../verdant' }),
+    });
+    expect(malformed.status).toBe(400);
+  });
+
+  it('starts from the template with an empty document, no generation behind it', async () => {
+    const made = await SELF.fetch(`${ORIGIN}/api/studio/sites`, {
+      method: 'POST',
+      headers: { ...json, cookie },
+      body: JSON.stringify({ slug: 'verdant' }),
+    });
+    expect(made.status, await made.clone().text()).toBe(200);
+
+    const { id, source } = (await made.json()) as { id: string; source: string };
+    expect(source).toBe('template');
+
+    const site = (await SELF.fetch(`${ORIGIN}/api/studio/sites/${id}`).then((r) => r.json())) as {
+      slug: string;
+      title: string;
+      templateName: string;
+      stance: string;
+      palette: string[];
+      generationId: string | null;
+      directionIndex: number | null;
+      description: string | null;
+      templateChanged: boolean;
+      latest: { n: number; source: string; edits: { slug: string; edits: Record<string, unknown> } };
+    };
+    expect(site.slug).toBe('verdant');
+    expect(site.title).toBe('Verdant');
+    expect(site.templateName).toBe('Verdant');
+    expect(site.stance).toBe('');
+    // The template's own colours, since nothing has been changed yet.
+    expect(site.palette.length).toBeGreaterThan(1);
+    expect(site.generationId).toBeNull();
+    expect(site.directionIndex).toBeNull();
+    expect(site.description).toBeNull();
+    expect(site.templateChanged).toBe(false);
+    expect(site.latest.n).toBe(1);
+    expect(site.latest.source).toBe('manual');
+    expect(site.latest.edits.slug).toBe('verdant');
+    expect(site.latest.edits.edits).toEqual({});
+
+    // Listed by its template's name, like a direction's site by its direction's.
+    const list = (await SELF.fetch(`${ORIGIN}/api/studio/sites`, { headers: { cookie } }).then((r) =>
+      r.json()
+    )) as { sites: { id: string; templateName: string; palette: string[] }[] };
+    expect(list.sites.map((row) => row.id)).toContain(id);
+    expect(list.sites.find((row) => row.id === id)?.templateName).toBe('Verdant');
+  });
+
+  it('is renamed by its owner only, and the listing follows', async () => {
+    const made = await SELF.fetch(`${ORIGIN}/api/studio/sites`, {
+      method: 'POST',
+      headers: { ...json, cookie },
+      body: JSON.stringify({ slug: 'verdant' }),
+    });
+    const { id } = (await made.json()) as { id: string };
+
+    const renamed = await SELF.fetch(`${ORIGIN}/api/studio/sites/${id}`, {
+      method: 'PATCH',
+      headers: { ...json, cookie },
+      body: JSON.stringify({ title: '  Park & Co.  ' }),
+    });
+    expect(renamed.status, await renamed.clone().text()).toBe(200);
+    expect(((await renamed.json()) as { title: string }).title).toBe('Park & Co.');
+
+    const empty = await SELF.fetch(`${ORIGIN}/api/studio/sites/${id}`, {
+      method: 'PATCH',
+      headers: { ...json, cookie },
+      body: JSON.stringify({ title: '   ' }),
+    });
+    expect(empty.status).toBe(400);
+
+    const other = await signIn('renamer@example.com');
+    const forbidden = await SELF.fetch(`${ORIGIN}/api/studio/sites/${id}`, {
+      method: 'PATCH',
+      headers: { ...json, cookie: other },
+      body: JSON.stringify({ title: 'Mine now' }),
+    });
+    expect(forbidden.status).toBe(403);
+
+    const list = (await SELF.fetch(`${ORIGIN}/api/studio/sites`, { headers: { cookie } }).then((r) =>
+      r.json()
+    )) as { sites: { id: string; title: string }[] };
+    expect(list.sites.find((row) => row.id === id)?.title).toBe('Park & Co.');
+  });
+
+  it('takes a palette and a pattern swap, and refuses a design the catalog does not have', async () => {
+    const made = await SELF.fetch(`${ORIGIN}/api/studio/sites`, {
+      method: 'POST',
+      headers: { ...json, cookie },
+      body: JSON.stringify({ slug: 'verdant' }),
+    });
+    const { id } = (await made.json()) as { id: string };
+
+    const read = (await SELF.fetch(`${ORIGIN}/api/studio/sites/${id}`).then((r) => r.json())) as {
+      latest: { edits: { specVersion: number; slug: string; edits: Record<string, unknown> } };
+    };
+    const spec = (await SELF.fetch(`${ORIGIN}/editable/verdant.json`).then((r) => r.json())) as {
+      slots: { id: string; kind: string; config?: { slug: string } }[];
+    };
+    const field = spec.slots.find((slot) => slot.kind === 'pattern')!;
+    const palette = ['#0B2545', '#EEF4ED', '#8DA9C4', '#13315C'];
+
+    const saved = await SELF.fetch(`${ORIGIN}/api/studio/sites/${id}/revisions`, {
+      method: 'POST',
+      headers: { ...json, cookie },
+      body: JSON.stringify({
+        edits: {
+          ...read.latest.edits,
+          edits: { palette, patterns: { [field.id]: { slug: 'radius', seed: 'gallery-1' } } },
+        },
+      }),
+    });
+    expect(saved.status, await saved.clone().text()).toBe(200);
+
+    // The listing now shows the colours the site wears, not the template's.
+    const list = (await SELF.fetch(`${ORIGIN}/api/studio/sites`, { headers: { cookie } }).then((r) =>
+      r.json()
+    )) as { sites: { id: string; palette: string[] }[] };
+    expect(list.sites.find((row) => row.id === id)?.palette).toEqual(palette);
+
+    const unknown = await SELF.fetch(`${ORIGIN}/api/studio/sites/${id}/revisions`, {
+      method: 'POST',
+      headers: { ...json, cookie },
+      body: JSON.stringify({
+        edits: {
+          ...read.latest.edits,
+          edits: { patterns: { [field.id]: { slug: 'no-such-design' } } },
+        },
+      }),
+    });
+    expect(unknown.status).toBe(422);
+    const { problems } = (await unknown.json()) as { problems: { path: string }[] };
+    expect(problems[0].path).toBe(`patterns.${field.id}.slug`);
+  });
+});
+
 describe('making a site', () => {
   let cookie: string;
   let generationId: string;

@@ -728,39 +728,57 @@ the template and shows the result.
   packaged assets the binding serves. With no `AI_API_KEY` it exercises every
   row the tier writes via the fallback path, which is the point.
 
-**The workspace, and what surrounds it.** `/studio/site/?id=` is where a
+**The customizer, and what surrounds it.** `/studio/site/?id=` is where a
 site is worked on. For its owner (the read says `mine`, decided by session)
-three things sit beside the canvas; a visitor by link gets the page alone.
+a rail sits beside the canvas; a visitor by link gets the page alone. The
+first release of the customizer changes two things, **colours and patterns**,
+and says so: the rail's third tab, Content, reads that words and pictures are
+not edited here yet. The Worker keeps the routes that would edit them
+(`revise`, `images`, text slots on a saved revision) and the document keeps
+whatever text Studio wrote, so putting them back is a UI change.
 
-- **The editor edits through the engine, live.** A keystroke plans one
-  operation and runs it against the iframe's document; a palette change also
-  calls `window.__tabbied.rehydrate()` inside the iframe, which the bundled
+- **A site starts from a direction or from the gallery.** `POST
+  /api/studio/sites` takes `{generationId, index}` as before, or `{slug}`: a
+  copy of the template with an empty first revision, no model call and no
+  daily cap (the burst limiter still applies), and `generationId` and
+  `directionIndex` null. Migration 0005 made those columns nullable by
+  rebuilding `site` and `revision` **child first**: SQLite cannot alter a
+  column's constraint and D1 cannot switch foreign keys off, and dropping a
+  parent under enforced keys runs an implicit DELETE that would cascade every
+  saved document away. `/studio/customize/?slug=` is the one door in - the
+  gallery cards, the framed `/templates/<slug>/` preview and the account's
+  "Create new site" all link to it - and it handles the sign-in detour.
+- **The rail edits through the engine, live.** A swatch plans the properties
+  and the pattern-host rewrites and runs them against the iframe's document,
+  then calls `window.__tabbied.rehydrate()` inside it, which the bundled
   runtime exports - it tears down the controllers it mounted and mounts from
   the attributes as they now are, because a rewritten `data-*` is not a
-  re-render. Saving is `POST /api/studio/sites/:id/revisions` with the whole
-  document, validated by `planEdits` server-side; a document the engine would
-  reject is a 422 with reasons, not a stored blank. Image `src`s are held to
-  the site's own media and the template's own files - a src is a fetch.
-- **Asking is a diff.** `POST .../revise` shows the model the page *as it
-  currently reads* - the person's document - and takes back `changes:
-  [{id, value}]` against the same closed slot set, an optional palette and a
-  one-line note. The latest AI revision's `responseId` is quoted when there is
-  one, so the request travels alone against a context that still holds the
-  page. History is append-only; Restore writes an older document as a new
-  head.
-- **Pictures are transparent and go into slots.** `POST .../images {slot,
-  referenceIds?}` makes one picture for one image slot, `background:
-  transparent`, keyed under `gen/site/<id>/<n>/<slot>.webp` so a re-generation
-  never overwrites bytes an earlier revision points at, and writes revision
-  n+1. References are the person's uploads - `POST /api/uploads`, judged by
-  bytes not label, 8 MB, 60 per person, R2 `up/<userId>/` - and with any given
-  the call goes to `/images/edits` as multipart, which `call()` sends as-is
-  because fetch writes the boundary itself.
-- **One prompt, one site.** `POST /api/studio/make` is the directions handler
-  and the sites handler run in sequence in-process (`app.request`), with the
-  caller's own headers, at the recommended index. Every gate and cap applies
-  as it would to the two clicks it replaces, and there stays one
-  implementation of each. "Make my website" on `/studio` is this.
+  re-render. "Shuffle patterns" draws a new design for every pattern field
+  (`lib/studioPatterns.ts`: same density as the field has now, no design
+  twice on a page, a fresh seed each) and applies it the same way; "Reset
+  patterns" rebuilds the canvas from the package, since a swap removed the
+  field's authored options and a partial plan cannot put them back. Saving is
+  `POST /api/studio/sites/:id/revisions` with the whole document, validated
+  by `planEdits` server-side with the catalog's slugs as `designs`; a swap to
+  a design the catalog does not have is a 422, not a blank field.
+- **The preview runtime carries the whole catalog.** It used to bundle the
+  231 designs the packaged templates mount, which was right while a preview
+  could only re-colour a field; a shuffle can swap to any of the 295, and a
+  design missing from the bundle hydrates to nothing with a console warning.
+- **The download is rebuilt where the changes are.** The customizer's
+  Download menu fetches the packaged `<slug>-html.zip`, applies the document
+  to its `index.html` with the same engine the canvas was drawn with, rewrites
+  the bootstrap's import list to the designs the page mounts now, ships any
+  `/api/media` picture Studio made inside `images/`, and zips it again with
+  fflate (`lib/studioDownload.ts`). The React package is offered as the
+  template's source and labelled that way: the document cannot be applied to
+  JSX.
+- **A site's title is its own.** `PATCH /api/studio/sites/:id {title}`
+  renames it; the rail's name field commits on blur or Enter, and nothing on
+  the page reads the title, so no revision is written. The listing's
+  swatches are the colours the site wears now - the latest revision's palette
+  where one was saved - read in one query that qualifies its subquery's
+  columns by hand (see the drizzle note above).
 - **The 2026 designs for the new pages** (agent-outputs has none; the source
   was a Claude Design export). Sign-in, sign-up and the password pages share
   `AuthForm.module.css` (592px measure, provider buttons above an "or"
@@ -944,3 +962,28 @@ rendered patterns to true vector SVG. Rules that must not regress:
 - **Parity testing** compares against live element screenshots (css-doodle's
   own foreignObject export is unfaithful for conic masks) with an
   anti-aliasing-tolerant diff.
+
+
+## The pattern editor's background image
+
+`/patterns/<slug>` can put a picture behind the pattern instead of a colour:
+a third chip beside the ground swatch and the transparent toggle. Three things
+follow from how the ground is actually painted:
+
+- **Choosing a picture makes the ground transparent**, because every design
+  paints `--color0` on its own container inside the doodle, so nothing behind
+  the host shows unless colour 0 is `#rrggbb00`. The picture is drawn on the
+  stage frame around the host, cover-fitted. Removing it puts the colour back
+  only if there was one (a ground that was already transparent stays so), and
+  a palette chip applied while a picture is set keeps the ground transparent
+  rather than covering the picture.
+- **The picture is local and stays local.** It is an object URL: not in the
+  query string, not in a saved palette, not in the shared link, and "Copy
+  shareable link" says so in its toast. Nothing about it reaches the
+  `tabbied` package.
+- **Both exports carry it.** PNG asks css-doodle for `detail` rather than
+  `download`, gets the pattern alone with its transparent ground, and draws
+  it over the picture on a canvas at the export's size. SVG embeds the
+  picture as a data URL in an `<image>` that is the root's first child, cover
+  fitted to the viewBox, so the converter's own primitives paint over it
+  exactly as the pattern paints over the stage.

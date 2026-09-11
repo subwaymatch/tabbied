@@ -410,6 +410,48 @@ test.describe('Tabbied site', () => {
     await expect(addButton).toBeDisabled();
   });
 
+  test('a background image sits behind the pattern, and leaves with the colour back', async ({
+    page,
+  }) => {
+    await page.goto('/patterns/radius?seed=0000');
+
+    await expect(page.locator('input[type="color"]')).toHaveCount(6, { timeout: 15000 });
+    const stageFrame = page.locator('figure > div').first();
+
+    // A one-pixel PNG is picture enough: what matters is that choosing it
+    // makes the ground transparent (so it can show through) and puts it on
+    // the stage behind the pattern.
+    const png = Buffer.from(
+      'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==',
+      'base64'
+    );
+    await page.getByLabel('Background image').setInputFiles({
+      name: 'ground.png',
+      mimeType: 'image/png',
+      buffer: png,
+    });
+
+    await expect
+      .poll(() => stageFrame.evaluate((el) => getComputedStyle(el).backgroundImage))
+      .toContain('blob:');
+    // The swatch and the transparent toggle stand down while a picture is set.
+    await expect(page.locator('input[type="color"]')).toHaveCount(5);
+    await expect(page.getByRole('button', { name: 'remove image' })).toBeVisible();
+    await expect
+      .poll(() => new URL(page.url()).searchParams.getAll('palette')[0])
+      .toMatch(/00$/);
+
+    // Removing it brings the colour back exactly as it was.
+    await page.getByRole('button', { name: 'remove image' }).click();
+    await expect(page.locator('input[type="color"]')).toHaveCount(6);
+    await expect
+      .poll(() => stageFrame.evaluate((el) => getComputedStyle(el).backgroundImage))
+      .toBe('none');
+    await expect
+      .poll(() => new URL(page.url()).searchParams.getAll('palette')[0])
+      .not.toMatch(/00$/);
+  });
+
   test('slider controls display their current value', async ({ page }) => {
     await page.goto('/patterns/radius?seed=0000');
 
@@ -638,6 +680,44 @@ test.describe('Studio', () => {
       'A quiet, elegant perfume house. Monochrome and restrained.'
     );
     expect(other).not.toEqual(first);
+  });
+});
+
+test.describe('Template preview and customize', () => {
+  test('a template is framed with the two things to do with it', async ({ page }) => {
+    await page.goto('/templates/verdant/');
+
+    await expect(page.getByRole('link', { name: 'Customize' })).toHaveAttribute(
+      'href',
+      '/studio/customize/?slug=verdant'
+    );
+    await expect(page.locator('iframe')).toHaveAttribute('src', '/template/verdant/');
+    await expect(page.getByRole('link', { name: 'All templates' })).toHaveAttribute('href', '/templates');
+
+    await page.getByRole('button', { name: 'Download' }).click();
+    await expect(page.getByRole('menuitem', { name: /Static HTML and CSS/ })).toHaveAttribute(
+      'href',
+      '/downloads/verdant-html.zip'
+    );
+  });
+
+  test('the gallery leads to the framed preview and offers Customize per card', async ({ page }) => {
+    await page.goto('/templates');
+
+    const card = page.locator('a[href="/templates/verdant/"]').first();
+    await expect(card).toBeAttached();
+    await expect(page.locator('a[href="/studio/customize/?slug=verdant"]').first()).toBeAttached();
+  });
+
+  test('customizing while signed out goes to sign-in with the way back', async ({ page }) => {
+    // No Worker behind the export: the session read fails and reads as
+    // signed out, which is the case a fresh visitor is in.
+    await page.goto('/studio/customize/?slug=verdant');
+
+    await page.waitForURL(/\/sign-in\/?\?next=/, { timeout: 15000 });
+    expect(decodeURIComponent(new URL(page.url()).searchParams.get('next') ?? '')).toBe(
+      '/studio/customize/?slug=verdant'
+    );
   });
 });
 

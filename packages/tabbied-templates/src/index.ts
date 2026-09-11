@@ -54,7 +54,7 @@ export {
   MIN_PALETTE_COLORS,
 } from './plan.js';
 
-export type { EditOperation, EditPlan } from './plan.js';
+export type { EditOperation, EditPlan, PlanOptions } from './plan.js';
 
 export {
   COPY_ROLES,

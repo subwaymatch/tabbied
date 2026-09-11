@@ -1,9 +1,11 @@
-// The workspace: a site's latest revision, on its template.
+// The customizer: a site's latest revision, on its template.
 //
 // Same seam as e2e/studio-preview.spec.ts, one document up: the route fetches
 // a stored *revision* rather than deriving three strings from a direction, and
 // what has to hold is that a full document - every text slot - lands on the
-// packaged page and the page says what it knows about the document's state.
+// packaged page, that the owner can change its colours and patterns through
+// the engine live, and that the page says what it knows about the document's
+// state.
 import { test, expect } from '@playwright/test';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -81,8 +83,10 @@ test.describe('studio site', () => {
     await expect(frame.locator('[data-edit="cta.primary"]').first()).toHaveText('Book a valuation');
     await expect(frame.locator('[data-edit="nav.0"]').first()).toHaveText('Buy');
 
-    await expect(page.getByRole('heading', { level: 1, name: 'Ye Joo Park' })).toBeVisible();
-    await expect(page.getByText('revision 1')).toBeVisible();
+    // The chrome names the site and its template; a first revision is not
+    // numbered, since there is nothing to have gone back from.
+    await expect(page.getByText('Ye Joo Park on Verdant')).toBeVisible();
+    await expect(page.getByText(/revision \d/)).toHaveCount(0);
     await expect(page.getByRole('status')).toHaveCount(0);
   });
 
@@ -110,7 +114,7 @@ test.describe('studio site', () => {
     await expect(page.getByText('has been updated since this site was made')).toBeVisible();
   });
 
-  test('the owner gets the editor, and typing reaches the page live', async ({ page }) => {
+  test('the owner gets the customizer, and a colour reaches the page live', async ({ page }) => {
     await page.route('**/api/studio/sites/**', (route) =>
       route.fulfill({
         status: 200,
@@ -118,17 +122,12 @@ test.describe('studio site', () => {
         body: JSON.stringify(siteDocument({ mine: true })),
       })
     );
-    // Registered after, so it is tried first: the history the chat panel lists.
+    // Registered after, so it is tried first: the save, answered as revision 2.
     await page.route('**/api/studio/sites/e2esite/revisions', (route) =>
       route.fulfill({
         status: 200,
         contentType: 'application/json',
-        body: JSON.stringify({
-          revisions: [
-            { n: 2, source: 'ai', instruction: 'Warmer headline', createdAt: '2026-09-02T01:00:00Z' },
-            { n: 1, source: 'ai', instruction: null, createdAt: '2026-09-02T00:00:00Z' },
-          ],
-        }),
+        body: JSON.stringify({ revision: 2 }),
       })
     );
 
@@ -139,28 +138,86 @@ test.describe('studio site', () => {
       timeout: 15_000,
     });
 
-    const editor = page.getByRole('complementary', { name: 'Edit this site' });
-    await expect(editor).toBeVisible();
+    const rail = page.getByRole('complementary', { name: 'Customize this site' });
+    await expect(rail).toBeVisible();
 
-    // The brand-name field is prefilled from the document, and a keystroke
-    // lands on every element sharing the id before anything is saved.
-    const field = editor.getByLabel(/^Name/).first();
-    await expect(field).toHaveValue('Ye Joo Park');
-    await field.fill('Park & Co.');
+    // The first release changes colours and patterns; words and pictures are
+    // named as not editable here, not offered and broken.
+    await expect(rail.getByRole('tab', { name: 'Colours' })).toHaveAttribute('aria-selected', 'true');
+    await expect(page.getByRole('region', { name: 'Ask for changes' })).toHaveCount(0);
+    await rail.getByRole('tab', { name: 'Content' }).click();
+    await expect(rail.getByText("can't be edited here yet")).toBeVisible();
+    await rail.getByRole('tab', { name: 'Colours' }).click();
 
-    const names = frame.locator('[data-edit="brand.name"]');
-    await expect(names).toHaveCount(3);
-    for (let i = 0; i < 3; i += 1) {
-      await expect(names.nth(i)).toHaveText('Park & Co.');
-    }
+    // The swatches are the document's palette, and a change lands on the
+    // page's root as an inline property before anything is saved.
+    const ground = rail.getByLabel('Ground');
+    await expect(ground).toHaveValue('#f7f4ef');
+    await ground.fill('#0b2545');
 
-    await expect(editor.getByRole('button', { name: 'Save as a new revision' })).toBeEnabled();
+    await expect
+      .poll(() =>
+        frame
+          .locator('[data-edit-root]')
+          .evaluate((root) => (root as HTMLElement).style.getPropertyValue('--brand-0').trim().toLowerCase())
+      )
+      .toBe('#0b2545');
+    await expect(rail.getByRole('button', { name: 'Reset colours' })).toBeVisible();
 
-    // The chat panel and the history beside it, current head marked.
-    const chat = page.getByRole('region', { name: 'Ask for changes' });
-    await expect(chat.getByText('Warmer headline')).toBeVisible();
-    await expect(chat.getByText('First draft')).toBeVisible();
-    await expect(chat.getByRole('button', { name: 'Restore' })).toHaveCount(1);
+    const save = page.getByRole('button', { name: 'Save changes' });
+    await expect(save).toBeEnabled();
+    await save.click();
+    await expect(page.getByRole('button', { name: 'Saved to your custom sites' })).toBeVisible();
+    await expect(page.getByText('(revision 2)')).toBeVisible();
+  });
+
+  test('shuffle swaps every pattern field, live, and reset puts the template back', async ({
+    page,
+  }) => {
+    await page.route('**/api/studio/sites/**', (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify(siteDocument({ mine: true })),
+      })
+    );
+
+    await page.goto('/studio/site/?id=e2esite');
+
+    const frame = page.frameLocator('iframe');
+    const hosts = frame.locator('[data-edit-pattern] [data-pattern]');
+    await expect(hosts.first()).toBeAttached({ timeout: 15_000 });
+
+    const before = await hosts.evaluateAll((nodes) =>
+      nodes.map((node) => node.getAttribute('data-pattern'))
+    );
+    expect(before.length).toBeGreaterThan(0);
+
+    const rail = page.getByRole('complementary', { name: 'Customize this site' });
+    await rail.getByRole('tab', { name: 'Patterns' }).click();
+
+    // One row per field, naming the design it draws now.
+    await expect(rail.locator('li')).toHaveCount(before.length);
+
+    await rail.getByRole('button', { name: 'Shuffle patterns' }).click();
+
+    // Every host now names a different design, and it is mounted: the
+    // runtime carries the whole catalog, so a swap is never a blank field.
+    await expect
+      .poll(() => hosts.evaluateAll((nodes) => nodes.map((node) => node.getAttribute('data-pattern'))))
+      .not.toEqual(before);
+    const after = await hosts.evaluateAll((nodes) => nodes.map((node) => node.getAttribute('data-pattern')));
+    for (const [index, slug] of after.entries()) expect(slug).not.toBe(before[index]);
+    await expect(frame.locator('[data-edit-pattern] css-doodle').first()).toBeAttached({
+      timeout: 15_000,
+    });
+
+    await expect(page.getByRole('button', { name: 'Save changes' })).toBeEnabled();
+
+    await rail.getByRole('button', { name: 'Reset patterns' }).click();
+    await expect
+      .poll(() => hosts.evaluateAll((nodes) => nodes.map((node) => node.getAttribute('data-pattern'))))
+      .toEqual(before);
   });
 
   test('a visitor by link gets the page and no editor', async ({ page }) => {
@@ -174,7 +231,8 @@ test.describe('studio site', () => {
       'Ye Joo Park',
       { timeout: 15_000 }
     );
-    await expect(page.getByRole('complementary', { name: 'Edit this site' })).toHaveCount(0);
+    await expect(page.getByRole('complementary', { name: 'Customize this site' })).toHaveCount(0);
+    await expect(page.getByRole('button', { name: /Save/ })).toHaveCount(0);
   });
 
   test('404 reads as a missing site, with a way back', async ({ page }) => {
@@ -185,6 +243,6 @@ test.describe('studio site', () => {
     await page.goto('/studio/site/?id=nope');
 
     await expect(page.getByText('does not exist or was removed')).toBeVisible();
-    await expect(page.getByRole('link', { name: 'Your sites', exact: true })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Custom sites', exact: true })).toBeVisible();
   });
 });
