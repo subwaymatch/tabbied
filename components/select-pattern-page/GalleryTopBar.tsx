@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { LogoMark } from 'components/logo';
 import styles from './GalleryTopBar.module.css';
 
 /**
@@ -7,8 +8,8 @@ import styles from './GalleryTopBar.module.css';
  * used here - this page owns its chrome, because the palette rail underneath
  * has to start at the top of the viewport.
  *
- * The mark is the same four cells as the homepage logo, with one omitted: at
- * 15px a filled quartet turns into a blob, and the gap reads as a corner.
+ * The mark goes without the wordmark: the bar already names the page in its
+ * middle, and the two set beside each other read as one long label.
  */
 export default function GalleryTopBar({ label }: { label: string }) {
   return (
@@ -19,12 +20,7 @@ export default function GalleryTopBar({ label }: { label: string }) {
         className={styles.back}
         aria-label="Tabbied"
       >
-        <span className={styles.mark} aria-hidden="true">
-          <span />
-          <span className={styles.markGap} />
-          <span />
-          <span />
-        </span>
+        <LogoMark size={18} />
       </Link>
 
       <span className={styles.label}>{label}</span>

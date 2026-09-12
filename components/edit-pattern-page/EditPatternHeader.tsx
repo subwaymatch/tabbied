@@ -10,6 +10,7 @@ import {
   ChevronDown,
   FileCode,
   ImageDown,
+  Info,
   Link as LinkIcon,
   CodeXml,
   Shuffle,
@@ -46,6 +47,12 @@ type EditPatternHeaderProps = {
   onCopyLink: () => void | Promise<void>;
   /** Copy a ready-to-paste <TabbiedPattern> snippet to the clipboard. */
   onCopyReactComponent: () => void | Promise<void>;
+  /**
+   * A picture is set behind the pattern. The menu then says which exports
+   * carry it, because two of the four cannot: the picture is an object URL
+   * local to this tab, so the link and the snippet open without it.
+   */
+  hasBackgroundImage: boolean;
   /** Mobile (7d): render icon buttons that open inline shuffle/export panels. */
   mobile: boolean;
   /** Mobile: whether an inline panel (shuffle/export/palettes) is open. */
@@ -69,6 +76,7 @@ export default function EditPatternHeader({
   svgExportWarning,
   onCopyLink,
   onCopyReactComponent,
+  hasBackgroundImage,
   mobile,
   mobilePanelOpen,
   onOpenShufflePanel,
@@ -227,6 +235,15 @@ export default function EditPatternHeader({
                 >
                   <CodeXml size={15} /> Copy React component
                 </Menu.Item>
+                {hasBackgroundImage && (
+                  <p className={styles.menuNote}>
+                    <Info size={15} aria-hidden="true" />
+                    <span>
+                      The PNG and the SVG carry your background image. The link and
+                      the React component do not - it stays on this device.
+                    </span>
+                  </p>
+                )}
               </Menu.Popup>
             </Menu.Positioner>
           </Menu.Portal>

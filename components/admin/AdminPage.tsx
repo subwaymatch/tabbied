@@ -3,7 +3,7 @@
 import { useState, type ReactNode } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import LogoMark from 'components/main-page/LogoMark';
+import { Logo } from 'components/logo';
 import { initials } from 'components/account/AccountHeader';
 import { plexMono } from 'lib/fonts';
 import { apiFetch } from 'lib/apiFetch';
@@ -115,7 +115,7 @@ export default function AdminPage({
     <div className={`${styles.shell} ${plexMono.variable}`}>
       <aside className={styles.sidebar}>
         <Link href="/" className={styles.logo} aria-label="Tabbied home" prefetch={false}>
-          <LogoMark size={14} />
+          <Logo />
         </Link>
 
         <nav className={styles.nav} aria-label="Admin">

@@ -1,0 +1,21 @@
+/* The lockup: the mark, then the wordmark, on one baseline.
+   Colour comes from the parent - every masthead sets its own ink. */
+.lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--logo-gap, 10px);
+  color: inherit;
+  min-width: 0;
+}
+
+/* The wordmark is the one serif on the site. Cormorant Garamond at 300 is the
+   drawn weight; EB Garamond (already loaded for the editor's plate caption)
+   and Georgia stand in while it arrives. */
+.word {
+  font-family: var(--font-cormorant), 'EB Garamond', Georgia, serif;
+  font-weight: 300;
+  font-size: var(--logo-word-size, 18px);
+  letter-spacing: 0.01em;
+  line-height: 1;
+  white-space: nowrap;
+}

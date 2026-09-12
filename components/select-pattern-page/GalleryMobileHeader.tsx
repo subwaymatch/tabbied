@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { Plus, Search } from 'lucide-react';
-import LogoDoodle from 'components/main-page/LogoDoodle';
+import { Logo } from 'components/logo';
 import PaletteBrowser from 'components/palette/PaletteBrowser';
 import type { BrandPalette } from 'lib/brandPalettes';
 import type { LibraryPalette } from 'lib/paletteLibrary';
@@ -47,7 +47,7 @@ export default function GalleryMobileHeader({
     <div className={styles.wrapper}>
       <header className={styles.header}>
         <Link href="/" aria-label="Tabbied" className={styles.logo} prefetch={false}>
-          <LogoDoodle size={30} />
+          <Logo />
         </Link>
         <span className={styles.spacer} />
         <a

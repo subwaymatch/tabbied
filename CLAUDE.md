@@ -409,6 +409,27 @@ download's dependencies automatically - `EXTERNAL_DEPENDENCIES` in
 `scripts/package-templates.mjs` is derived from the shipped source, not
 maintained by hand.
 
+## The mark, and the one font the root layout loads
+
+`components/logo/` is the whole of the brand mark: `LogoMark` is the glyph,
+two mirrored strokes in `currentColor`, and `Logo` is the lockup that adds the
+wordmark. Every masthead draws one of them - the homepage's dark nav, the
+shared light `MainHeader`, account, admin, the gallery's slim bar and the
+account forms' own shell. Nothing else should draw a Tabbied mark: the four
+outlined cells that preceded it existed in three hand-copied variants (a
+css-doodle, a CSS grid, and a grid with one cell omitted), and keeping them in
+step is exactly the work this component removes.
+
+The stroke is authored at 17 units in a 391-unit viewBox, which is what keeps
+it hairline at the ~20px the navs draw it at. Scale the box, never the stroke.
+
+**The wordmark's font is the one exception to per-route font loading.**
+`plexMono` and `ebGaramond` are applied by the routes that use them, so the
+docs and legal pages never fetch them. `cormorantGaramond` is applied in
+`app/layout.tsx` instead, because the lockup is in the masthead of every route
+that has one: declaring it per route would be the same file asked for from a
+dozen call sites, with the preload missing from whichever one was forgotten.
+
 ## The homepage - its own shell, and a hydration rule
 
 `app/page.tsx` is the only route in the dark editorial treatment. It brings its
@@ -748,12 +769,12 @@ whatever text Studio wrote, so putting them back is a UI change.
   saved document away. `/studio/customize/?slug=` is the one door in - the
   gallery cards, the framed `/templates/<slug>/` preview and the account's
   "Create new site" all link to it - and it handles the sign-in detour.
-- **The rail edits through the engine, live.** A swatch plans the properties
-  and the pattern-host rewrites and runs them against the iframe's document,
-  then calls `window.__tabbied.rehydrate()` inside it, which the bundled
-  runtime exports - it tears down the controllers it mounted and mounts from
-  the attributes as they now are, because a rewritten `data-*` is not a
-  re-render. "Shuffle patterns" draws a new design for every pattern field
+- **The rail edits through the engine, live.** Choosing a palette plans the
+  properties and the pattern-host rewrites and runs them against the iframe's
+  document, then calls `window.__tabbied.rehydrate()` inside it, which the
+  bundled runtime exports - it tears down the controllers it mounted and
+  mounts from the attributes as they now are, because a rewritten `data-*` is
+  not a re-render. "Shuffle patterns" draws a new design for every pattern field
   (`lib/studioPatterns.ts`: same density as the field has now, no design
   twice on a page, a fresh seed each) and applies it the same way; "Reset
   patterns" rebuilds the canvas from the package, since a swap removed the
@@ -761,6 +782,14 @@ whatever text Studio wrote, so putting them back is a UI change.
   `POST /api/studio/sites/:id/revisions` with the whole document, validated
   by `planEdits` server-side with the catalog's slugs as `designs`; a swap to
   a design the catalog does not have is a 422, not a blank field.
+- **Colours is a list of palettes, not a row of pickers.** The rail offers the
+  template's own palette and then all 437 in `lib/paletteLibrary.ts`; the
+  pickers are still there, behind the pencil on a row (`PaletteDialog`), which
+  is what keeps a colour nobody shipped reachable. A library palette carries
+  3-7 colours and a template declares as many roles as its stylesheet reads,
+  so `lib/studioPalettes.ts` fits one to the other by cycling the inks - and
+  leaves a role the template authored as `transparent` alone, because that is
+  what lets a field read over a photograph.
 - **The preview runtime carries the whole catalog.** It used to bundle the
   231 designs the packaged templates mount, which was right while a preview
   could only re-colour a field; a shuffle can swap to any of the 295, and a

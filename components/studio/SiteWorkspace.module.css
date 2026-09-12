@@ -167,6 +167,67 @@
   }
 }
 
+/* On a phone the order flips: the canvas goes first and stays put while the
+   rail scrolls under it.
+   Stacking the rail on top instead - which is what one column gave - put the
+   palette list between the person and the page it recolours, so every swatch
+   was a change you had to scroll to see. The canvas is pinned to just under
+   half the viewport, which leaves the rail a working height on a 667px
+   screen and still shows the masthead of the site being edited. */
+@media (max-width: 768px) {
+  .stage {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    order: -1;
+    height: 46vh;
+    padding: 12px 14px 0;
+    overflow: hidden;
+    background-color: #fbfaf8;
+    border-bottom: 1px solid var(--s-rule);
+  }
+
+  .frame {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+    border-bottom: none;
+    border-radius: 12px 12px 0 0;
+  }
+
+  .canvas {
+    flex: 1;
+    min-height: 0;
+  }
+
+  .iframe,
+  .skeleton {
+    height: 100%;
+  }
+
+  /* The expanded view has no rail to get out of the way of, so the canvas
+     goes back to being a normal block. */
+  .shellWide .stage {
+    position: static;
+    display: block;
+    height: auto;
+    padding: 20px;
+    border-bottom: none;
+  }
+
+  .shellWide .frame {
+    display: block;
+    border-bottom: 1px solid var(--s-line);
+    border-radius: 14px;
+  }
+
+  .shellWide .iframe {
+    height: min(78vh, 900px);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .skeleton {
     animation: none;

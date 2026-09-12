@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { Menu } from '@base-ui-components/react/menu';
-import LogoMark from 'components/main-page/LogoMark';
+import { Logo } from 'components/logo';
 import StudioSpark from 'components/main-page/StudioSpark';
 import { signOut, useSessionUser } from 'lib/authClient';
 import styles from './AccountHeader.module.css';
@@ -15,7 +15,7 @@ import styles from './AccountHeader.module.css';
 
 const LINKS = [
   ['/patterns', 'Patterns'],
-  ['/templates', 'Templates'],
+  ['/templates', 'Websites'],
 ] as const;
 
 /** Two letters for the circle: first and last name, or the start of the email. */
@@ -37,7 +37,7 @@ export default function AccountHeader() {
   return (
     <header className={styles.header}>
       <Link href="/" className={styles.logo} aria-label="Tabbied home" prefetch={false}>
-        <LogoMark size={14} />
+        <Logo />
       </Link>
 
       <nav className={styles.links} aria-label="Main">
@@ -68,7 +68,10 @@ export default function AccountHeader() {
                 <div className={styles.menuEmail}>{user.email}</div>
                 <Menu.Separator className={styles.menuRule} />
                 <Menu.Item className={styles.menuItem} render={<Link href="/account/" prefetch={false} />}>
-                  Account
+                  My Account
+                </Menu.Item>
+                <Menu.Item className={styles.menuItem} render={<Link href="/account/settings/" prefetch={false} />}>
+                  Settings
                 </Menu.Item>
                 <Menu.Item className={styles.menuItem} render={<Link href="/studio" prefetch={false} />}>
                   Studio
@@ -77,7 +80,7 @@ export default function AccountHeader() {
                   Patterns
                 </Menu.Item>
                 <Menu.Item className={styles.menuItem} render={<Link href="/templates" prefetch={false} />}>
-                  Templates
+                  Websites
                 </Menu.Item>
                 <Menu.Separator className={styles.menuRule} />
                 <Menu.Item

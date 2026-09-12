@@ -569,7 +569,7 @@ test.describe('Tabbied site (mobile viewport)', () => {
     await trigger.click();
 
     const menu = page.locator('#home-nav-menu');
-    await expect(menu.getByRole('link', { name: 'Templates' })).toBeVisible();
+    await expect(menu.getByRole('link', { name: 'Websites' })).toBeVisible();
     await expect(menu.getByRole('link', { name: 'GitHub' })).toBeVisible();
 
     // Studio replaced the "Soon" generator item and is now a real destination.

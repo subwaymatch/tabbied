@@ -665,6 +665,7 @@
     padding: 1rem;
   }
 
+
   .doodleFrame {
     box-shadow:
       0 1px 1px oklch(0 0 0 / 0.08),
@@ -688,6 +689,17 @@
     width: auto;
     border-left: none;
     border-top: 1px solid #eceef1;
+  }
+}
+
+/* On a phone the plate is a share of the screen rather than a fixed band.
+   300px is most of a 667px viewport and barely a third of a 932px one, which
+   left the controls cramped on the small phones and the pattern small on the
+   large ones; a floor keeps it legible where the fraction is smallest. */
+@media (max-width: 767.98px) {
+  .previewWrapper {
+    height: 44vh;
+    min-height: 250px;
   }
 }
 
@@ -769,6 +781,26 @@
 
 .exportRow:disabled .exportIcon {
   color: #ced4da;
+}
+
+/* The background-image footnote, under a rule so it reads as a note about the
+   rows above rather than a fifth row. */
+.exportNote {
+  display: flex;
+  gap: 11px;
+  align-items: flex-start;
+  margin: 14px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid oklch(0 0 0 / 0.08);
+  font-family: var(--font-sans-serif);
+  font-size: 14px;
+  line-height: 1.5;
+  color: oklch(0.5 0.01 260);
+}
+
+.exportNote svg {
+  flex: none;
+  margin-top: 1px;
 }
 
 .scopeOptionActive {

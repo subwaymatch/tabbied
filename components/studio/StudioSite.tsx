@@ -197,9 +197,11 @@ export default function StudioSite({ designs }: { designs: readonly DesignChoice
   const coloursChanged = !sameColours(palette, spec.palette.colors);
   const fieldsChanged = patternsChanged(patternSlots, draft.edits.patterns);
 
-  const setColour = (index: number, value: string) => {
-    const next = [...palette];
-    next[index] = value;
+  // A whole palette at a time: a row in the rail, or the dialog's Save. The
+  // spec's role count is the shape the page reads, so a shorter or longer
+  // array never reaches the document.
+  const setPalette = (colors: string[]) => {
+    const next = spec.palette.colors.map((authored, index) => colors[index] ?? authored);
     touch({ ...draft, edits: { ...draft.edits, palette: next } });
     applyLive({ palette: next }, true);
   };
@@ -210,7 +212,7 @@ export default function StudioSite({ designs }: { designs: readonly DesignChoice
     // The authored colours, written back as inline properties: the same
     // values the class rule holds, so the page reads as it did.
     applyLive({ palette: spec.palette.colors }, true);
-    toaster.add({ title: 'Colours back to the template defaults' });
+    toaster.add({ title: 'Palette back to the template default' });
   };
 
   const shuffle = () => {
@@ -344,9 +346,10 @@ export default function StudioSite({ designs }: { designs: readonly DesignChoice
               onRename={(title) => void rename(title)}
               spec={spec}
               designs={designs}
+              templateName={site.templateName}
               palette={palette}
               coloursChanged={coloursChanged}
-              onColour={setColour}
+              onPalette={setPalette}
               onResetColours={resetColours}
               patternSlots={patternSlots}
               designOn={(slot) => designOn(slot, patternEdit(slot))}

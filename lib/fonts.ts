@@ -1,4 +1,4 @@
-import { EB_Garamond, IBM_Plex_Mono } from 'next/font/google';
+import { Cormorant_Garamond, EB_Garamond, IBM_Plex_Mono } from 'next/font/google';
 
 /**
  * The mono that carries every label, eyebrow and figure in the 2026 design.
@@ -25,5 +25,19 @@ export const ebGaramond = EB_Garamond({
   weight: ['400'],
   style: ['normal', 'italic'],
   variable: '--font-garamond',
+  display: 'swap',
+});
+
+/**
+ * The wordmark, and only the wordmark. Unlike the two above it is applied in
+ * the root layout rather than per route: the lockup sits in the masthead of
+ * every page that has one, so loading it per route would be the same file
+ * requested from a dozen call sites with a preload missing from whichever one
+ * was forgotten. One weight, one size, latin only.
+ */
+export const cormorantGaramond = Cormorant_Garamond({
+  subsets: ['latin'],
+  weight: ['300'],
+  variable: '--font-cormorant',
   display: 'swap',
 });
