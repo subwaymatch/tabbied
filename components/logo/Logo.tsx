@@ -1,4 +1,5 @@
 import type { CSSProperties } from 'react';
+import { cormorantGaramond } from 'lib/fonts';
 import LogoMark from './LogoMark';
 import styles from './Logo.module.css';
 
@@ -8,6 +9,14 @@ import styles from './Logo.module.css';
 //
 // It renders no link of its own - the headers each wrap it in the anchor they
 // already have, with the label they already give it.
+//
+// The wordmark's font variable is declared *here*, not on a route and not in
+// the root layout. On the root layout the class rode `<html>` onto all 77
+// template pages, which draw no lockup and whose downloadable package then
+// carried a class with no rule behind it (e2e/templates.spec.ts catches
+// exactly that). Per route it would be a line to remember in every masthead's
+// page. On the component it is requested wherever the word is actually drawn,
+// which is the only place it is read.
 export default function Logo({
   size = 20,
   wordSize = 18,
@@ -23,7 +32,9 @@ export default function Logo({
 }) {
   return (
     <span
-      className={[styles.lockup, className].filter(Boolean).join(' ')}
+      className={[cormorantGaramond.variable, styles.lockup, className]
+        .filter(Boolean)
+        .join(' ')}
       style={
         {
           '--logo-gap': `${gap}px`,

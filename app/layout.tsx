@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from 'next';
-import { cormorantGaramond } from 'lib/fonts';
 import 'styles/globals.css';
 
 export const metadata: Metadata = {
@@ -32,7 +31,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={cormorantGaramond.variable}>
+    <html lang="en">
       <body>
         {/* proxima-nova (Adobe Fonts). Linked here instead of an @import in
             globals.css so the browser discovers it from the HTML right away

@@ -29,11 +29,10 @@ export const ebGaramond = EB_Garamond({
 });
 
 /**
- * The wordmark, and only the wordmark. Unlike the two above it is applied in
- * the root layout rather than per route: the lockup sits in the masthead of
- * every page that has one, so loading it per route would be the same file
- * requested from a dozen call sites with a preload missing from whichever one
- * was forgotten. One weight, one size, latin only.
+ * The wordmark, and only the wordmark. Applied by `components/logo/Logo`
+ * itself rather than by a route: the lockup is in a dozen mastheads and in
+ * none of the 77 template pages, so the component is the only place that
+ * knows where the word is actually drawn. One weight, latin only.
  */
 export const cormorantGaramond = Cormorant_Garamond({
   subsets: ['latin'],
