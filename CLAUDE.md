@@ -409,7 +409,7 @@ download's dependencies automatically - `EXTERNAL_DEPENDENCIES` in
 `scripts/package-templates.mjs` is derived from the shipped source, not
 maintained by hand.
 
-## The mark, and the one font the root layout loads
+## The mark, and the font that travels with it
 
 `components/logo/` is the whole of the brand mark: `LogoMark` is the glyph,
 two mirrored strokes in `currentColor`, and `Logo` is the lockup that adds the
@@ -423,12 +423,19 @@ step is exactly the work this component removes.
 The stroke is authored at 17 units in a 391-unit viewBox, which is what keeps
 it hairline at the ~20px the navs draw it at. Scale the box, never the stroke.
 
-**The wordmark's font is the one exception to per-route font loading.**
-`plexMono` and `ebGaramond` are applied by the routes that use them, so the
-docs and legal pages never fetch them. `cormorantGaramond` is applied in
-`app/layout.tsx` instead, because the lockup is in the masthead of every route
-that has one: declaring it per route would be the same file asked for from a
-dozen call sites, with the preload missing from whichever one was forgotten.
+**The wordmark's font is declared by `Logo` itself**, not by a route and not
+by the root layout. `plexMono` and `ebGaramond` are applied by the routes that
+use them; the lockup is in a dozen mastheads and in none of the 77 template
+pages, so the component that draws the word is the only place that knows
+where the font is actually read.
+
+The root layout was tried first, and is the trap. A class on `<html>` rides
+onto every template page and into the HTML package derived from it, where
+`trimUnusedRules` ships a stylesheet cut to the classes the markup uses - so
+the packaged page carried a class with no rule behind it.
+`e2e/templates.spec.ts` is the gate that caught that, and it is the shape of
+every other silent rot in this file: the build stays green and the download
+quietly carries residue.
 
 ## The homepage - its own shell, and a hydration rule
 
@@ -810,8 +817,14 @@ whatever text Studio wrote, so putting them back is a UI change.
   columns by hand (see the drizzle note above).
 - **The 2026 designs for the new pages** (agent-outputs has none; the source
   was a Claude Design export). Sign-in, sign-up and the password pages share
-  `AuthForm.module.css` (592px measure, provider buttons above an "or"
-  rule). `/studio` leads with one button - "Generate websites", the three
+  `AuthShell` and `AuthForm.module.css`: a 440px card on warm paper, under a
+  white bar carrying the way back and the lockup, provider buttons above an
+  "or" rule. The shell is a server component, and each thing that reads
+  `?next=` - the back link, the form - sits in its own Suspense boundary.
+  Reading it in the shell put the boundary at the top of the page and bailed
+  the whole route out to client rendering, exporting HTML with no markup in
+  it; nothing catches that, because the build succeeds and the pages are
+  `noindex`. `/studio` leads with one button - "Generate websites", the three
   directions - and keeps "Make my website" and "Match from the library" as
   text actions under it; the photo dropzone uploads to `/api/uploads` with
   each file's note before the generate call, and a description typed before
