@@ -13,10 +13,11 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <Suspense>
-      <AuthShell className={plexMono.variable}>
+    <AuthShell className={plexMono.variable}>
+      {/* The form reads ?next= to return people where they were sent from. */}
+      <Suspense>
         <AuthForm mode="sign-up" />
-      </AuthShell>
-    </Suspense>
+      </Suspense>
+    </AuthShell>
   );
 }

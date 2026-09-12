@@ -1,23 +1,18 @@
-'use client';
-
+import { Suspense } from 'react';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
 import { Logo } from 'components/logo';
+import AuthBackLink from './AuthBackLink';
 import styles from './AuthShell.module.css';
 
 // The frame around the five account forms: a bar with the way back and the
 // lockup, and one card centred under it.
 //
-// The back arrow follows `?next=` where there is one, which is the page that
-// sent the person here - a template they were customizing, the gallery, their
-// account. With no `next` it is the homepage. It is deliberately the same
-// destination the form returns to on success, so leaving and finishing land
-// in the same place.
-
-/** Same-origin paths only - never an open redirect. */
-function safeBack(raw: string | null): string {
-  return raw && raw.startsWith('/') && !raw.startsWith('//') ? raw : '/';
-}
+// A server component, deliberately. Only two things here read the query
+// string - the back link and the form - and each sits in its own Suspense
+// boundary, so the bar, the lockup and the card's frame are in the exported
+// HTML. Reading `?next=` in the shell itself bailed the whole route out to
+// client rendering (`BAILOUT_TO_CLIENT_SIDE_RENDERING` in the export), which
+// paints the sign-in page blank until the bundle lands.
 
 export default function AuthShell({
   children,
@@ -27,26 +22,14 @@ export default function AuthShell({
   /** The route's font variables - the eyebrow is the mono. */
   className?: string;
 }) {
-  const back = safeBack(useSearchParams().get('next'));
-
   return (
     <div className={[styles.shell, className].filter(Boolean).join(' ')}>
       <header className={styles.bar}>
-        <Link href={back} prefetch={false} className={styles.back} aria-label="Go back">
-          <svg
-            viewBox="0 0 24 24"
-            width="17"
-            height="17"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.7"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
-          >
-            <path d="M14.5 5.5 8 12l6.5 6.5" />
-          </svg>
-        </Link>
+        {/* The fallback holds the circle's place, so the bar does not reflow
+            when the link arrives. */}
+        <Suspense fallback={<span className={styles.back} aria-hidden="true" />}>
+          <AuthBackLink />
+        </Suspense>
 
         <Link href="/" prefetch={false} className={styles.home} aria-label="Tabbied home">
           <Logo />
