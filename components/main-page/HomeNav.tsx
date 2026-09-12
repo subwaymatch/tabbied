@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import StudioSpark from './StudioSpark';
+import { Logo } from 'components/logo';
 import styles from './HomeNav.module.css';
 
 // The homepage's own masthead. The rest of the site still uses the shared light
@@ -14,7 +15,7 @@ type NavLink = { href: string; label: string };
 
 const LINKS: NavLink[] = [
   { href: '/patterns', label: 'Patterns' },
-  { href: '/templates', label: 'Templates' },
+  { href: '/templates', label: 'Websites' },
   { href: '/docs/react', label: 'Docs' },
 ];
 
@@ -40,17 +41,6 @@ function StudioItem({
   );
 }
 
-function Logo() {
-  return (
-    <span className={styles.logo} aria-hidden="true">
-      <span />
-      <span />
-      <span />
-      <span />
-    </span>
-  );
-}
-
 export default function HomeNav() {
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
@@ -58,7 +48,9 @@ export default function HomeNav() {
   return (
     <header className={styles.nav}>
       <Link href="/" className={styles.logoLink} aria-label="Tabbied home">
-        <Logo />
+        {/* A hair larger than the light mastheads': the dark ground eats a
+            little of the hairline stroke. */}
+        <Logo size={21} wordSize={19} />
       </Link>
 
       <nav className={styles.links} aria-label="Main">

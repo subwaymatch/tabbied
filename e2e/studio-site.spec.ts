@@ -149,20 +149,40 @@ test.describe('studio site', () => {
     await expect(rail.getByText("can't be edited here yet")).toBeVisible();
     await rail.getByRole('tab', { name: 'Colours' }).click();
 
-    // The swatches are the document's palette, and a change lands on the
-    // page's root as an inline property before anything is saved.
-    const ground = rail.getByLabel('Ground');
-    await expect(ground).toHaveValue('#f7f4ef');
-    await ground.fill('#0b2545');
+    const groundProperty = () =>
+      frame
+        .locator('[data-edit-root]')
+        .evaluate((root) => (root as HTMLElement).style.getPropertyValue('--brand-0').trim().toLowerCase());
 
-    await expect
-      .poll(() =>
-        frame
-          .locator('[data-edit-root]')
-          .evaluate((root) => (root as HTMLElement).style.getPropertyValue('--brand-0').trim().toLowerCase())
-      )
-      .toBe('#0b2545');
-    await expect(rail.getByRole('button', { name: 'Reset colours' })).toBeVisible();
+    // This document carries a palette of its own, which is none of the rows,
+    // so nothing is lit until one is picked.
+    const own = rail.getByRole('button', { name: 'Verdant (template default)', exact: true });
+    const cobalt = rail.getByRole('button', { name: 'Cobalt', exact: true });
+    await expect(own).toHaveAttribute('aria-pressed', 'false');
+    await expect(cobalt).toHaveAttribute('aria-pressed', 'false');
+
+    // Picking a palette recolours the whole page: the ground lands on the
+    // page's root as an inline property before anything is saved.
+    await cobalt.click();
+    await expect.poll(groundProperty).toBe('#0a1a3f');
+    await expect(cobalt).toHaveAttribute('aria-pressed', 'true');
+
+    // The per-role pickers did not go away with the list - the pencil on a row
+    // opens them, seeded with the colours the page is wearing.
+    await rail.getByRole('button', { name: 'Edit Cobalt' }).click();
+    const dialog = page.getByRole('dialog');
+    await expect(dialog.getByLabel('Ground value')).toHaveValue('#0a1a3f');
+    await dialog.getByLabel('Ground value').fill('#0b2545');
+    await dialog.getByRole('button', { name: 'Save changes' }).click();
+    await expect.poll(groundProperty).toBe('#0b2545');
+
+    // And the way back is the template's own palette, not the document's.
+    await rail.getByRole('button', { name: 'Reset palette' }).click();
+    await expect.poll(groundProperty).toBe('#f4faf0');
+    await expect(own).toHaveAttribute('aria-pressed', 'true');
+
+    await cobalt.click();
+    await expect.poll(groundProperty).toBe('#0a1a3f');
 
     const save = page.getByRole('button', { name: 'Save changes' });
     await expect(save).toBeEnabled();

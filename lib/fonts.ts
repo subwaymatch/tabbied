@@ -1,4 +1,4 @@
-import { EB_Garamond, IBM_Plex_Mono } from 'next/font/google';
+import { Cormorant_Garamond, EB_Garamond, IBM_Plex_Mono } from 'next/font/google';
 
 /**
  * The mono that carries every label, eyebrow and figure in the 2026 design.
@@ -25,5 +25,18 @@ export const ebGaramond = EB_Garamond({
   weight: ['400'],
   style: ['normal', 'italic'],
   variable: '--font-garamond',
+  display: 'swap',
+});
+
+/**
+ * The wordmark, and only the wordmark. Applied by `components/logo/Logo`
+ * itself rather than by a route: the lockup is in a dozen mastheads and in
+ * none of the 77 template pages, so the component is the only place that
+ * knows where the word is actually drawn. One weight, latin only.
+ */
+export const cormorantGaramond = Cormorant_Garamond({
+  subsets: ['latin'],
+  weight: ['300'],
+  variable: '--font-cormorant',
   display: 'swap',
 });

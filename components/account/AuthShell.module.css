@@ -1,0 +1,102 @@
+/*
+ * The account pages' own shell - sign in, sign up, and the three password
+ * pages. Standalone in the literal sense: it declares the tokens it draws
+ * with rather than borrowing Studio's `.page`, because these five pages are
+ * reached from everywhere (a template, the gallery, a shared link, a mail
+ * client) and none of them is inside Studio.
+ *
+ * Two grounds, deliberately: a white bar on warm paper, so the card reads as
+ * a sheet laid on the page rather than a panel cut out of it.
+ */
+.shell {
+  --a-paper: #fbfaf8;
+  --a-card: #ffffff;
+  --a-ink: #0e0e13;
+  --a-muted: oklch(0.45 0.01 260);
+  --a-dim: oklch(0.42 0.01 260);
+  --a-rule: oklch(0 0 0 / 0.08);
+  --a-edge: oklch(0 0 0 / 0.09);
+  --a-field: oklch(0 0 0 / 0.16);
+
+  --a-sans: 'proxima-nova', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --a-mono: var(--font-plex-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  color: var(--a-ink);
+  background-color: var(--a-paper);
+  font-family: var(--a-sans);
+}
+
+.bar {
+  display: flex;
+  flex: none;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 32px;
+  background-color: var(--a-card);
+  border-bottom: 1px solid var(--a-rule);
+}
+
+.back {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  color: var(--a-dim);
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px oklch(0 0 0 / 0.14);
+  transition: color 200ms ease, background-color 200ms ease;
+}
+
+.back:hover {
+  color: var(--a-ink);
+  background-color: oklch(0 0 0 / 0.04);
+}
+
+.back svg {
+  display: block;
+  /* Optically centres the chevron in the circle. */
+  margin-left: -1px;
+}
+
+.home {
+  display: inline-flex;
+  align-items: center;
+  color: var(--a-ink);
+}
+
+.wrap {
+  display: flex;
+  flex: 1;
+  align-items: flex-start;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 64px 32px 72px;
+}
+
+.column {
+  width: 100%;
+  max-width: 440px;
+}
+
+@media (max-width: 767.98px) {
+  .bar {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  .wrap {
+    padding: 26px 20px 48px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .back {
+    transition: none;
+  }
+}

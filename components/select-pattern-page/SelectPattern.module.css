@@ -51,7 +51,7 @@
   color: #0e0e13;
 }
 
-@media (max-width: 860px) {
+@media (max-width: 768px) {
   .mainHeader {
     grid-template-columns: 1fr;
     gap: 12px;
@@ -104,13 +104,13 @@
   grid-row: span 2;
 }
 
-@media (min-width: 861px) {
+@media (min-width: 769px) {
   .grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-@media (min-width: 1041px) {
+@media (min-width: 1025px) {
   .grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
@@ -119,7 +119,7 @@
 /* Below four columns the bands can no longer tile, so every tile narrows to one
    column and only its height still varies. Row spans are deliberately left
    alone - that is what keeps the grid from flattening into a plain list. */
-@media (max-width: 1040.98px) {
+@media (max-width: 1024.98px) {
   .grid > * {
     grid-column: span 1 !important;
   }

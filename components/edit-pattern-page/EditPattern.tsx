@@ -12,6 +12,7 @@ import {
   FileCode,
   ImageDown,
   ImagePlus,
+  Info,
   Link as LinkIcon,
   Minus,
   Plus,
@@ -1147,6 +1148,16 @@ export default function EditPattern({ pattern }: { pattern: Pattern }) {
           <CodeXml className={styles.exportIcon} size={16} /> Copy React component
         </button>
       </div>
+
+      {backgroundImage && (
+        <p className={styles.exportNote}>
+          <Info size={17} aria-hidden="true" />
+          <span>
+            The PNG and the SVG carry your background image. The link and the
+            React component do not - it stays on this device.
+          </span>
+        </p>
+      )}
     </div>
   );
 
@@ -1163,6 +1174,7 @@ export default function EditPattern({ pattern }: { pattern: Pattern }) {
         svgExportWarning={svgExportEnabled && svgExportNotes.length > 0}
         onCopyLink={copyShareLink}
         onCopyReactComponent={copyReactComponent}
+        hasBackgroundImage={backgroundImage !== null}
         mobile={isMobile}
         mobilePanelOpen={mobilePanelOpen}
         onOpenShufflePanel={openShufflePanel}

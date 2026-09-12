@@ -12,29 +12,10 @@
 
 .logoLink {
   display: inline-flex;
+  align-items: center;
   margin-left: 6px;
+  color: var(--h-fg);
   line-height: 0;
-}
-
-/* Four outlined cells on a quarter-turn: the pattern grid reduced to its
-   smallest legible unit. */
-.logo {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 3px;
-  width: 17px;
-  height: 17px;
-  transform: rotate(45deg);
-}
-
-.logo span {
-  border: 1.5px solid oklch(0.6 0.005 260);
-  transition: border-color 200ms ease;
-}
-
-.logoLink:hover .logo span {
-  border-color: var(--h-fg);
 }
 
 .links {

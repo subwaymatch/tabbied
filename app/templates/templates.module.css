@@ -198,7 +198,7 @@
   font-size: 0.92em;
   color: var(--cyan);
 }
-@media (max-width: 860px) {
+@media (max-width: 768px) {
   .group {
     grid-template-columns: 1fr;
   }
@@ -220,12 +220,12 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(14px, 1.4vw, 20px);
 }
-@media (max-width: 1000px) {
+@media (max-width: 1024px) {
   .mosaic {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
-@media (max-width: 620px) {
+@media (max-width: 768px) {
   .mosaic {
     grid-template-columns: minmax(0, 1fr);
   }

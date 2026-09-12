@@ -163,6 +163,28 @@
   color: #e8a13c;
 }
 
+/* The background-image footnote. Below a rule rather than in the list, because
+   it is a note about the items above it and must not read as a fifth one. */
+.menuNote {
+  display: flex;
+  gap: 9px;
+  align-items: flex-start;
+  max-width: 17rem;
+  margin: 5px 0 0;
+  padding: 10px 10px 4px;
+  border-top: 1px solid rgba(35, 37, 41, 0.08);
+  font-family: var(--font-sans-serif);
+  font-size: 12.5px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: oklch(0.48 0.01 260);
+}
+
+.menuNote svg {
+  flex: none;
+  margin-top: 1px;
+}
+
 /* ---- Mobile (7d) compact header: back + centered title + icon buttons ---- */
 
 .headerMobile {

@@ -18,6 +18,7 @@ export function ForgotPasswordForm() {
   if (sent) {
     return (
       <div className={styles.form}>
+        <p className={styles.eyebrow}>Account</p>
         <h1 className={styles.title}>Check your email</h1>
         <p className={styles.lede}>
           If there is an account for <strong>{email}</strong>, a reset link is on
@@ -53,6 +54,7 @@ export function ForgotPasswordForm() {
         setSent(true);
       }}
     >
+      <p className={styles.eyebrow}>Account</p>
       <h1 className={styles.title}>Reset your password</h1>
       <p className={styles.lede}>Enter your email and we'll send a link.</p>
       <label className={styles.field}>
@@ -90,6 +92,7 @@ export function ResetPasswordForm() {
   if (!token) {
     return (
       <div className={styles.form}>
+        <p className={styles.eyebrow}>Account</p>
         <h1 className={styles.title}>That link is incomplete</h1>
         <p className={styles.lede}>Ask for a new one and follow it from the email.</p>
         <p className={styles.swap}>
@@ -119,6 +122,7 @@ export function ResetPasswordForm() {
         router.push('/sign-in');
       }}
     >
+      <p className={styles.eyebrow}>Account</p>
       <h1 className={styles.title}>Choose a new password</h1>
       <p className={styles.lede}>At least eight characters.</p>
       <label className={styles.field}>
@@ -152,6 +156,7 @@ export function VerifyEmailNotice() {
   if (problem) {
     return (
       <div className={styles.form}>
+        <p className={styles.eyebrow}>Account</p>
         <h1 className={styles.title}>That link didn't work</h1>
         <p className={styles.lede}>
           It may have expired or already been used. Sign in to request another.
@@ -165,6 +170,7 @@ export function VerifyEmailNotice() {
 
   return (
     <div className={styles.form}>
+      <p className={styles.eyebrow}>Account</p>
       <h1 className={styles.title}>Email confirmed</h1>
       <p className={styles.lede}>
         {isPending

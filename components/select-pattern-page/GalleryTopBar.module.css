@@ -26,24 +26,6 @@
   color: #0e0e13;
 }
 
-.mark {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 2.5px;
-  width: 15px;
-  height: 15px;
-  transform: rotate(45deg);
-}
-
-.mark span {
-  border: 1.5px solid currentColor;
-}
-
-.markGap {
-  border: none !important;
-}
-
 .label {
   justify-self: center;
   font: 400 13px 'proxima-nova', 'Helvetica Neue', Helvetica, Arial, sans-serif;

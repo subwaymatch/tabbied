@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import { Dialog } from '@base-ui-components/react/dialog';
 import { Menu as MenuIcon, X as CloseIcon } from 'lucide-react';
 import { Container, Row, Col } from 'components/layout';
-import LogoDoodle from './LogoDoodle';
+import { Logo } from 'components/logo';
 import styles from './MainHeader.module.css';
 
 // lucide-react dropped its GitHub brand glyph, so the mark is inlined here.
@@ -32,7 +32,7 @@ type NavItem = { href: string; label: string; external?: boolean };
 
 const navItems: NavItem[] = [
   { href: '/patterns', label: 'Browse Patterns' },
-  { href: '/templates', label: 'Templates' },
+  { href: '/templates', label: 'Websites' },
   { href: '/docs/react', label: 'Docs' },
 ];
 
@@ -59,7 +59,7 @@ export default function MainHeader() {
               aria-label="Tabbied"
               prefetch={false}
             >
-              <LogoDoodle />
+              <Logo />
             </Link>
           </Col>
 

@@ -3,14 +3,22 @@
 // The rail beside the canvas: the site's name, and three tabs.
 //
 // Colours and Patterns are the first release of the customizer, and they are
-// the whole of what it changes: one swatch per brand role, and one design per
+// the whole of what it changes: one palette for the page, and one design per
 // pattern field. Content is a tab so the person can see where words and
 // pictures will be edited, and reads that they are not edited here yet - the
 // download is where copy changes today. Every change is planned and applied
 // by the parent; this only says what was asked for.
-import { useEffect, useState, type KeyboardEvent } from 'react';
+//
+// Colours is a list of palettes rather than a row of colour pickers because
+// picking four colours that work together is the hard part and the library
+// has already done it 437 times. The pickers did not go away - the pencil on
+// a row opens them, seeded with that palette.
+import { useEffect, useMemo, useState, type KeyboardEvent } from 'react';
+import { Pencil } from 'lucide-react';
 import type { PatternSlot, TemplateSpec } from 'tabbied-templates';
 import type { DesignChoice } from 'lib/designCatalog';
+import { activeChoice, paletteChoices } from 'lib/studioPalettes';
+import PaletteDialog from './PaletteDialog';
 import styles from './SiteRail.module.css';
 
 export type RailTab = 'colours' | 'patterns' | 'content';
@@ -34,12 +42,13 @@ const roleLabel = (spec: TemplateSpec, index: number): string =>
 
 export default function SiteRail({
   title,
+  templateName,
   onRename,
   spec,
   designs,
   palette,
   coloursChanged,
-  onColour,
+  onPalette,
   onResetColours,
   patternSlots,
   designOn,
@@ -49,6 +58,8 @@ export default function SiteRail({
   onResetPatterns,
 }: {
   title: string;
+  /** The template the site was made from - the name its own palette goes by. */
+  templateName: string;
   /** Commit a new name. Called on blur and Enter, never per keystroke. */
   onRename: (title: string) => void;
   spec: TemplateSpec;
@@ -56,7 +67,8 @@ export default function SiteRail({
   /** The colours the page wears now, ground first. */
   palette: readonly string[];
   coloursChanged: boolean;
-  onColour: (index: number, value: string) => void;
+  /** Re-colour the whole page. Always a full role-length array. */
+  onPalette: (colors: string[]) => void;
   onResetColours: () => void;
   patternSlots: readonly PatternSlot[];
   /** The design a field draws now, by slot id. */
@@ -68,6 +80,16 @@ export default function SiteRail({
 }) {
   const [tab, setTab] = useState<RailTab>('colours');
   const [name, setName] = useState(title);
+  /** The row whose pencil was pressed, or null when the dialog is shut. */
+  const [editing, setEditing] = useState<string | null>(null);
+
+  const choices = useMemo(
+    () => paletteChoices(templateName, spec.palette.colors),
+    [templateName, spec.palette.colors]
+  );
+  const active = activeChoice(choices, palette);
+  const editingChoice = choices.find((choice) => choice.id === editing) ?? null;
+  const roleNames = palette.map((_, index) => roleLabel(spec, index));
 
   // A rename that came back from the server (or a reload) wins over what is
   // in the field.
@@ -148,31 +170,67 @@ export default function SiteRail({
 
       {tab === 'colours' ? (
         <section className={styles.panel} aria-label="Colours">
-          <p className={styles.hint}>
-            Each swatch sets one part of the page. Set the background first, then
-            the inks that sit on it.
-          </p>
-          <div className={styles.swatches}>
-            {palette.map((colour, index) => (
-              <label key={index} className={styles.swatch}>
-                <span className={styles.chip} style={{ background: colour }}>
-                  <input
-                    type="color"
-                    value={colour}
-                    aria-label={roleLabel(spec, index)}
-                    onChange={(event) => onColour(index, event.target.value)}
-                  />
-                </span>
-                <span className={styles.swatchName}>{roleLabel(spec, index)}</span>
-                <code className={styles.swatchHex}>{colour}</code>
-              </label>
-            ))}
+          <p className={styles.hint}>Pick a palette and the whole page recolours.</p>
+
+          <div className={styles.paletteScroll}>
+            <ul role="list" className={styles.palettes}>
+              {choices.map((choice) => {
+                const on = choice.id === active;
+
+                return (
+                  <li key={choice.id}>
+                    <button
+                      type="button"
+                      aria-pressed={on}
+                      className={on ? `${styles.paletteRow} ${styles.paletteRowOn}` : styles.paletteRow}
+                      onClick={() => onPalette(choice.colors)}
+                    >
+                      <span className={styles.paletteName}>{choice.name}</span>
+                      <span className={styles.chips} aria-hidden="true">
+                        {choice.colors.slice(0, 5).map((colour, index) => (
+                          <span key={index} className={styles.chip} style={{ background: colour }} />
+                        ))}
+                      </span>
+                    </button>
+                    {/* Outside the row's button: a button inside a button is
+                        not markup a browser will keep. */}
+                    <button
+                      type="button"
+                      className={styles.palettePencil}
+                      title={`Edit ${choice.name}`}
+                      aria-label={`Edit ${choice.name}`}
+                      onClick={() => setEditing(choice.id)}
+                    >
+                      <Pencil size={13} aria-hidden="true" />
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+            <span className={styles.paletteFade} aria-hidden="true" />
           </div>
+
           {coloursChanged ? (
             <button type="button" className={styles.textAction} onClick={onResetColours}>
-              Reset colours
+              Reset palette
             </button>
           ) : null}
+
+          <PaletteDialog
+            open={editingChoice !== null}
+            onOpenChange={(next) => {
+              if (!next) setEditing(null);
+            }}
+            title={`Edit ${(editingChoice?.name ?? '').replace(' (template default)', '')}`}
+            colors={
+              // The row being edited, except when it is the one already on the
+              // page - then it is the page's colours, so an edit builds on the
+              // last one rather than starting over.
+              editingChoice && editingChoice.id === active ? palette : editingChoice?.colors ?? palette
+            }
+            labels={roleNames}
+            onSave={onPalette}
+          />
         </section>
       ) : null}
 

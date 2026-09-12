@@ -1,9 +1,8 @@
 import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { plexMono } from 'lib/fonts';
-import { AuthShell } from 'components/account/AuthForm';
+import AuthShell from 'components/account/AuthShell';
 import { VerifyEmailNotice } from 'components/account/PasswordForms';
-import styles from 'components/studio/studio.module.css';
 
 export const metadata: Metadata = {
   title: 'Email confirmed - Tabbied',
@@ -12,15 +11,11 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <div className={`${styles.page} ${plexMono.variable}`}>
-      <div className={`${styles.rule} ${styles.ruleLeft}`} aria-hidden="true" />
-      <div className={`${styles.rule} ${styles.ruleRight}`} aria-hidden="true" />
-
-      <AuthShell>
-        <Suspense>
-          <VerifyEmailNotice />
-        </Suspense>
-      </AuthShell>
-    </div>
+    <AuthShell className={plexMono.variable}>
+      {/* The form reads ?next= to return people where they were sent from. */}
+      <Suspense>
+        <VerifyEmailNotice />
+      </Suspense>
+    </AuthShell>
   );
 }

@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import StudioHeader from 'components/studio/StudioHeader';
 import { apiFetch } from 'lib/apiFetch';
 import { signIn, signUp } from 'lib/authClient';
 import styles from './AuthForm.module.css';
@@ -18,7 +17,7 @@ type Mode = 'sign-in' | 'sign-up';
 const COPY = {
   'sign-in': {
     title: 'Sign in',
-    lede: 'Studio generations are tied to an account, so your results are yours to come back to.',
+    lede: 'An account keeps your customized sites and patterns, so they are still here when you come back.',
     submit: 'Sign in',
     swapText: 'No account yet?',
     swapLabel: 'Create one',
@@ -26,9 +25,9 @@ const COPY = {
   },
   'sign-up': {
     title: 'Create an account',
-    lede: 'You need one to generate with AI. Browsing patterns, templates and library matches never asks for it.',
+    lede: 'Create an account to customize websites and manage your projects.',
     submit: 'Create account',
-    swapText: 'Already have one?',
+    swapText: 'Already have an account?',
     swapLabel: 'Sign in',
     swapHref: '/sign-in',
   },
@@ -168,9 +167,13 @@ export default function AuthForm({ mode }: { mode: Mode }) {
     }
   }
 
+  const swapHref =
+    next === '/studio' ? copy.swapHref : `${copy.swapHref}?next=${encodeURIComponent(next)}`;
+
   if (sent) {
     return (
       <div className={styles.form}>
+        <p className={styles.eyebrow}>Account</p>
         <h1 className={styles.title}>Check your email</h1>
         <p className={styles.lede}>
           We sent a confirmation link to <strong>{email}</strong>. Follow it and
@@ -185,6 +188,7 @@ export default function AuthForm({ mode }: { mode: Mode }) {
 
   return (
     <form className={styles.form} onSubmit={submit}>
+      <p className={styles.eyebrow}>Account</p>
       <h1 className={styles.title}>{copy.title}</h1>
       <p className={styles.lede}>{copy.lede}</p>
 
@@ -268,17 +272,11 @@ export default function AuthForm({ mode }: { mode: Mode }) {
       </button>
 
       <p className={styles.swap}>
-        {copy.swapText} <Link href={copy.swapHref}>{copy.swapLabel}</Link>
+        {copy.swapText}{' '}
+        <Link href={swapHref} prefetch={false}>
+          {copy.swapLabel}
+        </Link>
       </p>
     </form>
-  );
-}
-
-export function AuthShell({ children }: { children: React.ReactNode }) {
-  return (
-    <>
-      <StudioHeader backHref="/" backLabel="Back to the homepage" title="Account" />
-      {children}
-    </>
   );
 }

@@ -7,10 +7,9 @@
 }
 
 .logoImageWrapper {
-  display: inline-block;
-  margin-top: 0.25rem;
-  /* Logo size in one place: the doodle's 3x3 grid fills this square. */
-  --logo-size: 42px;
+  display: inline-flex;
+  align-items: center;
+  color: #0e0e13;
 }
 
 .navColumn {
@@ -255,7 +254,6 @@
 
 @media (max-width: 991.98px) {
   .logoImageWrapper {
-    margin-top: calc(0.25rem + 4px);
-    --logo-size: 32px;
+    --logo-word-size: 17px;
   }
 }
